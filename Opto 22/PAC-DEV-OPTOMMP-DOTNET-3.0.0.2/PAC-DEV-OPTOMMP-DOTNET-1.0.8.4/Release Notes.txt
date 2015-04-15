@@ -1,0 +1,100 @@
+﻿Release Notes for OptoMMP2.DLL
+
+Release 1.0.8.4 (2014-10-27)
+	-	[NOTE] Assembly version 1.0 has entered maintenance only, to fix issues
+		encountered. Please build application updates with the newest version
+		of this SDK available.
+
+	-	[FIX] ReadSerialModuleConfiguration parameters i32Eom and b4WireMode
+		now correctly report.
+		
+	-	[FIX] WriteSerialModuleConfiguration correctly applies all
+		parameters.
+		
+	-	[FIX] Corrected thread locking procedures. Multithreaded apps should
+		now see speedy (faster) operation.
+	
+	-	[FIX] All TCP/IP sockets enforce disabling of Nagle's Algorithm. This
+		is TCP socket property "System.Net.Sockets.NoDelay = true."
+
+	-	[FIX] An unsuccessful Open() using UDP will result in an unhandled
+		exception with GetExtendedErrorInformation(). This is corrected.
+		
+
+Release 1.0.8.3 (2013-04-22)
+	-   [NEW] When using PIDs (VELOCITY-C algorithm) on R8.5e firmware and with
+		the input set to receive values from the supervisory system, you must
+		use a new enumeration to set this value or you'll find the PID
+		very hard to tune due to the P term effectively set to zero.
+		
+	-	[NEW] Several method overloads were added where prior, only bitmasks
+		were used.
+		These overloads provide a Boolean Array overload.
+		
+		ReadDigitalStates64()
+		ReadDigitalLatches64()
+		ReadClearDigitalLatches64()
+		
+	-	[NEW] The Intellisense file is now included.
+	
+	-	[NEW] Support for I/O Unit Scratchpad Bits.
+	
+		ScratchpadBitsRead()
+		ScratchpadBitsRead()
+		ScratchpadBitRead()
+		ScratchpadBitsWrite()
+		ScratchpadBitsWrite()
+		ScratchpadBitWrite()
+		
+	-	[NEW] Discrete Output Pulse-Period Methods. #82707
+		
+		AboutPulses() (informational method only, see Intellisense/XML comments)
+		ConfigureContinuousPulsesTime()
+		ConfigureContinuousPulsesDuration()
+		ConfigureNPulsesTime()
+		ConfigureNPulsesDuration()
+		StartPulse()
+		StopPulse()
+		WritePulsePercentage()
+		ReadPulsePercentage()
+		WritePulsePeriod()
+		ReadPulsePeriod()
+		WritePulseOnOffTime()
+		ReadPulseOnOffTime()
+			
+	-	[FIX] The timeout supplied on the .Open() method wasn't being used
+		within the context of the library.
+
+	-	[FIX] Nagel's algorithm disabled for TCP/IP. This may have caused occasional
+		pauses in messaging I/O units when using the TCP/IP protocol. This required
+		high frequencies of small packets to induce this issue. #82507
+	
+	-	[FIX] In ReadAnalogStates64(), if the data array was longer than 64 elements,
+		a -1 would be returned.
+		
+	-	[Note] An update to the documentation generator application has made the embedded code
+		examples difficult to read. The code examples within the Intellisense have been removed.
+	
+Release 1.0.6.0 (2011-10-24) 
+	-	Some changes for IPv6 connections (won't affect any apps).
+	-	Added more comments/documentation to describe the use of the library.
+	-	A fix was made to method ScratchpadStringRead. It worked in 8.5 and 
+		earlier firmware but a change to the 9.x firmware caused this method to fail.
+	-	Added methods PidRead() and PidWrite(). This does _not_ support PID
+		modules (a legacy product for the SNAP family).
+	-	Method WriteScannerFlags() could throw an exception due to a mutex issue.
+		This is fixed. The network communication must had faulted prior to the entry
+		of this method for the throw to occur.
+	-	If using UDP and an error is thrown internally by the UDP socket, Open would
+		return successful (even though it failed). This is corrrected.
+
+Release 1.0.3.0 (2011-03-07)
+	-	Added IPv6 enumerations for connection options.
+	-	Changed which PC platforms are supported (dropped XP due to some TCP/IP issues).
+
+Release 1.0.2.1 (2011-02-23)
+	-	Updated the documentation, no changes to the code or DLL made. DLL didn't change versions.
+
+Release 1.0.2.0 (2010-08-25)
+	-	Initial Release
+

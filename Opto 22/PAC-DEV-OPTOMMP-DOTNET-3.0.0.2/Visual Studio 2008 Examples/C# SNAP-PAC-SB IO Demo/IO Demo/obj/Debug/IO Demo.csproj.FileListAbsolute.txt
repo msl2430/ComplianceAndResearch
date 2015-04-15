@@ -1,0 +1,10 @@
+D:\Documents\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\bin\Debug\IO Demo.exe
+D:\Documents\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\bin\Debug\IO Demo.pdb
+D:\Documents\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\bin\Debug\OptoMMP3.dll
+D:\Documents\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\bin\Debug\OptoMMP3.xml
+D:\Documents\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\obj\Debug\IO Demo.csprojResolveAssemblyReference.cache
+D:\Documents\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\obj\Debug\IO_Demo.Form1.resources
+D:\Documents\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\obj\Debug\IO_Demo.Properties.Resources.resources
+D:\Documents\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\obj\Debug\IO Demo.csproj.GenerateResource.Cache
+D:\Documents\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\obj\Debug\IO Demo.exe
+D:\Documents\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\obj\Debug\IO Demo.pdb

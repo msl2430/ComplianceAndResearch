@@ -1,0 +1,508 @@
+: 0_0
+22 JUMP ;
+: 0_1
+22 JUMP ;
+: 0_25
+6 LINE.NUM 6 ^n1 @! 
+7 LINE.NUM " 7" *s1  $MOVE 
+8 LINE.NUM 0 ^n2 @! 
+9 LINE.NUM " Powerup" *s2  $MOVE 
+10 LINE.NUM 25 ^n3 @! 
+11 LINE.NUM " Testing/QA Helpers" *s3  $MOVE 
+14 LINE.NUM *_HSV_SEMA Acquire1String " Problem on line #"  *_HSV_TEMP $MOVE " 14"  *_HSV_TEMP $CAT "  in block '"  *_HSV_TEMP $CAT " Testing/QA Helpers"  *_HSV_TEMP $CAT " ' in chart '"  *_HSV_TEMP $CAT " Powerup"  *_HSV_TEMP $CAT " '."  *_HSV_TEMP $CAT *_HSV_TEMP 0 {st1 $TABLE@ $MOVE Release1String 
+21 JUMP ;
+: 0_26
+9 LINE.NUM 123 ^n1 @! 
+10 LINE.NUM ^n1 @@ ^n2 @! 
+11 LINE.NUM 0 }nt1 TABLE@ ^n2 @! 
+12 LINE.NUM 123 456 +  ^n2 @! 
+13 LINE.NUM 2 ^n2 @@ 5 -  *  ^n3 @! 
+14 LINE.NUM 0 *s1 SWAP $INDEX ^n4 @! 
+15 LINE.NUM  DATE@ DROP SWAP DROP ^n5 @! 
+16 LINE.NUM 1.234000e+001  FCOS ^f1 @! 
+17 LINE.NUM ^n2 @@ 500 <= ^n1 @! 
+18 LINE.NUM ^n1 @@ ^n2 @@ LAND  ^n6 @! 
+19 LINE.NUM ^n1 @@ ^n2 @@ AND  ^n3 @! 
+30 LINE.NUM  DATE@ DROP SWAP DROP 24 *  ^n1 @! 
+31 LINE.NUM 5 I>F ^n1 @@F  FCOS F+ ^n2 F@! 
+32 LINE.NUM ^n1 @@ ^n2 @@ +  ^n1 @@ ^n2 @@ ERRORCOUNT@ -  /  *  ^n3 @! 
+37 LINE.NUM 5 ^n1 @! 
+39 LINE.NUM 1 0 }nt1 TABLE! 
+40 LINE.NUM 2 ^n1 @@ }nt1 TABLE! 
+41 LINE.NUM 3 0 }nt1 TABLE@ }nt1 TABLE! 
+42 LINE.NUM 4 ^n1 @@ 1 +  }nt1 TABLE! 
+43 LINE.NUM 5 2 ^n1 @@ 1 -  *  }nt1 TABLE! 
+44 LINE.NUM 6  DATE@ DROP SWAP DROP }nt1 TABLE! 
+45 LINE.NUM 7  DATE@ DROP SWAP DROP 5 +  }nt1 TABLE! 
+46 LINE.NUM 8 ^n1 @@ 2 AND  }nt1 TABLE! 
+53 LINE.NUM  DATE@ DROP SWAP DROP ^n1 @! 
+54 LINE.NUM 1.208000e+002 ^f1 @! 
+55 LINE.NUM 6 0 }nt1 TABLE! 
+57 LINE.NUM ^n1 @@ 1 +  4 >  TIME@ -ROT DROP DROP 12 = LAND  IF 
+58 LINE.NUM 0 ^n2 @! 
+59 LINE.NUM ELSE 
+59 LINE.NUM ^n1 @@ 4 = 0 }nt1 TABLE@ 5 = LNOT  LXOR  IF 
+60 LINE.NUM 5 ^n2 @! 
+61 LINE.NUM THEN THEN 
+65 LINE.NUM BEGIN  TIME@ DROP DROP 0 > WHILE 
+66 LINE.NUM 100  DELAY 
+67 LINE.NUM REPEAT 
+1 73 LINE.NUM }nt1  TableSize@ 1 -  1 + 0 DO? I ^n1 @! 
+74 LINE.NUM  GetRandom# 10000 I>F F* ^n1 @@ }nt1 FTABLE! 
+75 LINE.NUM 1 +LOOP 
+80 LINE.NUM  DATE@ DROP SWAP DROP 1 -  24 *  60 *  60 *   TIME@ -ROT DROP DROP 60 *  60 *  +   TIME@ DROP SWAP DROP 60 *  +   TIME@ DROP DROP +  ^n4 @! 
+86 LINE.NUM  DATE@ DROP SWAP DROP 1 -  86400 *   SinceMidnight +  ^n5 @! 
+91 LINE.NUM 0 ^n2 @! 
+92 LINE.NUM " This is a test string." *s1  $MOVE 
+1 93 LINE.NUM *s1  $LEN 1 + 1 DO? I ^n1 @! 
+94 LINE.NUM ^n2 @@ ^n1 @@ *s1 SWAP $INDEX +  ^n2 @! 
+95 LINE.NUM 1 +LOOP 
+96 LINE.NUM ^n2 @@ 256 MOD  ^n2 @! 
+99 LINE.NUM ^n2 @@ LNOT  0 *s1  CalcChecksum = IF 
+100 LINE.NUM 30  0 AddToErrorQueue 
+101 LINE.NUM THEN 
+0 JUMP ;
+: 0_27
+20 LINE.NUM ~diSwitchD1 @@I ^n1 @! 
+21 LINE.NUM ~diSwitchD1 @@I LNOT  ^n1 @! 
+23 LINE.NUM 0 ~doLedD7 @! 
+24 LINE.NUM 1 ~doLedD7 @! 
+25 LINE.NUM 0 ~doLedD7 @! 
+26 LINE.NUM 456 ~doLedD7 @! 
+28 LINE.NUM ~diButtonD2 @@I ~doLedD6 @! 
+31 LINE.NUM ~aiTemperatureA12 @@ ^f1 @! 
+32 LINE.NUM ~aiPotA16 @@ ^f2 @! 
+34 LINE.NUM 2.500000e+000 ~aoMeterA8 @! 
+35 LINE.NUM ~aiPotA16 @@ ~aoMeterA8 @! 
+41 LINE.NUM 0 ~doLedD5 @! 
+42 LINE.NUM 0 ~doLedD6 @! 
+44 LINE.NUM ~diSwitchD0 @@I ~diSwitchD1 @@I LAND  ~diButtonD2 @@I ~diButtonD3 @@I LAND  LOR  IF 
+45 LINE.NUM 1 ~doLedD5 @! 
+46 LINE.NUM 8.000000e+000 ~aoMeterA8 @! 
+47 LINE.NUM ELSE 
+48 LINE.NUM 1 ~doLedD6 @! 
+49 LINE.NUM 2.000000e+000 ~aoMeterA8 @! 
+50 LINE.NUM THEN 
+52 LINE.NUM BEGIN ~aiPotA16 @@ 3.500000e+000 F>= WHILE 
+53 LINE.NUM ~diSwitchD1 @@I ~doLedD5 @! 
+54 LINE.NUM ~diButtonD2 @@I LNOT  ~doLedD6 @! 
+55 LINE.NUM REPEAT 
+59 LINE.NUM ~aiTemperatureA12 @@ ~aiPotA16 @@ F+ 2.300000e+000 F* ^f1 @! 
+63 LINE.NUM ~diButtonD3  CNTR@I ^n1 @! 
+64 LINE.NUM ~aiTemperatureA12  MAX@F ~aiTemperatureA12  MIN@F F- ^f1 @! 
+69 LINE.NUM ~doLedD5  ON 
+70 LINE.NUM 250  DELAY 
+71 LINE.NUM ~doLedD5  OFF 
+-3 JUMP ;
+: 0_28
+23 LINE.NUM  DATE@ -ROT DROP DROP ^n1 @! 
+24 LINE.NUM  ERRORBLOCK@ GetBlockID ^n3 @! 
+28 LINE.NUM 3.500000e+000 ^f1 @! 
+29 LINE.NUM 3.500000e+000  FCOS ^f2 @! 
+31 LINE.NUM &Powerup  ?BITSTAT ^n2 @! 
+33 LINE.NUM 99 I>F  FSQRT ^f1 @! 
+36 LINE.NUM " Test String" *s1  $MOVE 
+37 LINE.NUM 0 *s1  CalcChecksum ^n2 @! 
+39 LINE.NUM *_HSV_SEMA Acquire1String *s1  *_HSV_TEMP $MOVE ^n2 @@  *_HSV_TEMP $APPEND *_HSV_TEMP *s2 $MOVE Release1String 
+40 LINE.NUM 0 *s2  VerifyChecksum ^n3 @! 
+42 LINE.NUM 83 0 *s2  FindChar ^n1 @! 
+-3 JUMP ;
+: 0_29
+19 LINE.NUM CLEARERRORS 
+20 LINE.NUM NEXTERROR 
+24 LINE.NUM " Hello!" *s1  $MOVE 
+25 LINE.NUM *s1  $>Upper 
+27 LINE.NUM 20 5 }nt1 TABLE! 
+28 LINE.NUM 10 0 5 }nt1  ClampTable 
+-2 JUMP ;
+: 0_30
+9 LINE.NUM 0 ^n1 @! 
+10 LINE.NUM BEGIN 
+11 LINE.NUM 10 ^n1 @@ }nt1 TABLE! 
+13 LINE.NUM ^n1 @@ 1 +  ^n1 @! 
+14 LINE.NUM ^n1 @@ 5 >= UNTIL 
+24 LINE.NUM 0 ^n1 @! 
+25 LINE.NUM BEGIN 
+27 LINE.NUM BEGIN 
+28 LINE.NUM ^n1 @@ 100 +  ^n1 @@ }nt1 TABLE! 
+29 LINE.NUM ^n1 @@ 1 +  ^n1 @! 
+30 LINE.NUM ^n1 @@ 10 MOD  LNOT  UNTIL 
+32 LINE.NUM ^n1 @@ ^n1 @@ }nt1 TABLE! 
+34 LINE.NUM ^n1 @@ 1 +  ^n1 @! 
+36 LINE.NUM ^n1 @@ 50 >= UNTIL 
+-2 JUMP ;
+: 0_31
+8 LINE.NUM 0 ^n1 @! 
+9 LINE.NUM BEGIN ^n1 @@ 5 < WHILE 
+10 LINE.NUM 10 ^n1 @@ }nt1 TABLE! 
+12 LINE.NUM ^n1 @@ 1 +  ^n1 @! 
+13 LINE.NUM REPEAT 
+18 LINE.NUM 0 ^n1 @! 
+19 LINE.NUM BEGIN ^n1 @@ 100 < WHILE 
+20 LINE.NUM BEGIN ^n1 @@ 50 > ^n1 @@ 60 < LAND  WHILE 
+22 LINE.NUM ^n1 @@ 100 *  ^n1 @@ }nt1 TABLE! 
+24 LINE.NUM ^n1 @@ 1 +  ^n1 @! 
+25 LINE.NUM REPEAT 
+27 LINE.NUM ^n1 @@ ^n1 @@ }nt1 TABLE! 
+29 LINE.NUM ^n1 @@ 1 +  ^n1 @! 
+30 LINE.NUM REPEAT 
+-2 JUMP ;
+: 0_32
+6 LINE.NUM 1 ^n2 @! 
+1 7 LINE.NUM 4 1 + 0 DO? I ^n1 @! 
+8 LINE.NUM ^n2 @@ 1 +  ^n2 @! 
+9 LINE.NUM 1 +LOOP 
+1 13 LINE.NUM 4 1 + 0 DO? I ^n1 @! 
+14 LINE.NUM 10 ^n1 @@ }nt1 TABLE! 
+15 LINE.NUM 1 +LOOP 
+2 19 LINE.NUM 4 1 + 0 DO? I ^n1 @! 
+20 LINE.NUM 20 ^n1 @@ }nt1 TABLE! 
+21 LINE.NUM 2 +LOOP 
+28 LINE.NUM 5 ^n2 @! 
+1 29 LINE.NUM ^n2 @@ 3 *  1 + 0 DO? I ^n1 @! 
+30 LINE.NUM 1 ^n2 @! 
+31 LINE.NUM 1 +LOOP 
+1 35 LINE.NUM 9 1 + 0 DO? I ^n1 @! 
+38 LINE.NUM ^n1 @@ 2 *  ^n1 @@ }nt1 TABLE! 
+41 LINE.NUM ^n1 @@ 5 = IF 
+42 LINE.NUM -1 5 }nt1 TABLE! 
+43 LINE.NUM THEN 
+45 LINE.NUM 1 +LOOP 
+1 48 LINE.NUM 9 1 + 0 DO? I ^n1 @! 
+1 49 LINE.NUM 9 1 + 0 DO? I ^n2 @! 
+52 LINE.NUM ^n1 @@ ^n1 @@ 10 *  ^n2 @@ +  }nt1 TABLE! 
+54 LINE.NUM ^n1 @@ 5 < IF 
+56 LINE.NUM ^n2 @@ ^n1 @@ 10 *  ^n2 @@ +  }nt2 TABLE! 
+57 LINE.NUM THEN 
+59 LINE.NUM 1 +LOOP 
+60 LINE.NUM 1 +LOOP 
+-2 JUMP ;
+: 0_33
+5 LINE.NUM ^n1 @@ CASE 
+6 LINE.NUM 1 OF 
+7 LINE.NUM 10 I>F ^f1 @! 
+8 LINE.NUM ENDOF 
+9 LINE.NUM 2 OF 
+10 LINE.NUM 15 I>F ^f1 @! 
+11 LINE.NUM ENDOF 
+12 LINE.NUM 3 OF 
+13 LINE.NUM 20 I>F ^f1 @! 
+14 LINE.NUM ENDOF 
+15 LINE.NUM ^n2 @@ 2 *  OF 
+16 LINE.NUM 20 I>F ^f1 @! 
+17 LINE.NUM ENDOF 
+19 LINE.NUM 0 I>F ^f1 @! 
+20 LINE.NUM -1 I>F ^f2 @! 
+22 LINE.NUM ENDCASE 
+-2 JUMP ;
+: 0_34
+4 LINE.NUM ^n1 @@ IF 
+5 LINE.NUM 2.000000e+000 ^f1 @! 
+6 LINE.NUM THEN 
+10 LINE.NUM ^n1 @@ 3 > IF 
+11 LINE.NUM 2.000000e+000 ^f1 @! 
+12 LINE.NUM 6.500000e+000 ^f2 @! 
+13 LINE.NUM THEN 
+16 LINE.NUM ^n1 @@ 3 > ^n1 @@ 10 <= LAND  ^n1 @@ LNOT  6 = LAND  IF 
+17 LINE.NUM 2.000000e+000 ^f1 @! 
+18 LINE.NUM 6.500000e+000 ^f2 @! 
+19 LINE.NUM THEN 
+22 LINE.NUM ^n1 @@ 3 > IF 
+23 LINE.NUM 2.000000e+000 ^f1 @! 
+24 LINE.NUM 6.500000e+000 ^f2 @! 
+25 LINE.NUM ELSE 
+26 LINE.NUM 8.800000e+000 ^f3 @! 
+27 LINE.NUM THEN 
+31 LINE.NUM ^n1 @@ 3 > IF 
+32 LINE.NUM 2.000000e+000 ^f1 @! 
+33 LINE.NUM 6.500000e+000 ^f2 @! 
+34 LINE.NUM ELSE 
+34 LINE.NUM ^n1 @@ -3 < IF 
+35 LINE.NUM 8.800000e+000 ^f3 @! 
+36 LINE.NUM THEN THEN 
+40 LINE.NUM ^n1 @@ 3 > IF 
+41 LINE.NUM 2.000000e+000 ^f1 @! 
+42 LINE.NUM 6.500000e+000 ^f2 @! 
+43 LINE.NUM ELSE 
+43 LINE.NUM ^n1 @@ -3 < IF 
+44 LINE.NUM 8.800000e+000 ^f3 @! 
+45 LINE.NUM ELSE 
+45 LINE.NUM ^n1 @@ 0 = IF 
+46 LINE.NUM ^f1 @@ ^f2 @@ F* ^f3 @! 
+47 LINE.NUM ELSE 
+47 LINE.NUM ^n1 @@ 1 = IF 
+48 LINE.NUM ^n1 @@ 3 + I>F ^f1 @! 
+49 LINE.NUM ^f1 @@ 8.000000e-001 F/ ^f2 @! 
+50 LINE.NUM ELSE 
+51 LINE.NUM 0 I>F ^f1 @! 
+52 LINE.NUM 0 I>F ^f2 @! 
+53 LINE.NUM 0 I>F ^f3 @! 
+54 LINE.NUM THEN THEN THEN THEN 
+57 LINE.NUM ^n1 @@ 3 > IF 
+58 LINE.NUM 2.000000e+000 ^f1 @! 
+59 LINE.NUM 6.500000e+000 ^f2 @! 
+61 LINE.NUM ^n1 @@ 10 MOD  IF 
+62 LINE.NUM ^f1 @@ 2 I>F F* ^f1 @! 
+63 LINE.NUM ^f2 @@ 3 I>F F* ^f2 @! 
+64 LINE.NUM ELSE 
+65 LINE.NUM 0 I>F ^f3 @! 
+66 LINE.NUM THEN 
+68 LINE.NUM THEN 
+-2 JUMP ;
+: 0_35
+19 LINE.NUM ^n2 @@F ^f3 @@ F= ^n1 @! 
+20 LINE.NUM ^n2 @@F ^f3 @@ F<> I>F ^f1 @! 
+21 LINE.NUM ^n2 @@F ^f3 @@ F< ^n1 @! 
+22 LINE.NUM ^n2 @@F ^f3 @@ F<= ^n1 @! 
+23 LINE.NUM ^n2 @@F ^f3 @@ F> ^n1 @! 
+24 LINE.NUM ^n2 @@F ^f3 @@ F>= ^n1 @! 
+27 LINE.NUM ^n2 @@ 2 * I>F ^f3 @@ 9.500000e+000 F/ F= ^n1 @! 
+28 LINE.NUM ^n2 @@ 2 * I>F ^f3 @@ 9.500000e+000 F/ F< ^n1 @! 
+32 LINE.NUM *s1 *s2 $= ^n1 @! 
+33 LINE.NUM *s1 " abc" $= ^n1 @! 
+34 LINE.NUM *s1 0 {st1 $TABLE@ $= ^n1 @! 
+35 LINE.NUM 0 {st1 $TABLE@ 1 {st1 $TABLE@ $= ^n1 @! 
+1 JUMP ;
+: 0_36
+19 LINE.NUM ^n2 @@ NOT  ^n1 @! 
+20 LINE.NUM 2 NOT  ^n1 @! 
+24 LINE.NUM ^n2 @@ 2 AND  ^n1 @! 
+25 LINE.NUM ^n2 @@ 2 AND  ^n1 @! 
+26 LINE.NUM ^n2 @@ ^n3 @@ AND  ^n1 @! 
+29 LINE.NUM ^n2 @@ 2 OR  ^n1 @! 
+30 LINE.NUM ^n2 @@ 2 OR  ^n1 @! 
+31 LINE.NUM ^n2 @@ ^n3 @@ OR  ^n1 @! 
+34 LINE.NUM ^n2 @@ 2 XOR  ^n1 @! 
+35 LINE.NUM ^n2 @@ 2 XOR  ^n1 @! 
+36 LINE.NUM ^n2 @@ ^n3 @@ XOR  ^n1 @! 
+41 LINE.NUM ^n2 @@ 2 SHIFT  ^n1 @! 
+42 LINE.NUM ^n2 @@ ^n3 @@ SHIFT  ^n1 @! 
+46 LINE.NUM ^n2 @@ 2 -1 *  SHIFT  ^n1 @! 
+47 LINE.NUM ^n2 @@ ^n3 @@ -1 *  SHIFT  ^n1 @! 
+-3 JUMP ;
+: 0_37
+19 LINE.NUM ^n2 @@ ^n3 @@ LAND  ^n1 @! 
+20 LINE.NUM ^n2 @@ ^n3 @@ LOR  ^n1 @! 
+21 LINE.NUM ^n2 @@ ^n3 @@ LXOR  ^n1 @! 
+22 LINE.NUM ^n2 @@ LNOT  ^n1 @! 
+25 LINE.NUM ^n2 @@ ^n3 @@ LAND  ^n4 @@ LAND  ^n1 @! 
+26 LINE.NUM ^n2 @@ ^n3 @@ LAND  ^n4 @@ LOR  ^n1 @! 
+27 LINE.NUM ^n2 @@ ^n3 @@ LXOR  ^n4 @@ LAND  ^n5 @@ LOR  ^n1 @! 
+31 LINE.NUM ^n2 @@ ^n3 @@ LAND  ^n4 @@ LOR  ^n1 @! 
+32 LINE.NUM ^n2 @@ ^n3 @@ LAND  ^n4 @@ LOR  ^n1 @! 
+36 LINE.NUM ^n2 @@ LNOT  ^n1 @! 
+37 LINE.NUM ^n2 @@ 5 < LNOT  ^n1 @! 
+40 LINE.NUM ^n1 @@ LNOT  ^n2 @@ LNOT  LAND  ^n1 @! 
+41 LINE.NUM ^n1 @@ ^n2 @@ LNOT  LAND  LNOT  ^n1 @! 
+46 LINE.NUM ^n2 @@ 1 < ^n3 @@F 6.500000e+000 F= LAND  ^n1 @! 
+47 LINE.NUM ^n2 @@ 1 < *s1 " abc" $= LAND  ^n1 @! 
+48 LINE.NUM ^n2 @@ 1 < ^n3 @@F 6.500000e+000 F= LAND  ^n4 @@ ^n5 @@ LXOR  LOR  ^f1 @@I LNOT I>F ^f2 @@ F= LOR  ^n1 @! 
+-2 JUMP ;
+: 0_38
+8 LINE.NUM " Hello" 0 {st1 $TABLE@  $MOVE 
+9 LINE.NUM " world" 1 {st1 $TABLE@  $MOVE 
+11 LINE.NUM *_HSV_SEMA Acquire1String 0 {st1 $TABLE@  *_HSV_TEMP $MOVE "  "  *_HSV_TEMP $CAT 1 {st1 $TABLE@  *_HSV_TEMP $CAT 33  *_HSV_TEMP $APPEND *_HSV_TEMP 2 {st1 $TABLE@ $MOVE Release1String 
+13 LINE.NUM 2 {st1 $TABLE@ *s1  $MOVE 
+15 LINE.NUM *s1 3 {st1 $TABLE@  $MOVE 
+3 JUMP ;
+: 0_39
+9 LINE.NUM 2 }nt1 TABLE@ ^n1 @! 
+16 LINE.NUM 1 0 }nt1 TABLE! 
+17 LINE.NUM 2.000000e+000 1 }nt1 FTABLE! 
+18 LINE.NUM ^n1 @@ 2 }nt1 TABLE! 
+19 LINE.NUM 2 }nt1 TABLE@ 3 }nt1 TABLE! 
+20 LINE.NUM 0 }nt1 TABLE@ }nt1 TABLE@ 4 }nt1 TABLE! 
+21 LINE.NUM ^n1 @@F 2 }nt1 TABLE@F 3.100000e+000 F* F+ 5 }nt1 FTABLE! 
+23 LINE.NUM 0 }nt1 TABLE@ ^n1 @! 
+24 LINE.NUM 0 }nt1 TABLE@ 1 }nt1 TABLE@ +  2 }nt1 TABLE@ *  ^n1 @! 
+1 JUMP ;
+: 0_40
+5 LINE.NUM " Hello, world!" *s1  $MOVE 
+6 LINE.NUM *s1 *s2  $MOVE 
+13 LINE.NUM " " *s1 $MOVE 65 *s1  $APPEND 
+14 LINE.NUM " " *s1 $MOVE 65 *s1  $APPEND 
+17 LINE.NUM " Hello. " *s1  $MOVE 
+18 LINE.NUM 33 6 *s1 SWAP SETCHAR DROP 
+19 LINE.NUM 6 *s1 SWAP $INDEX 7 *s1 SWAP SETCHAR DROP 
+26 LINE.NUM 1 *s1 SWAP $INDEX 2 *s1 SWAP $INDEX *  ^n1 @! 
+2 JUMP ;
+: 0_41
+8 LINE.NUM " " *s1  $MOVE 
+10 LINE.NUM " Hello, world!" *s1  $MOVE 
+-2 JUMP ;
+: 0_42
+7 LINE.NUM 0 
+MoveToPointer PTR_pn1 
+8 LINE.NUM ^n1 
+MoveToPointer PTR_pn1 
+9 LINE.NUM ^f1 
+MoveToPointer PTR_pf1 
+10 LINE.NUM *s1 
+MoveToPointer PTR_ps1 
+11 LINE.NUM &Powerup 
+MoveToPointer PTR_pcht1 
+15 LINE.NUM PTR_pn1 @@F PTR_pf1 @@ F+ ^n2 F@! 
+16 LINE.NUM ^n1 @@F ^f1 @@ F+ ^n2 F@! 
+21 LINE.NUM Pointer=Null? PTR_pn1  ^n2 @! 
+22 LINE.NUM Pointer=Null? PTR_pn1  ^n2 @! 
+23 LINE.NUM 0 PTBL_pt1 TABLE@ TablePointer=Null? 
+^n2 @! 
+24 LINE.NUM 0 PTBL_pt1 TABLE@ TablePointer=Null? 
+^n2 @! 
+29 LINE.NUM 0 
+0 PTBL_pt1 TABLE!
+30 LINE.NUM ^n1 
+1 PTBL_pt1 TABLE!
+31 LINE.NUM ^f1 
+2 PTBL_pt1 TABLE!
+32 LINE.NUM *s1 
+3 PTBL_pt1 TABLE!
+33 LINE.NUM &Powerup 
+4 PTBL_pt1 TABLE!
+37 LINE.NUM 1 PTBL_pt1 
+TableMoveToPointer PTR_pn1 
+38 LINE.NUM 2 PTBL_pt1 
+TableMoveToPointer PTR_pf1 
+39 LINE.NUM 3 PTBL_pt1 
+TableMoveToPointer PTR_pnt1 
+46 LINE.NUM  DOW@I CASE 
+47 LINE.NUM 0 OF 
+48 LINE.NUM ^n2 
+MoveToPointer PTR_pn1 
+49 LINE.NUM ENDOF 
+50 LINE.NUM 6 OF 
+51 LINE.NUM ^n3 
+MoveToPointer PTR_pn1 
+52 LINE.NUM ENDOF 
+54 LINE.NUM ^n4 
+MoveToPointer PTR_pn1 
+56 LINE.NUM ENDCASE 
+59 LINE.NUM ^n1 @@F ^f1 @@ F* 5 I>F F- PTR_pn1 F@! 
+-8 JUMP ;
+: 0_43
+6 LINE.NUM " Hello " *s1  $MOVE 
+7 LINE.NUM " world" *s2  $MOVE 
+8 LINE.NUM " !" *s3  $MOVE 
+9 LINE.NUM *_HSV_SEMA Acquire1String *s1  *_HSV_TEMP $MOVE *s2  *_HSV_TEMP $CAT *s3  *_HSV_TEMP $CAT *_HSV_TEMP *s4 $MOVE Release1String 
+10 LINE.NUM *_HSV_SEMA Acquire1String *s1  *_HSV_TEMP $MOVE " world"  *_HSV_TEMP $CAT *s3  *_HSV_TEMP $CAT " !!"  *_HSV_TEMP $CAT *_HSV_TEMP *s4 $MOVE Release1String 
+15 LINE.NUM *_HSV_SEMA Acquire1String *s1  *_HSV_TEMP $MOVE *s2  *_HSV_TEMP $CAT 33  *_HSV_TEMP $APPEND *_HSV_TEMP *s5 $MOVE Release1String 
+16 LINE.NUM *_HSV_SEMA Acquire1String *s1  *_HSV_TEMP $MOVE *s2  *_HSV_TEMP $CAT 33  *_HSV_TEMP $APPEND *_HSV_TEMP *s5 $MOVE Release1String 
+21 LINE.NUM *s2 *s1 $CAT 
+
+22 LINE.NUM 97 *s2 $APPEND 
+
+-6 JUMP ;
+: 0_44
+7 LINE.NUM 1 2 +  ^n1 @! 
+8 LINE.NUM ^n2 @@ 1 +  ^n1 @! 
+9 LINE.NUM ^n2 @@ ^n3 @@ +  ^n1 @! 
+10 LINE.NUM 1 ^n2 @@ +  ^n3 @@ +  ^n1 @! 
+12 LINE.NUM ^f2 @@ 1.000000e+000 F+ ^f1 @! 
+13 LINE.NUM ^f2 @@ ^n2 @@F F+ ^d2 @@ D>F F+ 1 I>F F+ ^f1 @! 
+16 LINE.NUM ^n2 @@ 1 -  ^n1 @! 
+17 LINE.NUM ^n2 @@ ^n3 @@ -  ^n1 @! 
+18 LINE.NUM 1 ^n2 @@ -  ^n3 @@ -  ^n1 @! 
+20 LINE.NUM ^f2 @@ 1.000000e+000 F- ^f1 @! 
+21 LINE.NUM ^f2 @@ ^n2 @@F F- ^d2 @@ D>F F- 1 I>F F- ^f1 @! 
+24 LINE.NUM ^n2 @@ 2 *  ^n1 @! 
+25 LINE.NUM ^n2 @@ ^n3 @@ *  ^n1 @! 
+26 LINE.NUM 2 ^n2 @@ *  ^n3 @@ *  ^n1 @! 
+28 LINE.NUM ^f2 @@ 2.000000e+000 F* ^f1 @! 
+29 LINE.NUM ^f2 @@ ^n2 @@F F* ^d2 @@ D>F F* 2 I>F F* ^f1 @! 
+32 LINE.NUM ^n2 @@ 2 /  ^n1 @! 
+33 LINE.NUM ^n2 @@ ^n3 @@ /  ^n1 @! 
+34 LINE.NUM 2 ^n2 @@ /  ^n3 @@ /  ^n1 @! 
+36 LINE.NUM ^f2 @@ 2.000000e+000 F/ ^f1 @! 
+37 LINE.NUM ^f2 @@ ^n2 @@F F/ ^d2 @@ D>F F/ 2 I>F F/ ^f1 @! 
+40 LINE.NUM ^n2 @@ 2 MOD  ^n1 @! 
+41 LINE.NUM ^n2 @@ ^n3 @@ MOD  ^n1 @! 
+42 LINE.NUM 2 ^n2 @@ MOD  ^n3 @@ MOD  ^n1 @! 
+44 LINE.NUM ^f2 @@I 2.000000e+000 F>I MOD I>F ^f1 @! 
+45 LINE.NUM ^f2 @@I ^n2 @@ MOD I>D ^d2 @@ DMOD 2 I>D DMOD D>F ^f1 @! 
+48 LINE.NUM ^n2 @@ ^n3 @@ +  4 -  ^n1 @! 
+49 LINE.NUM ^n2 @@ ^n3 @@ 4 *  +  ^n1 @! 
+50 LINE.NUM ^f2 @@ ^n3 @@ 4 / I>F F+ ^n1 F@! 
+51 LINE.NUM ^f2 @@ ^n3 @@ 4 MOD I>F F+ ^n1 F@! 
+54 LINE.NUM ^n2 @@F ^f2 @@ 2.000000e+000 F- F* ^n1 F@! 
+55 LINE.NUM ^n2 @@ 2 +  ^n3 @@ 3 -  *  ^n1 @! 
+56 LINE.NUM ^n2 @@ 2 + I>F ^n3 @@F ^f1 @@ ^f2 @@ 2 I>F F- F/ F+ 3 I>F F- F* ^n1 F@! 
+60 LINE.NUM ^n2 @@ ^n3 @@ ^n4 @@ *  +  ^n1 @! 
+61 LINE.NUM ^n2 @@ ^n3 @@ +  ^n4 @@ *  ^n1 @! 
+62 LINE.NUM ^n2 @@ ^n3 @@ ^n4 @@ *  +  ^n1 @! 
+-6 JUMP ;
+: 0_45
+6 LINE.NUM 1 ^n1 @! 
+7 LINE.NUM ^n1 @@ ^n2 @! 
+10 LINE.NUM 2.. ^d1 @! 
+11 LINE.NUM ^d1 @@ ^d2 @! 
+14 LINE.NUM 3.000000e+000 ^f1 @! 
+15 LINE.NUM ^f1 @@ ^f2 @! 
+19 LINE.NUM 4.000000e+000 ^n1 F@! 
+20 LINE.NUM ^n1 @@ I>D ^d1 @! 
+21 LINE.NUM ^n1 @@F ^f1 @! 
+23 LINE.NUM 5.. ^n1  -ROT D>I SWAP @!
+24 LINE.NUM ^n1 @@ I>D ^d1 @! 
+25 LINE.NUM ^n1 @@F ^f1 @! 
+27 LINE.NUM 6 I>F ^f1 @! 
+28 LINE.NUM ^f1 @@ ^n1 F@! 
+29 LINE.NUM ^f1 @@ ^d1 F@! 
+31 LINE.NUM 7.. D>F ^f1 @! 
+32 LINE.NUM ^f1 @@ ^n1 F@! 
+33 LINE.NUM ^f1 @@ ^d1 F@! 
+35 LINE.NUM 8 I>D ^d1 @! 
+36 LINE.NUM ^d1 @@ ^n1  -ROT D>I SWAP @!
+37 LINE.NUM ^d1 @@ D>F ^f1 @! 
+39 LINE.NUM 8.000000e+000 ^d1 F@! 
+40 LINE.NUM ^d1 @@ ^n1  -ROT D>I SWAP @!
+41 LINE.NUM ^d1 @@ D>F ^f1 @! 
+-2 JUMP ;
+: 0_46
+7 LINE.NUM 0 ^n1 @! 
+8 LINE.NUM 10 ^n2 @! 
+9 LINE.NUM -123 ^n3 @! 
+13 LINE.NUM 0 ^n1 @! 
+14 LINE.NUM 16 ^n2 @! 
+15 LINE.NUM 313210061 ^n3 @! 
+16 LINE.NUM 313210061 ^n3 @! 
+21 LINE.NUM 0.. ^d1 @! 
+22 LINE.NUM 10.. ^d2 @! 
+23 LINE.NUM -123.. ^d3 @! 
+26 LINE.NUM 0.. ^d1 @! 
+27 LINE.NUM 16.. ^d2 @! 
+28 LINE.NUM 1311768467294899695.. ^d3 @! 
+29 LINE.NUM 1311768467294899695.. ^d3 @! 
+33 LINE.NUM 0.000000e+000 ^f1 @! 
+34 LINE.NUM 1.230000e+001 ^f2 @! 
+35 LINE.NUM -1.234560e+002 ^f3 @! 
+36 LINE.NUM -1.234560e+002 ^f3 @! 
+37 LINE.NUM -1.234560e+002 ^f3 @! 
+38 LINE.NUM -1.234560e+002 ^f3 @! 
+-2 JUMP ;
+T: T0
+DUMMY
+0_0
+0_1
+0_25
+0_26
+0_27
+0_28
+0_29
+0_30
+0_31
+0_32
+0_33
+0_34
+0_35
+0_36
+0_37
+0_38
+0_39
+0_40
+0_41
+0_42
+0_43
+0_44
+0_45
+0_46
+T;
+&Powerup ' T0 SETTASK

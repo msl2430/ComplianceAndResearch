@@ -1,0 +1,102 @@
+_END NEW $$$.RUN
+: FILENAME  ." TestControl " ;
+1 0 $VAR *_HSV_SEMA 
+1024 0 $VAR *_HSV_TEMP 
+200 0 $VAR *_HSV_INIT_IO 
+0 IVAR ^_HNV_INIT_IO 
+0 TASK  &_INIT_IO
+0 TASK &Powerup
+0 TASK &WriteHelloWorld
+0 IVAR ^HelloWorldResult
+1024 0 $VAR *TimeOfDay 
+32 0 ITABLE }dateTimeReturn
+
+nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 22001 $7F000001 0 11 BOARD.MMP %Test_IO
+ 2  1 APOINT  -10.0000 12  0  0 %Test_IO 0 POINT.TNG ~ai_Test_IO_0000
+ 2  1 APOINT  -10.0000 12  1  0 %Test_IO 0 POINT.TNG ~ai_Test_IO_0001
+: 0_0
+0 JUMP ;
+: 0_1
+
+1 LINE.NUM
+  &WriteHelloWorld   CALL.T
+  ^HelloWorldResult @! 
+0 JUMP ;
+T: T0
+DUMMY
+0_0
+0_1
+T;
+&Powerup ' T0 SETTASK
+: 1_0
+0 JUMP ;
+: 1_1
+
+1 LINE.NUM
+  *TimeOfDay   TIME>$
+-1 JUMP ;
+T: T1
+DUMMY
+1_0
+1_1
+T;
+&WriteHelloWorld ' T1 SETTASK
+CREATE T.ARRAY
+&Powerup ,
+&WriteHelloWorld ,
+ 0 ,
+CREATE V.ARRAY
+^HelloWorldResult ,
+*TimeOfDay ,
+*_HSV_SEMA ,
+*_HSV_TEMP ,
+ 0 ,
+CREATE TI.ARRAY
+ 0 ,
+CREATE PTR.ARRAY
+ 0 ,
+CREATE TA.ARRAY 
+}dateTimeReturn ,
+ 0 ,
+CREATE PTRTABLE.ARRAY 
+ 0 ,
+CREATE B.ARRAY
+%Test_IO ,
+ 0 ,
+CREATE P.ARRAY
+~ai_Test_IO_0000 ,
+~ai_Test_IO_0001 ,
+ 0 ,
+CREATE PID.ARRAY
+ 0 ,
+CREATE E/R.ARRAY
+ 0 ,
+CREATE E/RGROUP.ARRAY
+ 0 ,
+: CONFIG_PORTS
+;
+: W_INIT_IO
+CONFIG_PORTS
+" %Test_IO  (1/1)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
+%Test_IO DISABLE
+ " Initializing variables" *_HSV_INIT_IO $MOVE
+0 ^HelloWorldResult @!
+0 0 -1 }dateTimeReturn InitTable
+" "
+ *TimeOfDay $MOVE
+ " " *_HSV_INIT_IO $MOVE
+;
+T: T_INIT_IO
+W_INIT_IO
+&Powerup START.T DROP
+T;
+&_INIT_IO ' T_INIT_IO  SETTASK
+   : _RUN
+   CLEARERRORS
+   &_INIT_IO START.T DROP
+   ;
+: DATESTAMP ." 04/15/15 " ;
+: TIMESTAMP ." 10:55:31 " ;
+: CRCSTAMP  ." 00112233445566778899AABBCCDDEEFF " ;
+MAKECHECK
+CLEAR.BREAKS

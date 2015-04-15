@@ -1,0 +1,35 @@
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\PAC Serial Module\PAC Serial Module\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\PAC Serial Module\PAC Serial Module\obj\Debug\PAC_Serial_Module.Form1.resources
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\PAC Serial Module\PAC Serial Module\obj\Debug\PAC_Serial_Module.Resources.resources
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\PAC Serial Module\PAC Serial Module\obj\Debug\PAC Serial Module.vbproj.GenerateResource.Cache
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\PAC Serial Module\PAC Serial Module\bin\Debug\PAC Serial Module.exe
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\PAC Serial Module\PAC Serial Module\bin\Debug\PAC Serial Module.pdb
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\PAC Serial Module\PAC Serial Module\bin\Debug\PAC Serial Module.xml
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\PAC Serial Module\PAC Serial Module\bin\Debug\OptoMMP2.dll
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\PAC Serial Module\PAC Serial Module\obj\Debug\PAC Serial Module.exe
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\PAC Serial Module\PAC Serial Module\obj\Debug\PAC Serial Module.xml
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\PAC Serial Module\PAC Serial Module\obj\Debug\PAC Serial Module.pdb
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\PAC Serial Module\obj\Debug\PAC Serial Module.exe
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\PAC Serial Module\obj\Debug\PAC Serial Module.xml
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\PAC Serial Module\obj\Debug\PAC Serial Module.pdb
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\PAC Serial Module\bin\Debug\PAC Serial Module.exe
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\PAC Serial Module\bin\Debug\PAC Serial Module.pdb
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\PAC Serial Module\bin\Debug\PAC Serial Module.xml
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\PAC Serial Module\bin\Debug\OptoMMP3.dll
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\PAC Serial Module\bin\Debug\OptoMMP3.xml
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\PAC Serial Module\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\PAC Serial Module\obj\Debug\PAC_Serial_Module.Form1.resources
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\PAC Serial Module\obj\Debug\PAC_Serial_Module.Resources.resources
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\PAC Serial Module\obj\Debug\PAC Serial Module.vbproj.GenerateResource.Cache
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\obj\Debug\PAC Serial Module.exe
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\obj\Debug\PAC Serial Module.xml
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\obj\Debug\PAC Serial Module.pdb
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\bin\Debug\PAC Serial Module.exe
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\bin\Debug\PAC Serial Module.pdb
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\bin\Debug\PAC Serial Module.xml
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\bin\Debug\OptoMMP3.dll
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\bin\Debug\OptoMMP3.xml
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\obj\Debug\PAC_Serial_Module.Form1.resources
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\obj\Debug\PAC_Serial_Module.Resources.resources
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\VB.Net 2008 Serial Module Example\PAC Serial Module\obj\Debug\PAC Serial Module.vbproj.GenerateResource.Cache

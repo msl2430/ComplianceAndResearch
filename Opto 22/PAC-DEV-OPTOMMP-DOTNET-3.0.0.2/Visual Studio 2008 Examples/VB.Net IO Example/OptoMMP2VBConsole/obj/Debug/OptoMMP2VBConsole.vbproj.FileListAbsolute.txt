@@ -1,0 +1,11 @@
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\OptoMMP2VBConsole\OptoMMP2VBConsole\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\OptoMMP2VBConsole\OptoMMP2VBConsole\obj\Debug\OptoMMP2VBConsole.Resources.resources
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\OptoMMP2VBConsole\OptoMMP2VBConsole\obj\Debug\OptoMMP2VBConsole.vbproj.GenerateResource.Cache
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\OptoMMP2VBConsole\OptoMMP2VBConsole\bin\Debug\OptoMMP2VBConsole.exe
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\OptoMMP2VBConsole\OptoMMP2VBConsole\bin\Debug\OptoMMP2VBConsole.pdb
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\OptoMMP2VBConsole\OptoMMP2VBConsole\bin\Debug\OptoMMP2VBConsole.xml
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\OptoMMP2VBConsole\OptoMMP2VBConsole\obj\Debug\OptoMMP2VBConsole.exe
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\OptoMMP2VBConsole\OptoMMP2VBConsole\obj\Debug\OptoMMP2VBConsole.xml
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\OptoMMP2VBConsole\OptoMMP2VBConsole\obj\Debug\OptoMMP2VBConsole.pdb
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\OptoMMP2VBConsole\OptoMMP2VBConsole\bin\Debug\OptoMMP3.dll
+C:\Users\bnakatani\Documents\Visual Studio 2008\Projects\OptoMMP2VBConsole\OptoMMP2VBConsole\bin\Debug\OptoMMP3.xml

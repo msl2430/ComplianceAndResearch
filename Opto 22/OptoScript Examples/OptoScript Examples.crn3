@@ -1,0 +1,142 @@
+CREATE T.ARRAY
+&Powerup ,
+ 0 ,
+CREATE V.ARRAY
+^d1 ,
+^d2 ,
+^d3 ,
+^f1 ,
+^f2 ,
+^f3 ,
+^n1 ,
+^n2 ,
+^n3 ,
+^n4 ,
+^n5 ,
+^n6 ,
+^n7 ,
+*s1 ,
+*s2 ,
+*s3 ,
+*s4 ,
+*s5 ,
+*_HSV_SEMA ,
+*_HSV_TEMP ,
+ 0 ,
+CREATE TI.ARRAY
+^dt1 ,
+^ut1 ,
+ 0 ,
+CREATE PTR.ARRAY
+Ptr' PTR_pcht1 ,
+Ptr' PTR_pf1 ,
+Ptr' PTR_pn1 ,
+Ptr' PTR_pnt1 ,
+Ptr' PTR_ps1 ,
+ 0 ,
+CREATE TA.ARRAY 
+}ft1 ,
+}ft2 ,
+}ft3 ,
+}nnt1 ,
+}nnt2 ,
+}nnt3 ,
+}nt1 ,
+}nt2 ,
+}nt3 ,
+{st1 ,
+{st2 ,
+{st3 ,
+ 0 ,
+CREATE PTRTABLE.ARRAY 
+PTBL_pt1 ,
+PTBL_pt2 ,
+ 0 ,
+CREATE B.ARRAY
+%Learning_Center ,
+ 0 ,
+CREATE P.ARRAY
+~diButtonD2 ,
+~diButtonD3 ,
+~diSwitchD0 ,
+~diSwitchD1 ,
+~doAlarmD4 ,
+~doLedD5 ,
+~doLedD6 ,
+~doLedD7 ,
+~aiPotA16 ,
+~aiTemperatureA12 ,
+~aoMeterA8 ,
+ 0 ,
+CREATE PID.ARRAY
+ 0 ,
+CREATE E/R.ARRAY
+ 0 ,
+CREATE E/RGROUP.ARRAY
+ 0 ,
+: CONFIG_PORTS
+;
+: W_INIT_IO
+CONFIG_PORTS
+$00000000000101C1.. %Learning_Center ENABLES!
+" %Learning_Center  (1/1)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
+%Learning_Center DISABLE
+ " Initializing variables" *_HSV_INIT_IO $MOVE
+0.. ^d1 @!
+0.. ^d2 @!
+0.. ^d3 @!
+0.0 ^dt1 @!
+0.00000000 ^f1 @!
+0.00000000 ^f2 @!
+0.00000000 ^f3 @!
+0 ^n1 @!
+0 ^n2 @!
+0 ^n3 @!
+0 ^n4 @!
+0 ^n5 @!
+0 ^n6 @!
+0 ^n7 @!
+0.0 ^ut1 SetTimer
+0.00000000 0 -1 }ft1 InitTable
+0.00000000 0 -1 }ft2 InitTable
+0.00000000 0 -1 }ft3 InitTable
+0.. 0 -1 }nnt1 InitTable
+0.. 0 -1 }nnt2 InitTable
+0.. 0 -1 }nnt3 InitTable
+0 0 -1 }nt1 InitTable
+0 0 -1 }nt2 InitTable
+0 0 -1 }nt3 InitTable
+" "
+ *s1 $MOVE
+" "
+ *s2 $MOVE
+" "
+ *s3 $MOVE
+" "
+ *s4 $MOVE
+" "
+ *s5 $MOVE
+ " "
+0 -1 {st1 Init$Table
+ " "
+0 -1 {st2 Init$Table
+ " "
+0 -1 {st3 Init$Table
+0 MoveToPointer PTR_pcht1
+0 MoveToPointer PTR_pf1
+0 MoveToPointer PTR_pn1
+0 MoveToPointer PTR_pnt1
+0 MoveToPointer PTR_ps1
+9 FOR 0 I PTBL_pt1 TABLE! NEXT
+19 FOR 0 I PTBL_pt2 TABLE! NEXT
+ " " *_HSV_INIT_IO $MOVE
+;
+T: T_INIT_IO
+W_INIT_IO
+&Powerup START.T DROP
+T;
+&_INIT_IO ' T_INIT_IO  SETTASK
+   : _RUN
+   CLEARERRORS
+   &_INIT_IO START.T DROP
+   ;

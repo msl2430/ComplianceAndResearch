@@ -1,0 +1,13 @@
+: 1_0
+0 JUMP ;
+: 1_1
+
+1 LINE.NUM
+  *TimeOfDay   TIME>$
+-1 JUMP ;
+T: T1
+DUMMY
+1_0
+1_1
+T;
+&WriteHelloWorld ' T1 SETTASK

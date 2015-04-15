@@ -1,0 +1,157 @@
+﻿Release Notes for the PAC-DEV-OPTOMMP-DOTNET Software Development Kit (SDK)
+
+Release 3.0.0.2 (2014-12-01)
+
+    -   This release note now mention the changes made in 3.0.0.1.
+
+    -	The 3.0 SDK has a different versioning implementation of the form
+	a.b.c.d.
+
+	'a' is the major version. Major version changes when
+	significant interfaces changes are made (requiring modification
+	and recompilation of any code that uses this SDK).
+
+	'b' is the minor version. Minor version changes are when new
+	features are added.
+
+	'c' represents when bugfixes and corrections are made to the
+	code that affects the binary image. In these updates, the assembly
+	version will be updated as well to match the a.b.c.0 version
+	published on the SDK package. A legacy SDK code update will cause
+	an update of this version too.
+
+	'd' represents if changes to the SDK package (such as the HTML
+	documentation) occur.
+
+    -	The legacy SDK assembly version is still 1.0.8.4. This is provided
+	only for legacy applications. New applications should use the
+	3.x assembly version.
+
+Release 3.0.0.1 (2014-11-24)
+
+    -   3.0.0.1 is a reorganization of the html documentation. The file names
+        became too long for some systems to properly unzip. No changes to the
+        other SDK components were made.
+
+    -	The legacy SDK assembly version is still 1.0.8.4. This is provided
+	only for legacy applications. New applications should use the
+	3.x assembly version.
+
+Release 3.0.0.0 (2014-11-17)
+
+    -   [NEW] SDK now supports the SNAP-PAC-SB1 and the SNAP-PAC-SB2 series
+	of I/O units. For this major update, significant changes were made
+	to the SDK.
+        
+	The SDK remains to be primarily based around an network centric
+	implementation. Under certain serial conditions, e.g.
+	checksum errors will appear as communication timeouts, similar to
+	how an Ethernet network handles a packet with a checksum error.
+        
+        This is a MAJOR version change. Applications will require recompiling
+        and minor edits to use this update.
+       
+    -   [NEW] Method OpenSerialBinary() added to open an OptoMMP object
+	connected to a serial multidrop string of SNAP-PAC-SB1 and/or
+	SNAP-PAC-SB2 I/O units.
+    
+    -   [NEW] Property MinimumRecommendedTimeoutMs added to allow a
+	simplified method of setting a reasonable timeout for locally
+	connected hardware. For serial connections, the baud rate is
+	evaluated as part of the value this property reports. Please
+        note that when line repeaters, routers, wide-area-networks,
+        or any types of modems are used, the user should increase this value
+        according to the additional latencies these devices add to the
+        communication cycle. 
+
+    -   [NEW] New property SerialDeviceIndex may be used to read the
+	currently set serial network station address or set the property
+	for the next set of OptoMMP access methods. Using this property
+	for Ethernet connected objects forces the index to alway be zero.
+    
+    -   [NEW] ReadPointName64() and WritePointName64() allow reading and
+	writing of the point name in the legacy (EIO, SIO, and UIO) point
+	configuration areas.
+		
+    -   [NEW] ReadPointName4096() and WritePointName4096() allow reading
+	and writing of the point name in the newer 4096 point configuration
+	areas.
+    
+    -   [NEW] WritePacSBCommunicationBlinkCodeFlag() and
+	ReadPacSBCommunicationBlinkCodeFlag()
+        added to enable/disable and read the status of device local serial
+        communication information.
+    
+    -   [NEW] New methods; ReadCustomConfiguration(), ReadCustomData(),
+	WriteCustomConfiguration(), and WriteCustomData(). Access the "custom"
+	areas of the I/O unit memory map. For SNAP-PAC-R and -EB series
+	devices only. These areas allow a customized mapping interface that
+	may streamline data read/writes, custom streaming areas, etc.
+		
+    -	[NEW] SetAllReadCacheFreshnessMs. Sets all serial network stations'
+	cache freshness to the same value.
+		
+    -	[NEW] ReadUInts(), WriteUInts(), ReadULongs(), and WriteULongs()
+	allow unsigned 32- and 64-bit integer arguments. Nice in cases
+	where an unsigned value needs to be accessed and re-casting values
+	is annoying.
+
+    -   [NEW] WriteSteinhartHart4096() and ReadSteinhartHart4096() added to set
+	linearization parameters for SNAP-AIR400K-8 inputs.
+		
+    -   [CHANGE] ReadBrainDiagnosticInformation() may now be used to access
+	SoftPAC's I/O unit. Method improvement adds device part number,
+	firmware date, and firmware time.
+
+    -   [CHANGE] Property IsOpen has been renamed to IsCommunicationOpen for
+	clarity. The prior name was too ambiguous and usually confused.
+	    
+    -   [CHANGE] Due to the inherently different natures between the Ethernet
+	and the serial I/O models, GetCacheFreshness() and SetCacheFreshness()
+	are removed. These methods are now replaced by write-only property
+	SetAllReadCacheFreshnessMs, and read-only property ReadCacheFreshnessMs.
+	For serial connected OptoMMP objects, the later property is dependent on
+	the property SerialDeviceIndex. Set the device index before adjusting
+	the read cache timeout.
+	    
+    -   [CHANGE] The timeout implementation was changed. With the addition
+	of serial multidrop, timeouts may be set for each specific serial
+	address. This is to compensate I/O units that may have small message
+	requirements (such as 4-channel discrete only) compared to some that
+	have large message requirements (highly populated with high-density
+	analog inputs). The timeout for specific serial addresses is
+	controlled by the property SerialDeviceIndex.
+	    
+    -   [CHANGE] Changes and additions to configuring I/O methods.
+	WriteAnalogPointConfiguration4096(). Added point name, upper, and
+	lower analog clamp.
+	ReadAnalogPointConfiguration4096(). Added point name, upper, and lower
+	analog clamp.
+	WriteDigitalPointConfiguration4096. Added method.
+	ReadDigitalPointConfiguration4096. Added method.
+	WriteAnalogPointConfiguration64. Added an additional point name
+	parameter.
+	ReadAnalogPointConfiguration64. Added an additional point name 
+	parameter.
+	ReadDigitalPointConfiguration64. Added an additional point name 
+	parameter.
+	WriteDigitalPointConfiguration64. Added an additional point name 
+	parameter.
+	
+    -	[CHANGE] Quite a few SDK methods had "ref" types for arrays that
+	was not required. Due to complaints (and the misinterpretation when
+	the "ref" was used on the method arguments), the "ref" declarations
+	have been removed.
+		
+    -	[DEPRECATED] Deprecated objects and methods. Due to inclusion of new
+	"Custom" data areas. I/O unit streaming may be configured to send a
+	custom data packet of numeric values. Please see methods
+	StrategyStreamObjectsBits
+	WriteStrategyStreaming
+	ReadStrategyStreaming
+
+
+*****
+
+Earlier release notes for the 1.0.8.x assembly version are available in
+the "legacy" folder of this 3.0 version SDK.
