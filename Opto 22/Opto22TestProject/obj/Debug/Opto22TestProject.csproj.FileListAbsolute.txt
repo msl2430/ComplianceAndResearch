@@ -5,3 +5,10 @@ D:\Documents\Opto 22\Opto22TestProject\bin\Debug\OptoMMP3.dll
 D:\Documents\Opto 22\Opto22TestProject\obj\Debug\Opto22TestProject.csprojResolveAssemblyReference.cache
 D:\Documents\Opto 22\Opto22TestProject\obj\Debug\Opto22TestProject.exe
 D:\Documents\Opto 22\Opto22TestProject\obj\Debug\Opto22TestProject.pdb
+D:\CorriAndMike\ComplianceAndResearch\Opto 22\Opto22TestProject\bin\Debug\Opto22TestProject.exe.config
+D:\CorriAndMike\ComplianceAndResearch\Opto 22\Opto22TestProject\obj\Debug\Opto22TestProject.exe
+D:\CorriAndMike\ComplianceAndResearch\Opto 22\Opto22TestProject\obj\Debug\Opto22TestProject.pdb
+D:\CorriAndMike\ComplianceAndResearch\Opto 22\Opto22TestProject\bin\Debug\Opto22TestProject.exe
+D:\CorriAndMike\ComplianceAndResearch\Opto 22\Opto22TestProject\bin\Debug\Opto22TestProject.pdb
+D:\CorriAndMike\ComplianceAndResearch\Opto 22\Opto22TestProject\bin\Debug\OptoMMP3.dll
+D:\CorriAndMike\ComplianceAndResearch\Opto 22\Opto22TestProject\obj\Debug\Opto22TestProject.csprojResolveAssemblyReference.cache
