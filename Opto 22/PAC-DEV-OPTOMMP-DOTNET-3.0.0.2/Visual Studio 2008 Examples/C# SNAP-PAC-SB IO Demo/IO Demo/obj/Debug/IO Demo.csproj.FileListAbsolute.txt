@@ -10,3 +10,5 @@ D:\Documents\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\
 D:\Documents\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\obj\Debug\IO Demo.pdb
 D:\CorriAndMike\ComplianceAndResearch\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\obj\Debug\IO Demo.exe
 D:\CorriAndMike\ComplianceAndResearch\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\obj\Debug\IO Demo.pdb
+D:\Documents\ComplianceAndResearch\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\obj\Debug\IO Demo.exe
+D:\Documents\ComplianceAndResearch\Opto 22\PAC-DEV-OPTOMMP-DOTNET-3.0.0.2\Visual Studio 2008 Examples\C# SNAP-PAC-SB IO Demo\IO Demo\obj\Debug\IO Demo.pdb
