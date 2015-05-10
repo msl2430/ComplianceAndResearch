@@ -45,7 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseModel.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="AnalogPointConfiguration.cs" />
+    <Compile Include="OptoMmpFactory.cs" />
+    <Compile Include="PointConfigurationService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Station.cs" />
