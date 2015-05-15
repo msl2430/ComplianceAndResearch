@@ -19,3 +19,4 @@ D:\Documents\ComplianceAndResearch\Opto 22\Opto22TestProject\bin\Debug\Opto22Tes
 D:\Documents\ComplianceAndResearch\Opto 22\Opto22TestProject\bin\Debug\Opto22TestProject.pdb
 D:\Documents\ComplianceAndResearch\Opto 22\Opto22TestProject\bin\Debug\OptoMMP3.dll
 D:\Documents\ComplianceAndResearch\Opto 22\Opto22TestProject\obj\Debug\Opto22TestProject.csprojResolveAssemblyReference.cache
+D:\Documents\ComplianceAndResearch\Opto 22\Opto22TestProject\bin\Debug\Newtonsoft.Json.dll

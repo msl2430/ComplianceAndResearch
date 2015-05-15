@@ -33,7 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OptoMMP3">
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OptoMMP3, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3013d5c1a3ca3786, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\OptoMMP3.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -48,6 +53,8 @@
     <Compile Include="BaseModel.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="AnalogPointConfiguration.cs" />
+    <Compile Include="DigitalPointConfiguration.cs" />
+    <Compile Include="ObjectExtensions.cs" />
     <Compile Include="OptoMmpFactory.cs" />
     <Compile Include="PointConfigurationService.cs" />
     <Compile Include="Program.cs" />

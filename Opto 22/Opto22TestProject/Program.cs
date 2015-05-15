@@ -1,12 +1,14 @@
-﻿using System;
-using System.IO;
+﻿using System;using System.IO;
+using System.Net;
+using System.Text;
+using System.Threading;
 using Opto22.OptoMMP3;
 
 namespace Opto22TestProject
 {
     public class Program
     {
-        private const string IpAddress = "173.70.96.171";
+        private const string IpAddress = "98.109.58.113";
         private const int Port = 2001;
 
         protected static IOptoMmpFactory OptoMmpFactory { get; set; }
@@ -23,34 +25,73 @@ namespace Opto22TestProject
                     Console.ReadLine();
                     return;
                 }
-
-                Console.WriteLine("Connected to Opto Device");
-
+                var pucResult = OptoMmpFactory.OptoMmp.WriteStatusCommand(OptoMMP.StatusWriteCommand.PowerUpClear);
                 var pointService = new PointConfigurationService(OptoMmpFactory.OptoMmp);
 
-                var points = pointService.GetAllPoints();
-                Console.WriteLine("Added " + points.Count + " points");
-                if(File.Exists(@"C:\Points.txt")) 
-                    File.Delete(@"C:\Points.txt");
-                using (var file = new StreamWriter(@"C:\Points.txt", true))
-                {
-                    foreach (var pt in points)
-                    {
-                        file.WriteLine("Point " + pt.PointNumber + ": \nModType: " + Enum.GetName(typeof(Constants.ModuleType), pt.ModuleType) + "\nPointType: " +
-                              Enum.GetName(typeof(Constants.PointType), pt.PointType) + "\nHighScale: " + pt.HighScale + "\nLowScale: " + pt.LowScale +
-                              "\nOffset: " + pt.Offset + "\nGain: :" + pt.Gain + "\nFilterWeight: " + pt.FilterWeight + "\nEnableWatchdog: " + pt.EnableWatchdog +
-                              "\nName: " + pt.PointName + "\n");
-                    }
-                }
-                var configPoint = pointService.GetAnalogPointConfiguration(25);
-                configPoint.WriteConfigToConsole();
-                Console.WriteLine("Change Name...");
-                Console.ReadLine();
-                OptoMmpFactory.OptoMmp.WriteDigitalPointConfiguration64(configPoint.PointNumber, true, OptoMMP.eDigitalFeature.None, false, false, "TestPoint25");
-                Console.WriteLine("New Config");
-                var newConfigPoint = pointService.GetAnalogPointConfiguration(25);
-                newConfigPoint.WriteConfigToConsole();
-                Console.ReadLine();
+                Console.WriteLine("Connected to Opto Device - " + pucResult);
+
+                var digitalPoint = pointService.GetAnalogPointConfiguration64(0);
+                Console.WriteLine(digitalPoint.ToString());
+                bool digitalState;
+                var stateResult = OptoMmpFactory.OptoMmp.ReadDigitalState64(digitalPoint.PointNumber, out digitalState);
+                Console.WriteLine();
+                Console.WriteLine("State: " + digitalState + " (" + stateResult + ")");
+
+                float digitalValue;
+                var valueResult = OptoMmpFactory.OptoMmp.ReadAnalogState64(digitalPoint.PointNumber, out digitalValue);
+                Console.WriteLine();
+                Console.WriteLine("State: " + valueResult + " (" + valueResult + ")");
+
+                Console.WriteLine();
+                Console.WriteLine("Current Config: ");
+                var configResult = OptoMmpFactory.OptoMmp.WriteAnalogPointConfiguration64(digitalPoint.PointNumber, 256, 0f, 0f, 0f, 0f, 0f, false, 0f, "diAirPressureSe");
+                Console.WriteLine();
+
+                //// //OptoMmpFactory.OptoMmp.WriteStatusCommand(OptoMMP.StatusWriteCommand.StoreToFlash);
+                
+               // Console.WriteLine();
+               // Console.WriteLine("configResult: " + configResult);
+               // Console.WriteLine("New Config: ");
+               // var analogPoint2 = pointService.GetAnalogPointConfiguration64(21);
+               // analogPoint2.WriteConfigToConsole();
+
+               // readStateResult = OptoMmpFactory.OptoMmp.ReadAnalogState64(analogPoint2.PointNumber, out analogValue);
+               // Console.WriteLine("Value: " + analogValue + "(" + readStateResult + ")");
+
+                //var configurePulseResult = OptoMmpFactory.OptoMmp.ConfigureContinuousPulsesDuration(false, 0f, 1f, 1f, OptoMMP.IoModel.IoModel64, 0);
+                //Console.WriteLine("configurePulseResult : " + configurePulseResult);
+                //var startPulseResult = OptoMmpFactory.OptoMmp.StartPulse(OptoMMP.IoModel.IoModel64, 0);
+                //Console.WriteLine("startPulseResult : " + startPulseResult);
+                //float period;
+                //var readPulseResult = OptoMmpFactory.OptoMmp.ReadPulsePeriod(OptoMMP.IoModel.IoModel64, 0, out period);
+                //Console.WriteLine("readPulseResult: " + readPulseResult + " _ " + period);
+                //float point21Value;
+                //float[] pointsValue = new float[64];
+                //var readAnalogResult = OptoMmpFactory.OptoMmp.ReadAnalogState64(21, out point21Value);
+                //Console.WriteLine("readAnalogResult: " + readAnalogResult + " _ " + point21Value);
+
+                //WriteConfigToFile(pointService);
+                
+                //AnalogPointConfiguration analogPoint = pointService.GetAnalogPointConfiguration(21);
+                //Console.WriteLine("Config Point 21");
+                //var configResult = OptoMmpFactory.OptoMmp.WriteAnalogPointConfiguration4096(analogPoint.PointNumber, (int) analogPoint.PointType, analogPoint.HighScale, analogPoint.LowScale,
+                //    analogPoint.Offset, analogPoint.Gain, analogPoint.FilterWeight, false, analogPoint.FilterWeight, "Input2Test", 0f, 0f);
+                //Console.WriteLine(configResult);
+                ////OptoMmpFactory.OptoMmp.WriteAnalogPointConfiguration64(analogPoint.PointNumber, (int) analogPoint.PointType, analogPoint.HighScale, analogPoint.LowScale, analogPoint.Offset, analogPoint.Gain, analogPoint.FilterWeight, false, analogPoint.FilterWeight,
+                //    //analogPoint.PointName);
+                ////OptoMmpFactory.OptoMmp.WriteStatusCommand(OptoMMP.StatusWriteCommand.StoreToFlash);
+                //var newConfig = pointService.GetAnalogPointConfiguration(21);
+                //newConfig.WriteConfigToConsole();
+                //Console.ReadLine();
+                //var configPoint = pointService.GetAnalogPointConfiguration(25);
+                //configPoint.WriteConfigToConsole();
+                //Console.WriteLine("Change Name...");
+                //var pointName = Console.ReadLine();
+                //OptoMmpFactory.OptoMmp.WriteDigitalPointConfiguration64(configPoint.PointNumber, true, OptoMMP.eDigitalFeature.None, false, false, pointName);
+                //Console.WriteLine("New Config");
+                //var newConfigPoint = pointService.GetAnalogPointConfiguration(25);
+                //newConfigPoint.WriteConfigToConsole();
+                //Console.ReadLine();
 
 
                 var device = new Station();
@@ -62,9 +103,53 @@ namespace Opto22TestProject
             }
             catch (Exception ex)
             {
+                
                 Console.WriteLine("Error: " + ex.Message);
+                //
             }
             Console.ReadLine();
+        }
+
+        private static void ReadWritePointConfig(PointConfigurationService pointService)
+        {
+            var analogPoint = pointService.GetAnalogPointConfiguration64(21);
+
+            Console.WriteLine();
+            Console.WriteLine("Current Config: ");
+            analogPoint.WriteConfigToConsole();
+            var configResult = OptoMmpFactory.OptoMmp.WriteAnalogPointConfiguration64(analogPoint.PointNumber, 12, 10f, -10f, 0f, 0f, 0f, false, 0f, "Input2");
+            Console.WriteLine();
+
+            float analogValue;
+
+            for (var i = 0; i < 10; i++)
+            {
+                var readStateResult = OptoMmpFactory.OptoMmp.ReadAnalogState64(analogPoint.PointNumber, out analogValue);
+                Console.WriteLine(DateTime.Now + ">> Value: " + analogValue + "(" + readStateResult + ")");
+                Thread.Sleep(1000);
+            }
+        }
+
+        private static void WriteConfigToFile(PointConfigurationService pointService)
+        {
+            var points = pointService.GetAllPoints();
+            Console.WriteLine("Added " + points.Count + " points");
+            if (File.Exists(@"C:\AnalogPoints.txt"))
+                File.Delete(@"C:\AnalogPoints.txt");
+            using (var file = new StreamWriter(@"C:\AnalogPoints.txt", true))
+            {
+                file.Write(points.ToJson());
+            }
+            //Console.WriteLine("DigitalPoint Config");
+            //var digitalPoints = pointService.GetAllDigitalPoints();
+            //Console.WriteLine("Added " + digitalPoints.Count + " digital points");
+            //if (File.Exists(@"C:\DigitalPoints.txt"))
+            //    File.Delete(@"C:\DigitalPoints.txt");
+            //using (var file = new StreamWriter(@"C:\DigitalPoints.txt", true))
+            //{
+            //    file.Write(digitalPoints.ToJson());
+            //}
+            //Console.WriteLine("Wrote to file");
         }
 
         /***Point Config Detail***/

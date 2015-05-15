@@ -15,6 +15,8 @@ namespace Opto22TestProject
         public bool EnableWatchdog { get; set; }
         public float WatchdogValue { get; set; }
         public string PointName { get; set; }
+        public float LowerClamp { get; set; }
+        public float UpperClamp { get; set; }
 
         public AnalogPointConfiguration() { }
 
@@ -34,12 +36,14 @@ namespace Opto22TestProject
             EnableWatchdog = parameters.EnableWatchdog;
             WatchdogValue = parameters.WatchdogValue;
             PointName = parameters.PointName;
+            LowerClamp = parameters.LowerClamp;
+            UpperClamp = parameters.UpperClamp;
         }
 
         public void WriteConfigToConsole()
         {
             Console.WriteLine("Point " + PointNumber + ": \nModType: " + Enum.GetName(typeof (Constants.ModuleType), ModuleType) + "\nPointType: " +
-                              Enum.GetName(typeof (Constants.PointType), PointType) + "\nHighScale: " + HighScale + "\nLowScale: " + LowScale +
+                              Enum.GetName(typeof (Constants.PointType), PointType) + "(" + (int)PointType + ")" + "\nHighScale: " + HighScale + "\nLowScale: " + LowScale +
                               "\nOffset: " + Offset + "\nGain: :" + Gain + "\nFilterWeight: " + FilterWeight + "\nEnableWatchdog: " + EnableWatchdog +
                               "\nName: " + PointName);
         }
@@ -47,7 +51,7 @@ namespace Opto22TestProject
         public class Parameters
         {
             public int PointNumber, ModuleType, PointType;
-            public float HighScale, LowScale, Offset, Gain, FilterWeight, WatchdogValue;
+            public float HighScale, LowScale, Offset, Gain, FilterWeight, WatchdogValue, LowerClamp, UpperClamp;
             public bool EnableWatchdog;
             public string PointName;
         }
