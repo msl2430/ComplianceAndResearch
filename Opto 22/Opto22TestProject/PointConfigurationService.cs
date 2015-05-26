@@ -18,8 +18,8 @@ namespace Opto22TestProject
         {
             var point = new AnalogPointConfiguration.Parameters() {PointNumber = pointNumber};
             Single lower, upper;
-            var result = OptoMmp.ReadAnalogPointConfiguration4096(pointNumber, out point.PointType, out point.HighScale, out point.LowScale, out point.Offset,
-                out point.Gain, out point.FilterWeight, out point.EnableWatchdog, out point.WatchdogValue, out point.PointName, out lower, out upper);
+            var result = OptoMmp.ReadAnalogPointConfiguration64(pointNumber, out point.ModuleType, out point.PointType, out point.HighScale, out point.LowScale, out point.Offset,
+                out point.Gain, out point.FilterWeight, out point.EnableWatchdog, out point.WatchdogValue, out point.PointName);
 
             if (result != 0)
                 throw new Exception("Error reading analog point configuration for point number " + pointNumber);

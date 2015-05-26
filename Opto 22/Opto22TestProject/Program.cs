@@ -30,22 +30,52 @@ namespace Opto22TestProject
 
                 Console.WriteLine("Connected to Opto Device - " + pucResult);
 
-                var digitalPoint = pointService.GetAnalogPointConfiguration64(0);
-                Console.WriteLine(digitalPoint.ToString());
-                bool digitalState;
-                var stateResult = OptoMmpFactory.OptoMmp.ReadDigitalState64(digitalPoint.PointNumber, out digitalState);
-                Console.WriteLine();
-                Console.WriteLine("State: " + digitalState + " (" + stateResult + ")");
-
-                float digitalValue;
-                var valueResult = OptoMmpFactory.OptoMmp.ReadAnalogState64(digitalPoint.PointNumber, out digitalValue);
-                Console.WriteLine();
-                Console.WriteLine("State: " + valueResult + " (" + valueResult + ")");
+                var analogPoint20 = pointService.GetAnalogPointConfiguration(20);
+                var analogPoint21 = pointService.GetAnalogPointConfiguration(28);
 
                 Console.WriteLine();
-                Console.WriteLine("Current Config: ");
-                var configResult = OptoMmpFactory.OptoMmp.WriteAnalogPointConfiguration64(digitalPoint.PointNumber, 256, 0f, 0f, 0f, 0f, 0f, false, 0f, "diAirPressureSe");
+                analogPoint20.WriteConfigToConsole();
                 Console.WriteLine();
+                analogPoint21.WriteConfigToConsole();
+                Console.WriteLine();
+                float point20State, point21State, point25State;
+                OptoMmpFactory.OptoMmp.ReadAnalogState64(analogPoint20.PointNumber, out point20State);
+                OptoMmpFactory.OptoMmp.ReadAnalogState64(analogPoint21.PointNumber, out point21State);
+                Console.WriteLine("Point 20: " + point20State);
+                Console.WriteLine("Point 21: " + point21State);
+                Console.WriteLine();
+                OptoMmpFactory.OptoMmp.ScratchpadBitWrite(false, 0);
+                bool scratchPad0;
+                OptoMmpFactory.OptoMmp.ScratchpadBitRead(out scratchPad0, 0);
+                Console.WriteLine("Scratchpad 0: " + scratchPad0);
+                Console.WriteLine();
+                
+                var addr = new UInt32[1] { 0xf0d80000};
+                Console.WriteLine("Addresss: " + OptoMmpFactory.OptoMmp.ReadCustomData(0, 1, addr, 0));
+                
+
+                //Console.WriteLine("Write State: " + OptoMmpFactory.OptoMmp.WriteAnalogState64(28, OptoMMP.AnalogWriteOptions.EngineeringUnits, 0f));
+                //OptoMmpFactory.OptoMmp.ReadAnalogState64(28, out point21State);
+                //Console.WriteLine("Point 28: " + point21State);
+                //Console.WriteLine(OptoMMP.UInt32ToSingle(0xf0d82000));
+                
+                
+                //var digitalPoint = pointService.GetAnalogPointConfiguration64(0);
+                //Console.WriteLine(digitalPoint.ToString());
+                //bool digitalState;
+                //var stateResult = OptoMmpFactory.OptoMmp.ReadDigitalState64(digitalPoint.PointNumber, out digitalState);
+                //Console.WriteLine();
+                //Console.WriteLine("State: " + digitalState + " (" + stateResult + ")");
+
+                //float digitalValue;
+                //var valueResult = OptoMmpFactory.OptoMmp.ReadAnalogState64(digitalPoint.PointNumber, out digitalValue);
+                //Console.WriteLine();
+                //Console.WriteLine("State: " + valueResult + " (" + valueResult + ")");
+
+                //Console.WriteLine();
+                //Console.WriteLine("Current Config: ");
+                //var configResult = OptoMmpFactory.OptoMmp.WriteAnalogPointConfiguration64(digitalPoint.PointNumber, 256, 0f, 0f, 0f, 0f, 0f, false, 0f, "diAirPressureSe");
+                //Console.WriteLine();
 
                 //// //OptoMmpFactory.OptoMmp.WriteStatusCommand(OptoMMP.StatusWriteCommand.StoreToFlash);
                 
@@ -97,7 +127,7 @@ namespace Opto22TestProject
                 var device = new Station();
                 OptoMmpFactory.OptoMmp.ReadBrainDiagnosticInformation(out device.structDiagInfo);
 
-                Console.WriteLine("Diag Info: " + device.structDiagInfo.sDevice);
+                Console.WriteLine("Diag Info: " + device.structDiagInfo.sFirmwareVersion);
 
                 OptoMmpFactory.OptoMmp.Close();
             }

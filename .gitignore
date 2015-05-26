@@ -43,3 +43,9 @@ Temporary Items
 .apdisk
 /Opto 22/Opto22TestProject/bin
 /Opto 22/Opto22TestProject/obj
+bin
+obj
+*.suo
+bin
+obj
+*.suo

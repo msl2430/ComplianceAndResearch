@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Robot.Application", "Robot.Application.csproj", "{7644BF65-E79D-4BB1-AA9A-58617E838B3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Opto22.Core", "..\Opto22.Core\Opto22.Core.csproj", "{051182DD-79FD-4547-9E1A-98EBD5397D6F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7644BF65-E79D-4BB1-AA9A-58617E838B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7644BF65-E79D-4BB1-AA9A-58617E838B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7644BF65-E79D-4BB1-AA9A-58617E838B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7644BF65-E79D-4BB1-AA9A-58617E838B3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{051182DD-79FD-4547-9E1A-98EBD5397D6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{051182DD-79FD-4547-9E1A-98EBD5397D6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{051182DD-79FD-4547-9E1A-98EBD5397D6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{051182DD-79FD-4547-9E1A-98EBD5397D6F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
