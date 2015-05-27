@@ -1,9 +1,7 @@
-﻿
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Opto22.Core.Models;
 
-namespace Robot.Application
+namespace Robot.Application.Session
 {
     public static class ApplicationSession
     {

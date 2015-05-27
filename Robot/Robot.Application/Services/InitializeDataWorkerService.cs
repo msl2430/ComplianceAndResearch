@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using Opto22.Core.Models;
 using Opto22.Core.Service;
+using Robot.Application.Session;
 
 namespace Robot.Application.Services
 {

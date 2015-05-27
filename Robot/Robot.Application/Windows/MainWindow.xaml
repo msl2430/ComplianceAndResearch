@@ -1,4 +1,4 @@
-﻿<src:BaseWindow x:Class="Robot.Application.MainWindow"
+﻿<src:BaseWindow x:Class="Robot.Application.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:src="clr-namespace:Robot.Application"

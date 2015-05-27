@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using Robot.Application.Factories;
+using Robot.Application.Session;
 
 namespace Robot.Application.Services
 {
@@ -11,6 +12,9 @@ namespace Robot.Application.Services
     {
         private IOptoMmpFactory OptoMmpFactory { get; set; }
         private Label StatusLabel { get; set; }
+        private int _interval;
+        private int _successCount;
+        private const int MaximumWaitPeriod = 300000;
 
         public OptoConnectionWorkerService(IOptoMmpFactory optoMmpFactory, Dispatcher currentDispatcher, Label statusLabel)
         {
@@ -18,6 +22,8 @@ namespace Robot.Application.Services
             Dispatcher = currentDispatcher;
             StatusLabel = statusLabel;
             ApplicationSession.IsConnectedToOpto = false;
+            _interval = 500;
+            _successCount = 0;
         }
 
         public override void DoWork()
@@ -27,10 +33,10 @@ namespace Robot.Application.Services
                 IsRunning = true;
                 while (!CancellationToken.IsCancellationRequested)
                 {
-
                     var isConnected = OptoMmpFactory.Current.IsCommunicationOpen;
                     Dispatcher.Invoke(CallbackAction(isConnected), DispatcherPriority.Normal);
-                    Thread.Sleep(500);
+                    AdjustInterval(isConnected);
+                    Thread.Sleep(_interval);
                 }
                 WorkCompleted();
             }
@@ -58,6 +64,17 @@ namespace Robot.Application.Services
             OptoMmpFactory.Current.Close();
         }
 
-       
+        private void AdjustInterval(bool isConnected)
+        {
+            if (isConnected)
+                _successCount++;
+            else
+            {
+                _successCount = 0;
+                _interval = 500;
+            }
+            if (_successCount % 3 == 0 && _interval < MaximumWaitPeriod)
+                _interval *= 2;
+        }
     }
 }
