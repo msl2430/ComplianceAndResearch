@@ -1,0 +1,43 @@
+: 0_0
+0 JUMP ;
+: 0_13
+
+1 LINE.NUM
+  %ScratchPad 
+  0  
+  *TestString   IO.SP.$READ
+  ^PowerOn @! 
+2 JUMP ;
+: 0_15
+
+1 LINE.NUM
+  " Paul is a dummy" 
+ 
+  *Result   $CAT
+2 JUMP ;
+: 0_18
+
+1 LINE.NUM
+  " Mike is a dummy" 
+ 
+  *Result   $CAT
+1 JUMP ;
+: 0_1
+TRUE
+
+1 LINE.NUM
+  *TestString
+ 
+  " x" 
+   $=
+LAND
+IF -3 ELSE -2 THEN JUMP ;
+T: T0
+DUMMY
+0_0
+0_13
+0_15
+0_18
+0_1
+T;
+&Powerup ' T0 SETTASK

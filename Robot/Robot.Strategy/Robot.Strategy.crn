@@ -1,0 +1,122 @@
+_END NEW $$$.RUN
+: FILENAME  ." Robot.Strategy " ;
+1 0 $VAR *_HSV_SEMA 
+1024 0 $VAR *_HSV_TEMP 
+200 0 $VAR *_HSV_INIT_IO 
+0 IVAR ^_HNV_INIT_IO 
+0 TASK  &_INIT_IO
+0 TASK &Powerup
+0 IVAR ^PowerOn
+128 0 $VAR *Result 
+128 0 $VAR *TestString 
+
+nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
+nullM64BOARD $FFFFFFFE $FFFFFFFE 16 33024 1.000000 0.010000 0.000000 2001 $C0A801C8 0 11 BOARD.MMP %SnapPac
+ 2  1 APOINT  -10.0000 12  0  5 %SnapPac 0 POINT.TNG ~ai_SnapPac_0500
+ 2  1 APOINT  -10.0000 12  1  5 %SnapPac 0 POINT.TNG ~ai_SnapPac_0501
+: 0_0
+0 JUMP ;
+: 0_13
+
+1 LINE.NUM
+  %ScratchPad 
+  0  
+  *TestString   IO.SP.$READ
+  ^PowerOn @! 
+2 JUMP ;
+: 0_15
+
+1 LINE.NUM
+  " Paul is a dummy" 
+ 
+  *Result   $CAT
+2 JUMP ;
+: 0_18
+
+1 LINE.NUM
+  " Mike is a dummy" 
+ 
+  *Result   $CAT
+1 JUMP ;
+: 0_1
+TRUE
+
+1 LINE.NUM
+  *TestString
+ 
+  " x" 
+   $=
+LAND
+IF -3 ELSE -2 THEN JUMP ;
+T: T0
+DUMMY
+0_0
+0_13
+0_15
+0_18
+0_1
+T;
+&Powerup ' T0 SETTASK
+CREATE T.ARRAY
+&Powerup ,
+ 0 ,
+CREATE V.ARRAY
+^PowerOn ,
+*Result ,
+*TestString ,
+*_HSV_SEMA ,
+*_HSV_TEMP ,
+ 0 ,
+CREATE TI.ARRAY
+ 0 ,
+CREATE PTR.ARRAY
+ 0 ,
+CREATE TA.ARRAY 
+ 0 ,
+CREATE PTRTABLE.ARRAY 
+ 0 ,
+CREATE B.ARRAY
+%ScratchPad ,
+%SnapPac ,
+ 0 ,
+CREATE P.ARRAY
+~ai_SnapPac_0500 ,
+~ai_SnapPac_0501 ,
+ 0 ,
+CREATE PID.ARRAY
+ 0 ,
+CREATE E/R.ARRAY
+ 0 ,
+CREATE E/RGROUP.ARRAY
+ 0 ,
+: CONFIG_PORTS
+;
+: W_INIT_IO
+CONFIG_PORTS
+$0000000000000000.. %ScratchPad ENABLES!
+" %ScratchPad  (1/2)" *_HSV_INIT_IO $MOVE 1 ^_HNV_INIT_IO @!
+%ScratchPad ENABLE
+" %SnapPac  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
+%SnapPac ENABLE
+ " Initializing variables" *_HSV_INIT_IO $MOVE
+0 ^PowerOn @!
+" "
+ *Result $MOVE
+" Test123"
+ *TestString $MOVE
+ " " *_HSV_INIT_IO $MOVE
+;
+T: T_INIT_IO
+W_INIT_IO
+&Powerup START.T DROP
+T;
+&_INIT_IO ' T_INIT_IO  SETTASK
+   : _RUN
+   CLEARERRORS
+   &_INIT_IO START.T DROP
+   ;
+: DATESTAMP ." 06/20/15 " ;
+: TIMESTAMP ." 10:22:57 " ;
+: CRCSTAMP  ." 00112233445566778899AABBCCDDEEFF " ;
+MAKECHECK
+CLEAR.BREAKS

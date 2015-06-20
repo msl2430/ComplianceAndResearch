@@ -1,4 +1,5 @@
-﻿using System;using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -8,7 +9,8 @@ namespace Opto22TestProject
 {
     public class Program
     {
-        private const string IpAddress = "98.109.58.113";
+        //private const string IpAddress = "98.109.58.113";
+        private const string IpAddress = "192.168.1.200";
         private const int Port = 2001;
 
         protected static IOptoMmpFactory OptoMmpFactory { get; set; }
@@ -30,36 +32,44 @@ namespace Opto22TestProject
 
                 Console.WriteLine("Connected to Opto Device - " + pucResult);
 
-                var analogPoint20 = pointService.GetAnalogPointConfiguration(20);
-                var analogPoint21 = pointService.GetAnalogPointConfiguration(28);
+                //var analogPoint20 = pointService.GetAnalogPointConfiguration(20);
+                //var analogPoint21 = pointService.GetAnalogPointConfiguration(28);
 
-                Console.WriteLine();
-                analogPoint20.WriteConfigToConsole();
-                Console.WriteLine();
-                analogPoint21.WriteConfigToConsole();
-                Console.WriteLine();
-                float point20State, point21State, point25State;
-                OptoMmpFactory.OptoMmp.ReadAnalogState64(analogPoint20.PointNumber, out point20State);
-                OptoMmpFactory.OptoMmp.ReadAnalogState64(analogPoint21.PointNumber, out point21State);
-                Console.WriteLine("Point 20: " + point20State);
-                Console.WriteLine("Point 21: " + point21State);
-                Console.WriteLine();
-                OptoMmpFactory.OptoMmp.ScratchpadBitWrite(false, 0);
+                //Console.WriteLine();
+                //analogPoint20.WriteConfigToConsole();
+                //Console.WriteLine();
+                //analogPoint21.WriteConfigToConsole();
+                //Console.WriteLine();
+                //float point20State, point21State, point25State;
+                //OptoMmpFactory.OptoMmp.ReadAnalogState64(analogPoint20.PointNumber, out point20State);
+                //OptoMmpFactory.OptoMmp.ReadAnalogState64(analogPoint21.PointNumber, out point21State);
+                //Console.WriteLine("Point 20: " + point20State);
+                //Console.WriteLine("Point 21: " + point21State);
+                //Console.WriteLine();
+                //OptoMmpFactory.OptoMmp.ScratchpadBitWrite(false, 0);
+
                 bool scratchPad0;
                 OptoMmpFactory.OptoMmp.ScratchpadBitRead(out scratchPad0, 0);
                 Console.WriteLine("Scratchpad 0: " + scratchPad0);
                 Console.WriteLine();
-                
-                var addr = new UInt32[1] { 0xf0d80000};
-                Console.WriteLine("Addresss: " + OptoMmpFactory.OptoMmp.ReadCustomData(0, 1, addr, 0));
-                
+
+                var addr = new UInt32[1] { 0xf0d80000 };
+                //Console.WriteLine("Addresss: " + OptoMmpFactory.OptoMmp.ReadCustomData(0, 1, addr, 0));
+                Console.WriteLine("Number of strings: " + OptoMmpFactory.OptoMmp.ScratchPadStringNumberofElements());
+
+                var str = new string[4];
+
+                Console.WriteLine(OptoMmpFactory.OptoMmp.ScratchpadStringWrite(new string[] { "x", "e", "s", "t" }, 0, 4, 0));
+
+                OptoMmpFactory.OptoMmp.ScratchpadStringRead(str, 0, 4, 0);
+                Console.WriteLine(str[1]);
 
                 //Console.WriteLine("Write State: " + OptoMmpFactory.OptoMmp.WriteAnalogState64(28, OptoMMP.AnalogWriteOptions.EngineeringUnits, 0f));
                 //OptoMmpFactory.OptoMmp.ReadAnalogState64(28, out point21State);
                 //Console.WriteLine("Point 28: " + point21State);
                 //Console.WriteLine(OptoMMP.UInt32ToSingle(0xf0d82000));
-                
-                
+
+
                 //var digitalPoint = pointService.GetAnalogPointConfiguration64(0);
                 //Console.WriteLine(digitalPoint.ToString());
                 //bool digitalState;
@@ -78,15 +88,15 @@ namespace Opto22TestProject
                 //Console.WriteLine();
 
                 //// //OptoMmpFactory.OptoMmp.WriteStatusCommand(OptoMMP.StatusWriteCommand.StoreToFlash);
-                
-               // Console.WriteLine();
-               // Console.WriteLine("configResult: " + configResult);
-               // Console.WriteLine("New Config: ");
-               // var analogPoint2 = pointService.GetAnalogPointConfiguration64(21);
-               // analogPoint2.WriteConfigToConsole();
 
-               // readStateResult = OptoMmpFactory.OptoMmp.ReadAnalogState64(analogPoint2.PointNumber, out analogValue);
-               // Console.WriteLine("Value: " + analogValue + "(" + readStateResult + ")");
+                // Console.WriteLine();
+                // Console.WriteLine("configResult: " + configResult);
+                // Console.WriteLine("New Config: ");
+                // var analogPoint2 = pointService.GetAnalogPointConfiguration64(21);
+                // analogPoint2.WriteConfigToConsole();
+
+                // readStateResult = OptoMmpFactory.OptoMmp.ReadAnalogState64(analogPoint2.PointNumber, out analogValue);
+                // Console.WriteLine("Value: " + analogValue + "(" + readStateResult + ")");
 
                 //var configurePulseResult = OptoMmpFactory.OptoMmp.ConfigureContinuousPulsesDuration(false, 0f, 1f, 1f, OptoMMP.IoModel.IoModel64, 0);
                 //Console.WriteLine("configurePulseResult : " + configurePulseResult);
@@ -101,7 +111,7 @@ namespace Opto22TestProject
                 //Console.WriteLine("readAnalogResult: " + readAnalogResult + " _ " + point21Value);
 
                 //WriteConfigToFile(pointService);
-                
+
                 //AnalogPointConfiguration analogPoint = pointService.GetAnalogPointConfiguration(21);
                 //Console.WriteLine("Config Point 21");
                 //var configResult = OptoMmpFactory.OptoMmp.WriteAnalogPointConfiguration4096(analogPoint.PointNumber, (int) analogPoint.PointType, analogPoint.HighScale, analogPoint.LowScale,
@@ -133,7 +143,7 @@ namespace Opto22TestProject
             }
             catch (Exception ex)
             {
-                
+
                 Console.WriteLine("Error: " + ex.Message);
                 //
             }
