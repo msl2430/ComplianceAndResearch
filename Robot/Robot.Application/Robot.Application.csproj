@@ -61,6 +61,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -78,6 +79,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions\ScratchPadExtensions.cs" />
+    <Compile Include="Factories\ScratchPadFactory.cs" />
     <Compile Include="Session\ApplicationSession.cs" />
     <Compile Include="Services\BaseWorkerThreadService.cs" />
     <Compile Include="Services\InitializeDataWorkerService.cs" />
@@ -128,6 +131,10 @@
     <ProjectReference Include="..\Opto22.Core\Opto22.Core.csproj">
       <Project>{051182dd-79fd-4547-9e1a-98ebd5397d6f}</Project>
       <Name>Opto22.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Robot.Core\Robot.Core.csproj">
+      <Project>{639bd71d-5fa9-48e4-b0cc-a4fbbcfd6793}</Project>
+      <Name>Robot.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

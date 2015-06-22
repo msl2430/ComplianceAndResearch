@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Opto22.Core.Constants;
+using Robot.Application.Factories;
 using Robot.Application.Services;
 using Robot.Application.Session;
 
@@ -17,9 +18,11 @@ namespace Robot.Application.Windows
     {
         public MainWindow()
         {
+            ApplicationSession.ScratchPadFactory = new ScratchPadFactory(OptoMmpFactory);
             InitializeComponent();
             InitializeWatchThreads();
             InitializeDataWorkerService = new InitializeDataWorkerService(PointService, Dispatcher, PointListBox);
+            ApplicationSession.ScratchPadFactory = new ScratchPadFactory(OptoMmpFactory);        
             Task.Run(() => InitializeDataWorkerService.DoWork()).ConfigureAwait(false);
         }
 

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Robot.Application", "Robot.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Opto22.Core", "..\Opto22.Core\Opto22.Core.csproj", "{051182DD-79FD-4547-9E1A-98EBD5397D6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Robot.Core", "..\Robot.Core\Robot.Core.csproj", "{639BD71D-5FA9-48E4-B0CC-A4FBBCFD6793}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{051182DD-79FD-4547-9E1A-98EBD5397D6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{051182DD-79FD-4547-9E1A-98EBD5397D6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{051182DD-79FD-4547-9E1A-98EBD5397D6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{639BD71D-5FA9-48E4-B0CC-A4FBBCFD6793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{639BD71D-5FA9-48E4-B0CC-A4FBBCFD6793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{639BD71D-5FA9-48E4-B0CC-A4FBBCFD6793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{639BD71D-5FA9-48E4-B0CC-A4FBBCFD6793}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

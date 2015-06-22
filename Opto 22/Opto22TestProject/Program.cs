@@ -9,8 +9,8 @@ namespace Opto22TestProject
 {
     public class Program
     {
-        //private const string IpAddress = "98.109.58.113";
-        private const string IpAddress = "192.168.1.200";
+        private const string IpAddress = "98.109.58.113";
+        //private const string IpAddress = "192.168.1.200";
         private const int Port = 2001;
 
         protected static IOptoMmpFactory OptoMmpFactory { get; set; }
@@ -58,7 +58,11 @@ namespace Opto22TestProject
                 Console.WriteLine("Number of strings: " + OptoMmpFactory.OptoMmp.ScratchPadStringNumberofElements());
 
                 var str = new string[4];
-
+                bool tempBit;
+                OptoMmpFactory.OptoMmp.ScratchpadBitRead(out tempBit, 0);
+                Console.WriteLine("Connected?: " + tempBit);
+                OptoMmpFactory.OptoMmp.ScratchpadStringRead(str, 0, 4, 0);
+                Console.WriteLine(str[1]);
                 Console.WriteLine(OptoMmpFactory.OptoMmp.ScratchpadStringWrite(new string[] { "x", "e", "s", "t" }, 0, 4, 0));
 
                 OptoMmpFactory.OptoMmp.ScratchpadStringRead(str, 0, 4, 0);

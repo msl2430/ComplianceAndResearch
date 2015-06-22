@@ -14,6 +14,9 @@ namespace Robot.Application
         private IPointService _pointService { get; set; }
         public IPointService PointService { get { return _pointService ?? (_pointService = new PointService(OptoMmpFactory.Current)); } }
 
+        private IScratchPadService _scratpaService { get; set; }
+        public IScratchPadService ScratchPadService { get { return _scratpaService ?? (_scratpaService = new ScratchPadService(OptoMmpFactory.Current)); } }
+
         public OptoConnectionWorkerService OptoConnectionWorker { get; set; }
         public InitializeDataWorkerService InitializeDataWorkerService { get; set; }
     }
