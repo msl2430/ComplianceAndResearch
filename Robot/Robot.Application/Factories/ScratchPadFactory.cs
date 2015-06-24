@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Opto22.Core.Constants;
 using Opto22.Core.Models;
@@ -9,11 +8,11 @@ namespace Robot.Application.Factories
 {
     public interface IScratchPadFactory
     {
-        ScratchPadModel<bool> GetScratchPadBit(int index);
-        ScratchPadModel<int> GetScratchPadInt(int index);
-        ScratchPadModel<string> GetScratchPadString(int index);
+        IScratchPadModel<bool> GetScratchPadBit(int index);
+        IScratchPadModel<int> GetScratchPadInt(int index);
+        IScratchPadModel<string> GetScratchPadString(int index);
         void SetScratchPadValue<T>(int index, T value);
-        void SetScratchPadValue<T>(ScratchPadModel<T> scratchPad);
+        void SetScratchPadValue<T>(IScratchPadModel<T> scratchPad);
     }
 
     public sealed class ScratchPadFactory : IScratchPadFactory
@@ -73,28 +72,28 @@ namespace Robot.Application.Factories
             }
         }
 
-        public ScratchPadModel<bool> GetScratchPadBit(int index)
+        public IScratchPadModel<bool> GetScratchPadBit(int index)
         {
             return ScratchPadBits.Any(b => b.Index == index)
                 ? ScratchPadBits.FirstOrDefault(x => x.Index == index)
                 : null;
         }
 
-        public ScratchPadModel<int> GetScratchPadInt(int index)
+        public IScratchPadModel<int> GetScratchPadInt(int index)
         {
             return ScratchPadInts.Any(b => b.Index == index)
                 ? ScratchPadInts.FirstOrDefault(x => x.Index == index)
                 : null;
         }
 
-        public ScratchPadModel<string> GetScratchPadString(int index)
+        public IScratchPadModel<string> GetScratchPadString(int index)
         {
             return ScratchPadStrings.Any(b => b.Index == index)
                 ? ScratchPadStrings.FirstOrDefault(x => x.Index == index)
                 : null;
         }
 
-        public void SetScratchPadValue<T>(ScratchPadModel<T> scratchPad)
+        public void SetScratchPadValue<T>(IScratchPadModel<T> scratchPad)
         {
             SetScratchPadValue(scratchPad.Index, scratchPad.Value);
         }

@@ -18,11 +18,9 @@ namespace Robot.Application.Windows
     {
         public MainWindow()
         {
-            ApplicationSession.ScratchPadFactory = new ScratchPadFactory(OptoMmpFactory);
             InitializeComponent();
             InitializeWatchThreads();
             InitializeDataWorkerService = new InitializeDataWorkerService(PointService, Dispatcher, PointListBox);
-            ApplicationSession.ScratchPadFactory = new ScratchPadFactory(OptoMmpFactory);        
             Task.Run(() => InitializeDataWorkerService.DoWork()).ConfigureAwait(false);
         }
 

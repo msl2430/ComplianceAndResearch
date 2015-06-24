@@ -14,5 +14,10 @@ namespace Robot.Application.Extensions
         {
             ApplicationSession.ScratchPadFactory.SetScratchPadValue(obj);
         }
+
+        public static void Update<T>(this IScratchPadModel<T> obj)
+        {
+            ApplicationSession.ScratchPadFactory.SetScratchPadValue(obj);
+        }
     }
 }
