@@ -9,5 +9,11 @@ namespace Robot.Core.Constants
     public static class ControlConstants
     {
         public static int TextBlockMaxCharacter = 10000;
+
+        public enum ChangeTracking
+        {
+            Pristine,
+            Dirty
+        }
     }
 }

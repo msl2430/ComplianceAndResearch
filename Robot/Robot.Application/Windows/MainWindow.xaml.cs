@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using Opto22.Core.Constants;
 using Robot.Application.Factories;
 using Robot.Application.Services;
+using Robot.Application.Services.WorkerServices;
 using Robot.Application.Session;
 
 namespace Robot.Application.Windows

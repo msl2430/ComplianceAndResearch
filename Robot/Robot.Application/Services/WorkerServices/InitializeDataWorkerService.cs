@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +9,7 @@ using Opto22.Core.Models;
 using Opto22.Core.Service;
 using Robot.Application.Session;
 
-namespace Robot.Application.Services
+namespace Robot.Application.Services.WorkerServices
 {
     public sealed class InitializeDataWorkerService : BaseWorkerThreadService
     {

@@ -89,16 +89,32 @@
     <Compile Include="Extensions\ScratchPadExtensions.cs" />
     <Compile Include="Factories\ApplicationSessionFactory.cs" />
     <Compile Include="Factories\ScratchPadFactory.cs" />
+    <Compile Include="Services\DataServices\BaseDataService.cs" />
+    <Compile Include="Services\DataServices\CountryService.cs" />
+    <Compile Include="Services\DataServices\ManufacturerService.cs" />
+    <Compile Include="Services\DataServices\ModelService.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Session\ApplicationSession.cs" />
-    <Compile Include="Services\BaseWorkerThreadService.cs" />
-    <Compile Include="Services\InitializeDataWorkerService.cs" />
-    <Compile Include="Services\OptoConnectionWorkerService.cs" />
+    <Compile Include="Services\WorkerServices\BaseWorkerThreadService.cs" />
+    <Compile Include="Services\WorkerServices\InitializeDataWorkerService.cs" />
+    <Compile Include="Services\WorkerServices\OptoConnectionWorkerService.cs" />
     <Page Include="Content\Resource\default.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ControlWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StartPage\NewManufacturerFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StartPage\NewModelFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -110,10 +126,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ControlWindowViewModel.cs" />
+    <Compile Include="ViewModels\NewManufacturerFlyoutViewModel.cs" />
+    <Compile Include="Views\BaseUserControl.cs" />
     <Compile Include="Views\BaseWindowView.cs" />
     <Compile Include="Views\ControlWindow.xaml.cs">
       <DependentUpon>ControlWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StartPage\NewManufacturerFlyout.xaml.cs">
+      <DependentUpon>NewManufacturerFlyout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StartPage\NewModelFlyout.xaml.cs">
+      <DependentUpon>NewModelFlyout.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\BaseWindow.cs" />
     <Compile Include="Factories\OptoMmpFactory.cs" />
@@ -140,6 +165,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Resources\Entypo.ttf" />
     <Resource Include="Content\Fonts\AvenirLTStd-Book.otf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -160,8 +186,14 @@
       <Project>{639bd71d-5fa9-48e4-b0cc-a4fbbcfd6793}</Project>
       <Name>Robot.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Robot.Models\Robot.Models.csproj">
+      <Project>{09a98730-77f3-4dca-afbd-b5ffb98172f7}</Project>
+      <Name>Robot.Models</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\WindowsIcons-license.txt" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
@@ -178,6 +210,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

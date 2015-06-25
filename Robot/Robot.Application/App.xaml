@@ -13,6 +13,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Steel.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
                 <ResourceDictionary Source="Content/Resource/default.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <system:Double x:Key="WindowTitleFontSize">12</system:Double>

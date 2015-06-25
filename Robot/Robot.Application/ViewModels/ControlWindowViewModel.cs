@@ -1,15 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Robot.Core.Constants;
+using Robot.Models.Models;
 
 namespace Robot.Application.ViewModels
 {
-    public class ControlWindowViewModel : INotifyPropertyChanged
+    public class ControlWindowViewModel : BaseViewModel
     {
+        private IList<ManufacturerModel> _manufacturers { get; set; }
+        public IList<ManufacturerModel> Manufacturers
+        {
+            get { return _manufacturers;}
+            set
+            {
+                _manufacturers = value;
+                OnPropertyChanged("Manufacturers");
+            }
+        }
+
+        private IList<CarModel> _carModels { get; set; }
+        public IList<CarModel> CarModels
+        {
+            get { return _carModels; }
+            set
+            {
+                _carModels = value;
+                OnPropertyChanged("CarModels");
+            }
+        }
+
         private string _logWindowString { get; set; }
         public string LogWindowString
         {
@@ -64,15 +83,6 @@ namespace Robot.Application.ViewModels
                 _isConnected = value;
                 OnPropertyChanged("IsConnected");
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string name)
-        {
-            var handler = PropertyChanged;
-            if(handler != null)
-                handler(this, new PropertyChangedEventArgs(name));
         }
     }
 }

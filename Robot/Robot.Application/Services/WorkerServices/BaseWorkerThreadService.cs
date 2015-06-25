@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Windows.Threading;
 
-namespace Robot.Application.Services
+namespace Robot.Application.Services.WorkerServices
 {
     public abstract class BaseWorkerThreadService
     {

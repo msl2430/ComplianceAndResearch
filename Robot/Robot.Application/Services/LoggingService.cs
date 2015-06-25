@@ -1,32 +1,26 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Security.AccessControl;
 using Robot.Application.ViewModels;
 
 namespace Robot.Application.Services
 {
-    public interface ILoggingService
+    public static class LoggingService 
     {
-        void LogEvent(string message, bool includeInAppWindow = false);
-    }
+        private static ControlWindowViewModel ControlWindowModel { get; set; }
+        private static readonly string _logDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Logs";
 
-    public sealed class LoggingService : ILoggingService
-    {
-        private ControlWindowViewModel ControlWindowModel { get; set; }
-        private readonly string _logDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Logs";
-
-        private string LogFilePath
+        private static string LogFilePath
         {
             get { return _logDirectory + string.Format("\\Log_{0}.txt", DateTime.Now.ToString("MM_dd_yyyy")); }
         }
 
-        public LoggingService(ControlWindowViewModel model)
+        public static void SetControlWindoModel(ControlWindowViewModel model)
         {
             ControlWindowModel = model;
         }
 
-        public void LogEvent(string message, bool includeInAppWindow = false)
+        public static void LogEvent(string message, bool includeInAppWindow = false)
         {
             if (!Directory.Exists(_logDirectory))
                 Directory.CreateDirectory(_logDirectory);
@@ -35,7 +29,7 @@ namespace Robot.Application.Services
             {
                 file.WriteLine("{0} >> {1}", DateTime.Now.ToLongTimeString(), message);
             }
-            if(includeInAppWindow)
+            if(includeInAppWindow && ControlWindowModel != null)
                 ControlWindowModel.LogWindowString = message;
         }
     }

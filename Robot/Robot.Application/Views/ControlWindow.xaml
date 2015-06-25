@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:Robot.Application.Views"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:startPage="clr-namespace:Robot.Application.Views.StartPage"
         x:Class="Robot.Application.Views.ControlWindow"
         Title="Wobbly Widget" 
+        MinHeight="600"
         Height="600" 
+        MinWidth="768"
         Width="768" 
         EnableDWMDropShadow="True"
         ResizeMode="CanResizeWithGrip"
@@ -20,18 +23,68 @@
             <RowDefinition Height="75"/>
             <RowDefinition Height="23"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0">            
             <Grid.ColumnDefinitions>        
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="150"></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <TextBlock Text="Start" FontSize="36" Margin="10,10,10,0"></TextBlock>                
+            </Grid>
             <Grid Grid.Column="1">
                 <controls:ToggleSwitch Name="OptoConnectionToggle" SwitchForeground="Green" OffLabel="" OnLabel="" 
                                        IsChecked="{Binding Path=IsConnected, Mode=TwoWay, NotifyOnSourceUpdated=True}" 
                                        SourceUpdated="OptoConnectionToggle_OnSourceUpdated">
                 </controls:ToggleSwitch>
             </Grid>
-
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+                <ColumnDefinition Width="18"></ColumnDefinition>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <GroupBox Header="Existing Cars">                    
+                </GroupBox>
+            </Grid>
+            <Grid Grid.Column="3">
+                <GroupBox Header="New Car">
+                    <StackPanel>
+                        <Label Content="1. Select a Manufacturer"></Label>
+                        <ComboBox
+                            Name="ManufacturerComboBox"
+                            ItemsSource="{Binding Path=Manufacturers}"
+                            DisplayMemberPath="DisplayName"
+                            VerticalAlignment="Center"
+                            SelectedIndex="0"
+                            MaxHeight="100"
+                            MaxDropDownHeight="300"
+                            Width="300"
+                            Margin="25,0,0,0"
+                            SelectionChanged="ManufacturerComboBox_OnSelectionChanged">
+                        </ComboBox>
+                        <Button Name="AddManufacturerButton" Style="{StaticResource HyperlinkLikeButton}" Content="Add a Manufacturer" HorizontalAlignment="right" Click="AddManufacturerButton_OnClick"></Button>
+                        
+                        <Label Content="2. Select a Model" Margin="0,15,0,0"></Label>
+                        <ComboBox
+                            Name="ModelComboBox"
+                            ItemsSource="{Binding Path=CarModels}"
+                            DisplayMemberPath="Name"
+                            VerticalAlignment="Center"
+                            SelectedIndex="0"
+                            MaxHeight="100"
+                            MaxDropDownHeight="300"
+                            Width="300"
+                            Margin="25,0,0,0">
+                        </ComboBox>
+                        <Button Name="AddModelButton" Style="{StaticResource HyperlinkLikeButton}" Content="Add a Model" HorizontalAlignment="right" Click="AddModelButton_OnClick"></Button>
+                        <Button Name="LearningPhaseButton" Margin="40" Padding="15" Content="Start Learning Phase" FontSize="18" Background="CornflowerBlue"></Button>
+                    </StackPanel>            
+                </GroupBox>
+            </Grid>            
         </Grid>
         <Grid Grid.Row="2">
             <ScrollViewer>
@@ -42,8 +95,16 @@
             <StatusBar>
                 <TextBlock Text="{Binding Path=StatusLabel}" Foreground="Black"/>
             </StatusBar>
-        </Grid>
+        </Grid>      
     </Grid>
-
-
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl>
+            <controls:Flyout Name="AddManufacturerFlyout" Header="Add Manufacturer" Position="Right" Width="400" Theme="Accent">
+                <startPage:NewManufacturerFlyout x:Name="NewManufacturerFlyout" />
+            </controls:Flyout>
+            <controls:Flyout Name="AddModelFlyout" Header="Add Model" Position="Right" Width="400" Theme="Accent">
+                <startPage:NewModelFlyout x:Name="NewModelFlyout"/>
+            </controls:Flyout>
+        </controls:FlyoutsControl>
+    </controls:MetroWindow.Flyouts>
 </views:BaseWindowView>

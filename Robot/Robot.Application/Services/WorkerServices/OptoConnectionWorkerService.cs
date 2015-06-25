@@ -7,12 +7,10 @@ using Opto22.Core.Constants;
 using Opto22.Core.Models;
 using Robot.Application.Extensions;
 using Robot.Application.Factories;
-using Robot.Application.Session;
-using Robot.Application.ViewModels;
 using Robot.Core.Constants;
 using Robot.Core.Extensions;
 
-namespace Robot.Application.Services
+namespace Robot.Application.Services.WorkerServices
 {
     public interface IOptoConnectionWorkerService
     {
@@ -74,7 +72,7 @@ namespace Robot.Application.Services
                     throw new Exception("Error connecting to Opto.");
 
                 ApplicationSessionFactory.OptoConnectionStatus = StatusConstants.ConnectionStatus.Connected;
-                ApplicationSessionFactory.LoggingService.LogEvent(_successMessage, true);
+                ApplicationSessionFactory.LogEvent(_successMessage, true);
                 Dispatcher.Invoke(() => ApplicationSessionFactory.ControlWindowViewModel.StatusLabel = _successMessage);
                 ToggleScratchPadConnectBit();
 
@@ -120,7 +118,7 @@ namespace Robot.Application.Services
             Dispatcher.Invoke(() =>
             {
                 ApplicationSessionFactory.ControlWindowViewModel.StatusLabel = "Disconnected";
-                ApplicationSessionFactory.LoggingService.LogEvent("Disconnected", true);
+                ApplicationSessionFactory.LogEvent("Disconnected", true);
             }, DispatcherPriority.Normal);            
         }
 
