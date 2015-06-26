@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using MahApps.Metro.Controls;
+using Opto22.Core.Constants;
+using Robot.Application.Extensions;
 using Robot.Application.Factories;
 using Robot.Application.Services;
 using Robot.Application.Services.DataServices;
@@ -41,6 +43,7 @@ namespace Robot.Application.Views
 
             DataContext = ApplicationSessionFactory.ControlWindowViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
+            
             //ToggleOptoConnection();
         }
 
@@ -48,7 +51,7 @@ namespace Robot.Application.Views
         {
             switch (ApplicationSessionFactory.OptoConnectionStatus)
             {
-                case StatusConstants.ConnectionStatus.Disconnected:
+                case StatusConstants.ConnectionStatus.Disconnected:                    
                     Task.Run(() =>
                     {
                         ApplicationSessionFactory.LogEvent("Connecting to Opto 22 @" + ConfigurationManager.AppSettings["OptoIpAddress"], true);

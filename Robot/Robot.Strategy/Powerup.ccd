@@ -1,43 +1,180 @@
 : 0_0
-0 JUMP ;
-: 0_13
+4 JUMP ;
+: 0_24
 
 1 LINE.NUM
   %ScratchPad 
+  1  
+  1    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
   0  
-  *TestString   IO.SP.$READ
-  ^PowerOn @! 
-2 JUMP ;
-: 0_15
+  ^IsApplicationConnected   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+11 JUMP ;
+: 0_28
+-2 JUMP ;
+: 0_30
 
 1 LINE.NUM
-  " Paul is a dummy" 
- 
-  *Result   $CAT
-2 JUMP ;
-: 0_18
+  %ScratchPad 
+  1  
+  2    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  0  
+  ^IsApplicationConnected   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+
+4 LINE.NUM
+  %ScratchPad 
+  2  
+  ^IsGoToLearningPhase   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+5 LINE.NUM
+  %ScratchPad 
+  3  
+  ^IsGoToTestPhase   IO.SP.READ
+  ^GetScratchPadResult @! 
+14 JUMP ;
+: 0_32
 
 1 LINE.NUM
-  " Mike is a dummy" 
- 
-  *Result   $CAT
-1 JUMP ;
-: 0_1
+  ^IsApplicationConnected   FALSE@!
+-3 JUMP ;
+: 0_37
+
+1 LINE.NUM
+  %ScratchPad 
+  4  
+  0  
+  0  
+  }ClearIntegerTable   IO.SP.T.WRITE
+  ^ClearScratchPadResult @! 
+-5 JUMP ;
+: 0_59
+-4 JUMP ;
+: 0_66
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  3    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  *StrategyRunTime   TIME>$
+
+3 LINE.NUM
+  %ScratchPad 
+  1  
+  ^IsGoToLearningPhase   IO.SP.READ
+  ^GetScratchPadResult @! 
+8 JUMP ;
+: 0_74
+-2 JUMP ;
+: 0_79
+-3 JUMP ;
+: 0_85
+0 JUMP ;
+: 0_86
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  4    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  *StrategyRunTime   TIME>$
+
+3 LINE.NUM
+  %ScratchPad 
+  1  
+  ^IsGoToTestPhase   IO.SP.READ
+  ^GetScratchPadResult @! 
+5 JUMP ;
+: 0_89
+-2 JUMP ;
+: 0_26
 TRUE
 
 1 LINE.NUM
-  *TestString
- 
-  " x" 
-   $=
+  ^IsApplicationConnected @@ 
+  1    =
 LAND
-IF -3 ELSE -2 THEN JUMP ;
+IF -11 ELSE -10 THEN JUMP ;
+: 0_52
+TRUE
+
+1 LINE.NUM
+  ^IsGoToLearningPhase @@ 
+  1    =
+LAND
+IF -7 ELSE 0 THEN JUMP ;
+: 0_61
+TRUE
+
+1 LINE.NUM
+  ^IsGoToTestPhase @@ 
+  1    =
+LAND
+IF -6 ELSE -10 THEN JUMP ;
+: 0_71
+TRUE
+
+1 LINE.NUM
+  ^IsGoToLearningPhase @@ 
+  1    =
+LAND
+IF -8 ELSE -11 THEN JUMP ;
+: 0_87
+TRUE
+
+1 LINE.NUM
+  ^IsGoToTestPhase @@ 
+  1    =
+LAND
+IF -6 ELSE -12 THEN JUMP ;
+: 0_96
+TRUE
+
+1 LINE.NUM
+  ^IsApplicationConnected @@ 
+  1    =
+LAND
+IF -5 ELSE -17 THEN JUMP ;
 T: T0
 DUMMY
 0_0
-0_13
-0_15
-0_18
-0_1
+0_24
+0_28
+0_30
+0_32
+0_37
+0_59
+0_66
+0_74
+0_79
+0_85
+0_86
+0_89
+0_26
+0_52
+0_61
+0_71
+0_87
+0_96
 T;
 &Powerup ' T0 SETTASK

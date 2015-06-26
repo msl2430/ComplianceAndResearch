@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Opto22.Core.Constants
 {
     public static class ScratchPadConstants
     {
         public enum BitIndexes
         {
-            ConnectedToOpto,
         }
 
         public enum IntegerIndexes
         {
-            Test,
+            ConnectedToOpto,
+            StrategyLocationValue,
+            GoToLearningPhase,
+            GoToTestPhase,
         }
 
         public enum StringIndexes
@@ -24,6 +21,15 @@ namespace Opto22.Core.Constants
             Test2,
             Test3,
             Test4
+        }
+
+        public enum StrategyLocationValues
+        {
+            Off,
+            AppRunningCheck,
+            PhaseCheck,
+            LearningPhase,
+            TestPhase
         }
     }
 }

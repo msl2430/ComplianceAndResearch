@@ -27,7 +27,7 @@ namespace Robot.Application.Services.WorkerServices
         private const int MaximumWaitPeriod = 300000;
         private readonly string _successMessage = "Connected: " + ConfigurationManager.AppSettings["OptoIpAddress"] + ":" + ConfigurationManager.AppSettings["OptoMmpPort"];
         
-        private IScratchPadModel<bool> ConnectedScratchPad { get; set; }
+        private IScratchPadModel<int> ConnectedScratchPad { get; set; }
         private IApplicationSessionFactory ApplicationSessionFactory { get; set; }
 
         
@@ -48,16 +48,18 @@ namespace Robot.Application.Services.WorkerServices
         private void ToggleScratchPadConnectBit()
         {
             if(ConnectedScratchPad == null)
-                ConnectedScratchPad = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadBit(ScratchPadConstants.BitIndexes.ConnectedToOpto.ToInt());
+                ConnectedScratchPad = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ConnectedToOpto.ToInt());
 
             switch (ApplicationSessionFactory.OptoConnectionStatus)
             {
+                case StatusConstants.ConnectionStatus.Connecting:    
                 case StatusConstants.ConnectionStatus.Connected:
-                    ConnectedScratchPad.Value = true;
+                    ConnectedScratchPad.Value = 1;
                     ConnectedScratchPad.Update();
                     break;
+                case StatusConstants.ConnectionStatus.Disconnecting:
                 case StatusConstants.ConnectionStatus.Disconnected:
-                    ConnectedScratchPad.Value = false;
+                    ConnectedScratchPad.Value = 0;
                     ConnectedScratchPad.Update();
                     break;
             }
@@ -80,9 +82,10 @@ namespace Robot.Application.Services.WorkerServices
                 while (!CancellationToken.IsCancellationRequested)
                 {
                     var isConnected = ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen;
-                    if(!isConnected)
+                    var optoScratchPadValue = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StrategyLocationValue.ToInt()).Value;
+                    ApplicationSessionFactory.LogEvent("Bit: " + optoScratchPadValue, true);
+                    if(!isConnected || optoScratchPadValue == 0)
                         Dispatcher.Invoke(CallbackAction(), DispatcherPriority.Normal);
-
                     AdjustInterval(isConnected);
                     Thread.Sleep(_interval);
                 }
@@ -105,6 +108,7 @@ namespace Robot.Application.Services.WorkerServices
             return () =>
             {
                 ApplicationSessionFactory.ControlWindowViewModel.StatusLabel = "Connection lost";
+                ConnectedScratchPad.Value = 0;
                 //TODO More Event Handling for lost Opto connection
             };
         }
@@ -112,6 +116,7 @@ namespace Robot.Application.Services.WorkerServices
         protected override void WorkCompleted()
         {
             IsRunning = false;
+            ToggleScratchPadConnectBit();
             ApplicationSessionFactory.OptoMmpFactory.CloseConnection();
             CancellationToken = new CancellationTokenSource();
             ApplicationSessionFactory.OptoConnectionStatus = StatusConstants.ConnectionStatus.Disconnected;

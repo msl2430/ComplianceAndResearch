@@ -74,23 +74,59 @@ namespace Robot.Application.Factories
 
         public IScratchPadModel<bool> GetScratchPadBit(int index)
         {
-            return ScratchPadBits.Any(b => b.Index == index)
+            var sc = ScratchPadBits.Any(b => b.Index == index)
                 ? ScratchPadBits.FirstOrDefault(x => x.Index == index)
                 : null;
+
+            if(sc == null)
+                throw new Exception("Bad scratchpad Bit index.");
+
+            bool tempBit;
+            var result = OptoMmp.Current.ScratchpadBitRead(out tempBit, index);
+            if (result != 0)
+                throw new Exception("Error getting scratchpad bit.");
+
+            sc.Value = tempBit;
+
+            return sc;
         }
 
         public IScratchPadModel<int> GetScratchPadInt(int index)
         {
-            return ScratchPadInts.Any(b => b.Index == index)
+            var sc = ScratchPadInts.Any(b => b.Index == index)
                 ? ScratchPadInts.FirstOrDefault(x => x.Index == index)
                 : null;
+
+            if (sc == null)
+                throw new Exception("Bad scratchpad Int index.");
+
+            var optoScratchPadInt = new int[1];
+            var result = OptoMmp.Current.ScratchpadI32Read(optoScratchPadInt, 0, 1, index);
+            if (result != 0)
+                throw new Exception("Error getting scratchpad integers.");
+
+            sc.Value = optoScratchPadInt[0];
+
+            return sc;
         }
 
         public IScratchPadModel<string> GetScratchPadString(int index)
         {
-            return ScratchPadStrings.Any(b => b.Index == index)
+            var sc = ScratchPadStrings.Any(b => b.Index == index)
                 ? ScratchPadStrings.FirstOrDefault(x => x.Index == index)
                 : null;
+
+            if (sc == null)
+                throw new Exception("Bad scratchpad String index.");
+
+            var optoScratchPadString = new string[1];
+            var result = OptoMmp.Current.ScratchpadStringRead(optoScratchPadString, 0, 1, index);
+            if (result != 0)
+                throw new Exception("Error getting scratchpad string.");
+
+            sc.Value = optoScratchPadString[0];
+            
+            return sc;
         }
 
         public void SetScratchPadValue<T>(IScratchPadModel<T> scratchPad)
@@ -116,7 +152,7 @@ namespace Robot.Application.Factories
                 if (ScratchPadInts.All(b => b.Index != index))
                     throw new Exception("Bad scratchpad bit index.");
 
-                var result = OptoMmp.Current.ScratchpadI32Write(new[] { Convert.ToInt32(value) }, 0, 0, index);
+                var result = OptoMmp.Current.ScratchpadI32Write(new[] { Convert.ToInt32(value) }, 0, 1, index);
                 if (result != 0)
                     throw new Exception("Error saving scratchpad bit.");
 
@@ -127,7 +163,7 @@ namespace Robot.Application.Factories
                 if (ScratchPadStrings.All(b => b.Index != index))
                     throw new Exception("Bad scratchpad bit index.");
 
-                var result = OptoMmp.Current.ScratchpadStringWrite(new[] { Convert.ToString(value) }, 0, 0, index);
+                var result = OptoMmp.Current.ScratchpadStringWrite(new[] { Convert.ToString(value) }, 0, 1, index);
                 if (result != 0)
                     throw new Exception("Error saving scratchpad bit.");
 

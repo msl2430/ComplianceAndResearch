@@ -49,3 +49,4 @@ obj
 bin
 obj
 *.suo
+/Robot/Robot.Strategy/Archives

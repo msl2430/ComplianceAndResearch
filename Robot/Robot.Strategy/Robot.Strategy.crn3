@@ -1,10 +1,15 @@
 CREATE T.ARRAY
+&Learning ,
 &Powerup ,
  0 ,
 CREATE V.ARRAY
-^PowerOn ,
-*Result ,
-*TestString ,
+^ClearScratchPadResult ,
+^GetScratchPadResult ,
+^IsApplicationConnected ,
+^IsGoToLearningPhase ,
+^IsGoToTestPhase ,
+^SetScratchPadResult ,
+*StrategyRunTime ,
 *_HSV_SEMA ,
 *_HSV_TEMP ,
  0 ,
@@ -13,16 +18,33 @@ CREATE TI.ARRAY
 CREATE PTR.ARRAY
  0 ,
 CREATE TA.ARRAY 
+}ClearIntegerTable ,
  0 ,
 CREATE PTRTABLE.ARRAY 
  0 ,
 CREATE B.ARRAY
 %ScratchPad ,
-%SnapPac ,
+%SNAP_PAC_R1 ,
  0 ,
 CREATE P.ARRAY
+~di11 ,
+~di12 ,
+~di13 ,
+~di14 ,
+~di15 ,
+~di24vdcSense ,
+~di9 ,
+~diBlowerSense ,
+~DiginatlInput10 ,
+~diLiftDownSense ,
+~diLiftUpSense ,
+~diPEUsense ,
 ~ai_SnapPac_0500 ,
 ~ai_SnapPac_0501 ,
+~aima1 ,
+~aima2 ,
+~aov2 ,
+~aovFPEU ,
  0 ,
 CREATE PID.ARRAY
  0 ,
@@ -37,14 +59,18 @@ CONFIG_PORTS
 $0000000000000000.. %ScratchPad ENABLES!
 " %ScratchPad  (1/2)" *_HSV_INIT_IO $MOVE 1 ^_HNV_INIT_IO @!
 %ScratchPad ENABLE
-" %SnapPac  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
-%SnapPac ENABLE
+" %SNAP_PAC_R1  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
+%SNAP_PAC_R1 ENABLE
  " Initializing variables" *_HSV_INIT_IO $MOVE
-0 ^PowerOn @!
+0 ^ClearScratchPadResult @!
+0 ^GetScratchPadResult @!
+0 ^IsApplicationConnected @!
+0 ^IsGoToLearningPhase @!
+0 ^IsGoToTestPhase @!
+0 ^SetScratchPadResult @!
+0 0 -1 }ClearIntegerTable InitTable
 " "
- *Result $MOVE
-" Test123"
- *TestString $MOVE
+ *StrategyRunTime $MOVE
  " " *_HSV_INIT_IO $MOVE
 ;
 T: T_INIT_IO

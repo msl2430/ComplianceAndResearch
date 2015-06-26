@@ -1,0 +1,7 @@
+: 1_0
+0 JUMP ;
+T: T1
+DUMMY
+1_0
+T;
+&Learning ' T1 SETTASK
