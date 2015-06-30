@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Opto22.Core.Models;
 using Robot.Application.Factories;
+using Robot.Application.Models;
 using Robot.Application.ViewModels;
 
 namespace Robot.Application.Session
@@ -13,8 +14,10 @@ namespace Robot.Application.Session
         private static IScratchPadFactory _scratchPadFactory { get; set; }
         public static IScratchPadFactory ScratchPadFactory { get { return _scratchPadFactory ?? (_scratchPadFactory = new ScratchPadFactory(OptoMmpFactory)); } }
 
-        public static ControlWindowViewModel ControlWindowViewModel { get; set; }
+        public static ApplicationViewModel ApplicationViewModel { get; set; }
         public static bool IsConnectedToOpto { get; set; }
+
+        public static SelectedCar SelectedCar { get; set; }
 
         /*------TODO REMOVE------*/
         public static IList<AnalogPointModel> AnalogPoints { get; set; }

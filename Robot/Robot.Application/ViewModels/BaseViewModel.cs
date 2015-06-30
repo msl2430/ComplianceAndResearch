@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel;
+using Robot.Application.Factories;
 
 namespace Robot.Application.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public IApplicationSessionFactory ApplicationSessionFactory { get; set; }
+
         protected void OnPropertyChanged(string name)
         {
             var handler = PropertyChanged;

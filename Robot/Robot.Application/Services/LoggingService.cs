@@ -7,7 +7,8 @@ namespace Robot.Application.Services
 {
     public static class LoggingService 
     {
-        private static ControlWindowViewModel ControlWindowModel { get; set; }
+        private static ApplicationViewModel ApplicationViewModel { get; set; }
+        
         private static readonly string _logDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Logs";
 
         private static string LogFilePath
@@ -15,9 +16,9 @@ namespace Robot.Application.Services
             get { return _logDirectory + string.Format("\\Log_{0}.txt", DateTime.Now.ToString("MM_dd_yyyy")); }
         }
 
-        public static void SetControlWindoModel(ControlWindowViewModel model)
+        public static void SetApplicationViewModel(ApplicationViewModel model)
         {
-            ControlWindowModel = model;
+            ApplicationViewModel = model;
         }
 
         public static void LogEvent(string message, bool includeInAppWindow = false)
@@ -29,8 +30,8 @@ namespace Robot.Application.Services
             {
                 file.WriteLine("{0} >> {1}", DateTime.Now.ToLongTimeString(), message);
             }
-            if(includeInAppWindow && ControlWindowModel != null)
-                ControlWindowModel.LogWindowString = message;
+            if(includeInAppWindow && ApplicationViewModel != null)
+                ApplicationViewModel.LogWindowString = message;
         }
     }
 }

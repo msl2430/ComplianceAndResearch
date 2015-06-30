@@ -7,7 +7,7 @@ namespace Robot.Application.Views
 {
     public class BaseWindowView : MetroWindow
     {
-        public IApplicationSessionFactory ApplicationSessionFactory { get; set; }
+        public IApplicationSessionFactory ApplicationSessionFactory { get; set; } 
 
         public IOptoConnectionWorkerService OptoConnectionWorker { get; set; }
 

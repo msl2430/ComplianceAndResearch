@@ -11,7 +11,7 @@ namespace Robot.Models.Repositories
     {
         IList<CarModel> GetModelByManufacturerId(int manufacturerId);
         bool CheckUniqueModelNameByManufacturer(string name, int manufacturerId);
-        void AddModel(string name, int manufacturerId);
+        int AddModel(string name, int manufacturerId);
     }
 
     public sealed class ModelRepostiory : IModelRepostiory
@@ -35,7 +35,7 @@ namespace Robot.Models.Repositories
                 .SingleOrDefault<int>() != 1;
         }
 
-        public void AddModel(string name, int manufacturerId)
+        public int AddModel(string name, int manufacturerId)
         {
             var model = new Model
             {
@@ -47,6 +47,8 @@ namespace Robot.Models.Repositories
             NHibernateHelper.CurrentSession.Flush();
             
             NHibernateHelper.ClearQueryCache();
+
+            return model.ModelId;
         }
     }
 }

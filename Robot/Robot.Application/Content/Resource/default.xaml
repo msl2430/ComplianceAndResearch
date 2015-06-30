@@ -5,12 +5,12 @@
             <Setter Property="FontFamily" Value="Content\Fonts\#AvenirLTStd-Book"></Setter>
     </Style>
     <ControlTemplate x:Key="HyperlinkLikeButtonTemplate" TargetType="{x:Type Button}">
-        <TextBlock x:Name="innerText" Foreground="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Cursor="Hand" >
+        <TextBlock x:Name="innerText" Foreground="#AADEE0" Cursor="Hand" >
         <ContentPresenter />
         </TextBlock>
         <ControlTemplate.Triggers>
             <Trigger Property="Button.IsMouseOver" Value="true">
-                <Setter TargetName="innerText" Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                <Setter TargetName="innerText" Property="Foreground" Value="#BAF5F7" />
                 <Setter TargetName="innerText" Property="TextDecorations" Value="Underline" />
             </Trigger>
         </ControlTemplate.Triggers>

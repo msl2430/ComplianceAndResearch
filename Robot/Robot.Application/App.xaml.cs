@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using Robot.Application.Services;
+using Robot.Application.ViewModels;
+using Robot.Application.Views;
 
 namespace Robot.Application
 {
@@ -10,7 +12,7 @@ namespace Robot.Application
     {
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            LoggingService.LogEvent("Application started");
+            LoggingService.LogEvent("Application started");           
         }
 
         private void App_OnExit(object sender, ExitEventArgs e)

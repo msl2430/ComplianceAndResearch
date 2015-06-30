@@ -8,6 +8,8 @@ namespace Robot.Models.Models
         public int ModelId { get; set; }
         public string Name { get; set; }
         public int ManufactureId { get; set; }
+        public int Year { get; set; }
+        public string DisplayName { get; set; }
 
         public CarModel() { }
 
@@ -16,6 +18,7 @@ namespace Robot.Models.Models
             if (obj == null)
                 return;
             InstantiateFromDataObject(obj);
+            DisplayName = string.Format("{0} ({1})", Name, Year);
         }
     }
 }

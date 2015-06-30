@@ -1,4 +1,4 @@
-﻿<views:BaseUserControl x:Class="Robot.Application.Views.StartPage.NewManufacturerFlyout"
+﻿<views:BaseUserControl x:Class="Robot.Application.Views.CarSelection.NewManufacturerFlyout"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

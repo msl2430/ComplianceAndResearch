@@ -13,7 +13,8 @@ namespace Robot.Models.Mappings
             Id(m => m.ModelId);
 
             Map(m => m.ManufacturerId);
-            Map(m => m.Name);            
+            Map(m => m.Name);
+            Map(m => m.Year);
         }
     }
 }

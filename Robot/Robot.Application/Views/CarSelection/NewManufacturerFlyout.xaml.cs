@@ -5,7 +5,7 @@ using MahApps.Metro.Controls;
 using Robot.Application.ViewModels;
 using Robot.Core.Constants;
 
-namespace Robot.Application.Views.StartPage
+namespace Robot.Application.Views.CarSelection
 {
     /// <summary>
     /// Interaction logic for NewManufacturerFlyout.xaml
@@ -37,10 +37,10 @@ namespace Robot.Application.Views.StartPage
         {
             if (NewManufactureNameText.Text.Length < 3 || !NewManufacturerFlyoutViewModel.IsUniqueName) return;
             ManufacturerService.AddManufacturer(
-                NewManufactureNameText.Text, 
+                NewManufactureNameText.Text,
                 NewManufacturerFlyoutViewModel.Countries[CountrySelectionComboBox.SelectedIndex].CountryId,
                 NewModelText.Text);
-            ApplicationSessionFactory.LogEvent("Added new manufacturer '" + NewManufactureNameText.Text + "' successfully.", true);
+            NewManufacturerFlyoutViewModel.ApplicationSessionFactory.LogEvent("Added new manufacturer '" + NewManufactureNameText.Text + "' successfully.", true);
             ((Flyout)Parent).Tag = ControlConstants.ChangeTracking.Dirty;
             ((Flyout)Parent).IsOpen = false;
             //TODO: Move to next phase (Learn)

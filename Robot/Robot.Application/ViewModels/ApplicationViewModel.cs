@@ -1,34 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using MahApps.Metro.Controls;
+using Robot.Application.Factories;
 using Robot.Core.Constants;
-using Robot.Models.Models;
 
 namespace Robot.Application.ViewModels
 {
-    public class ControlWindowViewModel : BaseViewModel
+    public class ApplicationViewModel : BaseViewModel
     {
-        private IList<ManufacturerModel> _manufacturers { get; set; }
-        public IList<ManufacturerModel> Manufacturers
-        {
-            get { return _manufacturers;}
-            set
-            {
-                _manufacturers = value;
-                OnPropertyChanged("Manufacturers");
-            }
-        }
-
-        private IList<CarModel> _carModels { get; set; }
-        public IList<CarModel> CarModels
-        {
-            get { return _carModels; }
-            set
-            {
-                _carModels = value;
-                OnPropertyChanged("CarModels");
-            }
-        }
-
         private string _logWindowString { get; set; }
         public string LogWindowString
         {
@@ -45,7 +26,7 @@ namespace Robot.Application.ViewModels
         private string _statusLabel { get; set; }
         public string StatusLabel
         {
-            get { return _statusLabel;}
+            get { return _statusLabel; }
             set
             {
                 _statusLabel = value;
@@ -62,7 +43,7 @@ namespace Robot.Application.ViewModels
                 _optoConnectionStatus = value;
                 switch (_optoConnectionStatus)
                 {
-                    case StatusConstants.ConnectionStatus.Disconnected: 
+                    case StatusConstants.ConnectionStatus.Disconnected:
                     case StatusConstants.ConnectionStatus.Disconnecting:
                     case StatusConstants.ConnectionStatus.Connecting:
                         IsConnected = false;
@@ -83,6 +64,27 @@ namespace Robot.Application.ViewModels
                 _isConnected = value;
                 OnPropertyChanged("IsConnected");
             }
+        }
+
+        public Flyout AddManufacturerFlyout { get; set; }
+
+        private BaseViewModel _currentPageViewModel { get; set; }
+        public BaseViewModel CurrentPageViewModel
+        {
+            get
+            {
+                return _currentPageViewModel;
+            }
+            set
+            {
+                _currentPageViewModel = value;
+                OnPropertyChanged("CurrentPageViewModel");
+            }
+        }
+
+        public void ChangePageViewModel(BaseViewModel viewModel)
+        {
+            CurrentPageViewModel = viewModel;
         }
     }
 }

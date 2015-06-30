@@ -6,5 +6,6 @@ namespace Robot.Models.DataObjects
         public virtual int ModelId { get; set; }
         public virtual int ManufacturerId { get; set; }
         public virtual string Name { get; set; }
+        public virtual int Year { get; set; }
     }
 }

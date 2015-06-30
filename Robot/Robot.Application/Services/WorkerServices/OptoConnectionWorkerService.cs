@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -26,6 +27,7 @@ namespace Robot.Application.Services.WorkerServices
         private int _successCount;
         private const int MaximumWaitPeriod = 300000;
         private readonly string _successMessage = "Connected: " + ConfigurationManager.AppSettings["OptoIpAddress"] + ":" + ConfigurationManager.AppSettings["OptoMmpPort"];
+        private Stopwatch WaitStopWatch { get; set; }
         
         private IScratchPadModel<int> ConnectedScratchPad { get; set; }
         private IApplicationSessionFactory ApplicationSessionFactory { get; set; }
@@ -41,6 +43,7 @@ namespace Robot.Application.Services.WorkerServices
             Dispatcher = currentDispatcher;
             ApplicationSessionFactory = applicationSessionFactory;
             ApplicationSessionFactory.OptoConnectionStatus = StatusConstants.ConnectionStatus.Disconnected;
+            WaitStopWatch = new Stopwatch();
             _interval = 500;
             _successCount = 0;
         }
@@ -75,19 +78,25 @@ namespace Robot.Application.Services.WorkerServices
 
                 ApplicationSessionFactory.OptoConnectionStatus = StatusConstants.ConnectionStatus.Connected;
                 ApplicationSessionFactory.LogEvent(_successMessage, true);
-                Dispatcher.Invoke(() => ApplicationSessionFactory.ControlWindowViewModel.StatusLabel = _successMessage);
+                Dispatcher.Invoke(() => ApplicationSessionFactory.ApplicationViewModel.StatusLabel = _successMessage);
                 ToggleScratchPadConnectBit();
 
                 IsRunning = true;
                 while (!CancellationToken.IsCancellationRequested)
                 {
-                    var isConnected = ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen;
-                    var optoScratchPadValue = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StrategyLocationValue.ToInt()).Value;
-                    ApplicationSessionFactory.LogEvent("Bit: " + optoScratchPadValue, true);
-                    if(!isConnected || optoScratchPadValue == 0)
-                        Dispatcher.Invoke(CallbackAction(), DispatcherPriority.Normal);
-                    AdjustInterval(isConnected);
-                    Thread.Sleep(_interval);
+                    if(!WaitStopWatch.IsRunning) WaitStopWatch.Start();
+                    if (WaitStopWatch.ElapsedMilliseconds > _interval)
+                    {
+                        WaitStopWatch.Stop();
+                        WaitStopWatch.Reset();
+                        var isConnected = ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen;
+                        var optoScratchPadValue =
+                            ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StrategyLocationValue.ToInt()).Value;
+                        if (!isConnected || optoScratchPadValue == 0)
+                            Dispatcher.Invoke(CallbackAction(), DispatcherPriority.Normal);
+                        AdjustInterval(isConnected);
+                    }
+                    Thread.Sleep(500);
                 }
                 ApplicationSessionFactory.OptoConnectionStatus = StatusConstants.ConnectionStatus.Disconnecting;
                 WorkCompleted();
@@ -107,7 +116,7 @@ namespace Robot.Application.Services.WorkerServices
         {
             return () =>
             {
-                ApplicationSessionFactory.ControlWindowViewModel.StatusLabel = "Connection lost";
+                ApplicationSessionFactory.ApplicationViewModel.StatusLabel = "Connection lost";
                 ConnectedScratchPad.Value = 0;
                 //TODO More Event Handling for lost Opto connection
             };
@@ -122,7 +131,7 @@ namespace Robot.Application.Services.WorkerServices
             ApplicationSessionFactory.OptoConnectionStatus = StatusConstants.ConnectionStatus.Disconnected;
             Dispatcher.Invoke(() =>
             {
-                ApplicationSessionFactory.ControlWindowViewModel.StatusLabel = "Disconnected";
+                ApplicationSessionFactory.ApplicationViewModel.StatusLabel = "Disconnected";
                 ApplicationSessionFactory.LogEvent("Disconnected", true);
             }, DispatcherPriority.Normal);            
         }
