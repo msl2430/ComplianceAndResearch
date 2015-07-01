@@ -1,9 +1,7 @@
-﻿using Robot.Application.Models;
-using Robot.Application.Services;
+﻿using Robot.Application.Services;
 using Robot.Application.Session;
 using Robot.Application.ViewModels;
 using Robot.Core.Constants;
-using Robot.Core.Models;
 
 namespace Robot.Application.Factories
 {

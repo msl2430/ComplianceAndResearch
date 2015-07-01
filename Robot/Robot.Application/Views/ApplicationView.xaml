@@ -40,10 +40,17 @@
                 <ColumnDefinition Width="150"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <TextBlock Text="Car Selection" FontSize="26" Margin="10,10,10,0" Foreground="#2b88af"></TextBlock>
+                <Button Name="BackButton" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource MetroCircleButtonStyle}" Margin="0,4,0,0" Click="BackButton_OnClick">
+                    <Rectangle Width="15" Height="15">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_left}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <TextBlock Name="TitleLabelTextBlock" Text="{Binding Path=TitleLabel}" FontSize="26" Margin="45,10,10,0" Foreground="{StaticResource BrightBlueBrush}"></TextBlock>
             </Grid>
             <Grid Grid.Column="1">
-                <controls:ToggleSwitch Name="OptoConnectionToggle" SwitchForeground="#86A801" OffLabel="" OnLabel="" 
+                <controls:ToggleSwitch Name="OptoConnectionToggle" SwitchForeground="{StaticResource GreenBrush}" OffLabel="" OnLabel="" 
                                        IsChecked="{Binding Path=IsConnected, Mode=TwoWay, NotifyOnSourceUpdated=True}" 
                                        SourceUpdated="OptoConnectionToggle_OnSourceUpdated">
                 </controls:ToggleSwitch>

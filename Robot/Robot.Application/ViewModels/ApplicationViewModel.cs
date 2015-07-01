@@ -66,8 +66,6 @@ namespace Robot.Application.ViewModels
             }
         }
 
-        public Flyout AddManufacturerFlyout { get; set; }
-
         private BaseViewModel _currentPageViewModel { get; set; }
         public BaseViewModel CurrentPageViewModel
         {
@@ -82,9 +80,26 @@ namespace Robot.Application.ViewModels
             }
         }
 
+        public IList<BaseViewModel> PageViewModelNavigationPath { get; set; }
+
+        private string _titleLabel { get; set; }
+
+        public string TitleLabel
+        {
+            get { return _titleLabel; }
+            set { _titleLabel = value; OnPropertyChanged("TitleLabel"); }
+        }
+
+        public ApplicationViewModel()
+        {
+            PageViewModelNavigationPath = new List<BaseViewModel>();
+        }
+
         public void ChangePageViewModel(BaseViewModel viewModel)
         {
+            if(CurrentPageViewModel != null)
+                PageViewModelNavigationPath.Add(CurrentPageViewModel);
             CurrentPageViewModel = viewModel;
-        }
+        }     
     }
 }

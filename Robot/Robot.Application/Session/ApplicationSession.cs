@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Opto22.Core.Models;
 using Robot.Application.Factories;
-using Robot.Application.Models;
 using Robot.Application.ViewModels;
 
 namespace Robot.Application.Session
@@ -16,8 +15,6 @@ namespace Robot.Application.Session
 
         public static ApplicationViewModel ApplicationViewModel { get; set; }
         public static bool IsConnectedToOpto { get; set; }
-
-        public static SelectedCar SelectedCar { get; set; }
 
         /*------TODO REMOVE------*/
         public static IList<AnalogPointModel> AnalogPoints { get; set; }

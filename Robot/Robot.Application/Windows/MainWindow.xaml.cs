@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Opto22.Core.Constants;
-using Robot.Application.Factories;
-using Robot.Application.Services;
 using Robot.Application.Services.WorkerServices;
 using Robot.Application.Session;
 

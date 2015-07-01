@@ -43,6 +43,7 @@ namespace Robot.Application.Views.CarSelection
             ViewModel.AvailableYears = yearList;
         }
 
+        #region Events
         private void AddManufacturerButton_OnClick(object sender, RoutedEventArgs e)
         {
             var parentWindow = Window.GetWindow(this);
@@ -71,31 +72,34 @@ namespace Robot.Application.Views.CarSelection
 
             var modelId = ModelService.AddModel(NewModelTextBox.Text, ViewModel.Manufacturers[NewManufacturerComboBox.SelectedIndex].ManufacturerId);
 
-            var parentWindow = (ApplicationView)Window.GetWindow(this);
-            var model = new LearningViewModel()
+            GoToLearningView(new LearningViewModel
             {
                 ManufacturerId = ViewModel.Manufacturers[NewManufacturerComboBox.SelectedIndex].ManufacturerId,
                 ManufacturerName = ViewModel.Manufacturers[NewManufacturerComboBox.SelectedIndex].Name,
                 ModelId = modelId,
                 ModelName = NewModelTextBox.Text,
                 ModelYear = ViewModel.AvailableYears[YearCombo.SelectedIndex]
-            };
-            parentWindow.ChangePageView(model);
+            });
         }
 
         private void TestingPhaseButton_OnClick(object sender, RoutedEventArgs e)
         {
+            if(ExistingModelComboBox.SelectedIndex >= 0)
+                GoToLearningView(new LearningViewModel
+                {
+                    ManufacturerId = ViewModel.Manufacturers[ExistingManufacturerComboBox.SelectedIndex].ManufacturerId,
+                    ManufacturerName = ViewModel.Manufacturers[ExistingManufacturerComboBox.SelectedIndex].Name,
+                    ModelId = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].ModelId,
+                    ModelName = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].Name,
+                    ModelYear = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].Year
+                });
+        }
+
+        private void GoToLearningView(LearningViewModel viewModel)
+        {
             var parentWindow = (ApplicationView)Window.GetWindow(this);
-            var model = new LearningViewModel()
-            {
-                ManufacturerId = ViewModel.Manufacturers[ExistingManufacturerComboBox.SelectedIndex].ManufacturerId,
-                ManufacturerName = ViewModel.Manufacturers[ExistingManufacturerComboBox.SelectedIndex].Name,
-                ModelId = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].ModelId,
-                ModelName = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].Name,
-                ModelYear = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].Year
-            };
-            ViewModel.ApplicationSessionFactory.LogEvent(string.Format("Learning phase selected for {0} {1} {2}.", model.ModelYear, model.ManufacturerName, model.ModelName), true);
-            parentWindow.ChangePageView(model);
+            ViewModel.ApplicationSessionFactory.LogEvent(string.Format("Learning phase selected for {0} {1} {2}.", viewModel.ModelYear, viewModel.ManufacturerName, viewModel.ModelName), true);
+            parentWindow.ChangePageView(viewModel);
         }
 
         private void ExistingManufacturerComboBox_OnSelectionChangedManufacturerComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -108,5 +112,6 @@ namespace Robot.Application.Views.CarSelection
             if (ExistingModelComboBox != null)
                 ExistingModelComboBox.SelectedIndex = 0;
         }
+        #endregion      
     }
 }

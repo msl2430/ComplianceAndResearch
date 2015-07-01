@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using MahApps.Metro.Controls;
 using Robot.Application.Factories;
-using Robot.Application.Services.DataServices;
 using Robot.Models.Models;
 
 namespace Robot.Application.ViewModels
@@ -37,8 +35,6 @@ namespace Robot.Application.ViewModels
             get { return _availableYears;}
             set { _availableYears = value; OnPropertyChanged("AvailableYears"); }
         }
-
-        public Flyout AddManufacturerFlyout { get; set; }
 
         public CarSelectionViewModel(IApplicationSessionFactory applicationSessionFactory) 
         {

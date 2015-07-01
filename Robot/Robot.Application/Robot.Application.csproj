@@ -89,7 +89,6 @@
     <Compile Include="Extensions\ScratchPadExtensions.cs" />
     <Compile Include="Factories\ApplicationSessionFactory.cs" />
     <Compile Include="Factories\ScratchPadFactory.cs" />
-    <Compile Include="Models\SelectedCar.cs" />
     <Compile Include="Services\DataServices\BaseDataService.cs" />
     <Compile Include="Services\DataServices\CountryService.cs" />
     <Compile Include="Services\DataServices\ManufacturerService.cs" />
@@ -119,10 +118,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CarSelection\NewModelFlyout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Learning\LearningView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -137,7 +132,6 @@
     </Compile>
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CarSelectionViewModel.cs" />
-    <Compile Include="ViewModels\IPageViewModel.cs" />
     <Compile Include="ViewModels\LearningViewModel.cs" />
     <Compile Include="ViewModels\NewManufacturerFlyoutViewModel.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
@@ -151,9 +145,6 @@
     </Compile>
     <Compile Include="Views\CarSelection\NewManufacturerFlyout.xaml.cs">
       <DependentUpon>NewManufacturerFlyout.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CarSelection\NewModelFlyout.xaml.cs">
-      <DependentUpon>NewModelFlyout.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Learning\LearningView.xaml.cs">
       <DependentUpon>LearningView.xaml</DependentUpon>

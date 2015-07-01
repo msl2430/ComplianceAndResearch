@@ -8,5 +8,6 @@ namespace Robot.Application.ViewModels
         public int ModelId { get; set; }
         public string ModelName { get; set; }
         public int ModelYear { get; set; }
+        public string CarDisplayName { get { return string.Format("{0} {1} {2}", ModelYear, ManufacturerName, ModelName); } }
     }
 }

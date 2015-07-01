@@ -1,5 +1,7 @@
 ﻿using System.Configuration;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using Robot.Application.Factories;
 using Robot.Application.Services.WorkerServices;
@@ -18,7 +20,7 @@ namespace Robot.Application.Views
         public ApplicationView()
         {
             InitializeComponent();
-            ApplicationViewModel = new ApplicationViewModel() {AddManufacturerFlyout = AddManufacturerFlyout};
+            ApplicationViewModel = new ApplicationViewModel();
             ApplicationSessionFactory = new ApplicationSessionFactory() { ApplicationViewModel = ApplicationViewModel };
             
             DataContext = ApplicationViewModel;
@@ -30,8 +32,20 @@ namespace Robot.Application.Views
         public void ChangePageView(BaseViewModel viewModel)
         {
             ApplicationViewModel.ChangePageViewModel(viewModel);
-        }
+            if (viewModel.GetType() == typeof (CarSelectionViewModel))
+            {
+                ApplicationViewModel.TitleLabel = "Car Selection";
+                TitleLabelTextBlock.Margin = new Thickness(10,10,10,10);
+                BackButton.Visibility = Visibility.Hidden;
+                return;
+            }
+            if (viewModel.GetType() == typeof (LearningViewModel))
+                ApplicationViewModel.TitleLabel = "Learning Mode";
 
+            BackButton.Visibility = Visibility.Visible;
+            TitleLabelTextBlock.Margin = new Thickness(45, 10, 10, 10);
+        }
+        
         private void ToggleOptoConnection()
         {
             switch (ApplicationSessionFactory.OptoConnectionStatus)
@@ -53,6 +67,15 @@ namespace Robot.Application.Views
         private void OptoConnectionToggle_OnSourceUpdated(object sender, DataTransferEventArgs e)
         {
             ToggleOptoConnection();
+        }
+
+        private void BackButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var lastType = ApplicationViewModel.PageViewModelNavigationPath.Last().GetType();
+                ApplicationViewModel.PageViewModelNavigationPath.RemoveAt(ApplicationViewModel.PageViewModelNavigationPath.Count - 1);
+
+            if (lastType == typeof (CarSelectionViewModel)) 
+                ChangePageView(new CarSelectionViewModel(ApplicationSessionFactory));
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using Robot.Application.Factories;
+using Robot.Core.Models;
 
 namespace Robot.Application.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : BaseModel, INotifyPropertyChanged
     {
         public IApplicationSessionFactory ApplicationSessionFactory { get; set; }
 

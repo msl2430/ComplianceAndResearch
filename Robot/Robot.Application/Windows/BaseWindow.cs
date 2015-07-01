@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Opto22.Core.Service;
 using Robot.Application.Factories;
-using Robot.Application.Services;
 using Robot.Application.Services.WorkerServices;
 
 namespace Robot.Application

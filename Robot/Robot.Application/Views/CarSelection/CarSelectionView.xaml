@@ -6,7 +6,8 @@
              xmlns:views="clr-namespace:Robot.Application.Views"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="768"
-                       Loaded="CarSelectionView_OnLoaded">
+             Loaded="CarSelectionView_OnLoaded"
+             >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -40,6 +41,7 @@
                             VerticalAlignment="Center"
                             MaxHeight="100"
                             MaxDropDownHeight="300"
+                            SelectedIndex="0"
                             Width="300"
                             Margin="25,0,0,0"/>
                     <Button Name="TestingPhaseButton" 
@@ -48,7 +50,7 @@
                                 FontSize="18" 
                                 Content="Run Test Mode" 
                                 Cursor="Hand"
-                                Foreground="#6FBAC8"
+                                Foreground="{StaticResource LightBlueBrush}"
                                 Click="TestingPhaseButton_OnClick">
                     </Button>
                 </StackPanel>
@@ -91,7 +93,7 @@
                                 FontSize="18" 
                                 Content="Run Learning Mode"
                                 Cursor="Hand"
-                                Foreground="#2B88AF"
+                                Foreground="{StaticResource DarkBlushBrush}"
                                 Click="LearningPhaseButton_OnClick">
                     </Button>
                 </StackPanel>
