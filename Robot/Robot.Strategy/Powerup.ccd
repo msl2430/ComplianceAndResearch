@@ -57,7 +57,7 @@
 
 1 LINE.NUM
   %ScratchPad 
-  4  
+  100  
   0  
   0  
   }ClearIntegerTable   IO.SP.T.WRITE
@@ -84,8 +84,6 @@
 8 JUMP ;
 : 0_74
 -2 JUMP ;
-: 0_79
--3 JUMP ;
 : 0_85
 0 JUMP ;
 : 0_86
@@ -104,9 +102,15 @@
   1  
   ^IsGoToTestPhase   IO.SP.READ
   ^GetScratchPadResult @! 
-5 JUMP ;
+6 JUMP ;
 : 0_89
 -2 JUMP ;
+: 0_106
+
+1 LINE.NUM
+  &Learning   CALL.T
+  ^GetScratchPadResult @! 
+-7 JUMP ;
 : 0_26
 TRUE
 
@@ -122,7 +126,7 @@ TRUE
   ^IsGoToLearningPhase @@ 
   1    =
 LAND
-IF -7 ELSE 0 THEN JUMP ;
+IF -3 ELSE 0 THEN JUMP ;
 : 0_61
 TRUE
 
@@ -130,7 +134,7 @@ TRUE
   ^IsGoToTestPhase @@ 
   1    =
 LAND
-IF -6 ELSE -10 THEN JUMP ;
+IF -7 ELSE -10 THEN JUMP ;
 : 0_71
 TRUE
 
@@ -138,7 +142,7 @@ TRUE
   ^IsGoToLearningPhase @@ 
   1    =
 LAND
-IF -8 ELSE -11 THEN JUMP ;
+IF 2 ELSE -11 THEN JUMP ;
 : 0_87
 TRUE
 
@@ -146,7 +150,7 @@ TRUE
   ^IsGoToTestPhase @@ 
   1    =
 LAND
-IF -6 ELSE -12 THEN JUMP ;
+IF -7 ELSE -12 THEN JUMP ;
 : 0_96
 TRUE
 
@@ -166,10 +170,10 @@ DUMMY
 0_59
 0_66
 0_74
-0_79
 0_85
 0_86
 0_89
+0_106
 0_26
 0_52
 0_61

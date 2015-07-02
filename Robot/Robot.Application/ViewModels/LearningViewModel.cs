@@ -1,4 +1,6 @@
 ﻿
+using Robot.Application.Factories;
+
 namespace Robot.Application.ViewModels
 {
     public class LearningViewModel : BaseViewModel
@@ -9,5 +11,10 @@ namespace Robot.Application.ViewModels
         public string ModelName { get; set; }
         public int ModelYear { get; set; }
         public string CarDisplayName { get { return string.Format("{0} {1} {2}", ModelYear, ManufacturerName, ModelName); } }
+
+        public LearningViewModel(IApplicationSessionFactory applicationSessionFactory)
+        {
+            ApplicationSessionFactory = applicationSessionFactory;
+        }
     }
 }

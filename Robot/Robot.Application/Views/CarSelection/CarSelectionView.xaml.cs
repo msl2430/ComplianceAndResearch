@@ -72,7 +72,7 @@ namespace Robot.Application.Views.CarSelection
 
             var modelId = ModelService.AddModel(NewModelTextBox.Text, ViewModel.Manufacturers[NewManufacturerComboBox.SelectedIndex].ManufacturerId);
 
-            GoToLearningView(new LearningViewModel
+            GoToLearningView(new LearningViewModel(ViewModel.ApplicationSessionFactory)
             {
                 ManufacturerId = ViewModel.Manufacturers[NewManufacturerComboBox.SelectedIndex].ManufacturerId,
                 ManufacturerName = ViewModel.Manufacturers[NewManufacturerComboBox.SelectedIndex].Name,
@@ -85,7 +85,7 @@ namespace Robot.Application.Views.CarSelection
         private void TestingPhaseButton_OnClick(object sender, RoutedEventArgs e)
         {
             if(ExistingModelComboBox.SelectedIndex >= 0)
-                GoToLearningView(new LearningViewModel
+                GoToLearningView(new LearningViewModel(ViewModel.ApplicationSessionFactory)
                 {
                     ManufacturerId = ViewModel.Manufacturers[ExistingManufacturerComboBox.SelectedIndex].ManufacturerId,
                     ManufacturerName = ViewModel.Manufacturers[ExistingManufacturerComboBox.SelectedIndex].Name,

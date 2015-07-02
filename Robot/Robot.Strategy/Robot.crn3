@@ -9,6 +9,7 @@ CREATE V.ARRAY
 ^IsGoToLearningPhase ,
 ^IsGoToTestPhase ,
 ^SetScratchPadResult ,
+^TemplateLoadStatus ,
 *StrategyRunTime ,
 *_HSV_SEMA ,
 *_HSV_TEMP ,
@@ -19,6 +20,7 @@ CREATE PTR.ARRAY
  0 ,
 CREATE TA.ARRAY 
 }ClearIntegerTable ,
+}SelectedCar ,
  0 ,
 CREATE PTRTABLE.ARRAY 
  0 ,
@@ -68,7 +70,9 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^IsGoToLearningPhase @!
 0 ^IsGoToTestPhase @!
 0 ^SetScratchPadResult @!
+0 ^TemplateLoadStatus @!
 0 0 -1 }ClearIntegerTable InitTable
+0 0 -1 }SelectedCar InitTable
 " "
  *StrategyRunTime $MOVE
  " " *_HSV_INIT_IO $MOVE

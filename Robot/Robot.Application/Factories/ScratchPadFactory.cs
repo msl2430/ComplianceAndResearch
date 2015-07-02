@@ -17,7 +17,7 @@ namespace Robot.Application.Factories
 
     public sealed class ScratchPadFactory : IScratchPadFactory
     {
-        private const int MaxIntegerScratchPadElements = 256;
+        private const int MaxIntegerScratchPadElements = 512;
         private const int MaxStringScratchPadElements = 64;
         private IOptoMmpFactory OptoMmp { get; set; }
         private IList<ScratchPadModel<bool>> ScratchPadBits { get; set; }
@@ -43,7 +43,7 @@ namespace Robot.Application.Factories
             {
                 var scratchPad = ScratchPadBits.FirstOrDefault(b => b.Index == (int)bit);
                 bool tempBit;
-                result = OptoMmp.Current.ScratchpadBitRead(out tempBit, scratchPad.Index);
+                result = OptoMmp.Current.ScratchpadBitRead(out tempBit, scratchPad.Index);                
                 if (result != 0) 
                     throw new Exception("Error initializing bit " + bit + ".");
                 scratchPad.Value = tempBit;

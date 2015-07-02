@@ -13,6 +13,13 @@ namespace Opto22.Core.Constants
             StrategyLocationValue,
             GoToLearningPhase,
             GoToTestPhase,
+
+            ManufacturerId = 50,
+            ModelId,
+            ModelYear,
+
+            LearningPhaseActive = 100,
+            LearingPhaseTemplateLoadStatus =101
         }
 
         public enum StringIndexes
@@ -29,7 +36,15 @@ namespace Opto22.Core.Constants
             AppRunningCheck,
             PhaseCheck,
             LearningPhase,
+            LearningPhaseTemplateLoad,
             TestPhase
+        }
+
+        public enum LoadStatus
+        {
+            Waiting,
+            Loading,
+            LoadFinished
         }
     }
 }

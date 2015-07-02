@@ -92,6 +92,7 @@ namespace Robot.Application.Services.WorkerServices
                         var isConnected = ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen;
                         var optoScratchPadValue =
                             ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StrategyLocationValue.ToInt()).Value;
+                        ApplicationSessionFactory.ApplicationViewModel.StatusLabel = _successMessage + " Bit: " + optoScratchPadValue;
                         if (!isConnected || optoScratchPadValue == 0)
                             Dispatcher.Invoke(CallbackAction(), DispatcherPriority.Normal);
                         AdjustInterval(isConnected);

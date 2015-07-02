@@ -23,8 +23,10 @@ _END NEW $$$.RUN
 0 IVAR ^IsGoToLearningPhase
 0 IVAR ^IsGoToTestPhase
 0 IVAR ^SetScratchPadResult
+0 IVAR ^TemplateLoadStatus
 32 0 $VAR *StrategyRunTime 
-4 0 ITABLE }ClearIntegerTable
+100 0 ITABLE }ClearIntegerTable
+3 0 ITABLE }SelectedCar
 
 nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
 nullM64BOARD $FFFFFFFE $FFFFFFFE 16 33024 1.000000 0.010000 0.000000 22001 $626D3A71 0 11 BOARD.MMP %SNAP_PAC_R1
@@ -47,10 +49,82 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 33024 1.000000 0.010000 0.000000 22001 $626D
  2  2 APOINT    0.0000 167  0  7 %SNAP_PAC_R1 0 POINT.TNG ~aovFPEU
  2  0 APOINT    0.0000 167  1  7 %SNAP_PAC_R1 0 POINT.TNG ~aov2
 : 1_0
-0 JUMP ;
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  3    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  *StrategyRunTime   TIME>$
+
+3 LINE.NUM
+  %ScratchPad 
+  3  
+  50  
+  0  
+  }SelectedCar   IO.SP.READ
+  ^GetScratchPadResult @! 
+4 JUMP ;
+: 1_2
+-2 JUMP ;
+: 1_6
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  4    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  101  
+  ^TemplateLoadStatus   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+3 JUMP ;
+: 1_9
+-4 JUMP ;
+: 1_13
+
+1 LINE.NUM
+  &Learning   STOP.T
+2 JUMP ;
+: 1_1
+TRUE
+
+1 LINE.NUM
+  0  
+  0  
+  }SelectedCar TABLE@   <
+LAND
+
+2 LINE.NUM
+  0  
+  1  
+  }SelectedCar TABLE@   <
+LAND
+IF -4 ELSE -5 THEN JUMP ;
+: 1_8
+TRUE
+
+1 LINE.NUM
+  ^TemplateLoadStatus @@ 
+  2    =
+LAND
+IF -3 ELSE -4 THEN JUMP ;
 T: T1
 DUMMY
 1_0
+1_2
+1_6
+1_9
+1_13
+1_1
+1_8
 T;
 &Learning ' T1 SETTASK
 : 0_0
@@ -112,7 +186,7 @@ T;
 
 1 LINE.NUM
   %ScratchPad 
-  4  
+  100  
   0  
   0  
   }ClearIntegerTable   IO.SP.T.WRITE
@@ -139,8 +213,6 @@ T;
 8 JUMP ;
 : 0_74
 -2 JUMP ;
-: 0_79
--3 JUMP ;
 : 0_85
 0 JUMP ;
 : 0_86
@@ -159,9 +231,15 @@ T;
   1  
   ^IsGoToTestPhase   IO.SP.READ
   ^GetScratchPadResult @! 
-5 JUMP ;
+6 JUMP ;
 : 0_89
 -2 JUMP ;
+: 0_106
+
+1 LINE.NUM
+  &Learning   CALL.T
+  ^GetScratchPadResult @! 
+-7 JUMP ;
 : 0_26
 TRUE
 
@@ -177,7 +255,7 @@ TRUE
   ^IsGoToLearningPhase @@ 
   1    =
 LAND
-IF -7 ELSE 0 THEN JUMP ;
+IF -3 ELSE 0 THEN JUMP ;
 : 0_61
 TRUE
 
@@ -185,7 +263,7 @@ TRUE
   ^IsGoToTestPhase @@ 
   1    =
 LAND
-IF -6 ELSE -10 THEN JUMP ;
+IF -7 ELSE -10 THEN JUMP ;
 : 0_71
 TRUE
 
@@ -193,7 +271,7 @@ TRUE
   ^IsGoToLearningPhase @@ 
   1    =
 LAND
-IF -8 ELSE -11 THEN JUMP ;
+IF 2 ELSE -11 THEN JUMP ;
 : 0_87
 TRUE
 
@@ -201,7 +279,7 @@ TRUE
   ^IsGoToTestPhase @@ 
   1    =
 LAND
-IF -6 ELSE -12 THEN JUMP ;
+IF -7 ELSE -12 THEN JUMP ;
 : 0_96
 TRUE
 
@@ -221,10 +299,10 @@ DUMMY
 0_59
 0_66
 0_74
-0_79
 0_85
 0_86
 0_89
+0_106
 0_26
 0_52
 0_61
@@ -244,6 +322,7 @@ CREATE V.ARRAY
 ^IsGoToLearningPhase ,
 ^IsGoToTestPhase ,
 ^SetScratchPadResult ,
+^TemplateLoadStatus ,
 *StrategyRunTime ,
 *_HSV_SEMA ,
 *_HSV_TEMP ,
@@ -254,6 +333,7 @@ CREATE PTR.ARRAY
  0 ,
 CREATE TA.ARRAY 
 }ClearIntegerTable ,
+}SelectedCar ,
  0 ,
 CREATE PTRTABLE.ARRAY 
  0 ,
@@ -303,7 +383,9 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^IsGoToLearningPhase @!
 0 ^IsGoToTestPhase @!
 0 ^SetScratchPadResult @!
+0 ^TemplateLoadStatus @!
 0 0 -1 }ClearIntegerTable InitTable
+0 0 -1 }SelectedCar InitTable
 " "
  *StrategyRunTime $MOVE
  " " *_HSV_INIT_IO $MOVE
@@ -317,9 +399,9 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 06/29/15 " ;
-: TIMESTAMP ." 11:43:05 " ;
-: CRCSTAMP  ." 62A782D11E7C8F29A9A1CBB66214438F " ;
+: DATESTAMP ." 07/02/15 " ;
+: TIMESTAMP ." 11:52:21 " ;
+: CRCSTAMP  ." 6095D2252FECC3EA35D0126A9B3BC472 " ;
 MAKECHECK
 CLEAR.BREAKS
 
