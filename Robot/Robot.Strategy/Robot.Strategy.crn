@@ -7,14 +7,18 @@ _END NEW $$$.RUN
 0 TASK  &_INIT_IO
 0 TASK &Learning
 0 TASK &Powerup
+0 IVAR ^CallChartStatus
 0 IVAR ^ClearScratchPadResult
 0 IVAR ^GetScratchPadResult
 0 IVAR ^IsApplicationConnected
 0 IVAR ^IsGoToLearningPhase
 0 IVAR ^IsGoToTestPhase
 0 IVAR ^SetScratchPadResult
+0 IVAR ^TemplateLoadStatus
 32 0 $VAR *StrategyRunTime 
-4 0 ITABLE }ClearIntegerTable
+256 0 $VAR *TestString 
+200 0 ITABLE }ClearIntegerTable
+3 0 ITABLE }SelectedCar
 
 nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
 nullM64BOARD $FFFFFFFE $FFFFFFFE 16 33024 1.000000 0.010000 0.000000 22001 $626D3A71 0 11 BOARD.MMP %SNAP_PAC_R1
@@ -37,10 +41,92 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 33024 1.000000 0.010000 0.000000 22001 $626D
  2  2 APOINT    0.0000 167  0  7 %SNAP_PAC_R1 0 POINT.TNG ~aovFPEU
  2  0 APOINT    0.0000 167  1  7 %SNAP_PAC_R1 0 POINT.TNG ~aov2
 : 1_0
-0 JUMP ;
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  3    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  *StrategyRunTime   TIME>$
+
+3 LINE.NUM
+  %ScratchPad 
+  3  
+  50  
+  0  
+  }SelectedCar   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+4 LINE.NUM
+  " L" 
+ 
+  *TestString   $CAT
+4 JUMP ;
+: 1_2
+-2 JUMP ;
+: 1_6
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  4    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  101  
+  ^TemplateLoadStatus   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+
+4 LINE.NUM
+  " T" 
+ 
+  *TestString   $CAT
+3 JUMP ;
+: 1_9
+-2 JUMP ;
+: 1_13
+
+1 LINE.NUM
+  &Learning   STOP.T
+2 JUMP ;
+: 1_1
+TRUE
+
+1 LINE.NUM
+  0  
+  0  
+  }SelectedCar TABLE@   <
+LAND
+
+2 LINE.NUM
+  0  
+  1  
+  }SelectedCar TABLE@   <
+LAND
+IF -4 ELSE -5 THEN JUMP ;
+: 1_8
+TRUE
+
+1 LINE.NUM
+  ^TemplateLoadStatus @@ 
+  2    =
+LAND
+IF -3 ELSE -4 THEN JUMP ;
 T: T1
 DUMMY
 1_0
+1_2
+1_6
+1_9
+1_13
+1_1
+1_8
 T;
 &Learning ' T1 SETTASK
 : 0_0
@@ -61,38 +147,41 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-11 JUMP ;
+7 JUMP ;
 : 0_28
 -2 JUMP ;
 : 0_30
 
 1 LINE.NUM
+  500    DELAY
+
+2 LINE.NUM
   %ScratchPad 
   1  
   2    IO.SP.I.WRITE
   ^SetScratchPadResult @! 
 
-2 LINE.NUM
+3 LINE.NUM
   %ScratchPad 
   0  
   ^IsApplicationConnected   IO.SP.READ
   ^GetScratchPadResult @! 
 
-3 LINE.NUM
+4 LINE.NUM
   *StrategyRunTime   TIME>$
 
-4 LINE.NUM
+5 LINE.NUM
   %ScratchPad 
   2  
   ^IsGoToLearningPhase   IO.SP.READ
   ^GetScratchPadResult @! 
 
-5 LINE.NUM
+6 LINE.NUM
   %ScratchPad 
   3  
   ^IsGoToTestPhase   IO.SP.READ
   ^GetScratchPadResult @! 
-14 JUMP ;
+8 JUMP ;
 : 0_32
 
 1 LINE.NUM
@@ -102,7 +191,7 @@ T;
 
 1 LINE.NUM
   %ScratchPad 
-  4  
+  200  
   0  
   0  
   }ClearIntegerTable   IO.SP.T.WRITE
@@ -110,48 +199,20 @@ T;
 -5 JUMP ;
 : 0_59
 -4 JUMP ;
-: 0_66
+: 0_114
 
 1 LINE.NUM
-  %ScratchPad 
-  1  
-  3    IO.SP.I.WRITE
-  ^SetScratchPadResult @! 
-
-2 LINE.NUM
-  *StrategyRunTime   TIME>$
-
-3 LINE.NUM
-  %ScratchPad 
-  1  
-  ^IsGoToLearningPhase   IO.SP.READ
-  ^GetScratchPadResult @! 
-8 JUMP ;
-: 0_74
--2 JUMP ;
-: 0_79
--3 JUMP ;
-: 0_85
+  &Learning   CALL.T
+  ^CallChartStatus @! 
 0 JUMP ;
-: 0_86
+: 0_115
 
 1 LINE.NUM
   %ScratchPad 
-  1  
-  4    IO.SP.I.WRITE
+  2  
+  0    IO.SP.I.WRITE
   ^SetScratchPadResult @! 
-
-2 LINE.NUM
-  *StrategyRunTime   TIME>$
-
-3 LINE.NUM
-  %ScratchPad 
-  1  
-  ^IsGoToTestPhase   IO.SP.READ
-  ^GetScratchPadResult @! 
-5 JUMP ;
-: 0_89
--2 JUMP ;
+-3 JUMP ;
 : 0_26
 TRUE
 
@@ -159,7 +220,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -11 ELSE -10 THEN JUMP ;
+IF -7 ELSE -6 THEN JUMP ;
 : 0_52
 TRUE
 
@@ -167,7 +228,7 @@ TRUE
   ^IsGoToLearningPhase @@ 
   1    =
 LAND
-IF -7 ELSE 0 THEN JUMP ;
+IF -4 ELSE 0 THEN JUMP ;
 : 0_61
 TRUE
 
@@ -175,23 +236,7 @@ TRUE
   ^IsGoToTestPhase @@ 
   1    =
 LAND
-IF -6 ELSE -10 THEN JUMP ;
-: 0_71
-TRUE
-
-1 LINE.NUM
-  ^IsGoToLearningPhase @@ 
-  1    =
-LAND
-IF -8 ELSE -11 THEN JUMP ;
-: 0_87
-TRUE
-
-1 LINE.NUM
-  ^IsGoToTestPhase @@ 
-  1    =
-LAND
-IF -6 ELSE -12 THEN JUMP ;
+IF -6 ELSE -6 THEN JUMP ;
 : 0_96
 TRUE
 
@@ -199,7 +244,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -5 ELSE -17 THEN JUMP ;
+IF -3 ELSE -11 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -209,17 +254,11 @@ DUMMY
 0_32
 0_37
 0_59
-0_66
-0_74
-0_79
-0_85
-0_86
-0_89
+0_114
+0_115
 0_26
 0_52
 0_61
-0_71
-0_87
 0_96
 T;
 &Powerup ' T0 SETTASK
@@ -228,13 +267,16 @@ CREATE T.ARRAY
 &Powerup ,
  0 ,
 CREATE V.ARRAY
+^CallChartStatus ,
 ^ClearScratchPadResult ,
 ^GetScratchPadResult ,
 ^IsApplicationConnected ,
 ^IsGoToLearningPhase ,
 ^IsGoToTestPhase ,
 ^SetScratchPadResult ,
+^TemplateLoadStatus ,
 *StrategyRunTime ,
+*TestString ,
 *_HSV_SEMA ,
 *_HSV_TEMP ,
  0 ,
@@ -244,6 +286,7 @@ CREATE PTR.ARRAY
  0 ,
 CREATE TA.ARRAY 
 }ClearIntegerTable ,
+}SelectedCar ,
  0 ,
 CREATE PTRTABLE.ARRAY 
  0 ,
@@ -287,15 +330,20 @@ $0000000000000000.. %ScratchPad ENABLES!
 " %SNAP_PAC_R1  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
 %SNAP_PAC_R1 ENABLE
  " Initializing variables" *_HSV_INIT_IO $MOVE
+0 ^CallChartStatus @!
 0 ^ClearScratchPadResult @!
 0 ^GetScratchPadResult @!
 0 ^IsApplicationConnected @!
 0 ^IsGoToLearningPhase @!
 0 ^IsGoToTestPhase @!
 0 ^SetScratchPadResult @!
+0 ^TemplateLoadStatus @!
 0 0 -1 }ClearIntegerTable InitTable
+0 0 -1 }SelectedCar InitTable
 " "
  *StrategyRunTime $MOVE
+" "
+ *TestString $MOVE
  " " *_HSV_INIT_IO $MOVE
 ;
 T: T_INIT_IO
@@ -307,8 +355,8 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 06/26/15 " ;
-: TIMESTAMP ." 15:53:47 " ;
+: DATESTAMP ." 07/08/15 " ;
+: TIMESTAMP ." 15:32:48 " ;
 : CRCSTAMP  ." 00112233445566778899AABBCCDDEEFF " ;
 MAKECHECK
 CLEAR.BREAKS

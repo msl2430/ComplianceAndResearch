@@ -6,6 +6,7 @@ using System.Windows.Data;
 using Robot.Application.Factories;
 using Robot.Application.Services.WorkerServices;
 using Robot.Application.ViewModels;
+using Robot.Application.Views.OptoMonitor;
 using Robot.Core.Constants;
 
 namespace Robot.Application.Views
@@ -25,8 +26,10 @@ namespace Robot.Application.Views
             
             DataContext = ApplicationViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
-            // ToggleOptoConnection();
-            ChangePageView(new CarSelectionViewModel(ApplicationSessionFactory));
+           // ToggleOptoConnection();
+            ChangePageView(new CarSelectionViewModel(ApplicationSessionFactory) {IsOptoConnected = false});
+            var newWindow = new OptoMonitorView(ApplicationSessionFactory);
+            newWindow.Show();
         }
 
         public void ChangePageView(BaseViewModel viewModel)
@@ -45,6 +48,18 @@ namespace Robot.Application.Views
             BackButton.Visibility = Visibility.Visible;
             TitleLabelTextBlock.Margin = new Thickness(45, 10, 10, 10);
         }
+
+        private void RefreshOptoConnection(bool isConnected)
+        {
+            if (ApplicationViewModel.CurrentPageViewModel == null) return;
+
+            if (ApplicationViewModel.CurrentPageViewModel.GetType() == typeof (CarSelectionViewModel))
+            {
+                var viewModel = (CarSelectionViewModel) ApplicationViewModel.CurrentPageViewModel;
+                viewModel.IsOptoConnected = isConnected;
+            }
+            
+        }
         
         private void ToggleOptoConnection()
         {
@@ -54,14 +69,17 @@ namespace Robot.Application.Views
                     Task.Run(() =>
                     {
                         ApplicationSessionFactory.LogEvent("Connecting to Opto 22 @" + ConfigurationManager.AppSettings["OptoIpAddress"], true);
+                        RefreshOptoConnection(true);
                         OptoConnectionWorker.DoWork();
                     }).ConfigureAwait(false);
                     break;
                 case StatusConstants.ConnectionStatus.Connected:
                     ApplicationSessionFactory.LogEvent("Disconnecting from Opto 22", true);
                     OptoConnectionWorker.CancelWork();
+                    RefreshOptoConnection(false);
                     break;
             }
+            
         }
 
         private void OptoConnectionToggle_OnSourceUpdated(object sender, DataTransferEventArgs e)
@@ -75,7 +93,7 @@ namespace Robot.Application.Views
                 ApplicationViewModel.PageViewModelNavigationPath.RemoveAt(ApplicationViewModel.PageViewModelNavigationPath.Count - 1);
 
             if (lastType == typeof (CarSelectionViewModel)) 
-                ChangePageView(new CarSelectionViewModel(ApplicationSessionFactory));
+                ChangePageView(new CarSelectionViewModel(ApplicationSessionFactory) { IsOptoConnected = ApplicationViewModel.IsConnected });
         }
     }
 }

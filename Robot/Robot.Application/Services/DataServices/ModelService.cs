@@ -7,7 +7,7 @@ namespace Robot.Application.Services.DataServices
     {
         IList<CarModel> GetCarModelsByManufactureId(int manufacturerId);
         bool CheckUniqueModelNameByManufacturer(string name, int manufacturerId);
-        int AddModel(string name, int manufacturerId);
+        int AddModel(string name, int manufacturerId, int year);
     }
 
     public sealed class ModelService : BaseDataService, IModelService
@@ -22,9 +22,9 @@ namespace Robot.Application.Services.DataServices
             return ModelRepostiory.CheckUniqueModelNameByManufacturer(name, manufacturerId);
         }
 
-        public int AddModel(string name, int manufacturerId)
+        public int AddModel(string name, int manufacturerId, int year)
         {
-            return ModelRepostiory.AddModel(name, manufacturerId);
+            return ModelRepostiory.AddModel(name, manufacturerId, year);
         }
     }
 }

@@ -16,6 +16,11 @@
   0  
   }SelectedCar   IO.SP.READ
   ^GetScratchPadResult @! 
+
+4 LINE.NUM
+  " L" 
+ 
+  *TestString   $CAT
 4 JUMP ;
 : 1_2
 -2 JUMP ;
@@ -35,9 +40,14 @@
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
+
+4 LINE.NUM
+  " T" 
+ 
+  *TestString   $CAT
 3 JUMP ;
 : 1_9
--4 JUMP ;
+-2 JUMP ;
 : 1_13
 
 1 LINE.NUM

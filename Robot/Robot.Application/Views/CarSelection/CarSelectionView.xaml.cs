@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using MahApps.Metro.Controls;
 using Robot.Application.ViewModels;
 using Robot.Core.Constants;
@@ -68,9 +69,19 @@ namespace Robot.Application.Views.CarSelection
         private void LearningPhaseButton_OnClick(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(NewModelTextBox.Text))
-                return; //TODO Add error handling
+            {
+                NewModelTextBox.BorderThickness = new Thickness(1.01);
+                NewModelTextBox.BorderBrush = new SolidColorBrush(Colors.DarkRed);
+                return;
+            }
 
-            var modelId = ModelService.AddModel(NewModelTextBox.Text, ViewModel.Manufacturers[NewManufacturerComboBox.SelectedIndex].ManufacturerId);
+            var modelId = ModelService.AddModel(NewModelTextBox.Text, ViewModel.Manufacturers[NewManufacturerComboBox.SelectedIndex].ManufacturerId, ViewModel.AvailableYears[YearCombo.SelectedIndex]);
+
+            if (modelId <= 0)
+            {
+                MessageBox.Show("Error creating new car model!", "Error", MessageBoxButton.OK);
+                return;
+            }
 
             GoToLearningView(new LearningViewModel(ViewModel.ApplicationSessionFactory)
             {

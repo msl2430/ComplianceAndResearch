@@ -16,15 +16,14 @@ namespace Robot.Application.Views.Learning
 
         public LearningView()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
-
 
         private void LearningView_OnLoaded(object sender, RoutedEventArgs e)
         {
             if(DataContext != null)
                 ViewModel = (LearningViewModel)DataContext;
-            
+
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.GoToLearningPhase.ToInt(), 1);
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.ManufacturerId.ToInt(), ViewModel.ManufacturerId);
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.ModelId.ToInt(), ViewModel.ModelId);

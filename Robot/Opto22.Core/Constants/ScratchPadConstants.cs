@@ -24,10 +24,6 @@ namespace Opto22.Core.Constants
 
         public enum StringIndexes
         {
-            Test1,
-            Test2,
-            Test3,
-            Test4
         }
 
         public enum StrategyLocationValues

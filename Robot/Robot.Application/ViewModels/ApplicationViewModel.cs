@@ -52,6 +52,7 @@ namespace Robot.Application.ViewModels
                         IsConnected = true;
                         break;
                 }
+                OnPropertyChanged("OptoConnectionStatus");
             }
         }
 

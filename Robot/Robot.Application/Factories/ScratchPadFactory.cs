@@ -171,4 +171,32 @@ namespace Robot.Application.Factories
             }
         }
     }
+
+    public sealed class MockScratchPadFactory : IScratchPadFactory
+    {
+        public IScratchPadModel<bool> GetScratchPadBit(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IScratchPadModel<int> GetScratchPadInt(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IScratchPadModel<string> GetScratchPadString(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetScratchPadValue<T>(int index, T value)
+        {
+            
+        }
+
+        public void SetScratchPadValue<T>(IScratchPadModel<T> scratchPad)
+        {
+            
+        }
+    }
 }

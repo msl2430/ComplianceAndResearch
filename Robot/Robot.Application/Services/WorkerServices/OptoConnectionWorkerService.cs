@@ -32,10 +32,10 @@ namespace Robot.Application.Services.WorkerServices
         private IScratchPadModel<int> ConnectedScratchPad { get; set; }
         private IApplicationSessionFactory ApplicationSessionFactory { get; set; }
 
-        
+
         public OptoConnectionWorkerService(IOptoMmpFactory optoMmpFactory, Dispatcher currentDispatcher, Label statusLabel)
         {
-            
+
         }
 
         public OptoConnectionWorkerService(IApplicationSessionFactory applicationSessionFactory, Dispatcher currentDispatcher)

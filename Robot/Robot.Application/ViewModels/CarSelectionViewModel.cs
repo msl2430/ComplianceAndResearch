@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Robot.Application.Factories;
+using Robot.Core.Constants;
 using Robot.Models.Models;
 
 namespace Robot.Application.ViewModels
@@ -29,12 +30,19 @@ namespace Robot.Application.ViewModels
         }
 
         private IList<int> _availableYears { get; set; }
-
         public IList<int> AvailableYears
         {
             get { return _availableYears;}
             set { _availableYears = value; OnPropertyChanged("AvailableYears"); }
         }
+
+        private bool _isOptoConnected { get; set; }
+        public bool IsOptoConnected
+        {
+            get { return _isOptoConnected; }
+            set { _isOptoConnected = value; OnPropertyChanged("IsOptoConnected"); }
+        }
+        //public bool IsOptoConnected { get { return ApplicationSessionFactory.ApplicationViewModel.OptoConnectionStatus == StatusConstants.ConnectionStatus.Connected; } }
 
         public CarSelectionViewModel(IApplicationSessionFactory applicationSessionFactory) 
         {

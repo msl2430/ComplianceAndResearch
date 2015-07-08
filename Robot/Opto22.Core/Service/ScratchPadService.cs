@@ -24,6 +24,8 @@ namespace Opto22.Core.Service
                 WriteToScratchPad(Convert.ToBoolean(obj.Value), obj.Index);
             if (typeof(T) == typeof(int))
                 WriteToScratchPad(Convert.ToInt32(obj.Value), obj.Index);
+            if(typeof(T) == typeof(string))
+                throw new Exception("No support for saving strings to scratch pad.");
         }
 
         private void WriteToScratchPad(bool objToWrite, int objIndex)

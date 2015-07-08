@@ -17,7 +17,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1">
-            <GroupBox Header="Existing Cars" VerticalAlignment="Top" Height="325">
+            <GroupBox Header="Existing Cars" VerticalAlignment="Top" Height="325" IsEnabled="{Binding Path=IsOptoConnected}">
                 <StackPanel>
                     <Label Content="1. Select a Manufacturer"></Label>
                     <ComboBox
@@ -57,7 +57,7 @@
             </GroupBox>
         </Grid>
         <Grid Grid.Column="3">
-            <GroupBox Header="New Car" VerticalAlignment="Top" Height="325">
+            <GroupBox Header="New Car" VerticalAlignment="Top" Height="325" IsEnabled="{Binding Path=IsOptoConnected}">
                 <StackPanel>
                     <Label Content="1. Select a Manufacturer"></Label>
                     <ComboBox

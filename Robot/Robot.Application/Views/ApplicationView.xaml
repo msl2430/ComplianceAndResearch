@@ -72,12 +72,9 @@
     </Grid>
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
-            <controls:Flyout Name="AddManufacturerFlyout" Header="Add Manufacturer" Position="Right" Width="400" Theme="Accent">
+            <controls:Flyout Name="AddManufacturerFlyout" Header="Add Manufacturer" Position="Right" Width="400" Theme="Accent" IsEnabled="{Binding Path=IsConnected}">
                 <carSelection:NewManufacturerFlyout x:Name="NewManufacturerFlyout" />
             </controls:Flyout>
-            <!--<controls:Flyout Name="AddModelFlyout" Header="Add Model" Position="Right" Width="400" Theme="Accent">
-                <startPage:NewModelFlyout x:Name="NewModelFlyout"/>
-            </controls:Flyout>-->
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
 </views:BaseWindowView>

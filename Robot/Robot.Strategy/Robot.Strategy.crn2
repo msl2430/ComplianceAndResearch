@@ -1,14 +1,18 @@
 0 TASK  &_INIT_IO
 0 TASK &Learning
 0 TASK &Powerup
+0 IVAR ^CallChartStatus
 0 IVAR ^ClearScratchPadResult
 0 IVAR ^GetScratchPadResult
 0 IVAR ^IsApplicationConnected
 0 IVAR ^IsGoToLearningPhase
 0 IVAR ^IsGoToTestPhase
 0 IVAR ^SetScratchPadResult
+0 IVAR ^TemplateLoadStatus
 32 0 $VAR *StrategyRunTime 
-4 0 ITABLE }ClearIntegerTable
+256 0 $VAR *TestString 
+200 0 ITABLE }ClearIntegerTable
+3 0 ITABLE }SelectedCar
 
 nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
 nullM64BOARD $FFFFFFFE $FFFFFFFE 16 33024 1.000000 0.010000 0.000000 22001 $626D3A71 0 11 BOARD.MMP %SNAP_PAC_R1

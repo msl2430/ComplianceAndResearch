@@ -4,7 +4,7 @@
 # ----------------------------------------------------------------
 # NAME :         D:\Documents\ComplianceAndResearch\Robot\Robot.Strategy\Robot.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    11:52:21 7/2/2015
+# TIME/DATE :    15:32:48 7/8/2015
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -114,6 +114,7 @@ TAG1,aima1                                             ,2    ,00000000,00000001,
 TAG1,aima2                                             ,3    ,00000000,00000001,00000000,00000000,0    ,0   
 TAG1,aov2                                              ,7    ,00000000,00000002,00000000,00000000,0    ,0   
 TAG1,aovFPEU                                           ,6    ,00000000,00000002,00000000,00000000,0    ,0   
+TAG1,CallChartStatus                                   ,13   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,ClearScratchPadResult                             ,5    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,GetScratchPadResult                               ,7    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,IsApplicationConnected                            ,4    ,00000000,00000000,00000000,00000008,0    ,0   
@@ -121,6 +122,7 @@ TAG1,IsGoToLearningPhase                               ,6    ,00000000,00000000,
 TAG1,IsGoToTestPhase                                   ,8    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,SetScratchPadResult                               ,9    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,TemplateLoadStatus                                ,12   ,00000000,00000000,00000000,00000008,0    ,0   
-TAG1,StrategyRunTime                                   ,2    ,00000000,00000000,00000000,00000040,0    ,32  
-TAG1,ClearIntegerTable                                 ,0    ,00000000,00000000,00000000,00000100,100  ,0   
+TAG1,StrategyRunTime                                   ,0    ,00000000,00000000,00000000,00000040,0    ,32  
+TAG1,TestString                                        ,1    ,00000000,00000000,00000000,00000040,0    ,256 
+TAG1,ClearIntegerTable                                 ,0    ,00000000,00000000,00000000,00000100,200  ,0   
 TAG1,SelectedCar                                       ,1    ,00000000,00000000,00000000,00000100,3    ,0   
