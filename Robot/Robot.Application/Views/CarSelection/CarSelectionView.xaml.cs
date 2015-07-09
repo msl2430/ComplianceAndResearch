@@ -42,6 +42,8 @@ namespace Robot.Application.Views.CarSelection
             ViewModel.Manufacturers = manufactures;
             ViewModel.CarModels = models;
             ViewModel.AvailableYears = yearList;
+            if(!ExistingModelComboBox.Items.IsEmpty)
+                ExistingModelComboBox.SelectedIndex = 0;
         }
 
         #region Events
@@ -75,7 +77,7 @@ namespace Robot.Application.Views.CarSelection
                 return;
             }
 
-            var modelId = ModelService.AddModel(NewModelTextBox.Text, ViewModel.Manufacturers[NewManufacturerComboBox.SelectedIndex].ManufacturerId, ViewModel.AvailableYears[YearCombo.SelectedIndex]);
+            var modelId = ModelService.AddModel(NewModelTextBox.Text.Trim(), ViewModel.Manufacturers[NewManufacturerComboBox.SelectedIndex].ManufacturerId, ViewModel.AvailableYears[YearCombo.SelectedIndex]);
 
             if (modelId <= 0)
             {
@@ -96,7 +98,7 @@ namespace Robot.Application.Views.CarSelection
         private void TestingPhaseButton_OnClick(object sender, RoutedEventArgs e)
         {
             if(ExistingModelComboBox.SelectedIndex >= 0)
-                GoToLearningView(new LearningViewModel(ViewModel.ApplicationSessionFactory)
+                GoToTestingView(new TestingViewModel(ViewModel.ApplicationSessionFactory)
                 {
                     ManufacturerId = ViewModel.Manufacturers[ExistingManufacturerComboBox.SelectedIndex].ManufacturerId,
                     ManufacturerName = ViewModel.Manufacturers[ExistingManufacturerComboBox.SelectedIndex].Name,
@@ -110,6 +112,13 @@ namespace Robot.Application.Views.CarSelection
         {
             var parentWindow = (ApplicationView)Window.GetWindow(this);
             ViewModel.ApplicationSessionFactory.LogEvent(string.Format("Learning phase selected for {0} {1} {2}.", viewModel.ModelYear, viewModel.ManufacturerName, viewModel.ModelName), true);
+            parentWindow.ChangePageView(viewModel);
+        }
+
+        private void GoToTestingView(TestingViewModel viewModel)
+        {
+            var parentWindow = (ApplicationView)Window.GetWindow(this);
+            ViewModel.ApplicationSessionFactory.LogEvent(string.Format("Testing phase selected for {0} {1} {2}.", viewModel.ModelYear, viewModel.ManufacturerName, viewModel.ModelName), true);
             parentWindow.ChangePageView(viewModel);
         }
 

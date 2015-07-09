@@ -8,6 +8,7 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:carSelection="clr-namespace:Robot.Application.Views.CarSelection"
         xmlns:learning="clr-namespace:Robot.Application.Views.Learning"
+        xmlns:testing="clr-namespace:Robot.Application.Views.Testing"
         Title="Wobbly Widget" 
         MinHeight="600"
         Height="600" 
@@ -26,6 +27,9 @@
         </DataTemplate>
         <DataTemplate  DataType="{x:Type local:LearningViewModel}">
             <learning:LearningView/>
+        </DataTemplate>
+        <DataTemplate  DataType="{x:Type local:TestingViewModel}">
+            <testing:TestingView/>
         </DataTemplate>
     </Window.Resources>
     <Grid>

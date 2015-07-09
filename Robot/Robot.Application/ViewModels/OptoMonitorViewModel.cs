@@ -32,8 +32,11 @@ namespace Robot.Application.ViewModels
             get { return _templateLoadStatus; }
             set
             {
+                var original = _templateLoadStatusString;
                 _templateLoadStatus = value; 
                 SetTemplateStatusString();
+                if(original != _templateLoadStatusString)
+                    ApplicationSessionFactory.LogEvent(string.Format("Template load status changed from '{0}' to '{1}'", original, _templateLoadStatusString));
                 OnPropertyChanged("TemplateLoadStatus");
             }
         }

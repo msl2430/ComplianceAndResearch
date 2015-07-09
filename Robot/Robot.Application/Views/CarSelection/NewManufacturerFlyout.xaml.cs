@@ -37,9 +37,9 @@ namespace Robot.Application.Views.CarSelection
         {
             if (NewManufactureNameText.Text.Length < 3 || !NewManufacturerFlyoutViewModel.IsUniqueName) return;
             ManufacturerService.AddManufacturer(
-                NewManufactureNameText.Text,
+                NewManufactureNameText.Text.Trim(),
                 NewManufacturerFlyoutViewModel.Countries[CountrySelectionComboBox.SelectedIndex].CountryId,
-                NewModelText.Text);
+                NewModelText.Text.Trim());
             NewManufacturerFlyoutViewModel.ApplicationSessionFactory.LogEvent("Added new manufacturer '" + NewManufactureNameText.Text + "' successfully.", true);
             ((Flyout)Parent).Tag = ControlConstants.ChangeTracking.Dirty;
             ((Flyout)Parent).IsOpen = false;

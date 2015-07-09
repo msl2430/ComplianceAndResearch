@@ -39,6 +39,7 @@ namespace Robot.Application.Views
         public void ChangePageView(BaseViewModel viewModel)
         {
             ApplicationViewModel.ChangePageViewModel(viewModel);
+            
             if (viewModel.GetType() == typeof (CarSelectionViewModel))
             {
                 ApplicationViewModel.TitleLabel = "Car Selection";
@@ -46,8 +47,11 @@ namespace Robot.Application.Views
                 BackButton.Visibility = Visibility.Hidden;
                 return;
             }
+
             if (viewModel.GetType() == typeof (LearningViewModel))
                 ApplicationViewModel.TitleLabel = "Learning Mode";
+            if (viewModel.GetType() == typeof (TestingViewModel))
+                ApplicationViewModel.TitleLabel = "Testing Mode";
 
             BackButton.Visibility = Visibility.Visible;
             TitleLabelTextBlock.Margin = new Thickness(45, 10, 10, 10);
@@ -57,12 +61,10 @@ namespace Robot.Application.Views
         {
             if (ApplicationViewModel.CurrentPageViewModel == null) return;
 
-            if (ApplicationViewModel.CurrentPageViewModel.GetType() == typeof (CarSelectionViewModel))
-            {
-                var viewModel = (CarSelectionViewModel) ApplicationViewModel.CurrentPageViewModel;
-                viewModel.IsOptoConnected = isConnected;
-            }
-            
+            if (ApplicationViewModel.CurrentPageViewModel.GetType() != typeof (CarSelectionViewModel)) return;
+
+            var viewModel = (CarSelectionViewModel) ApplicationViewModel.CurrentPageViewModel;
+            viewModel.IsOptoConnected = isConnected;
         }
         
         private void ToggleOptoConnection()
