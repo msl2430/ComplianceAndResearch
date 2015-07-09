@@ -1,5 +1,7 @@
-﻿using System.Configuration;
+﻿using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -17,6 +19,7 @@ namespace Robot.Application.Views
     public partial class ApplicationView : BaseWindowView
     {
         private ApplicationViewModel ApplicationViewModel { get; set; }
+        private OptoMonitorView OptoMonitorView { get; set; }
 
         public ApplicationView()
         {
@@ -28,8 +31,9 @@ namespace Robot.Application.Views
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
            // ToggleOptoConnection();
             ChangePageView(new CarSelectionViewModel(ApplicationSessionFactory) {IsOptoConnected = false});
-            var newWindow = new OptoMonitorView(ApplicationSessionFactory);
-            newWindow.Show();
+            
+            OptoMonitorView = new OptoMonitorView(ApplicationSessionFactory);
+            OptoMonitorView.Show();
         }
 
         public void ChangePageView(BaseViewModel viewModel)
@@ -94,6 +98,20 @@ namespace Robot.Application.Views
 
             if (lastType == typeof (CarSelectionViewModel)) 
                 ChangePageView(new CarSelectionViewModel(ApplicationSessionFactory) { IsOptoConnected = ApplicationViewModel.IsConnected });
+        }
+
+        private void ApplicationView_OnClosing(object sender, CancelEventArgs e)
+        {
+            if(ApplicationSessionFactory.OptoConnectionStatus == StatusConstants.ConnectionStatus.Connected)
+                OptoConnectionWorker.CancelWork();
+
+            if (System.Windows.Application.Current.Windows.OfType<OptoMonitorView>().Any())
+                OptoMonitorView.Close();
+
+            while (ApplicationSessionFactory.OptoConnectionStatus == StatusConstants.ConnectionStatus.Connected)
+            {
+                Thread.Sleep(250);
+            }
         }
     }
 }

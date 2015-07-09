@@ -16,12 +16,7 @@
   0  
   }SelectedCar   IO.SP.READ
   ^GetScratchPadResult @! 
-
-4 LINE.NUM
-  " L" 
- 
-  *TestString   $CAT
-4 JUMP ;
+5 JUMP ;
 : 1_2
 -2 JUMP ;
 : 1_6
@@ -40,19 +35,22 @@
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-
-4 LINE.NUM
-  " T" 
- 
-  *TestString   $CAT
-3 JUMP ;
+4 JUMP ;
 : 1_9
 -2 JUMP ;
 : 1_13
 
 1 LINE.NUM
   &Learning   STOP.T
-2 JUMP ;
+3 JUMP ;
+: 1_17
+
+1 LINE.NUM
+  %ScratchPad 
+  101  
+  1    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+-4 JUMP ;
 : 1_1
 TRUE
 
@@ -67,15 +65,15 @@ LAND
   1  
   }SelectedCar TABLE@   <
 LAND
-IF -4 ELSE -5 THEN JUMP ;
+IF -2 ELSE -6 THEN JUMP ;
 : 1_8
 TRUE
 
 1 LINE.NUM
   ^TemplateLoadStatus @@ 
-  2    =
+  3    =
 LAND
-IF -3 ELSE -4 THEN JUMP ;
+IF -4 ELSE -5 THEN JUMP ;
 T: T1
 DUMMY
 1_0
@@ -83,6 +81,7 @@ DUMMY
 1_6
 1_9
 1_13
+1_17
 1_1
 1_8
 T;

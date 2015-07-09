@@ -33,7 +33,13 @@ namespace Robot.Application.Views.Learning
             {
                 Thread.Sleep(5000);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.LearingPhaseTemplateLoadStatus.ToInt(),
-                    ScratchPadConstants.LoadStatus.LoadFinished.ToInt());
+                    ScratchPadConstants.LoadStatus.Loading.ToInt());
+                Task.Run(() =>
+                {
+                    Thread.Sleep(7500);
+                    ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.LearingPhaseTemplateLoadStatus.ToInt(),
+                        ScratchPadConstants.LoadStatus.LoadFinished.ToInt());
+                });
             });
         }
     }

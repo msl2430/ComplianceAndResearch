@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Opto22.Core.Constants;
+using Robot.Application.Factories;
 using Robot.Application.ViewModels;
 using Robot.Core.Extensions;
 
@@ -43,19 +44,7 @@ namespace Robot.Application.Services.WorkerServices
                         WaitStopWatch.Reset();
                         if (appSession.OptoMmpFactory != null && appSession.OptoMmpFactory.Current.IsCommunicationOpen)
                         {
-                            OptoMonitorViewModel.IsApplicationConnected =
-                                appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ConnectedToOpto.ToInt()).Value == 1;
-                            OptoMonitorViewModel.IsGoToLearningPhase =
-                                appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.GoToLearningPhase.ToInt()).Value == 1;
-                            OptoMonitorViewModel.IsGoToTestPhase = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.GoToTestPhase.ToInt()).Value ==
-                                                                   1;
-                            OptoMonitorViewModel.TemplateLoadStatus =
-                                appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.LearingPhaseTemplateLoadStatus.ToInt()).Value;
-                            OptoMonitorViewModel.SelectedManufacturerId =
-                                appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ManufacturerId.ToInt()).Value;
-                            OptoMonitorViewModel.SelectedModelId = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ModelId.ToInt()).Value;
-                            OptoMonitorViewModel.SelectedModelYear = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ModelYear.ToInt()).Value;
-                            OptoMonitorViewModel.StrategyLocation = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StrategyLocationValue.ToInt()).Value;
+                            GetOptoValues();
                         }
                     }
                     Thread.Sleep(500);
@@ -70,6 +59,24 @@ namespace Robot.Application.Services.WorkerServices
         protected override void WorkCompleted()
         {
             
+        }
+
+        private void GetOptoValues()
+        {
+            var appSession = OptoMonitorViewModel.ApplicationSessionFactory;
+            OptoMonitorViewModel.IsApplicationConnected =
+                                appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ConnectedToOpto.ToInt()).Value == 1;
+            OptoMonitorViewModel.IsGoToLearningPhase =
+                appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.GoToLearningPhase.ToInt()).Value == 1;
+            OptoMonitorViewModel.IsGoToTestPhase = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.GoToTestPhase.ToInt()).Value ==
+                                                   1;
+            OptoMonitorViewModel.TemplateLoadStatus =
+                appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.LearingPhaseTemplateLoadStatus.ToInt()).Value;
+            OptoMonitorViewModel.SelectedManufacturerId =
+                appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ManufacturerId.ToInt()).Value;
+            OptoMonitorViewModel.SelectedModelId = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ModelId.ToInt()).Value;
+            OptoMonitorViewModel.SelectedModelYear = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ModelYear.ToInt()).Value;
+            OptoMonitorViewModel.StrategyLocation = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StrategyLocationValue.ToInt()).Value;
         }
     }
 }

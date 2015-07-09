@@ -30,7 +30,19 @@ namespace Robot.Application.ViewModels
         public int TemplateLoadStatus
         {
             get { return _templateLoadStatus; }
-            set { _templateLoadStatus = value; OnPropertyChanged("TemplateLoadStatus"); }
+            set
+            {
+                _templateLoadStatus = value; 
+                SetTemplateStatusString();
+                OnPropertyChanged("TemplateLoadStatus");
+            }
+        }
+
+        private string _templateLoadStatusString { get; set; }
+        public string TemplateLoadStatusString
+        {
+            get { return _templateLoadStatusString; }
+            set { _templateLoadStatusString = value; OnPropertyChanged("TemplateLoadStatusString"); }
         }
 
         private int _selectedManufacturerId { get; set; }
@@ -60,8 +72,11 @@ namespace Robot.Application.ViewModels
             get { return _strategyLocation; }
             set
             {
+                var original = _strategyLocationString;
                 _strategyLocation = value; 
-                SetStrategyLocationString(); 
+                SetStrategyLocationString();
+                if (original != _strategyLocationString)
+                    ApplicationSessionFactory.LogEvent(string.Format("Strategy location changed from '{0}' to '{1}'.", original, _strategyLocationString), true);
                 OnPropertyChanged("StrategyLocation");
             }
         }
@@ -96,6 +111,31 @@ namespace Robot.Application.ViewModels
                     StrategyLocationString = "Off";
                     break;
             }
+        }
+
+        private void SetTemplateStatusString()
+        {
+            switch (_templateLoadStatus)
+            {
+                case (int)ScratchPadConstants.LoadStatus.Waiting:
+                    TemplateLoadStatusString = "Waiting for template";
+                    break;
+                case (int)ScratchPadConstants.LoadStatus.Loading:
+                    TemplateLoadStatusString = "Loading template";
+                    break;
+                case (int)ScratchPadConstants.LoadStatus.LoadFinished:
+                    TemplateLoadStatusString = "Finished loading template";
+                    break;
+                default:
+                    TemplateLoadStatusString = "Off";
+                    break;
+            }
+        }
+
+        public OptoMonitorViewModel()
+        {
+            SetStrategyLocationString();
+            SetTemplateStatusString();
         }
     }
 }

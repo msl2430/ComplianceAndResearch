@@ -3,6 +3,7 @@ CREATE T.ARRAY
 &Powerup ,
  0 ,
 CREATE V.ARRAY
+^CallChartStatus ,
 ^ClearScratchPadResult ,
 ^GetScratchPadResult ,
 ^IsApplicationConnected ,
@@ -11,6 +12,7 @@ CREATE V.ARRAY
 ^SetScratchPadResult ,
 ^TemplateLoadStatus ,
 *StrategyRunTime ,
+*TestString ,
 *_HSV_SEMA ,
 *_HSV_TEMP ,
  0 ,
@@ -64,6 +66,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 " %SNAP_PAC_R1  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
 %SNAP_PAC_R1 ENABLE
  " Initializing variables" *_HSV_INIT_IO $MOVE
+0 ^CallChartStatus @!
 0 ^ClearScratchPadResult @!
 0 ^GetScratchPadResult @!
 0 ^IsApplicationConnected @!
@@ -75,6 +78,8 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 0 -1 }SelectedCar InitTable
 " "
  *StrategyRunTime $MOVE
+" "
+ *TestString $MOVE
  " " *_HSV_INIT_IO $MOVE
 ;
 T: T_INIT_IO

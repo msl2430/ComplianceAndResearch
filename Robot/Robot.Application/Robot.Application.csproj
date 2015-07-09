@@ -86,6 +86,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions\BoolToVisibilityConverter.cs" />
     <Compile Include="Extensions\ScratchPadExtensions.cs" />
     <Compile Include="Factories\ApplicationSessionFactory.cs" />
     <Compile Include="Factories\ScratchPadFactory.cs" />

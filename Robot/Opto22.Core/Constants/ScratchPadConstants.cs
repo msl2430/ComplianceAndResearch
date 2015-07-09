@@ -38,6 +38,7 @@ namespace Opto22.Core.Constants
 
         public enum LoadStatus
         {
+            Off,
             Waiting,
             Loading,
             LoadFinished
