@@ -194,6 +194,7 @@
     </EmbeddedResource>
     <Resource Include="Resources\Entypo.ttf" />
     <Resource Include="Content\Fonts\AvenirLTStd-Book.otf" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

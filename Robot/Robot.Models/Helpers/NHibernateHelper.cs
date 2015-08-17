@@ -9,7 +9,7 @@ using NHibernate.Context;
 using NHibernate.Dialect;
 using Robot.Models.DataObjects;
 
-namespace Admissions.Models.Helpers
+namespace Robot.Models.Helpers
 {
     internal static class NHibernateHelper
     {
