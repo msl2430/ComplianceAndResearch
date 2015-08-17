@@ -1,5 +1,5 @@
 : 0_0
-4 JUMP ;
+8 JUMP ;
 : 0_24
 
 1 LINE.NUM
@@ -16,7 +16,7 @@
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-7 JUMP ;
+9 JUMP ;
 : 0_28
 -2 JUMP ;
 : 0_30
@@ -50,7 +50,7 @@
   3  
   ^IsGoToTestPhase   IO.SP.READ
   ^GetScratchPadResult @! 
-8 JUMP ;
+10 JUMP ;
 : 0_32
 
 1 LINE.NUM
@@ -82,6 +82,21 @@
   0    IO.SP.I.WRITE
   ^SetScratchPadResult @! 
 -3 JUMP ;
+: 0_119
+
+1 LINE.NUM
+  |Test 
+  7 I>F   $0002.. 3 ROLL !PID
+
+2 LINE.NUM
+  ~ai_SnapPacR1_0500 @@ 
+  *TestInputValueStr   F>$
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+0 JUMP ;
+: 0_121
+-2 JUMP ;
 : 0_26
 TRUE
 
@@ -89,7 +104,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -7 ELSE -6 THEN JUMP ;
+IF -9 ELSE -8 THEN JUMP ;
 : 0_52
 TRUE
 
@@ -97,7 +112,7 @@ TRUE
   ^IsGoToLearningPhase @@ 
   1    =
 LAND
-IF -4 ELSE 0 THEN JUMP ;
+IF -6 ELSE 0 THEN JUMP ;
 : 0_61
 TRUE
 
@@ -105,7 +120,7 @@ TRUE
   ^IsGoToTestPhase @@ 
   1    =
 LAND
-IF -6 ELSE -6 THEN JUMP ;
+IF -8 ELSE -8 THEN JUMP ;
 : 0_96
 TRUE
 
@@ -113,7 +128,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -3 ELSE -11 THEN JUMP ;
+IF -3 ELSE -13 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -125,6 +140,8 @@ DUMMY
 0_59
 0_114
 0_115
+0_119
+0_121
 0_26
 0_52
 0_61

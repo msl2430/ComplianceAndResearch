@@ -11,7 +11,9 @@ CREATE V.ARRAY
 ^IsGoToTestPhase ,
 ^SetScratchPadResult ,
 ^TemplateLoadStatus ,
+^TestInputValue ,
 *StrategyRunTime ,
+*TestInputValueStr ,
 *TestString ,
 *_HSV_SEMA ,
 *_HSV_TEMP ,
@@ -28,29 +30,54 @@ CREATE PTRTABLE.ARRAY
  0 ,
 CREATE B.ARRAY
 %ScratchPad ,
-%SNAP_PAC_R1 ,
+%SnapPacR1 ,
  0 ,
 CREATE P.ARRAY
-~di11 ,
-~di12 ,
-~di13 ,
-~di14 ,
-~di15 ,
-~di24vdcSense ,
-~di9 ,
-~diBlowerSense ,
-~DiginatlInput10 ,
-~diLiftDownSense ,
-~diLiftUpSense ,
-~diPEUsense ,
-~ai_SnapPac_0500 ,
-~ai_SnapPac_0501 ,
-~aima1 ,
-~aima2 ,
-~aov2 ,
-~aovFPEU ,
+~di_SnapPacR1_0000 ,
+~di_SnapPacR1_0001 ,
+~di_SnapPacR1_0002 ,
+~di_SnapPacR1_0003 ,
+~di_SnapPacR1_0004 ,
+~di_SnapPacR1_0005 ,
+~di_SnapPacR1_0006 ,
+~di_SnapPacR1_0007 ,
+~di_SnapPacR1_0008 ,
+~di_SnapPacR1_0009 ,
+~di_SnapPacR1_0010 ,
+~di_SnapPacR1_0011 ,
+~di_SnapPacR1_0012 ,
+~di_SnapPacR1_0013 ,
+~di_SnapPacR1_0014 ,
+~di_SnapPacR1_0015 ,
+~di_SnapPacR1_0600 ,
+~di_SnapPacR1_0601 ,
+~di_SnapPacR1_0602 ,
+~di_SnapPacR1_0603 ,
+~do_SnapPacR1_0100 ,
+~do_SnapPacR1_0101 ,
+~do_SnapPacR1_0102 ,
+~do_SnapPacR1_0103 ,
+~do_SnapPacR1_0200 ,
+~do_SnapPacR1_0201 ,
+~do_SnapPacR1_0202 ,
+~do_SnapPacR1_0203 ,
+~do_SnapPacR1_0300 ,
+~do_SnapPacR1_0301 ,
+~do_SnapPacR1_0302 ,
+~do_SnapPacR1_0303 ,
+~ai_SnapPacR1_0400 ,
+~ai_SnapPacR1_0401 ,
+~ai_SnapPacR1_0500 ,
+~ai_SnapPacR1_0501 ,
+~ai_SnapPacR1_0800 ,
+~ai_SnapPacR1_0801 ,
+~ai_SnapPacR1_0802 ,
+~ai_SnapPacR1_0803 ,
+~ao_SnapPacR1_0700 ,
+~ao_SnapPacR1_0701 ,
  0 ,
 CREATE PID.ARRAY
+ |Test ,
  0 ,
 CREATE E/R.ARRAY
  0 ,
@@ -61,10 +88,12 @@ CREATE E/RGROUP.ARRAY
 : W_INIT_IO
 CONFIG_PORTS
 $0000000000000000.. %ScratchPad ENABLES!
+|Test ENABLE
 " %ScratchPad  (1/2)" *_HSV_INIT_IO $MOVE 1 ^_HNV_INIT_IO @!
 %ScratchPad ENABLE
-" %SNAP_PAC_R1  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
-%SNAP_PAC_R1 ENABLE
+" %SnapPacR1  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
+%SnapPacR1 ENABLE
+12000.0000 ~ai_SnapPacR1_0800 IN.F!POINT
  " Initializing variables" *_HSV_INIT_IO $MOVE
 0 ^CallChartStatus @!
 0 ^ClearScratchPadResult @!
@@ -74,10 +103,13 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^IsGoToTestPhase @!
 0 ^SetScratchPadResult @!
 0 ^TemplateLoadStatus @!
+0 ^TestInputValue @!
 0 0 -1 }ClearIntegerTable InitTable
 0 0 -1 }SelectedCar InitTable
 " "
  *StrategyRunTime $MOVE
+" "
+ *TestInputValueStr $MOVE
 " "
  *TestString $MOVE
  " " *_HSV_INIT_IO $MOVE

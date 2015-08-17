@@ -25,31 +25,61 @@ _END NEW $$$.RUN
 0 IVAR ^IsGoToTestPhase
 0 IVAR ^SetScratchPadResult
 0 IVAR ^TemplateLoadStatus
+0 IVAR ^TestInputValue
 32 0 $VAR *StrategyRunTime 
+32 0 $VAR *TestInputValueStr 
 256 0 $VAR *TestString 
 200 0 ITABLE }ClearIntegerTable
 3 0 ITABLE }SelectedCar
 
 nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
-nullM64BOARD $FFFFFFFE $FFFFFFFE 16 33024 1.000000 0.010000 0.000000 22001 $626D3A71 0 11 BOARD.MMP %SNAP_PAC_R1
-32  0 SPOINT 0.0     INPUT  4  0 %SNAP_PAC_R1 0 POINT.TNG ~diLiftUpSense
-32  0 SPOINT 0.0     INPUT  5  0 %SNAP_PAC_R1 0 POINT.TNG ~diLiftDownSense
-32  0 SPOINT 0.0     INPUT  6  0 %SNAP_PAC_R1 0 POINT.TNG ~di24vdcSense
-32  0 SPOINT 0.0     INPUT  7  0 %SNAP_PAC_R1 0 POINT.TNG ~diPEUsense
-32  0 SPOINT 0.0     INPUT  8  0 %SNAP_PAC_R1 0 POINT.TNG ~diBlowerSense
-32  0 SPOINT 0.0     INPUT  9  0 %SNAP_PAC_R1 0 POINT.TNG ~di9
-32  0 SPOINT 0.0     INPUT 11  0 %SNAP_PAC_R1 0 POINT.TNG ~di11
-32  0 SPOINT 0.0     INPUT 12  0 %SNAP_PAC_R1 0 POINT.TNG ~di12
-32  0 SPOINT 0.0     INPUT 13  0 %SNAP_PAC_R1 0 POINT.TNG ~di13
-32  0 SPOINT 0.0     INPUT 14  0 %SNAP_PAC_R1 0 POINT.TNG ~di14
-32  0 SPOINT 0.0     INPUT 15  0 %SNAP_PAC_R1 0 POINT.TNG ~di15
-32  0 SPOINT 0.0   COUNTER 21  0 %SNAP_PAC_R1 0 POINT.TNG ~DiginatlInput10
- 2  0 APOINT  -20.0000 64  0  4 %SNAP_PAC_R1 0 POINT.TNG ~aima1
- 2  0 APOINT  -20.0000 64  1  4 %SNAP_PAC_R1 0 POINT.TNG ~aima2
- 2  0 APOINT  -10.0000 12  0  5 %SNAP_PAC_R1 0 POINT.TNG ~ai_SnapPac_0500
- 2  0 APOINT  -10.0000 12  1  5 %SNAP_PAC_R1 0 POINT.TNG ~ai_SnapPac_0501
- 2  2 APOINT    0.0000 167  0  7 %SNAP_PAC_R1 0 POINT.TNG ~aovFPEU
- 2  0 APOINT    0.0000 167  1  7 %SNAP_PAC_R1 0 POINT.TNG ~aov2
+nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A801C8 0 11 BOARD.MMP %SnapPacR1
+32  1 SPOINT 0.0     INPUT  0  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0000
+32  1 SPOINT 0.0     INPUT  1  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0001
+32  1 SPOINT 0.0     INPUT  2  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0002
+32  1 SPOINT 0.0     INPUT  3  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0003
+32  1 SPOINT 0.0     INPUT  4  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0004
+32  1 SPOINT 0.0     INPUT  5  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0005
+32  1 SPOINT 0.0     INPUT  6  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0006
+32  1 SPOINT 0.0     INPUT  7  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0007
+32  1 SPOINT 0.0     INPUT  8  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0008
+32  1 SPOINT 0.0     INPUT  9  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0009
+32  1 SPOINT 0.0     INPUT 10  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0010
+32  1 SPOINT 0.0     INPUT 11  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0011
+32  1 SPOINT 0.0     INPUT 12  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0012
+32  1 SPOINT 0.0     INPUT 13  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0013
+32  1 SPOINT 0.0     INPUT 14  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0014
+32  1 SPOINT 0.0     INPUT 15  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0015
+ 4  1 SPOINT 0.0    OUTPUT  0  1 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0100
+ 4  1 SPOINT 0.0    OUTPUT  1  1 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0101
+ 4  1 SPOINT 0.0    OUTPUT  2  1 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0102
+ 4  1 SPOINT 0.0    OUTPUT  3  1 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0103
+ 4  1 SPOINT 0.0    OUTPUT  0  2 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0200
+ 4  1 SPOINT 0.0    OUTPUT  1  2 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0201
+ 4  1 SPOINT 0.0    OUTPUT  2  2 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0202
+ 4  1 SPOINT 0.0    OUTPUT  3  2 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0203
+ 4  1 SPOINT 0.0    OUTPUT  0  3 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0300
+ 4  1 SPOINT 0.0    OUTPUT  1  3 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0301
+ 4  1 SPOINT 0.0    OUTPUT  2  3 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0302
+ 4  1 SPOINT 0.0    OUTPUT  3  3 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0303
+ 2  1 APOINT  -20.0000 64  0  4 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0400
+ 2  1 APOINT  -20.0000 64  1  4 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0401
+ 2  1 APOINT  -10.0000 12  0  5 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0500
+ 2  1 APOINT  -10.0000 12  1  5 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0501
+ 4  1 SPOINT 0.0     INPUT  0  6 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0600
+ 4  1 SPOINT 0.0     INPUT  1  6 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0601
+ 4  1 SPOINT 0.0     INPUT  2  6 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0602
+ 4  1 SPOINT 0.0     INPUT  3  6 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0603
+ 2  1 APOINT    0.0000 167  0  7 %SnapPacR1 0 POINT.TNG ~ao_SnapPacR1_0700
+ 2  1 APOINT    0.0000 167  1  7 %SnapPacR1 0 POINT.TNG ~ao_SnapPacR1_0701
+ 4  1 APOINT -25000.0000 34  0  8 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0800
+ 4  1 APOINT -25000.0000 34  1  8 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0801
+ 4  1 APOINT -25000.0000 34  2  8 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0802
+ 4  1 APOINT -25000.0000 34  3  8 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0803
+1    0.0000    0.0000    0.0000    0.0000  -10.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000   -0.5000   -0.1000    0.0000
+   5.0000 ~ai_SnapPacR1_0500 ~ao_SnapPacR1_0700
+$90000000 0 %SnapPacR1 0 PID |Test
 : 1_0
 
 1 LINE.NUM
@@ -139,7 +169,7 @@ DUMMY
 T;
 &Learning ' T1 SETTASK
 : 0_0
-4 JUMP ;
+8 JUMP ;
 : 0_24
 
 1 LINE.NUM
@@ -156,7 +186,7 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-7 JUMP ;
+9 JUMP ;
 : 0_28
 -2 JUMP ;
 : 0_30
@@ -190,7 +220,7 @@ T;
   3  
   ^IsGoToTestPhase   IO.SP.READ
   ^GetScratchPadResult @! 
-8 JUMP ;
+10 JUMP ;
 : 0_32
 
 1 LINE.NUM
@@ -222,6 +252,21 @@ T;
   0    IO.SP.I.WRITE
   ^SetScratchPadResult @! 
 -3 JUMP ;
+: 0_119
+
+1 LINE.NUM
+  |Test 
+  7 I>F   $0002.. 3 ROLL !PID
+
+2 LINE.NUM
+  ~ai_SnapPacR1_0500 @@ 
+  *TestInputValueStr   F>$
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+0 JUMP ;
+: 0_121
+-2 JUMP ;
 : 0_26
 TRUE
 
@@ -229,7 +274,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -7 ELSE -6 THEN JUMP ;
+IF -9 ELSE -8 THEN JUMP ;
 : 0_52
 TRUE
 
@@ -237,7 +282,7 @@ TRUE
   ^IsGoToLearningPhase @@ 
   1    =
 LAND
-IF -4 ELSE 0 THEN JUMP ;
+IF -6 ELSE 0 THEN JUMP ;
 : 0_61
 TRUE
 
@@ -245,7 +290,7 @@ TRUE
   ^IsGoToTestPhase @@ 
   1    =
 LAND
-IF -6 ELSE -6 THEN JUMP ;
+IF -8 ELSE -8 THEN JUMP ;
 : 0_96
 TRUE
 
@@ -253,7 +298,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -3 ELSE -11 THEN JUMP ;
+IF -3 ELSE -13 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -265,6 +310,8 @@ DUMMY
 0_59
 0_114
 0_115
+0_119
+0_121
 0_26
 0_52
 0_61
@@ -284,7 +331,9 @@ CREATE V.ARRAY
 ^IsGoToTestPhase ,
 ^SetScratchPadResult ,
 ^TemplateLoadStatus ,
+^TestInputValue ,
 *StrategyRunTime ,
+*TestInputValueStr ,
 *TestString ,
 *_HSV_SEMA ,
 *_HSV_TEMP ,
@@ -301,29 +350,54 @@ CREATE PTRTABLE.ARRAY
  0 ,
 CREATE B.ARRAY
 %ScratchPad ,
-%SNAP_PAC_R1 ,
+%SnapPacR1 ,
  0 ,
 CREATE P.ARRAY
-~di11 ,
-~di12 ,
-~di13 ,
-~di14 ,
-~di15 ,
-~di24vdcSense ,
-~di9 ,
-~diBlowerSense ,
-~DiginatlInput10 ,
-~diLiftDownSense ,
-~diLiftUpSense ,
-~diPEUsense ,
-~ai_SnapPac_0500 ,
-~ai_SnapPac_0501 ,
-~aima1 ,
-~aima2 ,
-~aov2 ,
-~aovFPEU ,
+~di_SnapPacR1_0000 ,
+~di_SnapPacR1_0001 ,
+~di_SnapPacR1_0002 ,
+~di_SnapPacR1_0003 ,
+~di_SnapPacR1_0004 ,
+~di_SnapPacR1_0005 ,
+~di_SnapPacR1_0006 ,
+~di_SnapPacR1_0007 ,
+~di_SnapPacR1_0008 ,
+~di_SnapPacR1_0009 ,
+~di_SnapPacR1_0010 ,
+~di_SnapPacR1_0011 ,
+~di_SnapPacR1_0012 ,
+~di_SnapPacR1_0013 ,
+~di_SnapPacR1_0014 ,
+~di_SnapPacR1_0015 ,
+~di_SnapPacR1_0600 ,
+~di_SnapPacR1_0601 ,
+~di_SnapPacR1_0602 ,
+~di_SnapPacR1_0603 ,
+~do_SnapPacR1_0100 ,
+~do_SnapPacR1_0101 ,
+~do_SnapPacR1_0102 ,
+~do_SnapPacR1_0103 ,
+~do_SnapPacR1_0200 ,
+~do_SnapPacR1_0201 ,
+~do_SnapPacR1_0202 ,
+~do_SnapPacR1_0203 ,
+~do_SnapPacR1_0300 ,
+~do_SnapPacR1_0301 ,
+~do_SnapPacR1_0302 ,
+~do_SnapPacR1_0303 ,
+~ai_SnapPacR1_0400 ,
+~ai_SnapPacR1_0401 ,
+~ai_SnapPacR1_0500 ,
+~ai_SnapPacR1_0501 ,
+~ai_SnapPacR1_0800 ,
+~ai_SnapPacR1_0801 ,
+~ai_SnapPacR1_0802 ,
+~ai_SnapPacR1_0803 ,
+~ao_SnapPacR1_0700 ,
+~ao_SnapPacR1_0701 ,
  0 ,
 CREATE PID.ARRAY
+ |Test ,
  0 ,
 CREATE E/R.ARRAY
  0 ,
@@ -334,10 +408,12 @@ CREATE E/RGROUP.ARRAY
 : W_INIT_IO
 CONFIG_PORTS
 $0000000000000000.. %ScratchPad ENABLES!
+|Test ENABLE
 " %ScratchPad  (1/2)" *_HSV_INIT_IO $MOVE 1 ^_HNV_INIT_IO @!
 %ScratchPad ENABLE
-" %SNAP_PAC_R1  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
-%SNAP_PAC_R1 ENABLE
+" %SnapPacR1  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
+%SnapPacR1 ENABLE
+12000.0000 ~ai_SnapPacR1_0800 IN.F!POINT
  " Initializing variables" *_HSV_INIT_IO $MOVE
 0 ^CallChartStatus @!
 0 ^ClearScratchPadResult @!
@@ -347,10 +423,13 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^IsGoToTestPhase @!
 0 ^SetScratchPadResult @!
 0 ^TemplateLoadStatus @!
+0 ^TestInputValue @!
 0 0 -1 }ClearIntegerTable InitTable
 0 0 -1 }SelectedCar InitTable
 " "
  *StrategyRunTime $MOVE
+" "
+ *TestInputValueStr $MOVE
 " "
  *TestString $MOVE
  " " *_HSV_INIT_IO $MOVE
@@ -364,9 +443,9 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 07/09/15 " ;
-: TIMESTAMP ." 15:38:13 " ;
-: CRCSTAMP  ." C13BB334144D8E9EA29E77C70651A807 " ;
+: DATESTAMP ." 08/15/15 " ;
+: TIMESTAMP ." 10:35:01 " ;
+: CRCSTAMP  ." 8AE7B95651EE7BB9E2BC0FB789DE1123 " ;
 MAKECHECK
 CLEAR.BREAKS
 
