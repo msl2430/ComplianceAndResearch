@@ -19,10 +19,10 @@ namespace Robot.Application.Factories
     {
         private const int MaxIntegerScratchPadElements = 512;
         private const int MaxStringScratchPadElements = 64;
-        private IOptoMmpFactory OptoMmp { get; set; }
-        private IList<ScratchPadModel<bool>> ScratchPadBits { get; set; }
-        private IList<ScratchPadModel<int>> ScratchPadInts { get; set; }
-        private IList<ScratchPadModel<string>> ScratchPadStrings { get; set; }
+        private IOptoMmpFactory OptoMmp { get; }
+        private IList<ScratchPadModel<bool>> ScratchPadBits { get; }
+        private IList<ScratchPadModel<int>> ScratchPadInts { get; }
+        private IList<ScratchPadModel<string>> ScratchPadStrings { get; }
 
         public ScratchPadFactory(IOptoMmpFactory optoMmp)
         {
