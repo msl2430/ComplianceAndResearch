@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Robot.Application.ViewModels;
+using Robot.Models.Helpers;
+using Robot.Models.Models;
 
 namespace Robot.Application.Views.Testing
 {
@@ -9,6 +12,7 @@ namespace Robot.Application.Views.Testing
     public partial class TestingView : BaseUserControl
     {
         private TestingViewModel ViewModel { get; set; }
+        private ThrottleSetPointChartModel TspModel { get; set; }
 
         public TestingView()
         {
@@ -19,6 +23,15 @@ namespace Robot.Application.Views.Testing
         {
             if (DataContext != null)
                 ViewModel = (TestingViewModel) DataContext;
+
+            TspModel = SetPointService.GetSetPointChartByModelId(ViewModel.ModelId);
+            if (TspModel == null)
+                throw new Exception("No Throttle Set Point Chart found for Model.");
+
+            ViewModel.RoadTestCharts = RoadTestService.GetAllRoadTests();
+
+            var test = ThrottleSetPointHelper.GetAllThrottleSetPoints(TspModel);
+
         }
     }
 }

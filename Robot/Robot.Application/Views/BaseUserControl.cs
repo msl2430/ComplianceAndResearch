@@ -1,5 +1,5 @@
-﻿using System.Windows.Controls;
-using Robot.Application.Services.DataServices;
+﻿using Robot.Application.Services.DataServices;
+using System.Windows.Controls;
 
 namespace Robot.Application.Views
 {
@@ -13,5 +13,11 @@ namespace Robot.Application.Views
 
         private IModelService _modelService { get; set; }
         public IModelService ModelService { get { return _modelService ?? (_modelService = new ModelService()); } }
+
+        private ISetPointService _setPointService { get; set; }
+        public ISetPointService SetPointService => _setPointService ?? (_setPointService = new SetPointService());
+
+        private IRoadTestService _roadTestService { get; set; }
+        public IRoadTestService RoadTestService => _roadTestService ?? (_roadTestService = new RoadTestService());
     }
 }

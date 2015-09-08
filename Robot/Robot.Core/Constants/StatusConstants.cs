@@ -15,5 +15,12 @@ namespace Robot.Core.Constants
             Connecting,
             Connected
         }
+
+        public enum SqlStatus
+        {
+            Active = 1,
+            Inactive,
+            Deleted
+        }
     }
 }

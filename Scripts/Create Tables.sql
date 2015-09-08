@@ -71,3 +71,94 @@ INCLUDE ([ModelId])
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'ThrottleSetPoint')
+DROP TABLE [dbo].[ThrottleSetPoint]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[ThrottleSetPoint](
+	[ThrottleSetPointId] [int] IDENTITY(1,1) NOT NULL,
+	[ThrottleSetPointChartId] [int] NOT NULL,
+	[Speed] [int] NOT NULL,
+	[Gear] [int] NOT NULL,
+	[Acceleration] [decimal](6,3) NOT NULL,
+	[SetPoint] [decimal](6,3) NOT NULL,
+ CONSTRAINT [PK_ThrottleSetPoint] PRIMARY KEY CLUSTERED 
+([ThrottleSetPointId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'ThrottleSetPointChart')
+DROP TABLE [dbo].[ThrottleSetPointChart]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[ThrottleSetPointChart](
+	[ThrottleSetPointChartId] [int] IDENTITY(1,1) NOT NULL,
+	[ModelId] [int] NOT NULL,
+	[Name] [nvarchar](256) NOT NULL,
+	[Status] [int] NOT NULL,
+	[CreationDateTime] [datetime] NOT NULL
+ CONSTRAINT [PK_ThrottleSetPointChart] PRIMARY KEY CLUSTERED 
+([ThrottleSetPointChartId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'RoadTestPoint')
+DROP TABLE [dbo].[RoadTestPoint]
+GO
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[RoadTestPoint](
+	[RoadTestPointId] [int] IDENTITY(1,1) NOT NULL,
+	[RoadTestChartId] [int] NOT NULL,
+	[SecondFromStart] [decimal](6,3) NOT NULL,
+	[Speed] [decimal](6, 3) NOT NULL
+CONSTRAINT [PK_RoadTestPoint] PRIMARY KEY CLUSTERED 
+(
+	[RoadTestPointId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'RoadTestChart')
+DROP TABLE [dbo].[RoadTestChart]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[RoadTestChart](
+	[RoadTestChartId] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](256) NOT NULL,
+	[Status] [int] NOT NULL,
+	[CreationDateTime] [datetime] NOT NULL
+ CONSTRAINT [PK_RoadTestChart] PRIMARY KEY CLUSTERED 
+([RoadTestChartId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO

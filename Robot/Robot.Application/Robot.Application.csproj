@@ -94,6 +94,8 @@
     <Compile Include="Services\DataServices\CountryService.cs" />
     <Compile Include="Services\DataServices\ManufacturerService.cs" />
     <Compile Include="Services\DataServices\ModelService.cs" />
+    <Compile Include="Services\DataServices\RoadTestService.cs" />
+    <Compile Include="Services\DataServices\SetPointService.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Services\WorkerServices\OptoMonitorWorkerService.cs" />
     <Compile Include="Session\ApplicationSession.cs" />
@@ -132,6 +134,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\TspChart\ThrottleSetPointChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -166,6 +172,9 @@
     </Compile>
     <Compile Include="Views\Testing\TestingView.xaml.cs">
       <DependentUpon>TestingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TspChart\ThrottleSetPointChartView.xaml.cs">
+      <DependentUpon>ThrottleSetPointChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\BaseWindow.cs" />
     <Compile Include="Factories\OptoMmpFactory.cs" />

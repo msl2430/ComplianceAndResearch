@@ -1,9 +1,11 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Opto22.Core.Constants;
 using Robot.Application.ViewModels;
 using Robot.Core.Extensions;
+using Robot.Models.Models;
 
 namespace Robot.Application.Views.Learning
 {
@@ -28,6 +30,7 @@ namespace Robot.Application.Views.Learning
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.ManufacturerId.ToInt(), ViewModel.ManufacturerId);
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.ModelId.ToInt(), ViewModel.ModelId);
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.ModelYear.ToInt(), ViewModel.ModelYear);
+            ViewModel.SetPointCharts = new List<ThrottleSetPointChartModel>() {SetPointService.GetSetPointChartByModelId(1)};
 
             Task.Run(() =>
             {
