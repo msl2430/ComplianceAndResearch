@@ -43,5 +43,17 @@ namespace Opto22.Core.Constants
             Loading,
             LoadFinished
         }
+
+        /// <summary>
+        /// Max 10,240
+        /// </summary>
+        public enum FloatIndexes
+        {
+            
+            SpeedPoints = 10,
+            AcclerationPoints = 30,
+            TspChart1Start = 1000
+
+        }
     }
 }

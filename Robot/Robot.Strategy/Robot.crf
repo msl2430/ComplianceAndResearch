@@ -17,19 +17,35 @@ _END NEW $$$.RUN
 0 TASK  &_INIT_IO
 0 TASK &Learning
 0 TASK &Powerup
+0 TASK &Throttle_Set_Point_Calculation
 0 IVAR ^CallChartStatus
 0 IVAR ^ClearScratchPadResult
 0 IVAR ^GetScratchPadResult
+0 IVAR ^gIndex
+0 IVAR ^gLengthOfTable
 0 IVAR ^IsApplicationConnected
 0 IVAR ^IsGoToLearningPhase
 0 IVAR ^IsGoToTestPhase
+0 IVAR ^rtAccelerationIndex
+0 FVAR ^rtCurrentAcceleration
+0 IVAR ^rtCurrentGear
+0 FVAR ^rtCurrentSpeed
+0 IVAR ^rtNumberOfAccPoints
+0 IVAR ^rtSpeedIndex
+0 FVAR ^rtThrottleSetPoint
+0 IVAR ^rtThrottleSetPointIndex
+0 IVAR ^ScratchPadInputIndex
 0 IVAR ^SetScratchPadResult
 0 IVAR ^TemplateLoadStatus
 0 IVAR ^TestInputValue
+0 FVAR ^TSPValue
 32 0 $VAR *StrategyRunTime 
 32 0 $VAR *TestInputValueStr 
 256 0 $VAR *TestString 
 200 0 ITABLE }ClearIntegerTable
+20 0 FTABLE }rtAccelerationPoints
+20 0 FTABLE }rtSpeedPoints
+100 0 FTABLE }rtTSPGear1
 3 0 ITABLE }SelectedCar
 
 nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
@@ -169,7 +185,7 @@ DUMMY
 T;
 &Learning ' T1 SETTASK
 : 0_0
-8 JUMP ;
+12 JUMP ;
 : 0_24
 
 1 LINE.NUM
@@ -186,7 +202,7 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-9 JUMP ;
+12 JUMP ;
 : 0_28
 -2 JUMP ;
 : 0_30
@@ -220,7 +236,7 @@ T;
   3  
   ^IsGoToTestPhase   IO.SP.READ
   ^GetScratchPadResult @! 
-10 JUMP ;
+13 JUMP ;
 : 0_32
 
 1 LINE.NUM
@@ -264,9 +280,46 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-0 JUMP ;
-: 0_121
+
+4 LINE.NUM
+  %ScratchPad 
+  6  
+  ^TSPValue    IO.SP.READ
+  ^GetScratchPadResult @! 
+9 JUMP ;
+: 0_124
+
+1 LINE.NUM
+  %ScratchPad 
+  ^ScratchPadInputIndex @@ 
+  ^TSPValue    IO.SP.READ
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  ^TSPValue @@ 
+  ^ScratchPadInputIndex @@ 
+  }rtTSPGear1 TABLE!   
+
+3 LINE.NUM
+  ^ScratchPadInputIndex   1+@!
+
+4 LINE.NUM
+  3.0    FDELAY
+7 JUMP ;
+: 0_126
 -2 JUMP ;
+: 0_129
+
+1 LINE.NUM
+  50    ABS
+  ^ScratchPadInputIndex @! 
+-3 JUMP ;
+: 0_133
+
+1 LINE.NUM
+  &Throttle_Set_Point_Calculation   CALL.T
+  ^CallChartStatus @! 
+5 JUMP ;
 : 0_26
 TRUE
 
@@ -274,7 +327,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -9 ELSE -8 THEN JUMP ;
+IF -12 ELSE -11 THEN JUMP ;
 : 0_52
 TRUE
 
@@ -282,7 +335,7 @@ TRUE
   ^IsGoToLearningPhase @@ 
   1    =
 LAND
-IF -6 ELSE 0 THEN JUMP ;
+IF -9 ELSE 0 THEN JUMP ;
 : 0_61
 TRUE
 
@@ -290,7 +343,7 @@ TRUE
   ^IsGoToTestPhase @@ 
   1    =
 LAND
-IF -8 ELSE -8 THEN JUMP ;
+IF -11 ELSE -11 THEN JUMP ;
 : 0_96
 TRUE
 
@@ -298,7 +351,15 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -3 ELSE -13 THEN JUMP ;
+IF -3 ELSE -16 THEN JUMP ;
+: 0_125
+TRUE
+
+1 LINE.NUM
+  ^ScratchPadInputIndex @@ 
+  77    <
+LAND
+IF -8 ELSE -10 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -311,27 +372,134 @@ DUMMY
 0_114
 0_115
 0_119
-0_121
+0_124
+0_126
+0_129
+0_133
 0_26
 0_52
 0_61
 0_96
+0_125
 T;
 &Powerup ' T0 SETTASK
+: 2_0
+
+1 LINE.NUM
+  %ScratchPad 
+  25  
+  ^TestInputValue   IO.SP.READ
+  ^CallChartStatus @! 
+5 JUMP ;
+: 2_1
+
+1 LINE.NUM
+  0    ABS
+  ^ScratchPadInputIndex @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  ^ScratchPadInputIndex @@ 
+  ^TSPValue    IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  ^TSPValue @@ 
+  ^ScratchPadInputIndex @@ 
+  }rtTSPGear1 TABLE!   
+
+4 LINE.NUM
+  ^ScratchPadInputIndex   1+@!
+5 JUMP ;
+: 2_2
+1 LINE.NUM 1 ^rtCurrentGear @! 
+4 LINE.NUM }rtSpeedPoints  TableSize@ ^gLengthOfTable @! 
+5 LINE.NUM 0 ^gIndex @! 
+6 LINE.NUM BEGIN ^gIndex @@ ^gLengthOfTable @@ < WHILE 
+8 LINE.NUM ^gIndex @@ }rtSpeedPoints TABLE@ 0 I>F F< IF 
+9 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
+10 LINE.NUM ELSE 
+11 LINE.NUM ^gIndex @@ }rtSpeedPoints TABLE@ ^rtCurrentSpeed @@ F= IF 
+12 LINE.NUM ^gIndex @@ ^rtSpeedIndex @! 
+13 LINE.NUM THEN 
+14 LINE.NUM THEN 
+15 LINE.NUM ^gIndex @@ 1 +  ^gIndex @! 
+16 LINE.NUM REPEAT 
+19 LINE.NUM }rtAccelerationPoints  TableSize@ ^gLengthOfTable @! 
+20 LINE.NUM 0 ^rtNumberOfAccPoints @! 
+21 LINE.NUM 0 ^gIndex @! 
+22 LINE.NUM BEGIN ^gIndex @@ ^gLengthOfTable @@ < WHILE 
+24 LINE.NUM ^gIndex @@ }rtAccelerationPoints TABLE@ 0 I>F F< IF 
+25 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
+26 LINE.NUM ELSE 
+27 LINE.NUM ^rtNumberOfAccPoints @@ 1 +  ^rtNumberOfAccPoints @! 
+28 LINE.NUM ^gIndex @@ }rtAccelerationPoints TABLE@ ^rtCurrentAcceleration @@ F= IF 
+29 LINE.NUM ^gIndex @@ ^rtAccelerationIndex @! 
+30 LINE.NUM THEN 
+31 LINE.NUM THEN 
+32 LINE.NUM ^gIndex @@ 1 +  ^gIndex @! 
+33 LINE.NUM REPEAT 
+35 LINE.NUM ^rtSpeedIndex @@ ^rtNumberOfAccPoints @@ *  ^rtAccelerationIndex @@ +  ^rtThrottleSetPointIndex @! 
+37 LINE.NUM ^rtThrottleSetPointIndex @@ }rtTSPGear1 TABLE@ ^rtThrottleSetPoint @! 
+1 JUMP ;
+: 2_4
+1 LINE.NUM 10 I>F ^rtCurrentSpeed @! 
+2 LINE.NUM 3 I>F ^rtCurrentAcceleration @! 
+-2 JUMP ;
+: 2_8
+0 JUMP ;
+: 2_10
+1 LINE.NUM 5 I>F  FDELAY 
+4 LINE.NUM %ScratchPad 20 10 0 }rtSpeedPoints  IO.SP.READ DROP  
+5 LINE.NUM %ScratchPad 20 30 0 }rtAccelerationPoints  IO.SP.READ DROP  
+6 LINE.NUM %ScratchPad 100 1000 0 }rtTSPGear1  IO.SP.READ DROP  
+-3 JUMP ;
+: 2_13
+1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
+2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
+6 LINE.NUM 1 +LOOP 
+8 LINE.NUM 0 I>F 0 -1 }rtSpeedPoints  InitTable 
+9 LINE.NUM 0 I>F 0 -1 }rtAccelerationPoints  InitTable 
+10 LINE.NUM 0 I>F 0 -1 }rtTSPGear1  InitTable 
+-2 JUMP ;
+T: T2
+DUMMY
+2_0
+2_1
+2_2
+2_4
+2_8
+2_10
+2_13
+T;
+&Throttle_Set_Point_Calculation ' T2 SETTASK
 CREATE T.ARRAY
 &Learning ,
 &Powerup ,
+&Throttle_Set_Point_Calculation ,
  0 ,
 CREATE V.ARRAY
 ^CallChartStatus ,
 ^ClearScratchPadResult ,
 ^GetScratchPadResult ,
+^gIndex ,
+^gLengthOfTable ,
 ^IsApplicationConnected ,
 ^IsGoToLearningPhase ,
 ^IsGoToTestPhase ,
+^rtAccelerationIndex ,
+^rtCurrentAcceleration ,
+^rtCurrentGear ,
+^rtCurrentSpeed ,
+^rtNumberOfAccPoints ,
+^rtSpeedIndex ,
+^rtThrottleSetPoint ,
+^rtThrottleSetPointIndex ,
+^ScratchPadInputIndex ,
 ^SetScratchPadResult ,
 ^TemplateLoadStatus ,
 ^TestInputValue ,
+^TSPValue ,
 *StrategyRunTime ,
 *TestInputValueStr ,
 *TestString ,
@@ -344,6 +512,9 @@ CREATE PTR.ARRAY
  0 ,
 CREATE TA.ARRAY 
 }ClearIntegerTable ,
+}rtAccelerationPoints ,
+}rtSpeedPoints ,
+}rtTSPGear1 ,
 }SelectedCar ,
  0 ,
 CREATE PTRTABLE.ARRAY 
@@ -418,13 +589,28 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^CallChartStatus @!
 0 ^ClearScratchPadResult @!
 0 ^GetScratchPadResult @!
+0 ^gIndex @!
+0 ^gLengthOfTable @!
 0 ^IsApplicationConnected @!
 0 ^IsGoToLearningPhase @!
 0 ^IsGoToTestPhase @!
+0 ^rtAccelerationIndex @!
+0.00000000 ^rtCurrentAcceleration @!
+0 ^rtCurrentGear @!
+0.00000000 ^rtCurrentSpeed @!
+0 ^rtNumberOfAccPoints @!
+0 ^rtSpeedIndex @!
+0.00000000 ^rtThrottleSetPoint @!
+0 ^rtThrottleSetPointIndex @!
+0 ^ScratchPadInputIndex @!
 0 ^SetScratchPadResult @!
 0 ^TemplateLoadStatus @!
 0 ^TestInputValue @!
+0.00000000 ^TSPValue @!
 0 0 -1 }ClearIntegerTable InitTable
+0.00000000 0 -1 }rtAccelerationPoints InitTable
+0.00000000 0 -1 }rtSpeedPoints InitTable
+0.00000000 0 -1 }rtTSPGear1 InitTable
 0 0 -1 }SelectedCar InitTable
 " "
  *StrategyRunTime $MOVE
@@ -443,9 +629,9 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 08/15/15 " ;
-: TIMESTAMP ." 10:35:01 " ;
-: CRCSTAMP  ." 8AE7B95651EE7BB9E2BC0FB789DE1123 " ;
+: DATESTAMP ." 09/16/15 " ;
+: TIMESTAMP ." 15:36:57 " ;
+: CRCSTAMP  ." BF7AB961B0097DCE6ECD699FADAB7877 " ;
 MAKECHECK
 CLEAR.BREAKS
 

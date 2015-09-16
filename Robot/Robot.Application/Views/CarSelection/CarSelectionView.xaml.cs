@@ -1,13 +1,13 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using Robot.Application.ViewModels;
+using Robot.Core.Constants;
+using Robot.Core.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using MahApps.Metro.Controls;
-using Robot.Application.ViewModels;
-using Robot.Core.Constants;
-using Robot.Core.Extensions;
 
 namespace Robot.Application.Views.CarSelection
 {
@@ -26,7 +26,7 @@ namespace Robot.Application.Views.CarSelection
 
         private void CarSelectionView_OnLoaded(object sender, RoutedEventArgs e)
         {
-            GetCarSelectionViewModel();
+            GetCarSelectionViewModel();            
         }
 
         private void GetCarSelectionViewModel()

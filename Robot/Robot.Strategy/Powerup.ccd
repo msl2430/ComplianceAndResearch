@@ -1,5 +1,5 @@
 : 0_0
-8 JUMP ;
+12 JUMP ;
 : 0_24
 
 1 LINE.NUM
@@ -16,7 +16,7 @@
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-9 JUMP ;
+12 JUMP ;
 : 0_28
 -2 JUMP ;
 : 0_30
@@ -50,7 +50,7 @@
   3  
   ^IsGoToTestPhase   IO.SP.READ
   ^GetScratchPadResult @! 
-10 JUMP ;
+13 JUMP ;
 : 0_32
 
 1 LINE.NUM
@@ -94,9 +94,46 @@
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-0 JUMP ;
-: 0_121
+
+4 LINE.NUM
+  %ScratchPad 
+  6  
+  ^TSPValue    IO.SP.READ
+  ^GetScratchPadResult @! 
+9 JUMP ;
+: 0_124
+
+1 LINE.NUM
+  %ScratchPad 
+  ^ScratchPadInputIndex @@ 
+  ^TSPValue    IO.SP.READ
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  ^TSPValue @@ 
+  ^ScratchPadInputIndex @@ 
+  }rtTSPGear1 TABLE!   
+
+3 LINE.NUM
+  ^ScratchPadInputIndex   1+@!
+
+4 LINE.NUM
+  3.0    FDELAY
+7 JUMP ;
+: 0_126
 -2 JUMP ;
+: 0_129
+
+1 LINE.NUM
+  50    ABS
+  ^ScratchPadInputIndex @! 
+-3 JUMP ;
+: 0_133
+
+1 LINE.NUM
+  &Throttle_Set_Point_Calculation   CALL.T
+  ^CallChartStatus @! 
+5 JUMP ;
 : 0_26
 TRUE
 
@@ -104,7 +141,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -9 ELSE -8 THEN JUMP ;
+IF -12 ELSE -11 THEN JUMP ;
 : 0_52
 TRUE
 
@@ -112,7 +149,7 @@ TRUE
   ^IsGoToLearningPhase @@ 
   1    =
 LAND
-IF -6 ELSE 0 THEN JUMP ;
+IF -9 ELSE 0 THEN JUMP ;
 : 0_61
 TRUE
 
@@ -120,7 +157,7 @@ TRUE
   ^IsGoToTestPhase @@ 
   1    =
 LAND
-IF -8 ELSE -8 THEN JUMP ;
+IF -11 ELSE -11 THEN JUMP ;
 : 0_96
 TRUE
 
@@ -128,7 +165,15 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -3 ELSE -13 THEN JUMP ;
+IF -3 ELSE -16 THEN JUMP ;
+: 0_125
+TRUE
+
+1 LINE.NUM
+  ^ScratchPadInputIndex @@ 
+  77    <
+LAND
+IF -8 ELSE -10 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -141,10 +186,14 @@ DUMMY
 0_114
 0_115
 0_119
-0_121
+0_124
+0_126
+0_129
+0_133
 0_26
 0_52
 0_61
 0_96
+0_125
 T;
 &Powerup ' T0 SETTASK

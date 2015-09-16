@@ -1,15 +1,15 @@
-﻿using System.ComponentModel;
+﻿using Robot.Application.Factories;
+using Robot.Application.Services.WorkerServices;
+using Robot.Application.ViewModels;
+using Robot.Application.Views.OptoMonitor;
+using Robot.Core.Constants;
+using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using Robot.Application.Factories;
-using Robot.Application.Services.WorkerServices;
-using Robot.Application.ViewModels;
-using Robot.Application.Views.OptoMonitor;
-using Robot.Core.Constants;
 
 namespace Robot.Application.Views
 {
