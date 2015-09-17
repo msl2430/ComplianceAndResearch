@@ -1,6 +1,7 @@
 CREATE T.ARRAY
 &Learning ,
 &Powerup ,
+&Road_Test_Required_Speed ,
 &Throttle_Set_Point_Calculation ,
  0 ,
 CREATE V.ARRAY
@@ -9,17 +10,22 @@ CREATE V.ARRAY
 ^GetScratchPadResult ,
 ^gIndex ,
 ^gLengthOfTable ,
+^gStatus ,
 ^IsApplicationConnected ,
 ^IsGoToLearningPhase ,
 ^IsGoToTestPhase ,
 ^rtAccelerationIndex ,
 ^rtCurrentAcceleration ,
 ^rtCurrentGear ,
+^rtCurrentSecond ,
 ^rtCurrentSpeed ,
+^rtDataLoadStatus ,
 ^rtNumberOfAccPoints ,
+^rtRequiredSpeed ,
 ^rtSpeedIndex ,
 ^rtThrottleSetPoint ,
 ^rtThrottleSetPointIndex ,
+^rtTotalSecondsOfTest ,
 ^ScratchPadInputIndex ,
 ^SetScratchPadResult ,
 ^TemplateLoadStatus ,
@@ -32,12 +38,14 @@ CREATE V.ARRAY
 *_HSV_TEMP ,
  0 ,
 CREATE TI.ARRAY
+^rtTestRunTime ,
  0 ,
 CREATE PTR.ARRAY
  0 ,
 CREATE TA.ARRAY 
 }ClearIntegerTable ,
 }rtAccelerationPoints ,
+}rtSpeedPerSecond ,
 }rtSpeedPoints ,
 }rtTSPGear1 ,
 }SelectedCar ,
@@ -116,26 +124,33 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^GetScratchPadResult @!
 0 ^gIndex @!
 0 ^gLengthOfTable @!
+0 ^gStatus @!
 0 ^IsApplicationConnected @!
 0 ^IsGoToLearningPhase @!
 0 ^IsGoToTestPhase @!
 0 ^rtAccelerationIndex @!
 0.00000000 ^rtCurrentAcceleration @!
 0 ^rtCurrentGear @!
+0 ^rtCurrentSecond @!
 0.00000000 ^rtCurrentSpeed @!
+0 ^rtDataLoadStatus @!
 0 ^rtNumberOfAccPoints @!
+0.00000000 ^rtRequiredSpeed @!
 0 ^rtSpeedIndex @!
+0.0 ^rtTestRunTime SetTimer
 0.00000000 ^rtThrottleSetPoint @!
 0 ^rtThrottleSetPointIndex @!
+0 ^rtTotalSecondsOfTest @!
 0 ^ScratchPadInputIndex @!
 0 ^SetScratchPadResult @!
 0 ^TemplateLoadStatus @!
 0 ^TestInputValue @!
 0.00000000 ^TSPValue @!
 0 0 -1 }ClearIntegerTable InitTable
-0.00000000 0 -1 }rtAccelerationPoints InitTable
-0.00000000 0 -1 }rtSpeedPoints InitTable
-0.00000000 0 -1 }rtTSPGear1 InitTable
+-1.0000000 0 -1 }rtAccelerationPoints InitTable
+-1.0000000 0 -1 }rtSpeedPerSecond InitTable
+-1.0000000 0 -1 }rtSpeedPoints InitTable
+-1.0000000 0 -1 }rtTSPGear1 InitTable
 0 0 -1 }SelectedCar InitTable
 " "
  *StrategyRunTime $MOVE

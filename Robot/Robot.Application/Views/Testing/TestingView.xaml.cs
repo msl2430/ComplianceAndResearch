@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using Opto22.Core.Constants;
 using Opto22.Core.Models;
 using Robot.Application.ViewModels;
+using Robot.Core.Extensions;
 using Robot.Models.Helpers;
 using Robot.Models.Models;
 
@@ -48,6 +50,8 @@ namespace Robot.Application.Views.Testing
 
         private void SetTspScratchPad()
         {
+            ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestPhaseDataLoadStatus.ToInt(),
+                       ScratchPadConstants.LoadStatus.Loading.ToInt());
             var setPointsByGear = new List<List<IScratchPadModel<decimal>>>();
             var speedPoints = new decimal[] { 0, 10, 20, 30, 40, 50, 60};
             var accelerationPoints = new decimal[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -74,7 +78,16 @@ namespace Robot.Application.Views.Testing
                 setPointsByGear.Add(setPointList);
             }
 
-            ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadTspValues(setPointsByGear, speedPoints.ToList(), accelerationPoints.ToList());
+            var roadTestScratchPad =
+                ViewModel.RoadTestCharts[0].RoadTestPoints.OrderBy(rt => rt.SecondFromStart).Select(
+                    rt => new ScratchPadModel<decimal>(ViewModel.RoadTestCharts[0].RoadTestPoints.IndexOf(rt), "RoadTest Second: " + rt.SecondFromStart, rt.Speed));
+
+            ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadTspValues(setPointsByGear, speedPoints.ToList(), accelerationPoints.ToList(), roadTestScratchPad.ToList());
+
+
+            ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestPhaseDataLoadStatus.ToInt(),
+                    ScratchPadConstants.LoadStatus.LoadFinished.ToInt());
+
         }
     }
 }

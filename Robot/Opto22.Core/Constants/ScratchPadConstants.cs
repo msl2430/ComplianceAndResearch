@@ -19,7 +19,10 @@ namespace Opto22.Core.Constants
             ModelYear,
 
             LearningPhaseActive = 100,
-            LearingPhaseTemplateLoadStatus =101
+            LearingPhaseTemplateLoadStatus =101,
+
+            TestPhaseActive = 200,
+            TestPhaseDataLoadStatus = 201,
         }
 
         public enum StringIndexes
@@ -52,8 +55,17 @@ namespace Opto22.Core.Constants
             
             SpeedPoints = 10,
             AcclerationPoints = 30,
-            TspChart1Start = 1000
-
+            TspGear1Start = 1000,
+            TspGear2Start = 1100,
+            TspGear3Start = 1200,
+            TspGear4Start = 1300,
+            TspGear5Start = 1400,
+            TspGear6Start = 1500,
+            TspGear7Start = 1600,
+            TspGear8Start = 1700,
+            TspGear9Start = 1800,
+            TspGear10Start = 1900,
+            RoadTestSpeedPerSecond = 2000,
         }
     }
 }

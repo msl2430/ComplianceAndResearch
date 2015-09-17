@@ -16,7 +16,7 @@ namespace Robot.Application.Factories
 
         void SetScratchPadValue<T>(int index, T value);
         void SetScratchPadValue<T>(IScratchPadModel<T> scratchPad);
-        void SetScratchPadTspValues(List<List<IScratchPadModel<decimal>>> tspValues, List<decimal> speedPoints, List<decimal> accelerationPoints);
+        void SetScratchPadTspValues(List<List<IScratchPadModel<decimal>>> tspValues, List<decimal> speedPoints, List<decimal> accelerationPoints, IList<ScratchPadModel<decimal>> roadTestPoints);
     }
 
     public sealed class ScratchPadFactory : IScratchPadFactory
@@ -221,41 +221,57 @@ namespace Robot.Application.Factories
             //}
         }
 
-        public void SetScratchPadTspValues(List<List<IScratchPadModel<decimal>>> tspValues, List<decimal> speedPoints, List<decimal> accelerationPoints)
+        public void SetScratchPadTspValues(List<List<IScratchPadModel<decimal>>> tspValues, List<decimal> speedPoints, List<decimal> accelerationPoints, IList<ScratchPadModel<decimal>> roadTestPoints)
         {
             OptoMmp.Current.ScratchpadFloatWrite(new[] {0f}, 0, MaxFloatScratchPadElements, 0);
             var result = 0;
-            var tspArray = new float[100];
+            var tspArray = Enumerable.Repeat(-1f, 100).ToArray();
             for (var i = 0; i < 1 /*tspValues.Count*/; i++)
             {
-                for (var tsp = 0; tsp < 100; tsp++)
+                for (var tsp = 0; tsp < tspArray.Length; tsp++)
                 {
-                    tspArray[tsp] = tspValues[i].Select(x => (float)x.Value).Count() > tsp ? (float)tspValues[i].ElementAt(tsp).Value : -1;
+                    if (tspValues[i].Count() <= tsp)
+                        break;
+                    tspArray[tsp] = (float) tspValues[i].ElementAt(tsp).Value;
                 }
-                result = OptoMmp.Current.ScratchpadFloatWrite(tspArray, 0, tspArray.Length, ScratchPadConstants.FloatIndexes.TspChart1Start.ToInt());
+                result = OptoMmp.Current.ScratchpadFloatWrite(tspArray, 0, tspArray.Length, ScratchPadConstants.FloatIndexes.TspGear1Start.ToInt());
                 if (result != 0)
                     throw new Exception("Error saving TSP Chart scratchpad float.");
             }
 
-            var speedPointArray = new float[20];
-            for (var sp = 0; sp < 20; sp++)
+            var speedPointArray = Enumerable.Repeat(-1f, 20).ToArray();
+            for (var sp = 0; sp < speedPointArray.Length; sp++)
             {
-                speedPointArray[sp] = speedPoints.Select(x => (float) x).Count() > sp ? speedPoints.Select(x => (float) x).OrderBy(x => x).ElementAt(sp) : -1;
+                if (speedPoints.Count() <= sp)
+                    break;
+                speedPointArray[sp] = speedPoints.Select(x => (float) x).OrderBy(x => x).ElementAt(sp);
             }
             result = OptoMmp.Current.ScratchpadFloatWrite(speedPointArray, 0, speedPointArray.Length, ScratchPadConstants.FloatIndexes.SpeedPoints.ToInt());
             if (result != 0)
                 throw new Exception("Error saving Speed points scratchpad float.");
 
 
-            var accelerationPointArray = new float[20];
-            for (var ac = 0; ac < 20; ac++)
+            var accelerationPointArray = Enumerable.Repeat(-1f, 20).ToArray();
+            for (var ac = 0; ac < accelerationPointArray.Length; ac++)
             {
-                accelerationPointArray[ac] = accelerationPoints.Select(x => (float)x).Count() > ac ? accelerationPoints.Select(x => (float)x).OrderBy(x => x).ElementAt(ac) : -1;
+                if (accelerationPoints.Count() <= ac)
+                    break;
+                accelerationPointArray[ac] = accelerationPoints.Select(x => (float) x).OrderBy(x => x).ElementAt(ac);
             }
             result = OptoMmp.Current.ScratchpadFloatWrite(accelerationPointArray, 0, accelerationPointArray.Length, ScratchPadConstants.FloatIndexes.AcclerationPoints.ToInt());
             if (result != 0)
                 throw new Exception("Error saving Acceleration points scratchpad float.");
 
+            var roadTestPointArray = Enumerable.Repeat(-1f, 3600).ToArray();
+            for (var rt = 0; rt < roadTestPointArray.Length; rt++)
+            {
+                if (roadTestPoints.Count() <= rt)
+                    break;
+                roadTestPointArray[rt] = (float)roadTestPoints[rt].Value;
+            }
+            result = OptoMmp.Current.ScratchpadFloatWrite(roadTestPointArray, 0, roadTestPointArray.Length, ScratchPadConstants.FloatIndexes.RoadTestSpeedPerSecond.ToInt());
+            if(result != 0)
+                throw new Exception("Error saving Road Test points scratchpad float;");
         }
     }
 
@@ -291,7 +307,7 @@ namespace Robot.Application.Factories
             
         }
 
-        public void SetScratchPadTspValues(List<List<IScratchPadModel<decimal>>> tspValues, List<decimal> speedPoints, List<decimal> accelerationPoints)
+        public void SetScratchPadTspValues(List<List<IScratchPadModel<decimal>>> tspValues, List<decimal> speedPoints, List<decimal> accelerationPoints, IList<ScratchPadModel<decimal>> roadTestPoints)
         {
             throw new NotImplementedException();
         }

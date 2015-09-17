@@ -1,23 +1,30 @@
 0 TASK  &_INIT_IO
 0 TASK &Learning
 0 TASK &Powerup
+0 TASK &Road_Test_Required_Speed
 0 TASK &Throttle_Set_Point_Calculation
 0 IVAR ^CallChartStatus
 0 IVAR ^ClearScratchPadResult
 0 IVAR ^GetScratchPadResult
 0 IVAR ^gIndex
 0 IVAR ^gLengthOfTable
+0 IVAR ^gStatus
 0 IVAR ^IsApplicationConnected
 0 IVAR ^IsGoToLearningPhase
 0 IVAR ^IsGoToTestPhase
 0 IVAR ^rtAccelerationIndex
 0 FVAR ^rtCurrentAcceleration
 0 IVAR ^rtCurrentGear
+0 IVAR ^rtCurrentSecond
 0 FVAR ^rtCurrentSpeed
+0 IVAR ^rtDataLoadStatus
 0 IVAR ^rtNumberOfAccPoints
+0 FVAR ^rtRequiredSpeed
 0 IVAR ^rtSpeedIndex
+0 UTVAR ^rtTestRunTime
 0 FVAR ^rtThrottleSetPoint
 0 IVAR ^rtThrottleSetPointIndex
+0 IVAR ^rtTotalSecondsOfTest
 0 IVAR ^ScratchPadInputIndex
 0 IVAR ^SetScratchPadResult
 0 IVAR ^TemplateLoadStatus
@@ -26,8 +33,9 @@
 32 0 $VAR *StrategyRunTime 
 32 0 $VAR *TestInputValueStr 
 256 0 $VAR *TestString 
-200 0 ITABLE }ClearIntegerTable
+300 0 ITABLE }ClearIntegerTable
 20 0 FTABLE }rtAccelerationPoints
+3600 0 FTABLE }rtSpeedPerSecond
 20 0 FTABLE }rtSpeedPoints
 100 0 FTABLE }rtTSPGear1
 3 0 ITABLE }SelectedCar

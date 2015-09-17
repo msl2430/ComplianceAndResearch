@@ -1,0 +1,71 @@
+: 3_0
+
+1 LINE.NUM
+  %ScratchPad 
+  201  
+  ^rtDataLoadStatus   IO.SP.READ
+  ^gStatus @! 
+7 JUMP ;
+: 3_1
+1 LINE.NUM %ScratchPad 3600 2000 0 }rtSpeedPerSecond  IO.SP.READ DROP  
+3 LINE.NUM 0 ^rtTotalSecondsOfTest @! 
+4 LINE.NUM }rtSpeedPerSecond  TableSize@ ^gLengthOfTable @! 
+1 6 LINE.NUM ^gLengthOfTable @@ 1 -  1 + 0 DO? I ^gIndex @! 
+7 LINE.NUM ^gIndex @@ }rtSpeedPerSecond TABLE@ 0 I>F F>= IF 
+8 LINE.NUM ^rtTotalSecondsOfTest @@ 1 +  ^rtTotalSecondsOfTest @! 
+9 LINE.NUM ELSE 
+10 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
+11 LINE.NUM THEN 
+12 LINE.NUM 1 +LOOP 
+0 JUMP ;
+: 3_3
+
+1 LINE.NUM
+  ^rtTestRunTime   StartTimer
+0 JUMP ;
+: 3_5
+1 LINE.NUM ^rtTestRunTime @@F  Truncate ^rtCurrentSecond F@! 
+2 LINE.NUM ^rtCurrentSecond @@ 1 +  }rtSpeedPerSecond TABLE@ ^rtRequiredSpeed @! 
+3 JUMP ;
+: 3_8
+-2 JUMP ;
+: 3_9
+
+1 LINE.NUM
+  0  
+  ^rtCurrentSpeed I@!   
+
+2 LINE.NUM
+  ^rtTestRunTime   StopTimer
+3 JUMP ;
+: 3_14
+-7 JUMP ;
+: 3_7
+TRUE
+
+1 LINE.NUM
+  ^rtCurrentSecond @@ 
+  ^rtTotalSecondsOfTest @@   >=
+LAND
+IF -3 ELSE -4 THEN JUMP ;
+: 3_13
+TRUE
+
+1 LINE.NUM
+  ^rtDataLoadStatus @@ 
+  3    =
+LAND
+IF -8 ELSE -3 THEN JUMP ;
+T: T3
+DUMMY
+3_0
+3_1
+3_3
+3_5
+3_8
+3_9
+3_14
+3_7
+3_13
+T;
+&Road_Test_Required_Speed ' T3 SETTASK

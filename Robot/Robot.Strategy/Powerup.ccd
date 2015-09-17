@@ -1,5 +1,5 @@
 : 0_0
-12 JUMP ;
+13 JUMP ;
 : 0_24
 
 1 LINE.NUM
@@ -16,7 +16,7 @@
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-12 JUMP ;
+13 JUMP ;
 : 0_28
 -2 JUMP ;
 : 0_30
@@ -50,7 +50,7 @@
   3  
   ^IsGoToTestPhase   IO.SP.READ
   ^GetScratchPadResult @! 
-13 JUMP ;
+14 JUMP ;
 : 0_32
 
 1 LINE.NUM
@@ -100,7 +100,7 @@
   6  
   ^TSPValue    IO.SP.READ
   ^GetScratchPadResult @! 
-9 JUMP ;
+10 JUMP ;
 : 0_124
 
 1 LINE.NUM
@@ -119,7 +119,7 @@
 
 4 LINE.NUM
   3.0    FDELAY
-7 JUMP ;
+8 JUMP ;
 : 0_126
 -2 JUMP ;
 : 0_129
@@ -131,9 +131,22 @@
 : 0_133
 
 1 LINE.NUM
+  &Road_Test_Required_Speed   CALL.T
+  ^CallChartStatus @! 
+
+2 LINE.NUM
+  3.0    FDELAY
+
+3 LINE.NUM
   &Throttle_Set_Point_Calculation   CALL.T
   ^CallChartStatus @! 
-5 JUMP ;
+6 JUMP ;
+: 0_134
+1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
+2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad ^gIndex @@ 0  IO.SP.I.WRITE DROP  
+4 LINE.NUM 1 +LOOP 
+-2 JUMP ;
 : 0_26
 TRUE
 
@@ -141,7 +154,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -12 ELSE -11 THEN JUMP ;
+IF -13 ELSE -12 THEN JUMP ;
 : 0_52
 TRUE
 
@@ -149,7 +162,7 @@ TRUE
   ^IsGoToLearningPhase @@ 
   1    =
 LAND
-IF -9 ELSE 0 THEN JUMP ;
+IF -10 ELSE 0 THEN JUMP ;
 : 0_61
 TRUE
 
@@ -157,7 +170,7 @@ TRUE
   ^IsGoToTestPhase @@ 
   1    =
 LAND
-IF -11 ELSE -11 THEN JUMP ;
+IF -12 ELSE -12 THEN JUMP ;
 : 0_96
 TRUE
 
@@ -165,7 +178,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -3 ELSE -16 THEN JUMP ;
+IF -3 ELSE -17 THEN JUMP ;
 : 0_125
 TRUE
 
@@ -173,7 +186,7 @@ TRUE
   ^ScratchPadInputIndex @@ 
   77    <
 LAND
-IF -8 ELSE -10 THEN JUMP ;
+IF -9 ELSE -11 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -190,6 +203,7 @@ DUMMY
 0_126
 0_129
 0_133
+0_134
 0_26
 0_52
 0_61
