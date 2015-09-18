@@ -20,12 +20,18 @@ CREATE V.ARRAY
 ^rtCurrentSecond ,
 ^rtCurrentSpeed ,
 ^rtDataLoadStatus ,
+^rtIntercept ,
+^rtLowerBoundSetPointIndex ,
+^rtLowerBoundSpeedIndex ,
 ^rtNumberOfAccPoints ,
 ^rtRequiredSpeed ,
+^rtSlope ,
 ^rtSpeedIndex ,
 ^rtThrottleSetPoint ,
 ^rtThrottleSetPointIndex ,
 ^rtTotalSecondsOfTest ,
+^rtUpperBoundSetPointIndex ,
+^rtUpperBoundSpeedIndex ,
 ^ScratchPadInputIndex ,
 ^SetScratchPadResult ,
 ^TemplateLoadStatus ,
@@ -134,13 +140,19 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^rtCurrentSecond @!
 0.00000000 ^rtCurrentSpeed @!
 0 ^rtDataLoadStatus @!
+0.00000000 ^rtIntercept @!
+0 ^rtLowerBoundSetPointIndex @!
+0 ^rtLowerBoundSpeedIndex @!
 0 ^rtNumberOfAccPoints @!
 0.00000000 ^rtRequiredSpeed @!
+0.00000000 ^rtSlope @!
 0 ^rtSpeedIndex @!
 0.0 ^rtTestRunTime SetTimer
 0.00000000 ^rtThrottleSetPoint @!
 0 ^rtThrottleSetPointIndex @!
 0 ^rtTotalSecondsOfTest @!
+0 ^rtUpperBoundSetPointIndex @!
+0 ^rtUpperBoundSpeedIndex @!
 0 ^ScratchPadInputIndex @!
 0 ^SetScratchPadResult @!
 0 ^TemplateLoadStatus @!

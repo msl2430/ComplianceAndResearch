@@ -40,7 +40,8 @@ namespace Robot.Application.Factories
                 .Select(x => new ScratchPadModel<int>(x, Enum.GetName(typeof (ScratchPadConstants.IntegerIndexes), x), 0)).ToList();
             ScratchPadStrings = ((int[]) Enum.GetValues(typeof (ScratchPadConstants.StringIndexes))).ToList()
                 .Select(x => new ScratchPadModel<string>(x, Enum.GetName(typeof (ScratchPadConstants.StringIndexes), x), "")).ToList();
-            ScratchPadFloats = new List<ScratchPadModel<decimal>>();
+            ScratchPadFloats = ((int[])Enum.GetValues(typeof(ScratchPadConstants.FloatIndexes))).ToList()
+                .Select(x => new ScratchPadModel<decimal>(x, Enum.GetName(typeof(ScratchPadConstants.FloatIndexes), x), 0m)).ToList();
 
             InitializeFromOpto();
         }
@@ -80,16 +81,16 @@ namespace Robot.Application.Factories
                 scratchPad.Value = optoScratchPadStrs[scratchPad.Index];
             }
 
-            //var optoScratchPadFloats = new float[MaxFloatScratchPadElements];
-            //result = OptoMmp.Current.ScratchpadFloatRead(optoScratchPadFloats, 0, MaxFloatScratchPadElements, 0);
-            //if (result != 0)
-            //    throw new Exception("Error getting scratchpad floats.");
-            //foreach (var scratchPad in
-            //        from object strIndex in Enum.GetValues(typeof(ScratchPadConstants.StringIndexes))
-            //        select ScratchPadFloats.FirstOrDefault(b => b.Index == (int)strIndex))
-            //{
-            //    scratchPad.Value = Convert.ToDecimal(optoScratchPadStrs[scratchPad.Index]);
-            //}
+            var optoScratchPadFloats = new float[MaxFloatScratchPadElements];
+            result = OptoMmp.Current.ScratchpadFloatRead(optoScratchPadFloats, 0, MaxFloatScratchPadElements, 0);
+            if (result != 0)
+                throw new Exception("Error getting scratchpad floats.");
+            foreach (var scratchPad in
+                    from object strIndex in Enum.GetValues(typeof(ScratchPadConstants.FloatIndexes))
+                    select ScratchPadFloats.FirstOrDefault(b => b.Index == (int)strIndex))
+            {
+                scratchPad.Value = Convert.ToDecimal(optoScratchPadFloats[scratchPad.Index]);
+            }
         }
 
         public IScratchPadModel<bool> GetScratchPadBit(int index)

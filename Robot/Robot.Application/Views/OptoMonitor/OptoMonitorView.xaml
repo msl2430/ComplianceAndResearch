@@ -35,6 +35,9 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <TextBox Width="30" Height="15" IsReadOnly="True" Text="On" Background="{StaticResource GreenBrush}" BorderBrush="DarkGreen" BorderThickness="1.01" Visibility="{Binding Path=IsApplicationConnected, Converter={StaticResource BoolToVisibilityConverter}}"/>
@@ -48,9 +51,24 @@
                     <TextBox Width="30" Height="15" IsReadOnly="True" Text="On" Background="{StaticResource GreenBrush}" BorderBrush="DarkGreen" BorderThickness="1.01" Visibility="{Binding Path=IsGoToTestPhase, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <TextBox Width="30" Height="15" IsReadOnly="True" Text="Off" Background="Red" BorderBrush="DarkRed" BorderThickness="1.01" Visibility="{Binding Path=IsGoToTestPhase, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
                 </Grid>
+                <Grid Grid.Row="3">
+                    <TextBox Width="30" Height="15" IsReadOnly="True" Text="{Binding Path=TestPhaseCurrentSpeed}" />
+                </Grid>
+                <Grid Grid.Row="4">
+                    <TextBox Width="30" Height="15" IsReadOnly="True" Text="{Binding Path=TestPhaseCurrentAcceleration}" />
+                </Grid>
+                <Grid Grid.Row="5">
+                    <TextBox Width="30" Height="15" IsReadOnly="True" Text="{Binding Path=TestPhaseRequiredSpeed}" />
+                </Grid>
+                <Grid Grid.Row="6">
+                    <TextBox Width="30" Height="15" IsReadOnly="True" Text="{Binding Path=TestPhaseThrottleSetPoint}" />
+                </Grid>
             </Grid>
             <Grid Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,20,0,0">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
@@ -59,6 +77,10 @@
                 <Label Content="Application Connectivity" Grid.Row="0" Margin="0,8"/>
                 <Label Content="Learning Phase" Grid.Row="1" Margin="0,8"/>
                 <Label Content="Test Phase" Grid.Row="2" Margin="0,8"/>
+                <Label Content="Test Phase Current Speed" Grid.Row="3" Margin="0,8"/>
+                <Label Content="Test Phase Current Acceleration" Grid.Row="4" Margin="0,8"/>
+                <Label Content="Test Phase Required Speed" Grid.Row="5" Margin="0,8"/>
+                <Label Content="Test Phase Throttle Set Point" Grid.Row="6" Margin="0,8"/>
             </Grid>
         </Grid>
         <Grid Column="1">

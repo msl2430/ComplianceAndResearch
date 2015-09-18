@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Opto22.Core.Constants;
@@ -77,6 +79,16 @@ namespace Robot.Application.Services.WorkerServices
             OptoMonitorViewModel.SelectedModelId = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ModelId.ToInt()).Value;
             OptoMonitorViewModel.SelectedModelYear = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ModelYear.ToInt()).Value;
             OptoMonitorViewModel.StrategyLocation = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StrategyLocationValue.ToInt()).Value;
+
+            OptoMonitorViewModel.TestPhaseCurrentSpeed = appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TestPhaseCurrentSpeed.ToInt()).Value;
+            OptoMonitorViewModel.TestPhaseCurrentAcceleration = appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TestPhaseCurrentAcceleration.ToInt()).Value;
+            OptoMonitorViewModel.TestPhaseRequiredSpeed = appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TestPhaseRequiredSpeed.ToInt()).Value;
+            OptoMonitorViewModel.TestPhaseThrottleSetPoint = appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TestPhaseThrottleSetPoint.ToInt()).Value;
+
+            using (var file = new StreamWriter(System.Environment.CurrentDirectory + @"\TestData.txt", true))
+            {
+                file.WriteLine(DateTime.Now + " >> Speed: " + OptoMonitorViewModel.TestPhaseCurrentSpeed + " Acceleration: " + OptoMonitorViewModel.TestPhaseCurrentAcceleration + " Required Speed: " + OptoMonitorViewModel.TestPhaseRequiredSpeed + " Throttle Set Point: " + OptoMonitorViewModel.TestPhaseThrottleSetPoint);
+            }
         }
     }
 }

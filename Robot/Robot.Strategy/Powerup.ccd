@@ -131,13 +131,6 @@
 : 0_133
 
 1 LINE.NUM
-  &Road_Test_Required_Speed   CALL.T
-  ^CallChartStatus @! 
-
-2 LINE.NUM
-  3.0    FDELAY
-
-3 LINE.NUM
   &Throttle_Set_Point_Calculation   CALL.T
   ^CallChartStatus @! 
 6 JUMP ;

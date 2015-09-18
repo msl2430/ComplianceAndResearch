@@ -69,6 +69,36 @@ namespace Robot.Application.ViewModels
             set { _selectedModelYear = value; OnPropertyChanged("SelectedModelYear"); }
         }
 
+        #region Test Phase Data
+        private decimal _testPhaseCurrentSpeed { get; set; }
+        public decimal TestPhaseCurrentSpeed
+        {
+            get { return _testPhaseCurrentSpeed; }
+            set { _testPhaseCurrentSpeed = value; OnPropertyChanged("TestPhaseCurrentSpeed"); }
+        }
+
+        private decimal _testPhaseCurrentAcceleration { get; set; }
+        public decimal TestPhaseCurrentAcceleration
+        {
+            get { return _testPhaseCurrentAcceleration; }
+            set { _testPhaseCurrentAcceleration = value; OnPropertyChanged("TestPhaseCurrentAcceleration"); }
+        }
+
+        private decimal _testPhaseRequiredSpeed { get; set; }
+        public decimal TestPhaseRequiredSpeed
+        {
+            get { return _testPhaseRequiredSpeed; }
+            set { _testPhaseRequiredSpeed = value; OnPropertyChanged("TestPhaseRequiredSpeed"); }
+        }
+
+        private decimal _testPhaseThrottleSetPoint { get; set; }
+        public decimal TestPhaseThrottleSetPoint
+        {
+            get { return _testPhaseThrottleSetPoint; }
+            set { _testPhaseThrottleSetPoint = value; OnPropertyChanged("TestPhaseThrottleSetPoint"); }
+        }
+        #endregion
+
         private int _strategyLocation { get; set; }
         public int StrategyLocation
         {
