@@ -1,6 +1,7 @@
 0 TASK  &_INIT_IO
 0 TASK &Learning
 0 TASK &Powerup
+0 TASK &Road_Test
 0 TASK &Road_Test_Required_Speed
 0 TASK &Throttle_Set_Point_Calculation
 0 IVAR ^CallChartStatus
@@ -25,6 +26,7 @@
 0 FVAR ^rtRequiredSpeed
 0 FVAR ^rtSlope
 0 IVAR ^rtSpeedIndex
+0 IVAR ^rtTestActive
 0 UTVAR ^rtTestRunTime
 0 FVAR ^rtThrottleSetPoint
 0 IVAR ^rtThrottleSetPointIndex

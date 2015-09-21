@@ -22,5 +22,22 @@ namespace Robot.Core.Constants
             Inactive,
             Deleted
         }
+
+        public enum ProgressStatus
+        {
+            InActive,
+            Active,
+            Finished
+        }
+
+        public enum RoadTestStatus
+        {
+            InActive,
+            PreCheckActive,
+            LoadDataPointActive,
+            Running,
+            Shutdown,
+            Completed,
+        }
     }
 }

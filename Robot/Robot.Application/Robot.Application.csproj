@@ -87,6 +87,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Extensions\BoolToVisibilityConverter.cs" />
+    <Compile Include="Extensions\ProgressVisibilityConverter.cs" />
     <Compile Include="Extensions\ScratchPadExtensions.cs" />
     <Compile Include="Factories\ApplicationSessionFactory.cs" />
     <Compile Include="Factories\ScratchPadFactory.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Services\DataServices\SetPointService.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Services\WorkerServices\OptoMonitorWorkerService.cs" />
+    <Compile Include="Services\WorkerServices\RoadTestWorkerService.cs" />
     <Compile Include="Session\ApplicationSession.cs" />
     <Compile Include="Services\WorkerServices\BaseWorkerThreadService.cs" />
     <Compile Include="Services\WorkerServices\InitializeDataWorkerService.cs" />

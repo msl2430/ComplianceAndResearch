@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace Robot.Application.Extensions
 {
-    public class BoolToVisibilityConverter : IValueConverter
+    internal class BoolToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
@@ -17,7 +17,7 @@ namespace Robot.Application.Extensions
         }
     }
 
-    public class InverseBoolToVisibilityConverter : IValueConverter
+    internal class InverseBoolToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

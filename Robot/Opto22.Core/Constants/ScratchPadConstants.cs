@@ -7,6 +7,9 @@ namespace Opto22.Core.Constants
         {
         }
 
+        /// <summary>
+        /// Max 10,240
+        /// </summary>
         public enum IntegerIndexes
         {
             ConnectedToOpto,
@@ -52,7 +55,6 @@ namespace Opto22.Core.Constants
         /// </summary>
         public enum FloatIndexes
         {
-            
             SpeedPoints = 10,
             AcclerationPoints = 30,
 

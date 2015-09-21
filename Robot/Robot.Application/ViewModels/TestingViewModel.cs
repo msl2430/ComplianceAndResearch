@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Robot.Application.Factories;
+using Robot.Core.Constants;
+using Robot.Core.Extensions;
 using Robot.Models.Models;
 
 namespace Robot.Application.ViewModels
@@ -13,15 +15,69 @@ namespace Robot.Application.ViewModels
         public int ModelYear { get; set; }
         public string CarDisplayName { get { return string.Format("{0} {1} {2}", ModelYear, ManufacturerName, ModelName); } }
 
-        private IList<RoadTestChartModel> _roadTestCharts { get; set; }
-        public IList<RoadTestChartModel> RoadTestCharts
+        public bool _isPreTestCheck { get; set; }
+        public bool IsPreTestCheck { get { return _isPreTestCheck;} set { _isPreTestCheck = value; OnPropertyChanged("IsPreTestCheck"); } }
+
+        public int _testProgressStatus { get; set; }
+
+        public int TestProgressStatus
         {
-            get { return _roadTestCharts;}
-            set {
-                _roadTestCharts = value;
-                OnPropertyChanged("RoadTestCharts");
+            get { return _testProgressStatus; }
+            set
+            {
+                _testProgressStatus = value;
+                switch (_testProgressStatus)
+                {
+                    case (int)StatusConstants.RoadTestStatus.PreCheckActive:
+                        PreCheckStatus = StatusConstants.ProgressStatus.Active.ToInt();
+                        break;
+                    case (int)StatusConstants.RoadTestStatus.LoadDataPointActive:
+                        PreCheckStatus = StatusConstants.ProgressStatus.Finished.ToInt();
+                        LoadingDataStatus = StatusConstants.ProgressStatus.Active.ToInt();
+                        break;
+                    case (int)StatusConstants.RoadTestStatus.Running:
+                        PreCheckStatus = StatusConstants.ProgressStatus.Finished.ToInt();
+                        LoadingDataStatus = StatusConstants.ProgressStatus.Finished.ToInt();
+                        RunningStatus = StatusConstants.ProgressStatus.Active.ToInt();
+                        break;
+                    case (int)StatusConstants.RoadTestStatus.Shutdown:
+                        PreCheckStatus = StatusConstants.ProgressStatus.Finished.ToInt();
+                        LoadingDataStatus = StatusConstants.ProgressStatus.Finished.ToInt();
+                        RunningStatus = StatusConstants.ProgressStatus.Finished.ToInt();
+                        ShutdownStatus = StatusConstants.ProgressStatus.Active.ToInt();
+                        break;
+                    case (int)StatusConstants.RoadTestStatus.Completed:
+                        PreCheckStatus = StatusConstants.ProgressStatus.Finished.ToInt();
+                        LoadingDataStatus = StatusConstants.ProgressStatus.Finished.ToInt();
+                        RunningStatus = StatusConstants.ProgressStatus.Finished.ToInt();
+                        ShutdownStatus = StatusConstants.ProgressStatus.Finished.ToInt();
+                        break;
+                    default:
+                        PreCheckStatus = StatusConstants.ProgressStatus.InActive.ToInt();
+                        LoadingDataStatus = StatusConstants.ProgressStatus.InActive.ToInt();
+                        RunningStatus = StatusConstants.ProgressStatus.InActive.ToInt();
+                        ShutdownStatus = StatusConstants.ProgressStatus.InActive.ToInt();
+                        break;
+                }
             }
         }
+
+        #region Progress Status
+        public int _preCheckStatus { get; set; }
+        public int PreCheckStatus { get { return _preCheckStatus; } set { _preCheckStatus = value; OnPropertyChanged("PreCheckStatus"); } }
+
+        public int _loadingDataStatus { get; set; }
+        public int LoadingDataStatus { get { return _loadingDataStatus; } set { _loadingDataStatus = value; OnPropertyChanged("LoadingDataStatus"); } }
+
+        public int _runningStatus { get; set; }
+        public int RunningStatus { get { return _runningStatus; } set { _runningStatus = value; OnPropertyChanged("RunningStatus"); } }
+
+        public int _shutdownStatus { get; set; }
+        public int ShutdownStatus { get { return _shutdownStatus; } set { _shutdownStatus = value; OnPropertyChanged("ShutdownStatus"); } }
+        #endregion
+
+        private IList<RoadTestChartModel> _roadTestCharts { get; set; }
+        public IList<RoadTestChartModel> RoadTestCharts { get { return _roadTestCharts;} set { _roadTestCharts = value; OnPropertyChanged("RoadTestCharts"); } }
 
         public TestingViewModel(IApplicationSessionFactory applicationSessionFactory)
         {

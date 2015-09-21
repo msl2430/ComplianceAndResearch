@@ -15,5 +15,12 @@ namespace Robot.Core.Constants
             Pristine,
             Dirty
         }
+
+        public enum ProgressType
+        {
+            ProgressRing,
+            Idle,
+            Finished,
+        }
     }
 }

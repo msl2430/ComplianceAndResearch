@@ -1,6 +1,7 @@
 CREATE T.ARRAY
 &Learning ,
 &Powerup ,
+&Road_Test ,
 &Road_Test_Required_Speed ,
 &Throttle_Set_Point_Calculation ,
  0 ,
@@ -27,6 +28,7 @@ CREATE V.ARRAY
 ^rtRequiredSpeed ,
 ^rtSlope ,
 ^rtSpeedIndex ,
+^rtTestActive ,
 ^rtThrottleSetPoint ,
 ^rtThrottleSetPointIndex ,
 ^rtTotalSecondsOfTest ,
@@ -147,6 +149,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 0.00000000 ^rtRequiredSpeed @!
 0.00000000 ^rtSlope @!
 0 ^rtSpeedIndex @!
+0 ^rtTestActive @!
 0.0 ^rtTestRunTime SetTimer
 0.00000000 ^rtThrottleSetPoint @!
 0 ^rtThrottleSetPointIndex @!

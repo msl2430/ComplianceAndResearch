@@ -5,9 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:views="clr-namespace:Robot.Application.Views"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:extensions="clr-namespace:Robot.Application.Extensions"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="768"
             Loaded="TestingView_OnLoaded">
+    <views:BaseUserControl.Resources>
+        <extensions:ProgressVisibilityConverter x:Key="ProgressVisibilityConverter"/>
+        <!--<extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <extensions:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>-->
+    </views:BaseUserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="85"/>
@@ -29,20 +35,15 @@
                             ItemsSource="{Binding Path=RoadTestCharts}"
                             DisplayMemberPath="Name">
             </ComboBox>
-            <Button Grid.Column="2" 
-                    Name="ThrottleSetPointLink" 
-                    Style="{StaticResource HyperlinkLikeButton}" 
-                    Content="View Throttle Set Point Matrix" 
-                    HorizontalAlignment="Right"
-                    Margin="0,35,0,0">
-            </Button>
             <Button Grid.Column="3" 
-                            VerticalAlignment="Top" 
-                            Content="Start Test" 
-                            Foreground="{StaticResource GreenBrush}" 
-                            Margin="25,17,25,0" 
-                            Padding="7" 
-                            FontSize="15">
+                    Name="StartRoadTestButton"
+                    VerticalAlignment="Top" 
+                    Content="Start Test" 
+                    Foreground="{StaticResource GreenBrush}" 
+                    Margin="25,17,25,0" 
+                    Padding="7" 
+                    FontSize="15"
+                    Click="StartRoadTestButton_OnClick">
             </Button>
             <TextBlock Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom" 
                             Background="{StaticResource DarkBlushBrush}" Text="{Binding Path=CarDisplayName}" 
@@ -64,38 +65,75 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
                 <Grid Column="0" Row="0">
-                    <controls:ProgressRing IsActive="False" Width="15" Height="25" Foreground="{StaticResource GreenBrush}" Visibility="Collapsed" />
-                    <Rectangle Width="15" Height="15" Fill="{StaticResource GreenBrush}" Visibility="Hidden">
+                    <controls:ProgressRing IsActive="True" Width="15" Height="25" Foreground="{StaticResource GreenBrush}" 
+                                           Visibility="{Binding Path=PreCheckStatus, ConverterParameter=0, Converter={StaticResource ProgressVisibilityConverter}}" />
+                    <Rectangle Width="15" Height="15" Fill="{StaticResource GreenBrush}" Visibility="{Binding Path=PreCheckStatus, ConverterParameter=2, Converter={StaticResource ProgressVisibilityConverter}}">
                         <Rectangle.OpacityMask>
                             <VisualBrush  Stretch="Fill" Visual="{DynamicResource appbar_check}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Rectangle Width="15" Height="15" Fill="{StaticResource LightBlueBrush}" Visibility="Visible">
+                    <Rectangle Width="15" Height="15" Fill="{StaticResource LightBlueBrush}" Visibility="{Binding Path=PreCheckStatus, ConverterParameter=1, Converter={StaticResource ProgressVisibilityConverter}}">
                         <Rectangle.OpacityMask>
                             <VisualBrush  Stretch="Fill" Visual="{DynamicResource appbar_location_circle}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
                 </Grid>
                 <Grid Column="0" Row="1">
-                    <controls:ProgressRing IsActive="true" Width="15" Height="25" Foreground="{StaticResource GreenBrush}" Visibility="Collapsed"/>
-                    <Rectangle Width="15" Height="15" Fill="{StaticResource GreenBrush}" Visibility="Hidden">
+                    <controls:ProgressRing IsActive="True" Width="15" Height="25" Foreground="{StaticResource GreenBrush}" 
+                                           Visibility="{Binding Path=LoadingDataStatus, ConverterParameter=0, Converter={StaticResource ProgressVisibilityConverter}}" />
+                    <Rectangle Width="15" Height="15" Fill="{StaticResource GreenBrush}" Visibility="{Binding Path=LoadingDataStatus, ConverterParameter=2, Converter={StaticResource ProgressVisibilityConverter}}">
                         <Rectangle.OpacityMask>
                             <VisualBrush  Stretch="Fill" Visual="{DynamicResource appbar_check}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Rectangle Width="15" Height="15" Fill="{StaticResource LightBlueBrush}" Visibility="Visible">
+                    <Rectangle Width="15" Height="15" Fill="{StaticResource LightBlueBrush}" Visibility="{Binding Path=LoadingDataStatus, ConverterParameter=1, Converter={StaticResource ProgressVisibilityConverter}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush  Stretch="Fill" Visual="{DynamicResource appbar_location_circle}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Grid>
+                <Grid Column="0" Row="2">
+                    <controls:ProgressRing IsActive="True" Width="15" Height="25" Foreground="{StaticResource GreenBrush}" 
+                                           Visibility="{Binding Path=RunningStatus, ConverterParameter=0, Converter={StaticResource ProgressVisibilityConverter}}" />
+                    <Rectangle Width="15" Height="15" Fill="{StaticResource GreenBrush}" Visibility="{Binding Path=RunningStatus, ConverterParameter=2, Converter={StaticResource ProgressVisibilityConverter}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush  Stretch="Fill" Visual="{DynamicResource appbar_check}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Rectangle Width="15" Height="15" Fill="{StaticResource LightBlueBrush}" Visibility="{Binding Path=RunningStatus, ConverterParameter=1, Converter={StaticResource ProgressVisibilityConverter}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush  Stretch="Fill" Visual="{DynamicResource appbar_location_circle}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Grid>
+                <Grid Column="0" Row="3">
+                    <controls:ProgressRing IsActive="True" Width="15" Height="25" Foreground="{StaticResource GreenBrush}" 
+                                           Visibility="{Binding Path=ShutdownStatus, ConverterParameter=0, Converter={StaticResource ProgressVisibilityConverter}}" />
+                    <Rectangle Width="15" Height="15" Fill="{StaticResource GreenBrush}" Visibility="{Binding Path=ShutdownStatus, ConverterParameter=2, Converter={StaticResource ProgressVisibilityConverter}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush  Stretch="Fill" Visual="{DynamicResource appbar_check}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Rectangle Width="15" Height="15" Fill="{StaticResource LightBlueBrush}" Visibility="{Binding Path=ShutdownStatus, ConverterParameter=1, Converter={StaticResource ProgressVisibilityConverter}}">
                         <Rectangle.OpacityMask>
                             <VisualBrush  Stretch="Fill" Visual="{DynamicResource appbar_location_circle}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
                 </Grid>
                 <Grid Column="1" Row="0">
-                    <Label Content="Stage 1" VerticalAlignment="Center"></Label>
+                    <Label Content="Pre-Test Check" VerticalAlignment="Center"></Label>
                 </Grid>
                 <Grid Column="1" Row="1">
-                    <Label Content="Stage 2" VerticalAlignment="Center"></Label>
+                    <Label Content="Loading Data Points" VerticalAlignment="Center"></Label>
+                </Grid>
+                <Grid Column="1" Row="2">
+                    <Label Content="Test Running" VerticalAlignment="Center"></Label>
+                </Grid>
+                <Grid Column="1" Row="3">
+                    <Label Content="Shutting down" VerticalAlignment="Center"></Label>
                 </Grid>
             </Grid>
             <Grid Column="1" Margin="0,0,10,10">
