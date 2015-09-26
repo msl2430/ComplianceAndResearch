@@ -1,4 +1,5 @@
-﻿using Robot.Models.Models;
+﻿using System.IO;
+using Robot.Models.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,13 @@ namespace Robot.Models.Helpers
                 }
             }
 
+            using (var file = new StreamWriter(System.Environment.CurrentDirectory + @"\PointList.txt"))
+            {
+                foreach (var p in pointList)
+                {
+                    file.WriteLine(p);
+                }
+            }
             return pointList;
         }
 

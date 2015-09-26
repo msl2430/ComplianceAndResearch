@@ -25,13 +25,17 @@ CREATE V.ARRAY
 ^rtLowerBoundSetPointIndex ,
 ^rtLowerBoundSpeedIndex ,
 ^rtNumberOfAccPoints ,
+^rtPidOutput ,
+^rtPidWeight ,
 ^rtRequiredSpeed ,
 ^rtSlope ,
 ^rtSpeedIndex ,
 ^rtTestActive ,
+^rtThrottleOutput ,
 ^rtThrottleSetPoint ,
 ^rtThrottleSetPointIndex ,
 ^rtTotalSecondsOfTest ,
+^rtTspWeight ,
 ^rtUpperBoundSetPointIndex ,
 ^rtUpperBoundSpeedIndex ,
 ^ScratchPadInputIndex ,
@@ -109,7 +113,8 @@ CREATE P.ARRAY
 ~ao_SnapPacR1_0701 ,
  0 ,
 CREATE PID.ARRAY
- |Test ,
+ |rtActuate_Throttle ,
+ |rtCalculate_Speed_Trim ,
  0 ,
 CREATE E/R.ARRAY
  0 ,
@@ -120,7 +125,8 @@ CREATE E/RGROUP.ARRAY
 : W_INIT_IO
 CONFIG_PORTS
 $0000000000000000.. %ScratchPad ENABLES!
-|Test ENABLE
+|rtActuate_Throttle ENABLE
+|rtCalculate_Speed_Trim ENABLE
 " %ScratchPad  (1/2)" *_HSV_INIT_IO $MOVE 1 ^_HNV_INIT_IO @!
 %ScratchPad ENABLE
 " %SnapPacR1  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
@@ -146,14 +152,18 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^rtLowerBoundSetPointIndex @!
 0 ^rtLowerBoundSpeedIndex @!
 0 ^rtNumberOfAccPoints @!
+0.00000000 ^rtPidOutput @!
+0.20000000 ^rtPidWeight @!
 0.00000000 ^rtRequiredSpeed @!
 0.00000000 ^rtSlope @!
 0 ^rtSpeedIndex @!
 0 ^rtTestActive @!
 0.0 ^rtTestRunTime SetTimer
+0.00000000 ^rtThrottleOutput @!
 0.00000000 ^rtThrottleSetPoint @!
 0 ^rtThrottleSetPointIndex @!
 0 ^rtTotalSecondsOfTest @!
+0.80000001 ^rtTspWeight @!
 0 ^rtUpperBoundSetPointIndex @!
 0 ^rtUpperBoundSpeedIndex @!
 0 ^ScratchPadInputIndex @!

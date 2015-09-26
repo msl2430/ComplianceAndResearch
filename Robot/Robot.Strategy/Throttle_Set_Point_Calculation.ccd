@@ -5,7 +5,7 @@
   201  
   ^rtDataLoadStatus   IO.SP.READ
   ^gStatus @! 
-11 JUMP ;
+12 JUMP ;
 : 2_2
 2 LINE.NUM }rtSpeedPoints  TableSize@ ^gLengthOfTable @! 
 3 LINE.NUM 0 ^gIndex @! 
@@ -35,7 +35,7 @@
 31 LINE.NUM REPEAT 
 33 LINE.NUM ^rtSpeedIndex @@ ^rtNumberOfAccPoints @@ *  ^rtAccelerationIndex @@ +  ^rtThrottleSetPointIndex @! 
 35 LINE.NUM ^rtThrottleSetPointIndex @@ }rtTSPGear1 TABLE@ ^rtThrottleSetPoint @! 
-12 JUMP ;
+13 JUMP ;
 : 2_4
 3 LINE.NUM ^rtCurrentSecond @@ }rtSpeedPerSecond TABLE@ ^rtCurrentSpeed @! 
 4 LINE.NUM ^rtRequiredSpeed @@ ^rtCurrentSpeed @@ F- ^rtCurrentAcceleration @! 
@@ -109,7 +109,7 @@
 55 LINE.NUM %ScratchPad 201 ^rtCurrentAcceleration @@  IO.SP.F.WRITE DROP  
 56 LINE.NUM %ScratchPad 202 ^rtRequiredSpeed @@  IO.SP.F.WRITE DROP  
 57 LINE.NUM %ScratchPad 203 ^rtThrottleSetPoint @@  IO.SP.F.WRITE DROP  
-6 JUMP ;
+8 JUMP ;
 : 2_25
 
 1 LINE.NUM
@@ -118,7 +118,7 @@
 
 2 LINE.NUM
   ^rtTestRunTime   StopTimer
-6 JUMP ;
+7 JUMP ;
 : 2_26
 0 JUMP ;
 : 2_29
@@ -141,6 +141,12 @@
 10 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
 11 LINE.NUM THEN 
 12 LINE.NUM 1 +LOOP 
+3 JUMP ;
+: 2_39
+
+1 LINE.NUM
+  |rtCalculate_Speed_Trim 
+  ^rtRequiredSpeed @@   $0002.. 3 ROLL !PID
 2 JUMP ;
 : 2_17
 TRUE
@@ -149,7 +155,7 @@ TRUE
   ^rtDataLoadStatus @@ 
   3    =
 LAND
-IF -9 ELSE -8 THEN JUMP ;
+IF -10 ELSE -9 THEN JUMP ;
 : 2_27
 TRUE
 
@@ -157,7 +163,7 @@ TRUE
   ^rtCurrentSecond @@ 
   ^rtTotalSecondsOfTest @@   >=
 LAND
-IF -7 ELSE -6 THEN JUMP ;
+IF -8 ELSE -7 THEN JUMP ;
 T: T2
 DUMMY
 2_0
@@ -172,6 +178,7 @@ DUMMY
 2_29
 2_31
 2_32
+2_39
 2_17
 2_27
 T;

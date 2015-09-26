@@ -28,7 +28,7 @@ namespace Robot.Application.Services.WorkerServices
     internal sealed class RoadTestWorkerService : BaseWorkerThreadService, IRoadTestWorkerService
     {
         private int _interval = 250;
-        private Stopwatch WaitStopWatch { get; }
+        private Stopwatch WaitStopWatch { get; set; }
 
         private TestingViewModel ViewModel { get; set; }
         public ThrottleSetPointChartModel TspModel { get; set; }

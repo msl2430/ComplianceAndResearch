@@ -24,12 +24,11 @@ namespace Robot.Application.Factories
         private const int MaxIntegerScratchPadElements = 512;
         private const int MaxFloatScratchPadElements = 10240;
         private const int MaxStringScratchPadElements = 64;
-
-        private IOptoMmpFactory OptoMmp { get; }
-        private IList<ScratchPadModel<bool>> ScratchPadBits { get; }
-        private IList<ScratchPadModel<int>> ScratchPadInts { get; }
-        private IList<ScratchPadModel<string>> ScratchPadStrings { get; }
-        private IList<ScratchPadModel<decimal>> ScratchPadFloats { get; }
+        private IOptoMmpFactory OptoMmp { get; set; }
+        private IList<ScratchPadModel<bool>> ScratchPadBits { get; set; }
+        private IList<ScratchPadModel<int>> ScratchPadInts { get; set; }
+        private IList<ScratchPadModel<string>> ScratchPadStrings { get; set; }
+        private IList<ScratchPadModel<decimal>> ScratchPadFloats { get; set; }
 
         public ScratchPadFactory(IOptoMmpFactory optoMmp)
         {
@@ -164,6 +163,8 @@ namespace Robot.Application.Factories
             if (result != 0)
                 throw new Exception("Error getting scratchpad float.");
 
+            if (float.IsNaN(optoScratchPadFloat[0]))
+                optoScratchPadFloat[0] = 0f;
             sc.Value = Convert.ToDecimal(optoScratchPadFloat[0]);
 
             return sc;

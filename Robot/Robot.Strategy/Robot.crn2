@@ -23,14 +23,18 @@
 0 IVAR ^rtLowerBoundSetPointIndex
 0 IVAR ^rtLowerBoundSpeedIndex
 0 IVAR ^rtNumberOfAccPoints
+0 FVAR ^rtPidOutput
+0 FVAR ^rtPidWeight
 0 FVAR ^rtRequiredSpeed
 0 FVAR ^rtSlope
 0 IVAR ^rtSpeedIndex
 0 IVAR ^rtTestActive
 0 UTVAR ^rtTestRunTime
+0 FVAR ^rtThrottleOutput
 0 FVAR ^rtThrottleSetPoint
 0 IVAR ^rtThrottleSetPointIndex
 0 IVAR ^rtTotalSecondsOfTest
+0 FVAR ^rtTspWeight
 0 IVAR ^rtUpperBoundSetPointIndex
 0 IVAR ^rtUpperBoundSpeedIndex
 0 IVAR ^ScratchPadInputIndex
@@ -92,7 +96,11 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A80
  4  1 APOINT -25000.0000 34  1  8 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0801
  4  1 APOINT -25000.0000 34  2  8 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0802
  4  1 APOINT -25000.0000 34  3  8 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0803
-1    0.0000    0.0000    0.0000    0.0000  -10.0000   10.0000    0.0000   10.0000
-   1.0000    0.0000    0.0000   -0.5000   -0.1000    0.0000
-   5.0000 ~ai_SnapPacR1_0500 ~ao_SnapPacR1_0700
-$90000000 0 %SnapPacR1 0 PID |Test
+2    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   0.1000    0.0000    0.0000    1.0000    0.0000    0.0000
+   0.0000    0.0000 ~ao_SnapPacR1_0700
+$b0000000 1 %SnapPacR1 0 PID |rtActuate_Throttle
+5    0.0000    0.0000    0.0000    0.0000  -10.0000   10.0000    0.0000   10.0000
+   0.1000    0.0000    0.0000    0.5000   -0.1000    0.0000
+   0.0000    0.0000 0.0
+$f0000000 0 %SnapPacR1 0 PID |rtCalculate_Speed_Trim

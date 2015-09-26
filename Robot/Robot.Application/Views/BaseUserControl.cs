@@ -15,9 +15,17 @@ namespace Robot.Application.Views
         public IModelService ModelService { get { return _modelService ?? (_modelService = new ModelService()); } }
 
         private ISetPointService _setPointService { get; set; }
-        public ISetPointService SetPointService => _setPointService ?? (_setPointService = new SetPointService());
+
+        public ISetPointService SetPointService
+        {
+            get { return _setPointService ?? (_setPointService = new SetPointService()); }
+        }
 
         private IRoadTestService _roadTestService { get; set; }
-        public IRoadTestService RoadTestService => _roadTestService ?? (_roadTestService = new RoadTestService());
+
+        public IRoadTestService RoadTestService
+        {
+            get { return _roadTestService ?? (_roadTestService = new RoadTestService()); }
+        }
     }
 }

@@ -14,7 +14,7 @@
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-12 JUMP ;
+14 JUMP ;
 : 4_7
 
 1 LINE.NUM
@@ -37,7 +37,7 @@
 
 3 LINE.NUM
   &Road_Test   STOP.T
-9 JUMP ;
+11 JUMP ;
 : 4_13
 2 LINE.NUM }rtAccelerationPoints  TableSize@ ^gLengthOfTable @! 
 3 LINE.NUM 0 ^rtNumberOfAccPoints @! 
@@ -80,7 +80,7 @@
 45 LINE.NUM ^rtLowerBoundSpeedIndex @@ ^rtNumberOfAccPoints @@ *  ^rtAccelerationIndex @@ +  ^rtLowerBoundSetPointIndex @! 
 47 LINE.NUM ^rtUpperBoundSetPointIndex @@ }rtTSPGear1 TABLE@ ^rtLowerBoundSetPointIndex @@ }rtTSPGear1 TABLE@ F- ^rtUpperBoundSpeedIndex @@ }rtSpeedPoints TABLE@ ^rtLowerBoundSpeedIndex @@ }rtSpeedPoints TABLE@ F- F/  FABS ^rtSlope @! 
 49 LINE.NUM ^rtUpperBoundSetPointIndex @@ }rtTSPGear1 TABLE@ ^rtSlope @@ ^rtUpperBoundSpeedIndex @@ }rtSpeedPoints TABLE@ F* F- ^rtIntercept @! 
-51 LINE.NUM ^rtSlope @@ ^rtCurrentSpeed @@ F* ^rtIntercept @@ F+ ^rtThrottleSetPoint @! 
+51 LINE.NUM ^rtSlope @@ ^rtCurrentSpeed @@ F* ^rtIntercept @@ F+ 10 I>F F/ ^rtThrottleSetPoint @! 
 52 LINE.NUM THEN 
 54 LINE.NUM %ScratchPad 200 ^rtCurrentSpeed @@  IO.SP.F.WRITE DROP  
 55 LINE.NUM %ScratchPad 201 ^rtCurrentAcceleration @@  IO.SP.F.WRITE DROP  
@@ -104,6 +104,10 @@
 16 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
 17 LINE.NUM THEN 
 18 LINE.NUM 1 +LOOP 
+20 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0001.. 3 ROLL !PID 
+21 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0008.. 3 ROLL !PID 
+23 LINE.NUM |rtActuate_Throttle 0 I>F  $0001.. 3 ROLL !PID 
+24 LINE.NUM |rtActuate_Throttle 0 I>F  $0008.. 3 ROLL !PID 
 -7 JUMP ;
 : 4_20
 3 LINE.NUM ^rtCurrentSecond @@ }rtSpeedPerSecond TABLE@ ^rtCurrentSpeed @! 
@@ -117,9 +121,18 @@
   201  
   ^rtDataLoadStatus   IO.SP.READ
   ^gStatus @! 
-2 JUMP ;
+4 JUMP ;
 : 4_23
 -11 JUMP ;
+: 4_27
+1 LINE.NUM |rtCalculate_Speed_Trim ^rtRequiredSpeed @@  $0002.. 3 ROLL !PID 
+2 LINE.NUM |rtCalculate_Speed_Trim ^rtCurrentSpeed @@  $0001.. 3 ROLL !PID 
+4 LINE.NUM |rtCalculate_Speed_Trim  $0008.. ROT PID@ ^rtPidOutput @! 
+6 LINE.NUM ^rtPidOutput @@ ^rtPidWeight @@ F* ^rtThrottleSetPoint @@ ^rtTspWeight @@ F* F+ ^rtThrottleOutput @! 
+8 LINE.NUM |rtActuate_Throttle ^rtThrottleOutput @@  $0002.. 3 ROLL !PID 
+1 JUMP ;
+: 4_29
+3 JUMP ;
 : 4_9
 TRUE
 
@@ -127,7 +140,7 @@ TRUE
   ^rtCurrentSecond @@ 
   ^rtTotalSecondsOfTest @@   >=
 LAND
-IF -8 ELSE -9 THEN JUMP ;
+IF -10 ELSE -11 THEN JUMP ;
 : 4_17
 TRUE
 
@@ -135,7 +148,7 @@ TRUE
   ^rtDataLoadStatus @@ 
   3    =
 LAND
-IF -6 ELSE -7 THEN JUMP ;
+IF -8 ELSE -9 THEN JUMP ;
 : 4_22
 TRUE
 
@@ -143,7 +156,7 @@ TRUE
   ^rtTestActive @@ 
   1    =
 LAND
-IF -5 ELSE -4 THEN JUMP ;
+IF -7 ELSE -6 THEN JUMP ;
 T: T4
 DUMMY
 4_0
@@ -157,6 +170,8 @@ DUMMY
 4_20
 4_21
 4_23
+4_27
+4_29
 4_9
 4_17
 4_22

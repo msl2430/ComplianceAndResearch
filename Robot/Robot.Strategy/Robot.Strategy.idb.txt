@@ -2,9 +2,9 @@
 
 # PAC CONTROL TAG DATABASE DUMP
 # ----------------------------------------------------------------
-# NAME :         D:\Documents\ComplianceAndResearch\Robot\Robot.Strategy\Robot.Strategy.idb
+# NAME :         C:\Foshizzle\ComplianceAndResearch\Robot\Robot.Strategy\Robot.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    13:49:9 9/21/2015
+# TIME/DATE :    10:20:9 9/26/2015
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -160,14 +160,18 @@ TAG1,rtIntercept                                       ,43   ,00000000,00000000,
 TAG1,rtLowerBoundSetPointIndex                         ,39   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtLowerBoundSpeedIndex                            ,37   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtNumberOfAccPoints                               ,29   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,rtPidOutput                                       ,45   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,rtPidWeight                                       ,46   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtRequiredSpeed                                   ,33   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtSlope                                           ,42   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtSpeedIndex                                      ,25   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtTestActive                                      ,44   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtTestRunTime                                     ,30   ,00000000,00000000,00000000,00002000,0    ,0   
+TAG1,rtThrottleOutput                                  ,48   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtThrottleSetPoint                                ,19   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtThrottleSetPointIndex                           ,28   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtTotalSecondsOfTest                              ,31   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,rtTspWeight                                       ,47   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtUpperBoundSetPointIndex                         ,38   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtUpperBoundSpeedIndex                            ,36   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,ScratchPadInputIndex                              ,16   ,00000000,00000000,00000000,00000008,0    ,0   
@@ -184,4 +188,5 @@ TAG1,rtSpeedPerSecond                                  ,6    ,00000000,00000000,
 TAG1,rtSpeedPoints                                     ,5    ,00000000,00000000,00000000,00000200,20   ,0   
 TAG1,rtTSPGear1                                        ,2    ,00000000,00000000,00000000,00000200,100  ,0   
 TAG1,SelectedCar                                       ,1    ,00000000,00000000,00000000,00000100,3    ,0   
-TAG1,Test                                              ,0    ,00000000,00000004,00000000,00000000,0    ,0   
+TAG1,rtActuate_Throttle                                ,1    ,00000000,00000004,00000000,00000000,0    ,0   
+TAG1,rtCalculate_Speed_Trim                            ,0    ,00000000,00000004,00000000,00000000,0    ,0   

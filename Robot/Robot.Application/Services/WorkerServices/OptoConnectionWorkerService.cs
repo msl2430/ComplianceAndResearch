@@ -27,7 +27,7 @@ namespace Robot.Application.Services.WorkerServices
         private int _successCount;
         private const int MaximumWaitPeriod = 300000;
         private readonly string _successMessage = "Connected: " + ConfigurationManager.AppSettings["OptoIpAddress"] + ":" + ConfigurationManager.AppSettings["OptoMmpPort"];
-        private Stopwatch WaitStopWatch { get; }
+        private Stopwatch WaitStopWatch { get; set; }
         
         private IScratchPadModel<int> ConnectedScratchPad { get; set; }
         private IApplicationSessionFactory ApplicationSessionFactory { get; set; }
