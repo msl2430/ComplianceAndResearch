@@ -111,7 +111,7 @@ namespace Robot.Application.Services.WorkerServices
             }
 
             var roadTestScratchPad =
-                ViewModel.RoadTestCharts[0].RoadTestPoints.OrderBy(rt => rt.SecondFromStart).Select(
+                ViewModel.RoadTestCharts.First(rt => rt.RoadTestChartId == 2).RoadTestPoints.OrderBy(rt => rt.SecondFromStart).Select(
                     rt => new ScratchPadModel<decimal>(ViewModel.RoadTestCharts[0].RoadTestPoints.IndexOf(rt), "RoadTest Second: " + rt.SecondFromStart, rt.Speed));
 
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadTspValues(setPointsByGear, speedPoints.ToList(), accelerationPoints.ToList(), roadTestScratchPad.ToList());

@@ -8,7 +8,6 @@ _END NEW $$$.RUN
 0 TASK &Learning
 0 TASK &Powerup
 0 TASK &Road_Test
-0 TASK &Road_Test_Required_Speed
 0 TASK &Throttle_Set_Point_Calculation
 0 IVAR ^CallChartStatus
 0 IVAR ^ClearScratchPadResult
@@ -22,15 +21,15 @@ _END NEW $$$.RUN
 0 IVAR ^rtAccelerationIndex
 0 FVAR ^rtCurrentAcceleration
 0 IVAR ^rtCurrentGear
-0 IVAR ^rtCurrentSecond
+0 FVAR ^rtCurrentRunTime
 0 FVAR ^rtCurrentSpeed
 0 IVAR ^rtDataLoadStatus
 0 FVAR ^rtIntercept
+0 FVAR ^rtLowerBoundReqSpeedIndex
 0 IVAR ^rtLowerBoundSetPointIndex
 0 IVAR ^rtLowerBoundSpeedIndex
 0 IVAR ^rtNumberOfAccPoints
 0 FVAR ^rtPidOutput
-0 FVAR ^rtPidWeight
 0 FVAR ^rtRequiredSpeed
 0 FVAR ^rtSlope
 0 IVAR ^rtSpeedIndex
@@ -40,7 +39,7 @@ _END NEW $$$.RUN
 0 FVAR ^rtThrottleSetPoint
 0 IVAR ^rtThrottleSetPointIndex
 0 IVAR ^rtTotalSecondsOfTest
-0 FVAR ^rtTspWeight
+0 FVAR ^rtUpperBoundReqSpeedIndex
 0 IVAR ^rtUpperBoundSetPointIndex
 0 IVAR ^rtUpperBoundSpeedIndex
 0 IVAR ^ScratchPadInputIndex
@@ -103,11 +102,11 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A80
  4  1 APOINT -25000.0000 34  2  8 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0802
  4  1 APOINT -25000.0000 34  3  8 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0803
 2    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
-   0.1000    0.0000    0.0000    1.0000    0.0000    0.0000
+   0.1000    0.0000    0.0000   -1.0000    0.0000    0.0000
    0.0000    0.0000 ~ao_SnapPacR1_0700
 $b0000000 1 %SnapPacR1 0 PID |rtActuate_Throttle
 5    0.0000    0.0000    0.0000    0.0000  -10.0000   10.0000    0.0000   10.0000
-   0.1000    0.0000    0.0000    0.5000   -0.1000    0.0000
+   0.1000    0.0000    0.0000    0.1000   -0.1000    0.0000
    0.0000    0.0000 0.0
 $f0000000 0 %SnapPacR1 0 PID |rtCalculate_Speed_Trim
 : 1_0
@@ -479,8 +478,16 @@ T;
   ^rtTestRunTime   StartTimer
 0 JUMP ;
 : 4_8
-1 LINE.NUM ^rtTestRunTime @@F  Truncate ^rtCurrentSecond F@! 
-2 LINE.NUM ^rtCurrentSecond @@ 1 +  }rtSpeedPerSecond TABLE@ ^rtRequiredSpeed @! 
+1 LINE.NUM ^rtTestRunTime @@F  Truncate ^rtCurrentRunTime @! 
+3 LINE.NUM ^rtCurrentRunTime @@ 1 I>F F+ ^rtTotalSecondsOfTest @@F F>= IF 
+4 LINE.NUM ^rtTotalSecondsOfTest @@ 1 -  }rtSpeedPerSecond TABLE@ ^rtRequiredSpeed @! 
+5 LINE.NUM ELSE 
+6 LINE.NUM ^rtCurrentRunTime @@ 1 I>F F+ ^rtLowerBoundReqSpeedIndex @! 
+7 LINE.NUM ^rtCurrentRunTime @@ 2 I>F F+ ^rtUpperBoundReqSpeedIndex @! 
+9 LINE.NUM ^rtUpperBoundReqSpeedIndex @@I }rtSpeedPerSecond TABLE@ ^rtLowerBoundReqSpeedIndex @@I }rtSpeedPerSecond TABLE@ F- ^rtUpperBoundReqSpeedIndex @@ ^rtLowerBoundReqSpeedIndex @@ F- F/  FABS ^rtSlope @! 
+11 LINE.NUM ^rtUpperBoundReqSpeedIndex @@I }rtSpeedPerSecond TABLE@ ^rtSlope @@ ^rtUpperBoundReqSpeedIndex @@ F* F- ^rtIntercept @! 
+13 LINE.NUM ^rtSlope @@ ^rtTestRunTime @@F 1.000000e+000 F+ F* ^rtIntercept @@ F+ ^rtRequiredSpeed @! 
+14 LINE.NUM THEN 
 5 JUMP ;
 : 4_10
 -2 JUMP ;
@@ -532,7 +539,7 @@ T;
 37 LINE.NUM REPEAT 
 39 LINE.NUM ^rtSpeedIndex @@ 0 >= IF 
 40 LINE.NUM ^rtSpeedIndex @@ ^rtNumberOfAccPoints @@ *  ^rtAccelerationIndex @@ +  ^rtThrottleSetPointIndex @! 
-42 LINE.NUM ^rtThrottleSetPointIndex @@ }rtTSPGear1 TABLE@ ^rtThrottleSetPoint @! 
+42 LINE.NUM ^rtThrottleSetPointIndex @@ }rtTSPGear1 TABLE@ 10 I>F F/ ^rtThrottleSetPoint @! 
 43 LINE.NUM ELSE 
 44 LINE.NUM ^rtUpperBoundSpeedIndex @@ ^rtNumberOfAccPoints @@ *  ^rtAccelerationIndex @@ +  ^rtUpperBoundSetPointIndex @! 
 45 LINE.NUM ^rtLowerBoundSpeedIndex @@ ^rtNumberOfAccPoints @@ *  ^rtAccelerationIndex @@ +  ^rtLowerBoundSetPointIndex @! 
@@ -544,6 +551,7 @@ T;
 55 LINE.NUM %ScratchPad 201 ^rtCurrentAcceleration @@  IO.SP.F.WRITE DROP  
 56 LINE.NUM %ScratchPad 202 ^rtRequiredSpeed @@  IO.SP.F.WRITE DROP  
 57 LINE.NUM %ScratchPad 203 ^rtThrottleSetPoint @@  IO.SP.F.WRITE DROP  
+58 LINE.NUM %ScratchPad 204 ^rtTestRunTime @@F  IO.SP.F.WRITE DROP  
 5 JUMP ;
 : 4_16
 2 JUMP ;
@@ -562,15 +570,15 @@ T;
 16 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
 17 LINE.NUM THEN 
 18 LINE.NUM 1 +LOOP 
-20 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0001.. 3 ROLL !PID 
-21 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0008.. 3 ROLL !PID 
-23 LINE.NUM |rtActuate_Throttle 0 I>F  $0001.. 3 ROLL !PID 
-24 LINE.NUM |rtActuate_Throttle 0 I>F  $0008.. 3 ROLL !PID 
+21 LINE.NUM ^rtTotalSecondsOfTest @@ 1 -  ^rtTotalSecondsOfTest @! 
+23 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0001.. 3 ROLL !PID 
+24 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0008.. 3 ROLL !PID 
+26 LINE.NUM |rtActuate_Throttle 0 I>F  $0001.. 3 ROLL !PID 
+27 LINE.NUM |rtActuate_Throttle 0 I>F  $0008.. 3 ROLL !PID 
 -7 JUMP ;
 : 4_20
-3 LINE.NUM ^rtCurrentSecond @@ }rtSpeedPerSecond TABLE@ ^rtCurrentSpeed @! 
-4 LINE.NUM ^rtRequiredSpeed @@ ^rtCurrentSpeed @@ F- ^rtCurrentAcceleration @! 
-5 LINE.NUM 1 ^rtCurrentGear @! 
+5 LINE.NUM ^rtRequiredSpeed @@ ^rtCurrentSpeed @@ F- ^rtCurrentAcceleration @! 
+6 LINE.NUM 1 ^rtCurrentGear @! 
 -4 JUMP ;
 : 4_21
 
@@ -586,8 +594,13 @@ T;
 1 LINE.NUM |rtCalculate_Speed_Trim ^rtRequiredSpeed @@  $0002.. 3 ROLL !PID 
 2 LINE.NUM |rtCalculate_Speed_Trim ^rtCurrentSpeed @@  $0001.. 3 ROLL !PID 
 4 LINE.NUM |rtCalculate_Speed_Trim  $0008.. ROT PID@ ^rtPidOutput @! 
-6 LINE.NUM ^rtPidOutput @@ ^rtPidWeight @@ F* ^rtThrottleSetPoint @@ ^rtTspWeight @@ F* F+ ^rtThrottleOutput @! 
+6 LINE.NUM ^rtPidOutput @@ 2.000000e-001 F* ^rtThrottleSetPoint @@ 8.000000e-001 F* F+ ^rtThrottleOutput @! 
 8 LINE.NUM |rtActuate_Throttle ^rtThrottleOutput @@  $0002.. 3 ROLL !PID 
+12 LINE.NUM ^rtRequiredSpeed @@ 0 I>F F> IF 
+13 LINE.NUM ^rtRequiredSpeed @@ ^rtCurrentSpeed @! 
+14 LINE.NUM ELSE 
+15 LINE.NUM 0 I>F ^rtCurrentSpeed @! 
+16 LINE.NUM THEN 
 1 JUMP ;
 : 4_29
 3 JUMP ;
@@ -595,8 +608,8 @@ T;
 TRUE
 
 1 LINE.NUM
-  ^rtCurrentSecond @@ 
-  ^rtTotalSecondsOfTest @@   >=
+  ^rtCurrentRunTime @@ 
+  ^rtTotalSecondsOfTest @@F   F>=
 LAND
 IF -10 ELSE -11 THEN JUMP ;
 : 4_17
@@ -635,77 +648,6 @@ DUMMY
 4_22
 T;
 &Road_Test ' T4 SETTASK
-: 3_0
-
-1 LINE.NUM
-  %ScratchPad 
-  201  
-  ^rtDataLoadStatus   IO.SP.READ
-  ^gStatus @! 
-7 JUMP ;
-: 3_1
-1 LINE.NUM %ScratchPad 3600 2000 0 }rtSpeedPerSecond  IO.SP.READ DROP  
-3 LINE.NUM 0 ^rtTotalSecondsOfTest @! 
-4 LINE.NUM }rtSpeedPerSecond  TableSize@ ^gLengthOfTable @! 
-1 6 LINE.NUM ^gLengthOfTable @@ 1 -  1 + 0 DO? I ^gIndex @! 
-7 LINE.NUM ^gIndex @@ }rtSpeedPerSecond TABLE@ 0 I>F F>= IF 
-8 LINE.NUM ^rtTotalSecondsOfTest @@ 1 +  ^rtTotalSecondsOfTest @! 
-9 LINE.NUM ELSE 
-10 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
-11 LINE.NUM THEN 
-12 LINE.NUM 1 +LOOP 
-0 JUMP ;
-: 3_3
-
-1 LINE.NUM
-  ^rtTestRunTime   StartTimer
-0 JUMP ;
-: 3_5
-1 LINE.NUM ^rtTestRunTime @@F  Truncate ^rtCurrentSecond F@! 
-2 LINE.NUM ^rtCurrentSecond @@ 1 +  }rtSpeedPerSecond TABLE@ ^rtRequiredSpeed @! 
-3 JUMP ;
-: 3_8
--2 JUMP ;
-: 3_9
-
-1 LINE.NUM
-  0  
-  ^rtCurrentSpeed I@!   
-
-2 LINE.NUM
-  ^rtTestRunTime   StopTimer
-3 JUMP ;
-: 3_14
--7 JUMP ;
-: 3_7
-TRUE
-
-1 LINE.NUM
-  ^rtCurrentSecond @@ 
-  ^rtTotalSecondsOfTest @@   >=
-LAND
-IF -3 ELSE -4 THEN JUMP ;
-: 3_13
-TRUE
-
-1 LINE.NUM
-  ^rtDataLoadStatus @@ 
-  3    =
-LAND
-IF -8 ELSE -3 THEN JUMP ;
-T: T3
-DUMMY
-3_0
-3_1
-3_3
-3_5
-3_8
-3_9
-3_14
-3_7
-3_13
-T;
-&Road_Test_Required_Speed ' T3 SETTASK
 : 2_0
 
 1 LINE.NUM
@@ -745,7 +687,7 @@ T;
 35 LINE.NUM ^rtThrottleSetPointIndex @@ }rtTSPGear1 TABLE@ ^rtThrottleSetPoint @! 
 13 JUMP ;
 : 2_4
-3 LINE.NUM ^rtCurrentSecond @@ }rtSpeedPerSecond TABLE@ ^rtCurrentSpeed @! 
+3 LINE.NUM ^rtCurrentRunTime @@I }rtSpeedPerSecond TABLE@ ^rtCurrentSpeed @! 
 4 LINE.NUM ^rtRequiredSpeed @@ ^rtCurrentSpeed @@ F- ^rtCurrentAcceleration @! 
 5 LINE.NUM 1 ^rtCurrentGear @! 
 3 JUMP ;
@@ -830,8 +772,8 @@ T;
 : 2_26
 0 JUMP ;
 : 2_29
-1 LINE.NUM ^rtTestRunTime @@F  Truncate ^rtCurrentSecond F@! 
-2 LINE.NUM ^rtCurrentSecond @@ 1 +  }rtSpeedPerSecond TABLE@ ^rtRequiredSpeed @! 
+1 LINE.NUM ^rtTestRunTime @@F  Truncate ^rtCurrentRunTime @! 
+2 LINE.NUM ^rtCurrentRunTime @@ 1 I>F F+ F>I }rtSpeedPerSecond TABLE@ ^rtRequiredSpeed @! 
 -8 JUMP ;
 : 2_31
 
@@ -868,8 +810,8 @@ IF -10 ELSE -9 THEN JUMP ;
 TRUE
 
 1 LINE.NUM
-  ^rtCurrentSecond @@ 
-  ^rtTotalSecondsOfTest @@   >=
+  ^rtCurrentRunTime @@ 
+  ^rtTotalSecondsOfTest @@F   F>=
 LAND
 IF -8 ELSE -7 THEN JUMP ;
 T: T2
@@ -895,7 +837,6 @@ CREATE T.ARRAY
 &Learning ,
 &Powerup ,
 &Road_Test ,
-&Road_Test_Required_Speed ,
 &Throttle_Set_Point_Calculation ,
  0 ,
 CREATE V.ARRAY
@@ -911,15 +852,15 @@ CREATE V.ARRAY
 ^rtAccelerationIndex ,
 ^rtCurrentAcceleration ,
 ^rtCurrentGear ,
-^rtCurrentSecond ,
+^rtCurrentRunTime ,
 ^rtCurrentSpeed ,
 ^rtDataLoadStatus ,
 ^rtIntercept ,
+^rtLowerBoundReqSpeedIndex ,
 ^rtLowerBoundSetPointIndex ,
 ^rtLowerBoundSpeedIndex ,
 ^rtNumberOfAccPoints ,
 ^rtPidOutput ,
-^rtPidWeight ,
 ^rtRequiredSpeed ,
 ^rtSlope ,
 ^rtSpeedIndex ,
@@ -928,7 +869,7 @@ CREATE V.ARRAY
 ^rtThrottleSetPoint ,
 ^rtThrottleSetPointIndex ,
 ^rtTotalSecondsOfTest ,
-^rtTspWeight ,
+^rtUpperBoundReqSpeedIndex ,
 ^rtUpperBoundSetPointIndex ,
 ^rtUpperBoundSpeedIndex ,
 ^ScratchPadInputIndex ,
@@ -1038,15 +979,15 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^rtAccelerationIndex @!
 0.00000000 ^rtCurrentAcceleration @!
 0 ^rtCurrentGear @!
-0 ^rtCurrentSecond @!
+0.00000000 ^rtCurrentRunTime @!
 0.00000000 ^rtCurrentSpeed @!
 0 ^rtDataLoadStatus @!
 0.00000000 ^rtIntercept @!
+0.00000000 ^rtLowerBoundReqSpeedIndex @!
 0 ^rtLowerBoundSetPointIndex @!
 0 ^rtLowerBoundSpeedIndex @!
 0 ^rtNumberOfAccPoints @!
 0.00000000 ^rtPidOutput @!
-0.20000000 ^rtPidWeight @!
 0.00000000 ^rtRequiredSpeed @!
 0.00000000 ^rtSlope @!
 0 ^rtSpeedIndex @!
@@ -1056,7 +997,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 0.00000000 ^rtThrottleSetPoint @!
 0 ^rtThrottleSetPointIndex @!
 0 ^rtTotalSecondsOfTest @!
-0.80000001 ^rtTspWeight @!
+0.00000000 ^rtUpperBoundReqSpeedIndex @!
 0 ^rtUpperBoundSetPointIndex @!
 0 ^rtUpperBoundSpeedIndex @!
 0 ^ScratchPadInputIndex @!
@@ -1087,8 +1028,8 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 09/26/15 " ;
-: TIMESTAMP ." 10:17:08 " ;
+: DATESTAMP ." 10/07/15 " ;
+: TIMESTAMP ." 09:28:55 " ;
 : CRCSTAMP  ." 00112233445566778899AABBCCDDEEFF " ;
 MAKECHECK
 CLEAR.BREAKS

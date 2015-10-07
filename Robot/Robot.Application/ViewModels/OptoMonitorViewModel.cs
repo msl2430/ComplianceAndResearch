@@ -70,6 +70,13 @@ namespace Robot.Application.ViewModels
         }
 
         #region Test Phase Data
+        private decimal _testPhaseCurrentRunTime { get; set; }
+        public decimal TestPhaseCurrentRunTime
+        {
+            get { return _testPhaseCurrentRunTime; }
+            set { _testPhaseCurrentRunTime = value; OnPropertyChanged("TestPhaseCurrentRunTime"); }
+        }
+
         private decimal _testPhaseCurrentSpeed { get; set; }
         public decimal TestPhaseCurrentSpeed
         {

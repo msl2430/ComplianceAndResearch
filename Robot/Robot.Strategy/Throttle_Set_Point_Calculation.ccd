@@ -37,7 +37,7 @@
 35 LINE.NUM ^rtThrottleSetPointIndex @@ }rtTSPGear1 TABLE@ ^rtThrottleSetPoint @! 
 13 JUMP ;
 : 2_4
-3 LINE.NUM ^rtCurrentSecond @@ }rtSpeedPerSecond TABLE@ ^rtCurrentSpeed @! 
+3 LINE.NUM ^rtCurrentRunTime @@I }rtSpeedPerSecond TABLE@ ^rtCurrentSpeed @! 
 4 LINE.NUM ^rtRequiredSpeed @@ ^rtCurrentSpeed @@ F- ^rtCurrentAcceleration @! 
 5 LINE.NUM 1 ^rtCurrentGear @! 
 3 JUMP ;
@@ -122,8 +122,8 @@
 : 2_26
 0 JUMP ;
 : 2_29
-1 LINE.NUM ^rtTestRunTime @@F  Truncate ^rtCurrentSecond F@! 
-2 LINE.NUM ^rtCurrentSecond @@ 1 +  }rtSpeedPerSecond TABLE@ ^rtRequiredSpeed @! 
+1 LINE.NUM ^rtTestRunTime @@F  Truncate ^rtCurrentRunTime @! 
+2 LINE.NUM ^rtCurrentRunTime @@ 1 I>F F+ F>I }rtSpeedPerSecond TABLE@ ^rtRequiredSpeed @! 
 -8 JUMP ;
 : 2_31
 
@@ -160,8 +160,8 @@ IF -10 ELSE -9 THEN JUMP ;
 TRUE
 
 1 LINE.NUM
-  ^rtCurrentSecond @@ 
-  ^rtTotalSecondsOfTest @@   >=
+  ^rtCurrentRunTime @@ 
+  ^rtTotalSecondsOfTest @@F   F>=
 LAND
 IF -8 ELSE -7 THEN JUMP ;
 T: T2

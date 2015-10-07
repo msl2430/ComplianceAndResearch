@@ -40,7 +40,7 @@ namespace Robot.Application.Services.WorkerServices
                 while (!CancellationToken.IsCancellationRequested)
                 {
                     if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
-                    if (WaitStopWatch.ElapsedMilliseconds > 500)
+                    if (WaitStopWatch.ElapsedMilliseconds > 10)
                     {
                         WaitStopWatch.Stop();
                         WaitStopWatch.Reset();
@@ -49,7 +49,7 @@ namespace Robot.Application.Services.WorkerServices
                             GetOptoValues();
                         }
                     }
-                    Thread.Sleep(500);
+                    Thread.Sleep(10);
                 }
             }
             catch (TaskCanceledException ex)
@@ -70,8 +70,7 @@ namespace Robot.Application.Services.WorkerServices
                                 appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ConnectedToOpto.ToInt()).Value == 1;
             OptoMonitorViewModel.IsGoToLearningPhase =
                 appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.GoToLearningPhase.ToInt()).Value == 1;
-            OptoMonitorViewModel.IsGoToTestPhase = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.GoToTestPhase.ToInt()).Value ==
-                                                   1;
+            OptoMonitorViewModel.IsGoToTestPhase = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.GoToTestPhase.ToInt()).Value == 1;
             OptoMonitorViewModel.TemplateLoadStatus =
                 appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.LearingPhaseTemplateLoadStatus.ToInt()).Value;
             OptoMonitorViewModel.SelectedManufacturerId =
@@ -84,10 +83,14 @@ namespace Robot.Application.Services.WorkerServices
             OptoMonitorViewModel.TestPhaseCurrentAcceleration = appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TestPhaseCurrentAcceleration.ToInt()).Value;
             OptoMonitorViewModel.TestPhaseRequiredSpeed = appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TestPhaseRequiredSpeed.ToInt()).Value;
             OptoMonitorViewModel.TestPhaseThrottleSetPoint = appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TestPhaseThrottleSetPoint.ToInt()).Value;
+            OptoMonitorViewModel.TestPhaseCurrentRunTime = appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TestPhaseCurrentRunTime.ToInt()).Value;
 
+            if (!OptoMonitorViewModel.IsGoToTestPhase) return;
             using (var file = new StreamWriter(System.Environment.CurrentDirectory + @"\TestData.txt", true))
             {
-                file.WriteLine(DateTime.Now + " >> Speed: " + OptoMonitorViewModel.TestPhaseCurrentSpeed + " Acceleration: " + OptoMonitorViewModel.TestPhaseCurrentAcceleration + " Required Speed: " + OptoMonitorViewModel.TestPhaseRequiredSpeed + " Throttle Set Point: " + OptoMonitorViewModel.TestPhaseThrottleSetPoint);
+                file.WriteLine(DateTime.Now + " >> RunTime: " + OptoMonitorViewModel.TestPhaseCurrentRunTime + " Speed: " + OptoMonitorViewModel.TestPhaseCurrentSpeed +
+                               " Acceleration: " + OptoMonitorViewModel.TestPhaseCurrentAcceleration + " Required Speed: " + OptoMonitorViewModel.TestPhaseRequiredSpeed +
+                               " Throttle Set Point: " + OptoMonitorViewModel.TestPhaseThrottleSetPoint);
             }
         }
     }

@@ -2,9 +2,9 @@
 
 # PAC CONTROL TAG DATABASE DUMP
 # ----------------------------------------------------------------
-# NAME :         C:\Foshizzle\ComplianceAndResearch\Robot\Robot.Strategy\Robot.Strategy.idb
+# NAME :         D:\Documents\ComplianceAndResearch\Robot\Robot.Strategy\Robot.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    10:20:9 9/26/2015
+# TIME/DATE :    9:28:55 10/7/2015
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -95,7 +95,6 @@
 TAG1,Learning                                          ,1    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,Powerup                                           ,0    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,Road_Test                                         ,4    ,00000000,00000100,00000000,00000000,0    ,0   
-TAG1,Road_Test_Required_Speed                          ,3    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,Throttle_Set_Point_Calculation                    ,2    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,ScratchPad                                        ,1    ,00000000,00000000,40000000,00000000,0    ,0   
 TAG1,SnapPacR1                                         ,3    ,00000000,00000000,10000000,00000000,0    ,0   
@@ -153,15 +152,15 @@ TAG1,IsGoToTestPhase                                   ,8    ,00000000,00000000,
 TAG1,rtAccelerationIndex                               ,27   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtCurrentAcceleration                             ,26   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtCurrentGear                                     ,18   ,00000000,00000000,00000000,00000008,0    ,0   
-TAG1,rtCurrentSecond                                   ,32   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,rtCurrentRunTime                                  ,49   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtCurrentSpeed                                    ,17   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtDataLoadStatus                                  ,34   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtIntercept                                       ,43   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,rtLowerBoundReqSpeedIndex                         ,50   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtLowerBoundSetPointIndex                         ,39   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtLowerBoundSpeedIndex                            ,37   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtNumberOfAccPoints                               ,29   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtPidOutput                                       ,45   ,00000000,00000000,00000000,00000010,0    ,0   
-TAG1,rtPidWeight                                       ,46   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtRequiredSpeed                                   ,33   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtSlope                                           ,42   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtSpeedIndex                                      ,25   ,00000000,00000000,00000000,00000008,0    ,0   
@@ -171,7 +170,7 @@ TAG1,rtThrottleOutput                                  ,48   ,00000000,00000000,
 TAG1,rtThrottleSetPoint                                ,19   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtThrottleSetPointIndex                           ,28   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtTotalSecondsOfTest                              ,31   ,00000000,00000000,00000000,00000008,0    ,0   
-TAG1,rtTspWeight                                       ,47   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,rtUpperBoundReqSpeedIndex                         ,51   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtUpperBoundSetPointIndex                         ,38   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtUpperBoundSpeedIndex                            ,36   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,ScratchPadInputIndex                              ,16   ,00000000,00000000,00000000,00000008,0    ,0   

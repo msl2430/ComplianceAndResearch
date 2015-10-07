@@ -2,7 +2,6 @@ CREATE T.ARRAY
 &Learning ,
 &Powerup ,
 &Road_Test ,
-&Road_Test_Required_Speed ,
 &Throttle_Set_Point_Calculation ,
  0 ,
 CREATE V.ARRAY
@@ -18,15 +17,15 @@ CREATE V.ARRAY
 ^rtAccelerationIndex ,
 ^rtCurrentAcceleration ,
 ^rtCurrentGear ,
-^rtCurrentSecond ,
+^rtCurrentRunTime ,
 ^rtCurrentSpeed ,
 ^rtDataLoadStatus ,
 ^rtIntercept ,
+^rtLowerBoundReqSpeedIndex ,
 ^rtLowerBoundSetPointIndex ,
 ^rtLowerBoundSpeedIndex ,
 ^rtNumberOfAccPoints ,
 ^rtPidOutput ,
-^rtPidWeight ,
 ^rtRequiredSpeed ,
 ^rtSlope ,
 ^rtSpeedIndex ,
@@ -35,7 +34,7 @@ CREATE V.ARRAY
 ^rtThrottleSetPoint ,
 ^rtThrottleSetPointIndex ,
 ^rtTotalSecondsOfTest ,
-^rtTspWeight ,
+^rtUpperBoundReqSpeedIndex ,
 ^rtUpperBoundSetPointIndex ,
 ^rtUpperBoundSpeedIndex ,
 ^ScratchPadInputIndex ,
@@ -145,15 +144,15 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^rtAccelerationIndex @!
 0.00000000 ^rtCurrentAcceleration @!
 0 ^rtCurrentGear @!
-0 ^rtCurrentSecond @!
+0.00000000 ^rtCurrentRunTime @!
 0.00000000 ^rtCurrentSpeed @!
 0 ^rtDataLoadStatus @!
 0.00000000 ^rtIntercept @!
+0.00000000 ^rtLowerBoundReqSpeedIndex @!
 0 ^rtLowerBoundSetPointIndex @!
 0 ^rtLowerBoundSpeedIndex @!
 0 ^rtNumberOfAccPoints @!
 0.00000000 ^rtPidOutput @!
-0.20000000 ^rtPidWeight @!
 0.00000000 ^rtRequiredSpeed @!
 0.00000000 ^rtSlope @!
 0 ^rtSpeedIndex @!
@@ -163,7 +162,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 0.00000000 ^rtThrottleSetPoint @!
 0 ^rtThrottleSetPointIndex @!
 0 ^rtTotalSecondsOfTest @!
-0.80000001 ^rtTspWeight @!
+0.00000000 ^rtUpperBoundReqSpeedIndex @!
 0 ^rtUpperBoundSetPointIndex @!
 0 ^rtUpperBoundSpeedIndex @!
 0 ^ScratchPadInputIndex @!

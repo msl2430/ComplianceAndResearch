@@ -62,6 +62,7 @@ namespace Opto22.Core.Constants
             TestPhaseCurrentAcceleration,
             TestPhaseRequiredSpeed,
             TestPhaseThrottleSetPoint,
+            TestPhaseCurrentRunTime,
 
             TspGear1Start = 1000,
             TspGear2Start = 1100,
