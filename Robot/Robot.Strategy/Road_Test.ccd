@@ -120,8 +120,8 @@
 27 LINE.NUM |rtActuate_Throttle 0 I>F  $0008.. 3 ROLL !PID 
 -7 JUMP ;
 : 4_20
-5 LINE.NUM ^rtRequiredSpeed @@ ^rtCurrentSpeed @@ F- ^rtCurrentAcceleration @! 
-6 LINE.NUM 1 ^rtCurrentGear @! 
+3 LINE.NUM ^rtRequiredSpeed @@ ^rtCurrentSpeed @@ F- ^rtCurrentAcceleration @! 
+4 LINE.NUM 1 ^rtCurrentGear @! 
 -4 JUMP ;
 : 4_21
 

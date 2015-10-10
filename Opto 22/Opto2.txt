@@ -1,0 +1,6 @@
+desired acceleration / measured acceleration * current throttle set point = modified current throttle setpoint
+
+time to decimate
+
+current throttle set point * (1 + (measured acceleration- int measured acceleration)
+1 + (Truncated(1.9) - 1.9 + 1)

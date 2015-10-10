@@ -587,8 +587,8 @@ T;
 27 LINE.NUM |rtActuate_Throttle 0 I>F  $0008.. 3 ROLL !PID 
 -7 JUMP ;
 : 4_20
-5 LINE.NUM ^rtRequiredSpeed @@ ^rtCurrentSpeed @@ F- ^rtCurrentAcceleration @! 
-6 LINE.NUM 1 ^rtCurrentGear @! 
+3 LINE.NUM ^rtRequiredSpeed @@ ^rtCurrentSpeed @@ F- ^rtCurrentAcceleration @! 
+4 LINE.NUM 1 ^rtCurrentGear @! 
 -4 JUMP ;
 : 4_21
 
@@ -1038,9 +1038,9 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 10/07/15 " ;
-: TIMESTAMP ." 09:28:55 " ;
-: CRCSTAMP  ." 6E0CC3A2451090A8A66F0D8CDB6B9B66 " ;
+: DATESTAMP ." 10/10/15 " ;
+: TIMESTAMP ." 08:42:38 " ;
+: CRCSTAMP  ." 2432B4AF0B6F8078C9D8CFC6F5F6DE48 " ;
 MAKECHECK
 CLEAR.BREAKS
 

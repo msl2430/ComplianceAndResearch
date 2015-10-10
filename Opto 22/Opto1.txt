@@ -1,0 +1,7 @@
+Variables to add to model
+these come from learning phase and stored in db
+PulseMultiplier Float
+PulsePerRev const int 
+
+user inputs constant
+RollDiameter
