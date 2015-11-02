@@ -44,6 +44,9 @@ namespace Robot.Application.Views.CarSelection
             ViewModel.AvailableYears = yearList;
             if(!ExistingModelComboBox.Items.IsEmpty)
                 ExistingModelComboBox.SelectedIndex = 0;
+            //TODO: FOR TESTING
+            NewModelTextBox.Text = "Test";
+            //TODO: FOR TESTING
         }
 
         #region Events
@@ -77,7 +80,7 @@ namespace Robot.Application.Views.CarSelection
                 return;
             }
 
-            var modelId = ModelService.AddModel(NewModelTextBox.Text.Trim(), ViewModel.Manufacturers[NewManufacturerComboBox.SelectedIndex].ManufacturerId, ViewModel.AvailableYears[YearCombo.SelectedIndex]);
+            var modelId = 1;// ModelService.AddModel(NewModelTextBox.Text.Trim(), ViewModel.Manufacturers[NewManufacturerComboBox.SelectedIndex].ManufacturerId, ViewModel.AvailableYears[YearCombo.SelectedIndex]);
 
             if (modelId <= 0)
             {
@@ -104,7 +107,10 @@ namespace Robot.Application.Views.CarSelection
                     ManufacturerName = ViewModel.Manufacturers[ExistingManufacturerComboBox.SelectedIndex].Name,
                     ModelId = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].ModelId,
                     ModelName = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].Name,
-                    ModelYear = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].Year
+                    ModelYear = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].Year,
+                    ModelGearRatios = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].GearRatios,
+                    PulseMultiplier = Convert.ToDecimal(ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].PulseMultplier),
+                    PulsePerRev = Convert.ToDecimal(ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].PulsePerRev),
                 });
         }
 

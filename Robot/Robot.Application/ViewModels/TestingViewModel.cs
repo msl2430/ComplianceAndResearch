@@ -13,6 +13,9 @@ namespace Robot.Application.ViewModels
         public int ModelId { get; set; }
         public string ModelName { get; set; }
         public int ModelYear { get; set; }
+        public decimal PulseMultiplier { get; set; }
+        public decimal PulsePerRev { get; set; }
+        public IList<GearRatioModel> ModelGearRatios { get; set; }
         public string CarDisplayName { get { return string.Format("{0} {1} {2}", ModelYear, ManufacturerName, ModelName); } }
 
         public bool _isPreTestCheck { get; set; }
@@ -28,25 +31,25 @@ namespace Robot.Application.ViewModels
                 _testProgressStatus = value;
                 switch (_testProgressStatus)
                 {
-                    case (int)StatusConstants.RoadTestStatus.PreCheckActive:
+                    case (int)StatusConstants.PhaseStatus.PreCheckActive:
                         PreCheckStatus = StatusConstants.ProgressStatus.Active.ToInt();
                         break;
-                    case (int)StatusConstants.RoadTestStatus.LoadDataPointActive:
+                    case (int)StatusConstants.PhaseStatus.LoadDataPointActive:
                         PreCheckStatus = StatusConstants.ProgressStatus.Finished.ToInt();
                         LoadingDataStatus = StatusConstants.ProgressStatus.Active.ToInt();
                         break;
-                    case (int)StatusConstants.RoadTestStatus.Running:
+                    case (int)StatusConstants.PhaseStatus.Running:
                         PreCheckStatus = StatusConstants.ProgressStatus.Finished.ToInt();
                         LoadingDataStatus = StatusConstants.ProgressStatus.Finished.ToInt();
                         RunningStatus = StatusConstants.ProgressStatus.Active.ToInt();
                         break;
-                    case (int)StatusConstants.RoadTestStatus.Shutdown:
+                    case (int)StatusConstants.PhaseStatus.Shutdown:
                         PreCheckStatus = StatusConstants.ProgressStatus.Finished.ToInt();
                         LoadingDataStatus = StatusConstants.ProgressStatus.Finished.ToInt();
                         RunningStatus = StatusConstants.ProgressStatus.Finished.ToInt();
                         ShutdownStatus = StatusConstants.ProgressStatus.Active.ToInt();
                         break;
-                    case (int)StatusConstants.RoadTestStatus.Completed:
+                    case (int)StatusConstants.PhaseStatus.Completed:
                         PreCheckStatus = StatusConstants.ProgressStatus.Finished.ToInt();
                         LoadingDataStatus = StatusConstants.ProgressStatus.Finished.ToInt();
                         RunningStatus = StatusConstants.ProgressStatus.Finished.ToInt();

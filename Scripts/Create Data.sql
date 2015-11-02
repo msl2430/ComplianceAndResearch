@@ -419,12 +419,12 @@ INSERT INTO Manufacturer VALUES ('Bharat Benz', 101)
 
 IF NOT EXISTS (SELECT 1 FROM Model WHERE ModelId = 1) 
 BEGIN
-	INSERT INTO Model VALUES ('63', 'Test', 2015)
+	INSERT INTO Model VALUES ('63', 'Test', 2015, 1, 1)
 END
 
 IF EXISTS (SELECT 1 FROM Model WHERE ModelId = 1) 
 BEGIN
-	INSERT INTO ThrottleSetPointChart VALUES (1, 'Test Chart', 1, GETDATE())
+	INSERT INTO ThrottleSetPointChart VALUES (1, 'Learning Standard Chart', 1, GETDATE())
 	INSERT INTO ThrottleSetPoint VALUES (1, 0, 1, 0, 0)
 	INSERT INTO ThrottleSetPoint VALUES (1, 0, 2, 0, 0)
 	INSERT INTO ThrottleSetPoint VALUES (1, 0, 3, 0, 0)
@@ -736,8 +736,34 @@ BEGIN
 
 END
 
-
 IF NOT EXISTS (SELECT 1 FROM RoadTestChart WHERE RoadTestChartId = 1)
+BEGIN
+	INSERT INTO RoadTestChart VALUES ('Learning Test - Standard', 1, GETDATE())
+	
+	INSERT INTO RoadTestPoint VALUES (1,0,0)
+	INSERT INTO RoadTestPoint VALUES (1,1,1)
+	INSERT INTO RoadTestPoint VALUES (1,2,2)
+	INSERT INTO RoadTestPoint VALUES (1,3,3)
+	INSERT INTO RoadTestPoint VALUES (1,4,4)
+	INSERT INTO RoadTestPoint VALUES (1,5,5)
+	INSERT INTO RoadTestPoint VALUES (1,6,6)
+	INSERT INTO RoadTestPoint VALUES (1,7,7)
+	INSERT INTO RoadTestPoint VALUES (1,8,8)
+	INSERT INTO RoadTestPoint VALUES (1,9,9)
+	INSERT INTO RoadTestPoint VALUES (1,10,10)
+	INSERT INTO RoadTestPoint VALUES (1,11,9)
+	INSERT INTO RoadTestPoint VALUES (1,12,8)
+	INSERT INTO RoadTestPoint VALUES (1,13,7)
+	INSERT INTO RoadTestPoint VALUES (1,14,6)
+	INSERT INTO RoadTestPoint VALUES (1,15,5)
+	INSERT INTO RoadTestPoint VALUES (1,16,4)
+	INSERT INTO RoadTestPoint VALUES (1,17,3)
+	INSERT INTO RoadTestPoint VALUES (1,18,2)
+	INSERT INTO RoadTestPoint VALUES (1,19,1)
+	INSERT INTO RoadTestPoint VALUES (1,20,0)
+END
+
+IF NOT EXISTS (SELECT 1 FROM RoadTestChart WHERE RoadTestChartId = 2)
 BEGIN
 	INSERT INTO RoadTestChart VALUES ('Basic Test', 1, GETDATE())
 	
@@ -767,7 +793,7 @@ BEGIN
 
 END
 
-IF NOT EXISTS (SELECT 1 FROM RoadTestChart WHERE RoadTestChartId = 2) 
+IF NOT EXISTS (SELECT 1 FROM RoadTestChart WHERE RoadTestChartId = 3) 
 BEGIN
 	INSERT INTO RoadTestChart VALUES ('Basic Test 2', 1, GETDATE())
 

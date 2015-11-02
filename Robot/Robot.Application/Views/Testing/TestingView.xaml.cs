@@ -39,7 +39,7 @@ namespace Robot.Application.Views.Testing
             ViewModel.RoadTestCharts = RoadTestService.GetAllRoadTests();
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.GoToTestPhase.ToInt(), 1);
 
-            ViewModel.TestProgressStatus = StatusConstants.RoadTestStatus.InActive.ToInt();
+            ViewModel.TestProgressStatus = StatusConstants.PhaseStatus.InActive.ToInt();
             
         }
 
@@ -57,7 +57,7 @@ namespace Robot.Application.Views.Testing
             }).ContinueWith((x) =>
             {
                 ViewModel.ApplicationSessionFactory.LogEvent("Road Test completed", true);
-                ViewModel.TestProgressStatus = StatusConstants.RoadTestStatus.InActive.ToInt();
+                ViewModel.TestProgressStatus = StatusConstants.PhaseStatus.InActive.ToInt();
                 Dispatcher.Invoke(() => StartRoadTestButton.IsEnabled = true);
             }).ConfigureAwait(false);
         }

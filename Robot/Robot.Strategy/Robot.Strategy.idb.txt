@@ -2,9 +2,9 @@
 
 # PAC CONTROL TAG DATABASE DUMP
 # ----------------------------------------------------------------
-# NAME :         C:\Foshizzle\ComplianceAndResearch\Robot\Robot.Strategy\Robot.Strategy.idb
+# NAME :         D:\Documents\ComplianceAndResearch\Robot\Robot.Strategy\Robot.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    10:33:33 10/10/2015
+# TIME/DATE :    15:21:42 11/2/2015
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -93,6 +93,7 @@
 # TAG1,NAME,ID,BITMASK_0,BITMASK_1,BITMASK_2,BITMASK_3,TABLE_LENGTH,STRING_WIDTH
 
 TAG1,Learning                                          ,1    ,00000000,00000100,00000000,00000000,0    ,0   
+TAG1,Learning_Phase                                    ,5    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,Powerup                                           ,0    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,Road_Test                                         ,4    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,Throttle_Set_Point_Calculation                    ,2    ,00000000,00000100,00000000,00000000,0    ,0   
@@ -151,6 +152,8 @@ TAG1,gStatus                                           ,35   ,00000000,00000000,
 TAG1,IsApplicationConnected                            ,4    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,IsGoToLearningPhase                               ,6    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,IsGoToTestPhase                                   ,8    ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,lpDataLoadStatus                                  ,59   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,lpLearningActive                                  ,58   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,PulseMultiplier                                   ,52   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,PulsePerRev                                       ,55   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,RollDiameter                                      ,57   ,00000000,00000000,00000000,00000010,0    ,0   
@@ -188,6 +191,7 @@ TAG1,StrategyRunTime                                   ,0    ,00000000,00000000,
 TAG1,TestInputValueStr                                 ,2    ,00000000,00000000,00000000,00000040,0    ,32  
 TAG1,TestString                                        ,1    ,00000000,00000000,00000000,00000040,0    ,256 
 TAG1,ClearIntegerTable                                 ,0    ,00000000,00000000,00000000,00000100,300  ,0   
+TAG1,GearRatio                                         ,7    ,00000000,00000000,00000000,00000200,10   ,0   
 TAG1,rtAccelerationPoints                              ,4    ,00000000,00000000,00000000,00000200,20   ,0   
 TAG1,rtSpeedPerSecond                                  ,6    ,00000000,00000000,00000000,00000200,3600 ,0   
 TAG1,rtSpeedPoints                                     ,5    ,00000000,00000000,00000000,00000200,20   ,0   

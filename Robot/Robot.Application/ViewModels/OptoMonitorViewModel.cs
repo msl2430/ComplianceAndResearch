@@ -141,8 +141,8 @@ namespace Robot.Application.ViewModels
                 case (int)ScratchPadConstants.StrategyLocationValues.LearningPhase:
                     StrategyLocationString = "Learning phase started";
                     break;
-                case (int)ScratchPadConstants.StrategyLocationValues.LearningPhaseTemplateLoad:
-                    StrategyLocationString = "Waiting for template";
+                case (int)ScratchPadConstants.StrategyLocationValues.LearningPhaseCalculating:
+                    StrategyLocationString = "Calculating toggle set point";
                     break;
                 case (int)ScratchPadConstants.StrategyLocationValues.TestPhase:
                     StrategyLocationString = "Test phase started";

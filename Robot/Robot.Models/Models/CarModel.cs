@@ -1,4 +1,6 @@
-﻿using Robot.Core.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Robot.Core.Models;
 using Robot.Models.DataObjects;
 
 namespace Robot.Models.Models
@@ -8,17 +10,34 @@ namespace Robot.Models.Models
         public int ModelId { get; set; }
         public string Name { get; set; }
         public int ManufactureId { get; set; }
+        public string ManufactureName { get; set; }
         public int Year { get; set; }
         public string DisplayName { get; set; }
+        public decimal? PulseMultplier { get; set; }
+        public decimal? PulsePerRev { get; set; }
+        public IList<GearRatioModel> GearRatios { get; set; }
 
-        public CarModel() { }
+        public CarModel()
+        {
+            GearRatios = new List<GearRatioModel>();
+        }
 
         public CarModel(Model obj)
         {
             if (obj == null)
                 return;
             InstantiateFromDataObject(obj);
-            DisplayName = string.Format("{0} ({1})", Name, Year);
+            GearRatios = new List<GearRatioModel>();
+            DisplayName = $"{Name} ({Year})";
+        }
+
+        public CarModel(ModelExtended obj)
+        {
+            if (obj == null)
+                return;
+            InstantiateFromDataObject(obj);
+            DisplayName = $"{Name} ({Year})";
+            GearRatios = obj.GearRatios != null && obj.GearRatios.Any() ? obj.GearRatios.Select(gr => new GearRatioModel(gr)).ToList() : new List<GearRatioModel>();
         }
     }
 }

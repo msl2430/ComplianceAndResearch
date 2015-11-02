@@ -98,6 +98,7 @@
     <Compile Include="Services\DataServices\RoadTestService.cs" />
     <Compile Include="Services\DataServices\SetPointService.cs" />
     <Compile Include="Services\LoggingService.cs" />
+    <Compile Include="Services\WorkerServices\LearningWorkerService.cs" />
     <Compile Include="Services\WorkerServices\OptoMonitorWorkerService.cs" />
     <Compile Include="Services\WorkerServices\RoadTestWorkerService.cs" />
     <Compile Include="Session\ApplicationSession.cs" />

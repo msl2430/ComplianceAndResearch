@@ -210,17 +210,17 @@ namespace Robot.Application.Factories
 
                 ScratchPadStrings.FirstOrDefault(b => b.Index == index).Value = Convert.ToString(value);
             }
-            //else if (typeof (T) == typeof (decimal))
-            //{
-            //    if (ScratchPadFloats.All(b => b.Index != index))
-            //        throw new Exception("Bad scratchpad float index.");
+            else if (typeof(T) == typeof(decimal))
+            {
+                if (ScratchPadFloats.All(b => b.Index != index))
+                    throw new Exception("Bad scratchpad float index.");
 
-            //    var result = OptoMmp.Current.ScratchpadFloatWrite(new[] {  (float)Convert.ToDecimal(value) }, 0, 1, index);
-            //    if (result != 0)
-            //        throw new Exception("Error saving scratchpad float.");
+                var result = OptoMmp.Current.ScratchpadFloatWrite(new[] { (float)Convert.ToDecimal(value) }, 0, 1, index);
+                if (result != 0)
+                    throw new Exception("Error saving scratchpad float.");
 
-            //    ScratchPadFloats.FirstOrDefault(b => b.Index == index).Value = Convert.ToDecimal(value);
-            //}
+                ScratchPadFloats.FirstOrDefault(b => b.Index == index).Value = Convert.ToDecimal(value);
+            }
         }
 
         public void SetScratchPadTspValues(List<List<IScratchPadModel<decimal>>> tspValues, List<decimal> speedPoints, List<decimal> accelerationPoints, IList<ScratchPadModel<decimal>> roadTestPoints)

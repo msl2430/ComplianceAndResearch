@@ -1,5 +1,6 @@
 CREATE T.ARRAY
 &Learning ,
+&Learning_Phase ,
 &Powerup ,
 &Road_Test ,
 &Throttle_Set_Point_Calculation ,
@@ -7,6 +8,8 @@ CREATE T.ARRAY
 CREATE V.ARRAY
 ^CallChartStatus ,
 ^ClearScratchPadResult ,
+^DriveTrainRatio ,
+^EngineSpeed ,
 ^GetScratchPadResult ,
 ^gIndex ,
 ^gLengthOfTable ,
@@ -14,6 +17,11 @@ CREATE V.ARRAY
 ^IsApplicationConnected ,
 ^IsGoToLearningPhase ,
 ^IsGoToTestPhase ,
+^lpDataLoadStatus ,
+^lpLearningActive ,
+^PulseMultiplier ,
+^PulsePerRev ,
+^RollDiameter ,
 ^rtAccelerationIndex ,
 ^rtCurrentAcceleration ,
 ^rtCurrentGear ,
@@ -42,6 +50,7 @@ CREATE V.ARRAY
 ^TemplateLoadStatus ,
 ^TestInputValue ,
 ^TSPValue ,
+^WheelSpeed ,
 *StrategyRunTime ,
 *TestInputValueStr ,
 *TestString ,
@@ -55,6 +64,7 @@ CREATE PTR.ARRAY
  0 ,
 CREATE TA.ARRAY 
 }ClearIntegerTable ,
+}GearRatio ,
 }rtAccelerationPoints ,
 }rtSpeedPerSecond ,
 }rtSpeedPoints ,
@@ -84,8 +94,6 @@ CREATE P.ARRAY
 ~di_SnapPacR1_0013 ,
 ~di_SnapPacR1_0014 ,
 ~di_SnapPacR1_0015 ,
-~di_SnapPacR1_0600 ,
-~di_SnapPacR1_0601 ,
 ~di_SnapPacR1_0602 ,
 ~di_SnapPacR1_0603 ,
 ~do_SnapPacR1_0100 ,
@@ -100,6 +108,8 @@ CREATE P.ARRAY
 ~do_SnapPacR1_0301 ,
 ~do_SnapPacR1_0302 ,
 ~do_SnapPacR1_0303 ,
+~IgnitionFrequency ,
+~SpeedEncoder ,
 ~ai_SnapPacR1_0400 ,
 ~ai_SnapPacR1_0401 ,
 ~ai_SnapPacR1_0500 ,
@@ -134,6 +144,8 @@ $0000000000000000.. %ScratchPad ENABLES!
  " Initializing variables" *_HSV_INIT_IO $MOVE
 0 ^CallChartStatus @!
 0 ^ClearScratchPadResult @!
+0.00000000 ^DriveTrainRatio @!
+0 ^EngineSpeed @!
 0 ^GetScratchPadResult @!
 0 ^gIndex @!
 0 ^gLengthOfTable @!
@@ -141,6 +153,11 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^IsApplicationConnected @!
 0 ^IsGoToLearningPhase @!
 0 ^IsGoToTestPhase @!
+0 ^lpDataLoadStatus @!
+0 ^lpLearningActive @!
+0.00000000 ^PulseMultiplier @!
+0 ^PulsePerRev @!
+0.00000000 ^RollDiameter @!
 0 ^rtAccelerationIndex @!
 0.00000000 ^rtCurrentAcceleration @!
 0 ^rtCurrentGear @!
@@ -170,7 +187,9 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^TemplateLoadStatus @!
 0 ^TestInputValue @!
 0.00000000 ^TSPValue @!
+0.00000000 ^WheelSpeed @!
 0 0 -1 }ClearIntegerTable InitTable
+-1.0000000 0 -1 }GearRatio InitTable
 -1.0000000 0 -1 }rtAccelerationPoints InitTable
 -1.0000000 0 -1 }rtSpeedPerSecond InitTable
 -1.0000000 0 -1 }rtSpeedPoints InitTable

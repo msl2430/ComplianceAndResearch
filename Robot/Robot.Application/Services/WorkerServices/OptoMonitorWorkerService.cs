@@ -72,7 +72,7 @@ namespace Robot.Application.Services.WorkerServices
                 appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.GoToLearningPhase.ToInt()).Value == 1;
             OptoMonitorViewModel.IsGoToTestPhase = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.GoToTestPhase.ToInt()).Value == 1;
             OptoMonitorViewModel.TemplateLoadStatus =
-                appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.LearingPhaseTemplateLoadStatus.ToInt()).Value;
+                appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.LearingPhaseDataLoadStatus.ToInt()).Value;
             OptoMonitorViewModel.SelectedManufacturerId =
                 appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ManufacturerId.ToInt()).Value;
             OptoMonitorViewModel.SelectedModelId = appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ModelId.ToInt()).Value;

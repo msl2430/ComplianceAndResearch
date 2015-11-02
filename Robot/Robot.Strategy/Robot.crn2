@@ -1,10 +1,13 @@
 0 TASK  &_INIT_IO
 0 TASK &Learning
+0 TASK &Learning_Phase
 0 TASK &Powerup
 0 TASK &Road_Test
 0 TASK &Throttle_Set_Point_Calculation
 0 IVAR ^CallChartStatus
 0 IVAR ^ClearScratchPadResult
+0 FVAR ^DriveTrainRatio
+0 IVAR ^EngineSpeed
 0 IVAR ^GetScratchPadResult
 0 IVAR ^gIndex
 0 IVAR ^gLengthOfTable
@@ -12,6 +15,11 @@
 0 IVAR ^IsApplicationConnected
 0 IVAR ^IsGoToLearningPhase
 0 IVAR ^IsGoToTestPhase
+0 IVAR ^lpDataLoadStatus
+0 IVAR ^lpLearningActive
+0 FVAR ^PulseMultiplier
+0 IVAR ^PulsePerRev
+0 FVAR ^RollDiameter
 0 IVAR ^rtAccelerationIndex
 0 FVAR ^rtCurrentAcceleration
 0 IVAR ^rtCurrentGear
@@ -41,10 +49,12 @@
 0 IVAR ^TemplateLoadStatus
 0 IVAR ^TestInputValue
 0 FVAR ^TSPValue
+0 FVAR ^WheelSpeed
 32 0 $VAR *StrategyRunTime 
 32 0 $VAR *TestInputValueStr 
 256 0 $VAR *TestString 
 300 0 ITABLE }ClearIntegerTable
+10 0 FTABLE }GearRatio
 20 0 FTABLE }rtAccelerationPoints
 3600 0 FTABLE }rtSpeedPerSecond
 20 0 FTABLE }rtSpeedPoints
@@ -85,8 +95,8 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A80
  2  1 APOINT  -20.0000 64  1  4 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0401
  2  1 APOINT  -10.0000 12  0  5 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0500
  2  1 APOINT  -10.0000 12  1  5 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0501
- 4  1 SPOINT 0.0     INPUT  0  6 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0600
- 4  1 SPOINT 0.0     INPUT  1  6 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0601
+ 4  1 SPOINT 0.0      FREQ  0  6 %SnapPacR1 0 POINT.TNG ~IgnitionFrequency
+ 4  1 SPOINT 0.0      FREQ  1  6 %SnapPacR1 0 POINT.TNG ~SpeedEncoder
  4  1 SPOINT 0.0     INPUT  2  6 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0602
  4  1 SPOINT 0.0     INPUT  3  6 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0603
  2  1 APOINT    0.0000 167  0  7 %SnapPacR1 0 POINT.TNG ~ao_SnapPacR1_0700
@@ -97,8 +107,8 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A80
  4  1 APOINT -25000.0000 34  3  8 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0803
 2    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
    0.1000    0.0000    0.0000   -1.0000    0.0000    0.0000
-   0.0000    0.0000 ~ao_SnapPacR1_0700
-$b0000000 1 %SnapPacR1 0 PID |rtActuate_Throttle
+   0.0000 ~ai_SnapPacR1_0400 ~ao_SnapPacR1_0700
+$90000000 1 %SnapPacR1 0 PID |rtActuate_Throttle
 5    0.0000    0.0000    0.0000    0.0000  -10.0000   10.0000    0.0000   10.0000
    0.1000    0.0000    0.0000    0.1000   -0.1000    0.0000
    0.0000    0.0000 0.0

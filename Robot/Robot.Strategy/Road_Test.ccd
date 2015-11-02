@@ -14,7 +14,7 @@
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-14 JUMP ;
+13 JUMP ;
 : 4_7
 
 1 LINE.NUM
@@ -45,7 +45,7 @@
 
 3 LINE.NUM
   &Road_Test   STOP.T
-11 JUMP ;
+10 JUMP ;
 : 4_13
 2 LINE.NUM }rtAccelerationPoints  TableSize@ ^gLengthOfTable @! 
 3 LINE.NUM 0 ^rtNumberOfAccPoints @! 
@@ -104,24 +104,40 @@
 3 LINE.NUM %ScratchPad 100 1000 0 }rtTSPGear1  IO.SP.READ DROP  
 5 LINE.NUM %ScratchPad 3600 2000 0 }rtSpeedPerSecond  IO.SP.READ DROP  
 7 LINE.NUM %ScratchPad 3600 2000 0 }rtSpeedPerSecond  IO.SP.READ DROP  
-9 LINE.NUM 0 ^rtTotalSecondsOfTest @! 
-10 LINE.NUM }rtSpeedPerSecond  TableSize@ ^gLengthOfTable @! 
-1 12 LINE.NUM ^gLengthOfTable @@ 1 -  1 + 0 DO? I ^gIndex @! 
-13 LINE.NUM ^gIndex @@ }rtSpeedPerSecond TABLE@ 0 I>F F>= IF 
-14 LINE.NUM ^rtTotalSecondsOfTest @@ 1 +  ^rtTotalSecondsOfTest @! 
-15 LINE.NUM ELSE 
-16 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
-17 LINE.NUM THEN 
-18 LINE.NUM 1 +LOOP 
-21 LINE.NUM ^rtTotalSecondsOfTest @@ 1 -  ^rtTotalSecondsOfTest @! 
-23 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0001.. 3 ROLL !PID 
-24 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0008.. 3 ROLL !PID 
-26 LINE.NUM |rtActuate_Throttle 0 I>F  $0001.. 3 ROLL !PID 
-27 LINE.NUM |rtActuate_Throttle 0 I>F  $0008.. 3 ROLL !PID 
+9 LINE.NUM %ScratchPad 10 250 0 }GearRatio  IO.SP.READ DROP  
+11 LINE.NUM 0 ^rtTotalSecondsOfTest @! 
+12 LINE.NUM }rtSpeedPerSecond  TableSize@ ^gLengthOfTable @! 
+1 14 LINE.NUM ^gLengthOfTable @@ 1 -  1 + 0 DO? I ^gIndex @! 
+15 LINE.NUM ^gIndex @@ }rtSpeedPerSecond TABLE@ 0 I>F F>= IF 
+16 LINE.NUM ^rtTotalSecondsOfTest @@ 1 +  ^rtTotalSecondsOfTest @! 
+17 LINE.NUM ELSE 
+18 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
+19 LINE.NUM THEN 
+20 LINE.NUM 1 +LOOP 
+23 LINE.NUM ^rtTotalSecondsOfTest @@ 1 -  ^rtTotalSecondsOfTest @! 
+25 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0001.. 3 ROLL !PID 
+26 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0008.. 3 ROLL !PID 
+28 LINE.NUM |rtActuate_Throttle 0 I>F  $0001.. 3 ROLL !PID 
+29 LINE.NUM |rtActuate_Throttle 0 I>F  $0008.. 3 ROLL !PID 
 -7 JUMP ;
 : 4_20
 3 LINE.NUM ^rtRequiredSpeed @@ ^rtCurrentSpeed @@ F- ^rtCurrentAcceleration @! 
 4 LINE.NUM 1 ^rtCurrentGear @! 
+8 LINE.NUM ~IgnitionFrequency @@I I>F ^PulseMultiplier @@ F/ ^EngineSpeed F@! 
+10 LINE.NUM ~SpeedEncoder @@I ^PulsePerRev @@ / I>F ^WheelSpeed @! 
+12 LINE.NUM ^rtThrottleSetPoint @@ 0 I>F F> ^WheelSpeed @@ 0 I>F F> LAND  IF 
+13 LINE.NUM ^EngineSpeed @@F ^WheelSpeed @@ F/ ^DriveTrainRatio @! 
+14 LINE.NUM ELSE 
+15 LINE.NUM -1 I>F ^DriveTrainRatio @! 
+16 LINE.NUM THEN 
+18 LINE.NUM ^DriveTrainRatio @@ 1.000000e-001 F+ ^DriveTrainRatio @! 
+20 LINE.NUM 0 ^gIndex @! 
+21 LINE.NUM BEGIN ^gIndex @@ 10 < WHILE 
+22 LINE.NUM ^DriveTrainRatio @@ ^gIndex @@ 1 +  }GearRatio TABLE@ F> IF 
+23 LINE.NUM ^gIndex @@ 1 +  ^rtCurrentGear @! 
+24 LINE.NUM THEN 
+25 LINE.NUM REPEAT 
+27 LINE.NUM ^WheelSpeed @@ ^RollDiameter @@ F* 3.361352e+002 F/ ^rtCurrentSpeed @! 
 -4 JUMP ;
 : 4_21
 
@@ -130,7 +146,7 @@
   201  
   ^rtDataLoadStatus   IO.SP.READ
   ^gStatus @! 
-4 JUMP ;
+3 JUMP ;
 : 4_23
 -11 JUMP ;
 : 4_27
@@ -144,9 +160,7 @@
 14 LINE.NUM ELSE 
 15 LINE.NUM 0 I>F ^rtCurrentSpeed @! 
 16 LINE.NUM THEN 
-1 JUMP ;
-: 4_29
-3 JUMP ;
+0 JUMP ;
 : 4_9
 TRUE
 
@@ -154,7 +168,7 @@ TRUE
   ^rtCurrentRunTime @@ 
   ^rtTotalSecondsOfTest @@F   F>=
 LAND
-IF -10 ELSE -11 THEN JUMP ;
+IF -9 ELSE -10 THEN JUMP ;
 : 4_17
 TRUE
 
@@ -162,7 +176,7 @@ TRUE
   ^rtDataLoadStatus @@ 
   3    =
 LAND
-IF -8 ELSE -9 THEN JUMP ;
+IF -7 ELSE -8 THEN JUMP ;
 : 4_22
 TRUE
 
@@ -170,7 +184,7 @@ TRUE
   ^rtTestActive @@ 
   1    =
 LAND
-IF -7 ELSE -6 THEN JUMP ;
+IF -6 ELSE -5 THEN JUMP ;
 T: T4
 DUMMY
 4_0
@@ -185,7 +199,6 @@ DUMMY
 4_21
 4_23
 4_27
-4_29
 4_9
 4_17
 4_22

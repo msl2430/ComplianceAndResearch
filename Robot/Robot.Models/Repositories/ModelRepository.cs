@@ -7,19 +7,21 @@ using Robot.Models.Models;
 
 namespace Robot.Models.Repositories
 {
-    public interface IModelRepostiory
+    public interface IModelRepository
     {
         IList<CarModel> GetModelByManufacturerId(int manufacturerId);
         bool CheckUniqueModelNameByManufacturer(string name, int manufacturerId);
         int AddModel(string name, int manufacturerId, int year);
     }
 
-    public sealed class ModelRepostiory : IModelRepostiory
+    public sealed class ModelRepository : IModelRepository
     {
         public IList<CarModel> GetModelByManufacturerId(int manufacturerId)
         {
-            var models = NHibernateHelper.CurrentSession.QueryOver<Model>()
-                .Where(m => m.ManufacturerId == manufacturerId)
+            Manufacturer manufacturer = null;
+            var models = NHibernateHelper.CurrentSession.QueryOver<ModelExtended>()
+                .JoinAlias(m => m.Manufacturer, () => manufacturer)
+                .Where(() => manufacturer.ManufacturerId == manufacturerId)
                 .List();
 
             return models != null && models.Any() ? models.Select(m => new CarModel(m)).ToList() : new List<CarModel>();

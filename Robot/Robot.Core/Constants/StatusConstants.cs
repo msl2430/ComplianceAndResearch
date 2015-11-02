@@ -30,7 +30,7 @@ namespace Robot.Core.Constants
             Finished
         }
 
-        public enum RoadTestStatus
+        public enum PhaseStatus
         {
             InActive,
             PreCheckActive,

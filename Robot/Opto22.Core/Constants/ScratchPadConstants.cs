@@ -20,9 +20,9 @@ namespace Opto22.Core.Constants
             ManufacturerId = 50,
             ModelId,
             ModelYear,
-
+            
             LearningPhaseActive = 100,
-            LearingPhaseTemplateLoadStatus,
+            LearingPhaseDataLoadStatus,
 
             TestPhaseActive = 200,
             TestPhaseDataLoadStatus,            
@@ -38,7 +38,7 @@ namespace Opto22.Core.Constants
             AppRunningCheck,
             PhaseCheck,
             LearningPhase,
-            LearningPhaseTemplateLoad,
+            LearningPhaseCalculating,
             TestPhase
         }
 
@@ -63,6 +63,19 @@ namespace Opto22.Core.Constants
             TestPhaseRequiredSpeed,
             TestPhaseThrottleSetPoint,
             TestPhaseCurrentRunTime,
+            ModelPulseMultplier = 210,
+            ModelPulsePerRev,
+            
+            GearRatio1 = 250,
+            GearRatio2,
+            GearRatio3,
+            GearRatio4,
+            GearRatio5,
+            GearRatio6,
+            GearRatio7,
+            GearRatio8,
+            GearRatio9,
+            GearRatio10,
 
             TspGear1Start = 1000,
             TspGear2Start = 1100,

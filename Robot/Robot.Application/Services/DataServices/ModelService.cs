@@ -14,17 +14,17 @@ namespace Robot.Application.Services.DataServices
     {
         public IList<CarModel> GetCarModelsByManufactureId(int manufacturerId)
         {
-            return ModelRepostiory.GetModelByManufacturerId(manufacturerId);
+            return ModelRepository.GetModelByManufacturerId(manufacturerId);
         }
 
         public bool CheckUniqueModelNameByManufacturer(string name, int manufacturerId)
         {
-            return ModelRepostiory.CheckUniqueModelNameByManufacturer(name, manufacturerId);
+            return ModelRepository.CheckUniqueModelNameByManufacturer(name, manufacturerId);
         }
 
         public int AddModel(string name, int manufacturerId, int year)
         {
-            return ModelRepostiory.AddModel(name, manufacturerId, year);
+            return ModelRepository.AddModel(name, manufacturerId, year);
         }
     }
 }

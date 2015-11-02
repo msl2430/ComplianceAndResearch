@@ -18,11 +18,11 @@ namespace Robot.Application.Services.DataServices
             get { return _countryRepository ?? (_countryRepository = new CountryRepository()); }
         }
 
-        private IModelRepostiory _modelRepostiory { get; set; }
+        private IModelRepository _modelRepository { get; set; }
 
-        public IModelRepostiory ModelRepostiory
+        public IModelRepository ModelRepository
         {
-            get { return _modelRepostiory ?? (_modelRepostiory = new ModelRepostiory()); }
+            get { return _modelRepository ?? (_modelRepository = new ModelRepository()); }
         }
 
         private ISetPointRepository _setPointRepository { get; set; }
