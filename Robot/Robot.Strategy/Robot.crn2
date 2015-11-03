@@ -18,7 +18,7 @@
 0 IVAR ^lpDataLoadStatus
 0 IVAR ^lpLearningActive
 0 FVAR ^PulseMultiplier
-0 IVAR ^PulsePerRev
+0 FVAR ^PulsePerRev
 0 FVAR ^RollDiameter
 0 IVAR ^rtAccelerationIndex
 0 FVAR ^rtCurrentAcceleration

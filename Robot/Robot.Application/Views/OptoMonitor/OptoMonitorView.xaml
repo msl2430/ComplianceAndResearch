@@ -96,10 +96,10 @@
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <TextBox Width="250" Height="15" IsReadOnly="True" TextAlignment="Center" Text="{Binding Path=StrategyLocationString}" Background="{StaticResource DarkBlushBrush}" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1.01"/>
+                    <TextBox Width="250" Height="15" IsReadOnly="True" TextAlignment="Center" Text="{Binding Path=StrategyLocationString}" Background="{StaticResource DarkBlueBrush}" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1.01"/>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <TextBox Width="250" Height="15" IsReadOnly="True" TextAlignment="Center" Text="{Binding Path=TemplateLoadStatusString}" Background="{StaticResource DarkBlushBrush}" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1.01"/>
+                    <TextBox Width="250" Height="15" IsReadOnly="True" TextAlignment="Center" Text="{Binding Path=TemplateLoadStatusString}" Background="{StaticResource DarkBlueBrush}" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1.01"/>
                 </Grid>
                 <Grid Grid.Row="2">
                 </Grid>

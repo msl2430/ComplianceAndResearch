@@ -38,7 +38,7 @@
                           SelectedIndex="{Binding Mode=OneTime, Path=DefaultCountry}"
                           DisplayMemberPath="Name"/>                
             </Grid>
-            <Label Content="Enter Model Name" Width="300" HorizontalAlignment="Center"></Label>
+            <!--<Label Content="Enter Model Name" Width="300" HorizontalAlignment="Center"></Label>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -46,7 +46,23 @@
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Column="0" Name="NewModelText" controls:TextBoxHelper.Watermark="Corvette, Mustang, A6, etc." Margin="60,0,0,0"/>
             </Grid>
-            <Button Name="SubmitManufacturer" Content="Submit" Width="140" Margin="60,50,0,0" Click="SubmitManufacturer_OnClick" HorizontalAlignment="Left"></Button>
+            <Label Content="Enter Pulse Multiplier" Width="300" HorizontalAlignment="Center"></Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Name="NewModelPulseMultiplier" Text="0" Margin="60,0,0,0" PreviewTextInput="NumericCharValidate" LostFocus="NumericBlurValidate"/>
+            </Grid>
+            <Label Content="Enter Pulse Per Rev" Width="300" HorizontalAlignment="Center"></Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Name="NewModelPulsePerRev" Text="0" Margin="60,0,0,0" PreviewTextInput="NumericCharValidate" LostFocus="NumericBlurValidate"/>
+            </Grid>-->
+            <Button Name="SubmitManufacturer" Content="Submit" Width="140" Margin="60,20,0,0" Click="SubmitManufacturer_OnClick" HorizontalAlignment="Left"></Button>
         </StackPanel>
     </Grid>    
 </views:BaseUserControl>

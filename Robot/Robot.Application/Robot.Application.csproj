@@ -87,6 +87,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Extensions\BoolToVisibilityConverter.cs" />
+    <Compile Include="Extensions\NumericTextbox.cs" />
     <Compile Include="Extensions\ProgressVisibilityConverter.cs" />
     <Compile Include="Extensions\ScratchPadExtensions.cs" />
     <Compile Include="Factories\ApplicationSessionFactory.cs" />
@@ -122,6 +123,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CarSelection\NewManufacturerFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Configuration\ConfigurationFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -167,6 +172,9 @@
     <Compile Include="Views\CarSelection\NewManufacturerFlyout.xaml.cs">
       <DependentUpon>NewManufacturerFlyout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Configuration\ConfigurationFlyout.xaml.cs">
+      <DependentUpon>ConfigurationFlyout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Learning\LearningView.xaml.cs">
       <DependentUpon>LearningView.xaml</DependentUpon>
     </Compile>
@@ -206,7 +214,6 @@
     </EmbeddedResource>
     <Resource Include="Resources\Entypo.ttf" />
     <Resource Include="Content\Fonts\AvenirLTStd-Book.otf" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

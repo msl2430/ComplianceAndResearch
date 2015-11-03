@@ -22,7 +22,7 @@
             <FontFamily x:Key="HeaderFontFamily">Segoe UI</FontFamily>
             <SolidColorBrush x:Key="GreenBrush" Color="#41A801"></SolidColorBrush>
             <SolidColorBrush x:Key="LightBlueBrush" Color="#6FBAC8"></SolidColorBrush>
-            <SolidColorBrush x:Key="DarkBlushBrush" Color="#2B88AF"></SolidColorBrush>
+            <SolidColorBrush x:Key="DarkBlueBrush" Color="#2B88AF"></SolidColorBrush>
             <SolidColorBrush x:Key="BrightBlueBrush" Color="#AADEE0"></SolidColorBrush>
         </ResourceDictionary>        
     </Application.Resources>

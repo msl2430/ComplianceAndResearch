@@ -9,6 +9,7 @@
         xmlns:carSelection="clr-namespace:Robot.Application.Views.CarSelection"
         xmlns:learning="clr-namespace:Robot.Application.Views.Learning"
         xmlns:testing="clr-namespace:Robot.Application.Views.Testing"
+        xmlns:configuration="clr-namespace:Robot.Application.Views.Configuration"
         Title="Wobbly Widget" 
         MinHeight="600"
         Height="600" 
@@ -57,8 +58,19 @@
             <Grid Grid.Column="1">
                 <controls:ToggleSwitch Name="OptoConnectionToggle" SwitchForeground="{StaticResource GreenBrush}" OffLabel="" OnLabel="" 
                                        IsChecked="{Binding Path=IsConnected, Mode=TwoWay, NotifyOnSourceUpdated=True}" 
-                                       SourceUpdated="OptoConnectionToggle_OnSourceUpdated">
+                                       SourceUpdated="OptoConnectionToggle_OnSourceUpdated" HorizontalAlignment="Left" Margin="20,0,0,0">
                 </controls:ToggleSwitch>
+                <Menu Width="Auto" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,-7,0">
+                    <MenuItem Width="60" Height="40" Name="ConfigMenu" Click="ConfigMenu_Click">
+                        <MenuItem.Header>
+                            <Rectangle Width="30" Height="30" Fill="{StaticResource DarkBlueBrush}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush  Stretch="Fill" Visual="{DynamicResource appbar_list_gear}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </Menu>
             </Grid>
         </Grid>
         <Grid Row="1">
@@ -80,6 +92,10 @@
             <controls:Flyout Name="AddManufacturerFlyout" Header="Add Manufacturer" Position="Right" Width="400" Theme="Accent" IsEnabled="{Binding Path=IsConnected}">
                 <carSelection:NewManufacturerFlyout x:Name="NewManufacturerFlyout" />
             </controls:Flyout>
+            <controls:Flyout Name="ConfigurationSettingsFlyout" Header="Configuration Settings" Position="Right" Width="400" Theme="Accent">
+                <configuration:ConfigurationFlyout x:Name="ConfigurationFlyout" />
+            </controls:Flyout>
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
+
 </views:BaseWindowView>

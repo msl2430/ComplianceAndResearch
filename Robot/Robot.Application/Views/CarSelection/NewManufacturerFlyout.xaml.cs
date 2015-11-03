@@ -1,7 +1,10 @@
 ﻿using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using MahApps.Metro.Controls;
+using Robot.Application.Extensions;
 using Robot.Application.ViewModels;
 using Robot.Core.Constants;
 
@@ -39,11 +42,31 @@ namespace Robot.Application.Views.CarSelection
             ManufacturerService.AddManufacturer(
                 NewManufactureNameText.Text.Trim(),
                 NewManufacturerFlyoutViewModel.Countries[CountrySelectionComboBox.SelectedIndex].CountryId,
-                NewModelText.Text.Trim());
+                "");
             NewManufacturerFlyoutViewModel.ApplicationSessionFactory.LogEvent("Added new manufacturer '" + NewManufactureNameText.Text + "' successfully.", true);
             ((Flyout)Parent).Tag = ControlConstants.ChangeTracking.Dirty;
             ((Flyout)Parent).IsOpen = false;
             //TODO: Move to next phase (Learn)
         }
+
+        //private void NumericCharValidate(object sender, TextCompositionEventArgs e)
+        //{
+        //    e.Handled = !NumericTextbox.ValidateNumber(e.Text);
+        //}
+
+        //private void NumericBlurValidate(object sender, RoutedEventArgs e)
+        //{
+        //    var txtBox = (TextBox) sender;
+        //    if (!NumericTextbox.ValidateNumber(txtBox.Text))
+        //    {
+        //        SubmitManufacturer.IsEnabled = false;
+        //        txtBox.BorderBrush = new SolidColorBrush(Colors.DarkRed);
+        //    }
+        //    else
+        //    {
+        //        SubmitManufacturer.IsEnabled = true;
+        //        txtBox.BorderBrush = new SolidColorBrush(Color.FromRgb(255, 204, 204));
+        //    }
+        //}
     }
 }

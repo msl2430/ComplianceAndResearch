@@ -34,7 +34,7 @@ _END NEW $$$.RUN
 0 IVAR ^lpDataLoadStatus
 0 IVAR ^lpLearningActive
 0 FVAR ^PulseMultiplier
-0 IVAR ^PulsePerRev
+0 FVAR ^PulsePerRev
 0 FVAR ^RollDiameter
 0 IVAR ^rtAccelerationIndex
 0 FVAR ^rtCurrentAcceleration
@@ -638,25 +638,27 @@ T;
 7 LINE.NUM %ScratchPad 3600 2000 0 }rtSpeedPerSecond  IO.SP.READ DROP  
 9 LINE.NUM %ScratchPad 10 250 0 }GearRatio  IO.SP.READ DROP  
 11 LINE.NUM 0 ^rtTotalSecondsOfTest @! 
-12 LINE.NUM }rtSpeedPerSecond  TableSize@ ^gLengthOfTable @! 
-1 14 LINE.NUM ^gLengthOfTable @@ 1 -  1 + 0 DO? I ^gIndex @! 
-15 LINE.NUM ^gIndex @@ }rtSpeedPerSecond TABLE@ 0 I>F F>= IF 
-16 LINE.NUM ^rtTotalSecondsOfTest @@ 1 +  ^rtTotalSecondsOfTest @! 
-17 LINE.NUM ELSE 
-18 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
-19 LINE.NUM THEN 
-20 LINE.NUM 1 +LOOP 
-23 LINE.NUM ^rtTotalSecondsOfTest @@ 1 -  ^rtTotalSecondsOfTest @! 
-25 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0001.. 3 ROLL !PID 
-26 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0008.. 3 ROLL !PID 
-28 LINE.NUM |rtActuate_Throttle 0 I>F  $0001.. 3 ROLL !PID 
-29 LINE.NUM |rtActuate_Throttle 0 I>F  $0008.. 3 ROLL !PID 
+13 LINE.NUM %ScratchPad 210 ^PulseMultiplier   IO.SP.READ DROP  
+14 LINE.NUM %ScratchPad 211 ^PulsePerRev   IO.SP.READ DROP  
+16 LINE.NUM }rtSpeedPerSecond  TableSize@ ^gLengthOfTable @! 
+1 18 LINE.NUM ^gLengthOfTable @@ 1 -  1 + 0 DO? I ^gIndex @! 
+19 LINE.NUM ^gIndex @@ }rtSpeedPerSecond TABLE@ 0 I>F F>= IF 
+20 LINE.NUM ^rtTotalSecondsOfTest @@ 1 +  ^rtTotalSecondsOfTest @! 
+21 LINE.NUM ELSE 
+22 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
+23 LINE.NUM THEN 
+24 LINE.NUM 1 +LOOP 
+27 LINE.NUM ^rtTotalSecondsOfTest @@ 1 -  ^rtTotalSecondsOfTest @! 
+29 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0001.. 3 ROLL !PID 
+30 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0008.. 3 ROLL !PID 
+32 LINE.NUM |rtActuate_Throttle 0 I>F  $0001.. 3 ROLL !PID 
+33 LINE.NUM |rtActuate_Throttle 0 I>F  $0008.. 3 ROLL !PID 
 -7 JUMP ;
 : 4_20
 3 LINE.NUM ^rtRequiredSpeed @@ ^rtCurrentSpeed @@ F- ^rtCurrentAcceleration @! 
 4 LINE.NUM 1 ^rtCurrentGear @! 
 8 LINE.NUM ~IgnitionFrequency @@I I>F ^PulseMultiplier @@ F/ ^EngineSpeed F@! 
-10 LINE.NUM ~SpeedEncoder @@I ^PulsePerRev @@ / I>F ^WheelSpeed @! 
+10 LINE.NUM ~SpeedEncoder @@I I>F ^PulsePerRev @@ F/ ^WheelSpeed @! 
 12 LINE.NUM ^rtThrottleSetPoint @@ 0 I>F F> ^WheelSpeed @@ 0 I>F F> LAND  IF 
 13 LINE.NUM ^EngineSpeed @@F ^WheelSpeed @@ F/ ^DriveTrainRatio @! 
 14 LINE.NUM ELSE 
@@ -1079,7 +1081,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^lpDataLoadStatus @!
 0 ^lpLearningActive @!
 0.00000000 ^PulseMultiplier @!
-0 ^PulsePerRev @!
+0.00000000 ^PulsePerRev @!
 0.00000000 ^RollDiameter @!
 0 ^rtAccelerationIndex @!
 0.00000000 ^rtCurrentAcceleration @!
@@ -1137,7 +1139,7 @@ T;
    ;
 : DATESTAMP ." 11/02/15 " ;
 : TIMESTAMP ." 15:21:42 " ;
-: CRCSTAMP  ." 7A5525994F9F22F276285FA9137E14CB " ;
+: CRCSTAMP  ." BEE0D9C2580574E09BC905A0AAB501E5 " ;
 MAKECHECK
 CLEAR.BREAKS
 

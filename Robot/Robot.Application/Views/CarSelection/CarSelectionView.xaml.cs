@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
+using Robot.Application.Extensions;
 
 namespace Robot.Application.Views.CarSelection
 {
@@ -80,7 +82,26 @@ namespace Robot.Application.Views.CarSelection
                 return;
             }
 
-            var modelId = 1;// ModelService.AddModel(NewModelTextBox.Text.Trim(), ViewModel.Manufacturers[NewManufacturerComboBox.SelectedIndex].ManufacturerId, ViewModel.AvailableYears[YearCombo.SelectedIndex]);
+            decimal decimalTest;
+            if (!decimal.TryParse(NewModelPulseMultplier.Text, out decimalTest))
+            {
+                NewModelPulseMultplier.BorderThickness = new Thickness(1.01);
+                NewModelPulseMultplier.BorderBrush = new SolidColorBrush(Colors.DarkRed);
+                return;
+            }
+            if (!decimal.TryParse(NewModelPulsePerRev.Text, out decimalTest))
+            {
+                NewModelPulsePerRev.BorderThickness = new Thickness(1.01);
+                NewModelPulsePerRev.BorderBrush = new SolidColorBrush(Colors.DarkRed);
+                return;
+            }
+
+            var modelId = ModelService.AddModel(
+                NewModelTextBox.Text.Trim(), 
+                ViewModel.Manufacturers[NewManufacturerComboBox.SelectedIndex].ManufacturerId,
+                ViewModel.AvailableYears[YearCombo.SelectedIndex], 
+                Convert.ToDecimal(NewModelPulseMultplier.Text), 
+                Convert.ToDecimal(NewModelPulsePerRev.Text));
 
             if (modelId <= 0)
             {
@@ -100,7 +121,7 @@ namespace Robot.Application.Views.CarSelection
 
         private void TestingPhaseButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if(ExistingModelComboBox.SelectedIndex >= 0)
+            if (ExistingModelComboBox.SelectedIndex >= 0)
                 GoToTestingView(new TestingViewModel(ViewModel.ApplicationSessionFactory)
                 {
                     ManufacturerId = ViewModel.Manufacturers[ExistingManufacturerComboBox.SelectedIndex].ManufacturerId,
@@ -109,7 +130,7 @@ namespace Robot.Application.Views.CarSelection
                     ModelName = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].Name,
                     ModelYear = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].Year,
                     ModelGearRatios = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].GearRatios,
-                    PulseMultiplier = Convert.ToDecimal(ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].PulseMultplier),
+                    PulseMultiplier = Convert.ToDecimal(ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].PulseMultiplier),
                     PulsePerRev = Convert.ToDecimal(ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].PulsePerRev),
                 });
         }
@@ -137,6 +158,26 @@ namespace Robot.Application.Views.CarSelection
                         .ToList();
             if (ExistingModelComboBox != null)
                 ExistingModelComboBox.SelectedIndex = 0;
+        }
+
+        private void NumericCharValidate(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !NumericTextbox.ValidateNumber(e.Text);
+        }
+
+        private void NumericBlurValidate(object sender, RoutedEventArgs e)
+        {
+            var txtBox = (TextBox)sender;
+            if (!NumericTextbox.ValidateNumber(txtBox.Text))
+            {
+                LearningPhaseButton.IsEnabled = false;
+                txtBox.BorderBrush = new SolidColorBrush(Colors.DarkRed);
+            }
+            else
+            {
+                LearningPhaseButton.IsEnabled = true;
+                txtBox.BorderBrush = new SolidColorBrush(Color.FromRgb(255, 204, 204));
+            }
         }
         #endregion      
     }

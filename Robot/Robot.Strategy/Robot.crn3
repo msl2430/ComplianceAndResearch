@@ -156,7 +156,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^lpDataLoadStatus @!
 0 ^lpLearningActive @!
 0.00000000 ^PulseMultiplier @!
-0 ^PulsePerRev @!
+0.00000000 ^PulsePerRev @!
 0.00000000 ^RollDiameter @!
 0 ^rtAccelerationIndex @!
 0.00000000 ^rtCurrentAcceleration @!

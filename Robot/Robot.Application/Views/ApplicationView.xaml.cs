@@ -10,6 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using MahApps.Metro.Controls;
+using Robot.Application.Views.CarSelection;
 
 namespace Robot.Application.Views
 {
@@ -114,6 +116,17 @@ namespace Robot.Application.Views
             {
                 Thread.Sleep(250);
             }
+        }
+
+        private void ConfigMenu_Click(object sender, RoutedEventArgs e)
+        {
+            var parentWindow = Window.GetWindow(this);
+            ConfigurationSettingsFlyout = (Flyout)parentWindow.FindName("ConfigurationSettingsFlyout");
+            //AddManufacturerFlyout.FindChild<NewManufacturerFlyout>("NewManufacturerFlyout").NewManufacturerFlyoutViewModel.ApplicationSessionFactory =
+            //    ViewModel.ApplicationSessionFactory;
+            ConfigurationSettingsFlyout.Tag = ControlConstants.ChangeTracking.Pristine;
+            ConfigurationSettingsFlyout.IsOpen = true;
+            //ConfigurationSettingsFlyout.ClosingFinished += AddManufacturerFlyoutOnClosingFinished;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Robot.Models.Repositories
     {
         IList<CarModel> GetModelByManufacturerId(int manufacturerId);
         bool CheckUniqueModelNameByManufacturer(string name, int manufacturerId);
-        int AddModel(string name, int manufacturerId, int year);
+        int AddModel(string name, int manufacturerId, int year, decimal pulseMultiplier, decimal pulsePerRev);
     }
 
     public sealed class ModelRepository : IModelRepository
@@ -37,13 +37,15 @@ namespace Robot.Models.Repositories
                 .SingleOrDefault<int>() != 1;
         }
 
-        public int AddModel(string name, int manufacturerId, int year)
+        public int AddModel(string name, int manufacturerId, int year, decimal pulseMultiplier, decimal pulsePerRev)
         {
             var model = new Model
             {
                 Name = name,
                 ManufacturerId = manufacturerId,
-                Year = year
+                Year = year,
+                PulseMultiplier = pulseMultiplier,
+                PulsePerRev = pulsePerRev
             };
 
             NHibernateHelper.CurrentSession.Save(model);

@@ -17,7 +17,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1">
-            <GroupBox Header="Existing Cars" VerticalAlignment="Top" Height="325" IsEnabled="{Binding Path=IsOptoConnected}">
+            <GroupBox Header="Existing Cars" VerticalAlignment="Top" Height="345" IsEnabled="{Binding Path=IsOptoConnected}">
                 <StackPanel>
                     <Label Content="1. Select a Manufacturer"></Label>
                     <ComboBox
@@ -45,7 +45,7 @@
                             Width="300"
                             Margin="25,0,0,0"/>
                     <Button Name="TestingPhaseButton" 
-                                Margin="40,70,40,0" 
+                                Margin="40,122,40,0" 
                                 Padding="15" 
                                 FontSize="18" 
                                 Content="Run Test Mode" 
@@ -57,7 +57,7 @@
             </GroupBox>
         </Grid>
         <Grid Grid.Column="3">
-            <GroupBox Header="New Car" VerticalAlignment="Top" Height="325" IsEnabled="{Binding Path=IsOptoConnected}">
+            <GroupBox Header="New Car" VerticalAlignment="Top" Height="345" IsEnabled="{Binding Path=IsOptoConnected}">
                 <StackPanel>
                     <Label Content="1. Select a Manufacturer"></Label>
                     <ComboBox
@@ -86,6 +86,25 @@
                                 MaxHeight="100"
                                 MaxDropDownHeight="300">
                     </ComboBox>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="170"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Column="0">
+                            <StackPanel>
+                                <Label Content="4. Pulse Multiplier" ></Label>
+                                <TextBox Name="NewModelPulseMultplier" Text="0" Width="145" HorizontalAlignment="Left" Margin="25,0,0,0" PreviewTextInput="NumericCharValidate" LostFocus="NumericBlurValidate"></TextBox>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Column="1">
+                            <StackPanel>
+                                <Label Content="5. Pulse Per Rev" ></Label>
+                                <TextBox Name="NewModelPulsePerRev" Text="0" Width="147" HorizontalAlignment="Left" Margin="8,0,0,0" PreviewTextInput="NumericCharValidate" LostFocus="NumericBlurValidate"></TextBox>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                    
 
                     <Button Name="LearningPhaseButton" 
                                 Margin="40,20,40,0" 
@@ -93,7 +112,7 @@
                                 FontSize="18" 
                                 Content="Run Learning Mode"
                                 Cursor="Hand"
-                                Foreground="{StaticResource DarkBlushBrush}"
+                                Foreground="{StaticResource DarkBlueBrush}"
                                 Click="LearningPhaseButton_OnClick">
                     </Button>
                 </StackPanel>

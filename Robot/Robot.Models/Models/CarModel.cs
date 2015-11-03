@@ -13,7 +13,7 @@ namespace Robot.Models.Models
         public string ManufactureName { get; set; }
         public int Year { get; set; }
         public string DisplayName { get; set; }
-        public decimal? PulseMultplier { get; set; }
+        public decimal? PulseMultiplier { get; set; }
         public decimal? PulsePerRev { get; set; }
         public IList<GearRatioModel> GearRatios { get; set; }
 

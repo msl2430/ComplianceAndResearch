@@ -42,7 +42,7 @@
                             Click="StartLearningPhaseButton_OnClick">
             </Button>
             <TextBlock Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" 
-                            Background="{StaticResource DarkBlushBrush}" Text="{Binding Path=CarDisplayName}" 
+                            Background="{StaticResource DarkBlueBrush}" Text="{Binding Path=CarDisplayName}" 
                             Margin="10,5,10,0" Padding="5,3,5,3">
             </TextBlock>
         </Grid>
@@ -51,7 +51,7 @@
                 <ColumnDefinition Width="250"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Border BorderBrush="{StaticResource DarkBlushBrush}" BorderThickness="1.01" Margin="10,0,0,10"/>
+            <Border BorderBrush="{StaticResource DarkBlueBrush}" BorderThickness="1.01" Margin="10,0,0,10"/>
             <Grid Column="0" Margin="10,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50"/>
@@ -133,7 +133,7 @@
                 </Grid>
             </Grid>
             <Grid Column="1" Margin="0,0,10,10">
-                <Border BorderBrush="{StaticResource DarkBlushBrush}" BorderThickness="1.01"/>
+                <Border BorderBrush="{StaticResource DarkBlueBrush}" BorderThickness="1.01"/>
             </Grid>
         </Grid>
     </Grid>
