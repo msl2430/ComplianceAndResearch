@@ -4,7 +4,7 @@
 # ----------------------------------------------------------------
 # NAME :         D:\Documents\ComplianceAndResearch\Robot\Robot.Strategy\Robot.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    9:29:51 11/4/2015
+# TIME/DATE :    9:36:24 11/4/2015
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -196,5 +196,14 @@ TAG1,SelectedCar                                       ,1    ,00000000,00000000,
 TAG1,SpeedPerSecond                                    ,6    ,00000000,00000000,00000000,00000200,3600 ,0   
 TAG1,SpeedPoints                                       ,5    ,00000000,00000000,00000000,00000200,20   ,0   
 TAG1,TSPGear1                                          ,2    ,00000000,00000000,00000000,00000200,100  ,0   
+TAG1,TSPGear10                                         ,16   ,00000000,00000000,00000000,00000200,100  ,0   
+TAG1,TSPGear2                                          ,8    ,00000000,00000000,00000000,00000200,100  ,0   
+TAG1,TSPGear3                                          ,9    ,00000000,00000000,00000000,00000200,100  ,0   
+TAG1,TSPGear4                                          ,10   ,00000000,00000000,00000000,00000200,100  ,0   
+TAG1,TSPGear5                                          ,11   ,00000000,00000000,00000000,00000200,100  ,0   
+TAG1,TSPGear6                                          ,12   ,00000000,00000000,00000000,00000200,100  ,0   
+TAG1,TSPGear7                                          ,13   ,00000000,00000000,00000000,00000200,100  ,0   
+TAG1,TSPGear8                                          ,14   ,00000000,00000000,00000000,00000200,100  ,0   
+TAG1,TSPGear9                                          ,15   ,00000000,00000000,00000000,00000200,100  ,0   
 TAG1,rtActuate_Throttle                                ,1    ,00000000,00000004,00000000,00000000,0    ,0   
 TAG1,rtCalculate_Speed_Trim                            ,0    ,00000000,00000004,00000000,00000000,0    ,0   
