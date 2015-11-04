@@ -166,8 +166,8 @@ CREATE TABLE [dbo].[RoadTestChart](
 GO
 
 
-IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'RoadTestChart')
-DROP TABLE [dbo].[RoadTestChart]
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'GearRatio')
+DROP TABLE [dbo].[GearRatio]
 GO
 
 SET ANSI_NULLS ON
@@ -180,8 +180,8 @@ CREATE TABLE [dbo].[GearRatio](
 	[GearRatioId] [int] IDENTITY(1,1) NOT NULL,
 	[ModelId] [int] NOT NULL,
 	[Gear] [int] NOT NULL,
-	[Ratio] [decimal](3,3) NOT NULL,
- CONSTRAINT [PK_RoadTestChart] PRIMARY KEY CLUSTERED 
+	[Ratio] [decimal](6,3) NOT NULL,
+ CONSTRAINT [PK_GearRatio] PRIMARY KEY CLUSTERED 
 ([GearRatioId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 

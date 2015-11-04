@@ -71,7 +71,7 @@
 : 0_114
 
 1 LINE.NUM
-  &Learning   CALL.T
+  &Learning_Phase   CALL.T
   ^CallChartStatus @! 
 0 JUMP ;
 : 0_115
@@ -112,7 +112,7 @@
 2 LINE.NUM
   ^TSPValue @@ 
   ^ScratchPadInputIndex @@ 
-  }rtTSPGear1 TABLE!   
+  }TSPGear1 TABLE!   
 
 3 LINE.NUM
   ^ScratchPadInputIndex   1+@!
@@ -129,20 +129,16 @@
   ^ScratchPadInputIndex @! 
 -3 JUMP ;
 : 0_133
-
-1 LINE.NUM
-  &Throttle_Set_Point_Calculation   CALL.T
-  ^CallChartStatus @! 
 11 JUMP ;
 : 0_134
 1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
 2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
 3 LINE.NUM %ScratchPad ^gIndex @@ 0  IO.SP.I.WRITE DROP  
 4 LINE.NUM 1 +LOOP 
-6 LINE.NUM 0 I>F 0 -1 }rtSpeedPoints  InitTable 
-7 LINE.NUM 0 I>F 0 -1 }rtAccelerationPoints  InitTable 
-8 LINE.NUM 0 I>F 0 -1 }rtSpeedPerSecond  InitTable 
-9 LINE.NUM 0 I>F 0 -1 }rtTSPGear1  InitTable 
+6 LINE.NUM 0 I>F 0 -1 }SpeedPoints  InitTable 
+7 LINE.NUM 0 I>F 0 -1 }AccelerationPoints  InitTable 
+8 LINE.NUM 0 I>F 0 -1 }SpeedPerSecond  InitTable 
+9 LINE.NUM 0 I>F 0 -1 }TSPGear1  InitTable 
 -2 JUMP ;
 : 0_137
 
@@ -176,10 +172,10 @@
 1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
 2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
 3 LINE.NUM 1 +LOOP 
-5 LINE.NUM 0 I>F 0 -1 }rtSpeedPoints  InitTable 
-6 LINE.NUM 0 I>F 0 -1 }rtAccelerationPoints  InitTable 
-7 LINE.NUM 0 I>F 0 -1 }rtSpeedPerSecond  InitTable 
-8 LINE.NUM 0 I>F 0 -1 }rtTSPGear1  InitTable 
+5 LINE.NUM 0 I>F 0 -1 }SpeedPoints  InitTable 
+6 LINE.NUM 0 I>F 0 -1 }AccelerationPoints  InitTable 
+7 LINE.NUM 0 I>F 0 -1 }SpeedPerSecond  InitTable 
+8 LINE.NUM 0 I>F 0 -1 }TSPGear1  InitTable 
 -13 JUMP ;
 : 0_149
 1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 

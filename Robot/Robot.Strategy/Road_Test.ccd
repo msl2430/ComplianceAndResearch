@@ -23,12 +23,12 @@
 : 4_8
 1 LINE.NUM ^rtTestRunTime @@F  Truncate ^rtCurrentRunTime @! 
 3 LINE.NUM ^rtCurrentRunTime @@ 1 I>F F+ ^rtTotalSecondsOfTest @@F F>= IF 
-4 LINE.NUM ^rtTotalSecondsOfTest @@ 1 -  }rtSpeedPerSecond TABLE@ ^rtRequiredSpeed @! 
+4 LINE.NUM ^rtTotalSecondsOfTest @@ 1 -  }SpeedPerSecond TABLE@ ^rtRequiredSpeed @! 
 5 LINE.NUM ELSE 
 6 LINE.NUM ^rtCurrentRunTime @@ 1 I>F F+ ^rtLowerBoundReqSpeedIndex @! 
 7 LINE.NUM ^rtCurrentRunTime @@ 2 I>F F+ ^rtUpperBoundReqSpeedIndex @! 
-9 LINE.NUM ^rtUpperBoundReqSpeedIndex @@I }rtSpeedPerSecond TABLE@ ^rtLowerBoundReqSpeedIndex @@I }rtSpeedPerSecond TABLE@ F- ^rtUpperBoundReqSpeedIndex @@ ^rtLowerBoundReqSpeedIndex @@ F- F/  FABS ^rtSlope @! 
-11 LINE.NUM ^rtUpperBoundReqSpeedIndex @@I }rtSpeedPerSecond TABLE@ ^rtSlope @@ ^rtUpperBoundReqSpeedIndex @@ F* F- ^rtIntercept @! 
+9 LINE.NUM ^rtUpperBoundReqSpeedIndex @@I }SpeedPerSecond TABLE@ ^rtLowerBoundReqSpeedIndex @@I }SpeedPerSecond TABLE@ F- ^rtUpperBoundReqSpeedIndex @@ ^rtLowerBoundReqSpeedIndex @@ F- F/  FABS ^rtSlope @! 
+11 LINE.NUM ^rtUpperBoundReqSpeedIndex @@I }SpeedPerSecond TABLE@ ^rtSlope @@ ^rtUpperBoundReqSpeedIndex @@ F* F- ^rtIntercept @! 
 13 LINE.NUM ^rtSlope @@ ^rtTestRunTime @@F 1.000000e+000 F+ F* ^rtIntercept @@ F+ ^rtRequiredSpeed @! 
 14 LINE.NUM THEN 
 5 JUMP ;
@@ -47,34 +47,34 @@
   &Road_Test   STOP.T
 10 JUMP ;
 : 4_13
-2 LINE.NUM }rtAccelerationPoints  TableSize@ ^gLengthOfTable @! 
+2 LINE.NUM }AccelerationPoints  TableSize@ ^gLengthOfTable @! 
 3 LINE.NUM 0 ^rtNumberOfAccPoints @! 
 4 LINE.NUM 0 ^gIndex @! 
 5 LINE.NUM BEGIN ^gIndex @@ ^gLengthOfTable @@ < WHILE 
-7 LINE.NUM ^gIndex @@ }rtAccelerationPoints TABLE@ 0 I>F F< IF 
+7 LINE.NUM ^gIndex @@ }AccelerationPoints TABLE@ 0 I>F F< IF 
 8 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
 9 LINE.NUM ELSE 
 10 LINE.NUM ^rtNumberOfAccPoints @@ 1 +  ^rtNumberOfAccPoints @! 
-11 LINE.NUM ^gIndex @@ }rtAccelerationPoints TABLE@ ^rtCurrentAcceleration @@ F= IF 
+11 LINE.NUM ^gIndex @@ }AccelerationPoints TABLE@ ^rtCurrentAcceleration @@ F= IF 
 12 LINE.NUM ^gIndex @@ ^rtAccelerationIndex @! 
 13 LINE.NUM THEN 
 14 LINE.NUM THEN 
 15 LINE.NUM ^gIndex @@ 1 +  ^gIndex @! 
 16 LINE.NUM REPEAT 
-19 LINE.NUM }rtSpeedPoints  TableSize@ ^gLengthOfTable @! 
+19 LINE.NUM }SpeedPoints  TableSize@ ^gLengthOfTable @! 
 20 LINE.NUM 0 ^gIndex @! 
 21 LINE.NUM -1 ^rtSpeedIndex @! 
 22 LINE.NUM BEGIN ^gIndex @@ ^gLengthOfTable @@ < WHILE 
-23 LINE.NUM ^gIndex @@ }rtSpeedPoints TABLE@ ^rtCurrentSpeed @@ F= IF 
+23 LINE.NUM ^gIndex @@ }SpeedPoints TABLE@ ^rtCurrentSpeed @@ F= IF 
 24 LINE.NUM ^gIndex @@ ^rtSpeedIndex @! 
 25 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
 26 LINE.NUM ELSE 
-27 LINE.NUM ^gIndex @@ }rtSpeedPoints TABLE@ ^rtCurrentSpeed @@ F> IF 
+27 LINE.NUM ^gIndex @@ }SpeedPoints TABLE@ ^rtCurrentSpeed @@ F> IF 
 28 LINE.NUM ^gIndex @@ ^rtUpperBoundSpeedIndex @! 
 29 LINE.NUM ^gIndex @@ 1 -  ^rtLowerBoundSpeedIndex @! 
 30 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
 31 LINE.NUM ELSE 
-32 LINE.NUM ^gIndex @@ }rtSpeedPoints TABLE@ ^rtCurrentSpeed @@ F< IF 
+32 LINE.NUM ^gIndex @@ }SpeedPoints TABLE@ ^rtCurrentSpeed @@ F< IF 
 33 LINE.NUM ^gIndex @@ 1 +  ^gIndex @! 
 34 LINE.NUM THEN 
 35 LINE.NUM THEN 
@@ -82,12 +82,12 @@
 37 LINE.NUM REPEAT 
 39 LINE.NUM ^rtSpeedIndex @@ 0 >= IF 
 40 LINE.NUM ^rtSpeedIndex @@ ^rtNumberOfAccPoints @@ *  ^rtAccelerationIndex @@ +  ^rtThrottleSetPointIndex @! 
-42 LINE.NUM ^rtThrottleSetPointIndex @@ }rtTSPGear1 TABLE@ 10 I>F F/ ^rtThrottleSetPoint @! 
+42 LINE.NUM ^rtThrottleSetPointIndex @@ }TSPGear1 TABLE@ 10 I>F F/ ^rtThrottleSetPoint @! 
 43 LINE.NUM ELSE 
 44 LINE.NUM ^rtUpperBoundSpeedIndex @@ ^rtNumberOfAccPoints @@ *  ^rtAccelerationIndex @@ +  ^rtUpperBoundSetPointIndex @! 
 45 LINE.NUM ^rtLowerBoundSpeedIndex @@ ^rtNumberOfAccPoints @@ *  ^rtAccelerationIndex @@ +  ^rtLowerBoundSetPointIndex @! 
-47 LINE.NUM ^rtUpperBoundSetPointIndex @@ }rtTSPGear1 TABLE@ ^rtLowerBoundSetPointIndex @@ }rtTSPGear1 TABLE@ F- ^rtUpperBoundSpeedIndex @@ }rtSpeedPoints TABLE@ ^rtLowerBoundSpeedIndex @@ }rtSpeedPoints TABLE@ F- F/  FABS ^rtSlope @! 
-49 LINE.NUM ^rtUpperBoundSetPointIndex @@ }rtTSPGear1 TABLE@ ^rtSlope @@ ^rtUpperBoundSpeedIndex @@ }rtSpeedPoints TABLE@ F* F- ^rtIntercept @! 
+47 LINE.NUM ^rtUpperBoundSetPointIndex @@ }TSPGear1 TABLE@ ^rtLowerBoundSetPointIndex @@ }TSPGear1 TABLE@ F- ^rtUpperBoundSpeedIndex @@ }SpeedPoints TABLE@ ^rtLowerBoundSpeedIndex @@ }SpeedPoints TABLE@ F- F/  FABS ^rtSlope @! 
+49 LINE.NUM ^rtUpperBoundSetPointIndex @@ }TSPGear1 TABLE@ ^rtSlope @@ ^rtUpperBoundSpeedIndex @@ }SpeedPoints TABLE@ F* F- ^rtIntercept @! 
 51 LINE.NUM ^rtSlope @@ ^rtCurrentSpeed @@ F* ^rtIntercept @@ F+ 10 I>F F/ ^rtThrottleSetPoint @! 
 52 LINE.NUM THEN 
 54 LINE.NUM %ScratchPad 200 ^rtCurrentSpeed @@  IO.SP.F.WRITE DROP  
@@ -99,18 +99,18 @@
 : 4_16
 2 JUMP ;
 : 4_19
-1 LINE.NUM %ScratchPad 20 10 0 }rtSpeedPoints  IO.SP.READ DROP  
-2 LINE.NUM %ScratchPad 20 30 0 }rtAccelerationPoints  IO.SP.READ DROP  
-3 LINE.NUM %ScratchPad 100 1000 0 }rtTSPGear1  IO.SP.READ DROP  
-5 LINE.NUM %ScratchPad 3600 2000 0 }rtSpeedPerSecond  IO.SP.READ DROP  
-7 LINE.NUM %ScratchPad 3600 2000 0 }rtSpeedPerSecond  IO.SP.READ DROP  
+1 LINE.NUM %ScratchPad 20 10 0 }SpeedPoints  IO.SP.READ DROP  
+2 LINE.NUM %ScratchPad 20 30 0 }AccelerationPoints  IO.SP.READ DROP  
+3 LINE.NUM %ScratchPad 100 1000 0 }TSPGear1  IO.SP.READ DROP  
+5 LINE.NUM %ScratchPad 3600 2000 0 }SpeedPerSecond  IO.SP.READ DROP  
+7 LINE.NUM %ScratchPad 3600 2000 0 }SpeedPerSecond  IO.SP.READ DROP  
 9 LINE.NUM %ScratchPad 10 250 0 }GearRatio  IO.SP.READ DROP  
 11 LINE.NUM 0 ^rtTotalSecondsOfTest @! 
 13 LINE.NUM %ScratchPad 210 ^PulseMultiplier   IO.SP.READ DROP  
 14 LINE.NUM %ScratchPad 211 ^PulsePerRev   IO.SP.READ DROP  
-16 LINE.NUM }rtSpeedPerSecond  TableSize@ ^gLengthOfTable @! 
+16 LINE.NUM }SpeedPerSecond  TableSize@ ^gLengthOfTable @! 
 1 18 LINE.NUM ^gLengthOfTable @@ 1 -  1 + 0 DO? I ^gIndex @! 
-19 LINE.NUM ^gIndex @@ }rtSpeedPerSecond TABLE@ 0 I>F F>= IF 
+19 LINE.NUM ^gIndex @@ }SpeedPerSecond TABLE@ 0 I>F F>= IF 
 20 LINE.NUM ^rtTotalSecondsOfTest @@ 1 +  ^rtTotalSecondsOfTest @! 
 21 LINE.NUM ELSE 
 22 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 

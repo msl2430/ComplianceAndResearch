@@ -3,7 +3,6 @@ CREATE T.ARRAY
 &Learning_Phase ,
 &Powerup ,
 &Road_Test ,
-&Throttle_Set_Point_Calculation ,
  0 ,
 CREATE V.ARRAY
 ^CallChartStatus ,
@@ -63,13 +62,13 @@ CREATE TI.ARRAY
 CREATE PTR.ARRAY
  0 ,
 CREATE TA.ARRAY 
+}AccelerationPoints ,
 }ClearIntegerTable ,
 }GearRatio ,
-}rtAccelerationPoints ,
-}rtSpeedPerSecond ,
-}rtSpeedPoints ,
-}rtTSPGear1 ,
 }SelectedCar ,
+}SpeedPerSecond ,
+}SpeedPoints ,
+}TSPGear1 ,
  0 ,
 CREATE PTRTABLE.ARRAY 
  0 ,
@@ -188,13 +187,13 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^TestInputValue @!
 0.00000000 ^TSPValue @!
 0.00000000 ^WheelSpeed @!
+-1.0000000 0 -1 }AccelerationPoints InitTable
 0 0 -1 }ClearIntegerTable InitTable
 -1.0000000 0 -1 }GearRatio InitTable
--1.0000000 0 -1 }rtAccelerationPoints InitTable
--1.0000000 0 -1 }rtSpeedPerSecond InitTable
--1.0000000 0 -1 }rtSpeedPoints InitTable
--1.0000000 0 -1 }rtTSPGear1 InitTable
 0 0 -1 }SelectedCar InitTable
+-1.0000000 0 -1 }SpeedPerSecond InitTable
+-1.0000000 0 -1 }SpeedPoints InitTable
+-1.0000000 0 -1 }TSPGear1 InitTable
 " "
  *StrategyRunTime $MOVE
 " "

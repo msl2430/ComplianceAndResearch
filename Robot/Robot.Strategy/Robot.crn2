@@ -3,7 +3,6 @@
 0 TASK &Learning_Phase
 0 TASK &Powerup
 0 TASK &Road_Test
-0 TASK &Throttle_Set_Point_Calculation
 0 IVAR ^CallChartStatus
 0 IVAR ^ClearScratchPadResult
 0 FVAR ^DriveTrainRatio
@@ -53,13 +52,13 @@
 32 0 $VAR *StrategyRunTime 
 32 0 $VAR *TestInputValueStr 
 256 0 $VAR *TestString 
+20 0 FTABLE }AccelerationPoints
 300 0 ITABLE }ClearIntegerTable
 10 0 FTABLE }GearRatio
-20 0 FTABLE }rtAccelerationPoints
-3600 0 FTABLE }rtSpeedPerSecond
-20 0 FTABLE }rtSpeedPoints
-100 0 FTABLE }rtTSPGear1
 3 0 ITABLE }SelectedCar
+3600 0 FTABLE }SpeedPerSecond
+20 0 FTABLE }SpeedPoints
+100 0 FTABLE }TSPGear1
 
 nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
 nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A801C8 0 11 BOARD.MMP %SnapPacR1
