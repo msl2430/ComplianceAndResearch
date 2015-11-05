@@ -4,7 +4,7 @@
 # ----------------------------------------------------------------
 # NAME :         D:\Documents\ComplianceAndResearch\Robot\Robot.Strategy\Robot.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    9:36:24 11/4/2015
+# TIME/DATE :    8:33:1 11/5/2015
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -130,7 +130,6 @@ TAG1,do_SnapPacR1_0302                                 ,38   ,10000000,00000000,
 TAG1,do_SnapPacR1_0303                                 ,39   ,10000000,00000000,00000000,00000000,0    ,0   
 TAG1,IgnitionFrequency                                 ,40   ,40000040,00000000,00000000,00000000,0    ,0   
 TAG1,SpeedEncoder                                      ,41   ,40000040,00000000,00000000,00000000,0    ,0   
-TAG1,ai_SnapPacR1_0400                                 ,8    ,00000000,00000001,00000000,00000000,0    ,0   
 TAG1,ai_SnapPacR1_0401                                 ,9    ,00000000,00000001,00000000,00000000,0    ,0   
 TAG1,ai_SnapPacR1_0500                                 ,10   ,00000000,00000001,00000000,00000000,0    ,0   
 TAG1,ai_SnapPacR1_0501                                 ,11   ,00000000,00000001,00000000,00000000,0    ,0   
@@ -138,8 +137,9 @@ TAG1,ai_SnapPacR1_0800                                 ,16   ,00000000,00000001,
 TAG1,ai_SnapPacR1_0801                                 ,17   ,00000000,00000001,00000000,00000000,0    ,0   
 TAG1,ai_SnapPacR1_0802                                 ,18   ,00000000,00000001,00000000,00000000,0    ,0   
 TAG1,ai_SnapPacR1_0803                                 ,19   ,00000000,00000001,00000000,00000000,0    ,0   
-TAG1,ao_SnapPacR1_0700                                 ,12   ,00000000,00000002,00000000,00000000,0    ,0   
 TAG1,ao_SnapPacR1_0701                                 ,13   ,00000000,00000002,00000000,00000000,0    ,0   
+TAG1,pidActuateThrottleOutput                          ,12   ,00000000,00000002,00000000,00000000,0    ,0   
+TAG1,pidCalculateSpeeTrimInput                         ,8    ,00000000,00000001,00000000,00000000,0    ,0   
 TAG1,CallChartStatus                                   ,13   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,ClearScratchPadResult                             ,5    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,DriveTrainRatio                                   ,56   ,00000000,00000000,00000000,00000010,0    ,0   
