@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Opto22.Core.Constants;
+using Robot.Application.ViewModels;
+using Robot.Core.Extensions;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Opto22.Core.Constants;
-using Robot.Application.Factories;
-using Robot.Application.ViewModels;
-using Robot.Core.Extensions;
 
 namespace Robot.Application.Services.WorkerServices
 {
@@ -23,8 +22,6 @@ namespace Robot.Application.Services.WorkerServices
     {
         public OptoMonitorViewModel OptoMonitorViewModel { get; set; }
         
-        private Stopwatch WaitStopWatch { get; set; }
-
         public OptoMonitorWorkerService(OptoMonitorViewModel optoMonitorViewModel)
         {
             OptoMonitorViewModel = optoMonitorViewModel;

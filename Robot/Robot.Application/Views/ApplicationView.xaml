@@ -10,6 +10,7 @@
         xmlns:learning="clr-namespace:Robot.Application.Views.Learning"
         xmlns:testing="clr-namespace:Robot.Application.Views.Testing"
         xmlns:configuration="clr-namespace:Robot.Application.Views.Configuration"
+        xmlns:simulator="clr-namespace:Robot.Application.Views.Simulator"
         Title="Wobbly Widget" 
         MinHeight="600"
         Height="600" 
@@ -31,6 +32,9 @@
         </DataTemplate>
         <DataTemplate  DataType="{x:Type local:TestingViewModel}">
             <testing:TestingView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SimulatorViewModel}">
+            <simulator:SimulatorView/>
         </DataTemplate>
     </Window.Resources>
     <Grid>

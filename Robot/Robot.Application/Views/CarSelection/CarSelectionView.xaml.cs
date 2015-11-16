@@ -179,6 +179,25 @@ namespace Robot.Application.Views.CarSelection
                 txtBox.BorderBrush = new SolidColorBrush(Color.FromRgb(255, 204, 204));
             }
         }
-        #endregion      
+        #endregion
+
+        private void RunSimulator_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (ExistingModelComboBox.SelectedIndex < 0) return;
+            var viewModel = new SimulatorViewModel(ViewModel.ApplicationSessionFactory)
+            {
+                ManufacturerId = ViewModel.Manufacturers[ExistingManufacturerComboBox.SelectedIndex].ManufacturerId,
+                ManufacturerName = ViewModel.Manufacturers[ExistingManufacturerComboBox.SelectedIndex].Name,
+                ModelId = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].ModelId,
+                ModelName = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].Name,
+                ModelYear = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].Year,
+                ModelGearRatios = ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].GearRatios,
+                PulseMultiplier = Convert.ToDecimal(ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].PulseMultiplier),
+                PulsePerRev = Convert.ToDecimal(ViewModel.CarModels[ExistingModelComboBox.SelectedIndex].PulsePerRev),
+            };
+            var parentWindow = (ApplicationView) Window.GetWindow(this);
+
+            parentWindow.ChangePageView(viewModel);
+        }
     }
 }

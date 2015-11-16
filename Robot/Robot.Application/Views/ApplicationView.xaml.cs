@@ -33,7 +33,8 @@ namespace Robot.Application.Views
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
            // ToggleOptoConnection();
             ChangePageView(new CarSelectionViewModel(ApplicationSessionFactory) {IsOptoConnected = false});
-            
+            ChangePageView(new SimulatorViewModel(ApplicationSessionFactory)); 
+
             OptoMonitorView = new OptoMonitorView(ApplicationSessionFactory);
             OptoMonitorView.Show();
         }
@@ -54,6 +55,8 @@ namespace Robot.Application.Views
                 ApplicationViewModel.TitleLabel = "Learning Mode";
             if (viewModel.GetType() == typeof (TestingViewModel))
                 ApplicationViewModel.TitleLabel = "Testing Mode";
+            if (viewModel.GetType() == typeof (SimulatorViewModel))
+                ApplicationViewModel.TitleLabel = "Simulator";
 
             BackButton.Visibility = Visibility.Visible;
             TitleLabelTextBlock.Margin = new Thickness(45, 10, 10, 10);

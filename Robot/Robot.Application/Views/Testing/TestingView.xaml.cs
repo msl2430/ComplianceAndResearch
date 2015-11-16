@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using Opto22.Core.Constants;
-using Opto22.Core.Models;
+﻿using Opto22.Core.Constants;
 using Robot.Application.Services.WorkerServices;
 using Robot.Application.ViewModels;
 using Robot.Core.Constants;
 using Robot.Core.Extensions;
-using Robot.Models.Helpers;
 using Robot.Models.Models;
+using System;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace Robot.Application.Views.Testing
 {

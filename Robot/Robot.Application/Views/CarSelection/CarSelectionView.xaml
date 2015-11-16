@@ -17,7 +17,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1">
-            <GroupBox Header="Existing Cars" VerticalAlignment="Top" Height="345" IsEnabled="{Binding Path=IsOptoConnected}">
+            <GroupBox Header="Existing Cars" VerticalAlignment="Top" Height="345" ><!--IsEnabled="{Binding Path=IsOptoConnected}">-->
                 <StackPanel>
                     <Label Content="1. Select a Manufacturer"></Label>
                     <ComboBox
@@ -44,6 +44,8 @@
                             SelectedIndex="0"
                             Width="300"
                             Margin="25,0,0,0"/>
+                    <Button Name="RunSimulator" Style="{StaticResource HyperlinkLikeButton}" Content="Run Simulator" HorizontalAlignment="right" Click="RunSimulator_OnClick"></Button>
+                    
                     <Button Name="TestingPhaseButton" 
                                 Margin="40,122,40,0" 
                                 Padding="15" 

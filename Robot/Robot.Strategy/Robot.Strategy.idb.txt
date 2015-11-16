@@ -4,7 +4,7 @@
 # ----------------------------------------------------------------
 # NAME :         D:\Documents\ComplianceAndResearch\Robot\Robot.Strategy\Robot.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    8:33:1 11/5/2015
+# TIME/DATE :    16:17:15 11/16/2015
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -96,6 +96,7 @@ TAG1,Learning                                          ,1    ,00000000,00000100,
 TAG1,Learning_Phase                                    ,5    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,Powerup                                           ,0    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,Road_Test                                         ,4    ,00000000,00000100,00000000,00000000,0    ,0   
+TAG1,Simulator                                         ,6    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,ScratchPad                                        ,1    ,00000000,00000000,40000000,00000000,0    ,0   
 TAG1,SnapPacR1                                         ,3    ,00000000,00000000,10000000,00000000,0    ,0   
 TAG1,di_SnapPacR1_0000                                 ,12   ,40000000,00000000,00000000,00000000,0    ,0   
@@ -182,6 +183,13 @@ TAG1,rtUpperBoundSetPointIndex                         ,38   ,00000000,00000000,
 TAG1,rtUpperBoundSpeedIndex                            ,36   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,ScratchPadInputIndex                              ,16   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,SetScratchPadResult                               ,9    ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,simAcceleration                                   ,67   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,simActive                                         ,61   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,simCurrentSpeed                                   ,66   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,simDataLoadStatus                                 ,63   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,simOverrideType                                   ,62   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,simRequiredSpeed                                  ,65   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,simRunTime                                        ,64   ,00000000,00000000,00000000,00002000,0    ,0   
 TAG1,TemplateLoadStatus                                ,12   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,TestInputValue                                    ,14   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,TSPValue                                          ,15   ,00000000,00000000,00000000,00000010,0    ,0   

@@ -11,7 +11,9 @@ namespace Robot.Models.Models
         public int ModelId { get; set; }
         public int Gear { get; set; }
         public decimal Ratio { get; set; }
+        public string GearName => "Gear " + Gear;
 
+        public GearRatioModel() { }
         public GearRatioModel(GearRatio obj)
         {
             if (obj == null)

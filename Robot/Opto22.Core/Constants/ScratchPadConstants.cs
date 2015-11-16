@@ -16,6 +16,7 @@ namespace Opto22.Core.Constants
             StrategyLocationValue,
             GoToLearningPhase,
             GoToTestPhase,
+            GoToSimulator,
 
             ManufacturerId = 50,
             ModelId,
@@ -25,7 +26,11 @@ namespace Opto22.Core.Constants
             LearingPhaseDataLoadStatus,
 
             TestPhaseActive = 200,
-            TestPhaseDataLoadStatus,            
+            TestPhaseDataLoadStatus,        
+            
+            SimulatorActive = 300,
+            SimulatorOverrideType,
+            SimulatorDataLoadStatus
         }
 
         public enum StringIndexes
@@ -48,6 +53,14 @@ namespace Opto22.Core.Constants
             Waiting,
             Loading,
             LoadFinished
+        }
+
+        public enum SimulatorOverrides
+        {
+            Off,
+            RequiredSpeed,
+            ThrottleSetPoint,
+            Acceleration
         }
 
         /// <summary>
@@ -76,6 +89,11 @@ namespace Opto22.Core.Constants
             GearRatio8,
             GearRatio9,
             GearRatio10,
+
+            SimulatorRequiredSpeed = 300,
+            SimulatorThrottleSetPoint,
+            SimulatorAcceleration,
+            SimulatorMaxSpeed,
 
             TspGear1Start = 1000,
             TspGear2Start = 1100,

@@ -138,6 +138,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Simulator\SimulatorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Testing\TestingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -160,6 +164,7 @@
     <Compile Include="ViewModels\NewManufacturerFlyoutViewModel.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\OptoMonitorViewModel.cs" />
+    <Compile Include="ViewModels\SimulatorViewModel.cs" />
     <Compile Include="ViewModels\TestingViewModel.cs" />
     <Compile Include="Views\ApplicationView.xaml.cs">
       <DependentUpon>ApplicationView.xaml</DependentUpon>
@@ -180,6 +185,9 @@
     </Compile>
     <Compile Include="Views\OptoMonitor\OptoMonitorView.xaml.cs">
       <DependentUpon>OptoMonitorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Simulator\SimulatorView.xaml.cs">
+      <DependentUpon>SimulatorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Testing\TestingView.xaml.cs">
       <DependentUpon>TestingView.xaml</DependentUpon>
