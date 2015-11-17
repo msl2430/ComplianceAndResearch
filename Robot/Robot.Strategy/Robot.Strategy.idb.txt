@@ -4,7 +4,7 @@
 # ----------------------------------------------------------------
 # NAME :         D:\Documents\ComplianceAndResearch\Robot\Robot.Strategy\Robot.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    16:17:15 11/16/2015
+# TIME/DATE :    8:59:31 11/17/2015
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -141,14 +141,27 @@ TAG1,ai_SnapPacR1_0803                                 ,19   ,00000000,00000001,
 TAG1,ao_SnapPacR1_0701                                 ,13   ,00000000,00000002,00000000,00000000,0    ,0   
 TAG1,pidActuateThrottleOutput                          ,12   ,00000000,00000002,00000000,00000000,0    ,0   
 TAG1,pidCalculateSpeeTrimInput                         ,8    ,00000000,00000001,00000000,00000000,0    ,0   
+TAG1,AccelerationIndex                                 ,70   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,CallChartStatus                                   ,13   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,ClearScratchPadResult                             ,5    ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,CurrentAcceleration                               ,71   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,CurrentGear                                       ,72   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,CurrentSpeed                                      ,73   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,DriveTrainRatio                                   ,56   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,EngineSpeed                                       ,53   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,gCalculateSpeedTrimOutput                         ,77   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,GetScratchPadResult                               ,7    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,gIndex                                            ,24   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,gIntercept                                        ,74   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,gLengthOfTable                                    ,23   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,gLowerBoundSetPointIndex                          ,75   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,gNumberOfAccPoints                                ,76   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,gSlope                                            ,79   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,gSpeedIndex                                       ,80   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,gStatus                                           ,35   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,gThrottlePidOutput                                ,81   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,gThrottleSetPointIndex                            ,83   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,gUpperBoundSetPointIndex                          ,84   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,IsApplicationConnected                            ,4    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,IsGoToLearningPhase                               ,6    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,IsGoToTestPhase                                   ,8    ,00000000,00000000,00000000,00000008,0    ,0   
@@ -156,30 +169,16 @@ TAG1,lpDataLoadStatus                                  ,59   ,00000000,00000000,
 TAG1,lpLearningActive                                  ,58   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,PulseMultiplier                                   ,52   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,PulsePerRev                                       ,60   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,RequiredSpeed                                     ,78   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,RollDiameter                                      ,57   ,00000000,00000000,00000000,00000010,0    ,0   
-TAG1,rtAccelerationIndex                               ,27   ,00000000,00000000,00000000,00000008,0    ,0   
-TAG1,rtCurrentAcceleration                             ,26   ,00000000,00000000,00000000,00000010,0    ,0   
-TAG1,rtCurrentGear                                     ,18   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtCurrentRunTime                                  ,49   ,00000000,00000000,00000000,00000010,0    ,0   
-TAG1,rtCurrentSpeed                                    ,17   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtDataLoadStatus                                  ,34   ,00000000,00000000,00000000,00000008,0    ,0   
-TAG1,rtIntercept                                       ,43   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,rtLowerBoundReqSpeedIndex                         ,50   ,00000000,00000000,00000000,00000010,0    ,0   
-TAG1,rtLowerBoundSetPointIndex                         ,39   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtLowerBoundSpeedIndex                            ,37   ,00000000,00000000,00000000,00000008,0    ,0   
-TAG1,rtNumberOfAccPoints                               ,29   ,00000000,00000000,00000000,00000008,0    ,0   
-TAG1,rtPidOutput                                       ,45   ,00000000,00000000,00000000,00000010,0    ,0   
-TAG1,rtRequiredSpeed                                   ,33   ,00000000,00000000,00000000,00000010,0    ,0   
-TAG1,rtSlope                                           ,42   ,00000000,00000000,00000000,00000010,0    ,0   
-TAG1,rtSpeedIndex                                      ,25   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtTestActive                                      ,44   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtTestRunTime                                     ,30   ,00000000,00000000,00000000,00002000,0    ,0   
-TAG1,rtThrottleOutput                                  ,48   ,00000000,00000000,00000000,00000010,0    ,0   
-TAG1,rtThrottleSetPoint                                ,19   ,00000000,00000000,00000000,00000010,0    ,0   
-TAG1,rtThrottleSetPointIndex                           ,28   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtTotalSecondsOfTest                              ,31   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtUpperBoundReqSpeedIndex                         ,51   ,00000000,00000000,00000000,00000010,0    ,0   
-TAG1,rtUpperBoundSetPointIndex                         ,38   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,rtUpperBoundSpeedIndex                            ,36   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,ScratchPadInputIndex                              ,16   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,SetScratchPadResult                               ,9    ,00000000,00000000,00000000,00000008,0    ,0   
@@ -187,11 +186,14 @@ TAG1,simAcceleration                                   ,67   ,00000000,00000000,
 TAG1,simActive                                         ,61   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,simCurrentSpeed                                   ,66   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,simDataLoadStatus                                 ,63   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,simMaxSpeed                                       ,69   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,simOverrideType                                   ,62   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,simRequiredSpeed                                  ,65   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,simRunTime                                        ,64   ,00000000,00000000,00000000,00002000,0    ,0   
+TAG1,simThrottleSetPoint                               ,68   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,TemplateLoadStatus                                ,12   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,TestInputValue                                    ,14   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,ThrottleSetPoint                                  ,82   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,TSPValue                                          ,15   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,WheelSpeed                                        ,54   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,StrategyRunTime                                   ,0    ,00000000,00000000,00000000,00000040,0    ,32  
