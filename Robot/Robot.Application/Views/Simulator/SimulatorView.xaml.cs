@@ -48,6 +48,11 @@ namespace Robot.Application.Views.Simulator
                     ModelGearRatios = new List<GearRatioModel> { new GearRatioModel() { Gear = 1, Ratio = 1m}, new GearRatioModel() {Gear =2, Ratio = 2m} },
                     PulseMultiplier = 0.85m,
                     PulsePerRev = 2000m,
+                    RollDiameter = Properties.Settings.Default.RollDiameter,
+                    RequiredSpeed = 0,
+                    ThrottleSetPoint = 0,
+                    Acceleration = 0,
+                    MaxSpeed = 0,
                 };
 
             ViewModel.ConfigurationHeader = ViewModel.CarDisplayName + " Configuration";

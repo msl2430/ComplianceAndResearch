@@ -31,6 +31,10 @@
                         <Label Content="Pulse Per Rev" Width="100" HorizontalAlignment="Left"></Label>
                         <TextBox Text="{Binding Path=PulsePerRev}" Width="100" HorizontalAlignment="Left" Margin="100, 0, 0 ,0"></TextBox>
                     </Grid>
+                    <Grid Margin="5">
+                        <Label Content="Roll Diameter" Width="100" HorizontalAlignment="Left"></Label>
+                        <TextBox Text="{Binding Path=RollDiameter}" Width="100" HorizontalAlignment="Left" Margin="100, 0, 0 ,0"></TextBox>
+                    </Grid>
                     <StackPanel Margin="5">
                         <Label Content="Gear Ratios"></Label>
                         <ListBox Name="gearRatioList" HorizontalContentAlignment="Stretch" SelectionMode="Extended" SelectionChanged="gearRatioList_SelectionChanged" Margin="20,5">
@@ -89,7 +93,7 @@
                             </StackPanel>
                             <StackPanel Grid.Column="1">
                                 <Label Content="Max Speed"></Label>
-                                <TextBox Name="MaxSpeed" Text="{Binding Path=MaxSpeed}" Margin="5, 2" PreviewTextInput="MaxSpeed_OnPreview" LostFocus="RequiredSpeed_LostFocus"></TextBox>
+                                <TextBox Name="MaxSpeed" Text="{Binding Path=MaxSpeed}" Margin="5, 2" PreviewTextInput="MaxSpeed_OnPreview" LostFocus="MaxSpeed_LostFocus"></TextBox>
                                 <Button Name="SetAcceleration" Content="Set" Margin="0,2,5,0" Width="120" HorizontalAlignment="Right" Click="SetAcceleration_OnClick"></Button>
                             </StackPanel>
                         </Grid>

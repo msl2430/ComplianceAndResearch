@@ -20,6 +20,21 @@ namespace Robot.Application.ViewModels
         private decimal _pulsePerRev { get; set; }
         public decimal PulsePerRev { get {return _pulsePerRev;} set { _pulsePerRev = value; OnPropertyChanged("PulsePerRev"); } }
 
+        private decimal _requiredSpeed { get; set; }
+        public decimal RequiredSpeed { get { return _requiredSpeed; } set { _requiredSpeed = value; OnPropertyChanged("RequiredSpeed"); } }
+
+        private decimal _throttleSetPoint { get; set; }
+        public decimal ThrottleSetPoint { get { return _throttleSetPoint; } set { _throttleSetPoint = value; OnPropertyChanged("ThrottleSetPoint"); } }
+
+        private decimal _acceleration { get; set; }
+        public decimal Acceleration { get { return _acceleration; } set { _acceleration = value; OnPropertyChanged("Acceleration"); } }
+
+        private decimal _maxSpeed { get; set; }
+        public decimal MaxSpeed { get { return _maxSpeed; } set { _maxSpeed = value; OnPropertyChanged("MaxSpeed"); } }
+
+        private decimal _rollDiameter { get; set; }
+        public decimal RollDiameter { get { return _rollDiameter; } set { _rollDiameter = value; OnPropertyChanged("RollDiameter"); } }
+
         private ScratchPadConstants.SimulatorOverrides _overrideEnabled { get; set; }
         public ScratchPadConstants.SimulatorOverrides OverrideEnabled { get { return _overrideEnabled; } set { _overrideEnabled = value; OnPropertyChanged("OverrideEnabled"); } }
 
