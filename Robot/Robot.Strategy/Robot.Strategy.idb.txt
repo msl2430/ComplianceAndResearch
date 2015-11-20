@@ -4,7 +4,7 @@
 # ----------------------------------------------------------------
 # NAME :         D:\Documents\ComplianceAndResearch\Robot\Robot.Strategy\Robot.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    8:59:31 11/17/2015
+# TIME/DATE :    13:16:21 11/20/2015
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -164,6 +164,7 @@ TAG1,gThrottleSetPointIndex                            ,83   ,00000000,00000000,
 TAG1,gUpperBoundSetPointIndex                          ,84   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,IsApplicationConnected                            ,4    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,IsGoToLearningPhase                               ,6    ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,IsGoToSimulator                                   ,85   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,IsGoToTestPhase                                   ,8    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,lpDataLoadStatus                                  ,59   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,lpLearningActive                                  ,58   ,00000000,00000000,00000000,00000008,0    ,0   

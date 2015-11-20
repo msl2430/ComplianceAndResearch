@@ -36,18 +36,21 @@ namespace Robot.Application.Views.Simulator
         private void SimulatorView_OnLoaded(object sender, RoutedEventArgs e)
         {
             DefaultButtonColor = SetRequiredSpeed.Background;
+
+            var model = ModelService.GetCarModelsByManufactureId(63).FirstOrDefault(m => m.ModelId == 1);
+            
             //if (DataContext != null)
             //    ViewModel = (SimulatorViewModel) DataContext;
-                ViewModel = new SimulatorViewModel(((SimulatorViewModel)DataContext).ApplicationSessionFactory)
+            ViewModel = new SimulatorViewModel(((SimulatorViewModel)DataContext).ApplicationSessionFactory)
                 {
-                    ManufacturerId = 1,
-                    ManufacturerName = "TestManufacturer",
-                    ModelId = 1,
-                    ModelName = "Test",
-                    ModelYear = 2015,
-                    ModelGearRatios = new List<GearRatioModel> { new GearRatioModel() { Gear = 1, Ratio = 1m}, new GearRatioModel() {Gear =2, Ratio = 2m} },
-                    PulseMultiplier = 0.85m,
-                    PulsePerRev = 2000m,
+                    ManufacturerId = 63,
+                    ManufacturerName = "Abarth",
+                    ModelId = model.ModelId,
+                    ModelName = model.Name,
+                    ModelYear = model.Year,
+                    ModelGearRatios = model.GearRatios,
+                    PulseMultiplier = (decimal)model.PulseMultiplier,
+                    PulsePerRev = (decimal)model.PulsePerRev,
                     RollDiameter = Properties.Settings.Default.RollDiameter,
                     RequiredSpeed = 0,
                     ThrottleSetPoint = 0,
