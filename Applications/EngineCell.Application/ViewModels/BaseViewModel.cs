@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
-using Robot.Application.Factories;
-using Robot.Core.Models;
+using EngineCell.Application.Factories;
+using Opto22.Core.Models;
 
-namespace Robot.Application.ViewModels
+namespace EngineCell.Application.ViewModels
 {
     public abstract class BaseViewModel : BaseModel, INotifyPropertyChanged
     {

@@ -1,4 +1,4 @@
-﻿namespace Robot.Core.Constants
+﻿namespace EngineCell.Core.Constants
 {
     public static class ControlConstants
     {
