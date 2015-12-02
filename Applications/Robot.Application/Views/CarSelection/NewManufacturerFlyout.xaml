@@ -1,0 +1,68 @@
+﻿<views:BaseUserControl x:Class="Robot.Application.Views.CarSelection.NewManufacturerFlyout"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:views="clr-namespace:Robot.Application.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <StackPanel>
+            <Label Content="Enter Manufacturer Name" Width="300" HorizontalAlignment="Center"></Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Name="NewManufactureNameText" BorderThickness="1.01"  controls:TextBoxHelper.Watermark="Chevrolet, Ford, Audi, etc." Margin="60,0,0,0" TextChanged="CheckUniqueManufacturerName"/>
+                <Rectangle Grid.Column="1" Width="15" Height="15" Fill="Green" HorizontalAlignment="Left" Margin="10,0,0,0" Name="ManufacturerSuccessCheck" Visibility="Hidden">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush  Stretch="Fill" Visual="{DynamicResource appbar_check}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+                <Rectangle Grid.Column="1" Width="15" Height="15" Fill="DarkRed" HorizontalAlignment="Left" Margin="10,0,0,0" Name="ManufacturerFailCheck" Visibility="Hidden">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush  Stretch="Fill" Visual="{DynamicResource appbar_3d_x}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Grid>
+            <Label Content="Select Country" Width="300" HorizontalAlignment="Center"></Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" Name="CountrySelectionComboBox" Margin="60,0,0,0" 
+                          ItemsSource="{Binding Path=Countries}"
+                          SelectedIndex="{Binding Mode=OneTime, Path=DefaultCountry}"
+                          DisplayMemberPath="Name"/>                
+            </Grid>
+            <!--<Label Content="Enter Model Name" Width="300" HorizontalAlignment="Center"></Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Name="NewModelText" controls:TextBoxHelper.Watermark="Corvette, Mustang, A6, etc." Margin="60,0,0,0"/>
+            </Grid>
+            <Label Content="Enter Pulse Multiplier" Width="300" HorizontalAlignment="Center"></Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Name="NewModelPulseMultiplier" Text="0" Margin="60,0,0,0" PreviewTextInput="NumericCharValidate" LostFocus="NumericBlurValidate"/>
+            </Grid>
+            <Label Content="Enter Pulse Per Rev" Width="300" HorizontalAlignment="Center"></Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Name="NewModelPulsePerRev" Text="0" Margin="60,0,0,0" PreviewTextInput="NumericCharValidate" LostFocus="NumericBlurValidate"/>
+            </Grid>-->
+            <Button Name="SubmitManufacturer" Content="Submit" Width="140" Margin="60,20,0,0" Click="SubmitManufacturer_OnClick" HorizontalAlignment="Left"></Button>
+        </StackPanel>
+    </Grid>    
+</views:BaseUserControl>

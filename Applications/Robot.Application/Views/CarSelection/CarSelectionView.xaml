@@ -1,0 +1,124 @@
+﻿<views:BaseUserControl x:Class="Robot.Application.Views.CarSelection.CarSelectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:views="clr-namespace:Robot.Application.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="768"
+             Loaded="CarSelectionView_OnLoaded"
+             >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="350"></ColumnDefinition>
+            <ColumnDefinition Width="18"></ColumnDefinition>
+            <ColumnDefinition Width="350"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <GroupBox Header="Existing Cars" VerticalAlignment="Top" Height="345" ><!--IsEnabled="{Binding Path=IsOptoConnected}">-->
+                <StackPanel>
+                    <Label Content="1. Select a Manufacturer"></Label>
+                    <ComboBox
+                            Name="ExistingManufacturerComboBox"
+                            ItemsSource="{Binding Path=Manufacturers}"
+                            DisplayMemberPath="DisplayName"
+                            VerticalAlignment="Center"
+                            SelectedIndex="0"
+                            MaxHeight="100"
+                            MaxDropDownHeight="300"
+                            Width="300"
+                            Margin="25,0,0,0"
+                            SelectionChanged="ExistingManufacturerComboBox_OnSelectionChangedManufacturerComboBox_OnSelectionChanged">
+                    </ComboBox>
+
+                    <Label Content="2. Select a Model" Margin="0,15,0,0" ></Label>
+                    <ComboBox 
+                            Name="ExistingModelComboBox"
+                            ItemsSource="{Binding Path=CarModels}"
+                            DisplayMemberPath="DisplayName"
+                            VerticalAlignment="Center"
+                            MaxHeight="100"
+                            MaxDropDownHeight="300"
+                            SelectedIndex="0"
+                            Width="300"
+                            Margin="25,0,0,0"/>
+                    <Button Name="RunSimulator" Style="{StaticResource HyperlinkLikeButton}" Content="Run Simulator" HorizontalAlignment="right" Click="RunSimulator_OnClick"></Button>
+                    
+                    <Button Name="TestingPhaseButton" 
+                                Margin="40,122,40,0" 
+                                Padding="15" 
+                                FontSize="18" 
+                                Content="Run Test Mode" 
+                                Cursor="Hand"
+                                Foreground="{StaticResource LightBlueBrush}"
+                                Click="TestingPhaseButton_OnClick">
+                    </Button>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+        <Grid Grid.Column="3">
+            <GroupBox Header="New Car" VerticalAlignment="Top" Height="345" IsEnabled="{Binding Path=IsOptoConnected}">
+                <StackPanel>
+                    <Label Content="1. Select a Manufacturer"></Label>
+                    <ComboBox
+                            Name="NewManufacturerComboBox"
+                            ItemsSource="{Binding Path=Manufacturers}"
+                            DisplayMemberPath="DisplayName"
+                            VerticalAlignment="Center"
+                            SelectedIndex="0"
+                            MaxHeight="100"
+                            MaxDropDownHeight="300"
+                            Width="300"
+                            Margin="25,0,0,0">
+                    </ComboBox>
+                    <Button Name="AddManufacturerButton" Style="{StaticResource HyperlinkLikeButton}" Content="Add a Manufacturer" HorizontalAlignment="right" Click="AddManufacturerButton_OnClick"></Button>
+
+                    <Label Content="2. Create a Model"></Label>
+                    <TextBox Name="NewModelTextBox" Width="300" Margin="25,0,0,0"></TextBox>
+
+                    <Label Content="3. Select a Year" ></Label>
+                    <ComboBox Name="YearCombo" 
+                                ItemsSource="{Binding Path=AvailableYears}"
+                                Width="300" 
+                                Margin="25,0,0,0"
+                                VerticalAlignment="Center"
+                                SelectedIndex="10"
+                                MaxHeight="100"
+                                MaxDropDownHeight="300">
+                    </ComboBox>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="170"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Column="0">
+                            <StackPanel>
+                                <Label Content="4. Pulse Multiplier" ></Label>
+                                <TextBox Name="NewModelPulseMultplier" Text="0" Width="145" HorizontalAlignment="Left" Margin="25,0,0,0" PreviewTextInput="NumericCharValidate" LostFocus="NumericBlurValidate"></TextBox>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Column="1">
+                            <StackPanel>
+                                <Label Content="5. Pulse Per Rev" ></Label>
+                                <TextBox Name="NewModelPulsePerRev" Text="0" Width="147" HorizontalAlignment="Left" Margin="8,0,0,0" PreviewTextInput="NumericCharValidate" LostFocus="NumericBlurValidate"></TextBox>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                    
+
+                    <Button Name="LearningPhaseButton" 
+                                Margin="40,20,40,0" 
+                                Padding="15" 
+                                FontSize="18" 
+                                Content="Run Learning Mode"
+                                Cursor="Hand"
+                                Foreground="{StaticResource DarkBlueBrush}"
+                                Click="LearningPhaseButton_OnClick">
+                    </Button>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</views:BaseUserControl>

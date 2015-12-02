@@ -1,0 +1,254 @@
+: 0_0
+18 JUMP ;
+: 0_24
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  1    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  0  
+  ^IsApplicationConnected   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+18 JUMP ;
+: 0_28
+-2 JUMP ;
+: 0_30
+
+1 LINE.NUM
+  500    DELAY
+
+2 LINE.NUM
+  %ScratchPad 
+  1  
+  2    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+3 LINE.NUM
+  %ScratchPad 
+  0  
+  ^IsApplicationConnected   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+4 LINE.NUM
+  *StrategyRunTime   TIME>$
+
+5 LINE.NUM
+  %ScratchPad 
+  2  
+  ^IsGoToLearningPhase   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+6 LINE.NUM
+  %ScratchPad 
+  3  
+  ^IsGoToTestPhase   IO.SP.READ
+  ^GetScratchPadResult @! 
+19 JUMP ;
+: 0_32
+
+1 LINE.NUM
+  ^IsApplicationConnected   FALSE@!
+-3 JUMP ;
+: 0_37
+
+1 LINE.NUM
+  %ScratchPad 
+  200  
+  0  
+  0  
+  }ClearIntegerTable   IO.SP.T.WRITE
+  ^ClearScratchPadResult @! 
+19 JUMP ;
+: 0_59
+-4 JUMP ;
+: 0_114
+
+1 LINE.NUM
+  &Learning_Phase   CALL.T
+  ^CallChartStatus @! 
+0 JUMP ;
+: 0_115
+
+1 LINE.NUM
+  %ScratchPad 
+  2  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+-3 JUMP ;
+: 0_119
+
+1 LINE.NUM
+  |rtCalculate_Speed_Trim 
+  7 I>F   $0002.. 3 ROLL !PID
+
+2 LINE.NUM
+  ~ai_SnapPacR1_0500 @@ 
+  *TestInputValueStr   F>$
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+
+4 LINE.NUM
+  %ScratchPad 
+  6  
+  ^TSPValue    IO.SP.READ
+  ^GetScratchPadResult @! 
+15 JUMP ;
+: 0_124
+
+1 LINE.NUM
+  %ScratchPad 
+  ^ScratchPadInputIndex @@ 
+  ^TSPValue    IO.SP.READ
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  ^TSPValue @@ 
+  ^ScratchPadInputIndex @@ 
+  }TSPGear1 TABLE!   
+
+3 LINE.NUM
+  ^ScratchPadInputIndex   1+@!
+
+4 LINE.NUM
+  3.0    FDELAY
+13 JUMP ;
+: 0_126
+-2 JUMP ;
+: 0_129
+
+1 LINE.NUM
+  50    ABS
+  ^ScratchPadInputIndex @! 
+-3 JUMP ;
+: 0_133
+11 JUMP ;
+: 0_134
+1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
+2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad ^gIndex @@ 0  IO.SP.I.WRITE DROP  
+4 LINE.NUM 1 +LOOP 
+6 LINE.NUM 0 I>F 0 -1 }SpeedPoints  InitTable 
+7 LINE.NUM 0 I>F 0 -1 }AccelerationPoints  InitTable 
+8 LINE.NUM 0 I>F 0 -1 }SpeedPerSecond  InitTable 
+9 LINE.NUM 0 I>F 0 -1 }TSPGear1  InitTable 
+-2 JUMP ;
+: 0_137
+
+1 LINE.NUM
+  &Road_Test   CALL.T
+  ^CallChartStatus @! 
+0 JUMP ;
+: 0_138
+
+1 LINE.NUM
+  %ScratchPad 
+  3  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  201  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+3 LINE.NUM
+  %ScratchPad 
+  200  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+1 JUMP ;
+: 0_142
+-15 JUMP ;
+: 0_144
+1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
+2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
+3 LINE.NUM 1 +LOOP 
+5 LINE.NUM 0 I>F 0 -1 }SpeedPoints  InitTable 
+6 LINE.NUM 0 I>F 0 -1 }AccelerationPoints  InitTable 
+7 LINE.NUM 0 I>F 0 -1 }SpeedPerSecond  InitTable 
+8 LINE.NUM 0 I>F 0 -1 }TSPGear1  InitTable 
+-13 JUMP ;
+: 0_149
+1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
+2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad ^gIndex @@ 0  IO.SP.I.WRITE DROP  
+4 LINE.NUM 1 +LOOP 
+-19 JUMP ;
+: 0_26
+TRUE
+
+1 LINE.NUM
+  ^IsApplicationConnected @@ 
+  1    =
+LAND
+IF -18 ELSE -17 THEN JUMP ;
+: 0_52
+TRUE
+
+1 LINE.NUM
+  ^IsGoToLearningPhase @@ 
+  1    =
+LAND
+IF -15 ELSE 0 THEN JUMP ;
+: 0_61
+TRUE
+
+1 LINE.NUM
+  ^IsGoToTestPhase @@ 
+  1    =
+LAND
+IF -8 ELSE -6 THEN JUMP ;
+: 0_96
+TRUE
+
+1 LINE.NUM
+  ^IsApplicationConnected @@ 
+  1    =
+LAND
+IF -3 ELSE -22 THEN JUMP ;
+: 0_125
+TRUE
+
+1 LINE.NUM
+  ^ScratchPadInputIndex @@ 
+  77    <
+LAND
+IF -14 ELSE -16 THEN JUMP ;
+T: T0
+DUMMY
+0_0
+0_24
+0_28
+0_30
+0_32
+0_37
+0_59
+0_114
+0_115
+0_119
+0_124
+0_126
+0_129
+0_133
+0_134
+0_137
+0_138
+0_142
+0_144
+0_149
+0_26
+0_52
+0_61
+0_96
+0_125
+T;
+&Powerup ' T0 SETTASK

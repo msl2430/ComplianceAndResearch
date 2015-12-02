@@ -1,0 +1,1261 @@
+_END NEW $$$.RUN
+: FILENAME  ." Robot " ;
+1 0 $VAR *_HSV_SEMA 
+1024 0 $VAR *_HSV_TEMP 
+200 0 $VAR *_HSV_INIT_IO 
+0 IVAR ^_HNV_INIT_IO 
+0 TASK  &_INIT_IO
+0 TASK &Learning
+0 TASK &Learning_Phase
+0 TASK &Powerup
+0 TASK &Road_Test
+0 TASK &Simulator
+0 IVAR ^AccelerationIndex
+0 IVAR ^CallChartStatus
+0 IVAR ^ClearScratchPadResult
+0 FVAR ^CurrentAcceleration
+0 IVAR ^CurrentGear
+0 FVAR ^CurrentSpeed
+0 FVAR ^DriveTrainRatio
+0 IVAR ^EngineSpeed
+0 FVAR ^gCalculateSpeedTrimOutput
+0 IVAR ^GetScratchPadResult
+0 IVAR ^gIndex
+0 FVAR ^gIntercept
+0 IVAR ^gLengthOfTable
+0 IVAR ^gLowerBoundSetPointIndex
+0 IVAR ^gNumberOfAccPoints
+0 FVAR ^gSlope
+0 IVAR ^gSpeedIndex
+0 IVAR ^gStatus
+0 FVAR ^gThrottlePidOutput
+0 IVAR ^gThrottleSetPointIndex
+0 IVAR ^gUpperBoundSetPointIndex
+0 IVAR ^IsApplicationConnected
+0 IVAR ^IsGoToLearningPhase
+0 IVAR ^IsGoToSimulator
+0 IVAR ^IsGoToTestPhase
+0 IVAR ^lpDataLoadStatus
+0 IVAR ^lpLearningActive
+0 FVAR ^PulseMultiplier
+0 FVAR ^PulsePerRev
+0 FVAR ^RequiredSpeed
+0 FVAR ^RollDiameter
+0 FVAR ^rtCurrentRunTime
+0 IVAR ^rtDataLoadStatus
+0 FVAR ^rtLowerBoundReqSpeedIndex
+0 IVAR ^rtLowerBoundSpeedIndex
+0 IVAR ^rtTestActive
+0 UTVAR ^rtTestRunTime
+0 IVAR ^rtTotalSecondsOfTest
+0 FVAR ^rtUpperBoundReqSpeedIndex
+0 IVAR ^rtUpperBoundSpeedIndex
+0 IVAR ^ScratchPadInputIndex
+0 IVAR ^SetScratchPadResult
+0 FVAR ^simAcceleration
+0 IVAR ^simActive
+0 FVAR ^simCurrentSpeed
+0 IVAR ^simDataLoadStatus
+0 FVAR ^simMaxSpeed
+0 IVAR ^simOverrideType
+0 FVAR ^simRequiredSpeed
+0 UTVAR ^simRunTime
+0 FVAR ^simThrottleSetPoint
+0 IVAR ^TemplateLoadStatus
+0 IVAR ^TestInputValue
+0 FVAR ^ThrottleSetPoint
+0 FVAR ^TSPValue
+0 FVAR ^WheelSpeed
+32 0 $VAR *StrategyRunTime 
+32 0 $VAR *TestInputValueStr 
+256 0 $VAR *TestString 
+20 0 FTABLE }AccelerationPoints
+300 0 ITABLE }ClearIntegerTable
+10 0 FTABLE }GearRatio
+3 0 ITABLE }SelectedCar
+3600 0 FTABLE }SpeedPerSecond
+20 0 FTABLE }SpeedPoints
+100 0 FTABLE }TSPGear1
+100 0 FTABLE }TSPGear10
+100 0 FTABLE }TSPGear2
+100 0 FTABLE }TSPGear3
+100 0 FTABLE }TSPGear4
+100 0 FTABLE }TSPGear5
+100 0 FTABLE }TSPGear6
+100 0 FTABLE }TSPGear7
+100 0 FTABLE }TSPGear8
+100 0 FTABLE }TSPGear9
+
+nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
+nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A801C8 0 11 BOARD.MMP %SnapPacR1
+32  1 SPOINT 0.0     INPUT  0  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0000
+32  1 SPOINT 0.0     INPUT  1  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0001
+32  1 SPOINT 0.0     INPUT  2  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0002
+32  1 SPOINT 0.0     INPUT  3  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0003
+32  1 SPOINT 0.0     INPUT  4  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0004
+32  1 SPOINT 0.0     INPUT  5  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0005
+32  1 SPOINT 0.0     INPUT  6  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0006
+32  1 SPOINT 0.0     INPUT  7  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0007
+32  1 SPOINT 0.0     INPUT  8  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0008
+32  1 SPOINT 0.0     INPUT  9  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0009
+32  1 SPOINT 0.0     INPUT 10  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0010
+32  1 SPOINT 0.0     INPUT 11  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0011
+32  1 SPOINT 0.0     INPUT 12  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0012
+32  1 SPOINT 0.0     INPUT 13  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0013
+32  1 SPOINT 0.0     INPUT 14  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0014
+32  1 SPOINT 0.0     INPUT 15  0 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0015
+ 4  1 SPOINT 0.0    OUTPUT  0  1 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0100
+ 4  1 SPOINT 0.0    OUTPUT  1  1 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0101
+ 4  1 SPOINT 0.0    OUTPUT  2  1 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0102
+ 4  1 SPOINT 0.0    OUTPUT  3  1 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0103
+ 4  1 SPOINT 0.0    OUTPUT  0  2 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0200
+ 4  1 SPOINT 0.0    OUTPUT  1  2 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0201
+ 4  1 SPOINT 0.0    OUTPUT  2  2 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0202
+ 4  1 SPOINT 0.0    OUTPUT  3  2 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0203
+ 4  1 SPOINT 0.0    OUTPUT  0  3 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0300
+ 4  1 SPOINT 0.0    OUTPUT  1  3 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0301
+ 4  1 SPOINT 0.0    OUTPUT  2  3 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0302
+ 4  1 SPOINT 0.0    OUTPUT  3  3 %SnapPacR1 0 POINT.TNG ~do_SnapPacR1_0303
+ 2  1 APOINT  -20.0000 64  0  4 %SnapPacR1 0 POINT.TNG ~pidCalculateSpeeTrimInput
+ 2  1 APOINT  -20.0000 64  1  4 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0401
+ 2  1 APOINT  -10.0000 12  0  5 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0500
+ 2  1 APOINT  -10.0000 12  1  5 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0501
+ 4  1 SPOINT 0.0      FREQ  0  6 %SnapPacR1 0 POINT.TNG ~IgnitionFrequency
+ 4  1 SPOINT 0.0      FREQ  1  6 %SnapPacR1 0 POINT.TNG ~SpeedEncoder
+ 4  1 SPOINT 0.0     INPUT  2  6 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0602
+ 4  1 SPOINT 0.0     INPUT  3  6 %SnapPacR1 0 POINT.TNG ~di_SnapPacR1_0603
+ 2  1 APOINT    0.0000 167  0  7 %SnapPacR1 0 POINT.TNG ~pidActuateThrottleOutput
+ 2  1 APOINT    0.0000 167  1  7 %SnapPacR1 0 POINT.TNG ~ao_SnapPacR1_0701
+ 4  1 APOINT -25000.0000 34  0  8 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0800
+ 4  1 APOINT -25000.0000 34  1  8 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0801
+ 4  1 APOINT -25000.0000 34  2  8 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0802
+ 4  1 APOINT -25000.0000 34  3  8 %SnapPacR1 0 POINT.TNG ~ai_SnapPacR1_0803
+2    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   0.1000    0.0000    0.0000   -1.0000    0.0000    0.0000
+   0.0000 ~pidCalculateSpeeTrimInput ~pidActuateThrottleOutput
+$90000000 1 %SnapPacR1 0 PID |rtActuate_Throttle
+5    0.0000    0.0000    0.0000    0.0000  -10.0000   10.0000    0.0000   10.0000
+   0.1000    0.0000    0.0000    0.1000   -0.1000    0.0000
+   0.0000    0.0000 0.0
+$f0000000 0 %SnapPacR1 0 PID |rtCalculate_Speed_Trim
+: 1_0
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  3    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  *StrategyRunTime   TIME>$
+
+3 LINE.NUM
+  %ScratchPad 
+  3  
+  50  
+  0  
+  }SelectedCar   IO.SP.READ
+  ^GetScratchPadResult @! 
+5 JUMP ;
+: 1_2
+-2 JUMP ;
+: 1_6
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  4    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  101  
+  ^TemplateLoadStatus   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+4 JUMP ;
+: 1_9
+-2 JUMP ;
+: 1_13
+3 JUMP ;
+: 1_17
+
+1 LINE.NUM
+  %ScratchPad 
+  101  
+  1    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+-4 JUMP ;
+: 1_1
+TRUE
+
+1 LINE.NUM
+  0  
+  0  
+  }SelectedCar TABLE@   <
+LAND
+
+2 LINE.NUM
+  0  
+  1  
+  }SelectedCar TABLE@   <
+LAND
+IF -2 ELSE -6 THEN JUMP ;
+: 1_8
+TRUE
+
+1 LINE.NUM
+  ^TemplateLoadStatus @@ 
+  3    =
+LAND
+IF -4 ELSE -5 THEN JUMP ;
+T: T1
+DUMMY
+1_0
+1_2
+1_6
+1_9
+1_13
+1_17
+1_1
+1_8
+T;
+&Learning ' T1 SETTASK
+: 5_0
+
+1 LINE.NUM
+  %ScratchPad 
+  100  
+  ^lpLearningActive   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  1  
+  3    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+3 JUMP ;
+: 5_4
+-2 JUMP ;
+: 5_6
+
+1 LINE.NUM
+  %ScratchPad 
+  101  
+  ^lpDataLoadStatus   IO.SP.READ
+  ^gStatus @! 
+2 JUMP ;
+: 5_9
+-2 JUMP ;
+: 5_5
+TRUE
+
+1 LINE.NUM
+  ^lpLearningActive @@ 
+  1    =
+LAND
+IF -3 ELSE -4 THEN JUMP ;
+: 5_8
+TRUE
+
+1 LINE.NUM
+  ^lpDataLoadStatus @@ 
+  3    =
+LAND
+IF -3 ELSE -3 THEN JUMP ;
+T: T5
+DUMMY
+5_0
+5_4
+5_6
+5_9
+5_5
+5_8
+T;
+&Learning_Phase ' T5 SETTASK
+: 0_0
+18 JUMP ;
+: 0_24
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  1    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  0  
+  ^IsApplicationConnected   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+18 JUMP ;
+: 0_28
+-2 JUMP ;
+: 0_30
+
+1 LINE.NUM
+  500    DELAY
+
+2 LINE.NUM
+  %ScratchPad 
+  1  
+  2    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+3 LINE.NUM
+  %ScratchPad 
+  0  
+  ^IsApplicationConnected   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+4 LINE.NUM
+  *StrategyRunTime   TIME>$
+
+5 LINE.NUM
+  %ScratchPad 
+  2  
+  ^IsGoToLearningPhase   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+6 LINE.NUM
+  %ScratchPad 
+  3  
+  ^IsGoToTestPhase   IO.SP.READ
+  ^GetScratchPadResult @! 
+19 JUMP ;
+: 0_32
+
+1 LINE.NUM
+  ^IsApplicationConnected   FALSE@!
+-3 JUMP ;
+: 0_37
+
+1 LINE.NUM
+  %ScratchPad 
+  200  
+  0  
+  0  
+  }ClearIntegerTable   IO.SP.T.WRITE
+  ^ClearScratchPadResult @! 
+19 JUMP ;
+: 0_59
+-4 JUMP ;
+: 0_114
+
+1 LINE.NUM
+  &Learning_Phase   CALL.T
+  ^CallChartStatus @! 
+0 JUMP ;
+: 0_115
+
+1 LINE.NUM
+  %ScratchPad 
+  2  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+-3 JUMP ;
+: 0_119
+
+1 LINE.NUM
+  |rtCalculate_Speed_Trim 
+  7 I>F   $0002.. 3 ROLL !PID
+
+2 LINE.NUM
+  ~ai_SnapPacR1_0500 @@ 
+  *TestInputValueStr   F>$
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+
+4 LINE.NUM
+  %ScratchPad 
+  6  
+  ^TSPValue    IO.SP.READ
+  ^GetScratchPadResult @! 
+15 JUMP ;
+: 0_124
+
+1 LINE.NUM
+  %ScratchPad 
+  ^ScratchPadInputIndex @@ 
+  ^TSPValue    IO.SP.READ
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  ^TSPValue @@ 
+  ^ScratchPadInputIndex @@ 
+  }TSPGear1 TABLE!   
+
+3 LINE.NUM
+  ^ScratchPadInputIndex   1+@!
+
+4 LINE.NUM
+  3.0    FDELAY
+13 JUMP ;
+: 0_126
+-2 JUMP ;
+: 0_129
+
+1 LINE.NUM
+  50    ABS
+  ^ScratchPadInputIndex @! 
+-3 JUMP ;
+: 0_133
+11 JUMP ;
+: 0_134
+1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
+2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad ^gIndex @@ 0  IO.SP.I.WRITE DROP  
+4 LINE.NUM 1 +LOOP 
+6 LINE.NUM 0 I>F 0 -1 }SpeedPoints  InitTable 
+7 LINE.NUM 0 I>F 0 -1 }AccelerationPoints  InitTable 
+8 LINE.NUM 0 I>F 0 -1 }SpeedPerSecond  InitTable 
+9 LINE.NUM 0 I>F 0 -1 }TSPGear1  InitTable 
+-2 JUMP ;
+: 0_137
+
+1 LINE.NUM
+  &Road_Test   CALL.T
+  ^CallChartStatus @! 
+0 JUMP ;
+: 0_138
+
+1 LINE.NUM
+  %ScratchPad 
+  3  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  201  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+3 LINE.NUM
+  %ScratchPad 
+  200  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+1 JUMP ;
+: 0_142
+-15 JUMP ;
+: 0_144
+1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
+2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
+3 LINE.NUM 1 +LOOP 
+5 LINE.NUM 0 I>F 0 -1 }SpeedPoints  InitTable 
+6 LINE.NUM 0 I>F 0 -1 }AccelerationPoints  InitTable 
+7 LINE.NUM 0 I>F 0 -1 }SpeedPerSecond  InitTable 
+8 LINE.NUM 0 I>F 0 -1 }TSPGear1  InitTable 
+-13 JUMP ;
+: 0_149
+1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
+2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad ^gIndex @@ 0  IO.SP.I.WRITE DROP  
+4 LINE.NUM 1 +LOOP 
+-19 JUMP ;
+: 0_26
+TRUE
+
+1 LINE.NUM
+  ^IsApplicationConnected @@ 
+  1    =
+LAND
+IF -18 ELSE -17 THEN JUMP ;
+: 0_52
+TRUE
+
+1 LINE.NUM
+  ^IsGoToLearningPhase @@ 
+  1    =
+LAND
+IF -15 ELSE 0 THEN JUMP ;
+: 0_61
+TRUE
+
+1 LINE.NUM
+  ^IsGoToTestPhase @@ 
+  1    =
+LAND
+IF -8 ELSE -6 THEN JUMP ;
+: 0_96
+TRUE
+
+1 LINE.NUM
+  ^IsApplicationConnected @@ 
+  1    =
+LAND
+IF -3 ELSE -22 THEN JUMP ;
+: 0_125
+TRUE
+
+1 LINE.NUM
+  ^ScratchPadInputIndex @@ 
+  77    <
+LAND
+IF -14 ELSE -16 THEN JUMP ;
+T: T0
+DUMMY
+0_0
+0_24
+0_28
+0_30
+0_32
+0_37
+0_59
+0_114
+0_115
+0_119
+0_124
+0_126
+0_129
+0_133
+0_134
+0_137
+0_138
+0_142
+0_144
+0_149
+0_26
+0_52
+0_61
+0_96
+0_125
+T;
+&Powerup ' T0 SETTASK
+: 4_0
+
+1 LINE.NUM
+  %ScratchPad 
+  200  
+  ^rtTestActive   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  1  
+  5    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+13 JUMP ;
+: 4_7
+
+1 LINE.NUM
+  ^rtTestRunTime   StartTimer
+0 JUMP ;
+: 4_8
+1 LINE.NUM ^rtTestRunTime @@F  Truncate ^rtCurrentRunTime @! 
+3 LINE.NUM ^rtCurrentRunTime @@ 1 I>F F+ ^rtTotalSecondsOfTest @@F F>= IF 
+4 LINE.NUM ^rtTotalSecondsOfTest @@ 1 -  }SpeedPerSecond TABLE@ ^RequiredSpeed @! 
+5 LINE.NUM ELSE 
+6 LINE.NUM ^rtCurrentRunTime @@ 1 I>F F+ ^rtLowerBoundReqSpeedIndex @! 
+7 LINE.NUM ^rtCurrentRunTime @@ 2 I>F F+ ^rtUpperBoundReqSpeedIndex @! 
+9 LINE.NUM ^rtUpperBoundReqSpeedIndex @@I }SpeedPerSecond TABLE@ ^rtLowerBoundReqSpeedIndex @@I }SpeedPerSecond TABLE@ F- ^rtUpperBoundReqSpeedIndex @@ ^rtLowerBoundReqSpeedIndex @@ F- F/  FABS ^gSlope @! 
+11 LINE.NUM ^rtUpperBoundReqSpeedIndex @@I }SpeedPerSecond TABLE@ ^gSlope @@ ^rtUpperBoundReqSpeedIndex @@ F* F- ^gIntercept @! 
+13 LINE.NUM ^gSlope @@ ^rtTestRunTime @@F 1.000000e+000 F+ F* ^gIntercept @@ F+ ^RequiredSpeed @! 
+14 LINE.NUM THEN 
+5 JUMP ;
+: 4_10
+-2 JUMP ;
+: 4_11
+
+1 LINE.NUM
+  0  
+  ^CurrentSpeed I@!   
+
+2 LINE.NUM
+  ^rtTestRunTime   StopTimer
+
+3 LINE.NUM
+  &Road_Test   STOP.T
+10 JUMP ;
+: 4_13
+2 LINE.NUM }AccelerationPoints  TableSize@ ^gLengthOfTable @! 
+3 LINE.NUM 0 ^gNumberOfAccPoints @! 
+4 LINE.NUM 0 ^gIndex @! 
+5 LINE.NUM BEGIN ^gIndex @@ ^gLengthOfTable @@ < WHILE 
+7 LINE.NUM ^gIndex @@ }AccelerationPoints TABLE@ 0 I>F F< IF 
+8 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
+9 LINE.NUM ELSE 
+10 LINE.NUM ^gNumberOfAccPoints @@ 1 +  ^gNumberOfAccPoints @! 
+11 LINE.NUM ^gIndex @@ }AccelerationPoints TABLE@ ^CurrentAcceleration @@ F= IF 
+12 LINE.NUM ^gIndex @@ ^AccelerationIndex @! 
+13 LINE.NUM THEN 
+14 LINE.NUM THEN 
+15 LINE.NUM ^gIndex @@ 1 +  ^gIndex @! 
+16 LINE.NUM REPEAT 
+19 LINE.NUM }SpeedPoints  TableSize@ ^gLengthOfTable @! 
+20 LINE.NUM 0 ^gIndex @! 
+21 LINE.NUM -1 ^gSpeedIndex @! 
+22 LINE.NUM BEGIN ^gIndex @@ ^gLengthOfTable @@ < WHILE 
+23 LINE.NUM ^gIndex @@ }SpeedPoints TABLE@ ^CurrentSpeed @@ F= IF 
+24 LINE.NUM ^gIndex @@ ^gSpeedIndex @! 
+25 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
+26 LINE.NUM ELSE 
+27 LINE.NUM ^gIndex @@ }SpeedPoints TABLE@ ^CurrentSpeed @@ F> IF 
+28 LINE.NUM ^gIndex @@ ^rtUpperBoundSpeedIndex @! 
+29 LINE.NUM ^gIndex @@ 1 -  ^rtLowerBoundSpeedIndex @! 
+30 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
+31 LINE.NUM ELSE 
+32 LINE.NUM ^gIndex @@ }SpeedPoints TABLE@ ^CurrentSpeed @@ F< IF 
+33 LINE.NUM ^gIndex @@ 1 +  ^gIndex @! 
+34 LINE.NUM THEN 
+35 LINE.NUM THEN 
+36 LINE.NUM THEN 
+37 LINE.NUM REPEAT 
+39 LINE.NUM ^gSpeedIndex @@ 0 >= IF 
+40 LINE.NUM ^gSpeedIndex @@ ^gNumberOfAccPoints @@ *  ^AccelerationIndex @@ +  ^gThrottleSetPointIndex @! 
+42 LINE.NUM ^gThrottleSetPointIndex @@ }TSPGear1 TABLE@ 10 I>F F/ ^ThrottleSetPoint @! 
+43 LINE.NUM ELSE 
+44 LINE.NUM ^rtUpperBoundSpeedIndex @@ ^gNumberOfAccPoints @@ *  ^AccelerationIndex @@ +  ^gUpperBoundSetPointIndex @! 
+45 LINE.NUM ^rtLowerBoundSpeedIndex @@ ^gNumberOfAccPoints @@ *  ^AccelerationIndex @@ +  ^gLowerBoundSetPointIndex @! 
+47 LINE.NUM ^gUpperBoundSetPointIndex @@ }TSPGear1 TABLE@ ^gLowerBoundSetPointIndex @@ }TSPGear1 TABLE@ F- ^rtUpperBoundSpeedIndex @@ }SpeedPoints TABLE@ ^rtLowerBoundSpeedIndex @@ }SpeedPoints TABLE@ F- F/  FABS ^gSlope @! 
+49 LINE.NUM ^gUpperBoundSetPointIndex @@ }TSPGear1 TABLE@ ^gSlope @@ ^rtUpperBoundSpeedIndex @@ }SpeedPoints TABLE@ F* F- ^gIntercept @! 
+51 LINE.NUM ^gSlope @@ ^CurrentSpeed @@ F* ^gIntercept @@ F+ 10 I>F F/ ^ThrottleSetPoint @! 
+52 LINE.NUM THEN 
+54 LINE.NUM %ScratchPad 200 ^CurrentSpeed @@  IO.SP.F.WRITE DROP  
+55 LINE.NUM %ScratchPad 201 ^CurrentAcceleration @@  IO.SP.F.WRITE DROP  
+56 LINE.NUM %ScratchPad 202 ^RequiredSpeed @@  IO.SP.F.WRITE DROP  
+57 LINE.NUM %ScratchPad 203 ^ThrottleSetPoint @@  IO.SP.F.WRITE DROP  
+58 LINE.NUM %ScratchPad 204 ^rtTestRunTime @@F  IO.SP.F.WRITE DROP  
+5 JUMP ;
+: 4_16
+2 JUMP ;
+: 4_19
+1 LINE.NUM %ScratchPad 20 10 0 }SpeedPoints  IO.SP.READ DROP  
+2 LINE.NUM %ScratchPad 20 30 0 }AccelerationPoints  IO.SP.READ DROP  
+3 LINE.NUM %ScratchPad 100 1000 0 }TSPGear1  IO.SP.READ DROP  
+4 LINE.NUM %ScratchPad 100 1100 0 }TSPGear2  IO.SP.READ DROP  
+5 LINE.NUM %ScratchPad 100 1200 0 }TSPGear3  IO.SP.READ DROP  
+6 LINE.NUM %ScratchPad 100 1300 0 }TSPGear4  IO.SP.READ DROP  
+7 LINE.NUM %ScratchPad 100 1400 0 }TSPGear5  IO.SP.READ DROP  
+8 LINE.NUM %ScratchPad 100 1500 0 }TSPGear6  IO.SP.READ DROP  
+9 LINE.NUM %ScratchPad 100 1600 0 }TSPGear7  IO.SP.READ DROP  
+10 LINE.NUM %ScratchPad 100 1700 0 }TSPGear8  IO.SP.READ DROP  
+11 LINE.NUM %ScratchPad 100 1800 0 }TSPGear9  IO.SP.READ DROP  
+12 LINE.NUM %ScratchPad 100 1900 0 }TSPGear10  IO.SP.READ DROP  
+14 LINE.NUM %ScratchPad 3600 2000 0 }SpeedPerSecond  IO.SP.READ DROP  
+16 LINE.NUM %ScratchPad 10 250 0 }GearRatio  IO.SP.READ DROP  
+18 LINE.NUM 0 ^rtTotalSecondsOfTest @! 
+20 LINE.NUM %ScratchPad 210 ^PulseMultiplier   IO.SP.READ DROP  
+21 LINE.NUM %ScratchPad 211 ^PulsePerRev   IO.SP.READ DROP  
+23 LINE.NUM }SpeedPerSecond  TableSize@ ^gLengthOfTable @! 
+1 25 LINE.NUM ^gLengthOfTable @@ 1 -  1 + 0 DO? I ^gIndex @! 
+26 LINE.NUM ^gIndex @@ }SpeedPerSecond TABLE@ 0 I>F F>= IF 
+27 LINE.NUM ^rtTotalSecondsOfTest @@ 1 +  ^rtTotalSecondsOfTest @! 
+28 LINE.NUM ELSE 
+29 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
+30 LINE.NUM THEN 
+31 LINE.NUM 1 +LOOP 
+34 LINE.NUM ^rtTotalSecondsOfTest @@ 1 -  ^rtTotalSecondsOfTest @! 
+36 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0001.. 3 ROLL !PID 
+37 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0008.. 3 ROLL !PID 
+39 LINE.NUM |rtActuate_Throttle 0 I>F  $0001.. 3 ROLL !PID 
+40 LINE.NUM |rtActuate_Throttle 0 I>F  $0008.. 3 ROLL !PID 
+-7 JUMP ;
+: 4_20
+3 LINE.NUM ^RequiredSpeed @@ ^CurrentSpeed @@ F- ^CurrentAcceleration @! 
+4 LINE.NUM 1 ^CurrentGear @! 
+8 LINE.NUM ~IgnitionFrequency @@I I>F ^PulseMultiplier @@ F/ ^EngineSpeed F@! 
+10 LINE.NUM ~SpeedEncoder @@I I>F ^PulsePerRev @@ F/ ^WheelSpeed @! 
+12 LINE.NUM ^ThrottleSetPoint @@ 0 I>F F> ^WheelSpeed @@ 0 I>F F> LAND  IF 
+13 LINE.NUM ^EngineSpeed @@F ^WheelSpeed @@ F/ ^DriveTrainRatio @! 
+14 LINE.NUM ELSE 
+15 LINE.NUM -1 I>F ^DriveTrainRatio @! 
+16 LINE.NUM THEN 
+18 LINE.NUM ^DriveTrainRatio @@ 1.000000e-001 F+ ^DriveTrainRatio @! 
+20 LINE.NUM 0 ^gIndex @! 
+21 LINE.NUM BEGIN ^gIndex @@ 10 < WHILE 
+22 LINE.NUM ^DriveTrainRatio @@ ^gIndex @@ 1 +  }GearRatio TABLE@ F> IF 
+23 LINE.NUM ^gIndex @@ 1 +  ^CurrentGear @! 
+24 LINE.NUM THEN 
+25 LINE.NUM REPEAT 
+27 LINE.NUM ^WheelSpeed @@ ^RollDiameter @@ F* 3.361352e+002 F/ ^CurrentSpeed @! 
+-4 JUMP ;
+: 4_21
+
+1 LINE.NUM
+  %ScratchPad 
+  201  
+  ^rtDataLoadStatus   IO.SP.READ
+  ^gStatus @! 
+3 JUMP ;
+: 4_23
+-11 JUMP ;
+: 4_27
+1 LINE.NUM |rtCalculate_Speed_Trim ^RequiredSpeed @@  $0002.. 3 ROLL !PID 
+2 LINE.NUM |rtCalculate_Speed_Trim ^CurrentSpeed @@  $0001.. 3 ROLL !PID 
+4 LINE.NUM |rtCalculate_Speed_Trim  $0008.. ROT PID@ ^gCalculateSpeedTrimOutput @! 
+6 LINE.NUM ^gCalculateSpeedTrimOutput @@ 2.000000e-001 F* ^ThrottleSetPoint @@ 8.000000e-001 F* F+ ^gThrottlePidOutput @! 
+8 LINE.NUM |rtActuate_Throttle ^gThrottlePidOutput @@  $0002.. 3 ROLL !PID 
+12 LINE.NUM ^RequiredSpeed @@ 0 I>F F> IF 
+13 LINE.NUM ^RequiredSpeed @@ ^CurrentSpeed @! 
+14 LINE.NUM ELSE 
+15 LINE.NUM 0 I>F ^CurrentSpeed @! 
+16 LINE.NUM THEN 
+0 JUMP ;
+: 4_9
+TRUE
+
+1 LINE.NUM
+  ^rtCurrentRunTime @@ 
+  ^rtTotalSecondsOfTest @@F   F>=
+LAND
+IF -9 ELSE -10 THEN JUMP ;
+: 4_17
+TRUE
+
+1 LINE.NUM
+  ^rtDataLoadStatus @@ 
+  3    =
+LAND
+IF -7 ELSE -8 THEN JUMP ;
+: 4_22
+TRUE
+
+1 LINE.NUM
+  ^rtTestActive @@ 
+  1    =
+LAND
+IF -6 ELSE -5 THEN JUMP ;
+T: T4
+DUMMY
+4_0
+4_7
+4_8
+4_10
+4_11
+4_13
+4_16
+4_19
+4_20
+4_21
+4_23
+4_27
+4_9
+4_17
+4_22
+T;
+&Road_Test ' T4 SETTASK
+: 6_0
+
+1 LINE.NUM
+  %ScratchPad 
+  300  
+  ^simActive   IO.SP.READ
+  ^GetScratchPadResult @! 
+14 JUMP ;
+: 6_3
+-2 JUMP ;
+: 6_5
+
+1 LINE.NUM
+  %ScratchPad 
+  301  
+  ^simOverrideType   IO.SP.READ
+  ^GetScratchPadResult @! 
+13 JUMP ;
+: 6_9
+-2 JUMP ;
+: 6_17
+-3 JUMP ;
+: 6_19
+
+1 LINE.NUM
+  %ScratchPad 
+  302  
+  ^simDataLoadStatus   IO.SP.READ
+  ^gStatus @! 
+14 JUMP ;
+: 6_22
+-2 JUMP ;
+: 6_26
+1 LINE.NUM %ScratchPad 20 10 0 }SpeedPoints  IO.SP.READ DROP  
+2 LINE.NUM %ScratchPad 20 30 0 }AccelerationPoints  IO.SP.READ DROP  
+3 LINE.NUM %ScratchPad 100 1000 0 }TSPGear1  IO.SP.READ DROP  
+4 LINE.NUM %ScratchPad 100 1100 0 }TSPGear2  IO.SP.READ DROP  
+5 LINE.NUM %ScratchPad 100 1200 0 }TSPGear3  IO.SP.READ DROP  
+6 LINE.NUM %ScratchPad 100 1300 0 }TSPGear4  IO.SP.READ DROP  
+7 LINE.NUM %ScratchPad 100 1400 0 }TSPGear5  IO.SP.READ DROP  
+8 LINE.NUM %ScratchPad 100 1500 0 }TSPGear6  IO.SP.READ DROP  
+9 LINE.NUM %ScratchPad 100 1600 0 }TSPGear7  IO.SP.READ DROP  
+10 LINE.NUM %ScratchPad 100 1700 0 }TSPGear8  IO.SP.READ DROP  
+11 LINE.NUM %ScratchPad 100 1800 0 }TSPGear9  IO.SP.READ DROP  
+12 LINE.NUM %ScratchPad 100 1900 0 }TSPGear10  IO.SP.READ DROP  
+14 LINE.NUM %ScratchPad 10 250 0 }GearRatio  IO.SP.READ DROP  
+16 LINE.NUM %ScratchPad 210 ^PulseMultiplier   IO.SP.READ DROP  
+17 LINE.NUM %ScratchPad 211 ^PulsePerRev   IO.SP.READ DROP  
+19 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0001.. 3 ROLL !PID 
+20 LINE.NUM |rtCalculate_Speed_Trim 0 I>F  $0008.. 3 ROLL !PID 
+22 LINE.NUM |rtActuate_Throttle 0 I>F  $0001.. 3 ROLL !PID 
+23 LINE.NUM |rtActuate_Throttle 0 I>F  $0008.. 3 ROLL !PID 
+-6 JUMP ;
+: 6_34
+2 LINE.NUM %ScratchPad 300 ^simRequiredSpeed   IO.SP.READ DROP  
+4 LINE.NUM ^simRequiredSpeed @@ ^simCurrentSpeed @@ F- ^simAcceleration @! 
+6 LINE.NUM ^simAcceleration @@ 2 I>F F> IF 
+7 LINE.NUM 2 I>F ^simAcceleration @! 
+8 LINE.NUM THEN 
+10 LINE.NUM ^simAcceleration @@ ^CurrentAcceleration @! 
+11 LINE.NUM 1 ^CurrentGear @! 
+15 LINE.NUM ~IgnitionFrequency @@I I>F ^PulseMultiplier @@ F/ ^EngineSpeed F@! 
+17 LINE.NUM ~SpeedEncoder @@I I>F ^PulsePerRev @@ F/ ^WheelSpeed @! 
+19 LINE.NUM ^ThrottleSetPoint @@ 0 I>F F> ^WheelSpeed @@ 0 I>F F> LAND  IF 
+20 LINE.NUM ^EngineSpeed @@F ^WheelSpeed @@ F/ ^DriveTrainRatio @! 
+21 LINE.NUM ELSE 
+22 LINE.NUM -1 I>F ^DriveTrainRatio @! 
+23 LINE.NUM THEN 
+25 LINE.NUM ^DriveTrainRatio @@ 1.000000e-001 F+ ^DriveTrainRatio @! 
+27 LINE.NUM 0 ^gIndex @! 
+28 LINE.NUM BEGIN ^gIndex @@ 10 < WHILE 
+29 LINE.NUM ^DriveTrainRatio @@ ^gIndex @@ 1 +  }GearRatio TABLE@ F> IF 
+30 LINE.NUM ^gIndex @@ 1 +  ^CurrentGear @! 
+31 LINE.NUM THEN 
+32 LINE.NUM REPEAT 
+34 LINE.NUM ^WheelSpeed @@ ^RollDiameter @@ F* 3.361352e+002 F/ ^CurrentSpeed @! 
+5 JUMP ;
+: 6_36
+1 LINE.NUM |rtCalculate_Speed_Trim ^RequiredSpeed @@  $0002.. 3 ROLL !PID 
+2 LINE.NUM |rtCalculate_Speed_Trim ^CurrentSpeed @@  $0001.. 3 ROLL !PID 
+4 LINE.NUM |rtCalculate_Speed_Trim  $0008.. ROT PID@ ^gCalculateSpeedTrimOutput @! 
+6 LINE.NUM ^gCalculateSpeedTrimOutput @@ 2.000000e-001 F* ^ThrottleSetPoint @@ 8.000000e-001 F* F+ ^gThrottlePidOutput @! 
+8 LINE.NUM |rtActuate_Throttle ^gThrottlePidOutput @@  $0002.. 3 ROLL !PID 
+0 JUMP ;
+: 6_37
+-9 JUMP ;
+: 6_44
+3 LINE.NUM 1 ^CurrentGear @! 
+7 LINE.NUM ~IgnitionFrequency @@I I>F ^PulseMultiplier @@ F/ ^EngineSpeed F@! 
+9 LINE.NUM ~SpeedEncoder @@I I>F ^PulsePerRev @@ F/ ^WheelSpeed @! 
+11 LINE.NUM ^ThrottleSetPoint @@ 0 I>F F> ^WheelSpeed @@ 0 I>F F> LAND  IF 
+12 LINE.NUM ^EngineSpeed @@F ^WheelSpeed @@ F/ ^DriveTrainRatio @! 
+13 LINE.NUM ELSE 
+14 LINE.NUM -1 I>F ^DriveTrainRatio @! 
+15 LINE.NUM THEN 
+17 LINE.NUM ^DriveTrainRatio @@ 1.000000e-001 F+ ^DriveTrainRatio @! 
+19 LINE.NUM 0 ^gIndex @! 
+20 LINE.NUM BEGIN ^gIndex @@ 10 < WHILE 
+21 LINE.NUM ^DriveTrainRatio @@ ^gIndex @@ 1 +  }GearRatio TABLE@ F> IF 
+22 LINE.NUM ^gIndex @@ 1 +  ^CurrentGear @! 
+23 LINE.NUM THEN 
+24 LINE.NUM REPEAT 
+26 LINE.NUM ^WheelSpeed @@ ^RollDiameter @@ F* 3.361352e+002 F/ ^CurrentSpeed @! 
+0 JUMP ;
+: 6_45
+1 LINE.NUM %ScratchPad 301 ^simThrottleSetPoint   IO.SP.READ DROP  
+3 LINE.NUM ^simThrottleSetPoint @@ ^ThrottleSetPoint @! 
+-4 JUMP ;
+: 6_50
+2 LINE.NUM %ScratchPad 302 ^simAcceleration   IO.SP.READ DROP  
+3 LINE.NUM %ScratchPad 303 ^simMaxSpeed   IO.SP.READ DROP  
+5 LINE.NUM ^simAcceleration @@ ^CurrentAcceleration @! 
+7 LINE.NUM ^CurrentSpeed @@ ^simMaxSpeed @@ F>= IF 
+8 LINE.NUM 0 I>F ^CurrentAcceleration @! 
+9 LINE.NUM THEN 
+13 LINE.NUM 1 ^CurrentGear @! 
+17 LINE.NUM ~IgnitionFrequency @@I I>F ^PulseMultiplier @@ F/ ^EngineSpeed F@! 
+19 LINE.NUM ~SpeedEncoder @@I I>F ^PulsePerRev @@ F/ ^WheelSpeed @! 
+21 LINE.NUM ^ThrottleSetPoint @@ 0 I>F F> ^WheelSpeed @@ 0 I>F F> LAND  IF 
+22 LINE.NUM ^EngineSpeed @@F ^WheelSpeed @@ F/ ^DriveTrainRatio @! 
+23 LINE.NUM ELSE 
+24 LINE.NUM -1 I>F ^DriveTrainRatio @! 
+25 LINE.NUM THEN 
+27 LINE.NUM ^DriveTrainRatio @@ 1.000000e-001 F+ ^DriveTrainRatio @! 
+29 LINE.NUM 0 ^gIndex @! 
+30 LINE.NUM BEGIN ^gIndex @@ 10 < WHILE 
+31 LINE.NUM ^DriveTrainRatio @@ ^gIndex @@ 1 +  }GearRatio TABLE@ F> IF 
+32 LINE.NUM ^gIndex @@ 1 +  ^CurrentGear @! 
+33 LINE.NUM THEN 
+34 LINE.NUM REPEAT 
+36 LINE.NUM ^WheelSpeed @@ ^RollDiameter @@ F* 3.361352e+002 F/ ^CurrentSpeed @! 
+0 JUMP ;
+: 6_52
+2 LINE.NUM }AccelerationPoints  TableSize@ ^gLengthOfTable @! 
+3 LINE.NUM 0 ^gNumberOfAccPoints @! 
+4 LINE.NUM 0 ^gIndex @! 
+5 LINE.NUM BEGIN ^gIndex @@ ^gLengthOfTable @@ < WHILE 
+7 LINE.NUM ^gIndex @@ }AccelerationPoints TABLE@ 0 I>F F< IF 
+8 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
+9 LINE.NUM ELSE 
+10 LINE.NUM ^gNumberOfAccPoints @@ 1 +  ^gNumberOfAccPoints @! 
+11 LINE.NUM ^gIndex @@ }AccelerationPoints TABLE@ ^CurrentAcceleration @@ F= IF 
+12 LINE.NUM ^gIndex @@ ^AccelerationIndex @! 
+13 LINE.NUM THEN 
+14 LINE.NUM THEN 
+15 LINE.NUM ^gIndex @@ 1 +  ^gIndex @! 
+16 LINE.NUM REPEAT 
+19 LINE.NUM }SpeedPoints  TableSize@ ^gLengthOfTable @! 
+20 LINE.NUM 0 ^gIndex @! 
+21 LINE.NUM -1 ^gSpeedIndex @! 
+22 LINE.NUM BEGIN ^gIndex @@ ^gLengthOfTable @@ < WHILE 
+23 LINE.NUM ^gIndex @@ }SpeedPoints TABLE@ ^CurrentSpeed @@ F= IF 
+24 LINE.NUM ^gIndex @@ ^gSpeedIndex @! 
+25 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
+26 LINE.NUM ELSE 
+27 LINE.NUM ^gIndex @@ }SpeedPoints TABLE@ ^CurrentSpeed @@ F> IF 
+28 LINE.NUM ^gIndex @@ ^rtUpperBoundSpeedIndex @! 
+29 LINE.NUM ^gIndex @@ 1 -  ^rtLowerBoundSpeedIndex @! 
+30 LINE.NUM ^gLengthOfTable @@ ^gIndex @! 
+31 LINE.NUM ELSE 
+32 LINE.NUM ^gIndex @@ }SpeedPoints TABLE@ ^CurrentSpeed @@ F< IF 
+33 LINE.NUM ^gIndex @@ 1 +  ^gIndex @! 
+34 LINE.NUM THEN 
+35 LINE.NUM THEN 
+36 LINE.NUM THEN 
+37 LINE.NUM REPEAT 
+39 LINE.NUM ^gSpeedIndex @@ 0 >= IF 
+40 LINE.NUM ^gSpeedIndex @@ ^gNumberOfAccPoints @@ *  ^AccelerationIndex @@ +  ^gThrottleSetPointIndex @! 
+42 LINE.NUM ^gThrottleSetPointIndex @@ }TSPGear1 TABLE@ 10 I>F F/ ^ThrottleSetPoint @! 
+43 LINE.NUM ELSE 
+44 LINE.NUM ^rtUpperBoundSpeedIndex @@ ^gNumberOfAccPoints @@ *  ^AccelerationIndex @@ +  ^gUpperBoundSetPointIndex @! 
+45 LINE.NUM ^rtLowerBoundSpeedIndex @@ ^gNumberOfAccPoints @@ *  ^AccelerationIndex @@ +  ^gLowerBoundSetPointIndex @! 
+47 LINE.NUM ^gUpperBoundSetPointIndex @@ }TSPGear1 TABLE@ ^gLowerBoundSetPointIndex @@ }TSPGear1 TABLE@ F- ^rtUpperBoundSpeedIndex @@ }SpeedPoints TABLE@ ^rtLowerBoundSpeedIndex @@ }SpeedPoints TABLE@ F- F/  FABS ^gSlope @! 
+49 LINE.NUM ^gUpperBoundSetPointIndex @@ }TSPGear1 TABLE@ ^gSlope @@ ^rtUpperBoundSpeedIndex @@ }SpeedPoints TABLE@ F* F- ^gIntercept @! 
+51 LINE.NUM ^gSlope @@ ^CurrentSpeed @@ F* ^gIntercept @@ F+ 10 I>F F/ ^ThrottleSetPoint @! 
+52 LINE.NUM THEN 
+54 LINE.NUM %ScratchPad 200 ^CurrentSpeed @@  IO.SP.F.WRITE DROP  
+55 LINE.NUM %ScratchPad 201 ^CurrentAcceleration @@  IO.SP.F.WRITE DROP  
+56 LINE.NUM %ScratchPad 202 ^RequiredSpeed @@  IO.SP.F.WRITE DROP  
+57 LINE.NUM %ScratchPad 203 ^ThrottleSetPoint @@  IO.SP.F.WRITE DROP  
+-6 JUMP ;
+: 6_1
+TRUE
+
+1 LINE.NUM
+  ^simActive @@ 
+  1    =
+LAND
+IF -11 ELSE -15 THEN JUMP ;
+: 6_6
+TRUE
+
+1 LINE.NUM
+  ^simOverrideType @@ 
+  0    =
+LAND
+IF -14 ELSE 0 THEN JUMP ;
+: 6_11
+TRUE
+
+1 LINE.NUM
+  ^simOverrideType @@ 
+  1    =
+LAND
+IF -10 ELSE 1 THEN JUMP ;
+: 6_12
+TRUE
+
+1 LINE.NUM
+  ^simOverrideType @@ 
+  2    =
+LAND
+IF -8 ELSE -15 THEN JUMP ;
+: 6_13
+TRUE
+
+1 LINE.NUM
+  ^simOverrideType @@ 
+  3    =
+LAND
+IF -7 ELSE -2 THEN JUMP ;
+: 6_21
+TRUE
+
+1 LINE.NUM
+  ^simDataLoadStatus @@ 
+  3    =
+LAND
+IF -14 ELSE -15 THEN JUMP ;
+T: T6
+DUMMY
+6_0
+6_3
+6_5
+6_9
+6_17
+6_19
+6_22
+6_26
+6_34
+6_36
+6_37
+6_44
+6_45
+6_50
+6_52
+6_1
+6_6
+6_11
+6_12
+6_13
+6_21
+T;
+&Simulator ' T6 SETTASK
+CREATE T.ARRAY
+&Learning ,
+&Learning_Phase ,
+&Powerup ,
+&Road_Test ,
+&Simulator ,
+ 0 ,
+CREATE V.ARRAY
+^AccelerationIndex ,
+^CallChartStatus ,
+^ClearScratchPadResult ,
+^CurrentAcceleration ,
+^CurrentGear ,
+^CurrentSpeed ,
+^DriveTrainRatio ,
+^EngineSpeed ,
+^gCalculateSpeedTrimOutput ,
+^GetScratchPadResult ,
+^gIndex ,
+^gIntercept ,
+^gLengthOfTable ,
+^gLowerBoundSetPointIndex ,
+^gNumberOfAccPoints ,
+^gSlope ,
+^gSpeedIndex ,
+^gStatus ,
+^gThrottlePidOutput ,
+^gThrottleSetPointIndex ,
+^gUpperBoundSetPointIndex ,
+^IsApplicationConnected ,
+^IsGoToLearningPhase ,
+^IsGoToSimulator ,
+^IsGoToTestPhase ,
+^lpDataLoadStatus ,
+^lpLearningActive ,
+^PulseMultiplier ,
+^PulsePerRev ,
+^RequiredSpeed ,
+^RollDiameter ,
+^rtCurrentRunTime ,
+^rtDataLoadStatus ,
+^rtLowerBoundReqSpeedIndex ,
+^rtLowerBoundSpeedIndex ,
+^rtTestActive ,
+^rtTotalSecondsOfTest ,
+^rtUpperBoundReqSpeedIndex ,
+^rtUpperBoundSpeedIndex ,
+^ScratchPadInputIndex ,
+^SetScratchPadResult ,
+^simAcceleration ,
+^simActive ,
+^simCurrentSpeed ,
+^simDataLoadStatus ,
+^simMaxSpeed ,
+^simOverrideType ,
+^simRequiredSpeed ,
+^simThrottleSetPoint ,
+^TemplateLoadStatus ,
+^TestInputValue ,
+^ThrottleSetPoint ,
+^TSPValue ,
+^WheelSpeed ,
+*StrategyRunTime ,
+*TestInputValueStr ,
+*TestString ,
+*_HSV_SEMA ,
+*_HSV_TEMP ,
+ 0 ,
+CREATE TI.ARRAY
+^rtTestRunTime ,
+^simRunTime ,
+ 0 ,
+CREATE PTR.ARRAY
+ 0 ,
+CREATE TA.ARRAY 
+}AccelerationPoints ,
+}ClearIntegerTable ,
+}GearRatio ,
+}SelectedCar ,
+}SpeedPerSecond ,
+}SpeedPoints ,
+}TSPGear1 ,
+}TSPGear10 ,
+}TSPGear2 ,
+}TSPGear3 ,
+}TSPGear4 ,
+}TSPGear5 ,
+}TSPGear6 ,
+}TSPGear7 ,
+}TSPGear8 ,
+}TSPGear9 ,
+ 0 ,
+CREATE PTRTABLE.ARRAY 
+ 0 ,
+CREATE B.ARRAY
+%ScratchPad ,
+%SnapPacR1 ,
+ 0 ,
+CREATE P.ARRAY
+~di_SnapPacR1_0000 ,
+~di_SnapPacR1_0001 ,
+~di_SnapPacR1_0002 ,
+~di_SnapPacR1_0003 ,
+~di_SnapPacR1_0004 ,
+~di_SnapPacR1_0005 ,
+~di_SnapPacR1_0006 ,
+~di_SnapPacR1_0007 ,
+~di_SnapPacR1_0008 ,
+~di_SnapPacR1_0009 ,
+~di_SnapPacR1_0010 ,
+~di_SnapPacR1_0011 ,
+~di_SnapPacR1_0012 ,
+~di_SnapPacR1_0013 ,
+~di_SnapPacR1_0014 ,
+~di_SnapPacR1_0015 ,
+~di_SnapPacR1_0602 ,
+~di_SnapPacR1_0603 ,
+~do_SnapPacR1_0100 ,
+~do_SnapPacR1_0101 ,
+~do_SnapPacR1_0102 ,
+~do_SnapPacR1_0103 ,
+~do_SnapPacR1_0200 ,
+~do_SnapPacR1_0201 ,
+~do_SnapPacR1_0202 ,
+~do_SnapPacR1_0203 ,
+~do_SnapPacR1_0300 ,
+~do_SnapPacR1_0301 ,
+~do_SnapPacR1_0302 ,
+~do_SnapPacR1_0303 ,
+~IgnitionFrequency ,
+~SpeedEncoder ,
+~ai_SnapPacR1_0401 ,
+~ai_SnapPacR1_0500 ,
+~ai_SnapPacR1_0501 ,
+~ai_SnapPacR1_0800 ,
+~ai_SnapPacR1_0801 ,
+~ai_SnapPacR1_0802 ,
+~ai_SnapPacR1_0803 ,
+~ao_SnapPacR1_0701 ,
+~pidActuateThrottleOutput ,
+~pidCalculateSpeeTrimInput ,
+ 0 ,
+CREATE PID.ARRAY
+ |rtActuate_Throttle ,
+ |rtCalculate_Speed_Trim ,
+ 0 ,
+CREATE E/R.ARRAY
+ 0 ,
+CREATE E/RGROUP.ARRAY
+ 0 ,
+: CONFIG_PORTS
+;
+: W_INIT_IO
+CONFIG_PORTS
+$0000000000000000.. %ScratchPad ENABLES!
+|rtActuate_Throttle ENABLE
+|rtCalculate_Speed_Trim ENABLE
+" %ScratchPad  (1/2)" *_HSV_INIT_IO $MOVE 1 ^_HNV_INIT_IO @!
+%ScratchPad ENABLE
+" %SnapPacR1  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
+%SnapPacR1 ENABLE
+12000.0000 ~ai_SnapPacR1_0800 IN.F!POINT
+ " Initializing variables" *_HSV_INIT_IO $MOVE
+0 ^AccelerationIndex @!
+0 ^CallChartStatus @!
+0 ^ClearScratchPadResult @!
+0.00000000 ^CurrentAcceleration @!
+0 ^CurrentGear @!
+0.00000000 ^CurrentSpeed @!
+0.00000000 ^DriveTrainRatio @!
+0 ^EngineSpeed @!
+0.00000000 ^gCalculateSpeedTrimOutput @!
+0 ^GetScratchPadResult @!
+0 ^gIndex @!
+0.00000000 ^gIntercept @!
+0 ^gLengthOfTable @!
+0 ^gLowerBoundSetPointIndex @!
+0 ^gNumberOfAccPoints @!
+0.00000000 ^gSlope @!
+0 ^gSpeedIndex @!
+0 ^gStatus @!
+0.00000000 ^gThrottlePidOutput @!
+0 ^gThrottleSetPointIndex @!
+0 ^gUpperBoundSetPointIndex @!
+0 ^IsApplicationConnected @!
+0 ^IsGoToLearningPhase @!
+0 ^IsGoToSimulator @!
+0 ^IsGoToTestPhase @!
+0 ^lpDataLoadStatus @!
+0 ^lpLearningActive @!
+0.00000000 ^PulseMultiplier @!
+0.00000000 ^PulsePerRev @!
+0.00000000 ^RequiredSpeed @!
+0.00000000 ^RollDiameter @!
+0.00000000 ^rtCurrentRunTime @!
+0 ^rtDataLoadStatus @!
+0.00000000 ^rtLowerBoundReqSpeedIndex @!
+0 ^rtLowerBoundSpeedIndex @!
+0 ^rtTestActive @!
+0.0 ^rtTestRunTime SetTimer
+0 ^rtTotalSecondsOfTest @!
+0.00000000 ^rtUpperBoundReqSpeedIndex @!
+0 ^rtUpperBoundSpeedIndex @!
+0 ^ScratchPadInputIndex @!
+0 ^SetScratchPadResult @!
+0.00000000 ^simAcceleration @!
+0 ^simActive @!
+0.00000000 ^simCurrentSpeed @!
+0 ^simDataLoadStatus @!
+0.00000000 ^simMaxSpeed @!
+0 ^simOverrideType @!
+0.00000000 ^simRequiredSpeed @!
+0.0 ^simRunTime SetTimer
+0.00000000 ^simThrottleSetPoint @!
+0 ^TemplateLoadStatus @!
+0 ^TestInputValue @!
+0.00000000 ^ThrottleSetPoint @!
+0.00000000 ^TSPValue @!
+0.00000000 ^WheelSpeed @!
+-1.0000000 0 -1 }AccelerationPoints InitTable
+0 0 -1 }ClearIntegerTable InitTable
+-1.0000000 0 -1 }GearRatio InitTable
+0 0 -1 }SelectedCar InitTable
+-1.0000000 0 -1 }SpeedPerSecond InitTable
+-1.0000000 0 -1 }SpeedPoints InitTable
+-1.0000000 0 -1 }TSPGear1 InitTable
+-1.0000000 0 -1 }TSPGear10 InitTable
+-1.0000000 0 -1 }TSPGear2 InitTable
+-1.0000000 0 -1 }TSPGear3 InitTable
+-1.0000000 0 -1 }TSPGear4 InitTable
+-1.0000000 0 -1 }TSPGear5 InitTable
+-1.0000000 0 -1 }TSPGear6 InitTable
+-1.0000000 0 -1 }TSPGear7 InitTable
+-1.0000000 0 -1 }TSPGear8 InitTable
+-1.0000000 0 -1 }TSPGear9 InitTable
+" "
+ *StrategyRunTime $MOVE
+" "
+ *TestInputValueStr $MOVE
+" "
+ *TestString $MOVE
+ " " *_HSV_INIT_IO $MOVE
+;
+T: T_INIT_IO
+W_INIT_IO
+&Powerup START.T DROP
+T;
+&_INIT_IO ' T_INIT_IO  SETTASK
+   : _RUN
+   CLEARERRORS
+   &_INIT_IO START.T DROP
+   ;
+: DATESTAMP ." 11/23/15 " ;
+: TIMESTAMP ." 08:53:29 " ;
+: CRCSTAMP  ." 00112233445566778899AABBCCDDEEFF " ;
+MAKECHECK
+CLEAR.BREAKS
