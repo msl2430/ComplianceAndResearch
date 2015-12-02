@@ -117,7 +117,7 @@ namespace EngineCell.Application.Services.WorkerServices
         {
             return () =>
             {
-                ApplicationSessionFactory.ApplicationViewModel.StatusLabel = "Connection lost";
+                ApplicationSessionFactory.ApplicationViewModel.StatusLabel = "Connection lost or Opto not running";
                 ConnectedScratchPad.Value = 0;
                 //TODO More Event Handling for lost Opto connection
             };

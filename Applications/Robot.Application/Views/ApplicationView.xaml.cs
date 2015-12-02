@@ -1,4 +1,5 @@
-﻿using Robot.Application.Factories;
+﻿using MahApps.Metro.Controls;
+using Robot.Application.Factories;
 using Robot.Application.Services.WorkerServices;
 using Robot.Application.ViewModels;
 using Robot.Application.Views.OptoMonitor;
@@ -10,8 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using MahApps.Metro.Controls;
-using Robot.Application.Views.CarSelection;
 
 namespace Robot.Application.Views
 {

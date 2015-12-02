@@ -113,6 +113,10 @@
       <DependentUpon>ApplicationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BaseWindowView.cs" />
+    <Page Include="Content\Resource\default.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

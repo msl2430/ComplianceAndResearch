@@ -1,52 +1,63 @@
 CREATE T.ARRAY
+&Learning ,
 &Learning_Phase ,
 &Powerup ,
 &Road_Test ,
+&Simulator ,
  0 ,
 CREATE V.ARRAY
+^AccelerationIndex ,
 ^CallChartStatus ,
 ^ClearScratchPadResult ,
+^CurrentAcceleration ,
+^CurrentGear ,
+^CurrentSpeed ,
 ^DriveTrainRatio ,
 ^EngineSpeed ,
+^gCalculateSpeedTrimOutput ,
 ^GetScratchPadResult ,
 ^gIndex ,
+^gIntercept ,
 ^gLengthOfTable ,
+^gLowerBoundSetPointIndex ,
+^gNumberOfAccPoints ,
+^gSlope ,
+^gSpeedIndex ,
 ^gStatus ,
+^gThrottlePidOutput ,
+^gThrottleSetPointIndex ,
+^gUpperBoundSetPointIndex ,
 ^IsApplicationConnected ,
 ^IsGoToLearningPhase ,
+^IsGoToSimulator ,
 ^IsGoToTestPhase ,
 ^lpDataLoadStatus ,
 ^lpLearningActive ,
 ^PulseMultiplier ,
 ^PulsePerRev ,
+^RequiredSpeed ,
 ^RollDiameter ,
-^rtAccelerationIndex ,
-^rtCurrentAcceleration ,
-^rtCurrentGear ,
 ^rtCurrentRunTime ,
-^rtCurrentSpeed ,
 ^rtDataLoadStatus ,
-^rtIntercept ,
 ^rtLowerBoundReqSpeedIndex ,
-^rtLowerBoundSetPointIndex ,
 ^rtLowerBoundSpeedIndex ,
-^rtNumberOfAccPoints ,
-^rtPidOutput ,
-^rtRequiredSpeed ,
-^rtSlope ,
-^rtSpeedIndex ,
 ^rtTestActive ,
-^rtThrottleOutput ,
-^rtThrottleSetPoint ,
-^rtThrottleSetPointIndex ,
 ^rtTotalSecondsOfTest ,
 ^rtUpperBoundReqSpeedIndex ,
-^rtUpperBoundSetPointIndex ,
 ^rtUpperBoundSpeedIndex ,
 ^ScratchPadInputIndex ,
 ^SetScratchPadResult ,
+^simAcceleration ,
+^simActive ,
+^simCurrentSpeed ,
+^simDataLoadStatus ,
+^simMaxSpeed ,
+^simOverrideType ,
+^simRequiredSpeed ,
+^simThrottleSetPoint ,
 ^TemplateLoadStatus ,
 ^TestInputValue ,
+^ThrottleSetPoint ,
 ^TSPValue ,
 ^WheelSpeed ,
 *StrategyRunTime ,
@@ -57,6 +68,7 @@ CREATE V.ARRAY
  0 ,
 CREATE TI.ARRAY
 ^rtTestRunTime ,
+^simRunTime ,
  0 ,
 CREATE PTR.ARRAY
  0 ,
@@ -68,6 +80,15 @@ CREATE TA.ARRAY
 }SpeedPerSecond ,
 }SpeedPoints ,
 }TSPGear1 ,
+}TSPGear10 ,
+}TSPGear2 ,
+}TSPGear3 ,
+}TSPGear4 ,
+}TSPGear5 ,
+}TSPGear6 ,
+}TSPGear7 ,
+}TSPGear8 ,
+}TSPGear9 ,
  0 ,
 CREATE PTRTABLE.ARRAY 
  0 ,
@@ -108,7 +129,6 @@ CREATE P.ARRAY
 ~do_SnapPacR1_0303 ,
 ~IgnitionFrequency ,
 ~SpeedEncoder ,
-~ai_SnapPacR1_0400 ,
 ~ai_SnapPacR1_0401 ,
 ~ai_SnapPacR1_0500 ,
 ~ai_SnapPacR1_0501 ,
@@ -116,8 +136,9 @@ CREATE P.ARRAY
 ~ai_SnapPacR1_0801 ,
 ~ai_SnapPacR1_0802 ,
 ~ai_SnapPacR1_0803 ,
-~ao_SnapPacR1_0700 ,
 ~ao_SnapPacR1_0701 ,
+~pidActuateThrottleOutput ,
+~pidCalculateSpeeTrimInput ,
  0 ,
 CREATE PID.ARRAY
  |rtActuate_Throttle ,
@@ -140,50 +161,60 @@ $0000000000000000.. %ScratchPad ENABLES!
 %SnapPacR1 ENABLE
 12000.0000 ~ai_SnapPacR1_0800 IN.F!POINT
  " Initializing variables" *_HSV_INIT_IO $MOVE
+0 ^AccelerationIndex @!
 0 ^CallChartStatus @!
 0 ^ClearScratchPadResult @!
+0.00000000 ^CurrentAcceleration @!
+0 ^CurrentGear @!
+0.00000000 ^CurrentSpeed @!
 0.00000000 ^DriveTrainRatio @!
 0 ^EngineSpeed @!
+0.00000000 ^gCalculateSpeedTrimOutput @!
 0 ^GetScratchPadResult @!
 0 ^gIndex @!
+0.00000000 ^gIntercept @!
 0 ^gLengthOfTable @!
+0 ^gLowerBoundSetPointIndex @!
+0 ^gNumberOfAccPoints @!
+0.00000000 ^gSlope @!
+0 ^gSpeedIndex @!
 0 ^gStatus @!
+0.00000000 ^gThrottlePidOutput @!
+0 ^gThrottleSetPointIndex @!
+0 ^gUpperBoundSetPointIndex @!
 0 ^IsApplicationConnected @!
 0 ^IsGoToLearningPhase @!
+0 ^IsGoToSimulator @!
 0 ^IsGoToTestPhase @!
 0 ^lpDataLoadStatus @!
 0 ^lpLearningActive @!
 0.00000000 ^PulseMultiplier @!
 0.00000000 ^PulsePerRev @!
+0.00000000 ^RequiredSpeed @!
 0.00000000 ^RollDiameter @!
-0 ^rtAccelerationIndex @!
-0.00000000 ^rtCurrentAcceleration @!
-0 ^rtCurrentGear @!
 0.00000000 ^rtCurrentRunTime @!
-0.00000000 ^rtCurrentSpeed @!
 0 ^rtDataLoadStatus @!
-0.00000000 ^rtIntercept @!
 0.00000000 ^rtLowerBoundReqSpeedIndex @!
-0 ^rtLowerBoundSetPointIndex @!
 0 ^rtLowerBoundSpeedIndex @!
-0 ^rtNumberOfAccPoints @!
-0.00000000 ^rtPidOutput @!
-0.00000000 ^rtRequiredSpeed @!
-0.00000000 ^rtSlope @!
-0 ^rtSpeedIndex @!
 0 ^rtTestActive @!
 0.0 ^rtTestRunTime SetTimer
-0.00000000 ^rtThrottleOutput @!
-0.00000000 ^rtThrottleSetPoint @!
-0 ^rtThrottleSetPointIndex @!
 0 ^rtTotalSecondsOfTest @!
 0.00000000 ^rtUpperBoundReqSpeedIndex @!
-0 ^rtUpperBoundSetPointIndex @!
 0 ^rtUpperBoundSpeedIndex @!
 0 ^ScratchPadInputIndex @!
 0 ^SetScratchPadResult @!
+0.00000000 ^simAcceleration @!
+0 ^simActive @!
+0.00000000 ^simCurrentSpeed @!
+0 ^simDataLoadStatus @!
+0.00000000 ^simMaxSpeed @!
+0 ^simOverrideType @!
+0.00000000 ^simRequiredSpeed @!
+0.0 ^simRunTime SetTimer
+0.00000000 ^simThrottleSetPoint @!
 0 ^TemplateLoadStatus @!
 0 ^TestInputValue @!
+0.00000000 ^ThrottleSetPoint @!
 0.00000000 ^TSPValue @!
 0.00000000 ^WheelSpeed @!
 -1.0000000 0 -1 }AccelerationPoints InitTable
@@ -193,6 +224,15 @@ $0000000000000000.. %ScratchPad ENABLES!
 -1.0000000 0 -1 }SpeedPerSecond InitTable
 -1.0000000 0 -1 }SpeedPoints InitTable
 -1.0000000 0 -1 }TSPGear1 InitTable
+-1.0000000 0 -1 }TSPGear10 InitTable
+-1.0000000 0 -1 }TSPGear2 InitTable
+-1.0000000 0 -1 }TSPGear3 InitTable
+-1.0000000 0 -1 }TSPGear4 InitTable
+-1.0000000 0 -1 }TSPGear5 InitTable
+-1.0000000 0 -1 }TSPGear6 InitTable
+-1.0000000 0 -1 }TSPGear7 InitTable
+-1.0000000 0 -1 }TSPGear8 InitTable
+-1.0000000 0 -1 }TSPGear9 InitTable
 " "
  *StrategyRunTime $MOVE
 " "

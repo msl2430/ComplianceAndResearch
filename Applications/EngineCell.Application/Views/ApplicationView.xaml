@@ -7,10 +7,10 @@
         xmlns:local="clr-namespace:EngineCell.Application.ViewModels"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
      Title="Rocket Rod" 
-        MinHeight="600"
-        Height="600" 
-        MinWidth="768"
-        Width="768" 
+        MinHeight="760"
+        Height="760" 
+        MinWidth="1024"
+        Width="1024" 
         EnableDWMDropShadow="True"
         ResizeMode="CanResizeWithGrip"
         WindowTransitionsEnabled="False"
@@ -18,7 +18,45 @@
         WindowStartupLocation="CenterScreen"
         FontFamily="Content\Fonts\#AvenirLTStd-Book"
         Closing="ApplicationView_OnClosing">
-     <Grid>
-            
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+            <RowDefinition Height="125"/>
+            <RowDefinition Height="23"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <controls:ToggleSwitch Name="OptoConnectionToggle" SwitchForeground="{StaticResource GreenBrush}" OffLabel="" OnLabel="" 
+                                       IsChecked="{Binding Path=IsConnected, Mode=TwoWay, NotifyOnSourceUpdated=True}" 
+                                       SourceUpdated="OptoConnectionToggle_OnSourceUpdated" HorizontalAlignment="Left" Margin="70,0,0,0">
+                </controls:ToggleSwitch>
+                <!--<Menu Width="Auto" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,-7,0">
+                    <MenuItem Width="60" Height="40" Name="ConfigMenu" Click="ConfigMenu_Click">
+                        <MenuItem.Header>
+                            <Rectangle Width="30" Height="30" Fill="{StaticResource DarkBlueBrush}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush  Stretch="Fill" Visual="{DynamicResource appbar_list_gear}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </Menu>-->
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <ScrollViewer>
+                <TextBlock Background="LightGray" Margin="2" Text="{Binding Path=LogWindowString}" Foreground="Black"/>
+            </ScrollViewer>
+        </Grid>
+        <Grid Grid.Row="3">
+            <StatusBar>
+                <TextBlock Text="{Binding Path=StatusLabel}" Foreground="Black"/>
+            </StatusBar>
+        </Grid>
     </Grid>
 </views:BaseWindowView>
