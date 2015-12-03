@@ -1,10 +1,6 @@
-﻿using System;
+﻿using Robot.Core.Constants;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using MahApps.Metro.Controls;
-using Robot.Application.Factories;
-using Robot.Core.Constants;
 
 namespace Robot.Application.ViewModels
 {

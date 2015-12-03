@@ -102,6 +102,7 @@
     <Compile Include="Services\WorkerServices\LearningWorkerService.cs" />
     <Compile Include="Services\WorkerServices\OptoMonitorWorkerService.cs" />
     <Compile Include="Services\WorkerServices\RoadTestWorkerService.cs" />
+    <Compile Include="Services\WorkerServices\SimulatorWorkerThreadService.cs" />
     <Compile Include="Session\ApplicationSession.cs" />
     <Compile Include="Services\WorkerServices\BaseWorkerThreadService.cs" />
     <Compile Include="Services\WorkerServices\InitializeDataWorkerService.cs" />

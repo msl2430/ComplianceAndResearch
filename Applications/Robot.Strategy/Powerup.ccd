@@ -16,7 +16,7 @@
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-18 JUMP ;
+20 JUMP ;
 : 0_28
 -2 JUMP ;
 : 0_30
@@ -50,7 +50,13 @@
   3  
   ^IsGoToTestPhase   IO.SP.READ
   ^GetScratchPadResult @! 
-19 JUMP ;
+
+7 LINE.NUM
+  %ScratchPad 
+  4  
+  ^IsGoToSimulator   IO.SP.READ
+  ^GetScratchPadResult @! 
+21 JUMP ;
 : 0_32
 
 1 LINE.NUM
@@ -65,7 +71,7 @@
   0  
   }ClearIntegerTable   IO.SP.T.WRITE
   ^ClearScratchPadResult @! 
-19 JUMP ;
+22 JUMP ;
 : 0_59
 -4 JUMP ;
 : 0_114
@@ -100,7 +106,7 @@
   6  
   ^TSPValue    IO.SP.READ
   ^GetScratchPadResult @! 
-15 JUMP ;
+18 JUMP ;
 : 0_124
 
 1 LINE.NUM
@@ -119,7 +125,7 @@
 
 4 LINE.NUM
   3.0    FDELAY
-13 JUMP ;
+15 JUMP ;
 : 0_126
 -2 JUMP ;
 : 0_129
@@ -129,7 +135,7 @@
   ^ScratchPadInputIndex @! 
 -3 JUMP ;
 : 0_133
-11 JUMP ;
+14 JUMP ;
 : 0_134
 1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
 2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
@@ -183,6 +189,32 @@
 3 LINE.NUM %ScratchPad ^gIndex @@ 0  IO.SP.I.WRITE DROP  
 4 LINE.NUM 1 +LOOP 
 -19 JUMP ;
+: 0_155
+
+1 LINE.NUM
+  %ScratchPad 
+  4  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  301  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+3 LINE.NUM
+  %ScratchPad 
+  300  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+-15 JUMP ;
+: 0_156
+
+1 LINE.NUM
+  &Simulator   CALL.T
+  ^CallChartStatus @! 
+-2 JUMP ;
 : 0_26
 TRUE
 
@@ -190,7 +222,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -18 ELSE -17 THEN JUMP ;
+IF -20 ELSE -19 THEN JUMP ;
 : 0_52
 TRUE
 
@@ -198,7 +230,7 @@ TRUE
   ^IsGoToLearningPhase @@ 
   1    =
 LAND
-IF -15 ELSE 0 THEN JUMP ;
+IF -17 ELSE 3 THEN JUMP ;
 : 0_61
 TRUE
 
@@ -206,7 +238,7 @@ TRUE
   ^IsGoToTestPhase @@ 
   1    =
 LAND
-IF -8 ELSE -6 THEN JUMP ;
+IF -10 ELSE -8 THEN JUMP ;
 : 0_96
 TRUE
 
@@ -214,7 +246,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -3 ELSE -22 THEN JUMP ;
+IF -3 ELSE -24 THEN JUMP ;
 : 0_125
 TRUE
 
@@ -222,7 +254,15 @@ TRUE
   ^ScratchPadInputIndex @@ 
   77    <
 LAND
-IF -14 ELSE -16 THEN JUMP ;
+IF -16 ELSE -18 THEN JUMP ;
+: 0_157
+TRUE
+
+1 LINE.NUM
+  ^IsGoToSimulator @@ 
+  1    =
+LAND
+IF -7 ELSE -4 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -245,10 +285,13 @@ DUMMY
 0_142
 0_144
 0_149
+0_155
+0_156
 0_26
 0_52
 0_61
 0_96
 0_125
+0_157
 T;
 &Powerup ' T0 SETTASK

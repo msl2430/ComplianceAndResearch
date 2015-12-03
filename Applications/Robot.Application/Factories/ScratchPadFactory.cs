@@ -47,6 +47,9 @@ namespace Robot.Application.Factories
 
         private void InitializeFromOpto()
         {
+            if (!OptoMmp.Current.IsCommunicationOpen)
+                return;
+
             int result;
             foreach (var bit in Enum.GetValues(typeof (ScratchPadConstants.BitIndexes)))
             {
@@ -94,6 +97,9 @@ namespace Robot.Application.Factories
 
         public IScratchPadModel<bool> GetScratchPadBit(int index)
         {
+            if (!OptoMmp.Current.IsCommunicationOpen)
+                return null;
+
             var sc = ScratchPadBits.Any(b => b.Index == index)
                 ? ScratchPadBits.FirstOrDefault(x => x.Index == index)
                 : null;
@@ -113,6 +119,9 @@ namespace Robot.Application.Factories
 
         public IScratchPadModel<int> GetScratchPadInt(int index)
         {
+            if (!OptoMmp.Current.IsCommunicationOpen)
+                return null;
+
             var sc = ScratchPadInts.Any(b => b.Index == index)
                 ? ScratchPadInts.FirstOrDefault(x => x.Index == index)
                 : null;
@@ -132,6 +141,9 @@ namespace Robot.Application.Factories
 
         public IScratchPadModel<string> GetScratchPadString(int index)
         {
+            if (!OptoMmp.Current.IsCommunicationOpen)
+                return null;
+
             var sc = ScratchPadStrings.Any(b => b.Index == index)
                 ? ScratchPadStrings.FirstOrDefault(x => x.Index == index)
                 : null;
@@ -151,6 +163,9 @@ namespace Robot.Application.Factories
 
         public IScratchPadModel<decimal> GetScratchPadFloat(int index)
         {
+            if (!OptoMmp.Current.IsCommunicationOpen)
+                return null;
+
             var sc = ScratchPadFloats.Any(f => f.Index == index)
                 ? ScratchPadFloats.FirstOrDefault(f => f.Index == index)
                 : null;
@@ -264,15 +279,17 @@ namespace Robot.Application.Factories
             if (result != 0)
                 throw new Exception("Error saving Acceleration points scratchpad float.");
 
+            if (roadTestPoints != null) return;
+
             var roadTestPointArray = Enumerable.Repeat(-1f, 3600).ToArray();
             for (var rt = 0; rt < roadTestPointArray.Length; rt++)
             {
                 if (roadTestPoints.Count() <= rt)
                     break;
-                roadTestPointArray[rt] = (float)roadTestPoints[rt].Value;
+                roadTestPointArray[rt] = (float) roadTestPoints[rt].Value;
             }
             result = OptoMmp.Current.ScratchpadFloatWrite(roadTestPointArray, 0, roadTestPointArray.Length, ScratchPadConstants.FloatIndexes.RoadTestSpeedPerSecond.ToInt());
-            if(result != 0)
+            if (result != 0)
                 throw new Exception("Error saving Road Test points scratchpad float;");
         }
     }

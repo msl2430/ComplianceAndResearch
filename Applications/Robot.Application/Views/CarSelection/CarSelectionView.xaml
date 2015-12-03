@@ -47,7 +47,7 @@
                     <Button Name="RunSimulator" Style="{StaticResource HyperlinkLikeButton}" Content="Run Simulator" HorizontalAlignment="right" Click="RunSimulator_OnClick"></Button>
                     
                     <Button Name="TestingPhaseButton" 
-                                Margin="40,122,40,0" 
+                                Margin="40,112,40,0" 
                                 Padding="15" 
                                 FontSize="18" 
                                 Content="Run Test Mode" 

@@ -40,6 +40,9 @@ namespace Robot.Application.ViewModels
 
         public IList<GearRatioModel> ModelGearRatios { get; set; }
 
+        private IList<RoadTestChartModel> _roadTestCharts { get; set; }
+        public IList<RoadTestChartModel> RoadTestCharts { get { return _roadTestCharts; } set { _roadTestCharts = value; OnPropertyChanged("RoadTestCharts"); } }
+
         public string CarDisplayName { get { return string.Format("{0} {1} {2}", ModelYear, ManufacturerName, ModelName); } }
 
         public SimulatorViewModel(IApplicationSessionFactory applicationSessionFactory)

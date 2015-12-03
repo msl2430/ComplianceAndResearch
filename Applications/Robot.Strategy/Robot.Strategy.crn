@@ -296,7 +296,7 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-18 JUMP ;
+20 JUMP ;
 : 0_28
 -2 JUMP ;
 : 0_30
@@ -330,7 +330,13 @@ T;
   3  
   ^IsGoToTestPhase   IO.SP.READ
   ^GetScratchPadResult @! 
-19 JUMP ;
+
+7 LINE.NUM
+  %ScratchPad 
+  4  
+  ^IsGoToSimulator   IO.SP.READ
+  ^GetScratchPadResult @! 
+21 JUMP ;
 : 0_32
 
 1 LINE.NUM
@@ -345,7 +351,7 @@ T;
   0  
   }ClearIntegerTable   IO.SP.T.WRITE
   ^ClearScratchPadResult @! 
-19 JUMP ;
+22 JUMP ;
 : 0_59
 -4 JUMP ;
 : 0_114
@@ -380,7 +386,7 @@ T;
   6  
   ^TSPValue    IO.SP.READ
   ^GetScratchPadResult @! 
-15 JUMP ;
+18 JUMP ;
 : 0_124
 
 1 LINE.NUM
@@ -399,7 +405,7 @@ T;
 
 4 LINE.NUM
   3.0    FDELAY
-13 JUMP ;
+15 JUMP ;
 : 0_126
 -2 JUMP ;
 : 0_129
@@ -409,7 +415,7 @@ T;
   ^ScratchPadInputIndex @! 
 -3 JUMP ;
 : 0_133
-11 JUMP ;
+14 JUMP ;
 : 0_134
 1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
 2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
@@ -463,6 +469,32 @@ T;
 3 LINE.NUM %ScratchPad ^gIndex @@ 0  IO.SP.I.WRITE DROP  
 4 LINE.NUM 1 +LOOP 
 -19 JUMP ;
+: 0_155
+
+1 LINE.NUM
+  %ScratchPad 
+  4  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  301  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+3 LINE.NUM
+  %ScratchPad 
+  300  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+-15 JUMP ;
+: 0_156
+
+1 LINE.NUM
+  &Simulator   CALL.T
+  ^CallChartStatus @! 
+-2 JUMP ;
 : 0_26
 TRUE
 
@@ -470,7 +502,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -18 ELSE -17 THEN JUMP ;
+IF -20 ELSE -19 THEN JUMP ;
 : 0_52
 TRUE
 
@@ -478,7 +510,7 @@ TRUE
   ^IsGoToLearningPhase @@ 
   1    =
 LAND
-IF -15 ELSE 0 THEN JUMP ;
+IF -17 ELSE 3 THEN JUMP ;
 : 0_61
 TRUE
 
@@ -486,7 +518,7 @@ TRUE
   ^IsGoToTestPhase @@ 
   1    =
 LAND
-IF -8 ELSE -6 THEN JUMP ;
+IF -10 ELSE -8 THEN JUMP ;
 : 0_96
 TRUE
 
@@ -494,7 +526,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -3 ELSE -22 THEN JUMP ;
+IF -3 ELSE -24 THEN JUMP ;
 : 0_125
 TRUE
 
@@ -502,7 +534,15 @@ TRUE
   ^ScratchPadInputIndex @@ 
   77    <
 LAND
-IF -14 ELSE -16 THEN JUMP ;
+IF -16 ELSE -18 THEN JUMP ;
+: 0_157
+TRUE
+
+1 LINE.NUM
+  ^IsGoToSimulator @@ 
+  1    =
+LAND
+IF -7 ELSE -4 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -525,11 +565,14 @@ DUMMY
 0_142
 0_144
 0_149
+0_155
+0_156
 0_26
 0_52
 0_61
 0_96
 0_125
+0_157
 T;
 &Powerup ' T0 SETTASK
 : 4_0
@@ -679,9 +722,11 @@ T;
 21 LINE.NUM BEGIN ^gIndex @@ 10 < WHILE 
 22 LINE.NUM ^DriveTrainRatio @@ ^gIndex @@ 1 +  }GearRatio TABLE@ F> IF 
 23 LINE.NUM ^gIndex @@ 1 +  ^CurrentGear @! 
-24 LINE.NUM THEN 
-25 LINE.NUM REPEAT 
-27 LINE.NUM ^WheelSpeed @@ ^RollDiameter @@ F* 3.361352e+002 F/ ^CurrentSpeed @! 
+24 LINE.NUM 10 ^gIndex @! 
+25 LINE.NUM THEN 
+26 LINE.NUM ^gIndex @@ 1 +  ^gIndex @! 
+27 LINE.NUM REPEAT 
+29 LINE.NUM ^WheelSpeed @@ ^RollDiameter @@ F* 3.361352e+002 F/ ^CurrentSpeed @! 
 -4 JUMP ;
 : 4_21
 
@@ -752,10 +797,16 @@ T;
 
 1 LINE.NUM
   %ScratchPad 
+  1  
+  6    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
   300  
   ^simActive   IO.SP.READ
   ^GetScratchPadResult @! 
-14 JUMP ;
+16 JUMP ;
 : 6_3
 -2 JUMP ;
 : 6_5
@@ -765,7 +816,7 @@ T;
   301  
   ^simOverrideType   IO.SP.READ
   ^GetScratchPadResult @! 
-13 JUMP ;
+15 JUMP ;
 : 6_9
 -2 JUMP ;
 : 6_17
@@ -777,7 +828,7 @@ T;
   302  
   ^simDataLoadStatus   IO.SP.READ
   ^gStatus @! 
-14 JUMP ;
+16 JUMP ;
 : 6_22
 -2 JUMP ;
 : 6_26
@@ -831,7 +882,7 @@ T;
 4 LINE.NUM |rtCalculate_Speed_Trim  $0008.. ROT PID@ ^gCalculateSpeedTrimOutput @! 
 6 LINE.NUM ^gCalculateSpeedTrimOutput @@ 2.000000e-001 F* ^ThrottleSetPoint @@ 8.000000e-001 F* F+ ^gThrottlePidOutput @! 
 8 LINE.NUM |rtActuate_Throttle ^gThrottlePidOutput @@  $0002.. 3 ROLL !PID 
-0 JUMP ;
+5 JUMP ;
 : 6_37
 -9 JUMP ;
 : 6_44
@@ -848,9 +899,11 @@ T;
 20 LINE.NUM BEGIN ^gIndex @@ 10 < WHILE 
 21 LINE.NUM ^DriveTrainRatio @@ ^gIndex @@ 1 +  }GearRatio TABLE@ F> IF 
 22 LINE.NUM ^gIndex @@ 1 +  ^CurrentGear @! 
-23 LINE.NUM THEN 
-24 LINE.NUM REPEAT 
-26 LINE.NUM ^WheelSpeed @@ ^RollDiameter @@ F* 3.361352e+002 F/ ^CurrentSpeed @! 
+23 LINE.NUM 10 ^gIndex @! 
+24 LINE.NUM THEN 
+25 LINE.NUM ^gIndex @@ 1 +  ^gIndex @! 
+26 LINE.NUM REPEAT 
+28 LINE.NUM 0 I>F ^CurrentSpeed @! 
 0 JUMP ;
 : 6_45
 1 LINE.NUM %ScratchPad 301 ^simThrottleSetPoint   IO.SP.READ DROP  
@@ -929,6 +982,17 @@ T;
 56 LINE.NUM %ScratchPad 202 ^RequiredSpeed @@  IO.SP.F.WRITE DROP  
 57 LINE.NUM %ScratchPad 203 ^ThrottleSetPoint @@  IO.SP.F.WRITE DROP  
 -6 JUMP ;
+: 6_60
+1 LINE.NUM %ScratchPad 304 ^CurrentSpeed @@  IO.SP.F.WRITE DROP  
+2 LINE.NUM %ScratchPad 305 ^CurrentAcceleration @@  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad 306 ^CurrentGear @@F  IO.SP.F.WRITE DROP  
+4 LINE.NUM %ScratchPad 307 ^ThrottleSetPoint @@  IO.SP.F.WRITE DROP  
+-6 JUMP ;
+: 6_66
+
+1 LINE.NUM
+  &Simulator   STOP.T
+7 JUMP ;
 : 6_1
 TRUE
 
@@ -936,7 +1000,7 @@ TRUE
   ^simActive @@ 
   1    =
 LAND
-IF -11 ELSE -15 THEN JUMP ;
+IF -13 ELSE -17 THEN JUMP ;
 : 6_6
 TRUE
 
@@ -944,7 +1008,7 @@ TRUE
   ^simOverrideType @@ 
   0    =
 LAND
-IF -14 ELSE 0 THEN JUMP ;
+IF -16 ELSE 0 THEN JUMP ;
 : 6_11
 TRUE
 
@@ -952,7 +1016,7 @@ TRUE
   ^simOverrideType @@ 
   1    =
 LAND
-IF -10 ELSE 1 THEN JUMP ;
+IF -12 ELSE 1 THEN JUMP ;
 : 6_12
 TRUE
 
@@ -960,7 +1024,7 @@ TRUE
   ^simOverrideType @@ 
   2    =
 LAND
-IF -8 ELSE -15 THEN JUMP ;
+IF -10 ELSE 2 THEN JUMP ;
 : 6_13
 TRUE
 
@@ -968,7 +1032,7 @@ TRUE
   ^simOverrideType @@ 
   3    =
 LAND
-IF -7 ELSE -2 THEN JUMP ;
+IF -9 ELSE -2 THEN JUMP ;
 : 6_21
 TRUE
 
@@ -976,7 +1040,15 @@ TRUE
   ^simDataLoadStatus @@ 
   3    =
 LAND
-IF -14 ELSE -15 THEN JUMP ;
+IF -16 ELSE -17 THEN JUMP ;
+: 6_63
+TRUE
+
+1 LINE.NUM
+  ^simOverrideType @@ 
+  4    =
+LAND
+IF -8 ELSE -20 THEN JUMP ;
 T: T6
 DUMMY
 6_0
@@ -994,12 +1066,15 @@ DUMMY
 6_45
 6_50
 6_52
+6_60
+6_66
 6_1
 6_6
 6_11
 6_12
 6_13
 6_21
+6_63
 T;
 &Simulator ' T6 SETTASK
 CREATE T.ARRAY
@@ -1254,8 +1329,8 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 12/02/15 " ;
-: TIMESTAMP ." 09:55:53 " ;
+: DATESTAMP ." 12/03/15 " ;
+: TIMESTAMP ." 13:26:46 " ;
 : CRCSTAMP  ." 00112233445566778899AABBCCDDEEFF " ;
 MAKECHECK
 CLEAR.BREAKS

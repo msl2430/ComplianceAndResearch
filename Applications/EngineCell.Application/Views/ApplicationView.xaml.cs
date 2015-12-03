@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using EngineCell.Application.Factories;
 using EngineCell.Application.Services.WorkerServices;
@@ -16,6 +17,8 @@ namespace EngineCell.Application.Views
     {
         private ApplicationViewModel ApplicationViewModel { get; set; }
 
+        private int _numberOfTests = 1;
+
         public ApplicationView()
         {
             InitializeComponent();
@@ -24,7 +27,8 @@ namespace EngineCell.Application.Views
 
             DataContext = ApplicationViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
-            ToggleOptoConnection();
+            
+            //ToggleOptoConnection();
             //ChangePageView(new CarSelectionViewModel(ApplicationSessionFactory) { IsOptoConnected = false });
             //ChangePageView(new SimulatorViewModel(ApplicationSessionFactory));
 
@@ -112,6 +116,35 @@ namespace EngineCell.Application.Views
             {
                 Thread.Sleep(250);
             }
-        }     
+        }
+
+        private void CreateNewTest(int testIndex)
+        {
+            var grpBox = new GroupBox() { Header = "Test " + (testIndex+1), Visibility = Visibility.Visible, Width = 175, HorizontalAlignment = HorizontalAlignment.Left, Margin = new Thickness(5 + (185 * testIndex), 0, 0, 5) };
+            var grid = new Grid();
+            var stackPanel = new StackPanel();
+            var coolantSetPoinTextbox = new TextBox() { Width = 75 };
+            var dynoSetPointTextbox = new TextBox() {Width = 75};
+            var throttleSetPointTextbox = new TextBox() { Width = 75 };
+            var testRunTimeTextbox = new TextBox() {Width = 75};
+            stackPanel.Children.Add(new Label() {Content = "Coolant Set Point"});
+            stackPanel.Children.Add(coolantSetPoinTextbox);
+            stackPanel.Children.Add(new Label() { Content = "Dyno Set Point" });
+            stackPanel.Children.Add(dynoSetPointTextbox);
+            stackPanel.Children.Add(new Label() {Content = "Throttle Set Point Label"});
+            stackPanel.Children.Add(throttleSetPointTextbox);
+            stackPanel.Children.Add(new Label() {Content = "Test Run Time (minutes)"});
+            stackPanel.Children.Add(testRunTimeTextbox);
+            grid.Children.Add(stackPanel);
+            grpBox.Content = grid;
+            TestDisplay.Children.Add(grpBox);
+
+        }
+
+        private void AddTestButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            CreateNewTest(_numberOfTests);
+            _numberOfTests++;
+        }
     }
 }

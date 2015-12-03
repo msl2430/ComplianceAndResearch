@@ -44,7 +44,8 @@ namespace Opto22.Core.Constants
             PhaseCheck,
             LearningPhase,
             LearningPhaseCalculating,
-            TestPhase
+            TestPhase,
+            Simulator,
         }
 
         public enum LoadStatus
@@ -60,7 +61,8 @@ namespace Opto22.Core.Constants
             Off,
             RequiredSpeed,
             ThrottleSetPoint,
-            Acceleration
+            Acceleration,
+            Exit,
         }
 
         /// <summary>
@@ -94,6 +96,10 @@ namespace Opto22.Core.Constants
             SimulatorThrottleSetPoint,
             SimulatorAcceleration,
             SimulatorMaxSpeed,
+            SimulatorCurrentSpeed,
+            SimulatorCurrentAcceleration,
+            SimulatorCurrentGear,
+            SimulatorCurrentSetPoint,
 
             TspGear1Start = 1000,
             TspGear2Start = 1100,

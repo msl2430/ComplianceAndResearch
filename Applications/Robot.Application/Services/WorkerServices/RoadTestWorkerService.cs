@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Threading;
-using Opto22.Core.Constants;
+﻿using Opto22.Core.Constants;
 using Opto22.Core.Models;
 using Robot.Application.Extensions;
-using Robot.Application.Factories;
 using Robot.Application.ViewModels;
 using Robot.Core.Constants;
 using Robot.Core.Extensions;
 using Robot.Models.Models;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace Robot.Application.Services.WorkerServices
 {

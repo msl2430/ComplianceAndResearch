@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using System;
+using MahApps.Metro.Controls;
 using Robot.Application.Factories;
 using Robot.Application.Services.WorkerServices;
 using Robot.Application.ViewModels;
@@ -11,6 +12,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using Opto22.Core.Constants;
+using Robot.Core.Extensions;
 
 namespace Robot.Application.Views
 {
@@ -30,9 +33,8 @@ namespace Robot.Application.Views
             
             DataContext = ApplicationViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
-            ToggleOptoConnection();
-            ChangePageView(new CarSelectionViewModel(ApplicationSessionFactory) {IsOptoConnected = false});
-            ChangePageView(new SimulatorViewModel(ApplicationSessionFactory)); 
+            //ToggleOptoConnection();
+            ChangePageView(new CarSelectionViewModel(ApplicationSessionFactory) {IsOptoConnected = false});            
 
             OptoMonitorView = new OptoMonitorView(ApplicationSessionFactory);
             OptoMonitorView.Show();
@@ -100,7 +102,10 @@ namespace Robot.Application.Views
         private void BackButton_OnClick(object sender, RoutedEventArgs e)
         {
             var lastType = ApplicationViewModel.PageViewModelNavigationPath.Last().GetType();
-                ApplicationViewModel.PageViewModelNavigationPath.RemoveAt(ApplicationViewModel.PageViewModelNavigationPath.Count - 1);
+
+            ApplicationViewModel.PageViewModelNavigationPath.RemoveAt(ApplicationViewModel.PageViewModelNavigationPath.Count - 1);
+
+            ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.SimulatorOverrideType.ToInt(), ScratchPadConstants.SimulatorOverrides.Exit.ToInt());
 
             if (lastType == typeof (CarSelectionViewModel)) 
                 ChangePageView(new CarSelectionViewModel(ApplicationSessionFactory) { IsOptoConnected = ApplicationViewModel.IsConnected });

@@ -147,6 +147,9 @@ namespace Robot.Application.ViewModels
                 case (int)ScratchPadConstants.StrategyLocationValues.TestPhase:
                     StrategyLocationString = "Test phase started";
                     break;
+                case (int)ScratchPadConstants.StrategyLocationValues.Simulator:
+                    StrategyLocationString = "Simulator active";
+                    break;
                 default:
                     StrategyLocationString = "Off";
                     break;
