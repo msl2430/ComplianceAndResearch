@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Opto22.Core", "..\Opto22.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineCell.Core", "..\EngineCell.Core\EngineCell.Core.csproj", "{012AD3A2-BC0A-4C80-B674-30050F5B5B72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineCell.Controls", "..\EngineCell.Controls\EngineCell.Controls.csproj", "{5C01C46B-F4B0-4398-B67E-9E7B51F45C77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{012AD3A2-BC0A-4C80-B674-30050F5B5B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{012AD3A2-BC0A-4C80-B674-30050F5B5B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{012AD3A2-BC0A-4C80-B674-30050F5B5B72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C01C46B-F4B0-4398-B67E-9E7B51F45C77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C01C46B-F4B0-4398-B67E-9E7B51F45C77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C01C46B-F4B0-4398-B67E-9E7B51F45C77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C01C46B-F4B0-4398-B67E-9E7B51F45C77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

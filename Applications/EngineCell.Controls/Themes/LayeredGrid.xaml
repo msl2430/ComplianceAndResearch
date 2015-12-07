@@ -1,0 +1,55 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:EngineCell.Controls">
+    <Style TargetType="{x:Type controls:LayeredGrid}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" Name="PART_ParentPanel">
+                        <DockPanel.BitmapEffect>
+                            <BevelBitmapEffect BevelWidth="15" EdgeProfile="BulgedUp"/>
+                        </DockPanel.BitmapEffect>
+                        <DockPanel.Resources>
+                            <Color x:Key="PrimaryColor">CadetBlue</Color>
+                            <Color x:Key="SecondaryColor">#CC0D1000</Color>
+                            <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
+                            <SolidColorBrush x:Key="TextBrush" Color="Black" />
+                            <SolidColorBrush x:Key="DisabledColor" Color="#8CFFFFFF" />
+                            <SolidColorBrush x:Key="BackgroundBrush" Color="#FFFFFFFF" />
+                            <Style x:Key="buttonStyle" TargetType="{x:Type Button}">
+                                <!--..
+                                ..
+                                ..-->
+                            </Style>
+                            <RadialGradientBrush x:Key="myColorfulLabelBrush" RadiusX="0.5" RadiusY="1">
+                                <GradientStop Color="#CC0D1000" Offset="0.1"/>
+                                <GradientStop Color="CadetBlue" Offset="0.9"/>
+                            </RadialGradientBrush>
+                            <RadialGradientBrush x:Key="myColorfulBorderBrush" RadiusX="0.4" RadiusY="0.6">
+                                <GradientStop Color="#CC3D2614" Offset="0.3"/>
+                                <GradientStop Color="Gold" Offset="0.8"/>
+                            </RadialGradientBrush>
+                        </DockPanel.Resources>
+                        <StackPanel Name="PART_BottomCntl" Background="{StaticResource myColorfulLabelBrush}" Orientation="Horizontal" 
+                            Panel.ZIndex="1" DockPanel.Dock="Bottom">
+                        </StackPanel>
+                        <StackPanel Name="PART_LeftCntl" Background="{StaticResource myColorfulLabelBrush}" Orientation="Horizontal" 
+                            DockPanel.Dock="Left">
+                            <StackPanel.LayoutTransform>
+                                <RotateTransform Angle="90"/>
+                            </StackPanel.LayoutTransform>
+                        </StackPanel>
+                        <StackPanel Name="PART_RightCntl" Background="{StaticResource myColorfulLabelBrush}" Orientation="Horizontal" 
+                            DockPanel.Dock="Right">
+                            <StackPanel.LayoutTransform>
+                                <RotateTransform Angle="90"/>
+                            </StackPanel.LayoutTransform>
+                        </StackPanel>
+                        <Grid Name="PART_MasterGrid" Grid.IsSharedSizeScope="True">
+                        </Grid>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:EngineCell"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             StartupUri="Views/ApplicationView.xaml"
+             StartupUri="Views/MainWindow.xaml"
              Startup="App_OnStartup"
              Exit="App_OnExit">
     <Application.Resources>
@@ -20,10 +20,12 @@
             </ResourceDictionary.MergedDictionaries>
             <system:Double x:Key="WindowTitleFontSize">12</system:Double>
             <FontFamily x:Key="HeaderFontFamily">Segoe UI</FontFamily>
+            
             <SolidColorBrush x:Key="GreenBrush" Color="#41A801"></SolidColorBrush>
             <SolidColorBrush x:Key="LightBlueBrush" Color="#6FBAC8"></SolidColorBrush>
             <SolidColorBrush x:Key="DarkBlueBrush" Color="#2B88AF"></SolidColorBrush>
             <SolidColorBrush x:Key="BrightBlueBrush" Color="#AADEE0"></SolidColorBrush>
+            <SolidColorBrush x:Key="HeadlineBlueBrush" Color="#1885be"></SolidColorBrush>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

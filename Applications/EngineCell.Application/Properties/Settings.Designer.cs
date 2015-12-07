@@ -22,5 +22,17 @@ namespace EngineCell.Application.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsLogVisible {
+            get {
+                return ((bool)(this["IsLogVisible"]));
+            }
+            set {
+                this["IsLogVisible"] = value;
+            }
+        }
     }
 }
