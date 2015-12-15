@@ -1,0 +1,48 @@
+change name to phases
+alarms change by phase
+
+Engine start
+move engine warming parameters to config menu
+
+progress bar to indicate engine start -> engine warm
+
+each phase has its on tab
+input monitor
+output control
+
+1 tab analog output
+1 tab digital outputs
+
+every output manual or auto (pid function triggered off input)
+
+auto pid when not on set gain i and d to 0 for all outputs
+
+auto screen - input p i and d 
+
+dyno throttle setpoints
+2 pids to pick from
+
+2 pids for dyno
+2 pids for throttle
+1 pid coolant
+1 pid oil
+
+strip chart keep history
+15 points
+gauge
+
+alarms low shutdown low warning high shutdown high warning
+email alarm
+
+persistant data points for thinkgs like engine hours
+
+every input 
+
+8 outputs total
+10 PIDS
+
+formulated outputs ie horsepower equation
+parse text formula - kill me
+
+configure points or pids on monitor
+
