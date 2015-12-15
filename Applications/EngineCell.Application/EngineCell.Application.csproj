@@ -103,18 +103,26 @@
     <Compile Include="Factories\ApplicationSessionFactory.cs" />
     <Compile Include="Factories\OptoMmpFactory.cs" />
     <Compile Include="Factories\ScratchPadFactory.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Services\WorkerServices\BaseWorkerThreadService.cs" />
     <Compile Include="Services\WorkerServices\OptoConnectionWorkerService.cs" />
     <Compile Include="Session\ApplicationSession.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\PidSetting.cs" />
     <Compile Include="Views\ApplicationView.xaml.cs">
       <DependentUpon>ApplicationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BaseWindowView.cs" />
+    <Compile Include="Views\Flyouts\AlarmConfigurationFlyout.xaml.cs">
+      <DependentUpon>AlarmConfigurationFlyout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PidConfiguration\PidConfiguration.xaml.cs">
+      <DependentUpon>PidConfiguration.xaml</DependentUpon>
     </Compile>
     <Page Include="Content\Resource\default.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -128,7 +136,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Flyouts\AlarmConfigurationFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PidConfiguration\PidConfiguration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

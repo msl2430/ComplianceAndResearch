@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+using EngineCell.Application.Views.Flyouts;
+using MahApps.Metro.Controls;
 
 namespace EngineCell.Application.Views
 {
@@ -22,9 +24,9 @@ namespace EngineCell.Application.Views
             InitializeComponent();
 
             ToggleLogWindow(Properties.Settings.Default.IsLogVisible);
-            ApplicationViewModel = new ApplicationViewModel();
+            ApplicationViewModel = new ApplicationViewModel() { CoolantPid = new PidSetting("Coolant Set Point"), ThrottlePid = new PidSetting("Throttle Set Point") };
             ApplicationSessionFactory = new ApplicationSessionFactory() { ApplicationViewModel = ApplicationViewModel };
-
+            
             DataContext = ApplicationViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
 
@@ -114,6 +116,17 @@ namespace EngineCell.Application.Views
         private void MenuExit_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void MenuAlarmConfig_Click(object sender, RoutedEventArgs e)
+        {
+            var parentWindow = Window.GetWindow(this);
+            AlarmConfiguration = (Flyout)parentWindow.FindName("AlarmConfiguration");
+            //AddManufacturerFlyout.FindChild<NewManufacturerFlyout>("NewManufacturerFlyout").NewManufacturerFlyoutViewModel.ApplicationSessionFactory =
+            //    ViewModel.ApplicationSessionFactory;
+            AlarmConfiguration.Tag = ControlConstants.ChangeTracking.Pristine;
+            AlarmConfiguration.IsOpen = true;
+            //ConfigurationSettingsFlyout.ClosingFinished += AddManufacturerFlyoutOnClosingFinished;
         }
         #endregion
 

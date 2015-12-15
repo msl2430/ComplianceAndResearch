@@ -6,6 +6,10 @@ namespace EngineCell.Application.ViewModels
 {
     public class ApplicationViewModel : BaseViewModel
     {
+        public PidSetting CoolantPid { get; set; }
+
+        public PidSetting ThrottlePid { get; set; }
+
         private string _logWindowString { get; set; }
         public string LogWindowString
         {
@@ -77,15 +81,14 @@ namespace EngineCell.Application.ViewModels
             }
         }
 
-        public IList<BaseViewModel> PageViewModelNavigationPath { get; set; }
-
         private string _titleLabel { get; set; }
-
         public string TitleLabel
         {
             get { return _titleLabel; }
             set { _titleLabel = value; OnPropertyChanged("TitleLabel"); }
         }
+
+        public IList<BaseViewModel> PageViewModelNavigationPath { get; set; }
 
         public ApplicationViewModel()
         {
