@@ -1,15 +1,14 @@
-﻿using EngineCell.Application.Factories;
-using EngineCell.Application.Services.WorkerServices;
-using EngineCell.Application.ViewModels;
-using EngineCell.Core.Constants;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
-using EngineCell.Application.Views.Flyouts;
+using EngineCell.Application.Factories;
+using EngineCell.Application.Services.WorkerServices;
+using EngineCell.Application.ViewModels;
+using EngineCell.Core.Constants;
 using MahApps.Metro.Controls;
 
 namespace EngineCell.Application.Views
@@ -24,7 +23,7 @@ namespace EngineCell.Application.Views
             InitializeComponent();
 
             ToggleLogWindow(Properties.Settings.Default.IsLogVisible);
-            ApplicationViewModel = new ApplicationViewModel() { CoolantPid = new PidSetting("Coolant Set Point"), ThrottlePid = new PidSetting("Throttle Set Point") };
+            ApplicationViewModel = new ApplicationViewModel();
             ApplicationSessionFactory = new ApplicationSessionFactory() { ApplicationViewModel = ApplicationViewModel };
             
             DataContext = ApplicationViewModel;

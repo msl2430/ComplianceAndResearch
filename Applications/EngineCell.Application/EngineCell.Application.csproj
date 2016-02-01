@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>EngineCell.Application.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FirstFloor.ModernUI">
       <HintPath>..\Library\FirstFloor.ModernUI.dll</HintPath>
@@ -47,8 +50,8 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\Library\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="MahApps.Metro, Version=1.1.2.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
-      <HintPath>packages\MahApps.Metro.1.1.2.0\lib\net45\MahApps.Metro.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Windows.Shell">
@@ -67,11 +70,23 @@
     <Reference Include="OptoMMP3">
       <HintPath>..\Library\OptoMMP3.dll</HintPath>
     </Reference>
+    <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <HintPath>packages\OxyPlot.Core.1.0.0-unstable1976\lib\net45\OxyPlot.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+      <HintPath>packages\OxyPlot.Wpf.1.0.0-unstable1976\lib\net45\OxyPlot.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OxyPlot.Xps, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\OxyPlot.Wpf.1.0.0-unstable1976\lib\net45\OxyPlot.Xps.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\MahApps.Metro.1.1.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>packages\MahApps.Metro.1.2.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -103,14 +118,15 @@
     <Compile Include="Factories\ApplicationSessionFactory.cs" />
     <Compile Include="Factories\OptoMmpFactory.cs" />
     <Compile Include="Factories\ScratchPadFactory.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Services\WorkerServices\BaseWorkerThreadService.cs" />
     <Compile Include="Services\WorkerServices\OptoConnectionWorkerService.cs" />
+    <Compile Include="Services\WorkerServices\StripChartWorkerService.cs" />
     <Compile Include="Session\ApplicationSession.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\PidSetting.cs" />
+    <Compile Include="ViewModels\StripChart\StripChartViewModels.cs" />
     <Compile Include="Views\ApplicationView.xaml.cs">
       <DependentUpon>ApplicationView.xaml</DependentUpon>
     </Compile>
@@ -123,6 +139,9 @@
     </Compile>
     <Compile Include="Views\PidConfiguration\PidConfiguration.xaml.cs">
       <DependentUpon>PidConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StripChart\StripChart.xaml.cs">
+      <DependentUpon>StripChart.xaml</DependentUpon>
     </Compile>
     <Page Include="Content\Resource\default.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -145,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PidConfiguration\PidConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StripChart\StripChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

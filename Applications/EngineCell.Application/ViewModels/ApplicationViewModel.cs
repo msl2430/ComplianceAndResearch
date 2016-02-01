@@ -1,15 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using EngineCell.Core.Constants;
+using OxyPlot;
+using OxyPlot.Series;
 
 namespace EngineCell.Application.ViewModels
 {
     public class ApplicationViewModel : BaseViewModel
     {
+        public PidSetting DynoPid1 { get; set; }
+
+        public PidSetting DynoPid2 { get; set; }
+
+        public PidSetting ThrottlePid1 { get; set; }
+
+        public PidSetting ThrottlePid2 { get; set; }
+
         public PidSetting CoolantPid { get; set; }
 
-        public PidSetting ThrottlePid { get; set; }
-
+        public PidSetting OilPid { get; set; }
+        
         private string _logWindowString { get; set; }
         public string LogWindowString
         {
@@ -93,6 +103,12 @@ namespace EngineCell.Application.ViewModels
         public ApplicationViewModel()
         {
             PageViewModelNavigationPath = new List<BaseViewModel>();
+            DynoPid1 = new PidSetting("Dyno 1");
+            DynoPid2 = new PidSetting("Dyno 2");
+            ThrottlePid1 = new PidSetting("Throttle 1");
+            ThrottlePid2 = new PidSetting("Throttle 2");
+            CoolantPid = new PidSetting("Coolant");
+            OilPid = new PidSetting("Oil");            
         }
 
         public void ChangePageViewModel(BaseViewModel viewModel)

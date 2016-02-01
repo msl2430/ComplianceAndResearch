@@ -14,62 +14,28 @@ namespace EngineCell.Application.ViewModels
                 _isManual = value;
                 if (!value)
                 {
-                    Proportional = 0;
-                    Integral = 0;
-                    Derivative = 0;
+                    SetPoint = 0;
                 }
                 OnPropertyChanged("IsManual");
             }
         }
 
-        private decimal _proportional { get; set; }
+        private decimal _setPoint { get; set; }
 
-        public decimal Proportional
+        public decimal SetPoint
         {
             get
             {
-                return _proportional;
+                return _setPoint;
             }
             set
             {
-                _proportional = value;
-                IsDirty = true;
-                OnPropertyChanged("Proportional");
+                _setPoint = value;
+                IsDirty = false;
+                OnPropertyChanged("SetPoint");
             }
         }
-
-        private decimal _integral { get; set; }
-
-        public decimal Integral
-        {
-            get
-            {
-                return _integral;
-            }
-            set
-            {
-                _integral = value;
-                IsDirty = true;
-                OnPropertyChanged("Integral");
-            }
-        }
-
-        private decimal _derivative { get; set; }
-
-        public decimal Derivative
-        {
-            get
-            {
-                return _derivative;
-            }
-            set
-            {
-                _derivative = value;
-                IsDirty = true;
-                OnPropertyChanged("Derivative");
-            }
-        }
-
+        
         public string Name { get; set; }
 
         private bool _isDirty { get; set; }
