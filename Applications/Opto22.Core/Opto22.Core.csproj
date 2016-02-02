@@ -57,12 +57,6 @@
     <Compile Include="Service\PointService.cs" />
     <Compile Include="Service\ScratchPadService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Robot.Core\Robot.Core.csproj">
-      <Project>{639bd71d-5fa9-48e4-b0cc-a4fbbcfd6793}</Project>
-      <Name>Robot.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,6 +1,8 @@
-﻿using EngineCell.Application.ViewModels;
+﻿using System;
+using EngineCell.Application.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace EngineCell.Application.Views.PidConfiguration
 {
@@ -19,11 +21,19 @@ namespace EngineCell.Application.Views.PidConfiguration
         private void SetButton_OnClick(object sender, RoutedEventArgs e)
         {
             Settings.IsDirty = false;
+            Settings.SetPoint = Convert.ToDecimal(((TextBox)sender).Text);
         }
 
         private void PidConfiguration_OnLoaded(object sender, RoutedEventArgs e)
         {
             Settings = (PidSetting)DataContext;
+        }
+
+        private void SetPoint_OnChange(object sender, TextChangedEventArgs e)
+        {
+            if (sender == null || Settings == null)
+                return;
+            Settings.IsDirty = true;
         }
     }
 }

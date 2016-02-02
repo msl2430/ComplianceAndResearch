@@ -26,6 +26,7 @@ dyno throttle setpoints
 2 pids for throttle
 1 pid coolant
 1 pid oil
+1 pid intercooler
 
 strip chart keep history
 15 points

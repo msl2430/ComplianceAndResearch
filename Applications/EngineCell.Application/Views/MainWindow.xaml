@@ -8,7 +8,10 @@
         xmlns:extensions="clr-namespace:EngineCell.Application.Extensions"
         xmlns:pidConfiguration="clr-namespace:EngineCell.Application.Views.PidConfiguration"
         xmlns:flyouts="clr-namespace:EngineCell.Application.Views.Flyouts"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:stripChart="clr-namespace:EngineCell.Application.Views.StripChart"
         mc:Ignorable="d"
+        WindowState="Maximized"
         Title="Rocket Rod" Height="720" Width="1024">
         <local:BaseWindowView.Resources>
             <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
@@ -50,9 +53,11 @@
                 </Grid>
                 <Grid Row="1">
                   <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" MinWidth="200"/>
+                    <ColumnDefinition Width="450" MinWidth="350"/>
                     <ColumnDefinition Width="5"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="350" MinWidth="350"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*" MinWidth="200"/>
                   </Grid.ColumnDefinitions>
                   <Grid Column="0">
                     <controls:MetroAnimatedSingleRowTabControl Margin="5" HorizontalAlignment="Stretch" Width="Auto">
@@ -84,12 +89,10 @@
                                         </StackPanel>
                                     </Grid>
                                     <Grid Row="1" Margin="0,5,0,0">
-                                        <Border BorderBrush="{StaticResource DarkBlueBrush}" BorderThickness="1.01"></Border>
-                                        <pidConfiguration:PidConfiguration DataContext="{Binding Path=ThrottlePid}"></pidConfiguration:PidConfiguration>
+                                        
                                     </Grid>
                                     <Grid Row="2" Margin="0,5,0,0">
-                                        <Border BorderBrush="{StaticResource DarkBlueBrush}" BorderThickness="1.01"></Border>
-                                        <pidConfiguration:PidConfiguration DataContext="{Binding Path=CoolantPid}"></pidConfiguration:PidConfiguration>
+                                        
                                     </Grid>
                                 </Grid>
                     </TabItem>
@@ -124,7 +127,30 @@
                     </controls:MetroAnimatedSingleRowTabControl>
                   </Grid>
                   <GridSplitter Grid.Column="1" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                  <Grid Column="2"></Grid>
+                  <Grid Column="2">
+                    <StackPanel>
+                      <pidConfiguration:PidConfiguration DataContext="{Binding Path=DynoPid1}"></pidConfiguration:PidConfiguration>
+                      <pidConfiguration:PidConfiguration DataContext="{Binding Path=DynoPid2}"></pidConfiguration:PidConfiguration>
+                      <pidConfiguration:PidConfiguration DataContext="{Binding Path=ThrottlePid1}"></pidConfiguration:PidConfiguration>
+                      <pidConfiguration:PidConfiguration DataContext="{Binding Path=ThrottlePid2}"></pidConfiguration:PidConfiguration>
+                      <pidConfiguration:PidConfiguration DataContext="{Binding Path=CoolantPid}"></pidConfiguration:PidConfiguration>
+                      <pidConfiguration:PidConfiguration DataContext="{Binding Path=OilPid}"></pidConfiguration:PidConfiguration>
+                    </StackPanel>
+                  </Grid>
+                  <GridSplitter Grid.Column="3" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                  <Grid Column="4">
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="5*"/>
+                      <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Row="0">
+
+                    </Grid>
+                    <Grid Row="1">                      
+                      <stripChart:StripChart></stripChart:StripChart>
+                    </Grid>
+
+                  </Grid>
                 </Grid>
                 <Grid Grid.Row="2">
                     <StatusBar>

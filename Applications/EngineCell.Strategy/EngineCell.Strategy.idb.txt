@@ -2,9 +2,15 @@
 
 # PAC CONTROL TAG DATABASE DUMP
 # ----------------------------------------------------------------
+<<<<<<< HEAD
 # NAME :         C:\Foshizzle\ComplianceAndResearch\Applications\EngineCell.Strategy\EngineCell.Strategy.idb
 # VERSION :      R9.4a
 # TIME/DATE :    10:1:7 1/16/2016
+=======
+# NAME :         E:\Projects\ComplianceAndResearch\Applications\EngineCell.Strategy\EngineCell.Strategy.idb
+# VERSION :      R9.4a
+# TIME/DATE :    17:33:33 2/1/2016
+>>>>>>> 6618e6b33d4996cbbdfa74ea1226d633276ca2f8
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
