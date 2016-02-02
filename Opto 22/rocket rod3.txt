@@ -1,0 +1,20 @@
+Manual mode set output only not p i d  toggle button next to value
+Auto pid when not on set gain i and d to 0 for all outputs
+
+Start
+- toggle button to feather the throttle
+- Starter timeout (seconds)
+- Starter retries
+
+
+- Throttle and Dyno have different modes
+
+CLOCKS
+- actual time of day
+- how long phase running
+- time remaining
+
+- Qualifier to end stage in alarm config
+ie channel coolant: temp to leave each phase
+
+
