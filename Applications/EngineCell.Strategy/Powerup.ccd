@@ -1,0 +1,50 @@
+: 0_0
+0 JUMP ;
+: 0_1
+1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
+2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad ^gIndex @@ 0  IO.SP.I.WRITE DROP  
+4 LINE.NUM 1 +LOOP 
+0 JUMP ;
+: 0_3
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  1    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  0  
+  ^IsApplicationConnected   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+2 JUMP ;
+: 0_4
+-5 JUMP ;
+: 0_5
+
+1 LINE.NUM
+  ^IsApplicationConnected   FALSE@!
+-2 JUMP ;
+: 0_2
+TRUE
+
+1 LINE.NUM
+  ^IsApplicationConnected @@ 
+  1    =
+LAND
+IF -3 ELSE -2 THEN JUMP ;
+T: T0
+DUMMY
+0_0
+0_1
+0_3
+0_4
+0_5
+0_2
+T;
+&Powerup ' T0 SETTASK
