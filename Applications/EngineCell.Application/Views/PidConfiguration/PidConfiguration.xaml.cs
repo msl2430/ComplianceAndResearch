@@ -21,7 +21,7 @@ namespace EngineCell.Application.Views.PidConfiguration
         private void SetButton_OnClick(object sender, RoutedEventArgs e)
         {
             Settings.IsDirty = false;
-            Settings.SetPoint = Convert.ToDecimal(((TextBox)sender).Text);
+            Settings.Output = Convert.ToDecimal(((TextBox)sender).Text);
         }
 
         private void PidConfiguration_OnLoaded(object sender, RoutedEventArgs e)
@@ -29,7 +29,7 @@ namespace EngineCell.Application.Views.PidConfiguration
             Settings = (PidSetting)DataContext;
         }
 
-        private void SetPoint_OnChange(object sender, TextChangedEventArgs e)
+        private void Output_OnChange(object sender, TextChangedEventArgs e)
         {
             if (sender == null || Settings == null)
                 return;

@@ -8,7 +8,6 @@ using EngineCell.Application.Extensions;
 using EngineCell.Application.Factories;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
-using Opto22.Core.Constants;
 using Opto22.Core.Models;
 
 namespace EngineCell.Application.Services.WorkerServices
@@ -27,8 +26,7 @@ namespace EngineCell.Application.Services.WorkerServices
         private int _successCount;
         private const int MaximumWaitPeriod = 300000;
         private readonly string _successMessage = "Connected: " + ConfigurationManager.AppSettings["OptoIpAddress"] + ":" + ConfigurationManager.AppSettings["OptoMmpPort"];
-        private Stopwatch WaitStopWatch { get; set; }
-
+        
         private IScratchPadModel<int> ConnectedScratchPad { get; set; }
         private IApplicationSessionFactory ApplicationSessionFactory { get; set; }
 

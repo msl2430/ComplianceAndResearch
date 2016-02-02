@@ -28,7 +28,7 @@ namespace EngineCell.Application.Services.WorkerServices
                 while (!CancellationToken.IsCancellationRequested)
                 {
                     if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
-                    if (WaitStopWatch.ElapsedMilliseconds > 10 && StripChartViewModel.IsPlay)
+                    if (WaitStopWatch.ElapsedMilliseconds > 10)
                     {
                         WaitStopWatch.Stop();
                         WaitStopWatch.Reset();
@@ -40,13 +40,15 @@ namespace EngineCell.Application.Services.WorkerServices
                                     .GetProperties()
                                     .Where(p => p.PropertyType == typeof (ChartSeries))
                                     .Select(propInfo => propInfo.GetValue(StripChartViewModel) as ChartSeries)
-                                    .Where(series => series != null && series.IsVisible))
+                                    .Where(series => series != null))
                         {
                             series.DataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint),
                                 new Random(DateTime.Now.Millisecond).Next(maxValue: 50, minValue: -50)));
                             Thread.Sleep(10);
                         }
 
+                        if (!StripChartViewModel.IsPlay)
+                            continue;
                         ResetAndPanGraph(timePoint);
                         StripChartViewModel.UpdateSeries();
                     }

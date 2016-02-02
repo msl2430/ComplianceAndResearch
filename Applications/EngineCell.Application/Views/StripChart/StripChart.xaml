@@ -30,6 +30,9 @@
             <CheckBox Name="Throttle2Check" FlowDirection="RightToLeft" Margin="5,0,3,0" IsChecked="{Binding Throttle2Series.IsVisible}">
                 <TextBlock FlowDirection="LeftToRight" Text="Throttle 2" />
             </CheckBox>
+            <CheckBox FlowDirection="RightToLeft" Margin="5,0,3,0" IsChecked="{Binding Intercooler.IsVisible}">
+                <TextBlock FlowDirection="LeftToRight" Text="Intercooler" />
+            </CheckBox>
             <CheckBox FlowDirection="RightToLeft" Margin="5,0,3,0" IsChecked="{Binding CoolantSeries.IsVisible}">
                 <TextBlock FlowDirection="LeftToRight" Text="Coolant" />
             </CheckBox>

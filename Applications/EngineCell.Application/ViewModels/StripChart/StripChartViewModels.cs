@@ -78,6 +78,17 @@ namespace EngineCell.Application.ViewModels.StripChart
             }
         }
 
+        private ChartSeries _intercooler { get; set; }
+        public ChartSeries Intercooler
+        {
+            get { return _intercooler; }
+            set
+            {
+                _intercooler = value;
+                OnPropertyChanged("Intercooler");
+            }
+        }
+
         private bool _isPlay { get; set; }
         public bool IsPlay
         {
@@ -109,6 +120,7 @@ namespace EngineCell.Application.ViewModels.StripChart
             Throttle2Series = new ChartSeries("Throttle 2");
             CoolantSeries = new ChartSeries("Coolant");
             OilSeries = new ChartSeries("Oil");
+            Intercooler = new ChartSeries("Intercooler");
         }
 
         private void InitializePlotModel()
@@ -135,7 +147,7 @@ namespace EngineCell.Application.ViewModels.StripChart
                 StartPosition = 0,
                 MajorGridlineStyle = LineStyle.Solid,
                 MinorGridlineStyle = LineStyle.Dot,
-                Title = "Set Point",
+                Title = "Output",
                 Minimum = -50,
                 Maximum = 50,
             };
@@ -153,6 +165,7 @@ namespace EngineCell.Application.ViewModels.StripChart
                 if (series == null || !series.IsVisible || !series.DataPoints.Any())
                     continue;
                 var newSeries = new LineSeries() {Title = series.SeriesName};
+                newSeries.IsVisible = series.IsVisible;
                 newSeries.Points.AddRange(series.DataPoints);
                 PlotModel.Series.Add(newSeries);
             }

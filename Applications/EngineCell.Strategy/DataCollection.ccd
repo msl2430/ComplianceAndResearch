@@ -1,0 +1,31 @@
+: 1_0
+0 JUMP ;
+: 1_1
+
+1 LINE.NUM
+  %ScratchPad 
+  100  
+  ^IsStartDataCollect   IO.SP.READ
+  ^GetScratchPadResult @! 
+2 JUMP ;
+: 1_3
+-2 JUMP ;
+: 1_9
+-2 JUMP ;
+: 1_2
+TRUE
+
+1 LINE.NUM
+  ^IsStartDataCollect @@ 
+  1    =
+LAND
+IF -2 ELSE -3 THEN JUMP ;
+T: T1
+DUMMY
+1_0
+1_1
+1_3
+1_9
+1_2
+T;
+&DataCollection ' T1 SETTASK

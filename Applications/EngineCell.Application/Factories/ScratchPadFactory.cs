@@ -97,7 +97,8 @@ namespace EngineCell.Application.Factories
                 : null;
 
             if (sc == null)
-                throw new Exception("Bad scratchpad Bit index.");
+                ScratchPadBits.Add(new ScratchPadModel<bool>(index, "undefined", false));
+            //throw new Exception("Bad scratchpad Bit index."); TODO: Do we want to keep this?
 
             bool tempBit;
             var result = OptoMmp.Current.ScratchpadBitRead(out tempBit, index);
@@ -116,7 +117,8 @@ namespace EngineCell.Application.Factories
                 : null;
 
             if (sc == null)
-                throw new Exception("Bad scratchpad Int index.");
+                ScratchPadInts.Add(new ScratchPadModel<int>(index, "undefined", 0));
+            //throw new Exception("Bad scratchpad Int index.");TODO: Do we want to keep this?
 
             var optoScratchPadInt = new int[1];
             var result = OptoMmp.Current.ScratchpadI32Read(optoScratchPadInt, 0, 1, index);
@@ -154,7 +156,8 @@ namespace EngineCell.Application.Factories
                 : null;
 
             if (sc == null)
-                throw new Exception("Bad scratchpad Float index.");
+                ScratchPadFloats.Add(new ScratchPadModel<decimal>(index, "undefined", 0));
+            //throw new Exception("Bad scratchpad Float index.");
 
             var optoScratchPadFloat = new float[1];
             var result = OptoMmp.Current.ScratchpadFloatRead(optoScratchPadFloat, 0, 1, index);
@@ -178,7 +181,8 @@ namespace EngineCell.Application.Factories
             if (typeof (T) == typeof (bool))
             {
                 if (ScratchPadBits.All(b => b.Index != index))
-                    throw new Exception("Bad scratchpad bit index.");
+                    ScratchPadBits.Add(new ScratchPadModel<bool>(index, "undefined", false));
+                //throw new Exception("Bad scratchpad bit index.");
 
                 var result = OptoMmp.Current.ScratchpadBitWrite(Convert.ToBoolean(value), index);
                 if (result != 0)
@@ -189,7 +193,8 @@ namespace EngineCell.Application.Factories
             else if (typeof (T) == typeof (int))
             {
                 if (ScratchPadInts.All(b => b.Index != index))
-                    throw new Exception("Bad scratchpad int index.");
+                    ScratchPadInts.Add(new ScratchPadModel<int>(index, "undefined", 0));
+                //throw new Exception("Bad scratchpad int index.");
 
                 var result = OptoMmp.Current.ScratchpadI32Write(new[] {Convert.ToInt32(value)}, 0, 1, index);
                 if (result != 0)
@@ -200,7 +205,8 @@ namespace EngineCell.Application.Factories
             else if (typeof (T) == typeof (string))
             {
                 if (ScratchPadStrings.All(b => b.Index != index))
-                    throw new Exception("Bad scratchpad string index.");
+                    ScratchPadStrings.Add(new ScratchPadModel<string>(index, "undefined", ""));
+                //throw new Exception("Bad scratchpad string index.");
 
                 var result = OptoMmp.Current.ScratchpadStringWrite(new[] {Convert.ToString(value)}, 0, 1, index);
                 if (result != 0)
@@ -211,7 +217,8 @@ namespace EngineCell.Application.Factories
             else if (typeof(T) == typeof(decimal))
             {
                 if (ScratchPadFloats.All(b => b.Index != index))
-                    throw new Exception("Bad scratchpad float index.");
+                    ScratchPadFloats.Add(new ScratchPadModel<decimal>(index, "undefined", 0));
+                //throw new Exception("Bad scratchpad float index.");
 
                 var result = OptoMmp.Current.ScratchpadFloatWrite(new[] { (float)Convert.ToDecimal(value) }, 0, 1, index);
                 if (result != 0)

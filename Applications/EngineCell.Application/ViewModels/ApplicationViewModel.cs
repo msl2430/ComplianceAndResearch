@@ -19,6 +19,8 @@ namespace EngineCell.Application.ViewModels
         public PidSetting CoolantPid { get; set; }
 
         public PidSetting OilPid { get; set; }
+
+        public PidSetting Intercooler { get; set; }
         
         private string _logWindowString { get; set; }
         public string LogWindowString
@@ -109,6 +111,7 @@ namespace EngineCell.Application.ViewModels
             ThrottlePid2 = new PidSetting("Throttle 2");
             CoolantPid = new PidSetting("Coolant");
             OilPid = new PidSetting("Oil");            
+            Intercooler = new PidSetting("Intercooler");
         }
 
         public void ChangePageViewModel(BaseViewModel viewModel)

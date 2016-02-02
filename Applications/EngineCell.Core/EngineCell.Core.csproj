@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\ControlConstants.cs" />
+    <Compile Include="Constants\ScratchPadConstants.cs" />
     <Compile Include="Constants\StatusConstants.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />

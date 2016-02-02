@@ -125,12 +125,24 @@
     <Compile Include="Session\ApplicationSession.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Clocks\ClockViewModel.cs" />
+    <Compile Include="ViewModels\Clocks\RemainingTimeViewModel.cs" />
+    <Compile Include="ViewModels\Clocks\RunTimeViewModel.cs" />
     <Compile Include="ViewModels\PidSetting.cs" />
     <Compile Include="ViewModels\StripChart\StripChartViewModels.cs" />
     <Compile Include="Views\ApplicationView.xaml.cs">
       <DependentUpon>ApplicationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BaseWindowView.cs" />
+    <Compile Include="Views\Clocks\Clock.xaml.cs">
+      <DependentUpon>Clock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Clocks\RunTime.xaml.cs">
+      <DependentUpon>RunTime.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Clocks\TimeRemaining.xaml.cs">
+      <DependentUpon>TimeRemaining.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Flyouts\AlarmConfigurationFlyout.xaml.cs">
       <DependentUpon>AlarmConfigurationFlyout.xaml</DependentUpon>
     </Compile>
@@ -152,6 +164,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ApplicationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Clocks\Clock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Clocks\RunTime.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Clocks\TimeRemaining.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

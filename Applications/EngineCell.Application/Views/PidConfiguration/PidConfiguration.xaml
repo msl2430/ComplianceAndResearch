@@ -25,8 +25,8 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
             <controls:ToggleSwitch SwitchForeground="{StaticResource DarkBlueBrush}" OffLabel="Auto" OnLabel="Manual" Margin="0,-2,0,0"
                                             IsChecked="{Binding Path=IsManual, Mode=TwoWay, NotifyOnSourceUpdated=True}" FontSize="12"></controls:ToggleSwitch>
-            <Label Visibility="{Binding Path=IsManual, Converter={StaticResource BoolToVisibilityConverter}}">Set Point</Label>
-            <TextBox Name="SetPointTextBox" Text="{Binding Path=SetPoint}" Width="45" Visibility="{Binding Path=IsManual, Converter={StaticResource BoolToVisibilityConverter}}" TextChanged="SetPoint_OnChange"></TextBox>
+            <Label Visibility="{Binding Path=IsManual, Converter={StaticResource BoolToVisibilityConverter}}">Output</Label>
+            <TextBox Name="OutputTextBox" Text="{Binding Path=Output}" Width="45" Visibility="{Binding Path=IsManual, Converter={StaticResource BoolToVisibilityConverter}}" TextChanged="Output_OnChange"></TextBox>
             <Button Content="Set" Background="{StaticResource DarkBlueBrush}" Foreground="Black" FontSize="10" Height="25" Width="40" Margin="5,0,0,0"
                     Visibility="{Binding Path=IsManual, Converter={StaticResource BoolToVisibilityConverter}}" IsEnabled="{Binding Path=IsDirty}"
                     Click="SetButton_OnClick"></Button>

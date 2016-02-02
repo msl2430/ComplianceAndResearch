@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using EngineCell.Application.Factories;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels;
 using EngineCell.Core.Constants;
+using EngineCell.Core.Extensions;
 using MahApps.Metro.Controls;
 
 namespace EngineCell.Application.Views
@@ -28,6 +30,7 @@ namespace EngineCell.Application.Views
             
             DataContext = ApplicationViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
+            RemainingTimer.SetTimer(TimeSpan.FromMinutes(45));
 
         }
 
@@ -75,7 +78,7 @@ namespace EngineCell.Application.Views
                     {
                         ApplicationSessionFactory.LogEvent("Connecting to Opto 22 @" + ConfigurationManager.AppSettings["OptoIpAddress"], true);
                         RefreshOptoConnection(true);
-                        OptoConnectionWorker.DoWork();
+                        OptoConnectionWorker.DoWork();                        
                     }).ConfigureAwait(false);
                     break;
                 case StatusConstants.ConnectionStatus.Connected:
@@ -146,6 +149,11 @@ namespace EngineCell.Application.Views
             LogWindow.Visibility = Visibility.Collapsed;
             HideStatusBarButtonIcon.Visual = (Visual)FindResource("appbar_chevron_up");
         }
-        #endregion        
+        #endregion
+
+        private void StartPhaseButton_Click(object sender, RoutedEventArgs e)
+        {
+            ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
+        }
     }
 }

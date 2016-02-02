@@ -14,25 +14,25 @@ namespace EngineCell.Application.ViewModels
                 _isManual = value;
                 if (!value)
                 {
-                    SetPoint = 0;
+                    Output = 0;
                 }
                 OnPropertyChanged("IsManual");
             }
         }
 
-        private decimal _setPoint { get; set; }
+        private decimal _output { get; set; }
 
-        public decimal SetPoint
+        public decimal Output
         {
             get
             {
-                return _setPoint;
+                return _output;
             }
             set
             {
-                _setPoint = value;
+                _output = value;
                 IsDirty = false;
-                OnPropertyChanged("SetPoint");
+                OnPropertyChanged("Output");
             }
         }
         
