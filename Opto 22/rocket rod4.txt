@@ -1,0 +1,21 @@
+only one throttle and dyno active at once
+not dyno 1 and 2 - dyno speed dyno load
+pids specific to test cell
+fan on and heat exchanger on/off at diff temps
+on/off for pids
+dyno direct added to list of dyno pids
+reverse manual auto colors
+dyno 1 2 and direct only one 
+lock screen ability for idiots
+
+Rename all analog inputs to ThermalCouple#
+In app rename all input/outputs and checkbox for strip chart
+
+PID
+speed torgue direct 
+button next to set - return to auto
+
+dyno and throttle pid never in same mode (speed torque except direct)
+
+control mode name auto-manual
+
