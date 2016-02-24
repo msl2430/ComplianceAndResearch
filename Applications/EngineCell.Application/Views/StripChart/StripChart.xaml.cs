@@ -1,23 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using EngineCell.Application.Services.WorkerServices;
-using EngineCell.Application.ViewModels;
 using EngineCell.Application.ViewModels.StripChart;
-using OxyPlot;
-using OxyPlot.Axes;
-using OxyPlot.Series;
 
 namespace EngineCell.Application.Views.StripChart
 {
@@ -42,12 +27,11 @@ namespace EngineCell.Application.Views.StripChart
             if (DataContext != null)
                 ChartViewModel = (StripChartViewModel) DataContext;
 
-            //ChartViewModel = new StripChartViewModel();
-            ChartViewModel.UpdateSeries();
+            if (StripChartWorker != null && StripChartWorker.IsRunning)
+                return;
 
-            //DataContext = ChartViewModel;
+            ChartViewModel.CreateSeries();
             StripChartWorker = new StripChartWorkerService(ChartViewModel);
-
             Task.Run(() => StripChartWorker.DoWork()).ConfigureAwait(false);
         }
 

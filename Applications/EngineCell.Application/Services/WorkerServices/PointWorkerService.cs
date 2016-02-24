@@ -41,11 +41,11 @@ namespace EngineCell.Application.Services.WorkerServices
                         //Check if we're connected to and collecting data from Opto before proceeding
                         if (appSession.OptoMmpFactory != null && appSession.OptoMmpFactory.Current.IsCommunicationOpen && appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt()).Value == 1)
                         {
-                            foreach (var cellPoint in appSession.CellPoints)
-                            {
-                                var point = (ScratchPadConstants.IntegerIndexes)Enum.Parse(typeof (ScratchPadConstants.IntegerIndexes), cellPoint.PointName, true);
-                                cellPoint.Data = appSession.ScratchPadFactory.GetScratchPadFloat(point.ToInt()).Value;
-                            }
+                            //foreach (var cellPoint in appSession.CellPoints)
+                            //{
+                            //    var point = (ScratchPadConstants.FloatIndexes)Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
+                            //    cellPoint.Data = appSession.ScratchPadFactory.GetScratchPadFloat(point.ToInt()).Value;
+                            //}
                         }
                     }
                     Thread.Sleep(1000);

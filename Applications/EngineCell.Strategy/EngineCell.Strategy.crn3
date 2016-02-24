@@ -5,6 +5,7 @@ CREATE T.ARRAY
 CREATE V.ARRAY
 ^GetScratchPadResult ,
 ^gIndex ,
+^gTest ,
 ^IsApplicationConnected ,
 ^IsStartDataCollect ,
 ^IsStartTest ,
@@ -82,11 +83,11 @@ CREATE P.ARRAY
 ~AO10 ,
 ~AO10Bipolar ,
 ~AO4_20_0 ,
+~AO4_20_1 ,
+~AO4_20_2 ,
+~AO4_20_3 ,
 ~AO5 ,
 ~AO5Bipolar ,
-~AO_20_1 ,
-~AO_20_2 ,
-~AO_20_3 ,
 ~HART0 ,
 ~HART1 ,
 ~MilliAmp0 ,
@@ -136,6 +137,7 @@ $0000000000000000.. %ScratchPad ENABLES!
  " Initializing variables" *_HSV_INIT_IO $MOVE
 0 ^GetScratchPadResult @!
 0 ^gIndex @!
+0.00000000 ^gTest @!
 0 ^IsApplicationConnected @!
 0 ^IsStartDataCollect @!
 0 ^IsStartTest @!

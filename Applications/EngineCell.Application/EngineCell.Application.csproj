@@ -127,16 +127,15 @@
     <Compile Include="Services\WorkerServices\PointWorkerService.cs" />
     <Compile Include="Services\WorkerServices\StripChartWorkerService.cs" />
     <Compile Include="Session\ApplicationSession.cs" />
-    <Compile Include="ViewModels\ApplicationViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Clocks\ClockViewModel.cs" />
     <Compile Include="ViewModels\Clocks\RemainingTimeViewModel.cs" />
     <Compile Include="ViewModels\Clocks\RunTimeViewModel.cs" />
     <Compile Include="ViewModels\PidSetting.cs" />
+    <Compile Include="ViewModels\PointConfiguration\PointConfigurationViewModel.cs" />
     <Compile Include="ViewModels\StripChart\StripChartViewModels.cs" />
-    <Compile Include="Views\ApplicationView.xaml.cs">
-      <DependentUpon>ApplicationView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModels\TestDisplay\TestDisplayViewModel.cs" />
     <Compile Include="Views\BaseWindowView.cs" />
     <Compile Include="Views\Clocks\Clock.xaml.cs">
       <DependentUpon>Clock.xaml</DependentUpon>
@@ -156,8 +155,17 @@
     <Compile Include="Views\PidConfiguration\PidConfiguration.xaml.cs">
       <DependentUpon>PidConfiguration.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PointConfiguration\PointConfiguration.xaml.cs">
+      <DependentUpon>PointConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PointConfiguration\PointDisplay.xaml.cs">
+      <DependentUpon>PointDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StripChart\StripChart.xaml.cs">
       <DependentUpon>StripChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestDisplay\TestDisplay.xaml.cs">
+      <DependentUpon>TestDisplay.xaml</DependentUpon>
     </Compile>
     <Page Include="Content\Resource\default.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -166,10 +174,6 @@
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ApplicationView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Clocks\Clock.xaml">
       <SubType>Designer</SubType>
@@ -195,7 +199,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\PointConfiguration\PointConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PointConfiguration\PointDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StripChart\StripChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestDisplay\TestDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

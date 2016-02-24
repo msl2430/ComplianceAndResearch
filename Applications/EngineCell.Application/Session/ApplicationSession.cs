@@ -11,7 +11,7 @@ namespace EngineCell.Application.Session
         private static IScratchPadFactory _scratchPadFactory { get; set; }
         public static IScratchPadFactory ScratchPadFactory { get { return _scratchPadFactory ?? (_scratchPadFactory = new ScratchPadFactory(OptoMmpFactory)); } }
 
-        public static ApplicationViewModel ApplicationViewModel { get; set; }
+        public static MainWindowViewModel ApplicationViewModel { get; set; }
         public static bool IsConnectedToOpto { get; set; }        
     }
 }

@@ -11,11 +11,13 @@ using EngineCell.Application.Factories;
 using EngineCell.Application.Models;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels;
+using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
+using EngineCell.Application.ViewModels.TestDisplay;
 using EngineCell.Core.Constants;
-using EngineCell.Core.Extensions;
 using EngineCell.Models.Repositories;
 using MahApps.Metro.Controls;
+using Remotion.Linq.Collections;
 
 namespace EngineCell.Application.Views
 {
@@ -24,71 +26,54 @@ namespace EngineCell.Application.Views
     /// </summary>
     public partial class MainWindow : BaseWindowView
     {
-        private ApplicationViewModel ApplicationViewModel { get; set; }
+        private MainWindowViewModel MainWindowViewModel { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
 
             ToggleLogWindow(Properties.Settings.Default.IsLogVisible);
-            ApplicationViewModel = new ApplicationViewModel();
+            MainWindowViewModel = new MainWindowViewModel();
             ApplicationSessionFactory = new ApplicationSessionFactory()
             {
-                ApplicationViewModel = ApplicationViewModel,
+                ApplicationViewModel = MainWindowViewModel,
                 CellPoints = (new CellPointRepository()).GetCellPointsByCellId(1)
                                 .ToList()
                                 .Select(p => new PointDataModel(p))
                                 .ToList()
                     
             };
-            ApplicationSessionFactory.CellPoints =
-                (new CellPointRepository()).GetCellPointsByCellId(1)
-                    .ToList()
-                    .Select(cp => new PointDataModel(cp))
-                    .Take(1)
-                    .ToList();
+            
+            MainWindowViewModel.PointConfigViewModel = new PointConfigurationViewModel(ApplicationSessionFactory);
+            MainWindowViewModel.TestDisplayViewModel = new TestDisplayViewModel(ApplicationSessionFactory, new StripChartViewModel(ApplicationSessionFactory));
+            MainWindowViewModel.ViewModels = new ObservableCollection<BaseViewModel>() { MainWindowViewModel.PointConfigViewModel, MainWindowViewModel.TestDisplayViewModel };
+            
+            //ChangePageView(MainWindowViewModel.TestDisplayViewModel);
 
-            ApplicationViewModel.ChartViewModel = new StripChartViewModel(ApplicationSessionFactory);
-
-            DataContext = ApplicationViewModel;
+            DataContext = MainWindowViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
             PointWorkerService = new PointWorkerService(ApplicationSessionFactory);
 
             RemainingTimer.SetTimer(TimeSpan.FromMinutes(45));
         }
 
-        
-
         public void ChangePageView(BaseViewModel viewModel)
         {
-            ApplicationViewModel.ChangePageViewModel(viewModel);
+            foreach (var model in MainWindowViewModel.ViewModels)
+            {
+                model.ZIndex = 0;
+            }
 
-            //if (viewModel.GetType() == typeof(CarSelectionViewModel))
-            //{
-            //    ApplicationViewModel.TitleLabel = "Car Selection";
-            //    TitleLabelTextBlock.Margin = new Thickness(10, 10, 10, 10);
-            //    BackButton.Visibility = Visibility.Hidden;
-            //    return;
-            //}
-
-            //if (viewModel.GetType() == typeof(LearningViewModel))
-            //    ApplicationViewModel.TitleLabel = "Learning Mode";
-            //if (viewModel.GetType() == typeof(TestingViewModel))
-            //    ApplicationViewModel.TitleLabel = "Testing Mode";
-            //if (viewModel.GetType() == typeof(SimulatorViewModel))
-            //    ApplicationViewModel.TitleLabel = "Simulator";
-
-            //BackButton.Visibility = Visibility.Visible;
-            //TitleLabelTextBlock.Margin = new Thickness(45, 10, 10, 10);
+            MainWindowViewModel.ViewModels.FirstOrDefault(vm => vm.GetType() == viewModel.GetType()).ZIndex = 1;
         }
 
         private void RefreshOptoConnection(bool isConnected)
         {
-            if (ApplicationViewModel.CurrentPageViewModel == null) return;
+            //if (MainWindowViewModel.CurrentPageViewModel == null) return;
 
-            //if (ApplicationViewModel.CurrentPageViewModel.GetType() != typeof(CarSelectionViewModel)) return;
+            //if (MainWindowViewModel.CurrentPageViewModel.GetType() != typeof(CarSelectionViewModel)) return;
 
-            //var viewModel = (CarSelectionViewModel)ApplicationViewModel.CurrentPageViewModel;
+            //var viewModel = (CarSelectionViewModel)MainWindowViewModel.CurrentPageViewModel;
             //viewModel.IsOptoConnected = isConnected;
         }
 
@@ -123,9 +108,6 @@ namespace EngineCell.Application.Views
             if (ApplicationSessionFactory.OptoConnectionStatus == StatusConstants.ConnectionStatus.Connected)
                 OptoConnectionWorker.CancelWork();
 
-            //if (System.Windows.Application.Current.Windows.OfType<OptoMonitorView>().Any())
-            //    OptoMonitorView.Close();
-
             while (ApplicationSessionFactory.OptoConnectionStatus == StatusConstants.ConnectionStatus.Connected)
             {
                 Thread.Sleep(250);
@@ -147,11 +129,18 @@ namespace EngineCell.Application.Views
         {
             var parentWindow = Window.GetWindow(this);
             AlarmConfiguration = (Flyout)parentWindow.FindName("AlarmConfiguration");
-            //AddManufacturerFlyout.FindChild<NewManufacturerFlyout>("NewManufacturerFlyout").NewManufacturerFlyoutViewModel.ApplicationSessionFactory =
-            //    ViewModel.ApplicationSessionFactory;
             AlarmConfiguration.Tag = ControlConstants.ChangeTracking.Pristine;
             AlarmConfiguration.IsOpen = true;
-            //ConfigurationSettingsFlyout.ClosingFinished += AddManufacturerFlyoutOnClosingFinished;
+        }
+
+        private void MenuPointConfig_OnClick(object sender, RoutedEventArgs e)
+        {
+            ChangePageView(MainWindowViewModel.PointConfigViewModel);
+        }
+
+        private void MenuTestDisplay_OnClick(object sender, RoutedEventArgs e)
+        {
+            ChangePageView(MainWindowViewModel.TestDisplayViewModel);
         }
         #endregion
 
@@ -172,17 +161,6 @@ namespace EngineCell.Application.Views
             LogWindow.Visibility = Visibility.Collapsed;
             HideStatusBarButtonIcon.Visual = (Visual)FindResource("appbar_chevron_up");
         }
-        #endregion
-
-        private void StartPhaseButton_Click(object sender, RoutedEventArgs e)
-        {
-            ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);            
-            Task.Run(() =>
-            {
-                ApplicationSessionFactory.LogEvent("Collecting Point data.", true);
-                PointWorkerService.DoWork();                
-            });
-            ApplicationViewModel.ChartViewModel.IsPlay = true;
-        }
+        #endregion        
     }
 }

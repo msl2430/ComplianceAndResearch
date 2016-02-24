@@ -9,7 +9,7 @@ namespace EngineCell.Models.Repositories
     public interface ICellPointRepository
     {
         IList<CellPointModel> GetCellPointsByCellId(int cellId);
-        void UpdateCellPointName(int cellPointId, string name);
+        void UpdateCellPoint(CellPointModel point);
     }
 
     public class CellPointRepository : ICellPointRepository
@@ -27,19 +27,20 @@ namespace EngineCell.Models.Repositories
                 : new List<CellPointModel>();
         }
 
-        public void UpdateCellPointName(int cellPointId, string name)
+        public void UpdateCellPoint(CellPointModel point)
         {
             var cellPoint = NHibernateHelper.CurrentSession.QueryOver<CellPoint>()
-                .Where(cp => cp.CellPointId == cellPointId)
+                .Where(cp => cp.CellPointId == point.CellPointId)
                 .SingleOrDefault<CellPoint>();
 
             if (cellPoint == null)
                 return;
 
-            cellPoint.CustomName = name;
+            cellPoint.CustomName = point.CustomName;
+            cellPoint.IncludeInStripChart = point.IncludeInStripChart;
+            cellPoint.StripChartScale = point.StripChartScale;
 
             NHibernateHelper.CurrentSession.Update(cellPoint);
-            NHibernateHelper.CurrentSession.Evict(cellPoint);
             NHibernateHelper.CurrentSession.Flush();
         }
     }

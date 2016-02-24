@@ -18,7 +18,7 @@
             <RowDefinition Height="40"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <!--<StackPanel Orientation="Horizontal">
             <CheckBox Name="Dyno1Check" FlowDirection="RightToLeft" Margin="5,0,3,0" IsChecked="{Binding Dyno1Series.IsVisible}">
                 <TextBlock FlowDirection="LeftToRight" Text="Dyno 1" />
             </CheckBox>
@@ -40,7 +40,7 @@
             <CheckBox FlowDirection="RightToLeft" Margin="5,0,3,0" IsChecked="{Binding OilSeries.IsVisible}">
                 <TextBlock FlowDirection="LeftToRight" Text="Oil" />
             </CheckBox>
-        </StackPanel>
+        </StackPanel>-->
         <Button Grid.Row="0" Name="PlayButton" Width="40" HorizontalAlignment="Right" Click="PlayButton_Click" Style="{DynamicResource MetroCircleButtonStyle}" Visibility="{Binding Path=IsPlay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
             <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                 <Rectangle.OpacityMask>
@@ -55,6 +55,6 @@
                 </Rectangle.OpacityMask>
             </Rectangle>
         </Button>
-        <oxy:PlotView Grid.Row="1" Model="{Binding PlotModel}"/>
+        <oxy:PlotView Grid.Row="1" Model="{Binding PlotModel, Mode=OneTime}"/>
     </Grid>
 </UserControl>

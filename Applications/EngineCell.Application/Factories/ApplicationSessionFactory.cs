@@ -15,7 +15,7 @@ namespace EngineCell.Application.Factories
 
         IList<PointDataModel> CellPoints { get; set; }
 
-        ApplicationViewModel ApplicationViewModel { get; set; }
+        MainWindowViewModel ApplicationViewModel { get; set; }
         void LogEvent(string message, bool includeInAppWindow = false);
     }
 
@@ -31,7 +31,7 @@ namespace EngineCell.Application.Factories
 
         public IList<PointDataModel> CellPoints { get; set; } 
 
-        public ApplicationViewModel ApplicationViewModel
+        public MainWindowViewModel ApplicationViewModel
         {
             get { return ApplicationSession.ApplicationViewModel; }
             set

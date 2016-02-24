@@ -120,6 +120,26 @@ nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F0000
 : 1_3
 -2 JUMP ;
 : 1_9
+1 LINE.NUM %EngineCell 1000 ~ThermalCouple0 @@  IO.SP.F.WRITE DROP  
+2 LINE.NUM %EngineCell 1001 ~ThermalCouple1 @@  IO.SP.F.WRITE DROP  
+3 LINE.NUM %EngineCell 1002 ~ThermalCouple2 @@  IO.SP.F.WRITE DROP  
+4 LINE.NUM %EngineCell 1003 ~ThermalCouple3 @@  IO.SP.F.WRITE DROP  
+5 LINE.NUM %EngineCell 1004 ~ThermalCouple4 @@  IO.SP.F.WRITE DROP  
+6 LINE.NUM %EngineCell 1005 ~ThermalCouple5 @@  IO.SP.F.WRITE DROP  
+7 LINE.NUM %EngineCell 1006 ~ThermalCouple6 @@  IO.SP.F.WRITE DROP  
+8 LINE.NUM %EngineCell 1007 ~ThermalCouple7 @@  IO.SP.F.WRITE DROP  
+9 LINE.NUM %EngineCell 1008 ~ThermalCouple8 @@  IO.SP.F.WRITE DROP  
+10 LINE.NUM %EngineCell 1009 ~ThermalCouple9 @@  IO.SP.F.WRITE DROP  
+11 LINE.NUM %EngineCell 1010 ~ThermalCouple10 @@  IO.SP.F.WRITE DROP  
+12 LINE.NUM %EngineCell 1011 ~ThermalCouple11 @@  IO.SP.F.WRITE DROP  
+13 LINE.NUM %EngineCell 1012 ~ThermalCouple12 @@  IO.SP.F.WRITE DROP  
+14 LINE.NUM %EngineCell 1013 ~ThermalCouple13 @@  IO.SP.F.WRITE DROP  
+15 LINE.NUM %EngineCell 1014 ~ThermalCouple14 @@  IO.SP.F.WRITE DROP  
+16 LINE.NUM %EngineCell 1015 ~ThermalCouple15 @@  IO.SP.F.WRITE DROP  
+17 LINE.NUM %EngineCell 1016 ~ThermalCouple16 @@  IO.SP.F.WRITE DROP  
+18 LINE.NUM %EngineCell 1017 ~ThermalCouple17 @@  IO.SP.F.WRITE DROP  
+19 LINE.NUM %EngineCell 1018 ~ThermalCouple18 @@  IO.SP.F.WRITE DROP  
+20 LINE.NUM %EngineCell 1019 ~ThermalCouple19 @@  IO.SP.F.WRITE DROP  
 -2 JUMP ;
 : 1_2
 TRUE
@@ -162,7 +182,7 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-6 JUMP ;
+8 JUMP ;
 : 0_4
 -2 JUMP ;
 : 0_5
@@ -186,7 +206,7 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-4 JUMP ;
+6 JUMP ;
 : 0_18
 
 1 LINE.NUM
@@ -205,6 +225,22 @@ T;
 1 LINE.NUM
   &DataCollection   START.T
   ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  11  
+  1    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+0 JUMP ;
+: 0_25
+
+1 LINE.NUM
+  %ScratchPad 
+  11  
+  ^IsTestRunning   IO.SP.READ
+  ^GetScratchPadResult @! 
+3 JUMP ;
+: 0_29
 -2 JUMP ;
 : 0_2
 TRUE
@@ -213,7 +249,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -5 ELSE -6 THEN JUMP ;
+IF -7 ELSE -8 THEN JUMP ;
 : 0_16
 TRUE
 
@@ -221,7 +257,15 @@ TRUE
   ^IsStartTest @@ 
   1    =
 LAND
-IF -3 ELSE -5 THEN JUMP ;
+IF -5 ELSE -7 THEN JUMP ;
+: 0_27
+TRUE
+
+1 LINE.NUM
+  ^IsTestRunning @@ 
+  1    =
+LAND
+IF -4 ELSE -4 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -233,8 +277,11 @@ DUMMY
 0_18
 0_19
 0_22
+0_25
+0_29
 0_2
 0_16
+0_27
 T;
 &Powerup ' T0 SETTASK
 CREATE T.ARRAY
@@ -391,8 +438,8 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 02/02/16 " ;
-: TIMESTAMP ." 10:48:31 " ;
+: DATESTAMP ." 02/22/16 " ;
+: TIMESTAMP ." 14:04:47 " ;
 : CRCSTAMP  ." 00112233445566778899AABBCCDDEEFF " ;
 MAKECHECK
 CLEAR.BREAKS

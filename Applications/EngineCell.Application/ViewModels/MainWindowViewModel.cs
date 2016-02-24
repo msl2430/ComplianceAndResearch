@@ -1,26 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using EngineCell.Application.ViewModels.StripChart;
+using EngineCell.Application.ViewModels.PointConfiguration;
+using EngineCell.Application.ViewModels.TestDisplay;
 using EngineCell.Core.Constants;
+using Remotion.Linq.Collections;
 
 namespace EngineCell.Application.ViewModels
 {
-    public class ApplicationViewModel : BaseViewModel
+    public class MainWindowViewModel : BaseViewModel
     {
-        public PidSetting DynoPid1 { get; set; }
-
-        public PidSetting DynoPid2 { get; set; }
-
-        public PidSetting ThrottlePid1 { get; set; }
-
-        public PidSetting ThrottlePid2 { get; set; }
-
-        public PidSetting CoolantPid { get; set; }
-
-        public PidSetting OilPid { get; set; }
-
-        public PidSetting Intercooler { get; set; }
-
         private string _logWindowString { get; set; }
         public string LogWindowString
         {
@@ -78,21 +66,25 @@ namespace EngineCell.Application.ViewModels
             }
         }
 
-        private StripChartViewModel _chartViewModel { get; set; }
-        public StripChartViewModel ChartViewModel { get { return _chartViewModel;} set { _chartViewModel = value; OnPropertyChanged("ChartViewModel"); } }
+        private ObservableCollection<BaseViewModel> _viewModels { get; set; }
 
-        private BaseViewModel _currentPageViewModel { get; set; }
-        public BaseViewModel CurrentPageViewModel
+        public ObservableCollection<BaseViewModel> ViewModels
         {
-            get
-            {
-                return _currentPageViewModel;
-            }
-            set
-            {
-                _currentPageViewModel = value;
-                OnPropertyChanged("CurrentPageViewModel");
-            }
+            get { return _viewModels;}
+            set { _viewModels = value; OnPropertyChanged("ViewModels"); }
+        } 
+
+        private PointConfigurationViewModel _pointConfigViewModel { get; set; }
+        public PointConfigurationViewModel PointConfigViewModel {
+            get { return _pointConfigViewModel; }
+            set { _pointConfigViewModel = value; OnPropertyChanged("PointConfigViewModel"); }
+        }
+
+        private TestDisplayViewModel _testDisplayViewModel { get; set; }
+        public TestDisplayViewModel TestDisplayViewModel
+        {
+            get { return _testDisplayViewModel; }
+            set { _testDisplayViewModel = value; OnPropertyChanged("TestDisplayViewModel"); }
         }
 
         private string _titleLabel { get; set; }
@@ -104,23 +96,9 @@ namespace EngineCell.Application.ViewModels
 
         public IList<BaseViewModel> PageViewModelNavigationPath { get; set; }
 
-        public ApplicationViewModel()
+        public MainWindowViewModel()
         {
-            PageViewModelNavigationPath = new List<BaseViewModel>();
-            DynoPid1 = new PidSetting("Dyno 1");
-            DynoPid2 = new PidSetting("Dyno 2");
-            ThrottlePid1 = new PidSetting("Throttle 1");
-            ThrottlePid2 = new PidSetting("Throttle 2");
-            CoolantPid = new PidSetting("Coolant");
-            OilPid = new PidSetting("Oil");            
-            Intercooler = new PidSetting("Intercooler");
-        }
-
-        public void ChangePageViewModel(BaseViewModel viewModel)
-        {
-            if (CurrentPageViewModel != null)
-                PageViewModelNavigationPath.Add(CurrentPageViewModel);
-            CurrentPageViewModel = viewModel;
+            PageViewModelNavigationPath = new List<BaseViewModel>();            
         }
     }
 }

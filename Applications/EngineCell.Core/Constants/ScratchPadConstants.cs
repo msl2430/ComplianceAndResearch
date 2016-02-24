@@ -26,6 +26,13 @@ namespace EngineCell.Core.Constants
             
             StartDataCollection = 100,
 
+        }
+
+        /// <summary>
+        /// Max 10,240
+        /// </summary>
+        public enum FloatIndexes
+        {
             //Points,
             ThermalCouple0 = 1000,
             ThermalCouple1,
@@ -101,15 +108,6 @@ namespace EngineCell.Core.Constants
             Freq1,
             Freq2,
             Freq3,
-
-        }
-
-        /// <summary>
-        /// Max 10,240
-        /// </summary>
-        public enum FloatIndexes
-        {
-            
         }
 
         public enum StringIndexes

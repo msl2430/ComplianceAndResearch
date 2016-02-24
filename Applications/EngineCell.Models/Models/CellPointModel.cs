@@ -16,8 +16,7 @@ namespace EngineCell.Models.Models
         public PointGroup PointGroupId { get; set; }
         public string CustomName { get; set; }
         public bool IncludeInStripChart { get; set; }
-        public decimal? StripChartScale { get; set; }
-        public decimal Data { get; set; }
+        public decimal? StripChartScale { get; set; }        
 
         public CellPointModel() { }
 

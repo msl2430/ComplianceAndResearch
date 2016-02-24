@@ -7,7 +7,7 @@ namespace EngineCell.Application.Services
 {
     public static class LoggingService
     {
-        private static ApplicationViewModel ApplicationViewModel { get; set; }
+        private static MainWindowViewModel ApplicationViewModel { get; set; }
 
         private static readonly string _logDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Logs";
 
@@ -16,7 +16,7 @@ namespace EngineCell.Application.Services
             get { return _logDirectory + string.Format("\\Log_{0}.txt", DateTime.Now.ToString("MM_dd_yyyy")); }
         }
 
-        public static void SetApplicationViewModel(ApplicationViewModel model)
+        public static void SetApplicationViewModel(MainWindowViewModel model)
         {
             ApplicationViewModel = model;
         }

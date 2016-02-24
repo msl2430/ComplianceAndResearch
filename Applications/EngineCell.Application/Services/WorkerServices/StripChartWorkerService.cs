@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
@@ -26,33 +27,36 @@ namespace EngineCell.Application.Services.WorkerServices
                 while (!CancellationToken.IsCancellationRequested)
                 {
                     if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
-                    if (WaitStopWatch.ElapsedMilliseconds > 10)
+                    if (WaitStopWatch.ElapsedMilliseconds <= 10) continue;
+
+                    WaitStopWatch.Stop();
+                    WaitStopWatch.Reset();
+
+                    var appSession = StripChartViewModel.ApplicationSessionFactory;
+
+                    //Check if we're connected to and collecting data from Opto before proceeding
+                    if (appSession.OptoMmpFactory == null || !appSession.OptoMmpFactory.Current.IsCommunicationOpen || appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt()).Value != 1)
+                        continue;
+
+                    var timePoint = DateTime.Now;
+
+                    foreach (var cellPoint in appSession.CellPoints)
                     {
-                        WaitStopWatch.Stop();
-                        WaitStopWatch.Reset();
-                        var appSession = StripChartViewModel.ApplicationSessionFactory;
-
-                        //Check if we're connected to and collecting data from Opto before proceeding
-                        if (appSession.OptoMmpFactory == null || !appSession.OptoMmpFactory.Current.IsCommunicationOpen || appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt()).Value != 1)
+                        var point = appSession.CellPoints.FirstOrDefault(p => p.PointName == cellPoint.PointName);
+                        if (point == null)
                             continue;
 
-                        var timePoint = DateTime.Now;
-
-                        foreach (var series in StripChartViewModel.Series)
-                        {
-                            var point = appSession.CellPoints.FirstOrDefault(p => p.PointName == series.SeriesName);
-                            if (point == null)
-                                continue;
-                            series.DataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(point.Data)));
-                            Thread.Sleep(10);
-                        }
-
-                        if (!StripChartViewModel.IsPlay)
-                            continue;
-                        ResetAndPanGraph(timePoint);
-                        StripChartViewModel.UpdateSeries();
+                        var pointEnum = (ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
+                        cellPoint.Data = appSession.ScratchPadFactory.GetScratchPadFloat(pointEnum.ToInt()).Value;
+                        cellPoint.DataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(cellPoint.Data * (point.StripChartScale ?? 1m))));
                     }
-                    Thread.Sleep(100);
+
+                    if (!StripChartViewModel.IsPlay)
+                        continue;
+                        
+                    StripChartViewModel.CreateSeries();
+                    Thread.Sleep(50); //threshold for the series to update and the panning to be possible
+                    ResetAndPanGraph(timePoint);
                 }
             }
             catch (Exception ex)

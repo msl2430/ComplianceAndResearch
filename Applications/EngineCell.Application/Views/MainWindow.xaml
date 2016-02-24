@@ -6,19 +6,27 @@
         xmlns:local="clr-namespace:EngineCell.Application.Views"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:extensions="clr-namespace:EngineCell.Application.Extensions"
-        xmlns:pidConfiguration="clr-namespace:EngineCell.Application.Views.PidConfiguration"
         xmlns:flyouts="clr-namespace:EngineCell.Application.Views.Flyouts"
-        xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:stripChart="clr-namespace:EngineCell.Application.Views.StripChart"
         xmlns:clocks="clr-namespace:EngineCell.Application.Views.Clocks"
-        xmlns:local1="clr-namespace:EngineCell.Application.ViewModels.StripChart"
+        xmlns:stripChartViewModel="clr-namespace:EngineCell.Application.ViewModels.StripChart"
+        xmlns:pointConfigurationViewModel="clr-namespace:EngineCell.Application.ViewModels.PointConfiguration"
+        xmlns:pointConfiguration="clr-namespace:EngineCell.Application.Views.PointConfiguration"
+        xmlns:testDisplayViewModel="clr-namespace:EngineCell.Application.ViewModels.TestDisplay"
+        xmlns:testDisplay="clr-namespace:EngineCell.Application.Views.TestDisplay"
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="Rocket Rod" Height="720" Width="1024">
     <local:BaseWindowView.Resources>
         <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-        <DataTemplate DataType="{x:Type local1:StripChartViewModel}">
+        <DataTemplate DataType="{x:Type stripChartViewModel:StripChartViewModel}">
             <stripChart:StripChart/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type testDisplayViewModel:TestDisplayViewModel}">
+            <testDisplay:TestDisplay/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type pointConfigurationViewModel:PointConfigurationViewModel}">
+            <pointConfiguration:PointConfiguration/>
         </DataTemplate>
     </local:BaseWindowView.Resources>
     <Grid>
@@ -29,9 +37,13 @@
               <MenuItem Header="_File">
                   <MenuItem x:Name="MenuExit" Header="E_xit" Width="125" Click="MenuExit_Click"/>
               </MenuItem>
-               <MenuItem Header="_Edit">
+                <MenuItem Header="_View">
+                    <MenuItem x:Name="MenuTestDisplay" Header="_Test Display" Width="225" Click="MenuTestDisplay_OnClick"></MenuItem>
+                    <MenuItem x:Name="MenuPointConfig" Header="_Point Configuration" Width="225" Click="MenuPointConfig_OnClick"></MenuItem>
+                </MenuItem>
+                <MenuItem Header="_Edit">
                     <MenuItem x:Name="MenuAlarmConfig" Header="_Alarm Configuration" Width="225" Click="MenuAlarmConfig_Click"></MenuItem>
-               </MenuItem>
+                </MenuItem>
             </Menu>
             <Grid Name="LogWindow" Height="125" DockPanel.Dock="Bottom" Visibility="Visible">
                 <ScrollViewer>
@@ -61,110 +73,28 @@
                         </controls:ToggleSwitch>
                     </StackPanel>
                   </Grid>
-                <Grid Row="1">
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="450" MinWidth="350"/>
-                    <ColumnDefinition Width="5"/>
-                    <ColumnDefinition Width="350" MinWidth="350"/>
-                    <ColumnDefinition Width="5"/>
-                    <ColumnDefinition Width="*" MinWidth="200"/>
-                  </Grid.ColumnDefinitions>
-                  <Grid Column="0">
-                    <controls:MetroAnimatedSingleRowTabControl Margin="5" HorizontalAlignment="Stretch" Width="Auto">
-                      <TabItem Header="Start" IsSelected="True" Padding="20,0,20,0" BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,0,1.01">
-                        <Grid Margin="0,25,0,0">
-                            <StackPanel>
-                              <Grid>
-                                <Grid.ColumnDefinitions>
-                                  <ColumnDefinition Width="150"/>
-                                  <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" VerticalAlignment="Center">Starter Timeout (seconds)</Label>
-                                <TextBox Grid.Column="1" Text="30" Width="75" Margin="0,10,0,10" VerticalAlignment="Center"></TextBox>
-                              </Grid>
-                              <Grid>
-                                <Grid.ColumnDefinitions>
-                                  <ColumnDefinition Width="150"/>
-                                  <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" VerticalAlignment="Center">Starter Retries</Label>
-                                <TextBox Grid.Column="1" Width="75" Margin="0,10,0,10" VerticalAlignment="Center"></TextBox>
-                              </Grid>
-                              <Grid>
-                                <Grid.ColumnDefinitions>
-                                  <ColumnDefinition Width="150"/>
-                                  <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" VerticalAlignment="Center">Feather Throttle</Label>
-                                <Button Grid.Column="1" Width="75" Content="Feather" Margin="0,10,0,10" VerticalAlignment="Center"></Button>
-                              </Grid>
-                              <Grid>
-                                <Button Name="StartPhaseButton" HorizontalAlignment="Center" Width="125" Height="35" Content="Start Phase" Margin="0,30,0,10" Background="{StaticResource DarkBlueBrush}" Click="StartPhaseButton_Click"></Button>
-                              </Grid>
-                            </StackPanel>
-                        </Grid>
-                    </TabItem>
-                      <TabItem Header="Warm Up" Padding="20,0,20,0" BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,0,1.01">                        
-                        <Grid>
-                          
-                        </Grid>
-                      </TabItem>
-                      
-                      <TabItem Header="Test" Padding="20,0,20,0" BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,0,1.01">
-                        <Grid>                          
-                          <TabControl TabStripPlacement="Left" Margin="10, 10, 0, 10">
-                            
-                            <TabItem Header="Phase 1" Padding="0,5,0,5">
-                              <TabItem.Content>
-                                <TextBlock TextWrapping="WrapWithOverflow">
-                                  FontWeight property information goes here.
-                                </TextBlock>
-                              </TabItem.Content>
-                            </TabItem>
-
-                            <TabItem Header="Phase 2"  Padding="0,5,0,5">
-                              <TabItem.Content>
-                                <TextBlock TextWrapping="WrapWithOverflow">
-                                  FontSize property information goes here.
-                                </TextBlock>
-                              </TabItem.Content>
-                            </TabItem>
-                          </TabControl>
-                        </Grid>
-                        
-                      </TabItem>
-                    </controls:MetroAnimatedSingleRowTabControl>
+                  <Grid Row="1">
+                      <!--<ContentControl x:Name="MainView" Content="{Binding CurrentPageViewModel}"></ContentControl>-->
+                      <ItemsControl ItemsSource="{Binding ViewModels}">
+                          <ItemsControl.ItemsPanel>
+                              <ItemsPanelTemplate>
+                                  <Grid></Grid>
+                              </ItemsPanelTemplate>
+                          </ItemsControl.ItemsPanel>
+                          <ItemsControl.ItemContainerStyle>
+                              <Style>
+                                <Setter Property="Grid.Opacity" Value="{Binding ZIndex}"></Setter>
+                                <Setter Property="Grid.ZIndex" Value="{Binding ZIndex}"></Setter>
+                            </Style>
+                          </ItemsControl.ItemContainerStyle>
+                          <ItemsControl.ItemTemplate>
+                              <DataTemplate>
+                                  <ContentControl Content="{Binding}"></ContentControl>
+                              </DataTemplate>
+                          </ItemsControl.ItemTemplate>
+                      </ItemsControl>
                   </Grid>
-                  <GridSplitter Grid.Column="1" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                  <Grid Column="2">
-                    <StackPanel>
-                      <TextBlock FontSize="25" Foreground="{StaticResource HeadlineBlueBrush}" Text="PID Output" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
-                      <pidConfiguration:PidConfiguration DataContext="{Binding Path=DynoPid1}"></pidConfiguration:PidConfiguration>
-                      <pidConfiguration:PidConfiguration DataContext="{Binding Path=DynoPid2}"></pidConfiguration:PidConfiguration>
-                      <pidConfiguration:PidConfiguration DataContext="{Binding Path=ThrottlePid1}"></pidConfiguration:PidConfiguration>
-                      <pidConfiguration:PidConfiguration DataContext="{Binding Path=ThrottlePid2}"></pidConfiguration:PidConfiguration>
-                      <pidConfiguration:PidConfiguration DataContext="{Binding Path=Intercooler}"></pidConfiguration:PidConfiguration>
-                      <pidConfiguration:PidConfiguration DataContext="{Binding Path=CoolantPid}"></pidConfiguration:PidConfiguration>
-                      <pidConfiguration:PidConfiguration DataContext="{Binding Path=OilPid}"></pidConfiguration:PidConfiguration>
-                    </StackPanel>
-                  </Grid>
-                  <GridSplitter Grid.Column="3" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                  <Grid Column="4">
-                    <Grid.RowDefinitions>
-                      <RowDefinition Height="5*"/>
-                      <RowDefinition Height="5*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Row="0">
-
-                    </Grid>
-                    <Grid Row="1">                      
-                      <!--<stripChart:StripChart ChartViewModel="{Binding Path=ChartViewModel}"></stripChart:StripChart>-->
-                        <ContentControl x:Name="StripChartContent" Content="{Binding ChartViewModel}"></ContentControl>
-                    </Grid>
-
-                  </Grid>
-                </Grid>
-                <Grid Grid.Row="2">
+                  <Grid Grid.Row="2">
                     <StatusBar>
                         <StatusBarItem>
                             <TextBlock Text="{Binding Path=StatusLabel}" Foreground="Black" HorizontalAlignment="Left"/>

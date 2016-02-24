@@ -11,26 +11,80 @@
 : 1_3
 -2 JUMP ;
 : 1_9
-1 LINE.NUM %EngineCell 1000 ~ThermalCouple0 @@  IO.SP.F.WRITE DROP  
-2 LINE.NUM %EngineCell 1001 ~ThermalCouple1 @@  IO.SP.F.WRITE DROP  
-3 LINE.NUM %EngineCell 1002 ~ThermalCouple2 @@  IO.SP.F.WRITE DROP  
-4 LINE.NUM %EngineCell 1003 ~ThermalCouple3 @@  IO.SP.F.WRITE DROP  
-5 LINE.NUM %EngineCell 1004 ~ThermalCouple4 @@  IO.SP.F.WRITE DROP  
-6 LINE.NUM %EngineCell 1005 ~ThermalCouple5 @@  IO.SP.F.WRITE DROP  
-7 LINE.NUM %EngineCell 1006 ~ThermalCouple6 @@  IO.SP.F.WRITE DROP  
-8 LINE.NUM %EngineCell 1007 ~ThermalCouple7 @@  IO.SP.F.WRITE DROP  
-9 LINE.NUM %EngineCell 1008 ~ThermalCouple8 @@  IO.SP.F.WRITE DROP  
-10 LINE.NUM %EngineCell 1009 ~ThermalCouple9 @@  IO.SP.F.WRITE DROP  
-11 LINE.NUM %EngineCell 1010 ~ThermalCouple10 @@  IO.SP.F.WRITE DROP  
-12 LINE.NUM %EngineCell 1011 ~ThermalCouple11 @@  IO.SP.F.WRITE DROP  
-13 LINE.NUM %EngineCell 1012 ~ThermalCouple12 @@  IO.SP.F.WRITE DROP  
-14 LINE.NUM %EngineCell 1013 ~ThermalCouple13 @@  IO.SP.F.WRITE DROP  
-15 LINE.NUM %EngineCell 1014 ~ThermalCouple14 @@  IO.SP.F.WRITE DROP  
-16 LINE.NUM %EngineCell 1015 ~ThermalCouple15 @@  IO.SP.F.WRITE DROP  
-17 LINE.NUM %EngineCell 1016 ~ThermalCouple16 @@  IO.SP.F.WRITE DROP  
-18 LINE.NUM %EngineCell 1017 ~ThermalCouple17 @@  IO.SP.F.WRITE DROP  
-19 LINE.NUM %EngineCell 1018 ~ThermalCouple18 @@  IO.SP.F.WRITE DROP  
-20 LINE.NUM %EngineCell 1019 ~ThermalCouple19 @@  IO.SP.F.WRITE DROP  
+1 LINE.NUM %ScratchPad 1000 ~ThermalCouple0 @@  IO.SP.F.WRITE DROP  
+2 LINE.NUM %ScratchPad 1001 ~ThermalCouple1 @@  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad 1002 ~ThermalCouple2 @@  IO.SP.F.WRITE DROP  
+4 LINE.NUM %ScratchPad 1003 ~ThermalCouple3 @@  IO.SP.F.WRITE DROP  
+5 LINE.NUM %ScratchPad 1004 ~ThermalCouple4 @@  IO.SP.F.WRITE DROP  
+6 LINE.NUM %ScratchPad 1005 ~ThermalCouple5 @@  IO.SP.F.WRITE DROP  
+7 LINE.NUM %ScratchPad 1006 ~ThermalCouple6 @@  IO.SP.F.WRITE DROP  
+8 LINE.NUM %ScratchPad 1007 ~ThermalCouple7 @@  IO.SP.F.WRITE DROP  
+9 LINE.NUM %ScratchPad 1008 ~ThermalCouple8 @@  IO.SP.F.WRITE DROP  
+10 LINE.NUM %ScratchPad 1009 ~ThermalCouple9 @@  IO.SP.F.WRITE DROP  
+11 LINE.NUM %ScratchPad 1010 ~ThermalCouple10 @@  IO.SP.F.WRITE DROP  
+12 LINE.NUM %ScratchPad 1011 ~ThermalCouple11 @@  IO.SP.F.WRITE DROP  
+13 LINE.NUM %ScratchPad 1012 ~ThermalCouple12 @@  IO.SP.F.WRITE DROP  
+14 LINE.NUM %ScratchPad 1013 ~ThermalCouple13 @@  IO.SP.F.WRITE DROP  
+15 LINE.NUM %ScratchPad 1014 ~ThermalCouple14 @@  IO.SP.F.WRITE DROP  
+16 LINE.NUM %ScratchPad 1015 ~ThermalCouple15 @@  IO.SP.F.WRITE DROP  
+17 LINE.NUM %ScratchPad 1016 ~ThermalCouple16 @@  IO.SP.F.WRITE DROP  
+18 LINE.NUM %ScratchPad 1017 ~ThermalCouple17 @@  IO.SP.F.WRITE DROP  
+19 LINE.NUM %ScratchPad 1018 ~ThermalCouple18 @@  IO.SP.F.WRITE DROP  
+20 LINE.NUM %ScratchPad 1019 ~ThermalCouple19 @@  IO.SP.F.WRITE DROP  
+22 LINE.NUM %ScratchPad 1020 ~Volt0 @@  IO.SP.F.WRITE DROP  
+23 LINE.NUM %ScratchPad 1021 ~Volt1 @@  IO.SP.F.WRITE DROP  
+24 LINE.NUM %ScratchPad 1022 ~Volt2 @@  IO.SP.F.WRITE DROP  
+25 LINE.NUM %ScratchPad 1023 ~Volt3 @@  IO.SP.F.WRITE DROP  
+26 LINE.NUM %ScratchPad 1024 ~Volt4 @@  IO.SP.F.WRITE DROP  
+27 LINE.NUM %ScratchPad 1025 ~Volt5 @@  IO.SP.F.WRITE DROP  
+29 LINE.NUM %ScratchPad 1026 ~MilliAmp0 @@  IO.SP.F.WRITE DROP  
+30 LINE.NUM %ScratchPad 1027 ~MilliAmp1 @@  IO.SP.F.WRITE DROP  
+32 LINE.NUM %ScratchPad 1028 ~HART0 @@  IO.SP.F.WRITE DROP  
+33 LINE.NUM %ScratchPad 1029 ~HART1 @@  IO.SP.F.WRITE DROP  
+35 LINE.NUM %ScratchPad 1030 ~AO10Bipolar @@  IO.SP.F.WRITE DROP  
+36 LINE.NUM %ScratchPad 1031 ~AO10 @@  IO.SP.F.WRITE DROP  
+37 LINE.NUM %ScratchPad 1032 ~AO5Bipolar @@  IO.SP.F.WRITE DROP  
+38 LINE.NUM %ScratchPad 1033 ~AO5 @@  IO.SP.F.WRITE DROP  
+39 LINE.NUM %ScratchPad 1034 ~AO4_20_0 @@  IO.SP.F.WRITE DROP  
+40 LINE.NUM %ScratchPad 1035 ~AO4_20_1 @@  IO.SP.F.WRITE DROP  
+41 LINE.NUM %ScratchPad 1036 ~AO4_20_2 @@  IO.SP.F.WRITE DROP  
+42 LINE.NUM %ScratchPad 1037 ~AO4_20_3 @@  IO.SP.F.WRITE DROP  
+44 LINE.NUM %ScratchPad 1038 ~Dyno0 @@I I>F  IO.SP.F.WRITE DROP  
+45 LINE.NUM %ScratchPad 1039 ~Dyno1 @@I I>F  IO.SP.F.WRITE DROP  
+46 LINE.NUM %ScratchPad 1040 ~Dyno2 @@I I>F  IO.SP.F.WRITE DROP  
+47 LINE.NUM %ScratchPad 1041 ~Dyno3 @@I I>F  IO.SP.F.WRITE DROP  
+48 LINE.NUM %ScratchPad 1042 ~Dyno4 @@I I>F  IO.SP.F.WRITE DROP  
+49 LINE.NUM %ScratchPad 1043 ~Dyno5 @@I I>F  IO.SP.F.WRITE DROP  
+50 LINE.NUM %ScratchPad 1044 ~Dyno6 @@I I>F  IO.SP.F.WRITE DROP  
+51 LINE.NUM %ScratchPad 1045 ~Dyno7 @@I I>F  IO.SP.F.WRITE DROP  
+53 LINE.NUM %ScratchPad 1046 ~Engine0 @@I I>F  IO.SP.F.WRITE DROP  
+54 LINE.NUM %ScratchPad 1047 ~Engine1 @@I I>F  IO.SP.F.WRITE DROP  
+55 LINE.NUM %ScratchPad 1048 ~Engine2 @@I I>F  IO.SP.F.WRITE DROP  
+56 LINE.NUM %ScratchPad 1049 ~Engine3 @@I I>F  IO.SP.F.WRITE DROP  
+57 LINE.NUM %ScratchPad 1050 ~Engine4 @@I I>F  IO.SP.F.WRITE DROP  
+58 LINE.NUM %ScratchPad 1051 ~Engine5 @@I I>F  IO.SP.F.WRITE DROP  
+59 LINE.NUM %ScratchPad 1052 ~Engine6 @@I I>F  IO.SP.F.WRITE DROP  
+60 LINE.NUM %ScratchPad 1053 ~Engine7 @@I I>F  IO.SP.F.WRITE DROP  
+62 LINE.NUM %ScratchPad 1054 ~Fuel0 @@I I>F  IO.SP.F.WRITE DROP  
+63 LINE.NUM %ScratchPad 1055 ~Fuel1 @@I I>F  IO.SP.F.WRITE DROP  
+64 LINE.NUM %ScratchPad 1056 ~Fuel2 @@I I>F  IO.SP.F.WRITE DROP  
+65 LINE.NUM %ScratchPad 1057 ~Fuel3 @@I I>F  IO.SP.F.WRITE DROP  
+66 LINE.NUM %ScratchPad 1058 ~Fuel4 @@I I>F  IO.SP.F.WRITE DROP  
+67 LINE.NUM %ScratchPad 1059 ~Fuel5 @@I I>F  IO.SP.F.WRITE DROP  
+68 LINE.NUM %ScratchPad 1060 ~Fuel6 @@I I>F  IO.SP.F.WRITE DROP  
+69 LINE.NUM %ScratchPad 1061 ~Fuel7 @@I I>F  IO.SP.F.WRITE DROP  
+71 LINE.NUM %ScratchPad 1062 ~Misc0 @@I I>F  IO.SP.F.WRITE DROP  
+72 LINE.NUM %ScratchPad 1063 ~Misc1 @@I I>F  IO.SP.F.WRITE DROP  
+73 LINE.NUM %ScratchPad 1064 ~Misc2 @@I I>F  IO.SP.F.WRITE DROP  
+74 LINE.NUM %ScratchPad 1065 ~Misc3 @@I I>F  IO.SP.F.WRITE DROP  
+75 LINE.NUM %ScratchPad 1066 ~Misc4 @@I I>F  IO.SP.F.WRITE DROP  
+76 LINE.NUM %ScratchPad 1067 ~Misc5 @@I I>F  IO.SP.F.WRITE DROP  
+77 LINE.NUM %ScratchPad 1068 ~Misc6 @@I I>F  IO.SP.F.WRITE DROP  
+78 LINE.NUM %ScratchPad 1069 ~Misc7 @@I I>F  IO.SP.F.WRITE DROP  
+80 LINE.NUM %ScratchPad 1070 ~Freq0 @@I I>F  IO.SP.F.WRITE DROP  
+81 LINE.NUM %ScratchPad 1071 ~Freq1 @@I I>F  IO.SP.F.WRITE DROP  
+82 LINE.NUM %ScratchPad 1072 ~Freq2 @@I I>F  IO.SP.F.WRITE DROP  
+83 LINE.NUM %ScratchPad 1073 ~Freq3 @@I I>F  IO.SP.F.WRITE DROP  
 -2 JUMP ;
 : 1_2
 TRUE
