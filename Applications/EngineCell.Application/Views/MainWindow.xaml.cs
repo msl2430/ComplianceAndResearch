@@ -1,16 +1,20 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Configuration;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using EngineCell.Application.Factories;
+using EngineCell.Application.Models;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels;
+using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
+using EngineCell.Models.Repositories;
 using MahApps.Metro.Controls;
 
 namespace EngineCell.Application.Views
@@ -20,21 +24,40 @@ namespace EngineCell.Application.Views
     /// </summary>
     public partial class MainWindow : BaseWindowView
     {
+        private ApplicationViewModel ApplicationViewModel { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
 
             ToggleLogWindow(Properties.Settings.Default.IsLogVisible);
             ApplicationViewModel = new ApplicationViewModel();
-            ApplicationSessionFactory = new ApplicationSessionFactory() { ApplicationViewModel = ApplicationViewModel };
-            
+            ApplicationSessionFactory = new ApplicationSessionFactory()
+            {
+                ApplicationViewModel = ApplicationViewModel,
+                CellPoints = (new CellPointRepository()).GetCellPointsByCellId(1)
+                                .ToList()
+                                .Select(p => new PointDataModel(p))
+                                .ToList()
+                    
+            };
+            ApplicationSessionFactory.CellPoints =
+                (new CellPointRepository()).GetCellPointsByCellId(1)
+                    .ToList()
+                    .Select(cp => new PointDataModel(cp))
+                    .Take(1)
+                    .ToList();
+
+            ApplicationViewModel.ChartViewModel = new StripChartViewModel(ApplicationSessionFactory);
+
             DataContext = ApplicationViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
-            RemainingTimer.SetTimer(TimeSpan.FromMinutes(45));
+            PointWorkerService = new PointWorkerService(ApplicationSessionFactory);
 
+            RemainingTimer.SetTimer(TimeSpan.FromMinutes(45));
         }
 
-        private ApplicationViewModel ApplicationViewModel { get; set; }
+        
 
         public void ChangePageView(BaseViewModel viewModel)
         {
@@ -153,7 +176,13 @@ namespace EngineCell.Application.Views
 
         private void StartPhaseButton_Click(object sender, RoutedEventArgs e)
         {
-            ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
+            ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);            
+            Task.Run(() =>
+            {
+                ApplicationSessionFactory.LogEvent("Collecting Point data.", true);
+                PointWorkerService.DoWork();                
+            });
+            ApplicationViewModel.ChartViewModel.IsPlay = true;
         }
     }
 }

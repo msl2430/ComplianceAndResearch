@@ -1,4 +1,6 @@
-﻿using EngineCell.Application.Services;
+﻿using System.Collections.Generic;
+using EngineCell.Application.Models;
+using EngineCell.Application.Services;
 using EngineCell.Application.Session;
 using EngineCell.Application.ViewModels;
 using EngineCell.Core.Constants;
@@ -10,6 +12,8 @@ namespace EngineCell.Application.Factories
         IOptoMmpFactory OptoMmpFactory { get; }
         IScratchPadFactory ScratchPadFactory { get; }
         StatusConstants.ConnectionStatus OptoConnectionStatus { get; set; }
+
+        IList<PointDataModel> CellPoints { get; set; }
 
         ApplicationViewModel ApplicationViewModel { get; set; }
         void LogEvent(string message, bool includeInAppWindow = false);
@@ -24,6 +28,8 @@ namespace EngineCell.Application.Factories
             get { return ApplicationSession.ApplicationViewModel.OptoConnectionStatus; }
             set { ApplicationSession.ApplicationViewModel.OptoConnectionStatus = value; }
         }
+
+        public IList<PointDataModel> CellPoints { get; set; } 
 
         public ApplicationViewModel ApplicationViewModel
         {

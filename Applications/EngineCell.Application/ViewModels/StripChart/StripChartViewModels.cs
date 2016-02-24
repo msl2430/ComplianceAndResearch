@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EngineCell.Application.Factories;
+using EngineCell.Application.Models;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -9,83 +11,17 @@ namespace EngineCell.Application.ViewModels.StripChart
 {
     public class StripChartViewModel : BaseViewModel
     {
-        public IList<ChartSeries> ChartSeries { get; set; } 
         public PlotModel PlotModel { get; set; }
 
-        private ChartSeries _coolantSeries { get; set; }
-        public ChartSeries CoolantSeries
-        {
-            get { return _coolantSeries; }
-            set
-            {
-                _coolantSeries = value;
-                OnPropertyChanged("CoolantSeries");
-            }
-        }
+        private IList<ChartSeries> _series { get; set; }
 
-        private ChartSeries _oilSeries { get; set; }
-        public ChartSeries OilSeries
+        public IList<ChartSeries> Series
         {
-            get { return _oilSeries; }
+            get { return _series; }
             set
             {
-                _oilSeries = value;
-                OnPropertyChanged("OilSeries");
-            }
-        }
-
-        private ChartSeries _throttle1Series { get; set; }
-        public ChartSeries Throttle1Series
-        {
-            get { return _throttle1Series; }
-            set
-            {
-                _throttle1Series = value;
-                OnPropertyChanged("Throttle1Series");
-            }
-        }
-
-        private ChartSeries _throttle2Series { get; set; }
-        public ChartSeries Throttle2Series
-        {
-            get { return _throttle2Series; }
-            set
-            {
-                _throttle2Series = value;
-                OnPropertyChanged("Throttle2Series");
-            }
-        }
-
-        private ChartSeries _dyno1Series { get; set; }
-        public ChartSeries Dyno1Series
-        {
-            get { return _dyno1Series; }
-            set
-            {
-                _dyno1Series = value;
-                OnPropertyChanged("Dyno1Series");
-            }
-        }
-
-        private ChartSeries _dyno2Series { get; set; }
-        public ChartSeries Dyno2Series
-        {
-            get { return _dyno2Series; }
-            set
-            {
-                _dyno2Series = value;
-                OnPropertyChanged("Dyno2Series");
-            }
-        }
-
-        private ChartSeries _intercooler { get; set; }
-        public ChartSeries Intercooler
-        {
-            get { return _intercooler; }
-            set
-            {
-                _intercooler = value;
-                OnPropertyChanged("Intercooler");
+                _series = value;
+                OnPropertyChanged("Series");
             }
         }
 
@@ -96,17 +32,21 @@ namespace EngineCell.Application.ViewModels.StripChart
             set { _isPlay = value; OnPropertyChanged("IsPlay"); }
         }
 
-        public StripChartViewModel()
+        public StripChartViewModel(IApplicationSessionFactory applicationSessionFactory)
         {
+            ApplicationSessionFactory = applicationSessionFactory;
             PlotModel = new PlotModel();
+            Series = new List<ChartSeries>();
             InitializeSeries();
             IsPlay = false;
             InitializePlotModel();
         }
 
-        public StripChartViewModel(string name)
+        public StripChartViewModel(string name, IApplicationSessionFactory applicationSessionFactory)
         {
+            ApplicationSessionFactory = applicationSessionFactory;
             PlotModel = new PlotModel() { Title = name };
+            Series = new List<ChartSeries>();
             InitializeSeries();
             IsPlay = false;
             InitializePlotModel();
@@ -114,13 +54,10 @@ namespace EngineCell.Application.ViewModels.StripChart
 
         private void InitializeSeries()
         {
-            Dyno1Series = new ChartSeries("Dyno 1");
-            Dyno2Series = new ChartSeries("Dyno 2");
-            Throttle1Series = new ChartSeries("Thorttle 1");
-            Throttle2Series = new ChartSeries("Throttle 2");
-            CoolantSeries = new ChartSeries("Coolant");
-            OilSeries = new ChartSeries("Oil");
-            Intercooler = new ChartSeries("Intercooler");
+            foreach (var point in ApplicationSessionFactory.CellPoints)
+            {
+                Series.Add(new ChartSeries(point));
+            }
         }
 
         private void InitializePlotModel()
@@ -158,14 +95,15 @@ namespace EngineCell.Application.ViewModels.StripChart
         public void UpdateSeries() 
         {
             PlotModel.Series.Clear();
-
-            foreach (var propInfo in GetType().GetProperties().Where(p => p.PropertyType == typeof (ChartSeries)))
+            foreach (var series in Series)
             {
-                var series = propInfo.GetValue(this) as ChartSeries;
                 if (series == null || !series.IsVisible || !series.DataPoints.Any())
                     continue;
-                var newSeries = new LineSeries() {Title = series.SeriesName};
-                newSeries.IsVisible = series.IsVisible;
+                var newSeries = new LineSeries
+                {
+                    Title = series.SeriesName,
+                    IsVisible = series.IsVisible
+                };
                 newSeries.Points.AddRange(series.DataPoints);
                 PlotModel.Series.Add(newSeries);
             }
@@ -180,7 +118,9 @@ namespace EngineCell.Application.ViewModels.StripChart
 
     public class ChartSeries
     {
+        public int PointId { get; set; }
         public string SeriesName { get; set; }
+        public string CustomName { get; set; }
         public bool IsVisible { get; set; }
         public IList<DataPoint> DataPoints { get; set; }
 
@@ -190,9 +130,11 @@ namespace EngineCell.Application.ViewModels.StripChart
             DataPoints = new List<DataPoint>();
         }
 
-        public ChartSeries(string name)
+        public ChartSeries(PointDataModel point)
         {
-            SeriesName = name;
+            PointId = point.CellPointId;
+            SeriesName = point.PointName;
+            CustomName = point.CustomName;
             IsVisible = true;
             DataPoints = new List<DataPoint>();
         }

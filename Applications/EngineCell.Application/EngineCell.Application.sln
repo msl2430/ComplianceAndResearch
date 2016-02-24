@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineCell.Application", "EngineCell.Application.csproj", "{C841D951-FA81-414F-AF6C-3B7D8E292209}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineCell.Core", "..\EngineCell.Core\EngineCell.Core.csproj", "{012AD3A2-BC0A-4C80-B674-30050F5B5B72}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineCell.Controls", "..\EngineCell.Controls\EngineCell.Controls.csproj", "{5C01C46B-F4B0-4398-B67E-9E7B51F45C77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineCell.Models", "..\EngineCell.Models\EngineCell.Models.csproj", "{837DC036-2B9F-4904-8138-808E3EE35145}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5C01C46B-F4B0-4398-B67E-9E7B51F45C77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C01C46B-F4B0-4398-B67E-9E7B51F45C77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C01C46B-F4B0-4398-B67E-9E7B51F45C77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{837DC036-2B9F-4904-8138-808E3EE35145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{837DC036-2B9F-4904-8138-808E3EE35145}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{837DC036-2B9F-4904-8138-808E3EE35145}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{837DC036-2B9F-4904-8138-808E3EE35145}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

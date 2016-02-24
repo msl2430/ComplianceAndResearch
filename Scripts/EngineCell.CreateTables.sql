@@ -1,0 +1,86 @@
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'Cell')
+DROP TABLE [dbo].[Cell]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Cell](
+	[CellId] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](256) NOT NULL,
+	[IpAddress] [nvarchar](32) NOT NULL,
+	[PortNumber] [int] NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_Cell] PRIMARY KEY CLUSTERED 
+([CellId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'Point')
+DROP TABLE [dbo].[Point]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Point](
+	[PointId] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](256) NOT NULL,
+	[IsInput] [bit] NOT NULL,
+	[IsAnalog] [bit] NOT NULL,
+	[PointGroupId] [int] NOT NULL,
+ CONSTRAINT [PK_Point] PRIMARY KEY CLUSTERED 
+([PointId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'PointGroup')
+DROP TABLE [dbo].[PointGroup]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[PointGroup](
+	[PointGroupId] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](256) NOT NULL,
+ CONSTRAINT [PK_PointGroup] PRIMARY KEY CLUSTERED 
+([PointGroupId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'Cell_Point')
+DROP TABLE [dbo].[Cell_Point]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Cell_Point](
+	[CellPointId] [int] IDENTITY(1,1) NOT NULL,
+	[CellId] [int] NOT NULL,
+	[PointId] [int] NOT NULL,
+	[CustomName] [nvarchar](256) NOT NULL,
+	[IncludeInStripChart] [bit] NOT NULL,
+	[StripChartScale] [decimal] NULL,
+	[UpdateDateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_Cell_Point] PRIMARY KEY CLUSTERED 
+([CellPointId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO

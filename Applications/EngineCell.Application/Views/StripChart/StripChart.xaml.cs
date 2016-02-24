@@ -26,21 +26,26 @@ namespace EngineCell.Application.Views.StripChart
     /// </summary>
     public partial class StripChart : UserControl
     {
-        public StripChartWorkerService StripChartWorker { get; set; }
+        private StripChartWorkerService StripChartWorker { get; set; }
         
-        public StripChartViewModel ChartViewModel { get; set; }
+        public  StripChartViewModel ChartViewModel { get; set; }
 
         public string ChartTitle { get; set; }
 
         public StripChart()
         {
-            InitializeComponent();
+            InitializeComponent();                        
+        }
 
-            ChartViewModel = new StripChartViewModel();
+        private void StripChart_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext != null)
+                ChartViewModel = (StripChartViewModel) DataContext;
 
+            //ChartViewModel = new StripChartViewModel();
             ChartViewModel.UpdateSeries();
 
-            DataContext = ChartViewModel;
+            //DataContext = ChartViewModel;
             StripChartWorker = new StripChartWorkerService(ChartViewModel);
 
             Task.Run(() => StripChartWorker.DoWork()).ConfigureAwait(false);

@@ -9,5 +9,7 @@ namespace EngineCell.Application.Views
         public IApplicationSessionFactory ApplicationSessionFactory { get; set; }
 
         public IOptoConnectionWorkerService OptoConnectionWorker { get; set; }
+
+        public IPointWorkerService PointWorkerService { get; set; }
     }
 }

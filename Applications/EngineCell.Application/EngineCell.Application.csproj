@@ -118,9 +118,13 @@
     <Compile Include="Factories\ApplicationSessionFactory.cs" />
     <Compile Include="Factories\OptoMmpFactory.cs" />
     <Compile Include="Factories\ScratchPadFactory.cs" />
+    <Compile Include="Models\PointDataModel.cs" />
+    <Compile Include="Services\DataServices\BaseDataService.cs" />
+    <Compile Include="Services\DataServices\CellPointService.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Services\WorkerServices\BaseWorkerThreadService.cs" />
     <Compile Include="Services\WorkerServices\OptoConnectionWorkerService.cs" />
+    <Compile Include="Services\WorkerServices\PointWorkerService.cs" />
     <Compile Include="Services\WorkerServices\StripChartWorkerService.cs" />
     <Compile Include="Session\ApplicationSession.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
@@ -230,6 +234,10 @@
     <ProjectReference Include="..\EngineCell.Core\EngineCell.Core.csproj">
       <Project>{012ad3a2-bc0a-4c80-b674-30050f5b5b72}</Project>
       <Name>EngineCell.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EngineCell.Models\EngineCell.Models.csproj">
+      <Project>{837dc036-2b9f-4904-8138-808e3ee35145}</Project>
+      <Name>EngineCell.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Opto22.Core\Opto22.Core.csproj">
       <Project>{051182dd-79fd-4547-9e1a-98ebd5397d6f}</Project>

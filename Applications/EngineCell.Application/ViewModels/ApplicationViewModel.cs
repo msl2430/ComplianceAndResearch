@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Core.Constants;
-using OxyPlot;
-using OxyPlot.Series;
 
 namespace EngineCell.Application.ViewModels
 {
@@ -21,7 +20,7 @@ namespace EngineCell.Application.ViewModels
         public PidSetting OilPid { get; set; }
 
         public PidSetting Intercooler { get; set; }
-        
+
         private string _logWindowString { get; set; }
         public string LogWindowString
         {
@@ -78,6 +77,9 @@ namespace EngineCell.Application.ViewModels
                 OnPropertyChanged("IsConnected");
             }
         }
+
+        private StripChartViewModel _chartViewModel { get; set; }
+        public StripChartViewModel ChartViewModel { get { return _chartViewModel;} set { _chartViewModel = value; OnPropertyChanged("ChartViewModel"); } }
 
         private BaseViewModel _currentPageViewModel { get; set; }
         public BaseViewModel CurrentPageViewModel

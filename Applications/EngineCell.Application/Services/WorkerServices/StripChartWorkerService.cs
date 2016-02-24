@@ -1,23 +1,21 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using EngineCell.Application.ViewModels.StripChart;
+using EngineCell.Core.Constants;
+using EngineCell.Core.Extensions;
 using OxyPlot;
 using OxyPlot.Axes;
-using OxyPlot.Series;
 
 namespace EngineCell.Application.Services.WorkerServices
 {
     public class StripChartWorkerService : BaseWorkerThreadService
     {
-        public StripChartViewModel StripChartViewModel { get; set; }
+        private StripChartViewModel StripChartViewModel { get; set; }
 
         public StripChartWorkerService(StripChartViewModel stripChartViewModel)
         {
             StripChartViewModel = stripChartViewModel;
-            WaitStopWatch = new Stopwatch();
         }
 
         public override void DoWork()
@@ -32,18 +30,20 @@ namespace EngineCell.Application.Services.WorkerServices
                     {
                         WaitStopWatch.Stop();
                         WaitStopWatch.Reset();
+                        var appSession = StripChartViewModel.ApplicationSessionFactory;
+
+                        //Check if we're connected to and collecting data from Opto before proceeding
+                        if (appSession.OptoMmpFactory == null || !appSession.OptoMmpFactory.Current.IsCommunicationOpen || appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt()).Value != 1)
+                            continue;
+
                         var timePoint = DateTime.Now;
 
-                        foreach (
-                            var series in
-                                StripChartViewModel.GetType()
-                                    .GetProperties()
-                                    .Where(p => p.PropertyType == typeof (ChartSeries))
-                                    .Select(propInfo => propInfo.GetValue(StripChartViewModel) as ChartSeries)
-                                    .Where(series => series != null))
+                        foreach (var series in StripChartViewModel.Series)
                         {
-                            series.DataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint),
-                                new Random(DateTime.Now.Millisecond).Next(maxValue: 50, minValue: -50)));
+                            var point = appSession.CellPoints.FirstOrDefault(p => p.PointName == series.SeriesName);
+                            if (point == null)
+                                continue;
+                            series.DataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(point.Data)));
                             Thread.Sleep(10);
                         }
 

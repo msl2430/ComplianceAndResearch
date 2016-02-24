@@ -156,7 +156,10 @@ namespace EngineCell.Application.Factories
                 : null;
 
             if (sc == null)
-                ScratchPadFloats.Add(new ScratchPadModel<decimal>(index, "undefined", 0));
+            {
+                sc = new ScratchPadModel<decimal>(index, "undefined", 0);
+                ScratchPadFloats.Add(sc);
+            }
             //throw new Exception("Bad scratchpad Float index.");
 
             var optoScratchPadFloat = new float[1];

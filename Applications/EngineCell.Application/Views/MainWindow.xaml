@@ -11,12 +11,16 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:stripChart="clr-namespace:EngineCell.Application.Views.StripChart"
         xmlns:clocks="clr-namespace:EngineCell.Application.Views.Clocks"
+        xmlns:local1="clr-namespace:EngineCell.Application.ViewModels.StripChart"
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="Rocket Rod" Height="720" Width="1024">
-        <local:BaseWindowView.Resources>
-            <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-        </local:BaseWindowView.Resources>
+    <local:BaseWindowView.Resources>
+        <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <DataTemplate DataType="{x:Type local1:StripChartViewModel}">
+            <stripChart:StripChart/>
+        </DataTemplate>
+    </local:BaseWindowView.Resources>
     <Grid>
         <DockPanel>
             <Menu Name="MainMenu" DockPanel.Dock="Top" Width="Auto">
@@ -154,7 +158,8 @@
 
                     </Grid>
                     <Grid Row="1">                      
-                      <stripChart:StripChart></stripChart:StripChart>
+                      <!--<stripChart:StripChart ChartViewModel="{Binding Path=ChartViewModel}"></stripChart:StripChart>-->
+                        <ContentControl x:Name="StripChartContent" Content="{Binding ChartViewModel}"></ContentControl>
                     </Grid>
 
                   </Grid>

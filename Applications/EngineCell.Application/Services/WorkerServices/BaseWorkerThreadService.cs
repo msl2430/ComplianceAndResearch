@@ -14,6 +14,11 @@ namespace EngineCell.Application.Services.WorkerServices
         public abstract void DoWork();
         protected abstract void WorkCompleted();
 
+        protected BaseWorkerThreadService()
+        {
+            WaitStopWatch = new Stopwatch();
+        }
+
         public bool IsCancelPending()
         {
             return CancellationToken.IsCancellationRequested;
