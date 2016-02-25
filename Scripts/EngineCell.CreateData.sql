@@ -9,7 +9,7 @@ BEGIN
 	INSERT INTO PointGroup VALUES ('Engine')
 	INSERT INTO PointGroup VALUES ('Fuel')
 	INSERT INTO PointGroup VALUES ('Misc')
-	INSERT INTO PointGroup VALUES ('Freq')
+	INSERT INTO PointGroup VALUES ('Frequency')
 END
 
 IF (SELECT COUNT(*) FROM Point) = 0 
@@ -100,3 +100,12 @@ BEGIN
 	INSERT INTO Point VALUES ('Freq2',1,0,10)
 	INSERT INTO Point VALUES ('Freq3',1,0,10)
 END
+
+IF (SELECT COUNT(*) FROM Cell WHERE CellId = 1) = 0 
+BEGIN
+	INSERT INTO Cell VALUES ('Engine Cell 1', '98.109.58.113', 22001, 'Engine Cell 1')
+	INSERT INTO Cell_Point
+	SELECT 1, p.PointId, p.Name, 0, NULL, GETDATE()
+	FROM Point p
+END
+
