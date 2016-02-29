@@ -1,39 +1,39 @@
 ﻿using System;
-using EngineCell.Application.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+using EngineCell.Application.ViewModels;
+using EngineCell.Application.ViewModels.Pid;
 
-namespace EngineCell.Application.Views.PidConfiguration
+namespace EngineCell.Application.Views.Pid
 {
     /// <summary>
     /// Interaction logic for PidConfiguration.xaml
     /// </summary>
-    public partial class PidConfiguration : UserControl
+    public partial class PidConfigurationOld : UserControl
     {
-        public PidSetting Settings { get; set; }
+        public PidSettingOld SettingsOld { get; set; }
 
-        public PidConfiguration()
+        public PidConfigurationOld()
         {
             InitializeComponent();
         }
 
         private void SetButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Settings.IsDirty = false;
-            Settings.Output = Convert.ToDecimal(((TextBox)sender).Text);
+            SettingsOld.IsDirty = false;
+            SettingsOld.Output = Convert.ToDecimal(((TextBox)sender).Text);
         }
 
         private void PidConfiguration_OnLoaded(object sender, RoutedEventArgs e)
         {
-            Settings = (PidSetting)DataContext;
+            SettingsOld = (PidSettingOld)DataContext;
         }
 
         private void Output_OnChange(object sender, TextChangedEventArgs e)
         {
-            if (sender == null || Settings == null)
+            if (sender == null || SettingsOld == null)
                 return;
-            Settings.IsDirty = true;
+            SettingsOld.IsDirty = true;
         }
     }
 }

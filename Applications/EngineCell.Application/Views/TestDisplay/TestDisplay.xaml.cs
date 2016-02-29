@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Application.ViewModels.TestDisplay;
@@ -40,6 +41,6 @@ namespace EngineCell.Application.Views.TestDisplay
                 PointWorkerService.DoWork();
             });
             TestDisplayViewModel.ChartViewModel.IsPlay = true;
-        }
+        }       
     }
 }

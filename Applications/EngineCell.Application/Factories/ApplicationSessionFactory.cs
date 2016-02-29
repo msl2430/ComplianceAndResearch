@@ -29,7 +29,7 @@ namespace EngineCell.Application.Factories
             set { ApplicationSession.ApplicationViewModel.OptoConnectionStatus = value; }
         }
 
-        public IList<PointDataModel> CellPoints { get; set; } 
+        public IList<PointDataModel> CellPoints { get; set; }
 
         public MainWindowViewModel ApplicationViewModel
         {

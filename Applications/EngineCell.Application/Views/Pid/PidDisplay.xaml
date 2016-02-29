@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="EngineCell.Application.Views.Pid.PidDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:extensions="clr-namespace:EngineCell.Application.Extensions"
+             mc:Ignorable="d" 
+             Height="65" Width="350"
+             d:DesignHeight="65" d:DesignWidth="350"
+             Loaded="PidDisplay_OnLoaded">
+    <UserControl.Resources>
+        <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="33*"/>
+            <ColumnDefinition Width="33*"/>
+            <ColumnDefinition Width="33*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Column="0">
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Content="{Binding Path=PidName}"></Label>
+        </Grid>
+        <Grid Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <ToggleButton Name="AutoButton" Content="Auto" Grid.Row="0" IsChecked="{Binding Path=IsAuto }" Click="ToggleAuto" Margin="0,0,0,3"></ToggleButton>
+            <ToggleButton Name="ManualButton" Content="Manual" Grid.Row="1" IsChecked="{Binding Path=IsManual, Mode=OneWay}" Click="ToggleManual" Margin="0,3,0,0"></ToggleButton>
+        </Grid>
+        <Grid Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid Row="0" Margin="0,3,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Text="{Binding Path=AutoValue}" HorizontalAlignment="Stretch" Margin="10,0,0,0"></TextBox>
+                <Button Grid.Column="1" Content="RPM" HorizontalAlignment="Left" Visibility="{Binding Path=IsSpeedAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>
+                <Button Grid.Column="1" Content="Nm" HorizontalAlignment="Left" Visibility="{Binding Path=IsTorqueAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>
+                <Button Grid.Column="1" Content="%" HorizontalAlignment="Left" Visibility="{Binding Path=IsDirectAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>
+            </Grid>
+            <Grid Row="1" Margin="0,0,0,3" Visibility="{Binding Path=IsSpeedManual, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Text="{Binding Path=Speed, Mode=OneWay}" HorizontalAlignment="Stretch" Margin="10,0,0,0"
+                         IsEnabled="{Binding Path=IsSpeedManualEnabled, Mode=OneWay}"></TextBox>
+                <Button Grid.Column="1" Content="RPM" HorizontalAlignment="Left"></Button>
+            </Grid>
+            <Grid Row="1" Margin="0,0,0,3" Visibility="{Binding Path=IsTorqueManual, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Text="{Binding Path=Torque, Mode=OneWay}" HorizontalAlignment="Stretch" Margin="10,0,0,0"
+                         IsEnabled="{Binding Path=IsTorqueManualEnabled, Mode=OneWay}"></TextBox>
+                <Button Grid.Column="1" Content="Nm" HorizontalAlignment="Left"></Button>
+            </Grid>
+            <Grid Row="1" Margin="0,0,0,3" Visibility="{Binding Path=IsDirectManual, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Text="{Binding Path=Direct, Mode=OneWay}" HorizontalAlignment="Stretch" Margin="10,0,0,0"
+                         IsEnabled="{Binding Path=IsDirectManualEnabled, Mode=OneWay}"></TextBox>
+                <Button Grid.Column="1" Content="%" HorizontalAlignment="Left"></Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -16,5 +16,12 @@
             Idle,
             Finished,
         }
+
+        public enum PidSetting
+        {
+            Speed,
+            Torque,
+            Direct
+        }
     }
 }

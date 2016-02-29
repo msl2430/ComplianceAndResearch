@@ -132,7 +132,8 @@
     <Compile Include="ViewModels\Clocks\ClockViewModel.cs" />
     <Compile Include="ViewModels\Clocks\RemainingTimeViewModel.cs" />
     <Compile Include="ViewModels\Clocks\RunTimeViewModel.cs" />
-    <Compile Include="ViewModels\PidSetting.cs" />
+    <Compile Include="ViewModels\Pid\PidDisplayModel.cs" />
+    <Compile Include="ViewModels\Pid\PidSetting.cs" />
     <Compile Include="ViewModels\PointConfiguration\PointConfigurationViewModel.cs" />
     <Compile Include="ViewModels\StripChart\StripChartViewModels.cs" />
     <Compile Include="ViewModels\TestDisplay\TestDisplayViewModel.cs" />
@@ -152,8 +153,11 @@
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PidConfiguration\PidConfiguration.xaml.cs">
-      <DependentUpon>PidConfiguration.xaml</DependentUpon>
+    <Compile Include="Views\Pid\PidConfiguration_old.xaml.cs">
+      <DependentUpon>PidConfiguration_old.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pid\PidDisplay.xaml.cs">
+      <DependentUpon>PidDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PointConfiguration\PointConfiguration.xaml.cs">
       <DependentUpon>PointConfiguration.xaml</DependentUpon>
@@ -195,7 +199,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PidConfiguration\PidConfiguration.xaml">
+    <Page Include="Views\Pid\PidConfiguration_old.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pid\PidDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

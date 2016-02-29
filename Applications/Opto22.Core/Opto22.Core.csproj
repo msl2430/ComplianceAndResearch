@@ -53,6 +53,7 @@
     <Compile Include="Models\DigitalPointModel.cs" />
     <Compile Include="Models\ScratchPadModel.cs" />
     <Compile Include="Models\Opto22StationModel.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\PointService.cs" />
     <Compile Include="Service\ScratchPadService.cs" />

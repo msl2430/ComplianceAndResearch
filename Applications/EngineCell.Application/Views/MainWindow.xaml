@@ -10,8 +10,6 @@
         xmlns:stripChart="clr-namespace:EngineCell.Application.Views.StripChart"
         xmlns:clocks="clr-namespace:EngineCell.Application.Views.Clocks"
         xmlns:stripChartViewModel="clr-namespace:EngineCell.Application.ViewModels.StripChart"
-        xmlns:pointConfigurationViewModel="clr-namespace:EngineCell.Application.ViewModels.PointConfiguration"
-        xmlns:pointConfiguration="clr-namespace:EngineCell.Application.Views.PointConfiguration"
         xmlns:testDisplayViewModel="clr-namespace:EngineCell.Application.ViewModels.TestDisplay"
         xmlns:testDisplay="clr-namespace:EngineCell.Application.Views.TestDisplay"
         mc:Ignorable="d"
@@ -24,9 +22,6 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type testDisplayViewModel:TestDisplayViewModel}">
             <testDisplay:TestDisplay/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type pointConfigurationViewModel:PointConfigurationViewModel}">
-            <pointConfiguration:PointConfiguration/>
         </DataTemplate>
     </local:BaseWindowView.Resources>
     <Grid>
@@ -74,7 +69,6 @@
                     </StackPanel>
                   </Grid>
                   <Grid Row="1">
-                      <!--<ContentControl x:Name="MainView" Content="{Binding CurrentPageViewModel}"></ContentControl>-->
                       <ItemsControl ItemsSource="{Binding ViewModels}">
                           <ItemsControl.ItemsPanel>
                               <ItemsPanelTemplate>

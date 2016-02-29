@@ -1,12 +1,12 @@
 ﻿using System.Collections.ObjectModel;
-using EngineCell.Application.ViewModels;
 using EngineCell.Core.Constants;
+using EngineCell.Core.Models;
 using EngineCell.Models.Models;
 using OxyPlot;
 
 namespace EngineCell.Application.Models
 {
-    public class PointDataModel : BaseViewModel
+    public class PointDataModel : BaseModel
     {
         public int CellPointId { get; set; }
         public int CellId { get; set; }

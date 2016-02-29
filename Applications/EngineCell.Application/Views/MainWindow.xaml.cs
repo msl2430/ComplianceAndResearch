@@ -11,6 +11,7 @@ using EngineCell.Application.Factories;
 using EngineCell.Application.Models;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels;
+using EngineCell.Application.ViewModels.Pid;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Application.ViewModels.TestDisplay;
@@ -37,11 +38,10 @@ namespace EngineCell.Application.Views
             ApplicationSessionFactory = new ApplicationSessionFactory()
             {
                 ApplicationViewModel = MainWindowViewModel,
-                CellPoints = (new CellPointRepository()).GetCellPointsByCellId(1)
+                CellPoints = (new CellPointRepository()).GetCellPointsByCellId(1) //TODO: Need to refactor this
                                 .ToList()
                                 .Select(p => new PointDataModel(p))
-                                .ToList()
-                    
+                                .ToList(),
             };
             
             MainWindowViewModel.PointConfigViewModel = new PointConfigurationViewModel(ApplicationSessionFactory);

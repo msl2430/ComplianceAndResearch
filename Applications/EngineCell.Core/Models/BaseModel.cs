@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -7,7 +8,7 @@ using System.Text;
 namespace EngineCell.Core.Models
 {
     [Serializable]
-    public class BaseModel : ICloneable 
+    public class BaseModel : ICloneable, INotifyPropertyChanged
     {
         public override string ToString()
         {
@@ -48,5 +49,14 @@ namespace EngineCell.Core.Models
                 return formatter.Deserialize(stream);
             }
         }
+
+        protected void OnPropertyChanged(string name)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(name));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

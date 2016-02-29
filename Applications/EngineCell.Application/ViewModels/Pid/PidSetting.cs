@@ -1,8 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
-namespace EngineCell.Application.ViewModels
+namespace EngineCell.Application.ViewModels.Pid
 {
-    public class PidSetting : INotifyPropertyChanged
+    [Obsolete]
+    public class PidSettingOld : INotifyPropertyChanged
     {
         private bool _isManual { get; set; }
 
@@ -41,13 +43,13 @@ namespace EngineCell.Application.ViewModels
         private bool _isDirty { get; set; }
         public bool IsDirty { get { return _isDirty;} set { _isDirty = value; OnPropertyChanged("IsDirty"); } }
 
-        public PidSetting()
+        public PidSettingOld()
         {
             IsManual = false;
             IsDirty = false;
         }
 
-        public PidSetting(string name)
+        public PidSettingOld(string name)
         {
             Name = name;
             IsManual = false;
