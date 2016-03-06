@@ -59,7 +59,7 @@ namespace EngineCell.Application.Factories
             var optoScratchPadInts = new int[MaxIntegerScratchPadElements];
             result = OptoMmp.Current.ScratchpadI32Read(optoScratchPadInts, 0, MaxIntegerScratchPadElements, 0);
             if (result != 0)
-                throw new Exception("Error getting scratchpad integers.");
+                //throw new Exception("Error getting scratchpad integers.");
             foreach (var scratchPad in
                 from object intIndex in Enum.GetValues(typeof (ScratchPadConstants.IntegerIndexes))
                 select ScratchPadInts.FirstOrDefault(b => b.Index == (int) intIndex))

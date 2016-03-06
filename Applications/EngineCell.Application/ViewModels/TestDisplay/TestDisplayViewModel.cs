@@ -8,6 +8,8 @@ namespace EngineCell.Application.ViewModels.TestDisplay
 {
     public class TestDisplayViewModel : BaseViewModel
     {
+        public DynoThrottlePidViewModel DynoThrottlePid { get; set; }
+
         public PidDisplayModel DynoPid1 { get; set; }
 
         public PidDisplayModel DynoPid2 { get; set; }
@@ -29,6 +31,11 @@ namespace EngineCell.Application.ViewModels.TestDisplay
         {
             ZIndex = 1;
             ApplicationSessionFactory = appSession;
+            DynoThrottlePid = new DynoThrottlePidViewModel()
+            {
+                Dyno = new PidDisplayModel("Dyno") {AutoValue = 123},
+                Throttle = new PidDisplayModel("Throttle")
+            };
             DynoPid1 = new PidDisplayModel("Dyno") { AutoValue = 123 };            
             //DynoPid2 = new PidDisplay("Dyno 2");
             ThrottlePid1 = new PidDisplayModel("Throttle");
