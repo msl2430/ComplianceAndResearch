@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using EngineCell.Application.Models;
 using EngineCell.Application.ViewModels.PointConfiguration;
 
 namespace EngineCell.Application.Views.PointConfiguration

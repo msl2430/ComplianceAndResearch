@@ -1,24 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Controls.Primitives;
 using EngineCell.Application.ViewModels.Pid;
 
 namespace EngineCell.Application.Views.Pid
 {
-    /// <summary>
-    /// Interaction logic for DynoThrottlePid.xaml
-    /// </summary>
     public partial class DynoThrottlePid : UserControl
     {
         private DynoThrottlePidViewModel ViewModel { get; set; }
@@ -32,6 +18,40 @@ namespace EngineCell.Application.Views.Pid
         {
             if (DataContext != null)
                 ViewModel = (DynoThrottlePidViewModel)DataContext;
+        }
+
+        private void ToggleAuto(object sender, RoutedEventArgs e)
+        {
+            var type = ((ToggleButton)sender).Tag.ToString();
+            switch (type)
+            {
+                case "Dyno":
+                    ViewModel.Dyno.IsAuto = true;
+                    break;
+                case "Throttle":
+                    ViewModel.Throttle.IsAuto = true;
+                    break;
+            }
+        }
+
+        private void ToggleManual(object sender, RoutedEventArgs e)
+        {
+            var type = ((ToggleButton)sender).Tag.ToString();
+            switch (type)
+            {
+                case "Dyno":
+                    ViewModel.Dyno.IsAuto = false;
+                    break;
+                case "Throttle":
+                    ViewModel.Throttle.IsAuto = false;
+                    break;
+            }
+        }
+
+        private void ModeSelection(object sender, RoutedEventArgs e)
+        {
+            var modeSelectModal = new PidModeSelection(ViewModel.Dyno, ViewModel.Throttle);
+            modeSelectModal.ShowDialog();
         }
     }
 }

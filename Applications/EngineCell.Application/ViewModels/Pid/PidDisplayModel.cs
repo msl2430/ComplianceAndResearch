@@ -10,7 +10,7 @@ namespace EngineCell.Application.ViewModels.Pid
         private bool _isAuto { get; set; }
         public bool IsAuto {
             get { return _isAuto; }
-            set { _isAuto = value; OnPropertyChanged("IsAuto"); }
+            set { _isAuto = value; OnPropertyChanged("IsAuto"); OnPropertyChanged("IsManual"); }
         }
 
         private decimal _autoValue { get; set; }
@@ -44,14 +44,33 @@ namespace EngineCell.Application.ViewModels.Pid
         private ControlConstants.PidSetting _settingManual { get;set; }
         public ControlConstants.PidSetting SettingManual {
             get { return _settingManual; }
-            set { _settingManual = value; OnPropertyChanged("SettingManual"); }
+            set {
+                _settingManual = value;
+                OnPropertyChanged("SettingManual");
+                OnPropertyChanged("IsSpeedManual");
+                OnPropertyChanged("IsTorqueManual");
+                OnPropertyChanged("IsDirectManual");
+                OnPropertyChanged("IsSpeedManualEnabled");
+                OnPropertyChanged("IsTorqueManualEnabled");
+                OnPropertyChanged("IsDirectManualEnabled");
+            }
         }
 
         private ControlConstants.PidSetting _settingAuto { get; set; }
         public ControlConstants.PidSetting SettingAuto
         {
             get { return _settingAuto; }
-            set { _settingAuto = value; OnPropertyChanged("SettingAuto"); }
+            set
+            {
+                _settingAuto = value;
+                OnPropertyChanged("SettingAuto");
+                OnPropertyChanged("IsSpeedAuto");
+                OnPropertyChanged("IsTorqueAuto");
+                OnPropertyChanged("IsDirectAuto");
+                OnPropertyChanged("IsSpeedAutoEnabled");
+                OnPropertyChanged("IsTorqueAutoEnabled");
+                OnPropertyChanged("IsDirectAutoEnabled");
+            }
         }
 
         public bool IsSpeedAuto => SettingAuto == ControlConstants.PidSetting.Speed;

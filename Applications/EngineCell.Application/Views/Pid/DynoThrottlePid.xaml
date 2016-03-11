@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:pid="clr-namespace:EngineCell.Application.Views.Pid"
              xmlns:pidModel="clr-namespace:EngineCell.Application.ViewModels.Pid"
+             xmlns:extensions="clr-namespace:EngineCell.Application.Extensions"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              Loaded="DynoThrottlePid_OnLoaded">
@@ -12,6 +13,7 @@
         <DataTemplate DataType="{x:Type pidModel:PidDisplayModel}">
             <pid:PidDisplay></pid:PidDisplay>
         </DataTemplate>
+        <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -21,7 +23,127 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
-        <ContentControl x:Name="Dyno" Content="{Binding Dyno}" Grid.Row="0" Grid.Column="0"></ContentControl>
-        <ContentControl x:Name="Throttle" Content="{Binding Throttle}" Grid.Row="0" Grid.Column="1"></ContentControl>
+        <Grid Row="0" Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Column="0">
+                <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Content="Dyno"></Label>
+            </Grid>
+            <Grid Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <ToggleButton  Content="Auto" Grid.Row="0" IsChecked="{Binding Path=Dyno.IsAuto }" Click="ToggleAuto" Tag="Dyno" Margin="0,0,0,3"></ToggleButton>
+                <ToggleButton  Content="Manual" Grid.Row="1" IsChecked="{Binding Path=Dyno.IsManual, Mode=OneWay}" Click="ToggleManual" Tag="Dyno" Margin="0,3,0,0"></ToggleButton>
+            </Grid>
+            <Grid Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid Row="0" Margin="0,3,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="{Binding Path=Dyno.AutoValue}" HorizontalAlignment="Stretch" Margin="10,0,0,0"></TextBox>
+                    <Button Grid.Column="1" Content="RPM" HorizontalAlignment="Stretch" Visibility="{Binding Path=Dyno.IsSpeedAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>
+                    <Button Grid.Column="1" Content="Nm" HorizontalAlignment="Stretch" Visibility="{Binding Path=Dyno.IsTorqueAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>
+                    <Button Grid.Column="1" Content="%" HorizontalAlignment="Stretch" Visibility="{Binding Path=Dyno.IsDirectAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>
+                </Grid>
+                <Grid Row="1" Margin="0,0,0,3" Visibility="{Binding Path=Dyno.IsSpeedManual, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="{Binding Path=Dyno.Speed, Mode=OneWay}" HorizontalAlignment="Stretch" Margin="10,0,0,0"
+                         IsEnabled="{Binding Path=Dyno.IsSpeedManualEnabled, Mode=OneWay}"></TextBox>
+                    <Button Grid.Column="1" Content="RPM" HorizontalAlignment="Stretch" Click="ModeSelection"></Button>
+                </Grid>
+                <Grid Row="1" Margin="0,0,0,3" Visibility="{Binding Path=Dyno.IsTorqueManual, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="{Binding Path=Dyno.Torque, Mode=OneWay}" HorizontalAlignment="Stretch" Margin="10,0,0,0"
+                         IsEnabled="{Binding Path=Dyno.IsTorqueManualEnabled, Mode=OneWay}"></TextBox>
+                    <Button Grid.Column="1" Content="Nm" HorizontalAlignment="Stretch" Click="ModeSelection"></Button>
+                </Grid>
+                <Grid Row="1" Margin="0,0,0,3" Visibility="{Binding Path=Dyno.IsDirectManual, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="{Binding Path=Dyno.Direct, Mode=OneWay}" HorizontalAlignment="Stretch" Margin="10,0,0,0"
+                         IsEnabled="{Binding Path=Dyno.IsDirectManualEnabled, Mode=OneWay}"></TextBox>
+                    <Button Grid.Column="1" Content="%" HorizontalAlignment="Stretch" Click="ModeSelection"></Button>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Row="0" Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Column="0">
+                <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Content="Throttle"></Label>
+            </Grid>
+            <Grid Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <ToggleButton  Content="Auto" Grid.Row="0" IsChecked="{Binding Path=Throttle.IsAuto }" Click="ToggleAuto" Tag="Throttle" Margin="0,0,0,3"></ToggleButton>
+                <ToggleButton  Content="Manual" Grid.Row="1" IsChecked="{Binding Path=Throttle.IsManual, Mode=OneWay}" Click="ToggleManual" Tag="Throttle" Margin="0,3,0,0"></ToggleButton>
+            </Grid>
+            <Grid Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid Row="0" Margin="0,3,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="{Binding Path=Throttle.AutoValue}" HorizontalAlignment="Stretch" Margin="10,0,0,0"></TextBox>
+                    <Button Grid.Column="1" Content="RPM" HorizontalAlignment="Stretch" Visibility="{Binding Path=Throttle.IsSpeedAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>
+                    <Button Grid.Column="1" Content="Nm" HorizontalAlignment="Stretch" Visibility="{Binding Path=Throttle.IsTorqueAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>
+                    <Button Grid.Column="1" Content="%" HorizontalAlignment="Stretch" Visibility="{Binding Path=Throttle.IsDirectAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>
+                </Grid>
+                <Grid Row="1" Margin="0,0,0,3" Visibility="{Binding Path=Throttle.IsSpeedManual, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="{Binding Path=Throttle.Speed, Mode=OneWay}" HorizontalAlignment="Stretch" Margin="10,0,0,0"
+                         IsEnabled="{Binding Path=Throttle.IsSpeedManualEnabled, Mode=OneWay}"></TextBox>
+                    <Button Grid.Column="1" Content="RPM" HorizontalAlignment="Stretch" Click="ModeSelection"></Button>
+                </Grid>
+                <Grid Row="1" Margin="0,0,0,3" Visibility="{Binding Path=Throttle.IsTorqueManual, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="{Binding Path=Throttle.Torque, Mode=OneWay}" HorizontalAlignment="Stretch" Margin="10,0,0,0"
+                         IsEnabled="{Binding Path=Throttle.IsTorqueManualEnabled, Mode=OneWay}"></TextBox>
+                    <Button Grid.Column="1" Content="Nm" HorizontalAlignment="Stretch" Click="ModeSelection"></Button>
+                </Grid>
+                <Grid Row="1" Margin="0,0,0,3" Visibility="{Binding Path=Throttle.IsDirectManual, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Text="{Binding Path=Throttle.Direct, Mode=OneWay}" HorizontalAlignment="Stretch" Margin="10,0,0,0"
+                         IsEnabled="{Binding Path=Throttle.IsDirectManualEnabled, Mode=OneWay}"></TextBox>
+                    <Button Grid.Column="1" Content="%" HorizontalAlignment="Stretch" Click="ModeSelection"></Button>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

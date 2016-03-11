@@ -134,6 +134,7 @@
     <Compile Include="ViewModels\Clocks\RunTimeViewModel.cs" />
     <Compile Include="ViewModels\Pid\DynoThrottlePidViewModel.cs" />
     <Compile Include="ViewModels\Pid\PidDisplayModel.cs" />
+    <Compile Include="ViewModels\Pid\PidModeSelectionViewModel.cs" />
     <Compile Include="ViewModels\Pid\PidSetting.cs" />
     <Compile Include="ViewModels\PointConfiguration\PointConfigurationViewModel.cs" />
     <Compile Include="ViewModels\StripChart\StripChartViewModels.cs" />

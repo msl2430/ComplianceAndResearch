@@ -38,7 +38,8 @@
               </ItemsControl>
             </ScrollViewer>
           </Grid>
-          <Grid Column="1">
+          <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Column="1" >
+          <Grid>
             <Grid.RowDefinitions>
               <RowDefinition Height="500"/>
               <RowDefinition Height="200"/>
@@ -47,58 +48,53 @@
             <Grid Row="0">
               <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
               <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Voltage Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
-              <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
-                <ItemsControl ItemsSource="{Binding Path=Volts}">
-                  <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                      <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                  </ItemsControl.ItemsPanel>
-                  <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                      <pointDisplay:PointDisplay DataContext="{Binding }" Margin="0,3,0,3"></pointDisplay:PointDisplay>
-                    </DataTemplate>
-                  </ItemsControl.ItemTemplate>
-                </ItemsControl>
-              </ScrollViewer>
+              <ItemsControl ItemsSource="{Binding Path=Volts}" Margin="0,30,0,0">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical"/>
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <pointDisplay:PointDisplay DataContext="{Binding }" Margin="0,3,0,3"></pointDisplay:PointDisplay>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
             </Grid>
             <Grid Row="1">
               <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
               <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="MilliAmp Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
-              <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
-                <ItemsControl ItemsSource="{Binding Path=MilliAmps}">
-                  <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                      <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                  </ItemsControl.ItemsPanel>
-                  <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                      <pointDisplay:PointDisplay DataContext="{Binding }" Margin="0,3,0,3"></pointDisplay:PointDisplay>
-                    </DataTemplate>
-                  </ItemsControl.ItemTemplate>
-                </ItemsControl>
-              </ScrollViewer>
+              <ItemsControl ItemsSource="{Binding Path=MilliAmps}" Margin="0,30,0,0">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical"/>
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <pointDisplay:PointDisplay DataContext="{Binding }" Margin="0,3,0,3"></pointDisplay:PointDisplay>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
             </Grid>
             <Grid Row="2">
               <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
               <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="HART Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
-              <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
-                <ItemsControl ItemsSource="{Binding Path=Harts}">
-                  <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                      <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                  </ItemsControl.ItemsPanel>
-                  <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                      <pointDisplay:PointDisplay DataContext="{Binding }" Margin="0,3,0,3"></pointDisplay:PointDisplay>
-                    </DataTemplate>
-                  </ItemsControl.ItemTemplate>
-                </ItemsControl>
-              </ScrollViewer>
+              <ItemsControl ItemsSource="{Binding Path=Harts}" Margin="0,30,0,0">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical"/>
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <pointDisplay:PointDisplay DataContext="{Binding }" Margin="0,3,0,3"></pointDisplay:PointDisplay>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
             </Grid>
           </Grid>
+          </ScrollViewer>
           <Grid Column="2">
             <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
             <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Analog Output Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
@@ -116,7 +112,7 @@
                 </ItemsControl.ItemTemplate>
               </ItemsControl>
             </ScrollViewer>
-          </Grid>
+          </Grid>      
           <Grid Column="3">
             <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
             <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Dyno Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>

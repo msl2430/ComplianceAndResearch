@@ -11,11 +11,9 @@ using EngineCell.Application.Factories;
 using EngineCell.Application.Models;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels;
-using EngineCell.Application.ViewModels.Pid;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Application.ViewModels.TestDisplay;
-using EngineCell.Application.Views.Pid;
 using EngineCell.Core.Constants;
 using EngineCell.Models.Repositories;
 using MahApps.Metro.Controls;
@@ -49,9 +47,7 @@ namespace EngineCell.Application.Views
             MainWindowViewModel.TestDisplayViewModel = new TestDisplayViewModel(ApplicationSessionFactory, new StripChartViewModel(ApplicationSessionFactory));
             MainWindowViewModel.ViewModels = new ObservableCollection<BaseViewModel>() { MainWindowViewModel.PointConfigViewModel, MainWindowViewModel.TestDisplayViewModel };
             
-            //ChangePageView(MainWindowViewModel.TestDisplayViewModel);
-            //var popup = new PidModeSelection();
-            //popup.ShowDialog();
+            ChangePageView(MainWindowViewModel.TestDisplayViewModel);            
 
             DataContext = MainWindowViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);

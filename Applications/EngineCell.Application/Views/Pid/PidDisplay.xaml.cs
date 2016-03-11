@@ -1,11 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using EngineCell.Application.ViewModels.Pid;
 
 namespace EngineCell.Application.Views.Pid
 {
     public partial class PidDisplay : UserControl
     {
-        public ViewModels.Pid.PidDisplayModel PidConfig { get; set; }
+        public PidDisplayModel PidConfig { get; set; }        
 
         public PidDisplay()
         {
@@ -14,7 +15,7 @@ namespace EngineCell.Application.Views.Pid
 
         private void PidDisplay_OnLoaded(object sender, RoutedEventArgs e)
         {
-            PidConfig = (ViewModels.Pid.PidDisplayModel)DataContext;
+            PidConfig = (PidDisplayModel)DataContext;
         }
 
         private void ToggleAuto(object sender, RoutedEventArgs e)
@@ -27,6 +28,6 @@ namespace EngineCell.Application.Views.Pid
         {
             AutoButton.IsChecked = false;
             ManualButton.IsChecked = true;
-        }        
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -41,6 +42,6 @@ namespace EngineCell.Application.Views.TestDisplay
                 PointWorkerService.DoWork();
             });
             TestDisplayViewModel.ChartViewModel.IsPlay = true;
-        }       
+        }
     }
 }

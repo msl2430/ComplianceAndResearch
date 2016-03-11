@@ -22,27 +22,27 @@
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" >
-            <RadioButton Name="DynoRpm" GroupName="Mode" VerticalAlignment="Center"></RadioButton>
+            <RadioButton Name="LeftRpm" GroupName="LeftMode" VerticalAlignment="Center" Click="RadioButton_OnChecked" ></RadioButton>
             <Label Content="RPM" VerticalAlignment="Center"></Label>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" >
-            <RadioButton Name="DynoNm" GroupName="Mode" VerticalAlignment="Center"></RadioButton>
+            <RadioButton Name="LeftNm" GroupName="LeftMode" VerticalAlignment="Center" Click="RadioButton_OnChecked"></RadioButton>
             <Label Content="Nm" VerticalAlignment="Center"></Label>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2" >
-            <RadioButton Name="DynoPercent" GroupName="Mode" VerticalAlignment="Center"></RadioButton>
+            <RadioButton Name="LeftPercent" GroupName="LeftMode" VerticalAlignment="Center" Click="RadioButton_OnChecked"></RadioButton>
             <Label Content="%" VerticalAlignment="Center"></Label>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" >
-            <RadioButton Name="ThrottleRpm" GroupName="Mode" VerticalAlignment="Center"></RadioButton>
+            <RadioButton Name="RightRpm" GroupName="RightMode" VerticalAlignment="Center" Click="RadioButton_OnChecked"></RadioButton>
             <Label Content="RPM" VerticalAlignment="Center"></Label>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" >
-            <RadioButton Name="ThrottleNm" GroupName="Mode" VerticalAlignment="Center"></RadioButton>
+            <RadioButton Name="RightNm" GroupName="RightMode" VerticalAlignment="Center" Click="RadioButton_OnChecked"></RadioButton>
             <Label Content="Nm" VerticalAlignment="Center"></Label>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" >
-            <RadioButton Name="ThrottlePercent" GroupName="Mode" VerticalAlignment="Center"></RadioButton>
+            <RadioButton Name="RightPercent" GroupName="RightMode" VerticalAlignment="Center" Click="RadioButton_OnChecked"></RadioButton>
             <Label Content="%" VerticalAlignment="Center"></Label>
         </StackPanel>
     </Grid>
@@ -52,8 +52,8 @@
             <ColumnDefinition Width="75"/>
             <ColumnDefinition Width="75"/>
         </Grid.ColumnDefinitions>
-        <Button Name="CancelButton" Grid.Column="1" Height="30" Margin="3,0,10,0" VerticalAlignment="Top">Cancel</Button>
-        <Button Name="OkButton" Grid.Column="2" Height="30" Margin="3,0,10,0" VerticalAlignment="Top">Ok</Button>
+        <Button Name="CancelButton" Grid.Column="1" Height="30" Margin="3,0,10,0" VerticalAlignment="Top" Click="CancelButton_OnClick">Cancel</Button>
+        <Button Name="OkButton" Grid.Column="2" Height="30" Margin="3,0,10,0" VerticalAlignment="Top" Click="SubmitModes">Ok</Button>
     </Grid>
     </Grid>
 </Window>

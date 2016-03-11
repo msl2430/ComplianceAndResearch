@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using EngineCell.Application.Factories;
 using EngineCell.Application.ViewModels.Pid;
 using EngineCell.Application.ViewModels.StripChart;
+using EngineCell.Core.Constants;
 
 namespace EngineCell.Application.ViewModels.TestDisplay
 {
     public class TestDisplayViewModel : BaseViewModel
     {
-        public DynoThrottlePidViewModel DynoThrottlePid { get; set; }
+        private DynoThrottlePidViewModel _dynoThrottlePid { get; set; }
+        public DynoThrottlePidViewModel DynoThrottlePid {
+            get { return _dynoThrottlePid; }
+            set { _dynoThrottlePid = value; OnPropertyChanged("DynoThrottlePid"); }
+        }
 
         public PidDisplayModel DynoPid1 { get; set; }
 
@@ -33,8 +38,8 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             ApplicationSessionFactory = appSession;
             DynoThrottlePid = new DynoThrottlePidViewModel()
             {
-                Dyno = new PidDisplayModel("Dyno") {AutoValue = 123},
-                Throttle = new PidDisplayModel("Throttle")
+                Dyno = new PidDisplayModel("Dyno") {AutoValue = 123, SettingAuto = ControlConstants.PidSetting.Speed },
+                Throttle = new PidDisplayModel("Throttle") { SettingManual = ControlConstants.PidSetting.Direct }
             };
             DynoPid1 = new PidDisplayModel("Dyno") { AutoValue = 123 };            
             //DynoPid2 = new PidDisplay("Dyno 2");

@@ -12,6 +12,8 @@
         xmlns:stripChartViewModel="clr-namespace:EngineCell.Application.ViewModels.StripChart"
         xmlns:testDisplayViewModel="clr-namespace:EngineCell.Application.ViewModels.TestDisplay"
         xmlns:testDisplay="clr-namespace:EngineCell.Application.Views.TestDisplay"
+        xmlns:pointConfigurationViewModel="clr-namespace:EngineCell.Application.ViewModels.PointConfiguration"
+        xmlns:pointConfiguration="clr-namespace:EngineCell.Application.Views.PointConfiguration"
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="Rocket Rod" Height="720" Width="1024">
@@ -22,6 +24,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type testDisplayViewModel:TestDisplayViewModel}">
             <testDisplay:TestDisplay/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type pointConfigurationViewModel:PointConfigurationViewModel}">
+          <pointConfiguration:PointConfiguration/>
         </DataTemplate>
     </local:BaseWindowView.Resources>
     <Grid>
