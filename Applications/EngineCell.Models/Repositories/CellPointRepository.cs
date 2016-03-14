@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EngineCell.Models.DataObjects;
 using EngineCell.Models.Models;
@@ -10,6 +11,8 @@ namespace EngineCell.Models.Repositories
     {
         IList<CellPointModel> GetCellPointsByCellId(int cellId);
         void UpdateCellPoint(CellPointModel point);
+        void UpdateCellPointAlarm(CellPointAlarmModel alarm);
+        void DeleteCellPointAlarm(int cellPointAlarmId);
     }
 
     public class CellPointRepository : ICellPointRepository
@@ -42,6 +45,29 @@ namespace EngineCell.Models.Repositories
 
             NHibernateHelper.CurrentSession.Update(cellPoint);
             NHibernateHelper.CurrentSession.Flush();
+        }
+
+        public void UpdateCellPointAlarm(CellPointAlarmModel alarm)
+        {
+            var cellPointAlarm = NHibernateHelper.CurrentSession.QueryOver<CellPointAlarm>()
+                .Where(cpa => cpa.CellPointAlarmId == alarm.CellPointAlarmId)
+                .SingleOrDefault<CellPointAlarm>() ?? new CellPointAlarm();
+
+            cellPointAlarm.LowShutdownWarning = alarm.LowShutdownWarning;
+            cellPointAlarm.LowShutdownExecute = alarm.LowShutdownExecute;
+            cellPointAlarm.HighShutdownWarning = alarm.HighShutdownWarning;
+            cellPointAlarm.HighShutdownExecute = alarm.HighShutdownExecute;
+            cellPointAlarm.UpdateDateTime = DateTime.Now;
+
+            NHibernateHelper.CurrentSession.SaveOrUpdate(cellPointAlarm);
+            NHibernateHelper.CurrentSession.Flush();
+        }
+
+        public void DeleteCellPointAlarm(int cellPointAlarmId)
+        {
+            NHibernateHelper.CurrentSession.CreateSQLQuery("DELETE FROM CellPointAlarm WHERE CellPointAlarmId = :id")
+                .SetParameter("id", cellPointAlarmId)
+                .ExecuteUpdate();
         }
     }
 }

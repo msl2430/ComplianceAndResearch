@@ -59,12 +59,15 @@
     <Compile Include="DataObjects\Cell.cs" />
     <Compile Include="DataObjects\CellPoint.cs" />
     <Compile Include="DataObjects\Point.cs" />
+    <Compile Include="DataObjects\CellPointAlarm.cs" />
     <Compile Include="Helpers\NHibernateHelper.cs" />
     <Compile Include="Mapping\CellMap.cs" />
     <Compile Include="Mapping\CellPointMap.cs" />
+    <Compile Include="Mapping\CellPointAlarmMap.cs" />
     <Compile Include="Mapping\PointMap.cs" />
     <Compile Include="Models\CellModel.cs" />
     <Compile Include="Models\CellPointModel.cs" />
+    <Compile Include="Models\CellPointAlarmModel.cs" />
     <Compile Include="Models\PointModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CellPointRepository.cs" />

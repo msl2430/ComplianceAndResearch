@@ -27,6 +27,7 @@ namespace EngineCell.Models.DataObjects
         public virtual int CellPointId { get; set; }
         public virtual Cell Cell { get; set; }
         public virtual Point Point { get; set; }
+        public virtual CellPointAlarm Alarm { get; set; }
         public virtual string CustomName { get; set; }
         public virtual bool IncludeInStripChart { get; set; }
         public virtual decimal? StripChartScale { get; set; }

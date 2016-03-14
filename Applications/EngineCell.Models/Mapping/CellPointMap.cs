@@ -40,6 +40,12 @@ namespace EngineCell.Models.Mapping
             References(cp => cp.Point)
                 .Column("PointId")
                 .Fetch.Join();
+
+            References(cp => cp.Alarm)
+                .Column("CellPointId")
+                .Nullable()
+                .NotFound.Ignore()
+                .Fetch.Join();
         }
     }
 }

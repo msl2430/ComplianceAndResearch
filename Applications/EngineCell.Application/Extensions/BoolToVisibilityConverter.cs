@@ -8,6 +8,8 @@ namespace EngineCell.Application.Extensions
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (parameter != null)
+                return (bool) value ? Visibility.Visible : Visibility.Collapsed;
             return (bool) value ? Visibility.Visible : Visibility.Hidden;
         }
 
@@ -21,6 +23,8 @@ namespace EngineCell.Application.Extensions
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (parameter != null)
+                return (bool)value ? Visibility.Collapsed : Visibility.Visible;
             return (bool)value ? Visibility.Hidden : Visibility.Visible;
         }
 

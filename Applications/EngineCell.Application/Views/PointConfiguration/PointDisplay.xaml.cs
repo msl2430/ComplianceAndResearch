@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using EngineCell.Application.Models;
+using EngineCell.Application.ViewModels.PointConfiguration;
+using EngineCell.Application.Views.AlarmConfiguration;
 using EngineCell.Models.Repositories;
 
 namespace EngineCell.Application.Views.PointConfiguration
@@ -41,5 +42,10 @@ namespace EngineCell.Application.Views.PointConfiguration
                 CellPointRepository.UpdateCellPoint(Point.ToCellPointModel());
         }
 
+        private void AlarmSettings(object sender, RoutedEventArgs e)
+        {
+            var alarmModal = new AlarmConfig(Point.Alarm, Point.CustomName);
+            alarmModal.ShowDialog();
+        }
     }
 }

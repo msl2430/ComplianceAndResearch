@@ -1,10 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using EngineCell.Application.ViewModels.AlarmConfiguration;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Models;
 using EngineCell.Models.Models;
 using OxyPlot;
 
-namespace EngineCell.Application.Models
+namespace EngineCell.Application.ViewModels.PointConfiguration
 {
     public class PointDataModel : BaseModel
     {
@@ -41,13 +42,24 @@ namespace EngineCell.Application.Models
         public decimal Data
         {
             get { return _data; }
-            set { _data = value; OnPropertyChanged("Data"); }
+            set { _data = value; OnPropertyChanged("Data"); OnPropertyChanged("IsDigitalOn"); }
         }
+
+        public bool IsDigitalOn => !IsAnalog && Data > 0;
 
         private ObservableCollection<DataPoint> _dataPoints { get; set; } 
         public ObservableCollection<DataPoint> DataPoints { get { return _dataPoints; } set { _dataPoints = value; OnPropertyChanged("DataPoints"); } }
 
-        public PointDataModel() { }
+        private AlarmSetting _alarm { get; set; }
+        public AlarmSetting Alarm {
+            get { return _alarm; }
+            set { _alarm = value; OnPropertyChanged("Alarm"); }
+        }
+
+        public PointDataModel()
+        {
+            Alarm = new AlarmSetting();
+        }
 
         public PointDataModel(CellPointModel obj)
         {
@@ -56,6 +68,7 @@ namespace EngineCell.Application.Models
             
             InstantiateFromDataObject(obj);
             DataPoints = new ObservableCollection<DataPoint>();
+            Alarm = new AlarmSetting(obj.Alarm);
         }
 
         public CellPointModel ToCellPointModel()

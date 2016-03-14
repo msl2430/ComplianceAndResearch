@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineCell.Application.Views.Pid"
         mc:Ignorable="d"
-        Title="PidModeSelection" Height="210" Width="240">
+        Title="PID Mode Selection" Height="210" Width="240">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="135"/>

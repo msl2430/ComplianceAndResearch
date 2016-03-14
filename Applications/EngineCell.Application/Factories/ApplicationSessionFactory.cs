@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using EngineCell.Application.Models;
 using EngineCell.Application.Services;
 using EngineCell.Application.Session;
 using EngineCell.Application.ViewModels;
+using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Core.Constants;
 
 namespace EngineCell.Application.Factories

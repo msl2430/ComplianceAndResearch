@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using EngineCell.Application.Factories;
-using EngineCell.Application.Models;
 using EngineCell.Core.Constants;
 
 namespace EngineCell.Application.ViewModels.PointConfiguration

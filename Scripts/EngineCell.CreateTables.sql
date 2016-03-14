@@ -77,10 +77,35 @@ CREATE TABLE [dbo].[Cell_Point](
 	[PointId] [int] NOT NULL,
 	[CustomName] [nvarchar](256) NOT NULL,
 	[IncludeInStripChart] [bit] NOT NULL,
-	[StripChartScale] [decimal] NULL,
+	[StripChartScale] [decimal](14,6) NULL,
 	[UpdateDateTime] [datetime] NOT NULL,
  CONSTRAINT [PK_Cell_Point] PRIMARY KEY CLUSTERED 
 ([CellPointId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'PointAlarm')
+DROP TABLE [dbo].[PointAlarm]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[PointAlarm](
+	[PointAlarmId] [int] IDENTITY(1,1) NOT NULL,
+	[PointId] [int] NOT NULL,
+	[LowShutdownWarning] [decimal](14,6) NULL,
+	[LowShutdownExecute] [decimal](14,6) NULL,
+	[HighShutdownWarning] [decimal](14,6) NULL,
+	[HighShutdownExecute] [decimal](14,6) NULL,
+	[UpdateDateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_PointAlarm] PRIMARY KEY CLUSTERED 
+([PointAlarmId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
