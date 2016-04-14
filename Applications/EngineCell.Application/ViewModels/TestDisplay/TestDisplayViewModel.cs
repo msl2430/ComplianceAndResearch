@@ -23,11 +23,11 @@ namespace EngineCell.Application.ViewModels.TestDisplay
 
         public PidDisplayModel ThrottlePid2 { get; set; }
 
-        public PidDisplayModel CoolantPid { get; set; }
+        public PidDisplayViewModel CoolantPid { get; set; }
 
-        public PidDisplayModel OilPid { get; set; }
+        public PidDisplayViewModel OilPid { get; set; }
 
-        public PidDisplayModel Intercooler { get; set; }
+        public PidDisplayViewModel Intercooler { get; set; }
 
         private StripChartViewModel _chartViewModel { get; set; }
         public StripChartViewModel ChartViewModel { get { return _chartViewModel; } set { _chartViewModel = value; OnPropertyChanged("ChartViewModel"); } }
@@ -45,9 +45,9 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             //DynoPid2 = new PidDisplay("Dyno 2");
             ThrottlePid1 = new PidDisplayModel("Throttle");
             //ThrottlePid2 = new PidDisplay("Throttle 2");
-            CoolantPid = new PidDisplayModel("Coolant");
-            OilPid = new PidDisplayModel("Oil");
-            Intercooler = new PidDisplayModel("Intercooler");
+            CoolantPid = new PidDisplayViewModel() {PidConfig = new PidDisplayModel("Coolant")};
+            OilPid = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Oil")};
+            Intercooler = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Intercooler")};
             ChartViewModel = chartViewModel;
         }
     }

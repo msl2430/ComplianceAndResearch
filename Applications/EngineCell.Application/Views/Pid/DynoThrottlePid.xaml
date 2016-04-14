@@ -7,7 +7,7 @@
              xmlns:pidModel="clr-namespace:EngineCell.Application.ViewModels.Pid"
              xmlns:extensions="clr-namespace:EngineCell.Application.Extensions"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="300" d:DesignWidth="800"
              Loaded="DynoThrottlePid_OnLoaded">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type pidModel:PidDisplayModel}">
@@ -37,8 +37,8 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
-                <ToggleButton  Content="Auto" Grid.Row="0" IsChecked="{Binding Path=Dyno.IsAuto }" Click="ToggleAuto" Tag="Dyno" Margin="0,0,0,3"></ToggleButton>
-                <ToggleButton  Content="Manual" Grid.Row="1" IsChecked="{Binding Path=Dyno.IsManual, Mode=OneWay}" Click="ToggleManual" Tag="Dyno" Margin="0,3,0,0"></ToggleButton>
+                <ToggleButton  Content="Auto" Grid.Row="0" IsChecked="{Binding Path=Dyno.IsAuto }" Click="ToggleAuto" Tag="Dyno" Margin="0,0,0,3" Style="{DynamicResource PidToggleButtonStyle}"></ToggleButton>
+                <ToggleButton  Content="Manual" Grid.Row="1" IsChecked="{Binding Path=Dyno.IsManual, Mode=OneWay}" Click="ToggleManual" Tag="Dyno" Margin="0,3,0,0" Style="{DynamicResource PidToggleButtonStyle}"></ToggleButton>
             </Grid>
             <Grid Column="2">
                 <Grid.RowDefinitions>
@@ -50,7 +50,7 @@
                         <ColumnDefinition Width="7*"/>
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" Text="{Binding Path=Dyno.AutoValue}" HorizontalAlignment="Stretch" Margin="10,0,0,0"></TextBox>
+                    <TextBox Grid.Column="0" Text="{Binding Path=Dyno.AutoValue}" HorizontalAlignment="Stretch" Margin="10,0,0,0" IsReadOnly="True"></TextBox>
                     <Button Grid.Column="1" Content="RPM" HorizontalAlignment="Stretch" Visibility="{Binding Path=Dyno.IsSpeedAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>
                     <Button Grid.Column="1" Content="Nm" HorizontalAlignment="Stretch" Visibility="{Binding Path=Dyno.IsTorqueAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>
                     <Button Grid.Column="1" Content="%" HorizontalAlignment="Stretch" Visibility="{Binding Path=Dyno.IsDirectAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>
@@ -66,12 +66,13 @@
                 </Grid>
                 <Grid Row="1" Margin="0,0,0,3" Visibility="{Binding Path=Dyno.IsTorqueManual, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="7*"/>
-                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="19*"/>
+                        <ColumnDefinition Width="63*"/>
+                        <ColumnDefinition Width="35*"/>
                     </Grid.ColumnDefinitions>
                     <TextBox Grid.Column="0" Text="{Binding Path=Dyno.Torque, Mode=OneWay}" HorizontalAlignment="Stretch" Margin="10,0,0,0"
-                         IsEnabled="{Binding Path=Dyno.IsTorqueManualEnabled, Mode=OneWay}"></TextBox>
-                    <Button Grid.Column="1" Content="Nm" HorizontalAlignment="Stretch" Click="ModeSelection"></Button>
+                         IsEnabled="{Binding Path=Dyno.IsTorqueManualEnabled, Mode=OneWay}" Grid.ColumnSpan="2"></TextBox>
+                    <Button Grid.Column="2" Content="Nm" HorizontalAlignment="Stretch" Click="ModeSelection"></Button>
                 </Grid>
                 <Grid Row="1" Margin="0,0,0,3" Visibility="{Binding Path=Dyno.IsDirectManual, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Grid.ColumnDefinitions>
@@ -98,8 +99,8 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
-                <ToggleButton  Content="Auto" Grid.Row="0" IsChecked="{Binding Path=Throttle.IsAuto }" Click="ToggleAuto" Tag="Throttle" Margin="0,0,0,3"></ToggleButton>
-                <ToggleButton  Content="Manual" Grid.Row="1" IsChecked="{Binding Path=Throttle.IsManual, Mode=OneWay}" Click="ToggleManual" Tag="Throttle" Margin="0,3,0,0"></ToggleButton>
+                <ToggleButton  Content="Auto" Grid.Row="0" IsChecked="{Binding Path=Throttle.IsAuto }" Click="ToggleAuto" Tag="Throttle" Margin="0,0,0,3" Style="{DynamicResource PidToggleButtonStyle}"></ToggleButton>
+                <ToggleButton  Content="Manual" Grid.Row="1" IsChecked="{Binding Path=Throttle.IsManual, Mode=OneWay}" Click="ToggleManual" Tag="Throttle" Margin="0,3,0,0" Style="{DynamicResource PidToggleButtonStyle}"></ToggleButton>
             </Grid>
             <Grid Column="2">
                 <Grid.RowDefinitions>
@@ -111,7 +112,7 @@
                         <ColumnDefinition Width="7*"/>
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" Text="{Binding Path=Throttle.AutoValue}" HorizontalAlignment="Stretch" Margin="10,0,0,0"></TextBox>
+                    <TextBox Grid.Column="0" Text="{Binding Path=Throttle.AutoValue}" HorizontalAlignment="Stretch" Margin="10,0,0,0" IsReadOnly="True"></TextBox>
                     <Button Grid.Column="1" Content="RPM" HorizontalAlignment="Stretch" Visibility="{Binding Path=Throttle.IsSpeedAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>
                     <Button Grid.Column="1" Content="Nm" HorizontalAlignment="Stretch" Visibility="{Binding Path=Throttle.IsTorqueAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>
                     <Button Grid.Column="1" Content="%" HorizontalAlignment="Stretch" Visibility="{Binding Path=Throttle.IsDirectAuto, Converter={StaticResource BoolToVisibilityConverter}}"></Button>

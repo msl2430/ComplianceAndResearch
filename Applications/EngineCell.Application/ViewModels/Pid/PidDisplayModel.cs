@@ -10,7 +10,18 @@ namespace EngineCell.Application.ViewModels.Pid
         private bool _isAuto { get; set; }
         public bool IsAuto {
             get { return _isAuto; }
-            set { _isAuto = value; OnPropertyChanged("IsAuto"); OnPropertyChanged("IsManual"); }
+            set {
+                _isAuto = value;
+                OnPropertyChanged("IsAuto");
+                OnPropertyChanged("IsManual");
+                OnPropertyChanged("SettingManual");
+                OnPropertyChanged("IsSpeedManual");
+                OnPropertyChanged("IsTorqueManual");
+                OnPropertyChanged("IsDirectManual");
+                OnPropertyChanged("IsSpeedManualEnabled");
+                OnPropertyChanged("IsTorqueManualEnabled");
+                OnPropertyChanged("IsDirectManualEnabled");
+            }
         }
 
         private decimal _autoValue { get; set; }

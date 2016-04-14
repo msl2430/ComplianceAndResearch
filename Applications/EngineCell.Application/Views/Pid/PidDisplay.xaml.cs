@@ -6,7 +6,7 @@ namespace EngineCell.Application.Views.Pid
 {
     public partial class PidDisplay : UserControl
     {
-        public PidDisplayModel PidConfig { get; set; }        
+        public PidDisplayViewModel ViewModel { get; set; }
 
         public PidDisplay()
         {
@@ -15,7 +15,7 @@ namespace EngineCell.Application.Views.Pid
 
         private void PidDisplay_OnLoaded(object sender, RoutedEventArgs e)
         {
-            PidConfig = (PidDisplayModel)DataContext;
+            ViewModel = (PidDisplayViewModel)DataContext;
         }
 
         private void ToggleAuto(object sender, RoutedEventArgs e)
@@ -28,6 +28,12 @@ namespace EngineCell.Application.Views.Pid
         {
             AutoButton.IsChecked = false;
             ManualButton.IsChecked = true;
+        }
+
+        private void ModeSelection_Click(object sender, RoutedEventArgs e)
+        {
+            var modeSelectModal = new PidModeSelection(ViewModel.PidConfig, null);
+            modeSelectModal.ShowDialog();
         }
     }
 }

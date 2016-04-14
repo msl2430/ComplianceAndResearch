@@ -84,6 +84,7 @@
                               <Style>
                                 <Setter Property="Grid.Opacity" Value="{Binding ZIndex}"></Setter>
                                 <Setter Property="Grid.ZIndex" Value="{Binding ZIndex}"></Setter>
+                                <Setter Property="Grid.IsEnabled" Value="{Binding IsEnabled}"></Setter>
                             </Style>
                           </ItemsControl.ItemContainerStyle>
                           <ItemsControl.ItemTemplate>

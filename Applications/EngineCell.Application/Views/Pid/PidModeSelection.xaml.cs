@@ -1,16 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using EngineCell.Application.ViewModels.Pid;
 using EngineCell.Core.Constants;
 
@@ -29,15 +18,37 @@ namespace EngineCell.Application.Views.Pid
             InitializeComponent();
             LeftPidDisplay = leftPidDisplay;
             RightPidDisplay = rightPidDisplay;
+            SingleMode.Visibility = rightPidDisplay == null ? Visibility.Visible : Visibility.Hidden;
+            MultiMode.Visibility = rightPidDisplay == null ? Visibility.Hidden : Visibility.Visible;
             SetupRadioButtons();
             CompareModes();
         }
         
         private void SetupRadioButtons()
         {
-            LeftRpm.IsChecked = LeftNm.IsChecked = LeftPercent.IsChecked = false;
-            RightRpm.IsChecked = RightNm.IsChecked = RightPercent.IsChecked = false;
+            if (RightPidDisplay == null)
+            {
+                SingleRPM.IsChecked = SingleNm.IsChecked = SinglePercent.IsChecked = false;
 
+                switch (LeftPidDisplay.SettingManual)
+                {
+                    case ControlConstants.PidSetting.Speed:
+                        SingleRPM.IsChecked = true;
+                        break;
+                    case ControlConstants.PidSetting.Torque:
+                        SingleNm.IsChecked = true;
+                        break;
+                    case ControlConstants.PidSetting.Direct:
+                        SinglePercent.IsChecked = true;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                return;
+            }
+
+            LeftRpm.IsChecked = LeftNm.IsChecked = LeftPercent.IsChecked = false;
+            
             switch (LeftPidDisplay.SettingManual)
             {
                 case ControlConstants.PidSetting.Speed:
@@ -53,6 +64,7 @@ namespace EngineCell.Application.Views.Pid
                     throw new ArgumentOutOfRangeException();
             }
 
+            RightRpm.IsChecked = RightNm.IsChecked = RightPercent.IsChecked = false;
             switch (RightPidDisplay.SettingManual)
             {
                 case ControlConstants.PidSetting.Speed:
@@ -95,20 +107,31 @@ namespace EngineCell.Application.Views.Pid
 
         private void SubmitModes(object sender, RoutedEventArgs e)
         {
+            if (RightPidDisplay == null)
+            {
+                if (SingleRPM.IsChecked.Value)
+                    LeftPidDisplay.SettingManual = ControlConstants.PidSetting.Speed;
+                if (SingleNm.IsChecked.Value)
+                    LeftPidDisplay.SettingManual = ControlConstants.PidSetting.Torque;
+                if (SinglePercent.IsChecked.Value)
+                    LeftPidDisplay.SettingManual = ControlConstants.PidSetting.Direct;
+                this.Close();
+            }
+
             if (LeftRpm.IsChecked.Value)
                 LeftPidDisplay.SettingManual = ControlConstants.PidSetting.Speed;
             if (LeftNm.IsChecked.Value)
                 LeftPidDisplay.SettingManual = ControlConstants.PidSetting.Torque;
             if (LeftPercent.IsChecked.Value)
                 LeftPidDisplay.SettingManual = ControlConstants.PidSetting.Direct;
-
+            
             if (RightRpm.IsChecked.Value)
                 RightPidDisplay.SettingManual = ControlConstants.PidSetting.Speed;
             if (RightNm.IsChecked.Value)
                 RightPidDisplay.SettingManual = ControlConstants.PidSetting.Torque;
             if (RightPercent.IsChecked.Value)
                 RightPidDisplay.SettingManual = ControlConstants.PidSetting.Direct;
-
+            
             this.Close();
         }
 

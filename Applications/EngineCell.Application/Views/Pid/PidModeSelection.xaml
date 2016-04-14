@@ -7,6 +7,41 @@
         mc:Ignorable="d"
         Title="PID Mode Selection" Height="210" Width="240">
     <Grid>
+      <Grid Name="SingleMode" Visibility="Visible">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="135"/>
+          <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+        <Grid Row="0" Margin="20,20,0,0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+          </Grid.RowDefinitions>
+          <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" >
+            <RadioButton Name="SingleRPM" GroupName="SingleMode" VerticalAlignment="Center"></RadioButton>
+            <Label Content="RPM" VerticalAlignment="Center"></Label>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" >
+            <RadioButton Name="SingleNm" GroupName="SingleMode" VerticalAlignment="Center"></RadioButton>
+            <Label Content="Nm" VerticalAlignment="Center"></Label>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2" >
+            <RadioButton Name="SinglePercent" GroupName="SingleMode" VerticalAlignment="Center"></RadioButton>
+            <Label Content="%" VerticalAlignment="Center"></Label>
+          </StackPanel>
+        </Grid>
+        <Grid Row="1">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="75"/>
+            <ColumnDefinition Width="75"/>
+            <ColumnDefinition Width="75"/>
+          </Grid.ColumnDefinitions>
+          <Button Name="SingleCancelButton" Grid.Column="1" Height="30" Margin="3,0,10,0" VerticalAlignment="Top" Click="CancelButton_OnClick">Cancel</Button>
+          <Button Name="SingleOkButton" Grid.Column="2" Height="30" Margin="3,0,10,0" VerticalAlignment="Top" Click="SubmitModes">Ok</Button>
+        </Grid>
+      </Grid>
+      <Grid Name="MultiMode" Visibility="Hidden">
         <Grid.RowDefinitions>
             <RowDefinition Height="135"/>
             <RowDefinition Height="70"/>
@@ -55,5 +90,6 @@
         <Button Name="CancelButton" Grid.Column="1" Height="30" Margin="3,0,10,0" VerticalAlignment="Top" Click="CancelButton_OnClick">Cancel</Button>
         <Button Name="OkButton" Grid.Column="2" Height="30" Margin="3,0,10,0" VerticalAlignment="Top" Click="SubmitModes">Ok</Button>
     </Grid>
+      </Grid>
     </Grid>
 </Window>

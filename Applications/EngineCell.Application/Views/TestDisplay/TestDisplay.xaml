@@ -15,7 +15,7 @@
         <DataTemplate DataType="{x:Type stripChartViewModel:StripChartViewModel}">
             <stripChart:StripChart/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type pidModel:PidDisplayModel}">
+        <DataTemplate DataType="{x:Type pidModel:PidDisplayViewModel}">
             <pid:PidDisplay></pid:PidDisplay>
         </DataTemplate>
         <DataTemplate DataType="{x:Type pidModel:DynoThrottlePidViewModel}">

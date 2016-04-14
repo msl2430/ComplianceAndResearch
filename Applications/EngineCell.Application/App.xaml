@@ -1,8 +1,9 @@
-﻿<Application x:Class="EngineCell.Application.App"
+﻿<Application
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:EngineCell"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" x:Class="EngineCell.Application.App"
              StartupUri="Views/MainWindow.xaml"
              Startup="App_OnStartup"
              Exit="App_OnExit">
@@ -16,16 +17,92 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
-                <ResourceDictionary Source="Content/Resource/default.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Content/Resource/default.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <system:Double x:Key="WindowTitleFontSize">12</system:Double>
             <FontFamily x:Key="HeaderFontFamily">Segoe UI</FontFamily>
-            
-            <SolidColorBrush x:Key="GreenBrush" Color="#41A801"></SolidColorBrush>
-            <SolidColorBrush x:Key="LightBlueBrush" Color="#6FBAC8"></SolidColorBrush>
-            <SolidColorBrush x:Key="DarkBlueBrush" Color="#2B88AF"></SolidColorBrush>
-            <SolidColorBrush x:Key="BrightBlueBrush" Color="#AADEE0"></SolidColorBrush>
-            <SolidColorBrush x:Key="HeadlineBlueBrush" Color="#1885be"></SolidColorBrush>
+
+            <SolidColorBrush x:Key="GreenBrush" Color="#41A801"/>
+            <SolidColorBrush x:Key="LightBlueBrush" Color="#6FBAC8"/>
+            <SolidColorBrush x:Key="DarkBlueBrush" Color="#2B88AF"/>
+            <SolidColorBrush x:Key="BrightBlueBrush" Color="#AADEE0"/>
+            <SolidColorBrush x:Key="HeadlineBlueBrush" Color="#1885be"/>
+            <Style x:Key="PidToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+                <Setter Property="Custom:ControlsHelper.CornerRadius" Value="3"/>
+                <Setter Property="Background" Value="{DynamicResource GrayBrush10}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource TextBoxBorderBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+                <Setter Property="FontFamily" Value="{DynamicResource DefaultFont}"/>
+                <Setter Property="FontSize" Value="{DynamicResource UpperCaseContentFontSize}"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Padding" Value="5,6"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="MinHeight" Value="25"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                            <Grid>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="PART_ContentPresenter">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#FF1885BE"/>
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="PART_ContentPresenter">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#FF1885BE"/>
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled"/>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Border x:Name="Background" Background="{TemplateBinding Background}" CornerRadius="{Binding (Custom:ControlsHelper.CornerRadius), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{x:Null}" CornerRadius="{Binding (Custom:ControlsHelper.CornerRadius), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                <Border x:Name="DisabledVisualElement" Background="{DynamicResource ControlsDisabledBrush}" CornerRadius="{Binding (Custom:ControlsHelper.CornerRadius), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" IsHitTestVisible="False" Opacity="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                <Custom:ContentControlEx x:Name="PART_ContentPresenter" ContentCharacterCasing="{Binding (Custom:ControlsHelper.ContentCharacterCasing), RelativeSource={RelativeSource TemplatedParent}}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="BorderThickness" TargetName="Border" Value="2"/>
+                                    <Setter Property="Background" TargetName="Background" Value="#1885be"/>
+                                    <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource GrayBrush5}"/>
+                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                        <Condition Property="IsChecked" Value="False"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Background" Value="#6FBAC8"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                        <Condition Property="IsChecked" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Background" Value="#6FBAC8"/>
+                                </MultiTrigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" TargetName="Background" Value="#6FBAC8"/>
+                                </Trigger>
+                                <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                    <Setter Property="BorderThickness" TargetName="Border" Value="2"/>
+                                    <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource ButtonMouseOverBorderBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" TargetName="DisabledVisualElement" Value="0.7"/>
+                                    <Setter Property="Opacity" TargetName="PART_ContentPresenter" Value="0.3"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
