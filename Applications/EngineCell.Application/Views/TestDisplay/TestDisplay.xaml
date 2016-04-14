@@ -51,6 +51,7 @@
             <ContentControl x:Name="Coolant" Content="{Binding CoolantPid}" Grid.Row="0" Grid.Column="0"></ContentControl>
             <ContentControl x:Name="Oil" Content="{Binding OilPid}" Grid.Row="0" Grid.Column="1"></ContentControl>
             <ContentControl x:Name="Intercooler" Content="{Binding Intercooler}" Grid.Row="1" Grid.Column="0"></ContentControl>
+              <Button Grid.Row="2" Grid.Column="0" Background="{StaticResource GreenBrush}" Margin="70 20" Click="StartPhaseButton_Click">Start</Button>
             <!--<ContentControl x:Name="Throttle1" Content="{Binding ThrottlePid1}" Grid.Row="2" Grid.Column="1"></ContentControl>-->
             </Grid>
             <!--<controls:MetroAnimatedSingleRowTabControl Margin="5" HorizontalAlignment="Stretch" Width="Auto">
