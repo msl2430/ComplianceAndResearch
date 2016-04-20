@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EngineCell.Core.Constants
+﻿namespace EngineCell.Core.Constants
 {
     public class ScratchPadConstants
     {
@@ -23,9 +17,15 @@ namespace EngineCell.Core.Constants
 
             StartTest = 10,
             TestRunning = 11,
-            
+
             StartDataCollection = 100,
 
+            //Pid Config
+            PidConfigStatus = 500,
+            PidConfigType,
+            InputType,
+            OutputType,
+            SetPointType,
         }
 
         /// <summary>
@@ -33,6 +33,22 @@ namespace EngineCell.Core.Constants
         /// </summary>
         public enum FloatIndexes
         {
+            //Pid Config
+            InputValue = 500,
+            InputLowRange,
+            InputHighRange,
+            OutputValue,
+            OutputLowerClamp,
+            OutputUpperClamp,
+            OutputMinChange,
+            OutputMaxChange,
+            SetPointValue,
+            Gain,
+            TuneI,
+            TuneD,
+            FeedFwdInitial,
+            FeedFwdGain,
+
             //Points,
             ThermalCouple0 = 1000,
             ThermalCouple1,

@@ -23,5 +23,18 @@
             Torque,
             Direct
         }
+
+        public enum PidType
+        {
+            Dyno = 1,
+            Throttle,
+            Coolant,
+            Oil,
+            Intercooler,
+            Custom1,
+            Custom2,
+            Custom3,
+            Custom4
+        }
     }
 }

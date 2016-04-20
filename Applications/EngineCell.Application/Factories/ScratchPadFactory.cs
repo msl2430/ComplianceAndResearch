@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Opto22.Core.Constants;
+using EngineCell.Core.Constants;
 using Opto22.Core.Models;
 
 namespace EngineCell.Application.Factories
@@ -67,16 +67,16 @@ namespace EngineCell.Application.Factories
                 scratchPad.Value = optoScratchPadInts[scratchPad.Index];
             }
 
-            var optoScratchPadStrs = new string[MaxStringScratchPadElements];
-            result = OptoMmp.Current.ScratchpadStringRead(optoScratchPadStrs, 0, MaxStringScratchPadElements, 0);
-            if (result != 0)
-                throw new Exception("Error getting scratchpad strings.");
-            foreach (var scratchPad in
-                from object strIndex in Enum.GetValues(typeof (ScratchPadConstants.StringIndexes))
-                select ScratchPadStrings.FirstOrDefault(b => b.Index == (int) strIndex))
-            {
-                scratchPad.Value = optoScratchPadStrs[scratchPad.Index];
-            }
+            //var optoScratchPadStrs = new string[MaxStringScratchPadElements];
+            //result = OptoMmp.Current.ScratchpadStringRead(optoScratchPadStrs, 0, MaxStringScratchPadElements, 0);
+            //if (result != 0)
+            //    throw new Exception("Error getting scratchpad strings.");
+            //foreach (var scratchPad in
+            //    from object strIndex in Enum.GetValues(typeof (ScratchPadConstants.StringIndexes))
+            //    select ScratchPadStrings.FirstOrDefault(b => b.Index == (int) strIndex))
+            //{
+            //    scratchPad.Value = optoScratchPadStrs[scratchPad.Index];
+            //}
 
             var optoScratchPadFloats = new float[MaxFloatScratchPadElements];
             result = OptoMmp.Current.ScratchpadFloatRead(optoScratchPadFloats, 0, MaxFloatScratchPadElements, 0);

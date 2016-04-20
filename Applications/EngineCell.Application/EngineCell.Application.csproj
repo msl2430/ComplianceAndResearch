@@ -118,6 +118,7 @@
     <Compile Include="Factories\ApplicationSessionFactory.cs" />
     <Compile Include="Factories\OptoMmpFactory.cs" />
     <Compile Include="Factories\ScratchPadFactory.cs" />
+    <Compile Include="ViewModels\Pid\PidConfigViewModel.cs" />
     <Compile Include="ViewModels\Pid\PidDisplayViewModel.cs" />
     <Compile Include="ViewModels\PointConfiguration\PointDataModel.cs" />
     <Compile Include="Services\DataServices\BaseDataService.cs" />
@@ -163,6 +164,9 @@
     </Compile>
     <Compile Include="Views\Pid\DynoThrottlePid.xaml.cs">
       <DependentUpon>DynoThrottlePid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pid\PidConfig.xaml.cs">
+      <DependentUpon>PidConfig.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pid\PidConfiguration_old.xaml.cs">
       <DependentUpon>PidConfiguration_old.xaml</DependentUpon>
@@ -218,6 +222,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pid\DynoThrottlePid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pid\PidConfig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -278,7 +286,9 @@
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EngineCell.Core\EngineCell.Core.csproj">

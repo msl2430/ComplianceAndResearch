@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels.TestDisplay;
+using EngineCell.Application.Views.Pid;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
 
@@ -32,13 +33,15 @@ namespace EngineCell.Application.Views.TestDisplay
 
         private void StartPhaseButton_Click(object sender, RoutedEventArgs e)
         {
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
-            Task.Run(() =>
-            {
-                TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Collecting Point data.", true);
-                PointWorkerService.DoWork();
-            });
-            TestDisplayViewModel.ChartViewModel.IsPlay = true;
+            //TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
+            //Task.Run(() =>
+            //{
+            //    TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Collecting Point data.", true);
+            //    PointWorkerService.DoWork();
+            //});
+            //TestDisplayViewModel.ChartViewModel.IsPlay = true;
+            var test = new PidConfig(TestDisplayViewModel.ApplicationSessionFactory, ControlConstants.PidType.Dyno);
+            test.Show();
         }
     }
 }

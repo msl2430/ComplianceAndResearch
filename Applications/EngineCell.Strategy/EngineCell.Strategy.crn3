@@ -10,6 +10,8 @@ CREATE V.ARRAY
 ^IsStartDataCollect ,
 ^IsStartTest ,
 ^IsTestRunning ,
+^PidConfigStatus ,
+^PidConfigType ,
 ^SetScratchPadResult ,
 *StrategyRunTime ,
 *_HSV_SEMA ,
@@ -18,6 +20,7 @@ CREATE V.ARRAY
 CREATE TI.ARRAY
  0 ,
 CREATE PTR.ARRAY
+Ptr' PTR_PidConfigSelection ,
  0 ,
 CREATE TA.ARRAY 
  0 ,
@@ -120,6 +123,7 @@ CREATE P.ARRAY
 ~Volt5 ,
  0 ,
 CREATE PID.ARRAY
+ |TestPid ,
  0 ,
 CREATE E/R.ARRAY
  0 ,
@@ -130,6 +134,7 @@ CREATE E/RGROUP.ARRAY
 : W_INIT_IO
 CONFIG_PORTS
 $0000000000000000.. %ScratchPad ENABLES!
+|TestPid ENABLE
 " %EngineCell  (1/2)" *_HSV_INIT_IO $MOVE 1 ^_HNV_INIT_IO @!
 %EngineCell ENABLE
 " %ScratchPad  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
@@ -142,9 +147,12 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^IsStartDataCollect @!
 0 ^IsStartTest @!
 0 ^IsTestRunning @!
+0 ^PidConfigStatus @!
+0 ^PidConfigType @!
 0 ^SetScratchPadResult @!
 " "
  *StrategyRunTime $MOVE
+0 MoveToPointer PTR_PidConfigSelection
  " " *_HSV_INIT_IO $MOVE
 ;
 T: T_INIT_IO

@@ -24,8 +24,11 @@ _END NEW $$$.RUN
 0 IVAR ^IsStartDataCollect
 0 IVAR ^IsStartTest
 0 IVAR ^IsTestRunning
+0 IVAR ^PidConfigStatus
+0 IVAR ^PidConfigType
 0 IVAR ^SetScratchPadResult
 32 0 $VAR *StrategyRunTime 
+nullPID 0 POINTER PTR_PidConfigSelection
 
 nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A801CA 0 11 BOARD.MMP %EngineCell
  4  1 APOINT -270.0000 8  0  0 %EngineCell 0 POINT.TNG ~ThermalCouple0
@@ -119,6 +122,10 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A80
  4  1 SPOINT 0.0      FREQ  2 13 %EngineCell 0 POINT.TNG ~Freq2
  4  1 SPOINT 0.0      FREQ  3 13 %EngineCell 0 POINT.TNG ~Freq3
 nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
+1    0.0000    0.0000    0.6000    0.9000    4.0000    5.0000    1.0000   10.0000
+   1.0000   13.0000   12.0000    8.0000    9.0000   11.0000
+   3.0000    2.0000 0.0
+$f0000000 0 %EngineCell 0 PID |TestPid
 : 1_0
 0 JUMP ;
 : 1_1
@@ -272,7 +279,7 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-6 JUMP ;
+7 JUMP ;
 : 0_18
 
 1 LINE.NUM
@@ -305,9 +312,33 @@ T;
   11  
   ^IsTestRunning   IO.SP.READ
   ^GetScratchPadResult @! 
-3 JUMP ;
+4 JUMP ;
 : 0_29
 -2 JUMP ;
+: 0_36
+16 LINE.NUM %ScratchPad 500 ^PidConfigStatus  IO.SP.READ DROP  
+18 LINE.NUM ^PidConfigStatus @@ 1 = IF 
+19 LINE.NUM %ScratchPad 501 ^PidConfigType  IO.SP.READ DROP  
+21 LINE.NUM ^PidConfigType @@ CASE 
+22 LINE.NUM 1 OF 
+23 LINE.NUM |TestPid 
+MoveToPointer PTR_PidConfigSelection 
+24 LINE.NUM ENDOF 
+25 LINE.NUM ENDCASE 
+27 LINE.NUM %ScratchPad 501 PTR_PidConfigSelection  $0400.. ROT PID@  IO.SP.F.WRITE DROP  
+28 LINE.NUM %ScratchPad 502 PTR_PidConfigSelection  $0800.. ROT PID@  IO.SP.F.WRITE DROP  
+29 LINE.NUM %ScratchPad 504 PTR_PidConfigSelection  $1000.. ROT PID@  IO.SP.F.WRITE DROP  
+30 LINE.NUM %ScratchPad 505 PTR_PidConfigSelection  $2000.. ROT PID@  IO.SP.F.WRITE DROP  
+31 LINE.NUM %ScratchPad 506 PTR_PidConfigSelection  $0200.. ROT PID@  IO.SP.F.WRITE DROP  
+32 LINE.NUM %ScratchPad 507 PTR_PidConfigSelection  $0100.. ROT PID@  IO.SP.F.WRITE DROP  
+33 LINE.NUM %ScratchPad 509 PTR_PidConfigSelection  $0010.. ROT PID@  IO.SP.F.WRITE DROP  
+34 LINE.NUM %ScratchPad 510 PTR_PidConfigSelection  $0020.. ROT PID@  IO.SP.F.WRITE DROP  
+35 LINE.NUM %ScratchPad 511 PTR_PidConfigSelection  $0040.. ROT PID@  IO.SP.F.WRITE DROP  
+36 LINE.NUM %ScratchPad 512 PTR_PidConfigSelection  $0004.. ROT PID@  IO.SP.F.WRITE DROP  
+37 LINE.NUM %ScratchPad 513 PTR_PidConfigSelection  $0080.. ROT PID@  IO.SP.F.WRITE DROP  
+38 LINE.NUM %ScratchPad 500 2  IO.SP.I.WRITE DROP  
+40 LINE.NUM THEN 
+0 JUMP ;
 : 0_2
 TRUE
 
@@ -315,7 +346,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -7 ELSE -8 THEN JUMP ;
+IF -8 ELSE -9 THEN JUMP ;
 : 0_16
 TRUE
 
@@ -323,7 +354,7 @@ TRUE
   ^IsStartTest @@ 
   1    =
 LAND
-IF -5 ELSE -7 THEN JUMP ;
+IF -6 ELSE -8 THEN JUMP ;
 : 0_27
 TRUE
 
@@ -331,7 +362,7 @@ TRUE
   ^IsTestRunning @@ 
   1    =
 LAND
-IF -4 ELSE -4 THEN JUMP ;
+IF -5 ELSE -5 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -345,6 +376,7 @@ DUMMY
 0_22
 0_25
 0_29
+0_36
 0_2
 0_16
 0_27
@@ -362,6 +394,8 @@ CREATE V.ARRAY
 ^IsStartDataCollect ,
 ^IsStartTest ,
 ^IsTestRunning ,
+^PidConfigStatus ,
+^PidConfigType ,
 ^SetScratchPadResult ,
 *StrategyRunTime ,
 *_HSV_SEMA ,
@@ -370,6 +404,7 @@ CREATE V.ARRAY
 CREATE TI.ARRAY
  0 ,
 CREATE PTR.ARRAY
+Ptr' PTR_PidConfigSelection ,
  0 ,
 CREATE TA.ARRAY 
  0 ,
@@ -472,6 +507,7 @@ CREATE P.ARRAY
 ~Volt5 ,
  0 ,
 CREATE PID.ARRAY
+ |TestPid ,
  0 ,
 CREATE E/R.ARRAY
  0 ,
@@ -482,6 +518,7 @@ CREATE E/RGROUP.ARRAY
 : W_INIT_IO
 CONFIG_PORTS
 $0000000000000000.. %ScratchPad ENABLES!
+|TestPid ENABLE
 " %EngineCell  (1/2)" *_HSV_INIT_IO $MOVE 1 ^_HNV_INIT_IO @!
 %EngineCell ENABLE
 " %ScratchPad  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
@@ -494,9 +531,12 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^IsStartDataCollect @!
 0 ^IsStartTest @!
 0 ^IsTestRunning @!
+0 ^PidConfigStatus @!
+0 ^PidConfigType @!
 0 ^SetScratchPadResult @!
 " "
  *StrategyRunTime $MOVE
+0 MoveToPointer PTR_PidConfigSelection
  " " *_HSV_INIT_IO $MOVE
 ;
 T: T_INIT_IO
@@ -508,9 +548,9 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 02/24/16 " ;
-: TIMESTAMP ." 16:46:08 " ;
-: CRCSTAMP  ." 16040C47796EEE059AF19FAAAE26DA02 " ;
+: DATESTAMP ." 04/20/16 " ;
+: TIMESTAMP ." 16:07:41 " ;
+: CRCSTAMP  ." 71C5AB504A1CAF21E2BFD970940B972D " ;
 MAKECHECK
 CLEAR.BREAKS
 

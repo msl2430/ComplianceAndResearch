@@ -13,6 +13,7 @@ using EngineCell.Application.ViewModels;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Application.ViewModels.TestDisplay;
+using EngineCell.Application.Views.Pid;
 using EngineCell.Core.Constants;
 using EngineCell.Models.Repositories;
 using MahApps.Metro.Controls;
@@ -53,6 +54,8 @@ namespace EngineCell.Application.Views
             PointWorkerService = new PointWorkerService(ApplicationSessionFactory);
 
             RemainingTimer.SetTimer(TimeSpan.FromMinutes(45));
+
+           
         }
 
         public void ChangePageView(BaseViewModel viewModel)
