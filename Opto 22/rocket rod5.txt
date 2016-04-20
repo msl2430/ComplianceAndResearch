@@ -1,0 +1,3 @@
+Alarm configuration moved to page wher eyou can select each point per phase to add alarm too
+THERMO COUPLE
+speed direct torque 

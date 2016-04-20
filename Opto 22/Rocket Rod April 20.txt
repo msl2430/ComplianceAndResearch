@@ -1,0 +1,22 @@
+Change alarm inactive button to say trigger
+save entire trigger settings in the database for use later - like venue section plan configuration
+
+bigger alarm menu
+alarm triggers
+- alarm
+- outliers - out for certain amount of time
+- events - something you meant to happen. like change stages
+
+change alarm window to triggers
+custom list of triggers associated with point
+set value, choose whether alarm or event, choose time must stay at set value, choose action if event (ie change stage)
+
+PID - Parallel
+Gain = TuneP (whatever that shit means)
+
+copy pid config screen from PAC. create new chart in pac to read settings from scratchpad. using the existing pid loops plus 4 custom pids for now
+have to add SQL to store the settings so that each time we start up the app it resets the pids
+
+lower upper clamp change per stage? see if we can do this from the OptoScript
+
+
