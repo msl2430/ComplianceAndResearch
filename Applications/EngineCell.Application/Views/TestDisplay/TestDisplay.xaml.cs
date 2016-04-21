@@ -40,8 +40,10 @@ namespace EngineCell.Application.Views.TestDisplay
             //    PointWorkerService.DoWork();
             //});
             //TestDisplayViewModel.ChartViewModel.IsPlay = true;
-            var test = new PidConfig(TestDisplayViewModel.ApplicationSessionFactory, ControlConstants.PidType.Dyno);
-            test.Show();
+            if (TestDisplayViewModel.ApplicationSessionFactory.OptoConnectionStatus != StatusConstants.ConnectionStatus.Connected)
+                return;
+
+            
         }
     }
 }

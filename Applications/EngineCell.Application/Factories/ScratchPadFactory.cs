@@ -19,7 +19,7 @@ namespace EngineCell.Application.Factories
 
     public sealed class ScratchPadFactory : IScratchPadFactory
     {
-        private const int MaxIntegerScratchPadElements = 512;
+        private const int MaxIntegerScratchPadElements = 10240;
         private const int MaxFloatScratchPadElements = 10240;
         private const int MaxStringScratchPadElements = 64;
         private IOptoMmpFactory OptoMmp { get; set; }
@@ -45,27 +45,27 @@ namespace EngineCell.Application.Factories
 
         private void InitializeFromOpto()
         {
-            int result;
-            foreach (var bit in Enum.GetValues(typeof (ScratchPadConstants.BitIndexes)))
-            {
-                var scratchPad = ScratchPadBits.FirstOrDefault(b => b.Index == (int) bit);
-                bool tempBit;
-                result = OptoMmp.Current.ScratchpadBitRead(out tempBit, scratchPad.Index);
-                if (result != 0)
-                    throw new Exception("Error initializing bit " + bit + ".");
-                scratchPad.Value = tempBit;
-            }
+            //int result;
+            //foreach (var bit in Enum.GetValues(typeof (ScratchPadConstants.BitIndexes)))
+            //{
+            //    var scratchPad = ScratchPadBits.FirstOrDefault(b => b.Index == (int) bit);
+            //    bool tempBit;
+            //    result = OptoMmp.Current.ScratchpadBitRead(out tempBit, scratchPad.Index);
+            //    if (result != 0)
+            //        throw new Exception("Error initializing bit " + bit + ".");
+            //    scratchPad.Value = tempBit;
+            //}
 
-            var optoScratchPadInts = new int[MaxIntegerScratchPadElements];
-            result = OptoMmp.Current.ScratchpadI32Read(optoScratchPadInts, 0, MaxIntegerScratchPadElements, 0);
-            if (result != 0)
-                //throw new Exception("Error getting scratchpad integers.");
-            foreach (var scratchPad in
-                from object intIndex in Enum.GetValues(typeof (ScratchPadConstants.IntegerIndexes))
-                select ScratchPadInts.FirstOrDefault(b => b.Index == (int) intIndex))
-            {
-                scratchPad.Value = optoScratchPadInts[scratchPad.Index];
-            }
+            //var optoScratchPadInts = new int[MaxIntegerScratchPadElements];
+            //result = OptoMmp.Current.ScratchpadI32Read(optoScratchPadInts, 0, MaxIntegerScratchPadElements, 0);
+            //if (result != 0)
+            //    //throw new Exception("Error getting scratchpad integers.");
+            //foreach (var scratchPad in
+            //    from object intIndex in Enum.GetValues(typeof (ScratchPadConstants.IntegerIndexes))
+            //    select ScratchPadInts.FirstOrDefault(b => b.Index == (int) intIndex))
+            //{
+            //    scratchPad.Value = optoScratchPadInts[scratchPad.Index];
+            //}
 
             //var optoScratchPadStrs = new string[MaxStringScratchPadElements];
             //result = OptoMmp.Current.ScratchpadStringRead(optoScratchPadStrs, 0, MaxStringScratchPadElements, 0);
@@ -78,16 +78,16 @@ namespace EngineCell.Application.Factories
             //    scratchPad.Value = optoScratchPadStrs[scratchPad.Index];
             //}
 
-            var optoScratchPadFloats = new float[MaxFloatScratchPadElements];
-            result = OptoMmp.Current.ScratchpadFloatRead(optoScratchPadFloats, 0, MaxFloatScratchPadElements, 0);
-            if (result != 0)
-                throw new Exception("Error getting scratchpad floats.");
-            foreach (var scratchPad in
-                    from object strIndex in Enum.GetValues(typeof(ScratchPadConstants.FloatIndexes))
-                    select ScratchPadFloats.FirstOrDefault(b => b.Index == (int)strIndex))
-            {
-                scratchPad.Value = Convert.ToDecimal(optoScratchPadFloats[scratchPad.Index]);
-            }
+            //var optoScratchPadFloats = new float[MaxFloatScratchPadElements];
+            //result = OptoMmp.Current.ScratchpadFloatRead(optoScratchPadFloats, 0, MaxFloatScratchPadElements, 0);
+            //if (result != 0)
+            //    throw new Exception("Error getting scratchpad floats.");
+            //foreach (var scratchPad in
+            //        from object strIndex in Enum.GetValues(typeof(ScratchPadConstants.FloatIndexes))
+            //        select ScratchPadFloats.FirstOrDefault(b => b.Index == (int)strIndex))
+            //{
+            //    scratchPad.Value = Convert.ToDecimal(optoScratchPadFloats[scratchPad.Index]);
+            //}
         }
 
         public IScratchPadModel<bool> GetScratchPadBit(int index)
@@ -120,8 +120,15 @@ namespace EngineCell.Application.Factories
                 ScratchPadInts.Add(new ScratchPadModel<int>(index, "undefined", 0));
             //throw new Exception("Bad scratchpad Int index.");TODO: Do we want to keep this?
 
+            var attempts = 0;
+            var result = -1;
             var optoScratchPadInt = new int[1];
-            var result = OptoMmp.Current.ScratchpadI32Read(optoScratchPadInt, 0, 1, index);
+            while (attempts < 5 && result != 0)
+            {
+                result = OptoMmp.Current.ScratchpadI32Read(optoScratchPadInt, 0, 1, index);
+                attempts++;
+            }
+            
             if (result != 0)
                 throw new Exception("Error getting scratchpad integers.");
 

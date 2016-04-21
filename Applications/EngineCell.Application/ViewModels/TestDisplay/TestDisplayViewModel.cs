@@ -39,15 +39,12 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             DynoThrottlePid = new DynoThrottlePidViewModel()
             {
                 Dyno = new PidDisplayModel("Dyno") {AutoValue = 123, SettingAuto = ControlConstants.PidSetting.Speed },
-                Throttle = new PidDisplayModel("Throttle") { SettingManual = ControlConstants.PidSetting.Direct }
+                Throttle = new PidDisplayModel("Throttle") { SettingManual = ControlConstants.PidSetting.Direct },
+                ApplicationSessionFactory = appSession
             };
-            DynoPid1 = new PidDisplayModel("Dyno") { AutoValue = 123 };            
-            //DynoPid2 = new PidDisplay("Dyno 2");
-            ThrottlePid1 = new PidDisplayModel("Throttle");
-            //ThrottlePid2 = new PidDisplay("Throttle 2");
-            CoolantPid = new PidDisplayViewModel() {PidConfig = new PidDisplayModel("Coolant")};
-            OilPid = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Oil")};
-            Intercooler = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Intercooler")};
+            CoolantPid = new PidDisplayViewModel() {PidConfig = new PidDisplayModel("Coolant"), PidType = ControlConstants.PidType.Coolant, ApplicationSessionFactory = appSession };
+            OilPid = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Oil"), PidType = ControlConstants.PidType.Oil, ApplicationSessionFactory = appSession };
+            Intercooler = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Intercooler"), PidType = ControlConstants.PidType.Intercooler, ApplicationSessionFactory = appSession };
             ChartViewModel = chartViewModel;
         }
     }

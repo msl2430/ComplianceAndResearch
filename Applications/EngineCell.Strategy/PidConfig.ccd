@@ -1,0 +1,167 @@
+: 2_0
+
+1 LINE.NUM
+  %ScratchPad 
+  500  
+  ^PidConfigStatus   IO.SP.READ
+  ^GetScratchPadResult @! 
+9 JUMP ;
+: 2_2
+-2 JUMP ;
+: 2_5
+
+1 LINE.NUM
+  &PidConfig   STOP.T
+11 JUMP ;
+: 2_6
+-4 JUMP ;
+: 2_11
+14 LINE.NUM %ScratchPad 501 ^PidConfigType  IO.SP.READ DROP  
+16 LINE.NUM ^PidConfigType @@ CASE 
+17 LINE.NUM 1 OF 
+18 LINE.NUM |Dyno 
+MoveToPointer PTR_PidConfigSelection 
+19 LINE.NUM ENDOF 
+20 LINE.NUM 2 OF 
+21 LINE.NUM |Throttle 
+MoveToPointer PTR_PidConfigSelection 
+22 LINE.NUM ENDOF 
+23 LINE.NUM 3 OF 
+24 LINE.NUM |Coolant 
+MoveToPointer PTR_PidConfigSelection 
+25 LINE.NUM ENDOF 
+26 LINE.NUM 4 OF 
+27 LINE.NUM |Oil 
+MoveToPointer PTR_PidConfigSelection 
+28 LINE.NUM ENDOF 
+29 LINE.NUM 5 OF 
+30 LINE.NUM |Intercooler 
+MoveToPointer PTR_PidConfigSelection 
+31 LINE.NUM ENDOF 
+32 LINE.NUM 6 OF 
+33 LINE.NUM |Custom1 
+MoveToPointer PTR_PidConfigSelection 
+34 LINE.NUM ENDOF 
+35 LINE.NUM 7 OF 
+36 LINE.NUM |Custom2 
+MoveToPointer PTR_PidConfigSelection 
+37 LINE.NUM ENDOF 
+38 LINE.NUM 8 OF 
+39 LINE.NUM |Custom3 
+MoveToPointer PTR_PidConfigSelection 
+40 LINE.NUM ENDOF 
+41 LINE.NUM 9 OF 
+42 LINE.NUM |Custom4 
+MoveToPointer PTR_PidConfigSelection 
+43 LINE.NUM ENDOF 
+44 LINE.NUM ENDCASE 
+46 LINE.NUM %ScratchPad 500 PTR_PidConfigSelection  $0001.. ROT PID@  IO.SP.F.WRITE DROP  
+47 LINE.NUM %ScratchPad 501 PTR_PidConfigSelection  $0400.. ROT PID@  IO.SP.F.WRITE DROP  
+48 LINE.NUM %ScratchPad 502 PTR_PidConfigSelection  $0800.. ROT PID@  IO.SP.F.WRITE DROP  
+49 LINE.NUM %ScratchPad 503 PTR_PidConfigSelection  $0008.. ROT PID@  IO.SP.F.WRITE DROP  
+50 LINE.NUM %ScratchPad 504 PTR_PidConfigSelection  $1000.. ROT PID@  IO.SP.F.WRITE DROP  
+51 LINE.NUM %ScratchPad 505 PTR_PidConfigSelection  $2000.. ROT PID@  IO.SP.F.WRITE DROP  
+52 LINE.NUM %ScratchPad 506 PTR_PidConfigSelection  $0200.. ROT PID@  IO.SP.F.WRITE DROP  
+53 LINE.NUM %ScratchPad 507 PTR_PidConfigSelection  $0100.. ROT PID@  IO.SP.F.WRITE DROP  
+54 LINE.NUM %ScratchPad 508 PTR_PidConfigSelection  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
+55 LINE.NUM %ScratchPad 509 PTR_PidConfigSelection  $0010.. ROT PID@  IO.SP.F.WRITE DROP  
+56 LINE.NUM %ScratchPad 510 PTR_PidConfigSelection  $0020.. ROT PID@  IO.SP.F.WRITE DROP  
+57 LINE.NUM %ScratchPad 511 PTR_PidConfigSelection  $0040.. ROT PID@  IO.SP.F.WRITE DROP  
+58 LINE.NUM %ScratchPad 512 PTR_PidConfigSelection  $0004.. ROT PID@  IO.SP.F.WRITE DROP  
+59 LINE.NUM %ScratchPad 513 PTR_PidConfigSelection  $0080.. ROT PID@  IO.SP.F.WRITE DROP  
+60 LINE.NUM %ScratchPad 500 2  IO.SP.I.WRITE DROP  
+4 JUMP ;
+: 2_20
+-6 JUMP ;
+: 2_22
+2 JUMP ;
+: 2_27
+14 LINE.NUM %ScratchPad 501 ^PidConfigType  IO.SP.READ DROP  
+16 LINE.NUM ^PidConfigType @@ CASE 
+17 LINE.NUM 1 OF 
+18 LINE.NUM |Dyno 
+MoveToPointer PTR_PidConfigSelection 
+19 LINE.NUM ENDOF 
+20 LINE.NUM ENDCASE 
+23 LINE.NUM %ScratchPad 501 ^PidConfigValue   IO.SP.READ DROP  
+24 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0400.. 3 ROLL !PID 
+26 LINE.NUM %ScratchPad 502 ^PidConfigValue   IO.SP.READ DROP  
+27 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0800.. 3 ROLL !PID 
+29 LINE.NUM %ScratchPad 504 ^PidConfigValue   IO.SP.READ DROP  
+30 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $1000.. 3 ROLL !PID 
+32 LINE.NUM %ScratchPad 505 ^PidConfigValue   IO.SP.READ DROP  
+33 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $2000.. 3 ROLL !PID 
+35 LINE.NUM %ScratchPad 506 ^PidConfigValue   IO.SP.READ DROP  
+36 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0200.. 3 ROLL !PID 
+38 LINE.NUM %ScratchPad 507 ^PidConfigValue   IO.SP.READ DROP  
+39 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0100.. 3 ROLL !PID 
+41 LINE.NUM %ScratchPad 509 ^PidConfigValue   IO.SP.READ DROP  
+42 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0010.. 3 ROLL !PID 
+44 LINE.NUM %ScratchPad 510 ^PidConfigValue   IO.SP.READ DROP  
+45 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0020.. 3 ROLL !PID 
+47 LINE.NUM %ScratchPad 511 ^PidConfigValue   IO.SP.READ DROP  
+48 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0040.. 3 ROLL !PID 
+50 LINE.NUM %ScratchPad 512 ^PidConfigValue   IO.SP.READ DROP  
+51 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0004.. 3 ROLL !PID 
+53 LINE.NUM %ScratchPad 513 ^PidConfigValue   IO.SP.READ DROP  
+54 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0080.. 3 ROLL !PID 
+56 LINE.NUM %ScratchPad 500 2  IO.SP.I.WRITE DROP  
+0 JUMP ;
+: 2_29
+0 JUMP ;
+: 2_31
+1 LINE.NUM %ScratchPad 500 ^PidConfigStatus  IO.SP.READ DROP  
+3 LINE.NUM %ScratchPad 500 PTR_PidConfigSelection  $0001.. ROT PID@  IO.SP.F.WRITE DROP  
+4 LINE.NUM %ScratchPad 503 PTR_PidConfigSelection  $0008.. ROT PID@  IO.SP.F.WRITE DROP  
+5 LINE.NUM %ScratchPad 507 PTR_PidConfigSelection  $0100.. ROT PID@  IO.SP.F.WRITE DROP  
+2 JUMP ;
+: 2_1
+TRUE
+
+1 LINE.NUM
+  ^PidConfigStatus @@ 
+  1    =
+LAND
+IF -7 ELSE 0 THEN JUMP ;
+: 2_3
+TRUE
+
+1 LINE.NUM
+  ^PidConfigStatus @@ 
+  0    =
+LAND
+IF -9 ELSE -11 THEN JUMP ;
+: 2_17
+TRUE
+
+1 LINE.NUM
+  ^PidConfigStatus @@ 
+  1    =
+LAND
+IF -6 ELSE 0 THEN JUMP ;
+: 2_21
+TRUE
+
+1 LINE.NUM
+  ^PidConfigStatus @@ 
+  0    =
+LAND
+IF -9 ELSE -8 THEN JUMP ;
+T: T2
+DUMMY
+2_0
+2_2
+2_5
+2_6
+2_11
+2_20
+2_22
+2_27
+2_29
+2_31
+2_1
+2_3
+2_17
+2_21
+T;
+&PidConfig ' T2 SETTASK

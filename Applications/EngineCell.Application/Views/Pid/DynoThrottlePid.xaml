@@ -30,7 +30,16 @@
                 <ColumnDefinition Width="33*"/>
             </Grid.ColumnDefinitions>
             <Grid Column="0">
-                <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Content="Dyno"></Label>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0">
+                    <Label FontSize="15" Content="Dyno"></Label>
+                    <Button Name="ConfigDyno" Width="25" Height="15" Margin="3,0,0,0" Click="ConfigDyno_OnClick">
+                        <Rectangle Width="15" Height="15" Fill="{StaticResource DarkBlueBrush}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_list_gear}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
             </Grid>
             <Grid Column="1">
                 <Grid.RowDefinitions>
@@ -92,7 +101,16 @@
                 <ColumnDefinition Width="33*"/>
             </Grid.ColumnDefinitions>
             <Grid Column="0">
-                <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Content="Throttle"></Label>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0">
+                    <Label FontSize="15" Content="Throttle"></Label>
+                    <Button Name="ConfigThrottle" Width="25" Height="15" Margin="3,0,0,0" Click="ConfigThrottle_OnClick">
+                        <Rectangle Width="15" Height="15" Fill="{StaticResource DarkBlueBrush}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_list_gear}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
             </Grid>
             <Grid Column="1">
                 <Grid.RowDefinitions>

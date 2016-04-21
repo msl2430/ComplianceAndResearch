@@ -1,5 +1,6 @@
 0 TASK  &_INIT_IO
 0 TASK &DataCollection
+0 TASK &PidConfig
 0 TASK &Powerup
 0 IVAR ^GetScratchPadResult
 0 IVAR ^gIndex
@@ -10,6 +11,7 @@
 0 IVAR ^IsTestRunning
 0 IVAR ^PidConfigStatus
 0 IVAR ^PidConfigType
+0 FVAR ^PidConfigValue
 0 IVAR ^SetScratchPadResult
 32 0 $VAR *StrategyRunTime 
 nullPID 0 POINTER PTR_PidConfigSelection
@@ -106,7 +108,39 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A80
  4  1 SPOINT 0.0      FREQ  2 13 %EngineCell 0 POINT.TNG ~Freq2
  4  1 SPOINT 0.0      FREQ  3 13 %EngineCell 0 POINT.TNG ~Freq3
 nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
-1    0.0000    0.0000    0.6000    0.9000    4.0000    5.0000    1.0000   10.0000
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 2 %EngineCell 0 PID |Coolant
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 5 %EngineCell 0 PID |Custom1
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 6 %EngineCell 0 PID |Custom2
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 7 %EngineCell 0 PID |Custom3
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 8 %EngineCell 0 PID |Custom4
+3    0.0000    0.0000    0.6000    0.9000    4.0000    5.0000    1.0000   10.0000
    1.0000   13.0000   12.0000    8.0000    9.0000   11.0000
    3.0000    2.0000 0.0
-$f0000000 0 %EngineCell 0 PID |TestPid
+$f0000000 0 %EngineCell 0 PID |Dyno
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 4 %EngineCell 0 PID |Intercooler
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 3 %EngineCell 0 PID |Oil
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 1 %EngineCell 0 PID |Throttle

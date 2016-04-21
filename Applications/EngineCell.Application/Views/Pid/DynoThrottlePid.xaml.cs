@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using EngineCell.Application.ViewModels.Pid;
+using EngineCell.Core.Constants;
 
 namespace EngineCell.Application.Views.Pid
 {
@@ -52,6 +53,24 @@ namespace EngineCell.Application.Views.Pid
         {
             var modeSelectModal = new PidModeSelection(ViewModel.Dyno, ViewModel.Throttle);
             modeSelectModal.ShowDialog();
+        }
+
+        private void OpenPidConfig(ControlConstants.PidType type)
+        {
+            if (ViewModel.ApplicationSessionFactory.OptoConnectionStatus != StatusConstants.ConnectionStatus.Connected)
+                return;
+            var pidConfig = new PidConfig(ViewModel.ApplicationSessionFactory, type);
+            pidConfig.Show();
+        }
+
+        private void ConfigDyno_OnClick(object sender, RoutedEventArgs e)
+        {
+            OpenPidConfig(ControlConstants.PidType.Dyno);
+        }
+
+        private void ConfigThrottle_OnClick(object sender, RoutedEventArgs e)
+        {
+            OpenPidConfig(ControlConstants.PidType.Throttle);
         }
     }
 }

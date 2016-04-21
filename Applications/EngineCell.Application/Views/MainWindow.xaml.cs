@@ -13,7 +13,6 @@ using EngineCell.Application.ViewModels;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Application.ViewModels.TestDisplay;
-using EngineCell.Application.Views.Pid;
 using EngineCell.Core.Constants;
 using EngineCell.Models.Repositories;
 using MahApps.Metro.Controls;

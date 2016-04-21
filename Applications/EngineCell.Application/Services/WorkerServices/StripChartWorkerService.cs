@@ -35,8 +35,13 @@ namespace EngineCell.Application.Services.WorkerServices
                     var appSession = StripChartViewModel.ApplicationSessionFactory;
 
                     //Check if we're connected to and collecting data from Opto before proceeding
-                    if (appSession.OptoMmpFactory == null || !appSession.OptoMmpFactory.Current.IsCommunicationOpen || appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt()).Value != 1)
+                    if (appSession.OptoMmpFactory == null || !appSession.OptoMmpFactory.Current.IsCommunicationOpen ||
+                        appSession.ScratchPadFactory.GetScratchPadInt(
+                            ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt()).Value != 1)
+                    {
+                        Thread.Sleep(1000);
                         continue;
+                    }
 
                     var timePoint = DateTime.Now;
 
