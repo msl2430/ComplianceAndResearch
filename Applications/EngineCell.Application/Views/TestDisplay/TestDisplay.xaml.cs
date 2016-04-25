@@ -33,17 +33,17 @@ namespace EngineCell.Application.Views.TestDisplay
 
         private void StartPhaseButton_Click(object sender, RoutedEventArgs e)
         {
-            //TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
-            //Task.Run(() =>
-            //{
-            //    TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Collecting Point data.", true);
-            //    PointWorkerService.DoWork();
-            //});
-            //TestDisplayViewModel.ChartViewModel.IsPlay = true;
+
             if (TestDisplayViewModel.ApplicationSessionFactory.OptoConnectionStatus != StatusConstants.ConnectionStatus.Connected)
                 return;
 
-            
+            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
+            Task.Run(() =>
+            {
+                TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Collecting Point data.", true);
+                PointWorkerService.DoWork();
+            });
+            TestDisplayViewModel.ChartViewModel.IsPlay = true;
         }
     }
 }

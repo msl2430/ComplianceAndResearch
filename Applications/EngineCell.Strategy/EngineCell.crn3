@@ -1,13 +1,19 @@
 CREATE T.ARRAY
 &DataCollection ,
+&PidConfig ,
 &Powerup ,
  0 ,
 CREATE V.ARRAY
 ^GetScratchPadResult ,
 ^gIndex ,
+^gTest ,
 ^IsApplicationConnected ,
 ^IsStartDataCollect ,
 ^IsStartTest ,
+^IsTestRunning ,
+^PidConfigStatus ,
+^PidConfigType ,
+^PidConfigValue ,
 ^SetScratchPadResult ,
 *StrategyRunTime ,
 *_HSV_SEMA ,
@@ -16,6 +22,7 @@ CREATE V.ARRAY
 CREATE TI.ARRAY
  0 ,
 CREATE PTR.ARRAY
+Ptr' PTR_PidConfigSelection ,
  0 ,
 CREATE TA.ARRAY 
  0 ,
@@ -42,82 +49,91 @@ CREATE P.ARRAY
 ~di_EngineCell_1213 ,
 ~di_EngineCell_1214 ,
 ~di_EngineCell_1215 ,
-~di_EngineCell_1300 ,
-~di_EngineCell_1301 ,
-~di_EngineCell_1302 ,
-~di_EngineCell_1303 ,
-~do_EngineCell_1100 ,
-~do_EngineCell_1101 ,
-~do_EngineCell_1102 ,
-~do_EngineCell_1103 ,
-~do_EngineCell_1104 ,
-~do_EngineCell_1105 ,
-~do_EngineCell_1106 ,
-~do_EngineCell_1107 ,
-~do_EngineCell_1108 ,
-~do_EngineCell_1109 ,
-~do_EngineCell_1110 ,
-~do_EngineCell_1111 ,
-~do_EngineCell_1112 ,
-~do_EngineCell_1113 ,
-~do_EngineCell_1114 ,
-~do_EngineCell_1115 ,
-~do_EngineCell_1116 ,
-~do_EngineCell_1117 ,
-~do_EngineCell_1118 ,
-~do_EngineCell_1119 ,
-~do_EngineCell_1120 ,
-~do_EngineCell_1121 ,
-~do_EngineCell_1122 ,
-~do_EngineCell_1123 ,
-~do_EngineCell_1124 ,
-~do_EngineCell_1125 ,
-~do_EngineCell_1126 ,
-~do_EngineCell_1127 ,
-~do_EngineCell_1128 ,
-~do_EngineCell_1129 ,
-~do_EngineCell_1130 ,
-~do_EngineCell_1131 ,
-~ai_EngineCell_0000 ,
-~ai_EngineCell_0001 ,
-~ai_EngineCell_0002 ,
-~ai_EngineCell_0003 ,
-~ai_EngineCell_0100 ,
-~ai_EngineCell_0101 ,
-~ai_EngineCell_0102 ,
-~ai_EngineCell_0103 ,
-~ai_EngineCell_0200 ,
-~ai_EngineCell_0201 ,
-~ai_EngineCell_0202 ,
-~ai_EngineCell_0203 ,
-~ai_EngineCell_0300 ,
-~ai_EngineCell_0301 ,
-~ai_EngineCell_0302 ,
-~ai_EngineCell_0303 ,
-~ai_EngineCell_0400 ,
-~ai_EngineCell_0401 ,
-~ai_EngineCell_0402 ,
-~ai_EngineCell_0403 ,
-~ai_EngineCell_0500 ,
-~ai_EngineCell_0501 ,
-~ai_EngineCell_0600 ,
-~ai_EngineCell_0601 ,
-~ai_EngineCell_0700 ,
-~ai_EngineCell_0701 ,
-~ai_EngineCell_0800 ,
-~ai_EngineCell_0801 ,
-~ai_EngineCell_0900 ,
-~ai_EngineCell_0901 ,
-~ao_EngineCell_1000 ,
-~ao_EngineCell_1001 ,
-~ao_EngineCell_1002 ,
-~ao_EngineCell_1003 ,
-~ao_EngineCell_1004 ,
-~ao_EngineCell_1005 ,
-~ao_EngineCell_1006 ,
-~ao_EngineCell_1007 ,
+~Dyno0 ,
+~Dyno1 ,
+~Dyno2 ,
+~Dyno3 ,
+~Dyno4 ,
+~Dyno5 ,
+~Dyno6 ,
+~Dyno7 ,
+~Engine0 ,
+~Engine1 ,
+~Engine2 ,
+~Engine3 ,
+~Engine4 ,
+~Engine5 ,
+~Engine6 ,
+~Engine7 ,
+~Freq0 ,
+~Freq1 ,
+~Freq2 ,
+~Freq3 ,
+~Fuel0 ,
+~Fuel1 ,
+~Fuel2 ,
+~Fuel3 ,
+~Fuel4 ,
+~Fuel5 ,
+~Fuel6 ,
+~Fuel7 ,
+~Misc0 ,
+~Misc1 ,
+~Misc2 ,
+~Misc3 ,
+~Misc4 ,
+~Misc5 ,
+~Misc6 ,
+~Misc7 ,
+~AO10 ,
+~AO10Bipolar ,
+~AO4_20_0 ,
+~AO4_20_1 ,
+~AO4_20_2 ,
+~AO4_20_3 ,
+~AO5 ,
+~AO5Bipolar ,
+~HART0 ,
+~HART1 ,
+~MilliAmp0 ,
+~MilliAmp1 ,
+~ThermalCouple0 ,
+~ThermalCouple1 ,
+~ThermalCouple10 ,
+~ThermalCouple11 ,
+~ThermalCouple12 ,
+~ThermalCouple13 ,
+~ThermalCouple14 ,
+~ThermalCouple15 ,
+~ThermalCouple16 ,
+~ThermalCouple17 ,
+~ThermalCouple18 ,
+~ThermalCouple19 ,
+~ThermalCouple2 ,
+~ThermalCouple3 ,
+~ThermalCouple4 ,
+~ThermalCouple5 ,
+~ThermalCouple6 ,
+~ThermalCouple7 ,
+~ThermalCouple8 ,
+~ThermalCouple9 ,
+~Volt0 ,
+~Volt1 ,
+~Volt2 ,
+~Volt3 ,
+~Volt4 ,
+~Volt5 ,
  0 ,
 CREATE PID.ARRAY
+ |Coolant ,
+ |Custom1 ,
+ |Custom2 ,
+ |Custom3 ,
+ |Custom4 ,
+ |Dyno ,
+ |Intercooler ,
+ |Oil ,
+ |Throttle ,
  0 ,
 CREATE E/R.ARRAY
  0 ,
@@ -128,6 +144,15 @@ CREATE E/RGROUP.ARRAY
 : W_INIT_IO
 CONFIG_PORTS
 $0000000000000000.. %ScratchPad ENABLES!
+|Coolant ENABLE
+|Custom1 ENABLE
+|Custom2 ENABLE
+|Custom3 ENABLE
+|Custom4 ENABLE
+|Dyno ENABLE
+|Intercooler ENABLE
+|Oil ENABLE
+|Throttle ENABLE
 " %EngineCell  (1/2)" *_HSV_INIT_IO $MOVE 1 ^_HNV_INIT_IO @!
 %EngineCell ENABLE
 " %ScratchPad  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
@@ -135,12 +160,18 @@ $0000000000000000.. %ScratchPad ENABLES!
  " Initializing variables" *_HSV_INIT_IO $MOVE
 0 ^GetScratchPadResult @!
 0 ^gIndex @!
+0.00000000 ^gTest @!
 0 ^IsApplicationConnected @!
 0 ^IsStartDataCollect @!
 0 ^IsStartTest @!
+0 ^IsTestRunning @!
+0 ^PidConfigStatus @!
+0 ^PidConfigType @!
+0.00000000 ^PidConfigValue @!
 0 ^SetScratchPadResult @!
 " "
  *StrategyRunTime $MOVE
+0 MoveToPointer PTR_PidConfigSelection
  " " *_HSV_INIT_IO $MOVE
 ;
 T: T_INIT_IO

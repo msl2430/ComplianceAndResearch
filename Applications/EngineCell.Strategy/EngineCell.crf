@@ -16,86 +16,93 @@ _END NEW $$$.RUN
 0 IVAR ^_HNV_INIT_IO 
 0 TASK  &_INIT_IO
 0 TASK &DataCollection
+0 TASK &PidConfig
 0 TASK &Powerup
 0 IVAR ^GetScratchPadResult
 0 IVAR ^gIndex
+0 FVAR ^gTest
 0 IVAR ^IsApplicationConnected
 0 IVAR ^IsStartDataCollect
 0 IVAR ^IsStartTest
+0 IVAR ^IsTestRunning
+0 IVAR ^PidConfigStatus
+0 IVAR ^PidConfigType
+0 FVAR ^PidConfigValue
 0 IVAR ^SetScratchPadResult
 32 0 $VAR *StrategyRunTime 
+nullPID 0 POINTER PTR_PidConfigSelection
 
 nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A801CA 0 11 BOARD.MMP %EngineCell
- 4  1 APOINT -150.0000 66  0  0 %EngineCell 0 POINT.TNG ~ai_EngineCell_0000
- 4  1 APOINT -150.0000 66  1  0 %EngineCell 0 POINT.TNG ~ai_EngineCell_0001
- 4  1 APOINT -150.0000 66  2  0 %EngineCell 0 POINT.TNG ~ai_EngineCell_0002
- 4  1 APOINT -150.0000 66  3  0 %EngineCell 0 POINT.TNG ~ai_EngineCell_0003
- 4  1 APOINT -150.0000 66  0  1 %EngineCell 0 POINT.TNG ~ai_EngineCell_0100
- 4  1 APOINT -150.0000 66  1  1 %EngineCell 0 POINT.TNG ~ai_EngineCell_0101
- 4  1 APOINT -150.0000 66  2  1 %EngineCell 0 POINT.TNG ~ai_EngineCell_0102
- 4  1 APOINT -150.0000 66  3  1 %EngineCell 0 POINT.TNG ~ai_EngineCell_0103
- 4  1 APOINT -150.0000 66  0  2 %EngineCell 0 POINT.TNG ~ai_EngineCell_0200
- 4  1 APOINT -150.0000 66  1  2 %EngineCell 0 POINT.TNG ~ai_EngineCell_0201
- 4  1 APOINT -150.0000 66  2  2 %EngineCell 0 POINT.TNG ~ai_EngineCell_0202
- 4  1 APOINT -150.0000 66  3  2 %EngineCell 0 POINT.TNG ~ai_EngineCell_0203
- 4  1 APOINT -150.0000 66  0  3 %EngineCell 0 POINT.TNG ~ai_EngineCell_0300
- 4  1 APOINT -150.0000 66  1  3 %EngineCell 0 POINT.TNG ~ai_EngineCell_0301
- 4  1 APOINT -150.0000 66  2  3 %EngineCell 0 POINT.TNG ~ai_EngineCell_0302
- 4  1 APOINT -150.0000 66  3  3 %EngineCell 0 POINT.TNG ~ai_EngineCell_0303
- 4  1 APOINT -150.0000 66  0  4 %EngineCell 0 POINT.TNG ~ai_EngineCell_0400
- 4  1 APOINT -150.0000 66  1  4 %EngineCell 0 POINT.TNG ~ai_EngineCell_0401
- 4  1 APOINT -150.0000 66  2  4 %EngineCell 0 POINT.TNG ~ai_EngineCell_0402
- 4  1 APOINT -150.0000 66  3  4 %EngineCell 0 POINT.TNG ~ai_EngineCell_0403
- 2  1 APOINT  -10.0000 12  0  5 %EngineCell 0 POINT.TNG ~ai_EngineCell_0500
- 2  1 APOINT  -10.0000 12  1  5 %EngineCell 0 POINT.TNG ~ai_EngineCell_0501
- 2  1 APOINT  -10.0000 12  0  6 %EngineCell 0 POINT.TNG ~ai_EngineCell_0600
- 2  1 APOINT  -10.0000 12  1  6 %EngineCell 0 POINT.TNG ~ai_EngineCell_0601
- 2  1 APOINT  -10.0000 12  0  7 %EngineCell 0 POINT.TNG ~ai_EngineCell_0700
- 2  1 APOINT  -10.0000 12  1  7 %EngineCell 0 POINT.TNG ~ai_EngineCell_0701
- 2  1 APOINT  -20.0000 64  0  8 %EngineCell 0 POINT.TNG ~ai_EngineCell_0800
- 2  1 APOINT  -20.0000 64  1  8 %EngineCell 0 POINT.TNG ~ai_EngineCell_0801
-42  2  1 XPOINT    4.0000 3  0  9 %EngineCell 0 POINT.TNG ~ai_EngineCell_0900
-42  2  1 XPOINT    4.0000 3  1  9 %EngineCell 0 POINT.TNG ~ai_EngineCell_0901
- 8  1 APOINT    0.0000 144  0 10 %EngineCell 0 POINT.TNG ~ao_EngineCell_1000
- 8  1 APOINT    0.0000 144  1 10 %EngineCell 0 POINT.TNG ~ao_EngineCell_1001
- 8  1 APOINT    0.0000 144  2 10 %EngineCell 0 POINT.TNG ~ao_EngineCell_1002
- 8  1 APOINT    0.0000 144  3 10 %EngineCell 0 POINT.TNG ~ao_EngineCell_1003
- 8  1 APOINT    0.0000 144  4 10 %EngineCell 0 POINT.TNG ~ao_EngineCell_1004
- 8  1 APOINT    0.0000 144  5 10 %EngineCell 0 POINT.TNG ~ao_EngineCell_1005
- 8  1 APOINT    0.0000 144  6 10 %EngineCell 0 POINT.TNG ~ao_EngineCell_1006
- 8  1 APOINT    0.0000 144  7 10 %EngineCell 0 POINT.TNG ~ao_EngineCell_1007
-32  1 SPOINT 0.0    OUTPUT  0 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1100
-32  1 SPOINT 0.0    OUTPUT  1 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1101
-32  1 SPOINT 0.0    OUTPUT  2 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1102
-32  1 SPOINT 0.0    OUTPUT  3 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1103
-32  1 SPOINT 0.0    OUTPUT  4 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1104
-32  1 SPOINT 0.0    OUTPUT  5 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1105
-32  1 SPOINT 0.0    OUTPUT  6 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1106
-32  1 SPOINT 0.0    OUTPUT  7 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1107
-32  1 SPOINT 0.0    OUTPUT  8 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1108
-32  1 SPOINT 0.0    OUTPUT  9 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1109
-32  1 SPOINT 0.0    OUTPUT 10 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1110
-32  1 SPOINT 0.0    OUTPUT 11 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1111
-32  1 SPOINT 0.0    OUTPUT 12 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1112
-32  1 SPOINT 0.0    OUTPUT 13 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1113
-32  1 SPOINT 0.0    OUTPUT 14 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1114
-32  1 SPOINT 0.0    OUTPUT 15 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1115
-32  1 SPOINT 0.0    OUTPUT 16 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1116
-32  1 SPOINT 0.0    OUTPUT 17 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1117
-32  1 SPOINT 0.0    OUTPUT 18 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1118
-32  1 SPOINT 0.0    OUTPUT 19 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1119
-32  1 SPOINT 0.0    OUTPUT 20 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1120
-32  1 SPOINT 0.0    OUTPUT 21 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1121
-32  1 SPOINT 0.0    OUTPUT 22 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1122
-32  1 SPOINT 0.0    OUTPUT 23 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1123
-32  1 SPOINT 0.0    OUTPUT 24 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1124
-32  1 SPOINT 0.0    OUTPUT 25 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1125
-32  1 SPOINT 0.0    OUTPUT 26 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1126
-32  1 SPOINT 0.0    OUTPUT 27 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1127
-32  1 SPOINT 0.0    OUTPUT 28 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1128
-32  1 SPOINT 0.0    OUTPUT 29 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1129
-32  1 SPOINT 0.0    OUTPUT 30 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1130
-32  1 SPOINT 0.0    OUTPUT 31 11 %EngineCell 0 POINT.TNG ~do_EngineCell_1131
+ 4  1 APOINT -270.0000 8  0  0 %EngineCell 0 POINT.TNG ~ThermalCouple0
+ 4  1 APOINT -150.0000 66  1  0 %EngineCell 0 POINT.TNG ~ThermalCouple1
+ 4  1 APOINT -150.0000 66  2  0 %EngineCell 0 POINT.TNG ~ThermalCouple2
+ 4  1 APOINT -150.0000 66  3  0 %EngineCell 0 POINT.TNG ~ThermalCouple3
+ 4  1 APOINT -150.0000 66  0  1 %EngineCell 0 POINT.TNG ~ThermalCouple4
+ 4  1 APOINT -150.0000 66  1  1 %EngineCell 0 POINT.TNG ~ThermalCouple5
+ 4  1 APOINT -150.0000 66  2  1 %EngineCell 0 POINT.TNG ~ThermalCouple6
+ 4  1 APOINT -150.0000 66  3  1 %EngineCell 0 POINT.TNG ~ThermalCouple7
+ 4  1 APOINT -150.0000 66  0  2 %EngineCell 0 POINT.TNG ~ThermalCouple8
+ 4  1 APOINT -150.0000 66  1  2 %EngineCell 0 POINT.TNG ~ThermalCouple9
+ 4  1 APOINT -150.0000 66  2  2 %EngineCell 0 POINT.TNG ~ThermalCouple10
+ 4  1 APOINT -150.0000 66  3  2 %EngineCell 0 POINT.TNG ~ThermalCouple11
+ 4  1 APOINT -150.0000 66  0  3 %EngineCell 0 POINT.TNG ~ThermalCouple12
+ 4  1 APOINT -270.0000 8  1  3 %EngineCell 0 POINT.TNG ~ThermalCouple13
+ 4  1 APOINT -270.0000 8  2  3 %EngineCell 0 POINT.TNG ~ThermalCouple14
+ 4  1 APOINT -270.0000 8  3  3 %EngineCell 0 POINT.TNG ~ThermalCouple15
+ 4  1 APOINT -270.0000 8  0  4 %EngineCell 0 POINT.TNG ~ThermalCouple16
+ 4  1 APOINT -270.0000 8  1  4 %EngineCell 0 POINT.TNG ~ThermalCouple17
+ 4  1 APOINT -270.0000 8  2  4 %EngineCell 0 POINT.TNG ~ThermalCouple18
+ 4  1 APOINT -270.0000 8  3  4 %EngineCell 0 POINT.TNG ~ThermalCouple19
+ 2  1 APOINT  -10.0000 12  0  5 %EngineCell 0 POINT.TNG ~Volt0
+ 2  1 APOINT  -10.0000 12  1  5 %EngineCell 0 POINT.TNG ~Volt1
+ 2  1 APOINT  -10.0000 12  0  6 %EngineCell 0 POINT.TNG ~Volt2
+ 2  1 APOINT  -10.0000 12  1  6 %EngineCell 0 POINT.TNG ~Volt3
+ 2  1 APOINT  -10.0000 12  0  7 %EngineCell 0 POINT.TNG ~Volt4
+ 2  1 APOINT  -10.0000 12  1  7 %EngineCell 0 POINT.TNG ~Volt5
+ 2  1 APOINT  -20.0000 64  0  8 %EngineCell 0 POINT.TNG ~MilliAmp0
+ 2  1 APOINT  -20.0000 64  1  8 %EngineCell 0 POINT.TNG ~MilliAmp1
+42  2  1 XPOINT    4.0000 3  0  9 %EngineCell 0 POINT.TNG ~HART0
+42  2  1 XPOINT    4.0000 3  1  9 %EngineCell 0 POINT.TNG ~HART1
+ 8  1 APOINT    0.0000 147  0 10 %EngineCell 0 POINT.TNG ~AO10Bipolar
+ 8  1 APOINT    0.0000 145  1 10 %EngineCell 0 POINT.TNG ~AO10
+ 8  1 APOINT    0.0000 146  2 10 %EngineCell 0 POINT.TNG ~AO5Bipolar
+ 8  1 APOINT    0.0000 144  3 10 %EngineCell 0 POINT.TNG ~AO5
+ 8  1 APOINT    0.0000 148  4 10 %EngineCell 0 POINT.TNG ~AO4_20_0
+ 8  1 APOINT    0.0000 148  5 10 %EngineCell 0 POINT.TNG ~AO4_20_1
+ 8  1 APOINT    0.0000 148  6 10 %EngineCell 0 POINT.TNG ~AO4_20_2
+ 8  1 APOINT    0.0000 148  7 10 %EngineCell 0 POINT.TNG ~AO4_20_3
+32  1 SPOINT 0.0    OUTPUT  0 11 %EngineCell 0 POINT.TNG ~Dyno0
+32  1 SPOINT 0.0    OUTPUT  1 11 %EngineCell 0 POINT.TNG ~Dyno1
+32  1 SPOINT 0.0    OUTPUT  2 11 %EngineCell 0 POINT.TNG ~Dyno2
+32  1 SPOINT 0.0    OUTPUT  3 11 %EngineCell 0 POINT.TNG ~Dyno3
+32  1 SPOINT 0.0    OUTPUT  4 11 %EngineCell 0 POINT.TNG ~Dyno4
+32  1 SPOINT 0.0    OUTPUT  5 11 %EngineCell 0 POINT.TNG ~Dyno5
+32  1 SPOINT 0.0    OUTPUT  6 11 %EngineCell 0 POINT.TNG ~Dyno6
+32  1 SPOINT 0.0    OUTPUT  7 11 %EngineCell 0 POINT.TNG ~Dyno7
+32  1 SPOINT 0.0    OUTPUT  8 11 %EngineCell 0 POINT.TNG ~Engine0
+32  1 SPOINT 0.0    OUTPUT  9 11 %EngineCell 0 POINT.TNG ~Engine1
+32  1 SPOINT 0.0    OUTPUT 10 11 %EngineCell 0 POINT.TNG ~Engine2
+32  1 SPOINT 0.0    OUTPUT 11 11 %EngineCell 0 POINT.TNG ~Engine3
+32  1 SPOINT 0.0    OUTPUT 12 11 %EngineCell 0 POINT.TNG ~Engine4
+32  1 SPOINT 0.0    OUTPUT 13 11 %EngineCell 0 POINT.TNG ~Engine5
+32  1 SPOINT 0.0    OUTPUT 14 11 %EngineCell 0 POINT.TNG ~Engine6
+32  1 SPOINT 0.0    OUTPUT 15 11 %EngineCell 0 POINT.TNG ~Engine7
+32  1 SPOINT 0.0    OUTPUT 16 11 %EngineCell 0 POINT.TNG ~Fuel0
+32  1 SPOINT 0.0    OUTPUT 17 11 %EngineCell 0 POINT.TNG ~Fuel1
+32  1 SPOINT 0.0    OUTPUT 18 11 %EngineCell 0 POINT.TNG ~Fuel2
+32  1 SPOINT 0.0    OUTPUT 19 11 %EngineCell 0 POINT.TNG ~Fuel3
+32  1 SPOINT 0.0    OUTPUT 20 11 %EngineCell 0 POINT.TNG ~Fuel4
+32  1 SPOINT 0.0    OUTPUT 21 11 %EngineCell 0 POINT.TNG ~Fuel5
+32  1 SPOINT 0.0    OUTPUT 22 11 %EngineCell 0 POINT.TNG ~Fuel6
+32  1 SPOINT 0.0    OUTPUT 23 11 %EngineCell 0 POINT.TNG ~Fuel7
+32  1 SPOINT 0.0    OUTPUT 24 11 %EngineCell 0 POINT.TNG ~Misc0
+32  1 SPOINT 0.0    OUTPUT 25 11 %EngineCell 0 POINT.TNG ~Misc1
+32  1 SPOINT 0.0    OUTPUT 26 11 %EngineCell 0 POINT.TNG ~Misc2
+32  1 SPOINT 0.0    OUTPUT 27 11 %EngineCell 0 POINT.TNG ~Misc3
+32  1 SPOINT 0.0    OUTPUT 28 11 %EngineCell 0 POINT.TNG ~Misc4
+32  1 SPOINT 0.0    OUTPUT 29 11 %EngineCell 0 POINT.TNG ~Misc5
+32  1 SPOINT 0.0    OUTPUT 30 11 %EngineCell 0 POINT.TNG ~Misc6
+32  1 SPOINT 0.0    OUTPUT 31 11 %EngineCell 0 POINT.TNG ~Misc7
 32  1 SPOINT 0.0     INPUT  0 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1200
 32  1 SPOINT 0.0     INPUT  1 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1201
 32  1 SPOINT 0.0     INPUT  2 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1202
@@ -112,11 +119,47 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A80
 32  1 SPOINT 0.0     INPUT 13 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1213
 32  1 SPOINT 0.0     INPUT 14 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1214
 32  1 SPOINT 0.0     INPUT 15 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1215
- 4  1 SPOINT 0.0     INPUT  0 13 %EngineCell 0 POINT.TNG ~di_EngineCell_1300
- 4  1 SPOINT 0.0     INPUT  1 13 %EngineCell 0 POINT.TNG ~di_EngineCell_1301
- 4  1 SPOINT 0.0     INPUT  2 13 %EngineCell 0 POINT.TNG ~di_EngineCell_1302
- 4  1 SPOINT 0.0     INPUT  3 13 %EngineCell 0 POINT.TNG ~di_EngineCell_1303
+ 4  1 SPOINT 0.0      FREQ  0 13 %EngineCell 0 POINT.TNG ~Freq0
+ 4  1 SPOINT 0.0      FREQ  1 13 %EngineCell 0 POINT.TNG ~Freq1
+ 4  1 SPOINT 0.0      FREQ  2 13 %EngineCell 0 POINT.TNG ~Freq2
+ 4  1 SPOINT 0.0      FREQ  3 13 %EngineCell 0 POINT.TNG ~Freq3
 nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 2 %EngineCell 0 PID |Coolant
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 5 %EngineCell 0 PID |Custom1
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 6 %EngineCell 0 PID |Custom2
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 7 %EngineCell 0 PID |Custom3
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 8 %EngineCell 0 PID |Custom4
+3    0.0000    0.0000    0.0000    0.0000    4.0000   20.0000    1.0000   10.0000
+   1.0000   13.0000   12.0000    8.0000    9.0000   11.0000
+   3.0000 ~ThermalCouple19 ~AO4_20_0
+$90000000 0 %EngineCell 0 PID |Dyno
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 4 %EngineCell 0 PID |Intercooler
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 3 %EngineCell 0 PID |Oil
+3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO10 ~AO10 ~AO10
+$80000000 1 %EngineCell 0 PID |Throttle
 : 1_0
 0 JUMP ;
 : 1_1
@@ -130,26 +173,80 @@ nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F0000
 : 1_3
 -2 JUMP ;
 : 1_9
-1 LINE.NUM %EngineCell 1000 ~ThermalCouple0 @@  IO.SP.F.WRITE DROP  
-2 LINE.NUM %EngineCell 1001 ~ThermalCouple1 @@  IO.SP.F.WRITE DROP  
-3 LINE.NUM %EngineCell 1002 ~ThermalCouple2 @@  IO.SP.F.WRITE DROP  
-4 LINE.NUM %EngineCell 1003 ~ThermalCouple3 @@  IO.SP.F.WRITE DROP  
-5 LINE.NUM %EngineCell 1004 ~ThermalCouple4 @@  IO.SP.F.WRITE DROP  
-6 LINE.NUM %EngineCell 1005 ~ThermalCouple5 @@  IO.SP.F.WRITE DROP  
-7 LINE.NUM %EngineCell 1006 ~ThermalCouple6 @@  IO.SP.F.WRITE DROP  
-8 LINE.NUM %EngineCell 1007 ~ThermalCouple7 @@  IO.SP.F.WRITE DROP  
-9 LINE.NUM %EngineCell 1008 ~ThermalCouple8 @@  IO.SP.F.WRITE DROP  
-10 LINE.NUM %EngineCell 1009 ~ThermalCouple9 @@  IO.SP.F.WRITE DROP  
-11 LINE.NUM %EngineCell 1010 ~ThermalCouple10 @@  IO.SP.F.WRITE DROP  
-12 LINE.NUM %EngineCell 1011 ~ThermalCouple11 @@  IO.SP.F.WRITE DROP  
-13 LINE.NUM %EngineCell 1012 ~ThermalCouple12 @@  IO.SP.F.WRITE DROP  
-14 LINE.NUM %EngineCell 1013 ~ThermalCouple13 @@  IO.SP.F.WRITE DROP  
-15 LINE.NUM %EngineCell 1014 ~ThermalCouple14 @@  IO.SP.F.WRITE DROP  
-16 LINE.NUM %EngineCell 1015 ~ThermalCouple15 @@  IO.SP.F.WRITE DROP  
-17 LINE.NUM %EngineCell 1016 ~ThermalCouple16 @@  IO.SP.F.WRITE DROP  
-18 LINE.NUM %EngineCell 1017 ~ThermalCouple17 @@  IO.SP.F.WRITE DROP  
-19 LINE.NUM %EngineCell 1018 ~ThermalCouple18 @@  IO.SP.F.WRITE DROP  
-20 LINE.NUM %EngineCell 1019 ~ThermalCouple19 @@  IO.SP.F.WRITE DROP  
+1 LINE.NUM %ScratchPad 1000 ~ThermalCouple0 @@  IO.SP.F.WRITE DROP  
+2 LINE.NUM %ScratchPad 1001 ~ThermalCouple1 @@  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad 1002 ~ThermalCouple2 @@  IO.SP.F.WRITE DROP  
+4 LINE.NUM %ScratchPad 1003 ~ThermalCouple3 @@  IO.SP.F.WRITE DROP  
+5 LINE.NUM %ScratchPad 1004 ~ThermalCouple4 @@  IO.SP.F.WRITE DROP  
+6 LINE.NUM %ScratchPad 1005 ~ThermalCouple5 @@  IO.SP.F.WRITE DROP  
+7 LINE.NUM %ScratchPad 1006 ~ThermalCouple6 @@  IO.SP.F.WRITE DROP  
+8 LINE.NUM %ScratchPad 1007 ~ThermalCouple7 @@  IO.SP.F.WRITE DROP  
+9 LINE.NUM %ScratchPad 1008 ~ThermalCouple8 @@  IO.SP.F.WRITE DROP  
+10 LINE.NUM %ScratchPad 1009 ~ThermalCouple9 @@  IO.SP.F.WRITE DROP  
+11 LINE.NUM %ScratchPad 1010 ~ThermalCouple10 @@  IO.SP.F.WRITE DROP  
+12 LINE.NUM %ScratchPad 1011 ~ThermalCouple11 @@  IO.SP.F.WRITE DROP  
+13 LINE.NUM %ScratchPad 1012 ~ThermalCouple12 @@  IO.SP.F.WRITE DROP  
+14 LINE.NUM %ScratchPad 1013 ~ThermalCouple13 @@  IO.SP.F.WRITE DROP  
+15 LINE.NUM %ScratchPad 1014 ~ThermalCouple14 @@  IO.SP.F.WRITE DROP  
+16 LINE.NUM %ScratchPad 1015 ~ThermalCouple15 @@  IO.SP.F.WRITE DROP  
+17 LINE.NUM %ScratchPad 1016 ~ThermalCouple16 @@  IO.SP.F.WRITE DROP  
+18 LINE.NUM %ScratchPad 1017 ~ThermalCouple17 @@  IO.SP.F.WRITE DROP  
+19 LINE.NUM %ScratchPad 1018 ~ThermalCouple18 @@  IO.SP.F.WRITE DROP  
+20 LINE.NUM %ScratchPad 1019 ~ThermalCouple19 @@  IO.SP.F.WRITE DROP  
+22 LINE.NUM %ScratchPad 1020 ~Volt0 @@  IO.SP.F.WRITE DROP  
+23 LINE.NUM %ScratchPad 1021 ~Volt1 @@  IO.SP.F.WRITE DROP  
+24 LINE.NUM %ScratchPad 1022 ~Volt2 @@  IO.SP.F.WRITE DROP  
+25 LINE.NUM %ScratchPad 1023 ~Volt3 @@  IO.SP.F.WRITE DROP  
+26 LINE.NUM %ScratchPad 1024 ~Volt4 @@  IO.SP.F.WRITE DROP  
+27 LINE.NUM %ScratchPad 1025 ~Volt5 @@  IO.SP.F.WRITE DROP  
+29 LINE.NUM %ScratchPad 1026 ~MilliAmp0 @@  IO.SP.F.WRITE DROP  
+30 LINE.NUM %ScratchPad 1027 ~MilliAmp1 @@  IO.SP.F.WRITE DROP  
+32 LINE.NUM %ScratchPad 1028 ~HART0 @@  IO.SP.F.WRITE DROP  
+33 LINE.NUM %ScratchPad 1029 ~HART1 @@  IO.SP.F.WRITE DROP  
+35 LINE.NUM %ScratchPad 1030 ~AO10Bipolar @@  IO.SP.F.WRITE DROP  
+36 LINE.NUM %ScratchPad 1031 ~AO10 @@  IO.SP.F.WRITE DROP  
+37 LINE.NUM %ScratchPad 1032 ~AO5Bipolar @@  IO.SP.F.WRITE DROP  
+38 LINE.NUM %ScratchPad 1033 ~AO5 @@  IO.SP.F.WRITE DROP  
+39 LINE.NUM %ScratchPad 1034 ~AO4_20_0 @@  IO.SP.F.WRITE DROP  
+40 LINE.NUM %ScratchPad 1035 ~AO4_20_1 @@  IO.SP.F.WRITE DROP  
+41 LINE.NUM %ScratchPad 1036 ~AO4_20_2 @@  IO.SP.F.WRITE DROP  
+42 LINE.NUM %ScratchPad 1037 ~AO4_20_3 @@  IO.SP.F.WRITE DROP  
+44 LINE.NUM %ScratchPad 1038 ~Dyno0 @@I I>F  IO.SP.F.WRITE DROP  
+45 LINE.NUM %ScratchPad 1039 ~Dyno1 @@I I>F  IO.SP.F.WRITE DROP  
+46 LINE.NUM %ScratchPad 1040 ~Dyno2 @@I I>F  IO.SP.F.WRITE DROP  
+47 LINE.NUM %ScratchPad 1041 ~Dyno3 @@I I>F  IO.SP.F.WRITE DROP  
+48 LINE.NUM %ScratchPad 1042 ~Dyno4 @@I I>F  IO.SP.F.WRITE DROP  
+49 LINE.NUM %ScratchPad 1043 ~Dyno5 @@I I>F  IO.SP.F.WRITE DROP  
+50 LINE.NUM %ScratchPad 1044 ~Dyno6 @@I I>F  IO.SP.F.WRITE DROP  
+51 LINE.NUM %ScratchPad 1045 ~Dyno7 @@I I>F  IO.SP.F.WRITE DROP  
+53 LINE.NUM %ScratchPad 1046 ~Engine0 @@I I>F  IO.SP.F.WRITE DROP  
+54 LINE.NUM %ScratchPad 1047 ~Engine1 @@I I>F  IO.SP.F.WRITE DROP  
+55 LINE.NUM %ScratchPad 1048 ~Engine2 @@I I>F  IO.SP.F.WRITE DROP  
+56 LINE.NUM %ScratchPad 1049 ~Engine3 @@I I>F  IO.SP.F.WRITE DROP  
+57 LINE.NUM %ScratchPad 1050 ~Engine4 @@I I>F  IO.SP.F.WRITE DROP  
+58 LINE.NUM %ScratchPad 1051 ~Engine5 @@I I>F  IO.SP.F.WRITE DROP  
+59 LINE.NUM %ScratchPad 1052 ~Engine6 @@I I>F  IO.SP.F.WRITE DROP  
+60 LINE.NUM %ScratchPad 1053 ~Engine7 @@I I>F  IO.SP.F.WRITE DROP  
+62 LINE.NUM %ScratchPad 1054 ~Fuel0 @@I I>F  IO.SP.F.WRITE DROP  
+63 LINE.NUM %ScratchPad 1055 ~Fuel1 @@I I>F  IO.SP.F.WRITE DROP  
+64 LINE.NUM %ScratchPad 1056 ~Fuel2 @@I I>F  IO.SP.F.WRITE DROP  
+65 LINE.NUM %ScratchPad 1057 ~Fuel3 @@I I>F  IO.SP.F.WRITE DROP  
+66 LINE.NUM %ScratchPad 1058 ~Fuel4 @@I I>F  IO.SP.F.WRITE DROP  
+67 LINE.NUM %ScratchPad 1059 ~Fuel5 @@I I>F  IO.SP.F.WRITE DROP  
+68 LINE.NUM %ScratchPad 1060 ~Fuel6 @@I I>F  IO.SP.F.WRITE DROP  
+69 LINE.NUM %ScratchPad 1061 ~Fuel7 @@I I>F  IO.SP.F.WRITE DROP  
+71 LINE.NUM %ScratchPad 1062 ~Misc0 @@I I>F  IO.SP.F.WRITE DROP  
+72 LINE.NUM %ScratchPad 1063 ~Misc1 @@I I>F  IO.SP.F.WRITE DROP  
+73 LINE.NUM %ScratchPad 1064 ~Misc2 @@I I>F  IO.SP.F.WRITE DROP  
+74 LINE.NUM %ScratchPad 1065 ~Misc3 @@I I>F  IO.SP.F.WRITE DROP  
+75 LINE.NUM %ScratchPad 1066 ~Misc4 @@I I>F  IO.SP.F.WRITE DROP  
+76 LINE.NUM %ScratchPad 1067 ~Misc5 @@I I>F  IO.SP.F.WRITE DROP  
+77 LINE.NUM %ScratchPad 1068 ~Misc6 @@I I>F  IO.SP.F.WRITE DROP  
+78 LINE.NUM %ScratchPad 1069 ~Misc7 @@I I>F  IO.SP.F.WRITE DROP  
+80 LINE.NUM %ScratchPad 1070 ~Freq0 @@I I>F  IO.SP.F.WRITE DROP  
+81 LINE.NUM %ScratchPad 1071 ~Freq1 @@I I>F  IO.SP.F.WRITE DROP  
+82 LINE.NUM %ScratchPad 1072 ~Freq2 @@I I>F  IO.SP.F.WRITE DROP  
+83 LINE.NUM %ScratchPad 1073 ~Freq3 @@I I>F  IO.SP.F.WRITE DROP  
 -2 JUMP ;
 : 1_2
 TRUE
@@ -168,6 +265,173 @@ DUMMY
 1_2
 T;
 &DataCollection ' T1 SETTASK
+: 2_0
+
+1 LINE.NUM
+  %ScratchPad 
+  500  
+  ^PidConfigStatus   IO.SP.READ
+  ^GetScratchPadResult @! 
+9 JUMP ;
+: 2_2
+-2 JUMP ;
+: 2_5
+
+1 LINE.NUM
+  &PidConfig   STOP.T
+11 JUMP ;
+: 2_6
+-4 JUMP ;
+: 2_11
+14 LINE.NUM %ScratchPad 501 ^PidConfigType  IO.SP.READ DROP  
+16 LINE.NUM ^PidConfigType @@ CASE 
+17 LINE.NUM 1 OF 
+18 LINE.NUM |Dyno 
+MoveToPointer PTR_PidConfigSelection 
+19 LINE.NUM ENDOF 
+20 LINE.NUM 2 OF 
+21 LINE.NUM |Throttle 
+MoveToPointer PTR_PidConfigSelection 
+22 LINE.NUM ENDOF 
+23 LINE.NUM 3 OF 
+24 LINE.NUM |Coolant 
+MoveToPointer PTR_PidConfigSelection 
+25 LINE.NUM ENDOF 
+26 LINE.NUM 4 OF 
+27 LINE.NUM |Oil 
+MoveToPointer PTR_PidConfigSelection 
+28 LINE.NUM ENDOF 
+29 LINE.NUM 5 OF 
+30 LINE.NUM |Intercooler 
+MoveToPointer PTR_PidConfigSelection 
+31 LINE.NUM ENDOF 
+32 LINE.NUM 6 OF 
+33 LINE.NUM |Custom1 
+MoveToPointer PTR_PidConfigSelection 
+34 LINE.NUM ENDOF 
+35 LINE.NUM 7 OF 
+36 LINE.NUM |Custom2 
+MoveToPointer PTR_PidConfigSelection 
+37 LINE.NUM ENDOF 
+38 LINE.NUM 8 OF 
+39 LINE.NUM |Custom3 
+MoveToPointer PTR_PidConfigSelection 
+40 LINE.NUM ENDOF 
+41 LINE.NUM 9 OF 
+42 LINE.NUM |Custom4 
+MoveToPointer PTR_PidConfigSelection 
+43 LINE.NUM ENDOF 
+44 LINE.NUM ENDCASE 
+46 LINE.NUM %ScratchPad 500 PTR_PidConfigSelection  $0001.. ROT PID@  IO.SP.F.WRITE DROP  
+47 LINE.NUM %ScratchPad 501 PTR_PidConfigSelection  $0400.. ROT PID@  IO.SP.F.WRITE DROP  
+48 LINE.NUM %ScratchPad 502 PTR_PidConfigSelection  $0800.. ROT PID@  IO.SP.F.WRITE DROP  
+49 LINE.NUM %ScratchPad 503 PTR_PidConfigSelection  $0008.. ROT PID@  IO.SP.F.WRITE DROP  
+50 LINE.NUM %ScratchPad 504 PTR_PidConfigSelection  $1000.. ROT PID@  IO.SP.F.WRITE DROP  
+51 LINE.NUM %ScratchPad 505 PTR_PidConfigSelection  $2000.. ROT PID@  IO.SP.F.WRITE DROP  
+52 LINE.NUM %ScratchPad 506 PTR_PidConfigSelection  $0200.. ROT PID@  IO.SP.F.WRITE DROP  
+53 LINE.NUM %ScratchPad 507 PTR_PidConfigSelection  $0100.. ROT PID@  IO.SP.F.WRITE DROP  
+54 LINE.NUM %ScratchPad 508 PTR_PidConfigSelection  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
+55 LINE.NUM %ScratchPad 509 PTR_PidConfigSelection  $0010.. ROT PID@  IO.SP.F.WRITE DROP  
+56 LINE.NUM %ScratchPad 510 PTR_PidConfigSelection  $0020.. ROT PID@  IO.SP.F.WRITE DROP  
+57 LINE.NUM %ScratchPad 511 PTR_PidConfigSelection  $0040.. ROT PID@  IO.SP.F.WRITE DROP  
+58 LINE.NUM %ScratchPad 512 PTR_PidConfigSelection  $0004.. ROT PID@  IO.SP.F.WRITE DROP  
+59 LINE.NUM %ScratchPad 513 PTR_PidConfigSelection  $0080.. ROT PID@  IO.SP.F.WRITE DROP  
+60 LINE.NUM %ScratchPad 500 2  IO.SP.I.WRITE DROP  
+4 JUMP ;
+: 2_20
+-6 JUMP ;
+: 2_22
+2 JUMP ;
+: 2_27
+14 LINE.NUM %ScratchPad 501 ^PidConfigType  IO.SP.READ DROP  
+16 LINE.NUM ^PidConfigType @@ CASE 
+17 LINE.NUM 1 OF 
+18 LINE.NUM |Dyno 
+MoveToPointer PTR_PidConfigSelection 
+19 LINE.NUM ENDOF 
+20 LINE.NUM ENDCASE 
+23 LINE.NUM %ScratchPad 501 ^PidConfigValue   IO.SP.READ DROP  
+24 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0400.. 3 ROLL !PID 
+26 LINE.NUM %ScratchPad 502 ^PidConfigValue   IO.SP.READ DROP  
+27 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0800.. 3 ROLL !PID 
+29 LINE.NUM %ScratchPad 504 ^PidConfigValue   IO.SP.READ DROP  
+30 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $1000.. 3 ROLL !PID 
+32 LINE.NUM %ScratchPad 505 ^PidConfigValue   IO.SP.READ DROP  
+33 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $2000.. 3 ROLL !PID 
+35 LINE.NUM %ScratchPad 506 ^PidConfigValue   IO.SP.READ DROP  
+36 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0200.. 3 ROLL !PID 
+38 LINE.NUM %ScratchPad 507 ^PidConfigValue   IO.SP.READ DROP  
+39 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0100.. 3 ROLL !PID 
+41 LINE.NUM %ScratchPad 509 ^PidConfigValue   IO.SP.READ DROP  
+42 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0010.. 3 ROLL !PID 
+44 LINE.NUM %ScratchPad 510 ^PidConfigValue   IO.SP.READ DROP  
+45 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0020.. 3 ROLL !PID 
+47 LINE.NUM %ScratchPad 511 ^PidConfigValue   IO.SP.READ DROP  
+48 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0040.. 3 ROLL !PID 
+50 LINE.NUM %ScratchPad 512 ^PidConfigValue   IO.SP.READ DROP  
+51 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0004.. 3 ROLL !PID 
+53 LINE.NUM %ScratchPad 513 ^PidConfigValue   IO.SP.READ DROP  
+54 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0080.. 3 ROLL !PID 
+56 LINE.NUM %ScratchPad 500 2  IO.SP.I.WRITE DROP  
+0 JUMP ;
+: 2_29
+0 JUMP ;
+: 2_31
+1 LINE.NUM %ScratchPad 500 ^PidConfigStatus  IO.SP.READ DROP  
+3 LINE.NUM %ScratchPad 500 PTR_PidConfigSelection  $0001.. ROT PID@  IO.SP.F.WRITE DROP  
+4 LINE.NUM %ScratchPad 503 PTR_PidConfigSelection  $0008.. ROT PID@  IO.SP.F.WRITE DROP  
+5 LINE.NUM %ScratchPad 507 PTR_PidConfigSelection  $0100.. ROT PID@  IO.SP.F.WRITE DROP  
+2 JUMP ;
+: 2_1
+TRUE
+
+1 LINE.NUM
+  ^PidConfigStatus @@ 
+  1    =
+LAND
+IF -7 ELSE 0 THEN JUMP ;
+: 2_3
+TRUE
+
+1 LINE.NUM
+  ^PidConfigStatus @@ 
+  0    =
+LAND
+IF -9 ELSE -11 THEN JUMP ;
+: 2_17
+TRUE
+
+1 LINE.NUM
+  ^PidConfigStatus @@ 
+  1    =
+LAND
+IF -6 ELSE 0 THEN JUMP ;
+: 2_21
+TRUE
+
+1 LINE.NUM
+  ^PidConfigStatus @@ 
+  0    =
+LAND
+IF -9 ELSE -8 THEN JUMP ;
+T: T2
+DUMMY
+2_0
+2_2
+2_5
+2_6
+2_11
+2_20
+2_22
+2_27
+2_29
+2_31
+2_1
+2_3
+2_17
+2_21
+T;
+&PidConfig ' T2 SETTASK
 : 0_0
 0 JUMP ;
 : 0_1
@@ -175,7 +439,7 @@ T;
 2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
 3 LINE.NUM %ScratchPad ^gIndex @@ 0  IO.SP.I.WRITE DROP  
 4 LINE.NUM 1 +LOOP 
-0 JUMP ;
+9 JUMP ;
 : 0_3
 
 1 LINE.NUM
@@ -192,7 +456,7 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-8 JUMP ;
+9 JUMP ;
 : 0_4
 -2 JUMP ;
 : 0_5
@@ -216,7 +480,7 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-6 JUMP ;
+7 JUMP ;
 : 0_18
 
 1 LINE.NUM
@@ -249,9 +513,15 @@ T;
   11  
   ^IsTestRunning   IO.SP.READ
   ^GetScratchPadResult @! 
-3 JUMP ;
+4 JUMP ;
 : 0_29
 -2 JUMP ;
+: 0_38
+
+1 LINE.NUM
+  &PidConfig   START.T
+  ^GetScratchPadResult @! 
+-10 JUMP ;
 : 0_2
 TRUE
 
@@ -259,7 +529,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -7 ELSE -8 THEN JUMP ;
+IF -8 ELSE -9 THEN JUMP ;
 : 0_16
 TRUE
 
@@ -267,7 +537,7 @@ TRUE
   ^IsStartTest @@ 
   1    =
 LAND
-IF -5 ELSE -7 THEN JUMP ;
+IF -6 ELSE -8 THEN JUMP ;
 : 0_27
 TRUE
 
@@ -275,7 +545,7 @@ TRUE
   ^IsTestRunning @@ 
   1    =
 LAND
-IF -4 ELSE -4 THEN JUMP ;
+IF -5 ELSE -5 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -289,6 +559,7 @@ DUMMY
 0_22
 0_25
 0_29
+0_38
 0_2
 0_16
 0_27
@@ -296,14 +567,20 @@ T;
 &Powerup ' T0 SETTASK
 CREATE T.ARRAY
 &DataCollection ,
+&PidConfig ,
 &Powerup ,
  0 ,
 CREATE V.ARRAY
 ^GetScratchPadResult ,
 ^gIndex ,
+^gTest ,
 ^IsApplicationConnected ,
 ^IsStartDataCollect ,
 ^IsStartTest ,
+^IsTestRunning ,
+^PidConfigStatus ,
+^PidConfigType ,
+^PidConfigValue ,
 ^SetScratchPadResult ,
 *StrategyRunTime ,
 *_HSV_SEMA ,
@@ -312,6 +589,7 @@ CREATE V.ARRAY
 CREATE TI.ARRAY
  0 ,
 CREATE PTR.ARRAY
+Ptr' PTR_PidConfigSelection ,
  0 ,
 CREATE TA.ARRAY 
  0 ,
@@ -338,82 +616,91 @@ CREATE P.ARRAY
 ~di_EngineCell_1213 ,
 ~di_EngineCell_1214 ,
 ~di_EngineCell_1215 ,
-~di_EngineCell_1300 ,
-~di_EngineCell_1301 ,
-~di_EngineCell_1302 ,
-~di_EngineCell_1303 ,
-~do_EngineCell_1100 ,
-~do_EngineCell_1101 ,
-~do_EngineCell_1102 ,
-~do_EngineCell_1103 ,
-~do_EngineCell_1104 ,
-~do_EngineCell_1105 ,
-~do_EngineCell_1106 ,
-~do_EngineCell_1107 ,
-~do_EngineCell_1108 ,
-~do_EngineCell_1109 ,
-~do_EngineCell_1110 ,
-~do_EngineCell_1111 ,
-~do_EngineCell_1112 ,
-~do_EngineCell_1113 ,
-~do_EngineCell_1114 ,
-~do_EngineCell_1115 ,
-~do_EngineCell_1116 ,
-~do_EngineCell_1117 ,
-~do_EngineCell_1118 ,
-~do_EngineCell_1119 ,
-~do_EngineCell_1120 ,
-~do_EngineCell_1121 ,
-~do_EngineCell_1122 ,
-~do_EngineCell_1123 ,
-~do_EngineCell_1124 ,
-~do_EngineCell_1125 ,
-~do_EngineCell_1126 ,
-~do_EngineCell_1127 ,
-~do_EngineCell_1128 ,
-~do_EngineCell_1129 ,
-~do_EngineCell_1130 ,
-~do_EngineCell_1131 ,
-~ai_EngineCell_0000 ,
-~ai_EngineCell_0001 ,
-~ai_EngineCell_0002 ,
-~ai_EngineCell_0003 ,
-~ai_EngineCell_0100 ,
-~ai_EngineCell_0101 ,
-~ai_EngineCell_0102 ,
-~ai_EngineCell_0103 ,
-~ai_EngineCell_0200 ,
-~ai_EngineCell_0201 ,
-~ai_EngineCell_0202 ,
-~ai_EngineCell_0203 ,
-~ai_EngineCell_0300 ,
-~ai_EngineCell_0301 ,
-~ai_EngineCell_0302 ,
-~ai_EngineCell_0303 ,
-~ai_EngineCell_0400 ,
-~ai_EngineCell_0401 ,
-~ai_EngineCell_0402 ,
-~ai_EngineCell_0403 ,
-~ai_EngineCell_0500 ,
-~ai_EngineCell_0501 ,
-~ai_EngineCell_0600 ,
-~ai_EngineCell_0601 ,
-~ai_EngineCell_0700 ,
-~ai_EngineCell_0701 ,
-~ai_EngineCell_0800 ,
-~ai_EngineCell_0801 ,
-~ai_EngineCell_0900 ,
-~ai_EngineCell_0901 ,
-~ao_EngineCell_1000 ,
-~ao_EngineCell_1001 ,
-~ao_EngineCell_1002 ,
-~ao_EngineCell_1003 ,
-~ao_EngineCell_1004 ,
-~ao_EngineCell_1005 ,
-~ao_EngineCell_1006 ,
-~ao_EngineCell_1007 ,
+~Dyno0 ,
+~Dyno1 ,
+~Dyno2 ,
+~Dyno3 ,
+~Dyno4 ,
+~Dyno5 ,
+~Dyno6 ,
+~Dyno7 ,
+~Engine0 ,
+~Engine1 ,
+~Engine2 ,
+~Engine3 ,
+~Engine4 ,
+~Engine5 ,
+~Engine6 ,
+~Engine7 ,
+~Freq0 ,
+~Freq1 ,
+~Freq2 ,
+~Freq3 ,
+~Fuel0 ,
+~Fuel1 ,
+~Fuel2 ,
+~Fuel3 ,
+~Fuel4 ,
+~Fuel5 ,
+~Fuel6 ,
+~Fuel7 ,
+~Misc0 ,
+~Misc1 ,
+~Misc2 ,
+~Misc3 ,
+~Misc4 ,
+~Misc5 ,
+~Misc6 ,
+~Misc7 ,
+~AO10 ,
+~AO10Bipolar ,
+~AO4_20_0 ,
+~AO4_20_1 ,
+~AO4_20_2 ,
+~AO4_20_3 ,
+~AO5 ,
+~AO5Bipolar ,
+~HART0 ,
+~HART1 ,
+~MilliAmp0 ,
+~MilliAmp1 ,
+~ThermalCouple0 ,
+~ThermalCouple1 ,
+~ThermalCouple10 ,
+~ThermalCouple11 ,
+~ThermalCouple12 ,
+~ThermalCouple13 ,
+~ThermalCouple14 ,
+~ThermalCouple15 ,
+~ThermalCouple16 ,
+~ThermalCouple17 ,
+~ThermalCouple18 ,
+~ThermalCouple19 ,
+~ThermalCouple2 ,
+~ThermalCouple3 ,
+~ThermalCouple4 ,
+~ThermalCouple5 ,
+~ThermalCouple6 ,
+~ThermalCouple7 ,
+~ThermalCouple8 ,
+~ThermalCouple9 ,
+~Volt0 ,
+~Volt1 ,
+~Volt2 ,
+~Volt3 ,
+~Volt4 ,
+~Volt5 ,
  0 ,
 CREATE PID.ARRAY
+ |Coolant ,
+ |Custom1 ,
+ |Custom2 ,
+ |Custom3 ,
+ |Custom4 ,
+ |Dyno ,
+ |Intercooler ,
+ |Oil ,
+ |Throttle ,
  0 ,
 CREATE E/R.ARRAY
  0 ,
@@ -424,6 +711,15 @@ CREATE E/RGROUP.ARRAY
 : W_INIT_IO
 CONFIG_PORTS
 $0000000000000000.. %ScratchPad ENABLES!
+|Coolant ENABLE
+|Custom1 ENABLE
+|Custom2 ENABLE
+|Custom3 ENABLE
+|Custom4 ENABLE
+|Dyno ENABLE
+|Intercooler ENABLE
+|Oil ENABLE
+|Throttle ENABLE
 " %EngineCell  (1/2)" *_HSV_INIT_IO $MOVE 1 ^_HNV_INIT_IO @!
 %EngineCell ENABLE
 " %ScratchPad  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
@@ -431,12 +727,18 @@ $0000000000000000.. %ScratchPad ENABLES!
  " Initializing variables" *_HSV_INIT_IO $MOVE
 0 ^GetScratchPadResult @!
 0 ^gIndex @!
+0.00000000 ^gTest @!
 0 ^IsApplicationConnected @!
 0 ^IsStartDataCollect @!
 0 ^IsStartTest @!
+0 ^IsTestRunning @!
+0 ^PidConfigStatus @!
+0 ^PidConfigType @!
+0.00000000 ^PidConfigValue @!
 0 ^SetScratchPadResult @!
 " "
  *StrategyRunTime $MOVE
+0 MoveToPointer PTR_PidConfigSelection
  " " *_HSV_INIT_IO $MOVE
 ;
 T: T_INIT_IO
@@ -448,9 +750,9 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 02/22/16 " ;
-: TIMESTAMP ." 14:04:47 " ;
-: CRCSTAMP  ." 27E15BC3F011E74F55E5247CD8957F45 " ;
+: DATESTAMP ." 04/23/16 " ;
+: TIMESTAMP ." 09:20:22 " ;
+: CRCSTAMP  ." 8C00647892D9F1C353B5BAF7B1386A55 " ;
 MAKECHECK
 CLEAR.BREAKS
 
