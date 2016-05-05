@@ -1,5 +1,7 @@
 ﻿using EngineCell.Application.Factories;
+using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Core.Constants;
+using OxyPlot;
 
 namespace EngineCell.Application.ViewModels.Pid
 {
@@ -102,6 +104,12 @@ namespace EngineCell.Application.ViewModels.Pid
         {
             get { return _feedFwdGain; }
             set { _feedFwdGain = value; OnPropertyChanged("FeedFwdGain"); }
+        }
+
+        private PidConfigStripChartViewModel _stripChartViewModel { get; set; }
+        public PidConfigStripChartViewModel StripChartViewModel {
+            get { return _stripChartViewModel; }
+            set { _stripChartViewModel = value; OnPropertyChanged("StripChartViewModel"); }
         }
 
         public PidConfigViewModel(IApplicationSessionFactory sessionFactory)

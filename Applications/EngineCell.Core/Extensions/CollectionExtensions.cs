@@ -24,6 +24,11 @@ namespace EngineCell.Core.Extensions
             return listOfIntegers.Select(x => x.ToString());
         }
 
+        public static string ToCommaDelimitedString(this IEnumerable<int> listOfIntegers)
+        {
+            return string.Join(",", listOfIntegers.Select(x => x.ToString()));
+        }
+
         public static IEnumerable<string> ToStringList<T>(this IEnumerable<T> list)
         {
             foreach (object item in list)
@@ -64,6 +69,16 @@ namespace EngineCell.Core.Extensions
             var objectList = array.ToList();
             objectList.Add(itemToAdd);
             return objectList.ToArray();
+        }
+
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> self)
+        {
+            return self == null || !self.Any();
+        }
+
+        public static bool IsNotNullOrEmpty<T>(this IEnumerable<T> self)
+        {
+            return self != null && self.Any();
         }
     }
 }

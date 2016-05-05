@@ -1,27 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EngineCell.Application.Factories;
+using EngineCell.Core.Extensions;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 
 namespace EngineCell.Application.ViewModels.StripChart
 {
-    public sealed class StripChartViewModel : BaseStripChartViewModel
+    public class PidConfigStripChartViewModel: BaseStripChartViewModel
     {
-        public StripChartViewModel(IApplicationSessionFactory applicationSessionFactory)
+        public IList<DataPoint> InputDataPoints { get; set; }
+
+        public IList<DataPoint> OutputDataPoints { get; set; } 
+
+        public IList<DataPoint> SetPointDataPoints { get; set; } 
+
+        public PidConfigStripChartViewModel(IApplicationSessionFactory applicationSessionFactory)
         {
             ApplicationSessionFactory = applicationSessionFactory;
             PlotModel = new PlotModel();
-            IsPlay = false;
+            IsPlay = true;
             InitializePlotModel();
         }
 
-        public StripChartViewModel(string name, IApplicationSessionFactory applicationSessionFactory)
+        public PidConfigStripChartViewModel(string name, IApplicationSessionFactory applicationSessionFactory)
         {
             ApplicationSessionFactory = applicationSessionFactory;
-            PlotModel = new PlotModel() {Title = name};
-            IsPlay = false;
+            PlotModel = new PlotModel() { Title = name };
+            IsPlay = true;
             InitializePlotModel();
         }
 
@@ -30,9 +38,9 @@ namespace EngineCell.Application.ViewModels.StripChart
             PlotModel.LegendTitle = "Legend";
             PlotModel.LegendOrientation = LegendOrientation.Horizontal;
             PlotModel.LegendPlacement = LegendPlacement.Outside;
-            PlotModel.LegendPosition = LegendPosition.TopRight;
-            PlotModel.Background = OxyColor.FromRgb(37, 37, 37);
-            PlotModel.PlotAreaBackground = OxyColor.FromRgb(204, 204, 204);
+            PlotModel.LegendPosition = LegendPosition.BottomCenter;
+            PlotModel.Background = OxyColor.FromRgb(37,37,37);
+            PlotModel.PlotAreaBackground = OxyColor.FromRgb(204,204,204);
             PlotModel.PlotAreaBorderColor = OxyColor.FromRgb(204, 204, 204);
             PlotModel.TextColor = OxyColor.FromRgb(204, 204, 204);
             var dateAxis = new DateTimeAxis
@@ -54,60 +62,40 @@ namespace EngineCell.Application.ViewModels.StripChart
                 MajorGridlineStyle = LineStyle.Solid,
                 MinorGridlineStyle = LineStyle.Dot,
                 Title = "Output",
-                Minimum = -2,
-                Maximum = 2,
+                //Minimum = -2,
+                //Maximum = 2,
             };
             PlotModel.Axes.Add(dateAxis);
             PlotModel.Axes.Add(valueAxis);
         }
 
-        public override void CreateSeries() 
+        public override void CreateSeries()
         {
             try
             {
                 PlotModel.Series.Clear();
-                foreach (var point in ApplicationSessionFactory.CellPoints)
-                {
-                    if (point == null || !point.IncludeInStripChart || !point.DataPoints.Any())
-                        continue;
 
-                    var newSeries = new LineSeries
-                    {
-                        Title = point.CustomName,
-                        IsVisible = point.IncludeInStripChart
-                    };
-                    newSeries.Points.AddRange(point.DataPoints);
-                    PlotModel.Series.Add(newSeries);
-                }
+                var inputSeries = new LineSeries { Title = "Input", IsVisible = true };
+                inputSeries.Points.AddRange(InputDataPoints);
+                PlotModel.Series.Add(inputSeries);
+                var outputSeries = new LineSeries { Title = "Output", IsVisible = true };
+                outputSeries.Points.AddRange(OutputDataPoints);
+                PlotModel.Series.Add(outputSeries);
+                var setpointSeries = new LineSeries { Title = "Set Point", IsVisible = true };
+                setpointSeries.Points.AddRange(SetPointDataPoints);
+                PlotModel.Series.Add(setpointSeries);
+
                 PlotModel.InvalidatePlot(true);
             }
             catch (Exception ex)
             {
-                throw new Exception("UpdateSeries: " + ex.Message, ex.InnerException);
+                throw new Exception("CreateSeries(PidConfig): " + ex.Message, ex.InnerException);
             }
         }
 
         public override void UpdateSeries()
         {
-            if (!PlotModel.Series.Any())
-            {
-                CreateSeries();
-                return;
-            }
-
-            foreach (var point in ApplicationSessionFactory.CellPoints)
-            {
-                if (point == null || !point.IncludeInStripChart || !point.DataPoints.Any())
-                    continue;
-
-                var series = (LineSeries)PlotModel.Series.FirstOrDefault(s => s.Title == point.CustomName);
-                if (series == null)
-                    continue;
-
-                series.IsVisible = point.IncludeInStripChart;
-                series.Points.AddRange(point.DataPoints.Except(series.Points));
-            }
-            PlotModel.InvalidatePlot(true);
+            throw new NotImplementedException();
         }
     }
 }

@@ -57,8 +57,9 @@ namespace EngineCell.Application.Views.Pid
 
         private void OpenPidConfig(ControlConstants.PidType type)
         {
-            if (ViewModel.ApplicationSessionFactory.OptoConnectionStatus != StatusConstants.ConnectionStatus.Connected)
-                return;
+            //TODO: Testing commented out
+            //if (ViewModel.ApplicationSessionFactory.OptoConnectionStatus != StatusConstants.ConnectionStatus.Connected)
+            //    return;
             var pidConfig = new PidConfig(ViewModel.ApplicationSessionFactory, type);
             pidConfig.Show();
         }

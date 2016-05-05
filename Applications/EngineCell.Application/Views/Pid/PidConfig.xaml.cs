@@ -6,6 +6,7 @@ using System.Windows;
 using EngineCell.Application.Factories;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels.Pid;
+using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
 
@@ -20,22 +21,27 @@ namespace EngineCell.Application.Views.Pid
 
         private IPidConfigWorkerService PidConfigWorkerService { get; set; }
 
+        private IPidConfigStripChartWorkerService PidConfigStripChartWorkerService { get; set; }
+
         public PidConfig(IApplicationSessionFactory sessionFactory, ControlConstants.PidType pidType)
         {
             InitializeComponent();
-            ViewModel = new PidConfigViewModel(sessionFactory) { PidType = pidType };
+            ViewModel = new PidConfigViewModel(sessionFactory) { PidType = pidType, StripChartViewModel = new PidConfigStripChartViewModel("PID Trace", sessionFactory) };
+            PidConfigStripChartWorkerService = new PidConfigStripChartWorkerService(ViewModel.StripChartViewModel);
             DataContext = ViewModel;
             InitializeForm();
+            
+            Task.Run(() => PidConfigStripChartWorkerService.DoWork()).ConfigureAwait(false);
         }
 
         private void InitializeForm()
         {
-            GetPidValues();
-            PidConfigWorkerService = new PidConfigWorkerService(ViewModel);
-            Task.Run(() =>
-            {
-                PidConfigWorkerService.DoWork();
-            }).ConfigureAwait(false);
+            //GetPidValues();
+            //PidConfigWorkerService = new PidConfigWorkerService(ViewModel);
+            //Task.Run(() =>
+            //{
+            //    PidConfigWorkerService.DoWork();
+            //}).ConfigureAwait(false);
 
             switch (ViewModel.PidType)
             {
@@ -87,6 +93,7 @@ namespace EngineCell.Application.Views.Pid
                 ViewModel.UpperClamp = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputUpperClamp.ToInt()).Value;
                 ViewModel.MinChange = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputMinChange.ToInt()).Value;
                 ViewModel.MaxChange = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputMaxChange.ToInt()).Value;
+                ViewModel.SetPoint = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt()).Value;
                 ViewModel.Gain = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.Gain.ToInt()).Value;
                 ViewModel.TuneI = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TuneI.ToInt()).Value;
                 ViewModel.TuneD = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TuneD.ToInt()).Value;
@@ -105,6 +112,7 @@ namespace EngineCell.Application.Views.Pid
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.OutputUpperClamp.ToInt(), ViewModel.UpperClamp);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.OutputMinChange.ToInt(), ViewModel.MinChange);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.OutputMaxChange.ToInt(), ViewModel.MaxChange);
+                ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt(), ViewModel.SetPoint);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.Gain.ToInt(), ViewModel.Gain);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.TuneI.ToInt(), ViewModel.TuneI);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.TuneD.ToInt(), ViewModel.TuneD);
@@ -122,23 +130,23 @@ namespace EngineCell.Application.Views.Pid
 
         private void PidConfig_OnClosing(object sender, CancelEventArgs e)
         {
-            ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.PidConfigStatus.ToInt(), StatusConstants.ProgressStatus.InActive.ToInt());
-            PidConfigWorkerService.CancelWork();
+            //ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.PidConfigStatus.ToInt(), StatusConstants.ProgressStatus.InActive.ToInt());
+            //PidConfigWorkerService.CancelWork();
         }
 
         private void ApplyButton_OnClick(object sender, RoutedEventArgs e)
         {
-            UpdatePidValues(false);
+            //UpdatePidValues(false);
         }
 
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
-            UpdatePidValues(true);
+            //UpdatePidValues(true);
         }
 
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Close();
+            //Close();
         }
     }
 }

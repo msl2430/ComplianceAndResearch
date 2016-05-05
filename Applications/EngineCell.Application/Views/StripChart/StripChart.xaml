@@ -18,29 +18,6 @@
             <RowDefinition Height="40"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <!--<StackPanel Orientation="Horizontal">
-            <CheckBox Name="Dyno1Check" FlowDirection="RightToLeft" Margin="5,0,3,0" IsChecked="{Binding Dyno1Series.IsVisible}">
-                <TextBlock FlowDirection="LeftToRight" Text="Dyno 1" />
-            </CheckBox>
-            <CheckBox Name="Dyno2Check" FlowDirection="RightToLeft" Margin="5,0,3,0" IsChecked="{Binding Dyno2Series.IsVisible}">
-                <TextBlock FlowDirection="LeftToRight" Text="Dyno 2" />
-            </CheckBox>
-            <CheckBox Name="Throttle1Check" FlowDirection="RightToLeft" Margin="5,0,3,0" IsChecked="{Binding Throttle1Series.IsVisible}">
-                <TextBlock FlowDirection="LeftToRight" Text="Throttle 1" />
-            </CheckBox>
-            <CheckBox Name="Throttle2Check" FlowDirection="RightToLeft" Margin="5,0,3,0" IsChecked="{Binding Throttle2Series.IsVisible}">
-                <TextBlock FlowDirection="LeftToRight" Text="Throttle 2" />
-            </CheckBox>
-            <CheckBox FlowDirection="RightToLeft" Margin="5,0,3,0" IsChecked="{Binding Intercooler.IsVisible}">
-                <TextBlock FlowDirection="LeftToRight" Text="Intercooler" />
-            </CheckBox>
-            <CheckBox FlowDirection="RightToLeft" Margin="5,0,3,0" IsChecked="{Binding CoolantSeries.IsVisible}">
-                <TextBlock FlowDirection="LeftToRight" Text="Coolant" />
-            </CheckBox>
-            <CheckBox FlowDirection="RightToLeft" Margin="5,0,3,0" IsChecked="{Binding OilSeries.IsVisible}">
-                <TextBlock FlowDirection="LeftToRight" Text="Oil" />
-            </CheckBox>
-        </StackPanel>-->
         <Button Grid.Row="0" Name="PlayButton" Width="40" HorizontalAlignment="Right" Click="PlayButton_Click" Style="{DynamicResource MetroCircleButtonStyle}" Visibility="{Binding Path=IsPlay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
             <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                 <Rectangle.OpacityMask>
