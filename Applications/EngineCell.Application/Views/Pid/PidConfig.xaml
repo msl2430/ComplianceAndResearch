@@ -24,13 +24,13 @@
         <Border Grid.Row="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,0,0,1" Margin="5,5,0,5">
           <StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
-              <Label Foreground="Blue" VerticalAlignment="center">Input</Label>
+              <Label VerticalAlignment="center">Input</Label>
               <TextBox Width="75" Height="20" Text="{Binding Path=Input}" Margin="30,0,0,0" IsReadOnly="True"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
-              <Label Foreground="Blue" VerticalAlignment="center">Low Range</Label>
+              <Label VerticalAlignment="center">Low Range</Label>
               <TextBox Width="75" Height="20" Text="{Binding Path=LowRange}"></TextBox>
-              <Label Foreground="Blue" VerticalAlignment="center">High Range</Label>
+              <Label VerticalAlignment="center">High Range</Label>
               <TextBox Width="75" Height="20" Text="{Binding Path=HighRange}"></TextBox>
             </StackPanel>
           </StackPanel>
@@ -38,45 +38,45 @@
         <Border Grid.Row="1" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,0,0,1" Margin="5,5,0,0">
           <StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
-              <Label Foreground="Blue" VerticalAlignment="center">Output</Label>
+              <Label VerticalAlignment="center">Output</Label>
               <TextBox Width="75" Height="20" Text="{Binding Path=Output}" Margin="32,0,0,0" IsReadOnly="True"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
-              <Label Foreground="Blue" VerticalAlignment="center">Lower Clamp</Label>
+              <Label VerticalAlignment="center">Lower Clamp</Label>
               <TextBox Width="75" Height="20" Text="{Binding Path=LowerClamp}"></TextBox>
-              <Label Foreground="Blue" VerticalAlignment="center">Upper Clamp</Label>
+              <Label VerticalAlignment="center">Upper Clamp</Label>
               <TextBox Width="75" Height="20"  Text="{Binding Path=UpperClamp}"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
-              <Label Foreground="Blue" VerticalAlignment="center">Min Change</Label>
+              <Label VerticalAlignment="center">Min Change</Label>
               <TextBox Width="75" Height="20" Margin="6,0,0,0" Text="{Binding Path=MinChange}"></TextBox>
-              <Label Foreground="Blue" VerticalAlignment="center">Max Change</Label>
+              <Label VerticalAlignment="center">Max Change</Label>
               <TextBox Width="75" Height="20" Margin="4,0,0,0" Text="{Binding Path=MaxChange}"></TextBox>
             </StackPanel>
           </StackPanel>
         </Border>
         <Border Grid.Row="2" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,0,0,1" Margin="5,-3,0,0">
           <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
-            <Label Foreground="Blue" VerticalAlignment="Center">SetPoint</Label>
-            <TextBox Width="75" Height="20" Text="{Binding Path=SetPoint}" Margin="30,0,0,0" IsReadOnly="True"></TextBox>
+            <Label VerticalAlignment="Center">SetPoint</Label>
+            <TextBox Width="75" Height="20" Text="{Binding Path=SetPoint}" Margin="30,0,0,0"></TextBox>
           </StackPanel>
         </Border>
         <Border Grid.Row="3" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,0,0,1" Margin="5,10,0,0">
           <StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
-              <Label Foreground="Blue" VerticalAlignment="center">Gain</Label>
+              <Label VerticalAlignment="center">Gain</Label>
               <TextBox Width="75" Height="20" Margin="65,0,0,0" Text="{Binding Path=Gain}"></TextBox>            
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
-              <Label Foreground="Blue" VerticalAlignment="center">Tune I</Label>
+              <Label VerticalAlignment="center">Tune I</Label>
               <TextBox Width="75" Height="20" Margin="56,0,0,0" Text="{Binding Path=TuneI}"></TextBox>
-              <Label Foreground="Blue" VerticalAlignment="center">Tune D</Label>
+              <Label VerticalAlignment="center">Tune D</Label>
               <TextBox Width="75" Height="20" Margin="44,0,0,0" Text="{Binding Path=TuneD}"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
-              <Label Foreground="Blue" VerticalAlignment="center">Feed Fwd Initial</Label>
+              <Label VerticalAlignment="center">Feed Fwd Initial</Label>
               <TextBox Width="75" Height="20" Margin="6,0,0,0" Text="{Binding Path=FeedFwdInitial}"></TextBox>
-              <Label Foreground="Blue" VerticalAlignment="center">Feed Fwd Gain</Label>
+              <Label VerticalAlignment="center">Feed Fwd Gain</Label>
               <TextBox Width="75" Height="20" Margin="4,0,0,0" Text="{Binding Path=FeedFwdGain}"></TextBox>
             </StackPanel>
           </StackPanel>

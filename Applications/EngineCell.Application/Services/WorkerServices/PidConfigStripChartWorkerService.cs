@@ -67,15 +67,15 @@ namespace EngineCell.Application.Services.WorkerServices
                         PidConfigStripChartViewModel.OutputDataPoints.Remove(PidConfigStripChartViewModel.OutputDataPoints.First());
                     if (PidConfigStripChartViewModel.SetPointDataPoints.Count() > MaxDataPointSize)
                         PidConfigStripChartViewModel.SetPointDataPoints.Remove(PidConfigStripChartViewModel.SetPointDataPoints.First());
-                    
-                    //PidConfigStripChartViewModel.InputDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.InputValue.ToInt()).Value)));
-                    //PidConfigStripChartViewModel.OutputDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputValue.ToInt()).Value)));
-                    //PidConfigStripChartViewModel.SetPointDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt()).Value)));
 
-                    PidConfigStripChartViewModel.InputDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), (new Random(DateTime.Now.Millisecond)).Next(-5, 5)));
-                    PidConfigStripChartViewModel.OutputDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), (new Random(DateTime.Now.Millisecond)).Next(-15, 15)));
-                    PidConfigStripChartViewModel.SetPointDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), (new Random(DateTime.Now.Millisecond)).Next(-25, 25)));
-               
+                    PidConfigStripChartViewModel.InputDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.InputValue.ToInt()).Value)));
+                    PidConfigStripChartViewModel.OutputDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputValue.ToInt()).Value)));
+                    PidConfigStripChartViewModel.SetPointDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt()).Value)));
+
+                    //PidConfigStripChartViewModel.InputDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), (new Random(DateTime.Now.Millisecond)).Next(-5, 5)));
+                    //PidConfigStripChartViewModel.OutputDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), (new Random(DateTime.Now.Millisecond)).Next(-15, 15)));
+                    //PidConfigStripChartViewModel.SetPointDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), (new Random(DateTime.Now.Millisecond)).Next(-25, 25)));
+
                     if (!PidConfigStripChartViewModel.IsPlay)
                         continue;
 

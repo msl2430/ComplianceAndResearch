@@ -352,17 +352,19 @@ MoveToPointer PTR_PidConfigSelection
 36 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0200.. 3 ROLL !PID 
 38 LINE.NUM %ScratchPad 507 ^PidConfigValue   IO.SP.READ DROP  
 39 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0100.. 3 ROLL !PID 
-41 LINE.NUM %ScratchPad 509 ^PidConfigValue   IO.SP.READ DROP  
-42 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0010.. 3 ROLL !PID 
-44 LINE.NUM %ScratchPad 510 ^PidConfigValue   IO.SP.READ DROP  
-45 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0020.. 3 ROLL !PID 
-47 LINE.NUM %ScratchPad 511 ^PidConfigValue   IO.SP.READ DROP  
-48 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0040.. 3 ROLL !PID 
-50 LINE.NUM %ScratchPad 512 ^PidConfigValue   IO.SP.READ DROP  
-51 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0004.. 3 ROLL !PID 
-53 LINE.NUM %ScratchPad 513 ^PidConfigValue   IO.SP.READ DROP  
-54 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0080.. 3 ROLL !PID 
-56 LINE.NUM %ScratchPad 500 2  IO.SP.I.WRITE DROP  
+41 LINE.NUM %ScratchPad 508 ^PidConfigValue   IO.SP.READ DROP  
+42 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0002.. 3 ROLL !PID 
+44 LINE.NUM %ScratchPad 509 ^PidConfigValue   IO.SP.READ DROP  
+45 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0010.. 3 ROLL !PID 
+47 LINE.NUM %ScratchPad 510 ^PidConfigValue   IO.SP.READ DROP  
+48 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0020.. 3 ROLL !PID 
+50 LINE.NUM %ScratchPad 511 ^PidConfigValue   IO.SP.READ DROP  
+51 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0040.. 3 ROLL !PID 
+53 LINE.NUM %ScratchPad 512 ^PidConfigValue   IO.SP.READ DROP  
+54 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0004.. 3 ROLL !PID 
+56 LINE.NUM %ScratchPad 513 ^PidConfigValue   IO.SP.READ DROP  
+57 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0080.. 3 ROLL !PID 
+59 LINE.NUM %ScratchPad 500 2  IO.SP.I.WRITE DROP  
 0 JUMP ;
 : 2_29
 0 JUMP ;
@@ -370,7 +372,7 @@ MoveToPointer PTR_PidConfigSelection
 1 LINE.NUM %ScratchPad 500 ^PidConfigStatus  IO.SP.READ DROP  
 3 LINE.NUM %ScratchPad 500 PTR_PidConfigSelection  $0001.. ROT PID@  IO.SP.F.WRITE DROP  
 4 LINE.NUM %ScratchPad 503 PTR_PidConfigSelection  $0008.. ROT PID@  IO.SP.F.WRITE DROP  
-5 LINE.NUM %ScratchPad 507 PTR_PidConfigSelection  $0100.. ROT PID@  IO.SP.F.WRITE DROP  
+5 LINE.NUM %ScratchPad 508 PTR_PidConfigSelection  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
 2 JUMP ;
 : 2_1
 TRUE
@@ -740,8 +742,8 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 04/23/16 " ;
-: TIMESTAMP ." 09:20:22 " ;
+: DATESTAMP ." 05/07/16 " ;
+: TIMESTAMP ." 08:31:02 " ;
 : CRCSTAMP  ." 00112233445566778899AABBCCDDEEFF " ;
 MAKECHECK
 CLEAR.BREAKS

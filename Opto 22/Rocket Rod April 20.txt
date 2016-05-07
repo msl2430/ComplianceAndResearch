@@ -19,4 +19,7 @@ have to add SQL to store the settings so that each time we start up the app it r
 
 lower upper clamp change per stage? see if we can do this from the OptoScript
 
+RPM NM AND % are all different P,I,D in that need to be stored in DB and set each time we start the app. The PID Display on the main screen
+is the setpoint and can be adjusted when in manual mode
 
+Bug on setpoint when trying to change it updates itself. 

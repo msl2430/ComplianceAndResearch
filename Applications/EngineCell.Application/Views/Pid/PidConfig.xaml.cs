@@ -36,12 +36,12 @@ namespace EngineCell.Application.Views.Pid
 
         private void InitializeForm()
         {
-            //GetPidValues();
-            //PidConfigWorkerService = new PidConfigWorkerService(ViewModel);
-            //Task.Run(() =>
-            //{
-            //    PidConfigWorkerService.DoWork();
-            //}).ConfigureAwait(false);
+            GetPidValues();
+            PidConfigWorkerService = new PidConfigWorkerService(ViewModel);
+            Task.Run(() =>
+            {
+                PidConfigWorkerService.DoWork();
+            }).ConfigureAwait(false);
 
             switch (ViewModel.PidType)
             {
@@ -130,23 +130,23 @@ namespace EngineCell.Application.Views.Pid
 
         private void PidConfig_OnClosing(object sender, CancelEventArgs e)
         {
-            //ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.PidConfigStatus.ToInt(), StatusConstants.ProgressStatus.InActive.ToInt());
-            //PidConfigWorkerService.CancelWork();
+            ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.PidConfigStatus.ToInt(), StatusConstants.ProgressStatus.InActive.ToInt());
+            PidConfigWorkerService.CancelWork();
         }
 
         private void ApplyButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //UpdatePidValues(false);
+            UpdatePidValues(false);
         }
 
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //UpdatePidValues(true);
+            UpdatePidValues(true);
         }
 
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //Close();
+            Close();
         }
     }
 }

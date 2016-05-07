@@ -128,9 +128,9 @@ namespace EngineCell.Application.Factories
                 result = OptoMmp.Current.ScratchpadI32Read(optoScratchPadInt, 0, 1, index);
                 attempts++;
             }
-            
+
             if (result != 0)
-                throw new Exception("Error getting scratchpad integers.");
+                return sc; //throw new Exception("Error getting scratchpad integers.");
 
             sc.Value = optoScratchPadInt[0];
 
@@ -208,7 +208,7 @@ namespace EngineCell.Application.Factories
 
                 var result = OptoMmp.Current.ScratchpadI32Write(new[] {Convert.ToInt32(value)}, 0, 1, index);
                 if (result != 0)
-                    throw new Exception("Error saving scratchpad int.");
+                    return;// throw new Exception("Error saving scratchpad int.");
 
                 ScratchPadInts.FirstOrDefault(b => b.Index == index).Value = Convert.ToInt32(value);
             }
