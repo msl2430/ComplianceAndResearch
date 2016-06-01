@@ -31,7 +31,6 @@ namespace EngineCell.Application.Views
         {
             InitializeComponent();
 
-            ToggleLogWindow(Properties.Settings.Default.IsLogVisible);
             MainWindowViewModel = new MainWindowViewModel();
             ApplicationSessionFactory = new ApplicationSessionFactory()
             {
@@ -50,11 +49,10 @@ namespace EngineCell.Application.Views
 
             DataContext = MainWindowViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
-            PointWorkerService = new PointWorkerService(ApplicationSessionFactory);
+            PointWorkerService = new PointWorkerService(ApplicationSessionFactory, Dispatcher);
 
-            RemainingTimer.SetTimer(TimeSpan.FromMinutes(45));
-
-           
+            ToggleLogWindow(Properties.Settings.Default.IsLogVisible);
+            //RemainingTimer.SetTimer(TimeSpan.FromMinutes(45));           
         }
 
         public void ChangePageView(BaseViewModel viewModel)
@@ -147,6 +145,7 @@ namespace EngineCell.Application.Views
         #region Private Methods
         private void ToggleLogWindow(bool isShowWindow)
         {
+            ApplicationSessionFactory.IsLogWindowVisible = isShowWindow;
             Properties.Settings.Default.IsLogVisible = isShowWindow;
             Properties.Settings.Default.Save();
             if (isShowWindow)

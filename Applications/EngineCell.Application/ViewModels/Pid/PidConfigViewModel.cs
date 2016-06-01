@@ -106,6 +106,8 @@ namespace EngineCell.Application.ViewModels.Pid
             set { _feedFwdGain = value; OnPropertyChanged("FeedFwdGain"); }
         }
 
+        public bool IsSetPointFocus { get; set; }
+
         private PidConfigStripChartViewModel _stripChartViewModel { get; set; }
         public PidConfigStripChartViewModel StripChartViewModel {
             get { return _stripChartViewModel; }
@@ -115,6 +117,7 @@ namespace EngineCell.Application.ViewModels.Pid
         public PidConfigViewModel(IApplicationSessionFactory sessionFactory)
         {
             ApplicationSessionFactory = sessionFactory;
+            IsSetPointFocus = false;
         }
     }
 }

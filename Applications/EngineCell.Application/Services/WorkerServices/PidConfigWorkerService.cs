@@ -37,6 +37,13 @@ namespace EngineCell.Application.Services.WorkerServices
                         WaitStopWatch.Stop();
                         WaitStopWatch.Reset();
 
+                        //Check if we're connected to and collecting data from Opto before proceeding
+                        if (ViewModel.ApplicationSessionFactory.OptoMmpFactory == null || !ViewModel.ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen)
+                        {
+                            Thread.Sleep(1000);
+                            continue;
+                        }
+
                         ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.PidConfigType.ToInt(), ViewModel.PidType.ToInt());
                         ViewModel.Input = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.InputValue.ToInt()).Value;
                         ViewModel.SetPoint = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt()).Value;

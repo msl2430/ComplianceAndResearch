@@ -45,11 +45,11 @@ namespace EngineCell.Application.Services.WorkerServices
                     var appSession = PidConfigStripChartViewModel.ApplicationSessionFactory;
 
                     //Check if we're connected to and collecting data from Opto before proceeding
-                    //if (appSession.OptoMmpFactory == null || !appSession.OptoMmpFactory.Current.IsCommunicationOpen)
-                    //{
-                    //    Thread.Sleep(1000);
-                    //    continue;
-                    //}
+                    if (appSession.OptoMmpFactory == null || !appSession.OptoMmpFactory.Current.IsCommunicationOpen)
+                    {
+                        Thread.Sleep(1000);
+                        continue;
+                    }
 
                     var timePoint = DateTime.Now;
 

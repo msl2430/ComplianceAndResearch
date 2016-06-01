@@ -2,15 +2,11 @@
 using System.Windows.Controls;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.Views.AlarmConfiguration;
-using EngineCell.Models.Repositories;
 
 namespace EngineCell.Application.Views.PointConfiguration
 {
-    public partial class PointDisplay : UserControl
+    public partial class PointDisplay : BaseUserControl
     {
-        private ICellPointRepository _cellPointRepository { get; set; }
-        private ICellPointRepository CellPointRepository => _cellPointRepository ?? (_cellPointRepository = new CellPointRepository());
-
         public PointDataModel Point { get; set; } 
         private bool IsDirty { get; set; }
 

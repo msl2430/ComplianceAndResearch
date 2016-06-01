@@ -72,7 +72,12 @@ namespace EngineCell.Application.Services.WorkerServices
                 ApplicationSessionFactory.OptoConnectionStatus = StatusConstants.ConnectionStatus.Connecting;
                 CancellationToken = new CancellationTokenSource();
                 if (ApplicationSessionFactory.OptoMmpFactory.OpenConnection() != 0)
-                    throw new Exception("Error connecting to Opto.");
+                {
+                    ApplicationSessionFactory.LogEvent("Error connecting to Opto.", true);
+                    ApplicationSessionFactory.OptoConnectionStatus = StatusConstants.ConnectionStatus.Disconnecting;
+                    WorkCompleted();
+                    return;
+                }
 
                 ApplicationSessionFactory.OptoConnectionStatus = StatusConstants.ConnectionStatus.Connected;
                 ApplicationSessionFactory.LogEvent(_successMessage, true);
@@ -88,9 +93,8 @@ namespace EngineCell.Application.Services.WorkerServices
                         WaitStopWatch.Stop();
                         WaitStopWatch.Reset();
                         var isConnected = ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen;
-                        var optoScratchPadValue =
-                            ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StrategyLocationValue.ToInt()).Value;
-                        ApplicationSessionFactory.ApplicationViewModel.StatusLabel = _successMessage + " Bit: " + optoScratchPadValue;
+                        var optoScratchPadValue = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StrategyLocationValue.ToInt()).Value;
+                        ApplicationSessionFactory.ApplicationViewModel.StatusLabel = _successMessage;
                         if (!isConnected || optoScratchPadValue == 0)
                             Dispatcher.Invoke(CallbackAction(), DispatcherPriority.Normal);
                         AdjustInterval(isConnected);

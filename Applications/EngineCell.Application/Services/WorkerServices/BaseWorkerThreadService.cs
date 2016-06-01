@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Threading;
 using System.Windows.Threading;
+using EngineCell.Models.Repositories;
 
 namespace EngineCell.Application.Services.WorkerServices
 {
@@ -13,6 +14,9 @@ namespace EngineCell.Application.Services.WorkerServices
 
         public abstract void DoWork();
         protected abstract void WorkCompleted();
+
+        private ICellPointRepository _cellPointRepository { get; set; }
+        protected ICellPointRepository CellPointRepository => _cellPointRepository ?? (_cellPointRepository = new CellPointRepository());
 
         protected BaseWorkerThreadService()
         {

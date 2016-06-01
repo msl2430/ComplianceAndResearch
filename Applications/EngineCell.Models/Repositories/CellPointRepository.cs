@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using EngineCell.Models.DataObjects;
 using EngineCell.Models.Models;
@@ -10,9 +11,15 @@ namespace EngineCell.Models.Repositories
     public interface ICellPointRepository
     {
         IList<CellPointModel> GetCellPointsByCellId(int cellId);
+        CellTestModel GetCellTestById(int cellTestId);
+
         void UpdateCellPoint(CellPointModel point);
         void UpdateCellPointAlarm(CellPointAlarmModel alarm);
         void DeleteCellPointAlarm(int cellPointAlarmId);
+
+        int CreateCellTest(int cellId);
+        void UpdateCellTestEndTime(CellTestModel cellTest);
+        void CreateCellPointData(IList<CellTestPointDataModel> points);
     }
 
     public class CellPointRepository : ICellPointRepository
@@ -28,6 +35,15 @@ namespace EngineCell.Models.Repositories
             return result != null && result.Any()
                 ? result.Select(r => new CellPointModel(r)).ToList()
                 : new List<CellPointModel>();
+        }
+
+        public CellTestModel GetCellTestById(int cellTestId)
+        {
+            var test = NHibernateHelper.CurrentSession.QueryOver<CellTest>()
+                .Where(ct => ct.CellTestId == cellTestId)
+                .SingleOrDefault<CellTest>();
+
+            return test != null ? new CellTestModel(test) : null;
         }
 
         public void UpdateCellPoint(CellPointModel point)
@@ -68,6 +84,46 @@ namespace EngineCell.Models.Repositories
             NHibernateHelper.CurrentSession.CreateSQLQuery("DELETE FROM CellPointAlarm WHERE CellPointAlarmId = :id")
                 .SetParameter("id", cellPointAlarmId)
                 .ExecuteUpdate();
+        }
+
+        public int CreateCellTest(int cellId)
+        {
+            var newTest = new CellTest() {CellId = cellId, StartTime = DateTime.Now};
+            NHibernateHelper.CurrentSession.Save(newTest);
+            NHibernateHelper.CurrentSession.Flush();
+            return newTest.CellTestId;
+        }
+
+        public void UpdateCellTestEndTime(CellTestModel cellTest)
+        {
+            var existing = NHibernateHelper.CurrentSession.QueryOver<CellTest>()
+                .Where(ct => ct.CellTestId == cellTest.CellTestId)
+                .SingleOrDefault<CellTest>();
+
+            if (existing == null)
+                return;
+
+            existing.EndTime = DateTime.Now;
+
+            NHibernateHelper.CurrentSession.Update(existing);
+            NHibernateHelper.CurrentSession.Flush();
+        }
+
+        public void CreateCellPointData(IList<CellTestPointDataModel> points)
+        {
+            using (var session = NHibernateHelper.CurrentSession)
+            using (var transaction = session.BeginTransaction(IsolationLevel.ReadUncommitted))
+            {
+                foreach (var point in points)
+                    session.Save(new CellTestPointData
+                    {
+                        CellTestId = point.CellTestId,
+                        CellPointId = point.CellPointId,
+                        Data = point.Data,
+                        CaptureDatTime = point.CaptureDatTime
+                    });
+                transaction.Commit();
+            }
         }
     }
 }

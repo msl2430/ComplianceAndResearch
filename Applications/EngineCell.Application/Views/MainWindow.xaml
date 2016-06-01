@@ -64,9 +64,8 @@
                         <ColumnDefinition Width="5*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <clocks:Clock></clocks:Clock>
-                        <clocks:RunTime IsRunning="True"></clocks:RunTime>
-                        <clocks:TimeRemaining x:Name="RemainingTimer" IsRunning="True"></clocks:TimeRemaining>
+                        <clocks:Clock></clocks:Clock>                        
+                        <!--<clocks:TimeRemaining x:Name="RemainingTimer" IsRunning="True"></clocks:TimeRemaining>-->
                         <controls:ToggleSwitch Name="OptoConnectionToggle" SwitchForeground="{StaticResource GreenBrush}" OffLabel="" OnLabel=""
                                        IsChecked="{Binding Path=IsConnected, Mode=TwoWay, NotifyOnSourceUpdated=True}"
                                        SourceUpdated="OptoConnectionToggle_OnSourceUpdated" HorizontalAlignment="Left" Margin="70,0,0,0">

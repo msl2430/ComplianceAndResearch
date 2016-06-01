@@ -29,12 +29,16 @@ namespace EngineCell.Application.ViewModels.TestDisplay
 
         public PidDisplayViewModel Intercooler { get; set; }
 
+        private bool _phaseStarted { get; set; }
+        public bool PhaseStarted { get { return _phaseStarted; } set { _phaseStarted = value; OnPropertyChanged("PhaseStarted"); } }
+
         private StripChartViewModel _chartViewModel { get; set; }
         public StripChartViewModel ChartViewModel { get { return _chartViewModel; } set { _chartViewModel = value; OnPropertyChanged("ChartViewModel"); } }
 
         public TestDisplayViewModel(IApplicationSessionFactory appSession, StripChartViewModel chartViewModel)
         {
             ZIndex = 1;
+            PhaseStarted = false;
             ApplicationSessionFactory = appSession;
             DynoThrottlePid = new DynoThrottlePidViewModel()
             {

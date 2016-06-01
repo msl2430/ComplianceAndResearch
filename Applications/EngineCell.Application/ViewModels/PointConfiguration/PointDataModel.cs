@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using EngineCell.Application.ViewModels.AlarmConfiguration;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Models;
@@ -86,6 +87,17 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                 CustomName = CustomName,
                 IncludeInStripChart = IncludeInStripChart,
                 StripChartScale = StripChartScale,
+            };
+        }
+
+        public CellTestPointDataModel ToCellTestPointDataModel(int cellTestId)
+        {
+            return new CellTestPointDataModel
+            {
+                CellTestId = cellTestId,
+                CellPointId = CellPointId,
+                Data = Data,
+                CaptureDatTime = DateTime.Now
             };
         }
     }

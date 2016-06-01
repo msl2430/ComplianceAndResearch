@@ -150,6 +150,7 @@
     <Compile Include="Views\AlarmConfiguration\AlarmConfig.xaml.cs">
       <DependentUpon>AlarmConfig.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BaseUserControl.cs" />
     <Compile Include="Views\BaseWindowView.cs" />
     <Compile Include="Views\Clocks\Clock.xaml.cs">
       <DependentUpon>Clock.xaml</DependentUpon>

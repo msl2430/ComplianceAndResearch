@@ -75,6 +75,12 @@ namespace EngineCell.Application.Views.Pid
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            if (ViewModel.ApplicationSessionFactory.OptoMmpFactory != null && ViewModel.ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen)
+                return;
+
+            OkButton.IsEnabled = false;
+            ApplyButton.IsEnabled = false;
         }
 
         private void GetPidValues()
@@ -93,12 +99,13 @@ namespace EngineCell.Application.Views.Pid
                 ViewModel.UpperClamp = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputUpperClamp.ToInt()).Value;
                 ViewModel.MinChange = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputMinChange.ToInt()).Value;
                 ViewModel.MaxChange = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputMaxChange.ToInt()).Value;
-                ViewModel.SetPoint = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt()).Value;
                 ViewModel.Gain = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.Gain.ToInt()).Value;
                 ViewModel.TuneI = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TuneI.ToInt()).Value;
                 ViewModel.TuneD = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TuneD.ToInt()).Value;
                 ViewModel.FeedFwdInitial = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.FeedFwdInitial.ToInt()).Value;
                 ViewModel.FeedFwdGain = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.FeedFwdGain.ToInt()).Value;
+                if (!ViewModel.IsSetPointFocus)
+                    ViewModel.SetPoint = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt()).Value;
             });
         }
 
@@ -112,13 +119,13 @@ namespace EngineCell.Application.Views.Pid
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.OutputUpperClamp.ToInt(), ViewModel.UpperClamp);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.OutputMinChange.ToInt(), ViewModel.MinChange);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.OutputMaxChange.ToInt(), ViewModel.MaxChange);
-                ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt(), ViewModel.SetPoint);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.Gain.ToInt(), ViewModel.Gain);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.TuneI.ToInt(), ViewModel.TuneI);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.TuneD.ToInt(), ViewModel.TuneD);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.FeedFwdInitial.ToInt(), ViewModel.FeedFwdInitial);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.FeedFwdGain.ToInt(), ViewModel.FeedFwdInitial);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.PidConfigStatus.ToInt(), StatusConstants.ProgressStatus.Active.ToInt());
+                ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt(), ViewModel.SetPoint);
                 while (ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.PidConfigStatus.ToInt()).Value != StatusConstants.ProgressStatus.Finished.ToInt())
                 {
                     Thread.Sleep(500);
@@ -147,6 +154,16 @@ namespace EngineCell.Application.Views.Pid
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void SetPoint_OnFocus(object sender, RoutedEventArgs e)
+        {
+            ViewModel.IsSetPointFocus = true;
+        }
+
+        private void SetPoint_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ViewModel.IsSetPointFocus = false;
         }
     }
 }

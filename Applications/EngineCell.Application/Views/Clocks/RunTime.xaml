@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid Width="170" Margin="0,5,0,5">
-            <Label Width="100" HorizontalAlignment="Left" VerticalAlignment="Center">Phase Run Time:</Label>
+            <Label Width="60" HorizontalAlignment="Right" Margin="0,0,70,0"  VerticalAlignment="Center">Run Time:</Label>
             <TextBox Text="{Binding RunTime}" IsReadOnly="True" FontSize="15" Width="70" HorizontalAlignment="Right"></TextBox>
         </Grid>
     </Grid>
