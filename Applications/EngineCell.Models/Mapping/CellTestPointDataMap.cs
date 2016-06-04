@@ -14,7 +14,7 @@ namespace EngineCell.Models.Mapping
             Map(ctpd => ctpd.CellTestId);
             Map(ctpd => ctpd.CellPointId);
             Map(ctpd => ctpd.Data);
-            Map(ctpd => ctpd.CaptureDatTime);
+            Map(ctpd => ctpd.CaptureTime);
         }
     }
 }

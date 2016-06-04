@@ -9,6 +9,6 @@ namespace EngineCell.Models.DataObjects
         public virtual int CellTestId { get; set; }
         public virtual int CellPointId { get; set; }
         public virtual decimal Data { get; set; }
-        public virtual DateTime CaptureDatTime { get; set; }
+        public virtual DateTime CaptureTime { get; set; }
     }
 }

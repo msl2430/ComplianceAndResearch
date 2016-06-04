@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using EngineCell.Models.DataObjects;
+using EngineCell.Models.Helpers;
 using EngineCell.Models.Models;
-using Robot.Models.Helpers;
 
 namespace EngineCell.Models.Repositories
 {
@@ -111,16 +111,16 @@ namespace EngineCell.Models.Repositories
 
         public void CreateCellPointData(IList<CellTestPointDataModel> points)
         {
-            using (var session = NHibernateHelper.CurrentSession)
-            using (var transaction = session.BeginTransaction(IsolationLevel.ReadUncommitted))
+            //using (var session = NHibernateHelper.CurrentSession)
+            using (var transaction = NHibernateHelper.CurrentSession.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
                 foreach (var point in points)
-                    session.Save(new CellTestPointData
+                    NHibernateHelper.CurrentSession.Save(new CellTestPointData
                     {
                         CellTestId = point.CellTestId,
                         CellPointId = point.CellPointId,
                         Data = point.Data,
-                        CaptureDatTime = point.CaptureDatTime
+                        CaptureTime = point.CaptureTime
                     });
                 transaction.Commit();
             }

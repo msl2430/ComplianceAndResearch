@@ -97,7 +97,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                 CellTestId = cellTestId,
                 CellPointId = CellPointId,
                 Data = Data,
-                CaptureDatTime = DateTime.Now
+                CaptureTime = DateTime.Now
             };
         }
     }

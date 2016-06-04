@@ -9,8 +9,7 @@ using NHibernate.Cfg;
 using NHibernate.Context;
 using NHibernate.Dialect;
 
-
-namespace Robot.Models.Helpers
+namespace EngineCell.Models.Helpers
 {
     internal static class NHibernateHelper
     {

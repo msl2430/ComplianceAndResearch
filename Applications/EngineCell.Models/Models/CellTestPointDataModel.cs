@@ -8,6 +8,6 @@ namespace EngineCell.Models.Models
         public int CellTestId { get; set; }
         public int CellPointId { get; set; }
         public decimal Data { get; set; }
-        public DateTime CaptureDatTime { get; set; }
+        public DateTime CaptureTime { get; set; }
     }
 }
