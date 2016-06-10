@@ -58,7 +58,7 @@
         <Border Grid.Row="2" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,0,0,1" Margin="5,-3,0,0">
           <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
             <Label VerticalAlignment="Center">SetPoint</Label>
-            <TextBox Width="75" Height="20" Text="{Binding Path=SetPoint}" Margin="30,0,0,0" GotFocus="SetPoint_OnFocus" LostFocus="SetPoint_LostFocus"></TextBox>
+            <TextBox x:Name="SetPointTextBox" Width="75" Height="20" Text="{Binding Path=SetPoint}" Margin="30,0,0,0" TextChanged="SetPoint_OnChange"></TextBox>
           </StackPanel>
         </Border>
         <Border Grid.Row="3" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,0,0,1" Margin="5,10,0,0">

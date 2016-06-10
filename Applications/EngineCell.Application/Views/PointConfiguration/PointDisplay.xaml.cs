@@ -40,7 +40,7 @@ namespace EngineCell.Application.Views.PointConfiguration
 
         private void AlarmSettings(object sender, RoutedEventArgs e)
         {
-            var alarmModal = new AlarmConfig(Point.Alarm, Point.CustomName);
+            var alarmModal = new PointSettings(Point);
             alarmModal.ShowDialog();
         }
     }

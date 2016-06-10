@@ -51,8 +51,12 @@ namespace EngineCell.Application.Services.WorkerServices
                             continue;
 
                         var pointEnum = (ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
-                        cellPoint.Data = appSession.ScratchPadFactory.GetScratchPadFloat(pointEnum.ToInt()).Value;
+                        cellPoint.Data = Math.Truncate(appSession.ScratchPadFactory.GetScratchPadFloat(pointEnum.ToInt()).Value * 10000m) / 10000m;
                         cellPoint.DataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(cellPoint.Data * (point.StripChartScale ?? 1m))));
+                        while (cellPoint.DataPoints.Count > 350)
+                        {
+                            cellPoint.DataPoints.RemoveAt(0);
+                        }
                     }
 
                     if (!StripChartViewModel.IsPlay)

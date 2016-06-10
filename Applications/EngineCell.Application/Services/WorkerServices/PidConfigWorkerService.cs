@@ -46,8 +46,9 @@ namespace EngineCell.Application.Services.WorkerServices
 
                         ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.PidConfigType.ToInt(), ViewModel.PidType.ToInt());
                         ViewModel.Input = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.InputValue.ToInt()).Value;
-                        ViewModel.SetPoint = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt()).Value;
                         ViewModel.Output = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputValue.ToInt()).Value;
+                        if (!ViewModel.IsSetPointDirty)
+                            ViewModel.SetPoint = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt()).Value;
                     }
                     Thread.Sleep(250);
                 }

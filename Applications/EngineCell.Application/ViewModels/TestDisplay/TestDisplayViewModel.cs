@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
 using EngineCell.Application.Factories;
 using EngineCell.Application.ViewModels.Pid;
+using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Core.Constants;
 
@@ -35,6 +36,12 @@ namespace EngineCell.Application.ViewModels.TestDisplay
         private StripChartViewModel _chartViewModel { get; set; }
         public StripChartViewModel ChartViewModel { get { return _chartViewModel; } set { _chartViewModel = value; OnPropertyChanged("ChartViewModel"); } }
 
+        private ObservableCollection<PointDataModel> _visiblePoints { get; set; }
+        public ObservableCollection<PointDataModel> VisiblePoints {
+            get { return _visiblePoints; }
+            set { _visiblePoints = value; OnPropertyChanged("VisiblePoints"); }
+        }
+
         public TestDisplayViewModel(IApplicationSessionFactory appSession, StripChartViewModel chartViewModel)
         {
             ZIndex = 1;
@@ -50,6 +57,16 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             OilPid = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Oil"), PidType = ControlConstants.PidType.Oil, ApplicationSessionFactory = appSession };
             Intercooler = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Intercooler"), PidType = ControlConstants.PidType.Intercooler, ApplicationSessionFactory = appSession };
             ChartViewModel = chartViewModel;
+            UpdateVisibleCellPoints();
+        }
+
+        public void UpdateVisibleCellPoints()
+        {
+            VisiblePoints = new ObservableCollection<PointDataModel>();
+            foreach (var point in ApplicationSessionFactory.CellPoints.Where(cp => cp.IsAverage))
+            {
+                VisiblePoints.Add(point);
+            }
         }
     }
 }

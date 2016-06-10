@@ -56,6 +56,9 @@ namespace EngineCell.Models.Repositories
                 return;
 
             cellPoint.CustomName = point.CustomName;
+            cellPoint.IsRecord = point.IsRecord;
+            cellPoint.IsAverage = point.IsAverage;
+            cellPoint.AverageSeconds = point.AverageSeconds;
             cellPoint.IncludeInStripChart = point.IncludeInStripChart;
             cellPoint.StripChartScale = point.StripChartScale;
 

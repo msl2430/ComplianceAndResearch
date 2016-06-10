@@ -1,11 +1,9 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels.TestDisplay;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
-using EngineCell.Models.Repositories;
 
 namespace EngineCell.Application.Views.TestDisplay
 {
@@ -28,7 +26,7 @@ namespace EngineCell.Application.Views.TestDisplay
                 TestDisplayViewModel = (TestDisplayViewModel) DataContext;
 
             if(PointWorkerService == null)
-                PointWorkerService = new PointWorkerService(TestDisplayViewModel.ApplicationSessionFactory, Dispatcher);
+                PointWorkerService = new PointWorkerService(TestDisplayViewModel, Dispatcher);
         }
 
         private void StartPhaseButton_Click(object sender, RoutedEventArgs e)

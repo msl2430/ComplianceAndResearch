@@ -188,6 +188,9 @@
     <Compile Include="Views\PointConfiguration\PointDisplay.xaml.cs">
       <DependentUpon>PointDisplay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PointConfiguration\PointSettings.xaml.cs">
+      <DependentUpon>PointSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StripChart\StripChart.xaml.cs">
       <DependentUpon>StripChart.xaml</DependentUpon>
     </Compile>
@@ -251,6 +254,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PointConfiguration\PointDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PointConfiguration\PointSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

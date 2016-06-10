@@ -26,6 +26,26 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             set { _customName = value; OnPropertyChanged("CustomName"); }
         }
 
+        private bool _isRecord { get; set; }
+        public bool IsRecord {
+            get { return _isRecord; }
+            set { _isRecord = value; OnPropertyChanged("IsRecord"); }
+        }
+
+        private bool _isAverage { get; set; }
+        public bool IsAverage
+        {
+            get { return _isAverage; }
+            set { _isAverage = value; OnPropertyChanged("IsAverage"); }
+        }
+
+        private int? _averageSeconds { get; set; }
+        public int? AverageSeconds
+        {
+            get { return _averageSeconds; }
+            set { _averageSeconds = value; OnPropertyChanged("AverageSeconds"); }
+        }
+
         private bool _includeInStripChart { get; set; }
         public bool IncludeInStripChart {
             get { return _includeInStripChart; }
@@ -44,6 +64,18 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
         {
             get { return _data; }
             set { _data = value; OnPropertyChanged("Data"); OnPropertyChanged("IsDigitalOn"); }
+        }
+
+        private decimal _averageData { get; set; }
+        public decimal AverageData {
+            get { return _averageData; }
+            set { _averageData = value; OnPropertyChanged("AverageData"); }
+        }
+
+        private ObservableCollection<decimal> _mostRecentData { get; set; } 
+        public ObservableCollection<decimal> MostRecentData {
+            get { return _mostRecentData; }
+            set { _mostRecentData = value; OnPropertyChanged("MostRecentData"); }
         }
 
         public bool IsDigitalOn => !IsAnalog && Data > 0;
@@ -70,6 +102,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             InstantiateFromDataObject(obj);
             DataPoints = new ObservableCollection<DataPoint>();
             Alarm = new AlarmSetting(obj.Alarm);
+            MostRecentData = new ObservableCollection<decimal>();
         }
 
         public CellPointModel ToCellPointModel()
@@ -85,6 +118,9 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                 IsAnalog = IsAnalog,
                 PointGroupId = PointGroupId,
                 CustomName = CustomName,
+                IsRecord = IsRecord,
+                IsAverage = IsAverage,
+                AverageSeconds = AverageSeconds,
                 IncludeInStripChart = IncludeInStripChart,
                 StripChartScale = StripChartScale,
             };

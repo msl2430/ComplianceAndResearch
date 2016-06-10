@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using EngineCell.Application.Factories;
+using EngineCell.Application.ViewModels.TestDisplay;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
 
@@ -20,11 +21,13 @@ namespace EngineCell.Application.Services.WorkerServices
     public class PointWorkerService : BaseWorkerThreadService, IPointWorkerService
     {
         private IApplicationSessionFactory ApplicationSessionFactory { get; set; }
+        private TestDisplayViewModel TestDisplayViewModel { get; set; }
 
-        public PointWorkerService(IApplicationSessionFactory appSession, Dispatcher currentDispatcher)
+        public PointWorkerService(TestDisplayViewModel viewModel, Dispatcher currentDispatcher)
         {
             Dispatcher = currentDispatcher;
-            ApplicationSessionFactory = appSession;
+            TestDisplayViewModel = viewModel;
+            ApplicationSessionFactory = viewModel.ApplicationSessionFactory;
         }
 
         public override void DoWork()
@@ -47,13 +50,23 @@ namespace EngineCell.Application.Services.WorkerServices
                             foreach (var cellPoint in appSession.CellPoints)
                             {
                                 var point = (ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
-                                cellPoint.Data = appSession.ScratchPadFactory.GetScratchPadFloat(point.ToInt()).Value;                                
+                                cellPoint.Data = Math.Truncate(appSession.ScratchPadFactory.GetScratchPadFloat(point.ToInt()).Value * 10000m) / 10000m;
+                                if (!cellPoint.IsAverage || cellPoint.AverageSeconds == null)
+                                    continue;
+
+                                cellPoint.MostRecentData.Add(cellPoint.Data);
+                                if(cellPoint.MostRecentData.Count() > cellPoint.AverageSeconds * 2) //2 because we're capturing 2 data points per second
+                                    cellPoint.MostRecentData.RemoveAt(0);
+                                
+                                cellPoint.AverageData = Math.Truncate(cellPoint.MostRecentData.Average() * 10000m) / 10000m; 
                             }
                             if (appSession.CurrentCellTest != null)
-                                CellPointRepository.CreateCellPointData(appSession.CellPoints.SelectDistinct(cp => cp.ToCellTestPointDataModel(appSession.CurrentCellTest.CellTestId)).ToList());
+                                CellPointRepository.CreateCellPointData(appSession.CellPoints.Where(cp => cp.IsRecord).SelectDistinct(cp => cp.ToCellTestPointDataModel(appSession.CurrentCellTest.CellTestId)).ToList());
+
+                            TestDisplayViewModel.UpdateVisibleCellPoints();
                         }
                     }
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                 }
                 WorkCompleted();
             }

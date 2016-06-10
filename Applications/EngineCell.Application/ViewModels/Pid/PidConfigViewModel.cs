@@ -106,7 +106,11 @@ namespace EngineCell.Application.ViewModels.Pid
             set { _feedFwdGain = value; OnPropertyChanged("FeedFwdGain"); }
         }
 
-        public bool IsSetPointFocus { get; set; }
+        private bool _isSetPointDirty { get; set; }
+        public bool IsSetPointDirty {
+            get { return _isSetPointDirty; }
+            set { _isSetPointDirty = value; OnPropertyChanged("IsSetPointDirty"); }
+        }
 
         private PidConfigStripChartViewModel _stripChartViewModel { get; set; }
         public PidConfigStripChartViewModel StripChartViewModel {
@@ -117,7 +121,7 @@ namespace EngineCell.Application.ViewModels.Pid
         public PidConfigViewModel(IApplicationSessionFactory sessionFactory)
         {
             ApplicationSessionFactory = sessionFactory;
-            IsSetPointFocus = false;
+            IsSetPointDirty = false;
         }
     }
 }

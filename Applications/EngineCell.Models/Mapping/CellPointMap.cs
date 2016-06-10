@@ -15,6 +15,9 @@ namespace EngineCell.Models.Mapping
             Map(cp => cp.CellId);
             Map(cp => cp.PointId);
             Map(cp => cp.CustomName);
+            Map(cp => cp.IsRecord);
+            Map(cp => cp.IsAverage);
+            Map(cp => cp.AverageSeconds);
             Map(cp => cp.IncludeInStripChart);
             Map(cp => cp.StripChartScale);
         }
@@ -30,6 +33,9 @@ namespace EngineCell.Models.Mapping
             Id(cp => cp.CellPointId);
 
             Map(cp => cp.CustomName);
+            Map(cp => cp.IsRecord);
+            Map(cp => cp.IsAverage);
+            Map(cp => cp.AverageSeconds);
             Map(cp => cp.IncludeInStripChart);
             Map(cp => cp.StripChartScale);
 

@@ -14,14 +14,13 @@ namespace EngineCell.Application.Views.PointConfiguration
         public PointConfiguration()
         {
             InitializeComponent();
+            
         }
 
         private void PointConfiguration_OnLoaded(object sender, RoutedEventArgs e)
         {
             if (DataContext != null)
                 ViewModel = (PointConfigurationViewModel) DataContext;
-
-            
         }
     }
 }

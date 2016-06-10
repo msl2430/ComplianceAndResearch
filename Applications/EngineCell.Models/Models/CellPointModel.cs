@@ -16,6 +16,9 @@ namespace EngineCell.Models.Models
         public CellPointAlarmModel Alarm { get; set; }
         public PointGroup PointGroupId { get; set; }
         public string CustomName { get; set; }
+        public bool IsRecord { get; set; }
+        public bool IsAverage { get; set; }
+        public int? AverageSeconds { get; set; }
         public bool IncludeInStripChart { get; set; }
         public decimal? StripChartScale { get; set; }        
 

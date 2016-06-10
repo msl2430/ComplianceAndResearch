@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EngineCell.Models.DataObjects
+﻿namespace EngineCell.Models.DataObjects
 {
     /// <summary>
     /// dbo.Cell_Point
@@ -15,6 +9,9 @@ namespace EngineCell.Models.DataObjects
         public virtual int CellId { get; set; }
         public virtual int PointId { get; set; }
         public virtual string CustomName { get; set; }
+        public virtual bool IsRecord { get; set; }
+        public virtual bool IsAverage { get; set; }
+        public virtual int? AverageSeconds { get; set; }
         public virtual bool IncludeInStripChart { get; set; }
         public virtual decimal? StripChartScale { get; set; }
     }
@@ -29,6 +26,9 @@ namespace EngineCell.Models.DataObjects
         public virtual Point Point { get; set; }
         public virtual CellPointAlarm Alarm { get; set; }
         public virtual string CustomName { get; set; }
+        public virtual bool IsRecord { get; set; }
+        public virtual bool IsAverage { get; set; }
+        public virtual int? AverageSeconds { get; set; }
         public virtual bool IncludeInStripChart { get; set; }
         public virtual decimal? StripChartScale { get; set; }
     }

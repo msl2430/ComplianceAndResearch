@@ -49,7 +49,7 @@ namespace EngineCell.Application.Views
 
             DataContext = MainWindowViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
-            PointWorkerService = new PointWorkerService(ApplicationSessionFactory, Dispatcher);
+            PointWorkerService = new PointWorkerService(MainWindowViewModel.TestDisplayViewModel, Dispatcher);
 
             ToggleLogWindow(Properties.Settings.Default.IsLogVisible);
             //RemainingTimer.SetTimer(TimeSpan.FromMinutes(45));           

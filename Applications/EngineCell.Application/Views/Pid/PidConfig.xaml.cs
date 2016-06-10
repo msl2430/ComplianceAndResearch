@@ -3,12 +3,14 @@ using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using EngineCell.Application.Factories;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels.Pid;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
+using NHibernate.Util;
 
 namespace EngineCell.Application.Views.Pid
 {
@@ -81,6 +83,7 @@ namespace EngineCell.Application.Views.Pid
 
             OkButton.IsEnabled = false;
             ApplyButton.IsEnabled = false;
+            ViewModel.IsSetPointDirty = false;
         }
 
         private void GetPidValues()
@@ -103,9 +106,7 @@ namespace EngineCell.Application.Views.Pid
                 ViewModel.TuneI = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TuneI.ToInt()).Value;
                 ViewModel.TuneD = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TuneD.ToInt()).Value;
                 ViewModel.FeedFwdInitial = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.FeedFwdInitial.ToInt()).Value;
-                ViewModel.FeedFwdGain = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.FeedFwdGain.ToInt()).Value;
-                if (!ViewModel.IsSetPointFocus)
-                    ViewModel.SetPoint = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt()).Value;
+                ViewModel.FeedFwdGain = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.FeedFwdGain.ToInt()).Value;                
             });
         }
 
@@ -130,6 +131,7 @@ namespace EngineCell.Application.Views.Pid
                 {
                     Thread.Sleep(500);
                 }
+                ViewModel.IsSetPointDirty = false;
                 if (isExitWhenDone)
                     Dispatcher.Invoke(Close);
             });
@@ -156,14 +158,10 @@ namespace EngineCell.Application.Views.Pid
             Close();
         }
 
-        private void SetPoint_OnFocus(object sender, RoutedEventArgs e)
+        private void SetPoint_OnChange(object sender, TextChangedEventArgs e)
         {
-            ViewModel.IsSetPointFocus = true;
-        }
-
-        private void SetPoint_LostFocus(object sender, RoutedEventArgs e)
-        {
-            ViewModel.IsSetPointFocus = false;
+            if(SetPointTextBox.IsFocused)
+                ViewModel.IsSetPointDirty = true;
         }
     }
 }
