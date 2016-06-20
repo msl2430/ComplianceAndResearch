@@ -27,8 +27,11 @@ Bug on setpoint when trying to change it updates itself.
 change alarm screen on point config to settings, record, average, stripchart, scale
 
 ventilation calculation - paul needs setpoint to conigured then thats it. let pac control do the calc
-Inner Temp - Setpoint / Innertemp-outertemp = ventilation variable
+Inner Temp - Setpoint / Innertemp-outertemp x Gain = ventilation variable
+Add config where you can pick two thermal couple points, an analog outpt, set gain, and set a setpoint - read data in do calc and send to analog output
 
 output config screen: ask for analog input to control set on value set off value
 
-change custom1 pid to makeup air
+create save directory for csv report
+
+
