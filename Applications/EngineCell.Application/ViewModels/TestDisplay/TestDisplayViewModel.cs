@@ -4,6 +4,7 @@ using EngineCell.Application.Factories;
 using EngineCell.Application.ViewModels.Pid;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
+using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Core.Constants;
 
 namespace EngineCell.Application.ViewModels.TestDisplay
@@ -29,6 +30,12 @@ namespace EngineCell.Application.ViewModels.TestDisplay
         public PidDisplayViewModel OilPid { get; set; }
 
         public PidDisplayViewModel Intercooler { get; set; }
+
+        private VentilationControlDisplayViewModel _ventControl1Display { get; set; }
+        public VentilationControlDisplayViewModel VentControl1Display {
+            get { return _ventControl1Display; }
+            set { _ventControl1Display = value; OnPropertyChanged("VentControl1Display"); }
+        }
 
         private bool _phaseStarted { get; set; }
         public bool PhaseStarted { get { return _phaseStarted; } set { _phaseStarted = value; OnPropertyChanged("PhaseStarted"); } }
@@ -56,6 +63,7 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             CoolantPid = new PidDisplayViewModel() {PidConfig = new PidDisplayModel("Coolant"), PidType = ControlConstants.PidType.Coolant, ApplicationSessionFactory = appSession };
             OilPid = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Oil"), PidType = ControlConstants.PidType.Oil, ApplicationSessionFactory = appSession };
             Intercooler = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Intercooler"), PidType = ControlConstants.PidType.Intercooler, ApplicationSessionFactory = appSession };
+            VentControl1Display = new VentilationControlDisplayViewModel("Ventilation Control 1");
             ChartViewModel = chartViewModel;
             UpdateVisibleCellPoints();
         }

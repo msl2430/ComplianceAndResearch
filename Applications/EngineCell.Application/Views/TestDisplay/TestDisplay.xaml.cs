@@ -37,7 +37,8 @@ namespace EngineCell.Application.Views.TestDisplay
                 return;
             }
             TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Starting phase.", true);
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
+            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);            
+
             var cellTestId = CellPointRepository.CreateCellTest(1);
             TestDisplayViewModel.ApplicationSessionFactory.CurrentCellTest = CellPointRepository.GetCellTestById(cellTestId);
             RunTimeClock.IsRunning = true;

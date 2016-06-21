@@ -26,6 +26,12 @@
             InputType,
             OutputType,
             SetPointType,
+
+            //Ventilation Control 1
+            VentCtrl1Status = 600,
+            VentCtrl1InsideType,
+            VentCtrl1OutsideType,
+            VentCtrl1OutputType,            
         }
 
         /// <summary>
@@ -48,6 +54,13 @@
             TuneD,
             FeedFwdInitial,
             FeedFwdGain,
+
+            //Ventilation Control 1
+            VentCtrl1Gain = 604,
+            VentCtrl1Setpoint,
+            VentCtrl1Inside,
+            VentCtrl1Outside,
+            VentCtrl1Output,
 
             //Points,
             ThermalCouple0 = 1000,

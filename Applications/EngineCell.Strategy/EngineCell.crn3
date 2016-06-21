@@ -2,6 +2,7 @@ CREATE T.ARRAY
 &DataCollection ,
 &PidConfig ,
 &Powerup ,
+&VentilationCtrl1 ,
  0 ,
 CREATE V.ARRAY
 ^GetScratchPadResult ,
@@ -15,6 +16,12 @@ CREATE V.ARRAY
 ^PidConfigType ,
 ^PidConfigValue ,
 ^SetScratchPadResult ,
+^VentCtrl1Gain ,
+^VentCtrl1InsideType ,
+^VentCtrl1OutputType ,
+^VentCtrl1OutsideType ,
+^VentCtrl1Setpoint ,
+^VentCtrl1Status ,
 *StrategyRunTime ,
 *_HSV_SEMA ,
 *_HSV_TEMP ,
@@ -23,6 +30,9 @@ CREATE TI.ARRAY
  0 ,
 CREATE PTR.ARRAY
 Ptr' PTR_PidConfigSelection ,
+Ptr' PTR_VentCtrl1Inside ,
+Ptr' PTR_VentCtrl1Output ,
+Ptr' PTR_VentCtrl1Outside ,
  0 ,
 CREATE TA.ARRAY 
  0 ,
@@ -169,9 +179,18 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^PidConfigType @!
 0.00000000 ^PidConfigValue @!
 0 ^SetScratchPadResult @!
+0.00000000 ^VentCtrl1Gain @!
+0 ^VentCtrl1InsideType @!
+0 ^VentCtrl1OutputType @!
+0 ^VentCtrl1OutsideType @!
+0.00000000 ^VentCtrl1Setpoint @!
+0 ^VentCtrl1Status @!
 " "
  *StrategyRunTime $MOVE
 0 MoveToPointer PTR_PidConfigSelection
+0 MoveToPointer PTR_VentCtrl1Inside
+0 MoveToPointer PTR_VentCtrl1Output
+0 MoveToPointer PTR_VentCtrl1Outside
  " " *_HSV_INIT_IO $MOVE
 ;
 T: T_INIT_IO

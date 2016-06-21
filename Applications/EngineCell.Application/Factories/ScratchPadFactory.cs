@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using EngineCell.Core.Constants;
 using Opto22.Core.Models;
 
@@ -187,21 +189,40 @@ namespace EngineCell.Application.Factories
             return sc;
         }
 
+        private void LogError(string msg)
+        {
+            var _logDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Logs";
+            if (!Directory.Exists(_logDirectory))
+                Directory.CreateDirectory(_logDirectory);
+
+            using (var file = new StreamWriter(_logDirectory + string.Format("\\ErrorLog_{0}.txt", DateTime.Now.ToString("MM_dd_yyyy")), true))
+            {
+                file.WriteLine("{0} >> {1}", DateTime.Now.ToLongTimeString(), msg);
+            }
+        }
+
         public IScratchPadModel<decimal> GetScratchPadFloat(int index)
         {
             var sc = ScratchPadFloats.Any(f => f.Index == index)
-                ? ScratchPadFloats.FirstOrDefault(f => f.Index == index)
-                : new ScratchPadModel<decimal>(index, "undefined", 0m);
+                    ? ScratchPadFloats.FirstOrDefault(f => f.Index == index)
+                    : new ScratchPadModel<decimal>(index, "undefined", 0m);
+            try
+            {
+                var optoScratchPadFloat = new float[1];
+                var result = OptoMmp.Current.ScratchpadFloatRead(optoScratchPadFloat, 0, 1, index);
+                if (result != 0)
+                    LogError("GetScratchPadFloat Result: " + result);
+                if (result != 0)
+                    return sc;
 
-            var optoScratchPadFloat = new float[1];
-            var result = OptoMmp.Current.ScratchpadFloatRead(optoScratchPadFloat, 0, 1, index);
-            if (result != 0)
-                return sc;
-
-            if (float.IsNaN(optoScratchPadFloat[0]))
-                optoScratchPadFloat[0] = 0f;
-            sc.Value = Convert.ToDecimal(optoScratchPadFloat[0]);
-
+                if (float.IsNaN(optoScratchPadFloat[0]))
+                    optoScratchPadFloat[0] = 0f;
+                sc.Value = Convert.ToDecimal(optoScratchPadFloat[0]);
+            }
+            catch (Exception ex)
+            {
+                LogError("GetScratchPadFloat Error: " + ex.Message);
+            }
             return sc;
         }
 

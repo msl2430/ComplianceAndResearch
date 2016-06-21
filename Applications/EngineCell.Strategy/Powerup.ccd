@@ -85,6 +85,10 @@
 : 0_38
 
 1 LINE.NUM
+  &VentilationCtrl1   START.T
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
   &PidConfig   START.T
   ^GetScratchPadResult @! 
 -10 JUMP ;

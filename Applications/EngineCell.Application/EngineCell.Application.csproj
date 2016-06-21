@@ -147,6 +147,9 @@
     <Compile Include="ViewModels\StripChart\PidConfigStripChartViewModel.cs" />
     <Compile Include="ViewModels\StripChart\StripChartViewModels.cs" />
     <Compile Include="ViewModels\TestDisplay\TestDisplayViewModel.cs" />
+    <Compile Include="ViewModels\Widget\VentilationControlDisplayViewModel.cs" />
+    <Compile Include="ViewModels\Widget\VentilationControlViewModel.cs" />
+    <Compile Include="ViewModels\Widget\WidgetConfigViewModel.cs" />
     <Compile Include="Views\AlarmConfiguration\AlarmConfig.xaml.cs">
       <DependentUpon>AlarmConfig.xaml</DependentUpon>
     </Compile>
@@ -196,6 +199,12 @@
     </Compile>
     <Compile Include="Views\TestDisplay\TestDisplay.xaml.cs">
       <DependentUpon>TestDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Widget\VentControlDisplay.xaml.cs">
+      <DependentUpon>VentControlDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Widget\WidgetConfig.xaml.cs">
+      <DependentUpon>WidgetConfig.xaml</DependentUpon>
     </Compile>
     <Page Include="Content\Resource\default.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -269,6 +278,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Widget\VentControlDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Widget\WidgetConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -322,6 +339,7 @@
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

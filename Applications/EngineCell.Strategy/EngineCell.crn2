@@ -2,6 +2,7 @@
 0 TASK &DataCollection
 0 TASK &PidConfig
 0 TASK &Powerup
+0 TASK &VentilationCtrl1
 0 IVAR ^GetScratchPadResult
 0 IVAR ^gIndex
 0 FVAR ^gTest
@@ -13,8 +14,17 @@
 0 IVAR ^PidConfigType
 0 FVAR ^PidConfigValue
 0 IVAR ^SetScratchPadResult
+0 FVAR ^VentCtrl1Gain
+0 IVAR ^VentCtrl1InsideType
+0 IVAR ^VentCtrl1OutputType
+0 IVAR ^VentCtrl1OutsideType
+0 FVAR ^VentCtrl1Setpoint
+0 IVAR ^VentCtrl1Status
 32 0 $VAR *StrategyRunTime 
 nullPID 0 POINTER PTR_PidConfigSelection
+nullAPointInput 0 POINTER PTR_VentCtrl1Inside
+nullAPointOutput 0 POINTER PTR_VentCtrl1Output
+nullAPointInput 0 POINTER PTR_VentCtrl1Outside
 
 nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A801CA 0 11 BOARD.MMP %EngineCell
  4  1 APOINT -270.0000 8  0  0 %EngineCell 0 POINT.TNG ~ThermalCouple0

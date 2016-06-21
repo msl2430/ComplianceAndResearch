@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.TestDisplay;
+using EngineCell.Application.ViewModels.Widget;
+using EngineCell.Application.Views.Widget;
 using EngineCell.Core.Constants;
 using Remotion.Linq.Collections;
 
@@ -85,6 +87,12 @@ namespace EngineCell.Application.ViewModels
         {
             get { return _testDisplayViewModel; }
             set { _testDisplayViewModel = value; OnPropertyChanged("TestDisplayViewModel"); }
+        }
+
+        private WidgetConfigViewModel _widgetConfigViewModel { get; set; }
+        public WidgetConfigViewModel WidgetConfigViewModel {
+            get { return _widgetConfigViewModel; }
+            set { _widgetConfigViewModel = value; OnPropertyChanged("WidgetConfigViewModel"); }
         }
 
         private string _titleLabel { get; set; }

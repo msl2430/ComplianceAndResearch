@@ -13,6 +13,7 @@ using EngineCell.Application.ViewModels;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Application.ViewModels.TestDisplay;
+using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Models.Repositories;
 using MahApps.Metro.Controls;
@@ -43,7 +44,8 @@ namespace EngineCell.Application.Views
             
             MainWindowViewModel.PointConfigViewModel = new PointConfigurationViewModel(ApplicationSessionFactory);
             MainWindowViewModel.TestDisplayViewModel = new TestDisplayViewModel(ApplicationSessionFactory, new StripChartViewModel(ApplicationSessionFactory));
-            MainWindowViewModel.ViewModels = new ObservableCollection<BaseViewModel>() { MainWindowViewModel.PointConfigViewModel, MainWindowViewModel.TestDisplayViewModel };
+            MainWindowViewModel.WidgetConfigViewModel = new WidgetConfigViewModel(ApplicationSessionFactory);
+            MainWindowViewModel.ViewModels = new ObservableCollection<BaseViewModel>() { MainWindowViewModel.PointConfigViewModel, MainWindowViewModel.TestDisplayViewModel, MainWindowViewModel.WidgetConfigViewModel };
             
             ChangePageView(MainWindowViewModel.TestDisplayViewModel);            
 
@@ -139,6 +141,11 @@ namespace EngineCell.Application.Views
         private void MenuTestDisplay_OnClick(object sender, RoutedEventArgs e)
         {
             ChangePageView(MainWindowViewModel.TestDisplayViewModel);
+        }
+
+        private void MenuWidgetConfig_OnClick(object sender, RoutedEventArgs e)
+        {
+            ChangePageView(MainWindowViewModel.WidgetConfigViewModel);
         }
         #endregion
 

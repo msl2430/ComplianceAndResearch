@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using EngineCell.Application.ViewModels.Pid;
-using EngineCell.Core.Constants;
 
 namespace EngineCell.Application.Views.Pid
 {

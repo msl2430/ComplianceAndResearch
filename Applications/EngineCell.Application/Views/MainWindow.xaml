@@ -14,6 +14,8 @@
         xmlns:testDisplay="clr-namespace:EngineCell.Application.Views.TestDisplay"
         xmlns:pointConfigurationViewModel="clr-namespace:EngineCell.Application.ViewModels.PointConfiguration"
         xmlns:pointConfiguration="clr-namespace:EngineCell.Application.Views.PointConfiguration"
+        xmlns:widget="clr-namespace:EngineCell.Application.ViewModels.Widget"
+        xmlns:widgetConfig="clr-namespace:EngineCell.Application.Views.Widget"
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="Rocket Rod" Height="720" Width="1024">
@@ -28,6 +30,9 @@
         <DataTemplate DataType="{x:Type pointConfigurationViewModel:PointConfigurationViewModel}">
           <pointConfiguration:PointConfiguration/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type widget:WidgetConfigViewModel}">
+            <widgetConfig:WidgetConfig></widgetConfig:WidgetConfig>
+        </DataTemplate>
     </local:BaseWindowView.Resources>
     <Grid>
         <DockPanel>
@@ -40,6 +45,7 @@
                 <MenuItem Header="_View">
                     <MenuItem x:Name="MenuTestDisplay" Header="_Test Display" Width="225" Click="MenuTestDisplay_OnClick"></MenuItem>
                     <MenuItem x:Name="MenuPointConfig" Header="_Point Configuration" Width="225" Click="MenuPointConfig_OnClick"></MenuItem>
+                    <MenuItem x:Name="MenuWidgetConfig" Header="_Widget Configuration" Width="225" Click="MenuWidgetConfig_OnClick"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="_Edit">
                     <MenuItem x:Name="MenuAlarmConfig" Header="_Alarm Configuration" Width="225" Click="MenuAlarmConfig_Click"></MenuItem>
