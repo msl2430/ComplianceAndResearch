@@ -34,7 +34,7 @@ nullAPointInput 0 POINTER PTR_VentCtrl1Outside
 
 nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A801CA 0 11 BOARD.MMP %EngineCell
  4  1 APOINT -270.0000 8  0  0 %EngineCell 0 POINT.TNG ~ThermalCouple0
- 4  1 APOINT -150.0000 66  1  0 %EngineCell 0 POINT.TNG ~ThermalCouple1
+ 4  1 APOINT -270.0000 8  1  0 %EngineCell 0 POINT.TNG ~ThermalCouple1
  4  1 APOINT -150.0000 66  2  0 %EngineCell 0 POINT.TNG ~ThermalCouple2
  4  1 APOINT -150.0000 66  3  0 %EngineCell 0 POINT.TNG ~ThermalCouple3
  4  1 APOINT -150.0000 66  0  1 %EngineCell 0 POINT.TNG ~ThermalCouple4
@@ -583,11 +583,11 @@ T;
 1 LINE.NUM %ScratchPad 601 ^VentCtrl1InsideType  IO.SP.READ DROP  
 3 LINE.NUM ^VentCtrl1InsideType @@ CASE 
 4 LINE.NUM 1 OF 
-5 LINE.NUM ~ThermalCouple1 
+5 LINE.NUM ~ThermalCouple0 
 MoveToPointer PTR_VentCtrl1Inside 
 6 LINE.NUM ENDOF 
 7 LINE.NUM 2 OF 
-8 LINE.NUM ~ThermalCouple2 
+8 LINE.NUM ~ThermalCouple1 
 MoveToPointer PTR_VentCtrl1Inside 
 9 LINE.NUM ENDOF 
 10 LINE.NUM 3 OF 
@@ -664,11 +664,11 @@ MoveToPointer PTR_VentCtrl1Inside
 1 LINE.NUM %ScratchPad 602 ^VentCtrl1OutsideType  IO.SP.READ DROP  
 3 LINE.NUM ^VentCtrl1OutsideType @@ CASE 
 4 LINE.NUM 1 OF 
-5 LINE.NUM ~ThermalCouple1 
+5 LINE.NUM ~ThermalCouple0 
 MoveToPointer PTR_VentCtrl1Outside 
 6 LINE.NUM ENDOF 
 7 LINE.NUM 2 OF 
-8 LINE.NUM ~ThermalCouple2 
+8 LINE.NUM ~ThermalCouple1 
 MoveToPointer PTR_VentCtrl1Outside 
 9 LINE.NUM ENDOF 
 10 LINE.NUM 3 OF 
@@ -1018,8 +1018,8 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 06/20/16 " ;
-: TIMESTAMP ." 09:49:06 " ;
+: DATESTAMP ." 08/03/16 " ;
+: TIMESTAMP ." 07:54:47 " ;
 : CRCSTAMP  ." 00112233445566778899AABBCCDDEEFF " ;
 MAKECHECK
 CLEAR.BREAKS

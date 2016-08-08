@@ -28,7 +28,7 @@ nullAPointInput 0 POINTER PTR_VentCtrl1Outside
 
 nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A801CA 0 11 BOARD.MMP %EngineCell
  4  1 APOINT -270.0000 8  0  0 %EngineCell 0 POINT.TNG ~ThermalCouple0
- 4  1 APOINT -150.0000 66  1  0 %EngineCell 0 POINT.TNG ~ThermalCouple1
+ 4  1 APOINT -270.0000 8  1  0 %EngineCell 0 POINT.TNG ~ThermalCouple1
  4  1 APOINT -150.0000 66  2  0 %EngineCell 0 POINT.TNG ~ThermalCouple2
  4  1 APOINT -150.0000 66  3  0 %EngineCell 0 POINT.TNG ~ThermalCouple3
  4  1 APOINT -150.0000 66  0  1 %EngineCell 0 POINT.TNG ~ThermalCouple4
