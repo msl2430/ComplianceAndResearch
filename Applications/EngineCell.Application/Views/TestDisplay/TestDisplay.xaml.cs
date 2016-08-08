@@ -1,5 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using EngineCell.Application.Services.DataServices;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels.TestDisplay;
 using EngineCell.Core.Constants;
@@ -26,7 +31,7 @@ namespace EngineCell.Application.Views.TestDisplay
                 TestDisplayViewModel = (TestDisplayViewModel) DataContext;
 
             if(PointWorkerService == null)
-                PointWorkerService = new PointWorkerService(TestDisplayViewModel, Dispatcher);
+                PointWorkerService = new PointWorkerService(TestDisplayViewModel, Dispatcher);            
         }
 
         private void StartPhaseButton_Click(object sender, RoutedEventArgs e)
@@ -36,10 +41,22 @@ namespace EngineCell.Application.Views.TestDisplay
                 TestDisplayViewModel.ApplicationSessionFactory.LogEvent("WARNING: Cannot start if not connected to Opto!", true);
                 return;
             }
+            if (TestDisplayViewModel.IsManualTest)
+            {
+                var runTimeModel = new ManualTimeConfigViewModel();
+                var runTime = new ManualTimeConfig(runTimeModel);
+                runTime.ShowDialog();
+                if (runTimeModel.IsCancel)
+                    return;
+
+                TimeRemaining.RemainingTime = new TimeSpan(runTimeModel.Hour, runTimeModel.Minute, runTimeModel.Second);
+                TimeRemaining.IsRunning = true;
+                TimeRemaining.RemainingTimeViewModel.IsVisible = true;
+            }
             TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Starting phase.", true);
             TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);            
 
-            var cellTestId = CellPointRepository.CreateCellTest(1);
+            var cellTestId = CellPointRepository.CreateCellTest(1, TestDisplayViewModel.IsManualTest ? ControlConstants.CellTestType.Manual : ControlConstants.CellTestType.Timed);
             TestDisplayViewModel.ApplicationSessionFactory.CurrentCellTest = CellPointRepository.GetCellTestById(cellTestId);
             RunTimeClock.IsRunning = true;
             TestDisplayViewModel.PhaseStarted = true;
@@ -47,19 +64,39 @@ namespace EngineCell.Application.Views.TestDisplay
             {
                 TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Starting point data collection.", true);
                 PointWorkerService.DoWork();
+
+                if (!TestDisplayViewModel.IsManualTest) return;
+
+                var worker = new TestRunnerWorkerService(TimeRemaining, this, Dispatcher);
+                worker.DoWork();
             });
             TestDisplayViewModel.ChartViewModel.IsPlay = true;
         }
 
         private void StopPhaseButton_Click(object sender, RoutedEventArgs e)
         {
-            TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Stopping phase after running for " + RunTimeClock.RunTimeViewModel.RunTime  + " (user requested).", true);
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 0);
+            StopTest(true);
+        }
+
+        private void ToggleTestType(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            TestDisplayViewModel.IsManualTest = btn.Tag.ToString() == "manual";
+        }
+
+        public void StopTest(bool isUserRequested)
+        {
+            TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Stopping phase after running for " + RunTimeClock.RunTimeViewModel.RunTime + (isUserRequested ? " (user requested)." : " (test complete)."), true);
+            //TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 0);
             CellPointRepository.UpdateCellTestEndTime(TestDisplayViewModel.ApplicationSessionFactory.CurrentCellTest);
             RunTimeClock.IsRunning = false;
+            TimeRemaining.IsRunning = false;
             TestDisplayViewModel.PhaseStarted = false;
-            PointWorkerService.CancelWork();
-            TestDisplayViewModel.ChartViewModel.IsPlay = false;
+            //PointWorkerService.CancelWork();
+            //TestDisplayViewModel.ChartViewModel.IsPlay = false;
+
+            var fileName = (new ExportService()).WriteCsvExport(7);
+            File.Open(fileName, FileMode.Open);
         }
     }
 }

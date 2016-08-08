@@ -61,7 +61,7 @@ namespace EngineCell.Application.Services.WorkerServices
                                 cellPoint.AverageData = Math.Truncate(cellPoint.MostRecentData.Average() * 10000m) / 10000m; 
                             }
                             if (appSession.CurrentCellTest != null)
-                                CellPointRepository.CreateCellPointData(appSession.CellPoints.Where(cp => cp.IsRecord).SelectDistinct(cp => cp.ToCellTestPointDataModel(appSession.CurrentCellTest.CellTestId)).ToList());
+                                CellPointRepository.CreateCellPointData(appSession.CellPoints.Where(cp => cp.IsRecord).SelectDistinct(cp => cp.ToCellTestPointDataModel(appSession.CurrentCellTest.CellTestId, DateTime.Now)).ToList());
 
                             TestDisplayViewModel.UpdateVisibleCellPoints();
 

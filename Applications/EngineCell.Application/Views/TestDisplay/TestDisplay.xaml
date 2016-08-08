@@ -79,16 +79,23 @@
                       <ColumnDefinition Width="4*"/>
                       <ColumnDefinition Width="6*"/>
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                        <ToggleButton Content="Timed" Width="125" Height="50" FontSize="15" Background="{StaticResource LightBlueBrush}"></ToggleButton>
-                        <ToggleButton Content="Manual" Width="125" Height="50" FontSize="15"></ToggleButton>
-                      </StackPanel>
+                    <Grid Grid.Column="0" Height="50" VerticalAlignment="Top">
+                      <Grid>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="5*"/>
+                          <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                     
+                        <Button Content="Timed" Grid.Column="0" Height="50" FontSize="15" Background="{StaticResource LightBlueBrush}" Visibility="{Binding Path=IsManualTest, Converter={StaticResource InverseBoolToVisibilityConverter}}" HorizontalAlignment="Stretch"></Button>
+                        <Button Content="Timed" Grid.Column="0"  Height="50" FontSize="15" Visibility="{Binding Path=IsManualTest, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Stretch" Click="ToggleTestType" Tag="timed"></Button>
+                        <Button Content="Manual" Grid.Column="1" Height="50" FontSize="15" Visibility="{Binding Path=IsManualTest, Converter={StaticResource InverseBoolToVisibilityConverter}}" HorizontalAlignment="Stretch" Click="ToggleTestType" Tag="manual"></Button>
+                        <Button Content="Manual" Grid.Column="1" Height="50" FontSize="15" Background="{StaticResource LightBlueBrush}" Visibility="{Binding Path=IsManualTest, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Stretch"></Button>
+                      </Grid>
                     </Grid>
                     <Grid Grid.Column="1">
-                      <Button Background="{StaticResource GreenBrush}" Click="StartPhaseButton_Click" Height="50" HorizontalAlignment="Center" Width="250" VerticalAlignment="Top"
+                      <Button Background="{StaticResource GreenBrush}" Click="StartPhaseButton_Click" Height="50" HorizontalAlignment="Center" Width="250" VerticalAlignment="Top" FontSize="15"
                               Visibility="{Binding Path=PhaseStarted, Converter={StaticResource InverseBoolToVisibilityConverter}}">Start</Button>
-                      <Button Background="OrangeRed" Click="StopPhaseButton_Click" Height="50" HorizontalAlignment="Center" Width="250" VerticalAlignment="Top"
+                      <Button Background="OrangeRed" Click="StopPhaseButton_Click" Height="50" HorizontalAlignment="Center" Width="250" VerticalAlignment="Top" FontSize="15"
                               Visibility="{Binding Path=PhaseStarted, Converter={StaticResource BoolToVisibilityConverter}}">Stop</Button>
                       </Grid>                      
                   </Grid>
@@ -103,10 +110,23 @@
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
             <Grid Row="0">
-              <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+                <RowDefinition/>
+              </Grid.RowDefinitions>
+              <Grid Row="0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                  <clocks:RunTime x:Name="RunTimeClock" IsRunning="False"  HorizontalAlignment="Center"></clocks:RunTime>
+                  <clocks:TimeRemaining x:Name="TimeRemaining" IsRunning="False"  HorizontalAlignment="Center" ></clocks:TimeRemaining>
+                </StackPanel>
+              </Grid>
+              <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
                 <Grid>
-                  <StackPanel>
-                    <clocks:RunTime x:Name="RunTimeClock" IsRunning="False"></clocks:RunTime>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="5*"/>
+                  </Grid.ColumnDefinitions>
+                  <StackPanel Grid.Column="0">
                     <ItemsControl ItemsSource="{Binding Path=VisiblePoints}">
                       <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -130,7 +150,6 @@
                 </Grid>
                 </ScrollViewer>
               </Grid>
-            
             <Grid Row="1">
                 <ContentControl x:Name="StripChartContent" Content="{Binding ChartViewModel}"></ContentControl>
             </Grid>

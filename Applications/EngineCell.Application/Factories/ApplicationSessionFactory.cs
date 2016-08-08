@@ -5,7 +5,6 @@ using EngineCell.Application.Services;
 using EngineCell.Application.Session;
 using EngineCell.Application.ViewModels;
 using EngineCell.Application.ViewModels.PointConfiguration;
-using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Models.Models;
 

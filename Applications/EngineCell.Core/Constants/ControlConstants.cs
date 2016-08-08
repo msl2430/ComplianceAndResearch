@@ -36,5 +36,11 @@
             Custom3,
             Custom4
         }
+
+        public enum CellTestType
+        {
+            Manual = 1,
+            Timed,
+        }
     }
 }

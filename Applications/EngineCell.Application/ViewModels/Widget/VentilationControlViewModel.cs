@@ -4,15 +4,15 @@ namespace EngineCell.Application.ViewModels.Widget
 {
     public class VentilationControlViewModel : BaseViewModel
     {
-        private ThermalCouple _inside { get; set; }
-        public ThermalCouple Inside
+        private ThermoCouple _inside { get; set; }
+        public ThermoCouple Inside
         {
             get { return _inside; }
             set { _inside = value; OnPropertyChanged("Inside"); }
         }
 
-        private ThermalCouple _outside { get; set; }
-        public ThermalCouple Outside
+        private ThermoCouple _outside { get; set; }
+        public ThermoCouple Outside
         {
             get { return _outside; }
             set { _outside = value; OnPropertyChanged("Outside"); }
@@ -44,8 +44,8 @@ namespace EngineCell.Application.ViewModels.Widget
 
         public VentilationControlViewModel()
         {
-            Inside = ThermalCouple.ThermalCouple1;
-            Outside = ThermalCouple.ThermalCouple2;
+            Inside = ThermoCouple.ThermoCouple1;
+            Outside = ThermoCouple.ThermoCouple2;
             Output = AnalogOutput.Ao10Bipolar;
             IsActive = false;
         }

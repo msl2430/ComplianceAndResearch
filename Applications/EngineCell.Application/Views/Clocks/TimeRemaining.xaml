@@ -4,12 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EngineCell.Application.Views.Clocks"
+             xmlns:extensions="clr-namespace:EngineCell.Application.Extensions"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </UserControl.Resources>
     <Grid>
-        <Grid Width="168" Margin="0,5,0,5">
-            <Label Width="100" HorizontalAlignment="Left" VerticalAlignment="Center">Remaining Time:</Label>
-            <TextBox Text="{Binding RemainingTime}" IsReadOnly="True" FontSize="15" Width="70" HorizontalAlignment="Right"></TextBox>
+        <Grid Width="270" Margin="0,5,0,5" Visibility="{Binding Path=IsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Label Width="130" Height="45" FontSize="25"  HorizontalAlignment="Right" Margin="0,0,120,0"  VerticalAlignment="Center">Remaining:</Label>
+            <TextBox Text="{Binding RemainingTime}" IsReadOnly="True" FontSize="25" Width="110" Height="40" HorizontalAlignment="Right" BorderBrush="Transparent"></TextBox>
         </Grid>
     </Grid>
 </UserControl>

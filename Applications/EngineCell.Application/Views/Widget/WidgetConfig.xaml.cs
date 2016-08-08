@@ -18,8 +18,8 @@ namespace EngineCell.Application.Views.Widget
         {
             InitializeComponent();
 
-            VentCtrl1Inside.ItemsSource = Enum.GetValues(typeof (ThermalCouple)).Cast<ThermalCouple>();
-            VentCtrl1Outside.ItemsSource = Enum.GetValues(typeof(ThermalCouple)).Cast<ThermalCouple>();
+            VentCtrl1Inside.ItemsSource = Enum.GetValues(typeof (ThermoCouple)).Cast<ThermoCouple>();
+            VentCtrl1Outside.ItemsSource = Enum.GetValues(typeof(ThermoCouple)).Cast<ThermoCouple>();
             VentCtrl1Output.ItemsSource = Enum.GetValues(typeof(AnalogOutput)).Cast<AnalogOutput>();
         }
 
@@ -36,8 +36,8 @@ namespace EngineCell.Application.Views.Widget
                 return;//TODO: add error message
             }
 
-            ViewModel.VentCtrl1.Inside = (ThermalCouple)VentCtrl1Inside.SelectedItem;
-            ViewModel.VentCtrl1.Outside = (ThermalCouple)VentCtrl1Outside.SelectedItem;
+            ViewModel.VentCtrl1.Inside = (ThermoCouple)VentCtrl1Inside.SelectedItem;
+            ViewModel.VentCtrl1.Outside = (ThermoCouple)VentCtrl1Outside.SelectedItem;
             ViewModel.VentCtrl1.Output = (AnalogOutput)VentCtrl1Output.SelectedItem;
             ViewModel.VentCtrl1.Gain = Convert.ToDecimal(VentCtrl1Gain.Text);
             ViewModel.VentCtrl1.SetPoint = Convert.ToDecimal(VentCtrl1SetPoint.Text);

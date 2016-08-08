@@ -1,18 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using EngineCell.Application.ViewModels.Clocks;
 
@@ -27,12 +14,12 @@ namespace EngineCell.Application.Views.Clocks
 
         public bool IsRunning { get; set; }
 
-        private TimeSpan RemainingTime { get; set; }
+        public TimeSpan RemainingTime { get; set; }
         
         public TimeRemaining()
         {
             InitializeComponent();
-            RemainingTimeViewModel = new RemainingTimeViewModel();
+            RemainingTimeViewModel = new RemainingTimeViewModel() { IsVisible = false};
             DataContext = RemainingTimeViewModel;
             RemainingTime = TimeSpan.Zero;
             var timer = new DispatcherTimer(DispatcherPriority.Background) { Interval = TimeSpan.FromSeconds(1), IsEnabled = true };
@@ -55,6 +42,7 @@ namespace EngineCell.Application.Views.Clocks
                     IsRunning = false;
 
                 RemainingTime = RemainingTime.Add(TimeSpan.FromSeconds(-1));
+                RemainingTimeViewModel.IsVisible = true;
             }
             else
             {

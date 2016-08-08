@@ -2,7 +2,7 @@
 {
     public enum PointGroup
     {
-        ThermalCouple = 1,
+        ThermoCouple = 1,
         Volt,
         MilliAmp,
         Hart,
@@ -14,27 +14,27 @@
         Frequency
     }
 
-    public enum ThermalCouple
+    public enum ThermoCouple
     {
-        ThermalCouple1 = 1,
-        ThermalCouple2,
-        ThermalCouple3,
-        ThermalCouple4,
-        ThermalCouple5,
-        ThermalCouple6,
-        ThermalCouple7,
-        ThermalCouple8,
-        ThermalCouple9,
-        ThermalCouple10,
-        ThermalCouple11,
-        ThermalCouple12,
-        ThermalCouple13,
-        ThermalCouple14,
-        ThermalCouple15,
-        ThermalCouple16,
-        ThermalCouple17,
-        ThermalCouple18,
-        ThermalCouple19
+        ThermoCouple1 = 1,
+        ThermoCouple2,
+        ThermoCouple3,
+        ThermoCouple4,
+        ThermoCouple5,
+        ThermoCouple6,
+        ThermoCouple7,
+        ThermoCouple8,
+        ThermoCouple9,
+        ThermoCouple10,
+        ThermoCouple11,
+        ThermoCouple12,
+        ThermoCouple13,
+        ThermoCouple14,
+        ThermoCouple15,
+        ThermoCouple16,
+        ThermoCouple17,
+        ThermoCouple18,
+        ThermoCouple19
     }
 
     public enum AnalogOutput

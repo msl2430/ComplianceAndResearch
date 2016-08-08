@@ -24,7 +24,7 @@
             <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
             <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Thermal Couple Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
-              <ItemsControl ItemsSource="{Binding Path=ThermalCouples}">
+              <ItemsControl ItemsSource="{Binding Path=ThermoCouples}">
                 <ItemsControl.ItemsPanel>
                   <ItemsPanelTemplate>
                     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical"/>

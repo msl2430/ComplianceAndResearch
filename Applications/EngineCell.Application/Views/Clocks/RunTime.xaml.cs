@@ -33,7 +33,7 @@ namespace EngineCell.Application.Views.Clocks
             {
                 if (!Stopwatch.IsRunning)
                     Stopwatch.Restart();
-                RunTimeViewModel.RunTime = $"{Stopwatch.Elapsed.Hours.ToString("00")}:{Stopwatch.Elapsed.Minutes.ToString("00")}:{Stopwatch.Elapsed.Seconds.ToString("00")}";
+                RunTimeViewModel.RunTime = $"{Stopwatch.Elapsed.Hours.ToString("00")}:{Stopwatch.Elapsed.Minutes.ToString("00")}:{(Stopwatch.Elapsed.Seconds).ToString("00")}";
             }
             else
             {

@@ -49,6 +49,12 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             set { _visiblePoints = value; OnPropertyChanged("VisiblePoints"); }
         }
 
+        private bool _isManualTest { get; set; }
+        public bool IsManualTest {
+            get { return _isManualTest; }
+            set { _isManualTest = value; OnPropertyChanged("IsManualTest"); }
+        }
+
         public TestDisplayViewModel(IApplicationSessionFactory appSession, StripChartViewModel chartViewModel)
         {
             ZIndex = 1;
@@ -64,6 +70,7 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             OilPid = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Oil"), PidType = ControlConstants.PidType.Oil, ApplicationSessionFactory = appSession };
             Intercooler = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Intercooler"), PidType = ControlConstants.PidType.Intercooler, ApplicationSessionFactory = appSession };
             VentControl1Display = new VentilationControlDisplayViewModel("Ventilation Control 1");
+            IsManualTest = false;
             ChartViewModel = chartViewModel;
             UpdateVisibleCellPoints();
         }

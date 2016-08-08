@@ -126,6 +126,7 @@ GO
 CREATE TABLE [dbo].[CellTest](
 	[CellTestId] [int] IDENTITY(1,1) NOT NULL,
 	[CellId] [int] NOT NULL,
+	[CellTestTypeId] [int] NOT NULL,
 	[StartTime] [datetime] NOT NULL,
 	[EndTime] [datetime] NULL,
  CONSTRAINT [PK_CellTest] PRIMARY KEY CLUSTERED 

@@ -17,4 +17,25 @@ namespace EngineCell.Models.Mapping
             Map(ctpd => ctpd.CaptureTime);
         }
     }
+
+    internal sealed class CellTestPointDataExtendedMap : ClassMap<CellTestPointDataExtended>
+    {
+        public CellTestPointDataExtendedMap()
+        {
+            Table("CellTestPointData");
+
+            Id(ctpd => ctpd.CellTestPointDataId);
+
+            Map(ctpd => ctpd.Data);
+            Map(ctpd => ctpd.CaptureTime);
+
+            References(ctpd => ctpd.CellPoint)
+                .Column("CellPointId")
+                .Fetch.Join();
+
+            References(ctpd => ctpd.CellTest)
+                .Column("CellTestId")
+                .Fetch.Join();
+        }
+    }
 }

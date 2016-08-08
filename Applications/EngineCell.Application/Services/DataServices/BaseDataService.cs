@@ -7,5 +7,6 @@ namespace EngineCell.Application.Services.DataServices
         private ICellPointRepository _cellPointRepository { get; set; }
 
         public ICellPointRepository CellPointRepository => _cellPointRepository ?? (_cellPointRepository = new CellPointRepository());
+
     }
 }

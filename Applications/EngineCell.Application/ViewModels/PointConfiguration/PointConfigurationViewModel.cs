@@ -7,14 +7,14 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
 {
     public class PointConfigurationViewModel : BaseViewModel
     {
-        private IList<PointDataModel> _thermalCouples { get; set; }
-        public IList<PointDataModel> ThermalCouples
+        private IList<PointDataModel> _thermoCouples { get; set; }
+        public IList<PointDataModel> ThermoCouples
         {
-            get { return _thermalCouples; }
+            get { return _thermoCouples; }
             set
             {
-                _thermalCouples = value;
-                OnPropertyChanged("ThermalCouples");
+                _thermoCouples = value;
+                OnPropertyChanged("ThermoCouples");
             }
         }
 
@@ -122,7 +122,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
         {
             ZIndex = 0;
             ApplicationSessionFactory = appSession;
-            ThermalCouples = new List<PointDataModel>();
+            ThermoCouples = new List<PointDataModel>();
             Volts = new List<PointDataModel>();
             MilliAmps = new List<PointDataModel>();
             Harts = new List<PointDataModel>();
@@ -137,8 +137,8 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             {
                 switch (point.PointGroupId)
                 {
-                    case PointGroup.ThermalCouple:
-                        ThermalCouples.Add(point);
+                    case PointGroup.ThermoCouple:
+                        ThermoCouples.Add(point);
                         break;
                     case PointGroup.Volt:
                         Volts.Add(point);

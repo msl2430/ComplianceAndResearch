@@ -126,14 +126,14 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             };
         }
 
-        public CellTestPointDataModel ToCellTestPointDataModel(int cellTestId)
+        public CellTestPointDataModel ToCellTestPointDataModel(int cellTestId, DateTime captureTime)
         {
             return new CellTestPointDataModel
             {
                 CellTestId = cellTestId,
                 CellPointId = CellPointId,
                 Data = Data,
-                CaptureTime = DateTime.Now
+                CaptureTime = captureTime
             };
         }
     }

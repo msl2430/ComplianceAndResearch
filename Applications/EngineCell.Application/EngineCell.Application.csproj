@@ -118,8 +118,10 @@
     <Compile Include="Factories\ApplicationSessionFactory.cs" />
     <Compile Include="Factories\OptoMmpFactory.cs" />
     <Compile Include="Factories\ScratchPadFactory.cs" />
+    <Compile Include="Services\DataServices\ExportService.cs" />
     <Compile Include="Services\WorkerServices\PidConfigStripChartWorkerService.cs" />
     <Compile Include="Services\WorkerServices\PidConfigWorkerService.cs" />
+    <Compile Include="Services\WorkerServices\TestRunnerWorkerService.cs" />
     <Compile Include="ViewModels\Pid\PidConfigViewModel.cs" />
     <Compile Include="ViewModels\Pid\PidDisplayViewModel.cs" />
     <Compile Include="ViewModels\PointConfiguration\PointDataModel.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="ViewModels\StripChart\BaseStripChartViewModel.cs" />
     <Compile Include="ViewModels\StripChart\PidConfigStripChartViewModel.cs" />
     <Compile Include="ViewModels\StripChart\StripChartViewModels.cs" />
+    <Compile Include="ViewModels\TestDisplay\ManualTimeConfigViewModel.cs" />
     <Compile Include="ViewModels\TestDisplay\TestDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\VentilationControlDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\VentilationControlViewModel.cs" />
@@ -196,6 +199,9 @@
     </Compile>
     <Compile Include="Views\StripChart\StripChart.xaml.cs">
       <DependentUpon>StripChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestDisplay\ManualTimeConfig.xaml.cs">
+      <DependentUpon>ManualTimeConfig.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TestDisplay\TestDisplay.xaml.cs">
       <DependentUpon>TestDisplay.xaml</DependentUpon>
@@ -271,6 +277,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StripChart\StripChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestDisplay\ManualTimeConfig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

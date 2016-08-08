@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using EngineCell.Core.Constants;
+using EngineCell.Core.Extensions;
+using EngineCell.Core.Models;
 using EngineCell.Models.DataObjects;
 using EngineCell.Models.Helpers;
 using EngineCell.Models.Models;
+using NHibernate.Criterion;
+using NHibernate.Transform;
 
 namespace EngineCell.Models.Repositories
 {
@@ -17,9 +22,13 @@ namespace EngineCell.Models.Repositories
         void UpdateCellPointAlarm(CellPointAlarmModel alarm);
         void DeleteCellPointAlarm(int cellPointAlarmId);
 
-        int CreateCellTest(int cellId);
+        int CreateCellTest(int cellId, ControlConstants.CellTestType type);
         void UpdateCellTestEndTime(CellTestModel cellTest);
         void CreateCellPointData(IList<CellTestPointDataModel> points);
+
+        IList<DateTime> GetCaptureTimesForTest(int cellTestId);
+        IList<IdNamePair> GetCellPointInTest(int cellTestId);
+        IList<CellTestPointDataModel> GetDataFromCellTest(int cellTestId, DateTime captureTime);
     }
 
     public class CellPointRepository : ICellPointRepository
@@ -89,9 +98,9 @@ namespace EngineCell.Models.Repositories
                 .ExecuteUpdate();
         }
 
-        public int CreateCellTest(int cellId)
+        public int CreateCellTest(int cellId, ControlConstants.CellTestType type)
         {
-            var newTest = new CellTest() {CellId = cellId, StartTime = DateTime.Now};
+            var newTest = new CellTest() {CellId = cellId, StartTime = DateTime.Now, CellTestTypeId = type};
             NHibernateHelper.CurrentSession.Save(newTest);
             NHibernateHelper.CurrentSession.Flush();
             return newTest.CellTestId;
@@ -127,6 +136,42 @@ namespace EngineCell.Models.Repositories
                     });
                 transaction.Commit();
             }
+        }
+
+        public IList<DateTime> GetCaptureTimesForTest(int cellTestId)
+        {
+            return NHibernateHelper.CurrentSession.QueryOver<CellTestPointData>()
+                .Where(t => t.CellTestId == cellTestId)
+                .SelectList(list => list.SelectGroup(t => t.CaptureTime))
+                .OrderBy(t => t.CaptureTime).Asc
+                .List<DateTime>();
+        }
+
+        public IList<IdNamePair> GetCellPointInTest(int cellTestId)
+        {
+            IdNamePair idNamePair = null;
+            CellPoint point = null;
+            CellTest test = null;
+            return NHibernateHelper.CurrentSession.QueryOver<CellTestPointDataExtended>()
+                .JoinAlias(t => t.CellPoint, () => point)
+                .JoinAlias(t => t.CellTest, () => test)
+                .Where(() => test.CellTestId == cellTestId)
+                .SelectList(list => list.SelectGroup(() => point.CellPointId).WithAlias(() => idNamePair.Id)
+                .SelectGroup(()=> point.CustomName).WithAlias(() => idNamePair.Name))
+                .OrderBy(() => point.CellPointId).Asc
+                .TransformUsing(Transformers.AliasToBean<IdNamePair>())
+                .List<IdNamePair>();
+        } 
+
+        public IList<CellTestPointDataModel> GetDataFromCellTest(int cellTestId, DateTime captureTime)
+        {
+            CellTest test = null;
+            var result = NHibernateHelper.CurrentSession.QueryOver<CellTestPointDataExtended>()
+                .JoinAlias(t => t.CellTest, () => test)
+                .Where(t => test.CellTestId == cellTestId && t.CaptureTime == captureTime)
+                .List<CellTestPointDataExtended>();
+
+            return result.IsNotNullOrEmpty() ? result.Select(r => new CellTestPointDataModel(r)).ToList() : new List<CellTestPointDataModel>();
         }
     }
 }
