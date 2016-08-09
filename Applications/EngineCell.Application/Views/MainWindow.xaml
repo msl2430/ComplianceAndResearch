@@ -42,14 +42,6 @@
               <MenuItem Header="_File">
                   <MenuItem x:Name="MenuExit" Header="E_xit" Width="125" Click="MenuExit_Click"/>
               </MenuItem>
-                <MenuItem Header="_View">
-                    <MenuItem x:Name="MenuTestDisplay" Header="_Test Display" Width="225" Click="MenuTestDisplay_OnClick"></MenuItem>
-                    <MenuItem x:Name="MenuPointConfig" Header="_Point Configuration" Width="225" Click="MenuPointConfig_OnClick"></MenuItem>
-                    <MenuItem x:Name="MenuWidgetConfig" Header="_Widget Configuration" Width="225" Click="MenuWidgetConfig_OnClick"></MenuItem>
-                </MenuItem>
-                <MenuItem Header="_Edit">
-                    <MenuItem x:Name="MenuAlarmConfig" Header="_Alarm Configuration" Width="225" Click="MenuAlarmConfig_Click"></MenuItem>
-                </MenuItem>
             </Menu>
             <Grid Name="LogWindow" Height="125" DockPanel.Dock="Bottom" Visibility="Visible">
                 <ScrollViewer>
@@ -58,23 +50,44 @@
             </Grid>          
             <Grid>                
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="55"/>
                     <RowDefinition />
                     <RowDefinition Height="23"/>
                 </Grid.RowDefinitions>
                 <Border BorderBrush="LightGray" BorderThickness="0,0,0,1.01"></Border>
                 <Grid Grid.Row="0">
-                    
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5*"></ColumnDefinition>
                         <ColumnDefinition Width="5*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                      <Button Name="TestDisplay" Width="35" Height="35" Margin="5,0,5,0" Click="MenuTestDisplay_OnClick" HorizontalAlignment="Left" ToolTip="Test Display">
+                        <Rectangle Width="25" Height="25" Fill="{StaticResource DarkBlueBrush}">
+                          <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_paper}" />
+                          </Rectangle.OpacityMask>
+                        </Rectangle>
+                      </Button>
+                      <Button Name="PointConfig"  Width="35" Height="35" Margin="5,0,5,0" Click="MenuPointConfig_OnClick" HorizontalAlignment="Left" ToolTip="Point Configuration">
+                        <Rectangle Width="25" Height="25" Fill="{StaticResource DarkBlueBrush}">
+                          <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_list_gear}" />
+                          </Rectangle.OpacityMask>
+                        </Rectangle>
+                      </Button>
+                      <Button Name="WidgetConfig"  Width="35" Height="35" Margin="5,0,5,0" Click="MenuWidgetConfig_OnClick" HorizontalAlignment="Left" ToolTip="Widget Configuration">
+                        <Rectangle Width="25" Height="25" Fill="{StaticResource DarkBlueBrush}">
+                          <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_settings}" />
+                          </Rectangle.OpacityMask>
+                        </Rectangle>
+                      </Button>
+                    </StackPanel>
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <clocks:Clock></clocks:Clock>                        
-                        <!--<clocks:TimeRemaining x:Name="RemainingTimer" IsRunning="True"></clocks:TimeRemaining>-->
+                        <clocks:Clock HorizontalAlignment="Right"></clocks:Clock>                        
                         <controls:ToggleSwitch Name="OptoConnectionToggle" SwitchForeground="{StaticResource GreenBrush}" OffLabel="" OnLabel=""
                                        IsChecked="{Binding Path=IsConnected, Mode=TwoWay, NotifyOnSourceUpdated=True}"
-                                       SourceUpdated="OptoConnectionToggle_OnSourceUpdated" HorizontalAlignment="Left" Margin="70,0,0,0">
+                                       SourceUpdated="OptoConnectionToggle_OnSourceUpdated" HorizontalAlignment="Left" Height="35" Margin="25,0,0,0">
                         </controls:ToggleSwitch>
                     </StackPanel>
                   </Grid>

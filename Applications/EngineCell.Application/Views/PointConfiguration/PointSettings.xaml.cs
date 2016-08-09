@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Models.Repositories;
 
@@ -47,6 +49,17 @@ namespace EngineCell.Application.Views.PointConfiguration
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void NumberOnly(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        private static bool IsTextAllowed(string text)
+        {
+            Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+            return !regex.IsMatch(text);
         }
     }
 }

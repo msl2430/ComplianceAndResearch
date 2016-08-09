@@ -51,19 +51,19 @@
                   <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="4*"/>
-                  <ColumnDefinition Width="6*"/>
+                  <ColumnDefinition Width="5*"/>
+                  <ColumnDefinition Width="5*"/>
                 </Grid.ColumnDefinitions>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="0">Inside Thermal Couple</Label>
+                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="0" Height="30" FontSize="15">Inside Thermal Couple</Label>
                 <ComboBox x:Name="VentCtrl1Inside" Width="140" Grid.Column="1" Grid.Row="0" SelectedItem="{Binding Path=VentCtrl1.Inside}"></ComboBox>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="2">Outside Thermal Couple</Label>
+                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="2" Height="30" FontSize="15">Outside Thermal Couple</Label>
                 <ComboBox x:Name="VentCtrl1Outside" Width="140" Grid.Column="1" Grid.Row="2" SelectedItem="{Binding Path=VentCtrl1.Outside}"></ComboBox>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="4">Analog Output</Label>
+                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="4" Height="30" FontSize="15">Analog Output</Label>
                 <ComboBox x:Name="VentCtrl1Output" Width="140" Grid.Column="1" Grid.Row="4" SelectedItem="{Binding Path=VentCtrl1.Output}"></ComboBox>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="6">Gain</Label>
-                <TextBox x:Name="VentCtrl1Gain" Grid.Column="1" Grid.Row="6" Width="140" Text="{Binding Path=VentCtrl1.Gain}"></TextBox>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="8">Set Point</Label>
-                <TextBox x:Name="VentCtrl1SetPoint" Grid.Column="1" Grid.Row="8" Width="140" Text="{Binding Path=VentCtrl1.SetPoint}"></TextBox>
+                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="6" Height="30" FontSize="15">Gain</Label>
+                <TextBox x:Name="VentCtrl1Gain" Grid.Column="1" Grid.Row="6" Width="140" Height="30" FontSize="15" Text="{Binding Path=VentCtrl1.Gain}"></TextBox>
+                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="8" Height="30" FontSize="15">Set Point</Label>
+                <TextBox x:Name="VentCtrl1SetPoint" Grid.Column="1" Grid.Row="8" Width="140" Height="30" FontSize="15" Text="{Binding Path=VentCtrl1.SetPoint}"></TextBox>
                 <Button x:Name="ActivateVentCtrl1" Background="{StaticResource GreenBrush}" Grid.Column="1" Grid.Row="10" Width="125" Click="ActivateVentCtrl1_OnClick" Visibility="{Binding Path=VentCtrl1.IsActive, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                   Activate Vent 1
                 </Button>

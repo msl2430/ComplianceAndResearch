@@ -16,7 +16,8 @@
 
     public enum ThermoCouple
     {
-        ThermoCouple1 = 1,
+        ThermoCouple0 = 1,
+        ThermoCouple1,
         ThermoCouple2,
         ThermoCouple3,
         ThermoCouple4,
@@ -34,7 +35,6 @@
         ThermoCouple16,
         ThermoCouple17,
         ThermoCouple18,
-        ThermoCouple19
     }
 
     public enum AnalogOutput

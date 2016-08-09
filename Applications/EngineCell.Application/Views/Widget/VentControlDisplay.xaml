@@ -30,12 +30,12 @@
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="6*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Grid.Row="0">Inside</Label>
-            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Inside}"></TextBox>
-            <Label Grid.Column="0" Grid.Row="2">Outside</Label>
-            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Outside}"></TextBox>
-            <Label Grid.Column="0" Grid.Row="4">Output</Label>
-            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="4" Text="{Binding Path=Output}"></TextBox>
+            <Label Grid.Column="0" Grid.Row="0" Height="30" FontSize="15">Inside</Label>
+            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Inside}" Height="30" FontSize="15"></TextBox>
+            <Label Grid.Column="0" Grid.Row="2" Height="30" FontSize="15">Outside</Label>
+            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Outside}" Height="30" FontSize="15"></TextBox>
+            <Label Grid.Column="0" Grid.Row="4" Height="30" FontSize="15">Output</Label>
+            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="4" Text="{Binding Path=Output}" Height="30" FontSize="15"></TextBox>
         </Grid>
     </Grid>
 </UserControl>

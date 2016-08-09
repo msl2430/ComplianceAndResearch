@@ -140,8 +140,8 @@
                               <ColumnDefinition Width="175"/>
                               <ColumnDefinition Width="75"/>
                             </Grid.ColumnDefinitions>
-                            <Label VerticalAlignment="Center" FontSize="14" Width="125" HorizontalContentAlignment="Center" Content="{Binding Path=CustomName}"></Label>
-                            <TextBox Grid.Column="1" Text="{Binding Path=AverageData}"></TextBox>
+                            <Label VerticalAlignment="Center" Width="125" HorizontalContentAlignment="Center" Content="{Binding Path=CustomName}" Height="30" FontSize="15"></Label>
+                            <TextBox Grid.Column="1" Text="{Binding Path=AverageData}" Height="30" FontSize="15"></TextBox>
                           </Grid>
                         </DataTemplate>
                       </ItemsControl.ItemTemplate>
