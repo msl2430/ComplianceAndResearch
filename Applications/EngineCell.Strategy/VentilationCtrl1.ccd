@@ -10,79 +10,79 @@
 1 LINE.NUM %ScratchPad 601 ^VentCtrl1InsideType  IO.SP.READ DROP  
 3 LINE.NUM ^VentCtrl1InsideType @@ CASE 
 4 LINE.NUM 1 OF 
-5 LINE.NUM ~ThermalCouple0 
+5 LINE.NUM ~ThermoCouple0 
 MoveToPointer PTR_VentCtrl1Inside 
 6 LINE.NUM ENDOF 
 7 LINE.NUM 2 OF 
-8 LINE.NUM ~ThermalCouple1 
+8 LINE.NUM ~ThermoCouple1 
 MoveToPointer PTR_VentCtrl1Inside 
 9 LINE.NUM ENDOF 
 10 LINE.NUM 3 OF 
-11 LINE.NUM ~ThermalCouple3 
+11 LINE.NUM ~ThermoCouple3 
 MoveToPointer PTR_VentCtrl1Inside 
 12 LINE.NUM ENDOF 
 13 LINE.NUM 4 OF 
-14 LINE.NUM ~ThermalCouple4 
+14 LINE.NUM ~ThermoCouple4 
 MoveToPointer PTR_VentCtrl1Inside 
 15 LINE.NUM ENDOF 
 16 LINE.NUM 5 OF 
-17 LINE.NUM ~ThermalCouple5 
+17 LINE.NUM ~ThermoCouple5 
 MoveToPointer PTR_VentCtrl1Inside 
 18 LINE.NUM ENDOF 
 19 LINE.NUM 6 OF 
-20 LINE.NUM ~ThermalCouple6 
+20 LINE.NUM ~ThermoCouple6 
 MoveToPointer PTR_VentCtrl1Inside 
 21 LINE.NUM ENDOF 
 22 LINE.NUM 7 OF 
-23 LINE.NUM ~ThermalCouple7 
+23 LINE.NUM ~ThermoCouple7 
 MoveToPointer PTR_VentCtrl1Inside 
 24 LINE.NUM ENDOF 
 25 LINE.NUM 8 OF 
-26 LINE.NUM ~ThermalCouple8 
+26 LINE.NUM ~ThermoCouple8 
 MoveToPointer PTR_VentCtrl1Inside 
 27 LINE.NUM ENDOF 
 28 LINE.NUM 9 OF 
-29 LINE.NUM ~ThermalCouple9 
+29 LINE.NUM ~ThermoCouple9 
 MoveToPointer PTR_VentCtrl1Inside 
 30 LINE.NUM ENDOF 
 31 LINE.NUM 10 OF 
-32 LINE.NUM ~ThermalCouple10 
+32 LINE.NUM ~ThermoCouple10 
 MoveToPointer PTR_VentCtrl1Inside 
 33 LINE.NUM ENDOF 
 34 LINE.NUM 11 OF 
-35 LINE.NUM ~ThermalCouple11 
+35 LINE.NUM ~ThermoCouple11 
 MoveToPointer PTR_VentCtrl1Inside 
 36 LINE.NUM ENDOF 
 37 LINE.NUM 12 OF 
-38 LINE.NUM ~ThermalCouple12 
+38 LINE.NUM ~ThermoCouple12 
 MoveToPointer PTR_VentCtrl1Inside 
 39 LINE.NUM ENDOF 
 40 LINE.NUM 13 OF 
-41 LINE.NUM ~ThermalCouple13 
+41 LINE.NUM ~ThermoCouple13 
 MoveToPointer PTR_VentCtrl1Inside 
 42 LINE.NUM ENDOF 
 43 LINE.NUM 14 OF 
-44 LINE.NUM ~ThermalCouple14 
+44 LINE.NUM ~ThermoCouple14 
 MoveToPointer PTR_VentCtrl1Inside 
 45 LINE.NUM ENDOF 
 46 LINE.NUM 15 OF 
-47 LINE.NUM ~ThermalCouple15 
+47 LINE.NUM ~ThermoCouple15 
 MoveToPointer PTR_VentCtrl1Inside 
 48 LINE.NUM ENDOF 
 49 LINE.NUM 16 OF 
-50 LINE.NUM ~ThermalCouple16 
+50 LINE.NUM ~ThermoCouple16 
 MoveToPointer PTR_VentCtrl1Inside 
 51 LINE.NUM ENDOF 
 52 LINE.NUM 17 OF 
-53 LINE.NUM ~ThermalCouple17 
+53 LINE.NUM ~ThermoCouple17 
 MoveToPointer PTR_VentCtrl1Inside 
 54 LINE.NUM ENDOF 
 55 LINE.NUM 18 OF 
-56 LINE.NUM ~ThermalCouple18 
+56 LINE.NUM ~ThermoCouple18 
 MoveToPointer PTR_VentCtrl1Inside 
 57 LINE.NUM ENDOF 
 58 LINE.NUM 19 OF 
-59 LINE.NUM ~ThermalCouple19 
+59 LINE.NUM ~ThermoCouple19 
 MoveToPointer PTR_VentCtrl1Inside 
 60 LINE.NUM ENDOF 
 61 LINE.NUM ENDCASE 
@@ -91,79 +91,79 @@ MoveToPointer PTR_VentCtrl1Inside
 1 LINE.NUM %ScratchPad 602 ^VentCtrl1OutsideType  IO.SP.READ DROP  
 3 LINE.NUM ^VentCtrl1OutsideType @@ CASE 
 4 LINE.NUM 1 OF 
-5 LINE.NUM ~ThermalCouple0 
+5 LINE.NUM ~ThermoCouple0 
 MoveToPointer PTR_VentCtrl1Outside 
 6 LINE.NUM ENDOF 
 7 LINE.NUM 2 OF 
-8 LINE.NUM ~ThermalCouple1 
+8 LINE.NUM ~ThermoCouple1 
 MoveToPointer PTR_VentCtrl1Outside 
 9 LINE.NUM ENDOF 
 10 LINE.NUM 3 OF 
-11 LINE.NUM ~ThermalCouple3 
+11 LINE.NUM ~ThermoCouple3 
 MoveToPointer PTR_VentCtrl1Outside 
 12 LINE.NUM ENDOF 
 13 LINE.NUM 4 OF 
-14 LINE.NUM ~ThermalCouple4 
+14 LINE.NUM ~ThermoCouple4 
 MoveToPointer PTR_VentCtrl1Outside 
 15 LINE.NUM ENDOF 
 16 LINE.NUM 5 OF 
-17 LINE.NUM ~ThermalCouple5 
+17 LINE.NUM ~ThermoCouple5 
 MoveToPointer PTR_VentCtrl1Outside 
 18 LINE.NUM ENDOF 
 19 LINE.NUM 6 OF 
-20 LINE.NUM ~ThermalCouple6 
+20 LINE.NUM ~ThermoCouple6 
 MoveToPointer PTR_VentCtrl1Outside 
 21 LINE.NUM ENDOF 
 22 LINE.NUM 7 OF 
-23 LINE.NUM ~ThermalCouple7 
+23 LINE.NUM ~ThermoCouple7 
 MoveToPointer PTR_VentCtrl1Outside 
 24 LINE.NUM ENDOF 
 25 LINE.NUM 8 OF 
-26 LINE.NUM ~ThermalCouple8 
+26 LINE.NUM ~ThermoCouple8 
 MoveToPointer PTR_VentCtrl1Outside 
 27 LINE.NUM ENDOF 
 28 LINE.NUM 9 OF 
-29 LINE.NUM ~ThermalCouple9 
+29 LINE.NUM ~ThermoCouple9 
 MoveToPointer PTR_VentCtrl1Outside 
 30 LINE.NUM ENDOF 
 31 LINE.NUM 10 OF 
-32 LINE.NUM ~ThermalCouple10 
+32 LINE.NUM ~ThermoCouple10 
 MoveToPointer PTR_VentCtrl1Outside 
 33 LINE.NUM ENDOF 
 34 LINE.NUM 11 OF 
-35 LINE.NUM ~ThermalCouple11 
+35 LINE.NUM ~ThermoCouple11 
 MoveToPointer PTR_VentCtrl1Outside 
 36 LINE.NUM ENDOF 
 37 LINE.NUM 12 OF 
-38 LINE.NUM ~ThermalCouple12 
+38 LINE.NUM ~ThermoCouple12 
 MoveToPointer PTR_VentCtrl1Outside 
 39 LINE.NUM ENDOF 
 40 LINE.NUM 13 OF 
-41 LINE.NUM ~ThermalCouple13 
+41 LINE.NUM ~ThermoCouple13 
 MoveToPointer PTR_VentCtrl1Outside 
 42 LINE.NUM ENDOF 
 43 LINE.NUM 14 OF 
-44 LINE.NUM ~ThermalCouple14 
+44 LINE.NUM ~ThermoCouple14 
 MoveToPointer PTR_VentCtrl1Outside 
 45 LINE.NUM ENDOF 
 46 LINE.NUM 15 OF 
-47 LINE.NUM ~ThermalCouple15 
+47 LINE.NUM ~ThermoCouple15 
 MoveToPointer PTR_VentCtrl1Outside 
 48 LINE.NUM ENDOF 
 49 LINE.NUM 16 OF 
-50 LINE.NUM ~ThermalCouple16 
+50 LINE.NUM ~ThermoCouple16 
 MoveToPointer PTR_VentCtrl1Outside 
 51 LINE.NUM ENDOF 
 52 LINE.NUM 17 OF 
-53 LINE.NUM ~ThermalCouple17 
+53 LINE.NUM ~ThermoCouple17 
 MoveToPointer PTR_VentCtrl1Outside 
 54 LINE.NUM ENDOF 
 55 LINE.NUM 18 OF 
-56 LINE.NUM ~ThermalCouple18 
+56 LINE.NUM ~ThermoCouple18 
 MoveToPointer PTR_VentCtrl1Outside 
 57 LINE.NUM ENDOF 
 58 LINE.NUM 19 OF 
-59 LINE.NUM ~ThermalCouple19 
+59 LINE.NUM ~ThermoCouple19 
 MoveToPointer PTR_VentCtrl1Outside 
 60 LINE.NUM ENDOF 
 61 LINE.NUM ENDCASE 
@@ -213,9 +213,11 @@ MoveToPointer PTR_VentCtrl1Output
 7 LINE.NUM ELSE 
 8 LINE.NUM PTR_VentCtrl1Inside @@ ^VentCtrl1Setpoint @@ F- PTR_VentCtrl1Inside @@ PTR_VentCtrl1Outside @@ F- F/ ^VentCtrl1Gain @@ F* PTR_VentCtrl1Output @! 
 9 LINE.NUM THEN 
-11 LINE.NUM %ScratchPad 606 PTR_VentCtrl1Inside @@  IO.SP.F.WRITE DROP  
-12 LINE.NUM %ScratchPad 607 PTR_VentCtrl1Outside @@  IO.SP.F.WRITE DROP  
-13 LINE.NUM %ScratchPad 608 PTR_VentCtrl1Output @@  IO.SP.F.WRITE DROP  
+11 LINE.NUM PTR_VentCtrl1Output @@ ^VentCtrl1OutputOld F@! 
+13 LINE.NUM ^VentCtrl1OutputOld @@ D>F 9.000000e-001 F* PTR_VentCtrl1Output @@ 1.000000e-001 F* F+ ^VentCtrl1Weighted @! 
+15 LINE.NUM %ScratchPad 606 PTR_VentCtrl1Inside @@  IO.SP.F.WRITE DROP  
+16 LINE.NUM %ScratchPad 607 PTR_VentCtrl1Outside @@  IO.SP.F.WRITE DROP  
+17 LINE.NUM %ScratchPad 608 ^VentCtrl1Weighted @@  IO.SP.F.WRITE DROP  
 1 JUMP ;
 : 3_8
 -6 JUMP ;

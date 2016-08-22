@@ -44,6 +44,21 @@ namespace EngineCell.Application.Views.StripChart
         {
             ChartViewModel.IsPlay = false;
         }
+
+        /*
+            TimeStamp = new List<double>() { dateAxis.ConvertToDouble(DateTime.Now.AddSeconds(1)) };
+            Values = new List<double>() { (new Random()).Next(-5, 50)};
+
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    var src = DataSource.Create(TimeStamp, Values);
+                    var graph = StripChart.AddLineChart(src).WithStroke(Brushes.Blue).WithStrokeThickness(2);
+                    Thread.Sleep(1000);
+                }
+            });
+        */
     }
 }
 

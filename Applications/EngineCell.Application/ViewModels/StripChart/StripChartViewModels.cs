@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using EngineCell.Application.Factories;
+using EngineCell.Core.Extensions;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -54,8 +55,8 @@ namespace EngineCell.Application.ViewModels.StripChart
                 MajorGridlineStyle = LineStyle.Solid,
                 MinorGridlineStyle = LineStyle.Dot,
                 Title = "Output",
-                Minimum = -2,
-                Maximum = 2,
+                //Minimum = -2,
+                //Maximum = 2,
             };
             PlotModel.Axes.Add(dateAxis);
             PlotModel.Axes.Add(valueAxis);
@@ -66,11 +67,8 @@ namespace EngineCell.Application.ViewModels.StripChart
             try
             {
                 PlotModel.Series.Clear();
-                foreach (var point in ApplicationSessionFactory.CellPoints)
+                foreach (var point in ApplicationSessionFactory.CellPoints.Where(cp => cp != null && cp.IncludeInStripChart && cp.DataPoints.Any()))
                 {
-                    if (point == null || !point.IncludeInStripChart || !point.DataPoints.Any())
-                        continue;
-
                     var newSeries = new LineSeries
                     {
                         Title = point.CustomName,
@@ -79,6 +77,7 @@ namespace EngineCell.Application.ViewModels.StripChart
                     newSeries.Points.AddRange(point.DataPoints);
                     PlotModel.Series.Add(newSeries);
                 }
+                
                 PlotModel.InvalidatePlot(true);
             }
             catch (Exception ex)
@@ -95,17 +94,11 @@ namespace EngineCell.Application.ViewModels.StripChart
                 return;
             }
 
-            foreach (var point in ApplicationSessionFactory.CellPoints)
+            foreach (var point in ApplicationSessionFactory.CellPoints.Where(cp => cp != null && cp.IncludeInStripChart && cp.DataPoints.Any()))
             {
-                if (point == null || !point.IncludeInStripChart || !point.DataPoints.Any())
-                    continue;
-
                 var series = (LineSeries)PlotModel.Series.FirstOrDefault(s => s.Title == point.CustomName);
-                if (series == null)
-                    continue;
 
-                series.IsVisible = point.IncludeInStripChart;
-                series.Points.AddRange(point.DataPoints.Except(series.Points));
+                series?.Points.AddRange(point.DataPoints.Except(series.Points));
             }
             PlotModel.InvalidatePlot(true);
         }

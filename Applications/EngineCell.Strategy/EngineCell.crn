@@ -22,10 +22,12 @@ _END NEW $$$.RUN
 0 IVAR ^SetScratchPadResult
 0 FVAR ^VentCtrl1Gain
 0 IVAR ^VentCtrl1InsideType
+0 2IVAR ^VentCtrl1OutputOld
 0 IVAR ^VentCtrl1OutputType
 0 IVAR ^VentCtrl1OutsideType
 0 FVAR ^VentCtrl1Setpoint
 0 IVAR ^VentCtrl1Status
+0 FVAR ^VentCtrl1Weighted
 32 0 $VAR *StrategyRunTime 
 nullPID 0 POINTER PTR_PidConfigSelection
 nullAPointInput 0 POINTER PTR_VentCtrl1Inside
@@ -33,26 +35,26 @@ nullAPointOutput 0 POINTER PTR_VentCtrl1Output
 nullAPointInput 0 POINTER PTR_VentCtrl1Outside
 
 nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A801CA 0 11 BOARD.MMP %EngineCell
- 4  1 APOINT -270.0000 8  0  0 %EngineCell 0 POINT.TNG ~ThermalCouple0
- 4  1 APOINT -270.0000 8  1  0 %EngineCell 0 POINT.TNG ~ThermalCouple1
- 4  1 APOINT -150.0000 66  2  0 %EngineCell 0 POINT.TNG ~ThermalCouple2
- 4  1 APOINT -150.0000 66  3  0 %EngineCell 0 POINT.TNG ~ThermalCouple3
- 4  1 APOINT -150.0000 66  0  1 %EngineCell 0 POINT.TNG ~ThermalCouple4
- 4  1 APOINT -150.0000 66  1  1 %EngineCell 0 POINT.TNG ~ThermalCouple5
- 4  1 APOINT -150.0000 66  2  1 %EngineCell 0 POINT.TNG ~ThermalCouple6
- 4  1 APOINT -150.0000 66  3  1 %EngineCell 0 POINT.TNG ~ThermalCouple7
- 4  1 APOINT -150.0000 66  0  2 %EngineCell 0 POINT.TNG ~ThermalCouple8
- 4  1 APOINT -150.0000 66  1  2 %EngineCell 0 POINT.TNG ~ThermalCouple9
- 4  1 APOINT -150.0000 66  2  2 %EngineCell 0 POINT.TNG ~ThermalCouple10
- 4  1 APOINT -150.0000 66  3  2 %EngineCell 0 POINT.TNG ~ThermalCouple11
- 4  1 APOINT -150.0000 66  0  3 %EngineCell 0 POINT.TNG ~ThermalCouple12
- 4  1 APOINT -270.0000 8  1  3 %EngineCell 0 POINT.TNG ~ThermalCouple13
- 4  1 APOINT -270.0000 8  2  3 %EngineCell 0 POINT.TNG ~ThermalCouple14
- 4  1 APOINT -270.0000 8  3  3 %EngineCell 0 POINT.TNG ~ThermalCouple15
- 4  1 APOINT -270.0000 8  0  4 %EngineCell 0 POINT.TNG ~ThermalCouple16
- 4  1 APOINT -270.0000 8  1  4 %EngineCell 0 POINT.TNG ~ThermalCouple17
- 4  1 APOINT -270.0000 8  2  4 %EngineCell 0 POINT.TNG ~ThermalCouple18
- 4  1 APOINT -270.0000 8  3  4 %EngineCell 0 POINT.TNG ~ThermalCouple19
+ 4  1 APOINT -270.0000 8  0  0 %EngineCell 0 POINT.TNG ~ThermoCouple0
+ 4  1 APOINT -270.0000 8  1  0 %EngineCell 0 POINT.TNG ~ThermoCouple1
+ 4  1 APOINT -270.0000 8  2  0 %EngineCell 0 POINT.TNG ~ThermoCouple2
+ 4  1 APOINT -270.0000 8  3  0 %EngineCell 0 POINT.TNG ~ThermoCouple3
+ 4  1 APOINT -270.0000 8  0  1 %EngineCell 0 POINT.TNG ~ThermoCouple4
+ 4  1 APOINT -210.0000 5  1  1 %EngineCell 0 POINT.TNG ~ThermoCouple5
+ 4  1 APOINT -270.0000 8  2  1 %EngineCell 0 POINT.TNG ~ThermoCouple6
+ 4  1 APOINT -270.0000 8  3  1 %EngineCell 0 POINT.TNG ~ThermoCouple7
+ 4  1 APOINT -270.0000 8  0  2 %EngineCell 0 POINT.TNG ~ThermoCouple8
+ 4  1 APOINT -270.0000 8  1  2 %EngineCell 0 POINT.TNG ~ThermoCouple9
+ 4  1 APOINT -270.0000 8  2  2 %EngineCell 0 POINT.TNG ~ThermoCouple10
+ 4  1 APOINT -270.0000 8  3  2 %EngineCell 0 POINT.TNG ~ThermoCouple11
+ 4  1 APOINT -270.0000 8  0  3 %EngineCell 0 POINT.TNG ~ThermoCouple12
+ 4  1 APOINT -270.0000 8  1  3 %EngineCell 0 POINT.TNG ~ThermoCouple13
+ 4  1 APOINT -270.0000 8  2  3 %EngineCell 0 POINT.TNG ~ThermoCouple14
+ 4  1 APOINT -270.0000 8  3  3 %EngineCell 0 POINT.TNG ~ThermoCouple15
+ 4  1 APOINT -270.0000 8  0  4 %EngineCell 0 POINT.TNG ~ThermoCouple16
+ 4  1 APOINT -270.0000 8  1  4 %EngineCell 0 POINT.TNG ~ThermoCouple17
+ 4  1 APOINT -270.0000 8  2  4 %EngineCell 0 POINT.TNG ~ThermoCouple18
+ 4  1 APOINT -270.0000 8  3  4 %EngineCell 0 POINT.TNG ~ThermoCouple19
  2  1 APOINT  -10.0000 12  0  5 %EngineCell 0 POINT.TNG ~Volt0
  2  1 APOINT  -10.0000 12  1  5 %EngineCell 0 POINT.TNG ~Volt1
  2  1 APOINT  -10.0000 12  0  6 %EngineCell 0 POINT.TNG ~Volt2
@@ -146,7 +148,7 @@ $80000000 7 %EngineCell 0 PID |Custom3
 $80000000 8 %EngineCell 0 PID |Custom4
 3    0.0000    0.0000    0.0000    0.0000    4.0000   20.0000    1.0000   10.0000
    1.0000   13.0000   12.0000    8.0000    9.0000   11.0000
-   3.0000 ~ThermalCouple19 ~AO4_20_0
+   3.0000 ~ThermoCouple19 ~AO4_20_0
 $90000000 0 %EngineCell 0 PID |Dyno
 3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
    1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
@@ -173,26 +175,26 @@ $80000000 1 %EngineCell 0 PID |Throttle
 : 1_3
 -2 JUMP ;
 : 1_9
-1 LINE.NUM %ScratchPad 1000 ~ThermalCouple0 @@  IO.SP.F.WRITE DROP  
-2 LINE.NUM %ScratchPad 1001 ~ThermalCouple1 @@  IO.SP.F.WRITE DROP  
-3 LINE.NUM %ScratchPad 1002 ~ThermalCouple2 @@  IO.SP.F.WRITE DROP  
-4 LINE.NUM %ScratchPad 1003 ~ThermalCouple3 @@  IO.SP.F.WRITE DROP  
-5 LINE.NUM %ScratchPad 1004 ~ThermalCouple4 @@  IO.SP.F.WRITE DROP  
-6 LINE.NUM %ScratchPad 1005 ~ThermalCouple5 @@  IO.SP.F.WRITE DROP  
-7 LINE.NUM %ScratchPad 1006 ~ThermalCouple6 @@  IO.SP.F.WRITE DROP  
-8 LINE.NUM %ScratchPad 1007 ~ThermalCouple7 @@  IO.SP.F.WRITE DROP  
-9 LINE.NUM %ScratchPad 1008 ~ThermalCouple8 @@  IO.SP.F.WRITE DROP  
-10 LINE.NUM %ScratchPad 1009 ~ThermalCouple9 @@  IO.SP.F.WRITE DROP  
-11 LINE.NUM %ScratchPad 1010 ~ThermalCouple10 @@  IO.SP.F.WRITE DROP  
-12 LINE.NUM %ScratchPad 1011 ~ThermalCouple11 @@  IO.SP.F.WRITE DROP  
-13 LINE.NUM %ScratchPad 1012 ~ThermalCouple12 @@  IO.SP.F.WRITE DROP  
-14 LINE.NUM %ScratchPad 1013 ~ThermalCouple13 @@  IO.SP.F.WRITE DROP  
-15 LINE.NUM %ScratchPad 1014 ~ThermalCouple14 @@  IO.SP.F.WRITE DROP  
-16 LINE.NUM %ScratchPad 1015 ~ThermalCouple15 @@  IO.SP.F.WRITE DROP  
-17 LINE.NUM %ScratchPad 1016 ~ThermalCouple16 @@  IO.SP.F.WRITE DROP  
-18 LINE.NUM %ScratchPad 1017 ~ThermalCouple17 @@  IO.SP.F.WRITE DROP  
-19 LINE.NUM %ScratchPad 1018 ~ThermalCouple18 @@  IO.SP.F.WRITE DROP  
-20 LINE.NUM %ScratchPad 1019 ~ThermalCouple19 @@  IO.SP.F.WRITE DROP  
+1 LINE.NUM %ScratchPad 1000 ~ThermoCouple0 @@  IO.SP.F.WRITE DROP  
+2 LINE.NUM %ScratchPad 1001 ~ThermoCouple1 @@  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad 1002 ~ThermoCouple2 @@  IO.SP.F.WRITE DROP  
+4 LINE.NUM %ScratchPad 1003 ~ThermoCouple3 @@  IO.SP.F.WRITE DROP  
+5 LINE.NUM %ScratchPad 1004 ~ThermoCouple4 @@  IO.SP.F.WRITE DROP  
+6 LINE.NUM %ScratchPad 1005 ~ThermoCouple5 @@  IO.SP.F.WRITE DROP  
+7 LINE.NUM %ScratchPad 1006 ~ThermoCouple6 @@  IO.SP.F.WRITE DROP  
+8 LINE.NUM %ScratchPad 1007 ~ThermoCouple7 @@  IO.SP.F.WRITE DROP  
+9 LINE.NUM %ScratchPad 1008 ~ThermoCouple8 @@  IO.SP.F.WRITE DROP  
+10 LINE.NUM %ScratchPad 1009 ~ThermoCouple9 @@  IO.SP.F.WRITE DROP  
+11 LINE.NUM %ScratchPad 1010 ~ThermoCouple10 @@  IO.SP.F.WRITE DROP  
+12 LINE.NUM %ScratchPad 1011 ~ThermoCouple11 @@  IO.SP.F.WRITE DROP  
+13 LINE.NUM %ScratchPad 1012 ~ThermoCouple12 @@  IO.SP.F.WRITE DROP  
+14 LINE.NUM %ScratchPad 1013 ~ThermoCouple13 @@  IO.SP.F.WRITE DROP  
+15 LINE.NUM %ScratchPad 1014 ~ThermoCouple14 @@  IO.SP.F.WRITE DROP  
+16 LINE.NUM %ScratchPad 1015 ~ThermoCouple15 @@  IO.SP.F.WRITE DROP  
+17 LINE.NUM %ScratchPad 1016 ~ThermoCouple16 @@  IO.SP.F.WRITE DROP  
+18 LINE.NUM %ScratchPad 1017 ~ThermoCouple17 @@  IO.SP.F.WRITE DROP  
+19 LINE.NUM %ScratchPad 1018 ~ThermoCouple18 @@  IO.SP.F.WRITE DROP  
+20 LINE.NUM %ScratchPad 1019 ~ThermoCouple19 @@  IO.SP.F.WRITE DROP  
 22 LINE.NUM %ScratchPad 1020 ~Volt0 @@  IO.SP.F.WRITE DROP  
 23 LINE.NUM %ScratchPad 1021 ~Volt1 @@  IO.SP.F.WRITE DROP  
 24 LINE.NUM %ScratchPad 1022 ~Volt2 @@  IO.SP.F.WRITE DROP  
@@ -458,7 +460,7 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-9 JUMP ;
+11 JUMP ;
 : 0_4
 -2 JUMP ;
 : 0_5
@@ -482,7 +484,7 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-7 JUMP ;
+9 JUMP ;
 : 0_18
 
 1 LINE.NUM
@@ -515,7 +517,7 @@ T;
   11  
   ^IsTestRunning   IO.SP.READ
   ^GetScratchPadResult @! 
-4 JUMP ;
+6 JUMP ;
 : 0_29
 -2 JUMP ;
 : 0_38
@@ -528,6 +530,13 @@ T;
   &PidConfig   START.T
   ^GetScratchPadResult @! 
 -10 JUMP ;
+: 0_45
+-8 JUMP ;
+: 0_47
+
+1 LINE.NUM
+  &DataCollection   STOP.T
+-2 JUMP ;
 : 0_2
 TRUE
 
@@ -535,7 +544,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -8 ELSE -9 THEN JUMP ;
+IF -10 ELSE -11 THEN JUMP ;
 : 0_16
 TRUE
 
@@ -543,7 +552,7 @@ TRUE
   ^IsStartTest @@ 
   1    =
 LAND
-IF -6 ELSE -8 THEN JUMP ;
+IF -8 ELSE -10 THEN JUMP ;
 : 0_27
 TRUE
 
@@ -551,7 +560,7 @@ TRUE
   ^IsTestRunning @@ 
   1    =
 LAND
-IF -5 ELSE -5 THEN JUMP ;
+IF -7 ELSE -4 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -566,6 +575,8 @@ DUMMY
 0_25
 0_29
 0_38
+0_45
+0_47
 0_2
 0_16
 0_27
@@ -583,79 +594,79 @@ T;
 1 LINE.NUM %ScratchPad 601 ^VentCtrl1InsideType  IO.SP.READ DROP  
 3 LINE.NUM ^VentCtrl1InsideType @@ CASE 
 4 LINE.NUM 1 OF 
-5 LINE.NUM ~ThermalCouple0 
+5 LINE.NUM ~ThermoCouple0 
 MoveToPointer PTR_VentCtrl1Inside 
 6 LINE.NUM ENDOF 
 7 LINE.NUM 2 OF 
-8 LINE.NUM ~ThermalCouple1 
+8 LINE.NUM ~ThermoCouple1 
 MoveToPointer PTR_VentCtrl1Inside 
 9 LINE.NUM ENDOF 
 10 LINE.NUM 3 OF 
-11 LINE.NUM ~ThermalCouple3 
+11 LINE.NUM ~ThermoCouple3 
 MoveToPointer PTR_VentCtrl1Inside 
 12 LINE.NUM ENDOF 
 13 LINE.NUM 4 OF 
-14 LINE.NUM ~ThermalCouple4 
+14 LINE.NUM ~ThermoCouple4 
 MoveToPointer PTR_VentCtrl1Inside 
 15 LINE.NUM ENDOF 
 16 LINE.NUM 5 OF 
-17 LINE.NUM ~ThermalCouple5 
+17 LINE.NUM ~ThermoCouple5 
 MoveToPointer PTR_VentCtrl1Inside 
 18 LINE.NUM ENDOF 
 19 LINE.NUM 6 OF 
-20 LINE.NUM ~ThermalCouple6 
+20 LINE.NUM ~ThermoCouple6 
 MoveToPointer PTR_VentCtrl1Inside 
 21 LINE.NUM ENDOF 
 22 LINE.NUM 7 OF 
-23 LINE.NUM ~ThermalCouple7 
+23 LINE.NUM ~ThermoCouple7 
 MoveToPointer PTR_VentCtrl1Inside 
 24 LINE.NUM ENDOF 
 25 LINE.NUM 8 OF 
-26 LINE.NUM ~ThermalCouple8 
+26 LINE.NUM ~ThermoCouple8 
 MoveToPointer PTR_VentCtrl1Inside 
 27 LINE.NUM ENDOF 
 28 LINE.NUM 9 OF 
-29 LINE.NUM ~ThermalCouple9 
+29 LINE.NUM ~ThermoCouple9 
 MoveToPointer PTR_VentCtrl1Inside 
 30 LINE.NUM ENDOF 
 31 LINE.NUM 10 OF 
-32 LINE.NUM ~ThermalCouple10 
+32 LINE.NUM ~ThermoCouple10 
 MoveToPointer PTR_VentCtrl1Inside 
 33 LINE.NUM ENDOF 
 34 LINE.NUM 11 OF 
-35 LINE.NUM ~ThermalCouple11 
+35 LINE.NUM ~ThermoCouple11 
 MoveToPointer PTR_VentCtrl1Inside 
 36 LINE.NUM ENDOF 
 37 LINE.NUM 12 OF 
-38 LINE.NUM ~ThermalCouple12 
+38 LINE.NUM ~ThermoCouple12 
 MoveToPointer PTR_VentCtrl1Inside 
 39 LINE.NUM ENDOF 
 40 LINE.NUM 13 OF 
-41 LINE.NUM ~ThermalCouple13 
+41 LINE.NUM ~ThermoCouple13 
 MoveToPointer PTR_VentCtrl1Inside 
 42 LINE.NUM ENDOF 
 43 LINE.NUM 14 OF 
-44 LINE.NUM ~ThermalCouple14 
+44 LINE.NUM ~ThermoCouple14 
 MoveToPointer PTR_VentCtrl1Inside 
 45 LINE.NUM ENDOF 
 46 LINE.NUM 15 OF 
-47 LINE.NUM ~ThermalCouple15 
+47 LINE.NUM ~ThermoCouple15 
 MoveToPointer PTR_VentCtrl1Inside 
 48 LINE.NUM ENDOF 
 49 LINE.NUM 16 OF 
-50 LINE.NUM ~ThermalCouple16 
+50 LINE.NUM ~ThermoCouple16 
 MoveToPointer PTR_VentCtrl1Inside 
 51 LINE.NUM ENDOF 
 52 LINE.NUM 17 OF 
-53 LINE.NUM ~ThermalCouple17 
+53 LINE.NUM ~ThermoCouple17 
 MoveToPointer PTR_VentCtrl1Inside 
 54 LINE.NUM ENDOF 
 55 LINE.NUM 18 OF 
-56 LINE.NUM ~ThermalCouple18 
+56 LINE.NUM ~ThermoCouple18 
 MoveToPointer PTR_VentCtrl1Inside 
 57 LINE.NUM ENDOF 
 58 LINE.NUM 19 OF 
-59 LINE.NUM ~ThermalCouple19 
+59 LINE.NUM ~ThermoCouple19 
 MoveToPointer PTR_VentCtrl1Inside 
 60 LINE.NUM ENDOF 
 61 LINE.NUM ENDCASE 
@@ -664,79 +675,79 @@ MoveToPointer PTR_VentCtrl1Inside
 1 LINE.NUM %ScratchPad 602 ^VentCtrl1OutsideType  IO.SP.READ DROP  
 3 LINE.NUM ^VentCtrl1OutsideType @@ CASE 
 4 LINE.NUM 1 OF 
-5 LINE.NUM ~ThermalCouple0 
+5 LINE.NUM ~ThermoCouple0 
 MoveToPointer PTR_VentCtrl1Outside 
 6 LINE.NUM ENDOF 
 7 LINE.NUM 2 OF 
-8 LINE.NUM ~ThermalCouple1 
+8 LINE.NUM ~ThermoCouple1 
 MoveToPointer PTR_VentCtrl1Outside 
 9 LINE.NUM ENDOF 
 10 LINE.NUM 3 OF 
-11 LINE.NUM ~ThermalCouple3 
+11 LINE.NUM ~ThermoCouple3 
 MoveToPointer PTR_VentCtrl1Outside 
 12 LINE.NUM ENDOF 
 13 LINE.NUM 4 OF 
-14 LINE.NUM ~ThermalCouple4 
+14 LINE.NUM ~ThermoCouple4 
 MoveToPointer PTR_VentCtrl1Outside 
 15 LINE.NUM ENDOF 
 16 LINE.NUM 5 OF 
-17 LINE.NUM ~ThermalCouple5 
+17 LINE.NUM ~ThermoCouple5 
 MoveToPointer PTR_VentCtrl1Outside 
 18 LINE.NUM ENDOF 
 19 LINE.NUM 6 OF 
-20 LINE.NUM ~ThermalCouple6 
+20 LINE.NUM ~ThermoCouple6 
 MoveToPointer PTR_VentCtrl1Outside 
 21 LINE.NUM ENDOF 
 22 LINE.NUM 7 OF 
-23 LINE.NUM ~ThermalCouple7 
+23 LINE.NUM ~ThermoCouple7 
 MoveToPointer PTR_VentCtrl1Outside 
 24 LINE.NUM ENDOF 
 25 LINE.NUM 8 OF 
-26 LINE.NUM ~ThermalCouple8 
+26 LINE.NUM ~ThermoCouple8 
 MoveToPointer PTR_VentCtrl1Outside 
 27 LINE.NUM ENDOF 
 28 LINE.NUM 9 OF 
-29 LINE.NUM ~ThermalCouple9 
+29 LINE.NUM ~ThermoCouple9 
 MoveToPointer PTR_VentCtrl1Outside 
 30 LINE.NUM ENDOF 
 31 LINE.NUM 10 OF 
-32 LINE.NUM ~ThermalCouple10 
+32 LINE.NUM ~ThermoCouple10 
 MoveToPointer PTR_VentCtrl1Outside 
 33 LINE.NUM ENDOF 
 34 LINE.NUM 11 OF 
-35 LINE.NUM ~ThermalCouple11 
+35 LINE.NUM ~ThermoCouple11 
 MoveToPointer PTR_VentCtrl1Outside 
 36 LINE.NUM ENDOF 
 37 LINE.NUM 12 OF 
-38 LINE.NUM ~ThermalCouple12 
+38 LINE.NUM ~ThermoCouple12 
 MoveToPointer PTR_VentCtrl1Outside 
 39 LINE.NUM ENDOF 
 40 LINE.NUM 13 OF 
-41 LINE.NUM ~ThermalCouple13 
+41 LINE.NUM ~ThermoCouple13 
 MoveToPointer PTR_VentCtrl1Outside 
 42 LINE.NUM ENDOF 
 43 LINE.NUM 14 OF 
-44 LINE.NUM ~ThermalCouple14 
+44 LINE.NUM ~ThermoCouple14 
 MoveToPointer PTR_VentCtrl1Outside 
 45 LINE.NUM ENDOF 
 46 LINE.NUM 15 OF 
-47 LINE.NUM ~ThermalCouple15 
+47 LINE.NUM ~ThermoCouple15 
 MoveToPointer PTR_VentCtrl1Outside 
 48 LINE.NUM ENDOF 
 49 LINE.NUM 16 OF 
-50 LINE.NUM ~ThermalCouple16 
+50 LINE.NUM ~ThermoCouple16 
 MoveToPointer PTR_VentCtrl1Outside 
 51 LINE.NUM ENDOF 
 52 LINE.NUM 17 OF 
-53 LINE.NUM ~ThermalCouple17 
+53 LINE.NUM ~ThermoCouple17 
 MoveToPointer PTR_VentCtrl1Outside 
 54 LINE.NUM ENDOF 
 55 LINE.NUM 18 OF 
-56 LINE.NUM ~ThermalCouple18 
+56 LINE.NUM ~ThermoCouple18 
 MoveToPointer PTR_VentCtrl1Outside 
 57 LINE.NUM ENDOF 
 58 LINE.NUM 19 OF 
-59 LINE.NUM ~ThermalCouple19 
+59 LINE.NUM ~ThermoCouple19 
 MoveToPointer PTR_VentCtrl1Outside 
 60 LINE.NUM ENDOF 
 61 LINE.NUM ENDCASE 
@@ -786,9 +797,11 @@ MoveToPointer PTR_VentCtrl1Output
 7 LINE.NUM ELSE 
 8 LINE.NUM PTR_VentCtrl1Inside @@ ^VentCtrl1Setpoint @@ F- PTR_VentCtrl1Inside @@ PTR_VentCtrl1Outside @@ F- F/ ^VentCtrl1Gain @@ F* PTR_VentCtrl1Output @! 
 9 LINE.NUM THEN 
-11 LINE.NUM %ScratchPad 606 PTR_VentCtrl1Inside @@  IO.SP.F.WRITE DROP  
-12 LINE.NUM %ScratchPad 607 PTR_VentCtrl1Outside @@  IO.SP.F.WRITE DROP  
-13 LINE.NUM %ScratchPad 608 PTR_VentCtrl1Output @@  IO.SP.F.WRITE DROP  
+11 LINE.NUM PTR_VentCtrl1Output @@ ^VentCtrl1OutputOld F@! 
+13 LINE.NUM ^VentCtrl1OutputOld @@ D>F 9.000000e-001 F* PTR_VentCtrl1Output @@ 1.000000e-001 F* F+ ^VentCtrl1Weighted @! 
+15 LINE.NUM %ScratchPad 606 PTR_VentCtrl1Inside @@  IO.SP.F.WRITE DROP  
+16 LINE.NUM %ScratchPad 607 PTR_VentCtrl1Outside @@  IO.SP.F.WRITE DROP  
+17 LINE.NUM %ScratchPad 608 ^VentCtrl1Weighted @@  IO.SP.F.WRITE DROP  
 1 JUMP ;
 : 3_8
 -6 JUMP ;
@@ -834,10 +847,12 @@ CREATE V.ARRAY
 ^SetScratchPadResult ,
 ^VentCtrl1Gain ,
 ^VentCtrl1InsideType ,
+^VentCtrl1OutputOld ,
 ^VentCtrl1OutputType ,
 ^VentCtrl1OutsideType ,
 ^VentCtrl1Setpoint ,
 ^VentCtrl1Status ,
+^VentCtrl1Weighted ,
 *StrategyRunTime ,
 *_HSV_SEMA ,
 *_HSV_TEMP ,
@@ -923,26 +938,26 @@ CREATE P.ARRAY
 ~HART1 ,
 ~MilliAmp0 ,
 ~MilliAmp1 ,
-~ThermalCouple0 ,
-~ThermalCouple1 ,
-~ThermalCouple10 ,
-~ThermalCouple11 ,
-~ThermalCouple12 ,
-~ThermalCouple13 ,
-~ThermalCouple14 ,
-~ThermalCouple15 ,
-~ThermalCouple16 ,
-~ThermalCouple17 ,
-~ThermalCouple18 ,
-~ThermalCouple19 ,
-~ThermalCouple2 ,
-~ThermalCouple3 ,
-~ThermalCouple4 ,
-~ThermalCouple5 ,
-~ThermalCouple6 ,
-~ThermalCouple7 ,
-~ThermalCouple8 ,
-~ThermalCouple9 ,
+~ThermoCouple0 ,
+~ThermoCouple1 ,
+~ThermoCouple10 ,
+~ThermoCouple11 ,
+~ThermoCouple12 ,
+~ThermoCouple13 ,
+~ThermoCouple14 ,
+~ThermoCouple15 ,
+~ThermoCouple16 ,
+~ThermoCouple17 ,
+~ThermoCouple18 ,
+~ThermoCouple19 ,
+~ThermoCouple2 ,
+~ThermoCouple3 ,
+~ThermoCouple4 ,
+~ThermoCouple5 ,
+~ThermoCouple6 ,
+~ThermoCouple7 ,
+~ThermoCouple8 ,
+~ThermoCouple9 ,
 ~Volt0 ,
 ~Volt1 ,
 ~Volt2 ,
@@ -997,10 +1012,12 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^SetScratchPadResult @!
 0.00000000 ^VentCtrl1Gain @!
 0 ^VentCtrl1InsideType @!
+0.. ^VentCtrl1OutputOld @!
 0 ^VentCtrl1OutputType @!
 0 ^VentCtrl1OutsideType @!
 0.00000000 ^VentCtrl1Setpoint @!
 0 ^VentCtrl1Status @!
+0.00000000 ^VentCtrl1Weighted @!
 " "
  *StrategyRunTime $MOVE
 0 MoveToPointer PTR_PidConfigSelection
@@ -1018,8 +1035,8 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 08/03/16 " ;
-: TIMESTAMP ." 07:54:47 " ;
+: DATESTAMP ." 08/22/16 " ;
+: TIMESTAMP ." 14:32:13 " ;
 : CRCSTAMP  ." 00112233445566778899AABBCCDDEEFF " ;
 MAKECHECK
 CLEAR.BREAKS

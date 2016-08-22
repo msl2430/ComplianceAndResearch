@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using EngineCell.Application.ViewModels.StripChart;
@@ -62,8 +63,8 @@ namespace EngineCell.Application.Services.WorkerServices
                     if (!StripChartViewModel.IsPlay)
                         continue;
                         
-                    StripChartViewModel.CreateSeries();
-                    Thread.Sleep(50); //threshold for the series to update and the panning to be possible
+                    StripChartViewModel.UpdateSeries();
+                    //Thread.Sleep(50); //threshold for the series to update and the panning to be possible
                     ResetAndPanGraph(timePoint);
                 }
             }
@@ -80,11 +81,22 @@ namespace EngineCell.Application.Services.WorkerServices
 
         private void ResetAndPanGraph(DateTime timePoint)
         {
-            var axis = StripChartViewModel.PlotModel.Axes.First(a => a.Key == "Time");
+            try
+            {
+                var axis = StripChartViewModel.PlotModel.Axes.First(a => a.Key == "Time");
 
-            var screenPos = axis.Transform(DateTimeAxis.ToDouble(timePoint));
-            var point = new ScreenPoint(screenPos, 0);
-            axis.Pan(point, axis.ScreenMax);
+                var screenPos = axis.Transform(DateTimeAxis.ToDouble(timePoint));
+                var point = new ScreenPoint(screenPos, 0);
+                axis.Pan(point, axis.ScreenMax);
+                using (var file = new StreamWriter(@"D:\test.txt", true))
+                {
+                    file.WriteLine("{0} >> ScreenPos: {1} Point: {2} Max: {3}", DateTime.Now.ToShortTimeString(), screenPos, point, axis.ScreenMax);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

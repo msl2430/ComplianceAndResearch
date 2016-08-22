@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:EngineCell.Application.Views"
              xmlns:stripChart="clr-namespace:EngineCell.Application.Views.StripChart"
              xmlns:stripChartViewModel="clr-namespace:EngineCell.Application.ViewModels.StripChart"
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:pid="clr-namespace:EngineCell.Application.Views.Pid"
              xmlns:pidModel="clr-namespace:EngineCell.Application.ViewModels.Pid"
              xmlns:clocks="clr-namespace:EngineCell.Application.Views.Clocks"
              xmlns:extensions="clr-namespace:EngineCell.Application.Extensions"
              xmlns:widget="clr-namespace:EngineCell.Application.Views.Widget"
              xmlns:widgetModel="clr-namespace:EngineCell.Application.ViewModels.Widget"
+             xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0"
              mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="1020"
              Loaded="TestDisplay_OnLoaded">
     <UserControl.Resources>
