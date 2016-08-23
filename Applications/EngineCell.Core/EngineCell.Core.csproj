@@ -48,6 +48,7 @@
     <Compile Include="Constants\PointConstants.cs" />
     <Compile Include="Constants\ScratchPadConstants.cs" />
     <Compile Include="Constants\StatusConstants.cs" />
+    <Compile Include="Constants\WidgetConstants.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\DecimalExtensions.cs" />

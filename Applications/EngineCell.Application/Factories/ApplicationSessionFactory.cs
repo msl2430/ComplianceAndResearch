@@ -16,6 +16,7 @@ namespace EngineCell.Application.Factories
         IScratchPadFactory ScratchPadFactory { get; }
         StatusConstants.ConnectionStatus OptoConnectionStatus { get; set; }
 
+        int CurrentCellId { get; }
         CellTestModel CurrentCellTest { get; set; }
         IList<PointDataModel> CellPoints { get; set; }
 
@@ -35,6 +36,7 @@ namespace EngineCell.Application.Factories
             set { ApplicationSession.ApplicationViewModel.OptoConnectionStatus = value; }
         }
 
+        public int CurrentCellId => 1; //TODO: Change when we add more cells
         public CellTestModel CurrentCellTest { get; set; }
         public IList<PointDataModel> CellPoints { get; set; }
 

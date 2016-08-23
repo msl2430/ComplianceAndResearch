@@ -10,6 +10,12 @@ namespace EngineCell.Application.ViewModels.Widget
             set { _ventCtrl1 = value; OnPropertyChanged("VentCtrl1"); }
         }
 
+        private bool _isDirty { get; set; }
+        public bool IsDirty {
+            get { return _isDirty; }
+            set { _isDirty = value; OnPropertyChanged("IsDirty"); }
+        }
+
         public WidgetConfigViewModel(IApplicationSessionFactory appSession)
         {
             ApplicationSessionFactory = appSession;

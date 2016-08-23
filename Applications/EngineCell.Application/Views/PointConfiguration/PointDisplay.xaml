@@ -24,7 +24,7 @@
         <Grid Column="0">
           <StackPanel Orientation="Horizontal">
             <Label VerticalAlignment="Center" FontSize="14" Width="125" HorizontalContentAlignment="Center" Content="{Binding Path=PointName}"></Label>
-            <Button Name="ConfigPoint" Width="25" Height="15" Margin="3,0,0,0" Click="AlarmSettings">
+            <Button Name="ConfigPoint" Width="25" Height="15" Margin="3,0,0,0" Click="ConfigSettings">
                 <Rectangle Width="15" Height="15" Fill="{StaticResource DarkBlueBrush}">
                     <Rectangle.OpacityMask>
                         <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_list_gear}" />

@@ -1,4 +1,8 @@
-﻿using EngineCell.Core.Constants;
+﻿using System;
+using System.Collections.Generic;
+using EngineCell.Core.Constants;
+using EngineCell.Core.Extensions;
+using EngineCell.Models.Models;
 
 namespace EngineCell.Application.ViewModels.Widget
 {
@@ -48,6 +52,47 @@ namespace EngineCell.Application.ViewModels.Widget
             Outside = ThermoCouple.ThermoCouple2;
             Output = AnalogOutput.Ao10Bipolar;
             IsActive = false;
+        }
+
+        public void SetValues(IList<WidgetSettingValueModel> settings)
+        {
+            foreach (var setting in settings)
+            {
+                switch (setting.WidgetSettingId)
+                {
+                    case WidgetConstants.WidgetSetting.VentCtrl1Active:
+                        IsActive = setting.Value == "1";
+                        break;
+                    case WidgetConstants.WidgetSetting.VentCtrl1InsideThermoCouple:
+                        Inside = (ThermoCouple)Convert.ToInt32(setting.Value);
+                        break;
+                    case WidgetConstants.WidgetSetting.VentCtrl1OutsideThermoCouple:
+                        Outside = (ThermoCouple)Convert.ToInt32(setting.Value);
+                        break;
+                    case WidgetConstants.WidgetSetting.VentCtrl1AnalogOutput:
+                        Output = (AnalogOutput)Convert.ToInt32(setting.Value);
+                        break;
+                    case WidgetConstants.WidgetSetting.VentCtrl1Gain:
+                        Gain = Convert.ToInt32(setting.Value);
+                        break;
+                    case WidgetConstants.WidgetSetting.VentCtrl1SetPoint:
+                        SetPoint = Convert.ToInt32(setting.Value);
+                        break;
+                }
+            }
+        }
+
+        public IList<WidgetSettingValueModel> GetValues(int cellId)
+        {
+            return new List<WidgetSettingValueModel>
+            {
+                new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.VentilationControl1, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.VentCtrl1Active, Value = IsActive ? "1" : "0"},
+                new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.VentilationControl1, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.VentCtrl1InsideThermoCouple, Value = Inside.ToInt().ToString()},
+                new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.VentilationControl1, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.VentCtrl1OutsideThermoCouple, Value = Outside.ToInt().ToString()},
+                new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.VentilationControl1, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.VentCtrl1AnalogOutput, Value = Output.ToInt().ToString()},
+                new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.VentilationControl1, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.VentCtrl1Gain, Value = Gain.ToString()},
+                new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.VentilationControl1, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.VentCtrl1SetPoint, Value = SetPoint.ToString()},
+            };
         }
     }
 }

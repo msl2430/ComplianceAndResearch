@@ -64,7 +64,7 @@ namespace EngineCell.Application.Services.WorkerServices
                         continue;
                         
                     StripChartViewModel.UpdateSeries();
-                    //Thread.Sleep(50); //threshold for the series to update and the panning to be possible
+                    Thread.Sleep(150); //threshold for the series to update and the panning to be possible
                     ResetAndPanGraph(timePoint);
                 }
             }

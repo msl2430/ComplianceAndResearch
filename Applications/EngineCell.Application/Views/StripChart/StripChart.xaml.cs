@@ -43,22 +43,7 @@ namespace EngineCell.Application.Views.StripChart
         private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
             ChartViewModel.IsPlay = false;
-        }
-
-        /*
-            TimeStamp = new List<double>() { dateAxis.ConvertToDouble(DateTime.Now.AddSeconds(1)) };
-            Values = new List<double>() { (new Random()).Next(-5, 50)};
-
-            Task.Run(() =>
-            {
-                while (true)
-                {
-                    var src = DataSource.Create(TimeStamp, Values);
-                    var graph = StripChart.AddLineChart(src).WithStroke(Brushes.Blue).WithStrokeThickness(2);
-                    Thread.Sleep(1000);
-                }
-            });
-        */
+        }       
     }
 }
 

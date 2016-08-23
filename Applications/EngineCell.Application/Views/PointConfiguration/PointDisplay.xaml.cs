@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using EngineCell.Application.ViewModels.PointConfiguration;
-using EngineCell.Application.Views.AlarmConfiguration;
 
 namespace EngineCell.Application.Views.PointConfiguration
 {
@@ -26,22 +25,16 @@ namespace EngineCell.Application.Views.PointConfiguration
             IsDirty = true;
         }
 
-        private void UpdateCheckbox(object sender, RoutedEventArgs e)
-        {
-            if ((PointDataModel)DataContext != null && Point != null)
-                CellPointRepository.UpdateCellPoint(Point.ToCellPointModel());
-        }
-
         private void UpdateTextPoint(object sender, RoutedEventArgs e)
         {
             if ((PointDataModel) DataContext != null && Point != null && IsDirty)
                 CellPointRepository.UpdateCellPoint(Point.ToCellPointModel());
         }
 
-        private void AlarmSettings(object sender, RoutedEventArgs e)
+        private void ConfigSettings(object sender, RoutedEventArgs e)
         {
-            var alarmModal = new PointSettings(Point);
-            alarmModal.ShowDialog();
+            var configModal = new PointSettings(Point);
+            configModal.ShowDialog();
         }
     }
 }

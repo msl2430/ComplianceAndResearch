@@ -156,3 +156,65 @@ CREATE TABLE [dbo].[CellTestPointData](
 ) ON [PRIMARY]
 
 GO
+
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'Widget')
+DROP TABLE [dbo].[Widget]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Widget](
+	[WidgetId] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](256) NOT NULL,
+ CONSTRAINT [PK_Widget] PRIMARY KEY CLUSTERED 
+([WidgetId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'WidgetSetting')
+DROP TABLE [dbo].[WidgetSetting]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[WidgetSetting](
+	[WidgetSettingId] [int] IDENTITY(1,1) NOT NULL,
+	[WidgetId] [int] NOT NULL,
+	[Setting] [nvarchar](256) NOT NULL
+ CONSTRAINT [PK_WidgetSetting] PRIMARY KEY CLUSTERED 
+([WidgetSettingId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'WidgetSettingValue')
+DROP TABLE [dbo].[WidgetSettingValue]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[WidgetSettingValue](
+	[WidgetSettingValueId] [int] IDENTITY(1,1) NOT NULL,
+	[WidgetId] [int] NOT NULL,
+	[CellId] [int] NOT NULL,
+	[WidgetSettingId] [nvarchar](256) NOT NULL,
+	[Value] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_WidgetSettingValue] PRIMARY KEY CLUSTERED 
+([WidgetSettingValueId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+

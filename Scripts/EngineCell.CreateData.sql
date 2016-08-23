@@ -109,3 +109,27 @@ BEGIN
 	FROM Point p
 END
 
+
+IF NOT EXISTS (SELECT 1 FROM Widget WHERE WidgetId IN (1,2))
+BEGIN
+	INSERT INTO Widget (Name) VALUES
+	('Ventilation Control 1'),
+	('Ventilation Control 2')
+END
+
+IF NOT EXISTS (SELECT 1 FROM WidgetSetting WHERE WidgetId IN (1,2)) 
+BEGIN
+	INSERT INTO WidgetSetting (WidgetId, Setting) VALUES 
+	(1, 'Active'),
+	(1, 'Inside Thermo Couple'),
+	(1, 'Outside Thermo Couple'),
+	(1, 'Analog Output'),
+	(1, 'Gain'),
+	(1, 'Set Point'),
+	(2, 'Active'),
+	(2, 'Inside Thermo Couple'),
+	(2, 'Outside Thermo Couple'),
+	(2, 'Analog Output'),
+	(2, 'Gain'),
+	(2, 'Set Point')
+END

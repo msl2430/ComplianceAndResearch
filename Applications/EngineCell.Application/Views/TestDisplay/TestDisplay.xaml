@@ -54,8 +54,8 @@
                     <RowDefinition Height="130"/>
                     <RowDefinition Height="75"/>
                 </Grid.RowDefinitions>
-                <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">
-                  <ContentControl x:Name="VentControl1" Content="{Binding VentControl1Display}"></ContentControl>
+                <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5" Visibility="{Binding Path=VentControl1Display.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <ContentControl x:Name="VentControl1" Content="{Binding VentControl1Display}"></ContentControl>
                 </Border>
                 <!--<ContentControl x:Name="Coolant" Content="{Binding CoolantPid}" Grid.Row="0" Grid.Column="0"></ContentControl>
                 <ContentControl x:Name="Oil" Content="{Binding OilPid}" Grid.Row="0" Grid.Column="1"></ContentControl>

@@ -28,6 +28,9 @@ namespace EngineCell.Application.Views
     {
         private MainWindowViewModel MainWindowViewModel { get; set; }
 
+        private IWidgetRepository _widgetRepository { get; set; }
+        private IWidgetRepository WidgetRepository => _widgetRepository ?? (_widgetRepository = new WidgetRepository());
+
         public MainWindow()
         {
             InitializeComponent();
@@ -35,19 +38,21 @@ namespace EngineCell.Application.Views
             MainWindowViewModel = new MainWindowViewModel();
             ApplicationSessionFactory = new ApplicationSessionFactory()
             {
-                ApplicationViewModel = MainWindowViewModel,
-                CellPoints = (new CellPointRepository()).GetCellPointsByCellId(1) //TODO: Need to refactor this
-                                .ToList()
-                                .Select(p => new PointDataModel(p))
-                                .ToList(),
+                ApplicationViewModel = MainWindowViewModel,                
             };
+
+            ApplicationSessionFactory.CellPoints = (new CellPointRepository()).GetCellPointsByCellId(ApplicationSessionFactory.CurrentCellId) //TODO: Need to refactor this
+                .ToList()
+                .Select(p => new PointDataModel(p))
+                .ToList();
             
             MainWindowViewModel.PointConfigViewModel = new PointConfigurationViewModel(ApplicationSessionFactory);
             MainWindowViewModel.TestDisplayViewModel = new TestDisplayViewModel(ApplicationSessionFactory, new StripChartViewModel(ApplicationSessionFactory));
             MainWindowViewModel.WidgetConfigViewModel = new WidgetConfigViewModel(ApplicationSessionFactory);
             MainWindowViewModel.ViewModels = new ObservableCollection<BaseViewModel>() { MainWindowViewModel.PointConfigViewModel, MainWindowViewModel.TestDisplayViewModel, MainWindowViewModel.WidgetConfigViewModel };
             
-            ChangePageView(MainWindowViewModel.TestDisplayViewModel);            
+            ChangePageView(MainWindowViewModel.TestDisplayViewModel);
+            ToggleWidgets();
 
             DataContext = MainWindowViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
@@ -140,7 +145,16 @@ namespace EngineCell.Application.Views
 
         private void MenuTestDisplay_OnClick(object sender, RoutedEventArgs e)
         {
+            MainWindowViewModel.TestDisplayViewModel.UpdateVisibleCellPoints();
+            ToggleWidgets();
             ChangePageView(MainWindowViewModel.TestDisplayViewModel);
+        }
+
+        private void ToggleWidgets()
+        {
+            var ventCtrl1Settings = WidgetRepository.GetWidgetSettingByWidgetCell(ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.VentilationControl1);
+            MainWindowViewModel.TestDisplayViewModel.VentControl1Display.IsActive =
+                ventCtrl1Settings.Any(v => v.WidgetId == WidgetConstants.Widget.VentilationControl1 && v.WidgetSettingId == WidgetConstants.WidgetSetting.VentCtrl1Active && v.Value == "1");
         }
 
         private void MenuWidgetConfig_OnClick(object sender, RoutedEventArgs e)
