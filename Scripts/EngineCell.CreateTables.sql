@@ -210,7 +210,7 @@ CREATE TABLE [dbo].[WidgetSettingValue](
 	[WidgetSettingValueId] [int] IDENTITY(1,1) NOT NULL,
 	[WidgetId] [int] NOT NULL,
 	[CellId] [int] NOT NULL,
-	[WidgetSettingId] [nvarchar](256) NOT NULL,
+	[WidgetSettingId] int NOT NULL,
 	[Value] [nvarchar](max) NOT NULL,
  CONSTRAINT [PK_WidgetSettingValue] PRIMARY KEY CLUSTERED 
 ([WidgetSettingValueId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
