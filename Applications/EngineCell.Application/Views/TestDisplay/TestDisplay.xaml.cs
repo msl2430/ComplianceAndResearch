@@ -29,7 +29,9 @@ namespace EngineCell.Application.Views.TestDisplay
                 TestDisplayViewModel = (TestDisplayViewModel) DataContext;
 
             if (PointWorkerService == null)
-                PointWorkerService = new PointWorkerService(TestDisplayViewModel, Dispatcher);           
+                PointWorkerService = new PointWorkerService(TestDisplayViewModel, Dispatcher);
+
+            var fileName = (new ExportService()).WriteCsvExport(1049);
         }
 
         private void StartPhaseButton_Click(object sender, RoutedEventArgs e)

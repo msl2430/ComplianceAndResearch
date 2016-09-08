@@ -12,7 +12,7 @@ namespace EngineCell.Application.Services.DataServices
         {
             var fileName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Tests\CellTest_" + cellTestId + "_" + DateTime.Now.ToString("MM_dd_yyyy") + ".csv";
             var captureTimes = CellPointRepository.GetCaptureTimesForTest(cellTestId);
-
+            
             if (captureTimes.IsNullOrEmpty())
                 return null;
 
@@ -21,9 +21,11 @@ namespace EngineCell.Application.Services.DataServices
             if (points.IsNullOrEmpty())
                 return null;
 
+            var initialCaptureTime = captureTimes.OrderBy(c => c).First();
+
             using (var file = new StreamWriter(fileName, true))
             {
-                file.WriteLine($"CaptureTime,{string.Join(",", points.OrderBy(p => p.Id).Select(p => p.Name))}");
+                file.WriteLine($"CaptureTime,CaptureTestTime,{string.Join(",", points.OrderBy(p => p.Id).Select(p => p.Name))}");
                 foreach (var captureTime in captureTimes.OrderBy(t => t))
                 {
                     var captureTimeData = CellPointRepository.GetDataFromCellTest(cellTestId, captureTime);
@@ -33,8 +35,8 @@ namespace EngineCell.Application.Services.DataServices
                         var data = captureTimeData.FirstOrDefault(t => t.CellPointName == points[i].Name);
                         rowData[i] = data?.Data.ToString("0.0##") ?? "0.0";
                     }
-
-                    file.WriteLine($"{captureTime.ToString("hh:mm:ss.fff")},{string.Join(",", rowData.ToList())}");
+                    var captureRunTime = (captureTime - initialCaptureTime).TotalSeconds > 0 ? (captureTime - initialCaptureTime).ToString(@"hh\:mm\:ss\.fff") : "00:00:00";
+                    file.WriteLine($"{captureTime.ToString("hh:mm:ss.fff")},{captureRunTime},{string.Join(",", rowData.ToList())}");
                 }
             }
 

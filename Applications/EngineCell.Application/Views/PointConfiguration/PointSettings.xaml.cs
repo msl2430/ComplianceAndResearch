@@ -21,6 +21,7 @@ namespace EngineCell.Application.Views.PointConfiguration
         {
             InitializeComponent();
             Point = point;
+            DataContext = Point;        
             SetupForm();
         }
 

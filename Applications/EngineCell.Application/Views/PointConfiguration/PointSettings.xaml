@@ -3,9 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:extensions="clr-namespace:EngineCell.Application.Extensions"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="PointSettings" Height="300" Width="310">
+    <Window.Resources>
+        <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <extensions:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+    </Window.Resources>
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="50"></RowDefinition>
@@ -27,7 +32,7 @@
             <Label VerticalAlignment="Center" Height="30" FontSize="15">Show Average on Display</Label>
             <CheckBox x:Name="IsAverage" Margin="22,0,0,0"></CheckBox>
           </StackPanel>
-          <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0" Visibility="{Binding Path=IsAnalog, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
             <Label VerticalAlignment="Center" Height="30" FontSize="15">Calculate Average Seconds</Label>
             <TextBox x:Name="AverageSeconds" Width="65" Height="30" FontSize="15" Margin="10,0,0,0" PreviewTextInput="NumberOnly"></TextBox>
           </StackPanel>
@@ -39,7 +44,7 @@
             <Label VerticalAlignment="Center" Height="30" FontSize="15">Show on Stripchart</Label>
             <CheckBox x:Name="IncludeInStripChart" Margin="62,0,0,0"></CheckBox>
           </StackPanel>
-          <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0" Visibility="{Binding Path=IsAnalog, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
             <Label VerticalAlignment="Center" Height="30" FontSize="15">Strip Chart Scale</Label>
             <TextBox x:Name="StripChartScale" Width="65" Height="30" FontSize="15" Margin="79,0,0,0" PreviewTextInput="NumberOnly"></TextBox>
           </StackPanel>
