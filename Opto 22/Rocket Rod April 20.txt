@@ -36,3 +36,9 @@ create save directory for csv report
 
 average recorded data
 
+Vent control widget panel needs to be wider
+widget isn't recording on start 
+digital in needs to show value
+add csv export button to pull data during test
+display window needs better scroll
+digital out/analog out need to change
