@@ -34,4 +34,5 @@ output config screen: ask for analog input to control set on value set off value
 
 create save directory for csv report
 
+average recorded data
 

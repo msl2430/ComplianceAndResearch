@@ -88,10 +88,10 @@ namespace EngineCell.Application.Services.WorkerServices
                 var screenPos = axis.Transform(DateTimeAxis.ToDouble(timePoint));
                 var point = new ScreenPoint(screenPos, 0);
                 axis.Pan(point, axis.ScreenMax);
-                using (var file = new StreamWriter(@"D:\test.txt", true))
-                {
-                    file.WriteLine("{0} >> ScreenPos: {1} Point: {2} Max: {3}", DateTime.Now.ToShortTimeString(), screenPos, point, axis.ScreenMax);
-                }
+                //using (var file = new StreamWriter(@"D:\test.txt", true))
+                //{
+                //    file.WriteLine("{0} >> ScreenPos: {1} Point: {2} Max: {3}", DateTime.Now.ToShortTimeString(), screenPos, point, axis.ScreenMax);
+                //}
             }
             catch (Exception ex)
             {
