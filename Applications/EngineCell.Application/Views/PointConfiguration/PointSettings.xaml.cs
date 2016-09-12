@@ -30,9 +30,9 @@ namespace EngineCell.Application.Views.PointConfiguration
             Title = Point.CustomName + " Settings";
             IsRecord.IsChecked = Point.IsRecord;
             IsAverage.IsChecked = Point.IsAverage;
-            AverageSeconds.Text = Point.AverageSeconds != null ? Point.AverageSeconds.ToString() : "";
+            AverageSeconds.Text = Point.AverageSeconds != null ? Point.AverageSeconds.ToString() : "1";
             IncludeInStripChart.IsChecked = Point.IncludeInStripChart;
-            StripChartScale.Text = Point.StripChartScale != null ? Point.StripChartScale.ToString() : "";
+            StripChartScale.Text = Point.StripChartScale != null ? Point.StripChartScale.ToString() : "1";
 
         }
 

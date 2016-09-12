@@ -5,6 +5,9 @@
 2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
 3 LINE.NUM %ScratchPad ^gIndex @@ 0  IO.SP.I.WRITE DROP  
 4 LINE.NUM 1 +LOOP 
+1 6 LINE.NUM 343 1 + 300 DO? I ^gIndex @! 
+7 LINE.NUM %ScratchPad ^gIndex @@ -32769 I>F  IO.SP.F.WRITE DROP  
+8 LINE.NUM 1 +LOOP 
 9 JUMP ;
 : 0_3
 
@@ -50,11 +53,8 @@
 : 0_18
 
 1 LINE.NUM
-  &DataCollection   STOP.T
-
-2 LINE.NUM
   %ScratchPad 
-  100  
+  99  
   0    IO.SP.I.WRITE
   ^SetScratchPadResult @! 
 0 JUMP ;
@@ -71,7 +71,7 @@
   11  
   1    IO.SP.I.WRITE
   ^SetScratchPadResult @! 
-0 JUMP ;
+8 JUMP ;
 : 0_25
 
 1 LINE.NUM
@@ -91,6 +91,10 @@
 2 LINE.NUM
   &PidConfig   START.T
   ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  &DataCollection   START.T
+  ^SetScratchPadResult @! 
 -10 JUMP ;
 : 0_45
 -8 JUMP ;
@@ -114,7 +118,7 @@ TRUE
   ^IsStartTest @@ 
   1    =
 LAND
-IF -8 ELSE -10 THEN JUMP ;
+IF -7 ELSE -10 THEN JUMP ;
 : 0_27
 TRUE
 

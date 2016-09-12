@@ -23,6 +23,7 @@
           <Grid Column="0">
             <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
             <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Thermal Couple Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+            <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Analog Input (SNAP-AITM-4i)" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
               <ItemsControl ItemsSource="{Binding Path=ThermoCouples}">
                 <ItemsControl.ItemsPanel>
@@ -41,13 +42,14 @@
           <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Column="1" >
           <Grid>
             <Grid.RowDefinitions>
-              <RowDefinition Height="500"/>
-              <RowDefinition Height="200"/>
+              <RowDefinition Height="350"/>
+              <RowDefinition Height="150"/>
               <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Row="0">
               <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
               <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Voltage Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+              <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Analog Input (SNAP-AIV-i)" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
               <ItemsControl ItemsSource="{Binding Path=Volts}" Margin="0,30,0,0">
                 <ItemsControl.ItemsPanel>
                   <ItemsPanelTemplate>
@@ -64,6 +66,7 @@
             <Grid Row="1">
               <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
               <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="MilliAmp Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+              <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Analog Input (SNAP-AIMA-i)" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
               <ItemsControl ItemsSource="{Binding Path=MilliAmps}" Margin="0,30,0,0">
                 <ItemsControl.ItemsPanel>
                   <ItemsPanelTemplate>
@@ -80,6 +83,7 @@
             <Grid Row="2">
               <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
               <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="HART Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+              <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Analog Input (SNAP-AIMA-iH)" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
               <ItemsControl ItemsSource="{Binding Path=Harts}" Margin="0,30,0,0">
                 <ItemsControl.ItemsPanel>
                   <ItemsPanelTemplate>
@@ -98,6 +102,7 @@
           <Grid Column="2">
             <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
             <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Analog Output Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+            <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="(SNAP-AOVA-8)" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
               <ItemsControl ItemsSource="{Binding Path=AnalogOutputs}">
                 <ItemsControl.ItemsPanel>
@@ -116,6 +121,7 @@
           <Grid Column="3">
             <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
             <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Dyno Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+            <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Digital Output (SNAP-ODC-32-SRC)" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
               <ItemsControl ItemsSource="{Binding Path=Dynos}">
                 <ItemsControl.ItemsPanel>
@@ -134,6 +140,7 @@
           <Grid Column="4">
             <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
             <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Engine Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+            <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Digital Output (SNAP-ODC-32-SRC)" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
               <ItemsControl ItemsSource="{Binding Path=Engines}">
                 <ItemsControl.ItemsPanel>
@@ -152,6 +159,7 @@
           <Grid Column="5">
             <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
             <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Fuel Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+            <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Digital Output (SNAP-ODC-32-SRC)" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
               <ItemsControl ItemsSource="{Binding Path=Fuels}">
                 <ItemsControl.ItemsPanel>
@@ -170,6 +178,7 @@
           <Grid Column="6">
             <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
             <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Miscellaneous Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+            <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Digital Output (SNAP-ODC-32-SRC)" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
               <ItemsControl ItemsSource="{Binding Path=Miscs}">
                 <ItemsControl.ItemsPanel>
@@ -188,6 +197,7 @@
           <Grid Column="7">
             <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
             <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Frequency Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+            <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Digital Input (SNAP-IDC5-FAST)" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
               <ItemsControl ItemsSource="{Binding Path=Freqs}">
                 <ItemsControl.ItemsPanel>

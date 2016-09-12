@@ -245,7 +245,7 @@ namespace EngineCell.Application.Factories
             }
             else if (typeof (T) == typeof (int))
             {
-                OptoMmp.Current.ScratchpadI32Write(new[] {Convert.ToInt32(value)}, 0, 1, index);
+                var result = OptoMmp.Current.ScratchpadI32Write(new[] {Convert.ToInt32(value)}, 0, 1, index);
 
                 var sc = ScratchPadInts.All(b => b.Index != index)
                     ? new ScratchPadModel<int>(index, "undefined", 0)

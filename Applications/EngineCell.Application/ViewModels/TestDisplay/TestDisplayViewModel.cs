@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using EngineCell.Application.Factories;
+using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels.Pid;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
@@ -49,11 +50,27 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             set { _visiblePoints = value; OnPropertyChanged("VisiblePoints"); }
         }
 
+        private ObservableCollection<PointDataModel> _leftVisiblePoints { get; set; }
+        public ObservableCollection<PointDataModel> LeftVisiblePoints
+        {
+            get { return _leftVisiblePoints; }
+            set { _leftVisiblePoints = value; OnPropertyChanged("LeftVisiblePoints"); }
+        }
+
+        private ObservableCollection<PointDataModel> _rightVisiblePoints { get; set; }
+        public ObservableCollection<PointDataModel> RightVisiblePoints
+        {
+            get { return _rightVisiblePoints; }
+            set { _rightVisiblePoints = value; OnPropertyChanged("RightVisiblePoints"); }
+        }
+
         private bool _isManualTest { get; set; }
         public bool IsManualTest {
             get { return _isManualTest; }
             set { _isManualTest = value; OnPropertyChanged("IsManualTest"); }
         }
+
+        public IPointWorkerService PointWorkerService { get; set; }
 
         public TestDisplayViewModel(IApplicationSessionFactory appSession, StripChartViewModel chartViewModel)
         {
@@ -69,9 +86,8 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             CoolantPid = new PidDisplayViewModel() {PidConfig = new PidDisplayModel("Coolant"), PidType = ControlConstants.PidType.Coolant, ApplicationSessionFactory = appSession };
             OilPid = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Oil"), PidType = ControlConstants.PidType.Oil, ApplicationSessionFactory = appSession };
             Intercooler = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Intercooler"), PidType = ControlConstants.PidType.Intercooler, ApplicationSessionFactory = appSession };
-            VentControl1Display = new VentilationControlDisplayViewModel("Ventilation Control 1");
             IsManualTest = false;
-            ChartViewModel = chartViewModel;
+            ChartViewModel = chartViewModel;            
             UpdateVisibleCellPoints();
         }
 
@@ -81,6 +97,17 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             foreach (var point in ApplicationSessionFactory.CellPoints.Where(cp => cp.IsAverage))
             {
                 VisiblePoints.Add(point);
+            }
+            
+            LeftVisiblePoints = new ObservableCollection<PointDataModel>();
+            RightVisiblePoints = new ObservableCollection<PointDataModel>();
+
+            for (var i = 0; i < VisiblePoints.Count; i++)
+            {
+                if(i%2 == 0)
+                    LeftVisiblePoints.Add(VisiblePoints[i]);
+                else 
+                    RightVisiblePoints.Add(VisiblePoints[i]);
             }
         }
     }

@@ -12,6 +12,7 @@ CREATE V.ARRAY
 ^IsStartDataCollect ,
 ^IsStartTest ,
 ^IsTestRunning ,
+^OutputConfigValue ,
 ^PidConfigStatus ,
 ^PidConfigType ,
 ^PidConfigValue ,
@@ -177,6 +178,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^IsStartDataCollect @!
 0 ^IsStartTest @!
 0 ^IsTestRunning @!
+0.00000000 ^OutputConfigValue @!
 0 ^PidConfigStatus @!
 0 ^PidConfigType @!
 0.00000000 ^PidConfigValue @!

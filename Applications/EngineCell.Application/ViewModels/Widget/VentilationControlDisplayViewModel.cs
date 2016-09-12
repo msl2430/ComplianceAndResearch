@@ -17,13 +17,13 @@
 
         public string Name { get; set; }
 
-        public VentilationControlDisplayViewModel(string name)
+        public VentilationControlDisplayViewModel(string name, bool isActive = false)
         {
             Name = name;
-            IsActive = false;
+            IsActive = isActive;
             Inside = 0;
             Output = 0;
             Outside = 0;
-        }
+        }       
     }
 }

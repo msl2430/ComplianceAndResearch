@@ -17,6 +17,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
         public string PointName { get; set; }
         public bool IsInput { get; set; }
         public bool IsAnalog { get; set; }
+        public bool IsCustomValue { get; set; }
         public PointGroup PointGroupId { get; set; }
 
         private string _customName { get; set; }
@@ -72,6 +73,13 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             set { _averageData = value; OnPropertyChanged("AverageData"); }
         }
 
+        private decimal _customValue { get; set; }
+        public decimal CustomValue
+        {
+            get { return _customValue; }
+            set { _customValue = value; OnPropertyChanged("CustomValue"); }
+        }
+
         private ObservableCollection<decimal> _mostRecentData { get; set; } 
         public ObservableCollection<decimal> MostRecentData {
             get { return _mostRecentData; }
@@ -79,6 +87,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
         }
 
         public bool IsDigitalOn => !IsAnalog && Data > 0;
+        public bool IsDisplayValue => IsAnalog || (!IsAnalog && IsInput);
 
         private ObservableCollection<DataPoint> _dataPoints { get; set; } 
         public ObservableCollection<DataPoint> DataPoints { get { return _dataPoints; } set { _dataPoints = value; OnPropertyChanged("DataPoints"); } }
@@ -103,6 +112,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             DataPoints = new ObservableCollection<DataPoint>();
             Alarm = new AlarmSetting(obj.Alarm);
             MostRecentData = new ObservableCollection<decimal>();
+            IsCustomValue = false;
         }
 
         public CellPointModel ToCellPointModel()

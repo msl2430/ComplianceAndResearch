@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using EngineCell.Application.Services.DataServices;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels.TestDisplay;
+using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
+using EngineCell.Models.Repositories;
 
 namespace EngineCell.Application.Views.TestDisplay
 {
@@ -16,8 +19,10 @@ namespace EngineCell.Application.Views.TestDisplay
     public partial class TestDisplay : BaseUserControl
     {
         private TestDisplayViewModel TestDisplayViewModel { get; set; }
-        private IPointWorkerService PointWorkerService { get; set; }
-        
+
+        private IWidgetRepository _widgetRepository { get; set; }
+        private IWidgetRepository WidgetRepository => _widgetRepository ?? (_widgetRepository = new WidgetRepository());
+
         public TestDisplay()
         {
             InitializeComponent();
@@ -27,11 +32,6 @@ namespace EngineCell.Application.Views.TestDisplay
         {
             if (DataContext != null)
                 TestDisplayViewModel = (TestDisplayViewModel) DataContext;
-
-            if (PointWorkerService == null)
-                PointWorkerService = new PointWorkerService(TestDisplayViewModel, Dispatcher);
-
-            var fileName = (new ExportService()).WriteCsvExport(1049);
         }
 
         private void StartPhaseButton_Click(object sender, RoutedEventArgs e)
@@ -60,11 +60,9 @@ namespace EngineCell.Application.Views.TestDisplay
             TestDisplayViewModel.ApplicationSessionFactory.CurrentCellTest = CellPointRepository.GetCellTestById(cellTestId);
             RunTimeClock.IsRunning = true;
             TestDisplayViewModel.PhaseStarted = true;
-            Task.Run(() =>
-            {
-                TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Starting point data collection.", true);
-                PointWorkerService.DoWork();
-            });
+            TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Starting point data collection.", true);
+            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt(), 1);                
+            
 
             if (!TestDisplayViewModel.IsManualTest)
             {
@@ -97,12 +95,14 @@ namespace EngineCell.Application.Views.TestDisplay
             RunTimeClock.IsRunning = false;
             TimeRemaining.IsRunning = false;
             TestDisplayViewModel.PhaseStarted = false;
-            PointWorkerService.CancelWork();
             TestDisplayViewModel.ChartViewModel.IsPlay = false;
 
             TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Preparing results file.", true);
             var fileName = (new ExportService()).WriteCsvExport(TestDisplayViewModel.ApplicationSessionFactory.CurrentCellTest.CellTestId);
-            TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Results file saved to: " + fileName, true);
+            if(string.IsNullOrEmpty(fileName))
+                TestDisplayViewModel.ApplicationSessionFactory.LogEvent("No data to export.", true);
+            else
+                TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Results file saved to: " + fileName, true);
         }
     }   
 }

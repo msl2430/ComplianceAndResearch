@@ -10,6 +10,7 @@
 0 IVAR ^IsStartDataCollect
 0 IVAR ^IsStartTest
 0 IVAR ^IsTestRunning
+0 FVAR ^OutputConfigValue
 0 IVAR ^PidConfigStatus
 0 IVAR ^PidConfigType
 0 FVAR ^PidConfigValue

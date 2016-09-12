@@ -2,9 +2,9 @@
 
 # PAC CONTROL TAG DATABASE DUMP
 # ----------------------------------------------------------------
-# NAME :         C:\Foshizzle\ComplianceAndResearch\Applications\EngineCell.Strategy\EngineCell.Strategy.idb
+# NAME :         D:\Work\ComplianceAndResearch\Applications\EngineCell.Strategy\EngineCell.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    14:32:13 8/22/2016
+# TIME/DATE :    11:34:11 9/12/2016
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -195,6 +195,7 @@ TAG1,IsApplicationConnected                            ,2    ,00000000,00000000,
 TAG1,IsStartDataCollect                                ,4    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,IsStartTest                                       ,6    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,IsTestRunning                                     ,7    ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,OutputConfigValue                                 ,25   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,PidConfigStatus                                   ,12   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,PidConfigType                                     ,13   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,PidConfigValue                                    ,14   ,00000000,00000000,00000000,00000010,0    ,0   
