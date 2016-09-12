@@ -179,7 +179,7 @@ $80000000 1 %EngineCell 0 PID |Throttle
 
 1 LINE.NUM
   %ScratchPad 
-  100  
+  999  
   ^IsStartDataCollect   IO.SP.READ
   ^GetScratchPadResult @! 
 3 JUMP ;
@@ -636,7 +636,7 @@ T;
 1 6 LINE.NUM 343 1 + 300 DO? I ^gIndex @! 
 7 LINE.NUM %ScratchPad ^gIndex @@ -32769 I>F  IO.SP.F.WRITE DROP  
 8 LINE.NUM 1 +LOOP 
-9 JUMP ;
+8 JUMP ;
 : 0_3
 
 1 LINE.NUM
@@ -653,7 +653,7 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-11 JUMP ;
+10 JUMP ;
 : 0_4
 -2 JUMP ;
 : 0_5
@@ -677,7 +677,7 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-9 JUMP ;
+8 JUMP ;
 : 0_18
 
 1 LINE.NUM
@@ -688,18 +688,6 @@ T;
 0 JUMP ;
 : 0_19
 -6 JUMP ;
-: 0_22
-
-1 LINE.NUM
-  &DataCollection   START.T
-  ^SetScratchPadResult @! 
-
-2 LINE.NUM
-  %ScratchPad 
-  11  
-  1    IO.SP.I.WRITE
-  ^SetScratchPadResult @! 
-8 JUMP ;
 : 0_25
 
 1 LINE.NUM
@@ -723,14 +711,14 @@ T;
 3 LINE.NUM
   &DataCollection   START.T
   ^SetScratchPadResult @! 
--10 JUMP ;
+-9 JUMP ;
 : 0_45
--8 JUMP ;
+-7 JUMP ;
 : 0_47
 
 1 LINE.NUM
   &DataCollection   STOP.T
--2 JUMP ;
+3 JUMP ;
 : 0_2
 TRUE
 
@@ -738,7 +726,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -10 ELSE -11 THEN JUMP ;
+IF -9 ELSE -10 THEN JUMP ;
 : 0_16
 TRUE
 
@@ -746,7 +734,7 @@ TRUE
   ^IsStartTest @@ 
   1    =
 LAND
-IF -7 ELSE -10 THEN JUMP ;
+IF -7 ELSE -9 THEN JUMP ;
 : 0_27
 TRUE
 
@@ -754,7 +742,7 @@ TRUE
   ^IsTestRunning @@ 
   1    =
 LAND
-IF -7 ELSE -4 THEN JUMP ;
+IF -7 ELSE -5 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -765,7 +753,6 @@ DUMMY
 0_14
 0_18
 0_19
-0_22
 0_25
 0_29
 0_38
@@ -1232,8 +1219,8 @@ T;
    &_INIT_IO START.T DROP
    ;
 : DATESTAMP ." 09/12/16 " ;
-: TIMESTAMP ." 11:34:11 " ;
-: CRCSTAMP  ." 0DB01920C93E14AABB7051194F9093F6 " ;
+: TIMESTAMP ." 14:22:21 " ;
+: CRCSTAMP  ." BD6DE03BB6DD1999E3BD4A82D0F38969 " ;
 MAKECHECK
 CLEAR.BREAKS
 

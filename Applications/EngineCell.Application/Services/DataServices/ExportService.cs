@@ -10,7 +10,15 @@ namespace EngineCell.Application.Services.DataServices
     {
         public string WriteCsvExport(int cellTestId)
         {
-            var fileName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Tests\CellTest_" + cellTestId + "_" + DateTime.Now.ToString("MM_dd_yyyy") + ".csv";
+            var fileName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Tests\CellTest_" + cellTestId + "_" + DateTime.Now.ToString("MM_dd_yyyy");
+            for (var i = 1; i < 99; i++)
+            {
+                if (File.Exists(fileName))
+                    fileName += "_" + i;
+                else
+                    break;
+            }
+            fileName += ".csv";
             var captureTimes = CellPointRepository.GetCaptureTimesForTest(cellTestId);
             
             if (captureTimes.IsNullOrEmpty())

@@ -18,7 +18,7 @@
             StartTest = 10,
             TestRunning = 11,
 
-            StartDataCollection = 100,
+            StartDataCollection = 999,
 
             //Pid Config
             PidConfigStatus = 500,

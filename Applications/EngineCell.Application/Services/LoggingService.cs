@@ -23,12 +23,19 @@ namespace EngineCell.Application.Services
 
         public static void LogEvent(string message, bool includeInAppWindow = false)
         {
-            if (!Directory.Exists(_logDirectory))
-                Directory.CreateDirectory(_logDirectory);
-
-            using (var file = new StreamWriter(LogFilePath, true))
+            try
             {
-                file.WriteLine("{0} >> {1}", DateTime.Now.ToLongTimeString(), message);
+                if (!Directory.Exists(_logDirectory))
+                    Directory.CreateDirectory(_logDirectory);
+
+                using (var file = new StreamWriter(LogFilePath, true))
+                {
+                    file.WriteLine("{0} >> {1}", DateTime.Now.ToLongTimeString(), message);
+                }
+            }
+            catch (Exception ex)
+            {
+                //do nothing
             }
             if (includeInAppWindow && ApplicationViewModel != null)
                 ApplicationViewModel.LogWindowString = message;

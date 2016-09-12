@@ -94,14 +94,17 @@ namespace EngineCell.Application.Views
                         RefreshOptoConnection(true);
                         OptoConnectionWorker.DoWork();
                     }).ConfigureAwait(false);
-                    Task.Run(() => MainWindowViewModel.TestDisplayViewModel.PointWorkerService.DoWork()).ConfigureAwait(false);
+                    Task.Run(() =>
+                    {
+                        MainWindowViewModel.TestDisplayViewModel.PointWorkerService.DoWork();                        
+                    }).ConfigureAwait(false);
                     
                     break;
                 case StatusConstants.ConnectionStatus.Connected:
-                    ApplicationSessionFactory.LogEvent("Disconnecting from Opto 22", true);
-                    OptoConnectionWorker.CancelWork();
-                    RefreshOptoConnection(false);
                     MainWindowViewModel.TestDisplayViewModel.PointWorkerService.CancelWork();
+                    ApplicationSessionFactory.LogEvent("Disconnecting from Opto 22", true);                    
+                    OptoConnectionWorker.CancelWork();
+                    RefreshOptoConnection(false);                    
                     break;
             }
         }

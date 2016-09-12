@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using EngineCell.Application.Services.DataServices;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels.TestDisplay;
-using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
 using EngineCell.Models.Repositories;
@@ -54,24 +52,25 @@ namespace EngineCell.Application.Views.TestDisplay
                 TimeRemaining.RemainingTimeViewModel.IsVisible = true;
             }
             TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Starting phase.", true);
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);            
+            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
 
             var cellTestId = CellPointRepository.CreateCellTest(1, !TestDisplayViewModel.IsManualTest ? ControlConstants.CellTestType.Manual : ControlConstants.CellTestType.Timed);
             TestDisplayViewModel.ApplicationSessionFactory.CurrentCellTest = CellPointRepository.GetCellTestById(cellTestId);
             RunTimeClock.IsRunning = true;
             TestDisplayViewModel.PhaseStarted = true;
             TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Starting point data collection.", true);
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt(), 1);                
-            
+            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt(), 1);
+
 
             if (!TestDisplayViewModel.IsManualTest)
             {
-                Task.Run(() => {
+                Task.Run(() =>
+                {
                     var worker = new TestRunnerWorkerService(TimeRemaining, this, Dispatcher);
                     worker.DoWork();
                 });
             }
-           
+
             TestDisplayViewModel.ChartViewModel.IsPlay = true;
         }
 

@@ -4,7 +4,7 @@
 
 1 LINE.NUM
   %ScratchPad 
-  100  
+  999  
   ^IsStartDataCollect   IO.SP.READ
   ^GetScratchPadResult @! 
 3 JUMP ;

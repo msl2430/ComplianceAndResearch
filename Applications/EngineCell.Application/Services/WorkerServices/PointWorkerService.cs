@@ -39,8 +39,9 @@ namespace EngineCell.Application.Services.WorkerServices
             try
             {
                 var appSession = ApplicationSessionFactory;
-                appSession.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt(), 1);
                 CancellationToken = new CancellationTokenSource();
+                ApplicationSessionFactory.LogEvent("Point data collection started.", true);
+                ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt(), 1);
                 while (!CancellationToken.IsCancellationRequested)
                 {
                     if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
@@ -51,9 +52,6 @@ namespace EngineCell.Application.Services.WorkerServices
                         //Check if we're connected to and collecting data from Opto before proceeding
                         if (appSession.OptoMmpFactory != null && appSession.OptoMmpFactory.Current.IsCommunicationOpen)
                         {
-                            if(appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt()).Value != 1)
-                                appSession.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt(), 1);
-
                             ConfigurePacWidgets();
 
                             foreach (var cellPoint in appSession.CellPoints.Where(cp => !cp.IsCustomValue))
@@ -125,8 +123,11 @@ namespace EngineCell.Application.Services.WorkerServices
 
         protected override void WorkCompleted()
         {
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt(), 0);
-            Dispatcher.Invoke(() => ApplicationSessionFactory.LogEvent("Point data collection stopped.", true));
+            Dispatcher.Invoke(() =>
+            {
+                ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt(), 0);
+                ApplicationSessionFactory.LogEvent("Point data collection stopped.", true);
+            });
         }
     }
 }
