@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Windows.Threading;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
@@ -12,11 +13,12 @@ namespace EngineCell.Application.Services.WorkerServices
 {
     public class StripChartWorkerService : BaseWorkerThreadService
     {
-        private StripChartViewModel StripChartViewModel { get; set; }
+        private StripChartViewModel StripChartViewModel { get; set; }      
 
-        public StripChartWorkerService(StripChartViewModel stripChartViewModel)
+        public StripChartWorkerService(StripChartViewModel stripChartViewModel, Dispatcher currentDispatcher)
         {
             StripChartViewModel = stripChartViewModel;
+            Dispatcher = currentDispatcher;
         }
 
         public override void DoWork()
@@ -53,11 +55,15 @@ namespace EngineCell.Application.Services.WorkerServices
                         var pointEnum = (ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
                         cellPoint.Data = Math.Truncate(appSession.ScratchPadFactory.GetScratchPadFloat(pointEnum.ToInt()).Value * 10000m) / 10000m;
                         cellPoint.DataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(cellPoint.Data * (point.StripChartScale ?? 1m))));
-                        while (cellPoint.DataPoints.Count > 350)
-                        {
-                            cellPoint.DataPoints.RemoveAt(0);
-                        }
                     }
+
+                    Dispatcher.Invoke(() =>
+                    {
+                        foreach (var maxDataPoints in StripChartViewModel.ApplicationSessionFactory.CellPoints.Where(cp => cp.DataPoints.Count > 500))
+                        {
+                            maxDataPoints.DataPoints.RemoveAt(0);
+                        }
+                    });
 
                     if (!StripChartViewModel.IsPlay)
                         continue;

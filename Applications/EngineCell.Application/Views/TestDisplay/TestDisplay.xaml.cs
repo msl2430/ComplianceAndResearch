@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,9 @@ namespace EngineCell.Application.Views.TestDisplay
 
         private IWidgetRepository _widgetRepository { get; set; }
         private IWidgetRepository WidgetRepository => _widgetRepository ?? (_widgetRepository = new WidgetRepository());
+
+        private ExportService _exportService { get; set; }
+        private ExportService ExportService => _exportService ?? (_exportService = new ExportService());
 
         public TestDisplay()
         {
@@ -53,9 +57,10 @@ namespace EngineCell.Application.Views.TestDisplay
             }
             TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Starting phase.", true);
             TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
-
+            
             var cellTestId = CellPointRepository.CreateCellTest(1, !TestDisplayViewModel.IsManualTest ? ControlConstants.CellTestType.Manual : ControlConstants.CellTestType.Timed);
             TestDisplayViewModel.ApplicationSessionFactory.CurrentCellTest = CellPointRepository.GetCellTestById(cellTestId);
+            ExportService.CreateDataFile(TestDisplayViewModel.ApplicationSessionFactory.CurrentCellTest.CellTestId, TestDisplayViewModel.ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord).ToList());
             RunTimeClock.IsRunning = true;
             TestDisplayViewModel.PhaseStarted = true;
             TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Starting point data collection.", true);
@@ -96,8 +101,8 @@ namespace EngineCell.Application.Views.TestDisplay
             TestDisplayViewModel.PhaseStarted = false;
             TestDisplayViewModel.ChartViewModel.IsPlay = false;
 
-            TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Preparing results file.", true);
-            var fileName = (new ExportService()).WriteCsvExport(TestDisplayViewModel.ApplicationSessionFactory.CurrentCellTest.CellTestId);
+            //TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Preparing results file.", true);
+            var fileName = ExportService.GetFilename();
             if(string.IsNullOrEmpty(fileName))
                 TestDisplayViewModel.ApplicationSessionFactory.LogEvent("No data to export.", true);
             else

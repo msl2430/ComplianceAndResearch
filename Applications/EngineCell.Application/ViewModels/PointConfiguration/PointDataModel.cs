@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using EngineCell.Application.ViewModels.AlarmConfiguration;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Models;

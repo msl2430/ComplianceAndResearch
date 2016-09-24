@@ -31,7 +31,7 @@ namespace EngineCell.Application.Views.StripChart
                 return;
 
             ChartViewModel.CreateSeries();
-            StripChartWorker = new StripChartWorkerService(ChartViewModel);
+            StripChartWorker = new StripChartWorkerService(ChartViewModel, Dispatcher);
             Task.Run(() => StripChartWorker.DoWork()).ConfigureAwait(false);
         }
 

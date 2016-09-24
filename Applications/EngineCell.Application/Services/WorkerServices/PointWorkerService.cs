@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using EngineCell.Application.Factories;
+using EngineCell.Application.Services.DataServices;
 using EngineCell.Application.ViewModels.TestDisplay;
 using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Core.Constants;
@@ -31,7 +32,7 @@ namespace EngineCell.Application.Services.WorkerServices
             Dispatcher = currentDispatcher;
             TestDisplayViewModel = viewModel;
             ApplicationSessionFactory = viewModel.ApplicationSessionFactory;
-            WidgetRepository = new WidgetRepository();
+            WidgetRepository = new WidgetRepository();            
         }
 
         public override void DoWork()
@@ -53,7 +54,7 @@ namespace EngineCell.Application.Services.WorkerServices
                         if (appSession.OptoMmpFactory != null && appSession.OptoMmpFactory.Current.IsCommunicationOpen)
                         {
                             ConfigurePacWidgets();
-
+                            var captureTime = DateTime.Now;
                             foreach (var cellPoint in appSession.CellPoints.Where(cp => !cp.IsCustomValue))
                             {
                                 if (cellPoint.IsAnalog)
@@ -81,8 +82,16 @@ namespace EngineCell.Application.Services.WorkerServices
                                 appSession.ScratchPadFactory.SetScratchPadValue(point.ToInt(), cellPoint.CustomValue);
                             }
 
-                            if (appSession.CurrentCellTest != null && TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()).Value == 1)
-                                CellPointRepository.CreateCellPointData(appSession.CellPoints.Where(cp => cp.IsRecord).SelectDistinct(cp => cp.ToCellTestPointDataModel(appSession.CurrentCellTest.CellTestId, DateTime.Now)).ToList());
+                            if (appSession.CurrentCellTest != null &&
+                                TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(
+                                    ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()).Value == 1)
+                            {
+                                ExportService.WriteDataToFile(appSession.CurrentCellTest.CellTestId, captureTime, appSession.CellPoints.Where(cp => cp.IsRecord).ToList());
+                                CellPointRepository.CreateCellPointData(
+                                    appSession.CellPoints.Where(cp => cp.IsRecord)
+                                        .Select(cp => cp.ToCellTestPointDataModel(appSession.CurrentCellTest.CellTestId, DateTime.Now))
+                                        .ToList());
+                            }
 
                             TestDisplayViewModel.UpdateVisibleCellPoints();
 

@@ -124,8 +124,8 @@ namespace EngineCell.Models.Repositories
         public void CreateCellPointData(IList<CellTestPointDataModel> points)
         {
             //using (var session = NHibernateHelper.CurrentSession)
-            using (var transaction = NHibernateHelper.CurrentSession.BeginTransaction(IsolationLevel.ReadUncommitted))
-            {
+            //using (var transaction = NHibernateHelper.CurrentSession.BeginTransaction(IsolationLevel.ReadUncommitted))
+            //{
                 foreach (var point in points)
                     NHibernateHelper.CurrentSession.Save(new CellTestPointData
                     {
@@ -134,8 +134,8 @@ namespace EngineCell.Models.Repositories
                         Data = point.Data,
                         CaptureTime = point.CaptureTime
                     });
-                transaction.Commit();
-            }
+             //   transaction.Commit();
+           // }
         }
 
         public IList<DateTime> GetCaptureTimesForTest(int cellTestId)
