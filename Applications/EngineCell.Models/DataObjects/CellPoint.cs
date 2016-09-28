@@ -14,6 +14,8 @@
         public virtual int? AverageSeconds { get; set; }
         public virtual bool IncludeInStripChart { get; set; }
         public virtual decimal? StripChartScale { get; set; }
+        public virtual bool IsCustomValue { get; set; }
+        public virtual decimal? CustomValue { get; set; }
     }
 
     /// <summary>
@@ -31,5 +33,7 @@
         public virtual int? AverageSeconds { get; set; }
         public virtual bool IncludeInStripChart { get; set; }
         public virtual decimal? StripChartScale { get; set; }
+        public virtual bool IsCustomValue { get; set; }
+        public virtual decimal? CustomValue { get; set; }
     }
 }

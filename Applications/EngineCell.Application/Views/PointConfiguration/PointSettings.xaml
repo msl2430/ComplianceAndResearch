@@ -6,7 +6,7 @@
         xmlns:extensions="clr-namespace:EngineCell.Application.Extensions"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="PointSettings" Height="300" Width="310">
+        Title="PointSettings" Height="375" Width="310">
     <Window.Resources>
         <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <extensions:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
@@ -14,6 +14,7 @@
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="50"></RowDefinition>
+        <RowDefinition Height="80"></RowDefinition>
         <RowDefinition Height="80"></RowDefinition>
         <RowDefinition Height="80"></RowDefinition>
         <RowDefinition Height="80"></RowDefinition>
@@ -50,7 +51,19 @@
           </StackPanel>
         </StackPanel>
       </Border>
-      <StackPanel Grid.Row="3" Margin="5,10,5,0">
+      <Border Grid.Row="3" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,0,0,1" Margin="5,0,0,5" Visibility="{Binding Path=IsInput, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
+        <StackPanel>
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+            <Label VerticalAlignment="Center" Height="30" FontSize="15">Set Custom Value</Label>
+            <CheckBox x:Name="IsCustomValue" Margin="71,0,0,0"></CheckBox>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+            <Label VerticalAlignment="Center" Height="30" FontSize="15">Custom Value</Label>
+            <TextBox x:Name="CustomValue" Width="65" Height="30" FontSize="15" Margin="96,0,0,0" PreviewTextInput="NumberOnly"></TextBox>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+      <StackPanel Grid.Row="4" Margin="5,10,5,0">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="2">
           <Button Name="CancelButton" Width="75" Margin="3,0" Click="CancelButton_OnClick">_Cancel</Button>
             <Button Name="OkButton" Background="{StaticResource DarkBlueBrush}" Width="75" Margin="3,0" Click="OkButton_OnClick">_Ok</Button>

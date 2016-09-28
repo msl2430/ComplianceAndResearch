@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using EngineCell.Application.ViewModels.PointConfiguration;
+using EngineCell.Core.Constants;
 using EngineCell.Models.Repositories;
 
 namespace EngineCell.Application.Views.PointConfiguration
@@ -33,6 +34,8 @@ namespace EngineCell.Application.Views.PointConfiguration
             AverageSeconds.Text = Point.AverageSeconds != null ? Point.AverageSeconds.ToString() : "1";
             IncludeInStripChart.IsChecked = Point.IncludeInStripChart;
             StripChartScale.Text = Point.StripChartScale != null ? Point.StripChartScale.ToString() : "1";
+            IsCustomValue.IsChecked = Point.IsCustomValue;
+            CustomValue.Text = Point.CustomValue != null ? Point.CustomValue.ToString() : "";
 
         }
 
@@ -43,6 +46,8 @@ namespace EngineCell.Application.Views.PointConfiguration
             Point.AverageSeconds = !string.IsNullOrEmpty(AverageSeconds.Text) ? Convert.ToInt32(AverageSeconds.Text) : Point.IsAverage ? (int?)10 : null;
             Point.IncludeInStripChart = Convert.ToBoolean(IncludeInStripChart.IsChecked);
             Point.StripChartScale = !string.IsNullOrEmpty(StripChartScale.Text) ? Convert.ToDecimal(StripChartScale.Text) : Point.IncludeInStripChart ? (decimal?)1 : null;
+            Point.IsCustomValue = Convert.ToBoolean(IsCustomValue.IsChecked);
+            Point.CustomValue = !string.IsNullOrEmpty(CustomValue.Text) ? Convert.ToDecimal(CustomValue.Text) : ScratchPadConstants.DefaultNullValue;
             CellPointRepository.UpdateCellPoint(Point.ToCellPointModel());
             this.Close();
         }

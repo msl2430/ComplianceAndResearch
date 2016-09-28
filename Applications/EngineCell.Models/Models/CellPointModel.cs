@@ -20,7 +20,9 @@ namespace EngineCell.Models.Models
         public bool IsAverage { get; set; }
         public int? AverageSeconds { get; set; }
         public bool IncludeInStripChart { get; set; }
-        public decimal? StripChartScale { get; set; }        
+        public decimal? StripChartScale { get; set; }
+        public bool IsCustomValue { get; set; }
+        public decimal? CustomValue { get; set; }
 
         public CellPointModel() { }
 

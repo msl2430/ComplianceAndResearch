@@ -74,8 +74,8 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             set { _averageData = value; OnPropertyChanged("AverageData"); }
         }
 
-        private decimal _customValue { get; set; }
-        public decimal CustomValue
+        private decimal? _customValue { get; set; }
+        public decimal? CustomValue
         {
             get { return _customValue; }
             set { _customValue = value; OnPropertyChanged("CustomValue"); }
@@ -113,7 +113,6 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             DataPoints = new ObservableCollection<DataPoint>();
             Alarm = new AlarmSetting(obj.Alarm);
             MostRecentData = new ObservableCollection<decimal>();
-            IsCustomValue = false;
         }
 
         public CellPointModel ToCellPointModel()
@@ -134,6 +133,8 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                 AverageSeconds = AverageSeconds,
                 IncludeInStripChart = IncludeInStripChart,
                 StripChartScale = StripChartScale,
+                IsCustomValue = IsCustomValue,
+                CustomValue = !IsCustomValue || CustomValue == ScratchPadConstants.DefaultNullValue ? null : CustomValue
             };
         }
 

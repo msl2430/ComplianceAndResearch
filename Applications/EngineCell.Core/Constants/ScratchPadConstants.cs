@@ -2,6 +2,8 @@
 {
     public class ScratchPadConstants
     {
+        public const decimal DefaultNullValue = -32769;
+
         public enum BitIndexes
         {
             
