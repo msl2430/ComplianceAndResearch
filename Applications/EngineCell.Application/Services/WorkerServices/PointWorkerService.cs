@@ -61,7 +61,10 @@ namespace EngineCell.Application.Services.WorkerServices
                                 if (cellPoint.IsAnalog)
                                 {
                                     var point = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
-                                    cellPoint.Data = Math.Truncate(appSession.ScratchPadFactory.GetScratchPadFloat(point.ToInt()).Value*10000m)/10000m;
+                                    Dispatcher.Invoke(() =>
+                                    {
+                                        cellPoint.Data = Math.Truncate(appSession.ScratchPadFactory.GetScratchPadFloat(point.ToInt()).Value*10000m)/10000m;
+                                    });
                                     if (!cellPoint.IsAverage || cellPoint.AverageSeconds == null || cellPoint.AverageSeconds.Value <= 0)
                                         continue;
                                     Dispatcher.Invoke(() =>
@@ -75,15 +78,29 @@ namespace EngineCell.Application.Services.WorkerServices
                                 else
                                 {
                                     var point = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
-                                    cellPoint.Data = appSession.ScratchPadFactory.GetScratchPadFloat(point.ToInt()).Value > 0 ? 1m : 0m;
+                                    Dispatcher.Invoke(() =>
+                                    {
+                                        cellPoint.Data = appSession.ScratchPadFactory.GetScratchPadFloat(point.ToInt()).Value > 0 ? 1m : 0m;
+                                    });
                                 }
+
+                                if (!cellPoint.IsInput) continue;
+
                                 var customValueScratchPad = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true);
                                 appSession.ScratchPadFactory.SetScratchPadValue(customValueScratchPad.ToInt(), ScratchPadConstants.DefaultNullValue);
                             }
                             foreach (var cellPoint in appSession.CellPoints.Where(cp => cp.IsCustomValue))
                             {
                                 var customValueScratchPad = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true);
-                                appSession.ScratchPadFactory.SetScratchPadValue(customValueScratchPad.ToInt(), cellPoint.CustomValue);
+                                appSession.ScratchPadFactory.SetScratchPadValue(customValueScratchPad.ToInt(), cellPoint.CustomValue.Value);
+                                Dispatcher.Invoke(() =>
+                                {
+                                    cellPoint.Data = cellPoint.CustomValue.Value;
+                                    cellPoint.MostRecentData.Add(cellPoint.Data);
+                                    if (cellPoint.MostRecentData.Count() > cellPoint.AverageSeconds * 2) //2 because we're capturing 2 data points per second
+                                        cellPoint.MostRecentData.RemoveAt(0);
+                                    cellPoint.AverageData = Math.Truncate(cellPoint.MostRecentData.Average() * 10000m) / 10000m;
+                                });                                
                             }
 
                             if (appSession.CurrentCellTest != null &&
