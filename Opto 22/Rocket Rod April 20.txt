@@ -43,3 +43,6 @@ add csv export button to pull data during test
 display window needs better scroll
 digital out/analog out need to change
 
+turn engine and fuel digital outs off after test
+OUTPUTS not inputs
+Memory leak
