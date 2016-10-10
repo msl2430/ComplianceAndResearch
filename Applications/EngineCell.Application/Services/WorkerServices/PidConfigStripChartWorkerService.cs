@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using EngineCell.Application.Factories;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
@@ -21,6 +22,8 @@ namespace EngineCell.Application.Services.WorkerServices
     public class PidConfigStripChartWorkerService : BaseWorkerThreadService, IPidConfigStripChartWorkerService
     {
         private PidConfigStripChartViewModel PidConfigStripChartViewModel { get; set; }
+        private IApplicationSessionFactory ApplicationSessionFactory { get; set; }
+        private DateTime CaptureTime { get; set; }
 
         private const int MaxDataPointSize = 1000;
 
@@ -34,6 +37,7 @@ namespace EngineCell.Application.Services.WorkerServices
             try
             {
                 CancellationToken = new CancellationTokenSource();
+                ApplicationSessionFactory = PidConfigStripChartViewModel.ApplicationSessionFactory;
                 while (!CancellationToken.IsCancellationRequested)
                 {
                     if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
@@ -42,16 +46,16 @@ namespace EngineCell.Application.Services.WorkerServices
                     WaitStopWatch.Stop();
                     WaitStopWatch.Reset();
 
-                    var appSession = PidConfigStripChartViewModel.ApplicationSessionFactory;
+                    
 
                     //Check if we're connected to and collecting data from Opto before proceeding
-                    if (appSession.OptoMmpFactory == null || !appSession.OptoMmpFactory.Current.IsCommunicationOpen)
+                    if (ApplicationSessionFactory.OptoMmpFactory == null || !ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen)
                     {
                         Thread.Sleep(1000);
                         continue;
                     }
 
-                    var timePoint = DateTime.Now;
+                    CaptureTime = DateTime.Now;
 
                     if (PidConfigStripChartViewModel.InputDataPoints.IsNullOrEmpty())
                         PidConfigStripChartViewModel.InputDataPoints = new List<DataPoint>();
@@ -68,9 +72,9 @@ namespace EngineCell.Application.Services.WorkerServices
                     if (PidConfigStripChartViewModel.SetPointDataPoints.Count() > MaxDataPointSize)
                         PidConfigStripChartViewModel.SetPointDataPoints.Remove(PidConfigStripChartViewModel.SetPointDataPoints.First());
 
-                    PidConfigStripChartViewModel.InputDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.InputValue.ToInt()).Value)));
-                    PidConfigStripChartViewModel.OutputDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputValue.ToInt()).Value)));
-                    PidConfigStripChartViewModel.SetPointDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt()).Value)));
+                    PidConfigStripChartViewModel.InputDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(CaptureTime), Convert.ToDouble(ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.InputValue.ToInt()).Value)));
+                    PidConfigStripChartViewModel.OutputDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(CaptureTime), Convert.ToDouble(ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputValue.ToInt()).Value)));
+                    PidConfigStripChartViewModel.SetPointDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(CaptureTime), Convert.ToDouble(ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt()).Value)));
 
                     //PidConfigStripChartViewModel.InputDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), (new Random(DateTime.Now.Millisecond)).Next(-5, 5)));
                     //PidConfigStripChartViewModel.OutputDataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), (new Random(DateTime.Now.Millisecond)).Next(-15, 15)));
@@ -95,13 +99,16 @@ namespace EngineCell.Application.Services.WorkerServices
 
         }
 
+        private Axis TempAxis { get; set; }
+        private ScreenPoint TempScreenPoint { get; set; }
+
         private void ResetAndPanGraph(DateTime timePoint)
         {
-            var axis = PidConfigStripChartViewModel.PlotModel.Axes.First(a => a.Key == "Time");
+            TempAxis = PidConfigStripChartViewModel.PlotModel.Axes.First(a => a.Key == "Time");
 
-            var screenPos = axis.Transform(DateTimeAxis.ToDouble(timePoint));
-            var point = new ScreenPoint(screenPos, 0);
-            axis.Pan(point, axis.ScreenMax);
+            var screenPos = TempAxis.Transform(DateTimeAxis.ToDouble(timePoint));
+            TempScreenPoint = new ScreenPoint(screenPos, 0);
+            TempAxis.Pan(TempScreenPoint, TempAxis.ScreenMax);
         }
     }
 }

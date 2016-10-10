@@ -1,8 +1,9 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Threading;
+using EngineCell.Application.Factories;
+using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
@@ -13,7 +14,11 @@ namespace EngineCell.Application.Services.WorkerServices
 {
     public class StripChartWorkerService : BaseWorkerThreadService
     {
-        private StripChartViewModel StripChartViewModel { get; set; }      
+        private StripChartViewModel StripChartViewModel { get; set; }
+        private IApplicationSessionFactory ApplicationSessionFactory { get; set; }
+        private DateTime CaptureTime { get; set; }
+        private PointDataModel TempCellPoint { get; set; }
+        private ScratchPadConstants.FloatIndexes TempPointEnum { get; set; }
 
         public StripChartWorkerService(StripChartViewModel stripChartViewModel, Dispatcher currentDispatcher)
         {
@@ -26,6 +31,7 @@ namespace EngineCell.Application.Services.WorkerServices
             try
             {
                 CancellationToken = new CancellationTokenSource();
+                ApplicationSessionFactory = StripChartViewModel.ApplicationSessionFactory;
                 while (!CancellationToken.IsCancellationRequested)
                 {
                     if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
@@ -34,29 +40,29 @@ namespace EngineCell.Application.Services.WorkerServices
                     WaitStopWatch.Stop();
                     WaitStopWatch.Reset();
 
-                    var appSession = StripChartViewModel.ApplicationSessionFactory;
+                    
 
                     //Check if we're connected to and collecting data from Opto before proceeding
-                    if (appSession.OptoMmpFactory == null || !appSession.OptoMmpFactory.Current.IsCommunicationOpen ||
-                        appSession.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt()).Value != 1)
+                    if (ApplicationSessionFactory.OptoMmpFactory == null || !ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen ||
+                        ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt()).Value != 1)
                     {
                         Thread.Sleep(1000);
                         continue;
                     }
 
-                    var timePoint = DateTime.Now;
+                    CaptureTime = DateTime.Now;
 
-                    foreach (var cellPoint in appSession.CellPoints)
+                    foreach (var cellPoint in ApplicationSessionFactory.CellPoints)
                     {
-                        var point = appSession.CellPoints.FirstOrDefault(p => p.PointName == cellPoint.PointName);
-                        if (point == null)
+                        TempCellPoint = ApplicationSessionFactory.CellPoints.FirstOrDefault(p => p.PointName == cellPoint.PointName);
+                        if (TempCellPoint == null)
                             continue;
 
-                        var pointEnum = (ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
-                        var data = Math.Truncate(appSession.ScratchPadFactory.GetScratchPadFloat(pointEnum.ToInt()).Value * 10000m) / 10000m;
+                        TempPointEnum = (ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
+                        var data = Math.Truncate(ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(TempPointEnum.ToInt()).Value * 10000m) / 10000m;
                         Dispatcher.Invoke(() =>
                         {
-                            cellPoint.DataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(timePoint), Convert.ToDouble(data*(point.StripChartScale ?? 1m))));
+                            cellPoint.DataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(CaptureTime), Convert.ToDouble(data*(TempCellPoint.StripChartScale ?? 1m))));
                         });
                     }
 
@@ -73,7 +79,7 @@ namespace EngineCell.Application.Services.WorkerServices
                         
                     StripChartViewModel.UpdateSeries();
                     Thread.Sleep(150); //threshold for the series to update and the panning to be possible
-                    ResetAndPanGraph(timePoint);
+                    ResetAndPanGraph(CaptureTime);
                 }
             }
             catch (Exception ex)
@@ -87,15 +93,18 @@ namespace EngineCell.Application.Services.WorkerServices
             
         }
 
+        private Axis TempAxis { get; set; }
+        private ScreenPoint TempScreenPoint { get; set; }
+
         private void ResetAndPanGraph(DateTime timePoint)
         {
             try
             {
-                var axis = StripChartViewModel.PlotModel.Axes.First(a => a.Key == "Time");
+                TempAxis = StripChartViewModel.PlotModel.Axes.First(a => a.Key == "Time");
 
-                var screenPos = axis.Transform(DateTimeAxis.ToDouble(timePoint));
-                var point = new ScreenPoint(screenPos, 0);
-                axis.Pan(point, axis.ScreenMax);
+                var screenPos = TempAxis.Transform(DateTimeAxis.ToDouble(timePoint));
+                TempScreenPoint = new ScreenPoint(screenPos, 0);
+                TempAxis.Pan(TempScreenPoint, TempAxis.ScreenMax);
                 //using (var file = new StreamWriter(@"D:\test.txt", true))
                 //{
                 //    file.WriteLine("{0} >> ScreenPos: {1} Point: {2} Max: {3}", DateTime.Now.ToShortTimeString(), screenPos, point, axis.ScreenMax);

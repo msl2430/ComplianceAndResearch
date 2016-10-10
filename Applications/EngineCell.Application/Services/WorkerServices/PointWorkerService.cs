@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using EngineCell.Application.ViewModels.TestDisplay;
 using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
+using EngineCell.Models.Models;
 using EngineCell.Models.Repositories;
 
 namespace EngineCell.Application.Services.WorkerServices
@@ -26,6 +28,9 @@ namespace EngineCell.Application.Services.WorkerServices
         private IApplicationSessionFactory ApplicationSessionFactory { get; set; }
         private TestDisplayViewModel TestDisplayViewModel { get; set; }
         private IWidgetRepository WidgetRepository { get; set; }
+
+        private ScratchPadConstants.FloatIndexes TempPoint { get; set; }
+        private DateTime CaptureTime { get; set; }
 
         public PointWorkerService(TestDisplayViewModel viewModel, Dispatcher currentDispatcher)
         {
@@ -55,15 +60,15 @@ namespace EngineCell.Application.Services.WorkerServices
                         if (appSession.OptoMmpFactory != null && appSession.OptoMmpFactory.Current.IsCommunicationOpen)
                         {
                             ConfigurePacWidgets();
-                            var captureTime = DateTime.Now;
+                            CaptureTime = DateTime.Now;
                             foreach (var cellPoint in appSession.CellPoints.Where(cp => !cp.IsCustomValue))
                             {
                                 if (cellPoint.IsAnalog)
                                 {
-                                    var point = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
+                                    TempPoint = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
                                     Dispatcher.Invoke(() =>
                                     {
-                                        cellPoint.Data = Math.Truncate(appSession.ScratchPadFactory.GetScratchPadFloat(point.ToInt()).Value*10000m)/10000m;
+                                        cellPoint.Data = Math.Truncate(appSession.ScratchPadFactory.GetScratchPadFloat(TempPoint.ToInt()).Value*10000m)/10000m;
                                     });
                                     if (!cellPoint.IsAverage || cellPoint.AverageSeconds == null || cellPoint.AverageSeconds.Value <= 0)
                                         continue;
@@ -77,22 +82,22 @@ namespace EngineCell.Application.Services.WorkerServices
                                 }
                                 else
                                 {
-                                    var point = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
+                                    TempPoint = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
                                     Dispatcher.Invoke(() =>
                                     {
-                                        cellPoint.Data = appSession.ScratchPadFactory.GetScratchPadFloat(point.ToInt()).Value > 0 ? 1m : 0m;
+                                        cellPoint.Data = appSession.ScratchPadFactory.GetScratchPadFloat(TempPoint.ToInt()).Value > 0 ? 1m : 0m;
                                     });
                                 }
 
                                 if (!cellPoint.IsInput) continue;
 
-                                var customValueScratchPad = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true);
-                                appSession.ScratchPadFactory.SetScratchPadValue(customValueScratchPad.ToInt(), ScratchPadConstants.DefaultNullValue);
+                                TempPoint = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true);
+                                appSession.ScratchPadFactory.SetScratchPadValue(TempPoint.ToInt(), ScratchPadConstants.DefaultNullValue);
                             }
                             foreach (var cellPoint in appSession.CellPoints.Where(cp => cp.IsCustomValue))
                             {
-                                var customValueScratchPad = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true);
-                                appSession.ScratchPadFactory.SetScratchPadValue(customValueScratchPad.ToInt(), cellPoint.CustomValue.Value);
+                                TempPoint = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true);
+                                appSession.ScratchPadFactory.SetScratchPadValue(TempPoint.ToInt(), cellPoint.CustomValue.Value);
                                 Dispatcher.Invoke(() =>
                                 {
                                     cellPoint.Data = cellPoint.CustomValue.Value;
@@ -107,7 +112,7 @@ namespace EngineCell.Application.Services.WorkerServices
                                 TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(
                                     ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()).Value == 1)
                             {
-                                ExportService.WriteDataToFile(appSession.CurrentCellTest.CellTestId, captureTime, appSession.CellPoints.Where(cp => cp.IsRecord).ToList());
+                                ExportService.WriteDataToFile(appSession.CurrentCellTest.CellTestId, CaptureTime, appSession.CellPoints.Where(cp => cp.IsRecord).ToList());
                                 CellPointRepository.CreateCellPointData(
                                     appSession.CellPoints.Where(cp => cp.IsRecord)
                                         .Select(cp => cp.ToCellTestPointDataModel(appSession.CurrentCellTest.CellTestId, DateTime.Now))
@@ -135,20 +140,24 @@ namespace EngineCell.Application.Services.WorkerServices
             WorkCompleted();
         }
 
+        private VentilationControlViewModel Settings { get; set; }
+        private IList<WidgetSettingValueModel> VentCtrl1WidgetSettings { get; set; }
+
         private void ConfigurePacWidgets()
         {
             //TODO: All widget settings
-            var ventCtrl1Settings = WidgetRepository.GetWidgetSettingByWidgetCell(ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.VentilationControl1);
+            VentCtrl1WidgetSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.VentilationControl1);
 
-            if (!ventCtrl1Settings.IsNotNullOrEmpty()) return;
-            var settings = new VentilationControlViewModel();
-            settings.SetValues(ventCtrl1Settings);
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.VentCtrl1InsideType.ToInt(), settings.Inside.ToInt());
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.VentCtrl1OutsideType.ToInt(), settings.Outside.ToInt());
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.VentCtrl1OutputType.ToInt(), settings.Output.ToInt());
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.VentCtrl1Setpoint.ToInt(), settings.SetPoint);
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.VentCtrl1Gain.ToInt(), settings.Gain);
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.VentCtrl1Status.ToInt(), settings.IsActive ? 1 : 0);
+            if (!VentCtrl1WidgetSettings.IsNotNullOrEmpty()) return;
+            if(Settings == null)
+                Settings = new VentilationControlViewModel();
+            Settings.SetValues(VentCtrl1WidgetSettings);
+            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.VentCtrl1InsideType.ToInt(), Settings.Inside.ToInt());
+            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.VentCtrl1OutsideType.ToInt(), Settings.Outside.ToInt());
+            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.VentCtrl1OutputType.ToInt(), Settings.Output.ToInt());
+            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.VentCtrl1Setpoint.ToInt(), Settings.SetPoint);
+            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.VentCtrl1Gain.ToInt(), Settings.Gain);
+            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.VentCtrl1Status.ToInt(), Settings.IsActive ? 1 : 0);
         }
 
         protected override void WorkCompleted()
