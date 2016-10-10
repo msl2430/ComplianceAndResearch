@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Threading;
 using EngineCell.Application.Factories;
 using EngineCell.Application.ViewModels.PointConfiguration;
@@ -40,7 +41,7 @@ namespace EngineCell.Application.Services.WorkerServices
                     WaitStopWatch.Stop();
                     WaitStopWatch.Reset();
 
-                    
+
 
                     //Check if we're connected to and collecting data from Opto before proceeding
                     if (ApplicationSessionFactory.OptoMmpFactory == null || !ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen ||
@@ -58,8 +59,8 @@ namespace EngineCell.Application.Services.WorkerServices
                         if (TempCellPoint == null)
                             continue;
 
-                        TempPointEnum = (ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
-                        var data = Math.Truncate(ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(TempPointEnum.ToInt()).Value * 10000m) / 10000m;
+                        TempPointEnum = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
+                        var data = Math.Truncate(ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(TempPointEnum.ToInt()).Value*10000m)/10000m;
                         Dispatcher.Invoke(() =>
                         {
                             cellPoint.DataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(CaptureTime), Convert.ToDouble(data*(TempCellPoint.StripChartScale ?? 1m))));
@@ -76,11 +77,15 @@ namespace EngineCell.Application.Services.WorkerServices
 
                     if (!StripChartViewModel.IsPlay)
                         continue;
-                        
+
                     StripChartViewModel.UpdateSeries();
                     Thread.Sleep(150); //threshold for the series to update and the panning to be possible
                     ResetAndPanGraph(CaptureTime);
                 }
+            }
+            catch (TaskCanceledException ex)
+            {
+                //do nothing
             }
             catch (Exception ex)
             {

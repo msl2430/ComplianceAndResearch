@@ -89,7 +89,7 @@ namespace EngineCell.Application.Services.WorkerServices
                                     });
                                 }
 
-                                if (!cellPoint.IsInput) continue;
+                                if (cellPoint.IsInput) continue;
 
                                 TempPoint = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true);
                                 appSession.ScratchPadFactory.SetScratchPadValue(TempPoint.ToInt(), ScratchPadConstants.DefaultNullValue);

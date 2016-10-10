@@ -51,7 +51,7 @@
           </StackPanel>
         </StackPanel>
       </Border>
-      <Border Grid.Row="3" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,0,0,1" Margin="5,0,0,5" Visibility="{Binding Path=IsInput, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
+      <Border Grid.Row="3" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,0,0,1" Margin="5,0,0,5" Visibility="{Binding Path=IsInput, Converter={StaticResource InverseBoolToVisibilityConverter}, ConverterParameter=true}">
         <StackPanel>
           <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
             <Label VerticalAlignment="Center" Height="30" FontSize="15">Set Custom Value</Label>
