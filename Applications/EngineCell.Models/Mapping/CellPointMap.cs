@@ -20,8 +20,8 @@ namespace EngineCell.Models.Mapping
             Map(cp => cp.AverageSeconds);
             Map(cp => cp.IncludeInStripChart);
             Map(cp => cp.StripChartScale);
-            Map(cp => cp.IsCustomValue);
-            Map(cp => cp.CustomValue);
+            //Map(cp => cp.IsCustomValue);
+            //Map(cp => cp.CustomValue);
         }
     }
 
@@ -40,8 +40,8 @@ namespace EngineCell.Models.Mapping
             Map(cp => cp.AverageSeconds);
             Map(cp => cp.IncludeInStripChart);
             Map(cp => cp.StripChartScale);
-            Map(cp => cp.IsCustomValue);
-            Map(cp => cp.CustomValue);
+            //Map(cp => cp.IsCustomValue);
+            //Map(cp => cp.CustomValue);
 
             References(cp => cp.Cell)
                 .Column("CellId")

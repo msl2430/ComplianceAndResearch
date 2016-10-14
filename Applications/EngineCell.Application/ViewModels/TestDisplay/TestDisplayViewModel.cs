@@ -7,6 +7,7 @@ using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Core.Constants;
+using EngineCell.Core.Extensions;
 
 namespace EngineCell.Application.ViewModels.TestDisplay
 {
@@ -98,15 +99,15 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             {
                 VisiblePoints.Add(point);
             }
-            
+
             LeftVisiblePoints = new ObservableCollection<PointDataModel>();
             RightVisiblePoints = new ObservableCollection<PointDataModel>();
 
             for (var i = 0; i < VisiblePoints.Count; i++)
             {
-                if(i%2 == 0)
+                if (i%2 == 0)
                     LeftVisiblePoints.Add(VisiblePoints[i]);
-                else 
+                else
                     RightVisiblePoints.Add(VisiblePoints[i]);
             }
         }

@@ -14,6 +14,7 @@ namespace EngineCell.Application.Factories
         IScratchPadModel<int> GetScratchPadInt(int index);
         IScratchPadModel<string> GetScratchPadString(int index);
         IScratchPadModel<decimal> GetScratchPadFloat(int index);
+        IList<IScratchPadModel<decimal>> GetScratchPadFloatRange(int start, int end);
 
         void SetScratchPadValue<T>(int index, T value);
         void SetScratchPadValue<T>(IScratchPadModel<T> scratchPad);
@@ -201,6 +202,35 @@ namespace EngineCell.Application.Factories
             }
         }
 
+        public IList<IScratchPadModel<decimal>> GetScratchPadFloatRange(int start, int end)
+        {
+            var scratchPadResults = new List<IScratchPadModel<decimal>>();
+            try
+            {
+                
+                var optoScratchPadFloats = new float[end - start];
+                var result = OptoMmp.Current.ScratchpadFloatRead(optoScratchPadFloats, 0, end - start, start);
+                if (result != 0)
+                    LogError("GetScratchPadFloat Result: " + result);
+                for (var i = start; i < end; i++)
+                {
+                    var sc = ScratchPadFloats.Any(f => f.Index == i)
+                        ? ScratchPadFloats.FirstOrDefault(f => f.Index == i)
+                        : new ScratchPadModel<decimal>(i, "undefined", 0m);
+                    var value = optoScratchPadFloats[i-start];
+                    if (float.IsNaN(value))
+                        value = 0f;
+                    sc.Value = Convert.ToDecimal(value);
+                    scratchPadResults.Add(sc);
+                }                
+            }
+            catch (Exception ex)
+            {
+                LogError("GetScratchPadFloatRange Error: " + ex.Message);
+            }
+            return scratchPadResults;
+        } 
+
         public IScratchPadModel<decimal> GetScratchPadFloat(int index)
         {
             var sc = ScratchPadFloats.Any(f => f.Index == index)
@@ -295,6 +325,11 @@ namespace EngineCell.Application.Factories
         }
 
         public IScratchPadModel<decimal> GetScratchPadFloat(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<IScratchPadModel<decimal>> GetScratchPadFloatRange(int start, int end)
         {
             throw new NotImplementedException();
         }

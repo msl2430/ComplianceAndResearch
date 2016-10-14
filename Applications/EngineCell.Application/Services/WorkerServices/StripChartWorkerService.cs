@@ -8,6 +8,7 @@ using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
+using Opto22.Core.Models;
 using OxyPlot;
 using OxyPlot.Axes;
 
@@ -41,8 +42,6 @@ namespace EngineCell.Application.Services.WorkerServices
                     WaitStopWatch.Stop();
                     WaitStopWatch.Reset();
 
-
-
                     //Check if we're connected to and collecting data from Opto before proceeding
                     if (ApplicationSessionFactory.OptoMmpFactory == null || !ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen ||
                         ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt()).Value != 1)
@@ -52,28 +51,20 @@ namespace EngineCell.Application.Services.WorkerServices
                     }
 
                     CaptureTime = DateTime.Now;
-
+                    var scratchPadValues = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatRange(1000, 1073);
                     foreach (var cellPoint in ApplicationSessionFactory.CellPoints)
                     {
-                        TempCellPoint = ApplicationSessionFactory.CellPoints.FirstOrDefault(p => p.PointName == cellPoint.PointName);
-                        if (TempCellPoint == null)
+                        var scratchPadValue = scratchPadValues.FirstOrDefault(sc => sc.Index == ((ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName, true)).ToInt());
+                        if (scratchPadValue == null)
                             continue;
-
-                        TempPointEnum = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
-                        var data = Math.Truncate(ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(TempPointEnum.ToInt()).Value*10000m)/10000m;
-                        Dispatcher.Invoke(() =>
-                        {
-                            cellPoint.DataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(CaptureTime), Convert.ToDouble(data*(TempCellPoint.StripChartScale ?? 1m))));
-                        });
+                        var data = Math.Truncate(scratchPadValue.Value*10000m)/10000m;
+                        cellPoint.DataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(CaptureTime), Convert.ToDouble(data*(cellPoint.StripChartScale ?? 1m))));
                     }
 
-                    Dispatcher.Invoke(() =>
+                    foreach (var maxDataPoints in StripChartViewModel.ApplicationSessionFactory.CellPoints.Where(cp => cp.DataPoints.Count > 500))
                     {
-                        foreach (var maxDataPoints in StripChartViewModel.ApplicationSessionFactory.CellPoints.Where(cp => cp.DataPoints.Count > 500))
-                        {
-                            maxDataPoints.DataPoints.RemoveAt(0);
-                        }
-                    });
+                        maxDataPoints.DataPoints.RemoveAt(0);
+                    }
 
                     if (!StripChartViewModel.IsPlay)
                         continue;

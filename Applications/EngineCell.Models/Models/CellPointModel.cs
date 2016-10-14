@@ -21,8 +21,8 @@ namespace EngineCell.Models.Models
         public int? AverageSeconds { get; set; }
         public bool IncludeInStripChart { get; set; }
         public decimal? StripChartScale { get; set; }
-        public bool IsCustomValue { get; set; }
-        public decimal? CustomValue { get; set; }
+        public bool IsCustomValue = false;// { get; set; }
+        public decimal? CustomValue = 0;//{ get; set; }
 
         public CellPointModel() { }
 

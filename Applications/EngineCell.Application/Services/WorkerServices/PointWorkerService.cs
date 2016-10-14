@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using System.Windows.Threading;
 using EngineCell.Application.Factories;
 using EngineCell.Application.Services.DataServices;
+using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.TestDisplay;
 using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
 using EngineCell.Models.Models;
 using EngineCell.Models.Repositories;
+using Opto22.Core.Models;
 
 namespace EngineCell.Application.Services.WorkerServices
 {
@@ -29,7 +31,6 @@ namespace EngineCell.Application.Services.WorkerServices
         private TestDisplayViewModel TestDisplayViewModel { get; set; }
         private IWidgetRepository WidgetRepository { get; set; }
 
-        private ScratchPadConstants.FloatIndexes TempPoint { get; set; }
         private DateTime CaptureTime { get; set; }
 
         public PointWorkerService(TestDisplayViewModel viewModel, Dispatcher currentDispatcher)
@@ -51,62 +52,32 @@ namespace EngineCell.Application.Services.WorkerServices
             {
                 try
                 {
-                    if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
-                    if (WaitStopWatch.ElapsedMilliseconds > 10)
+                    while (!CancellationToken.IsCancellationRequested)
                     {
+                        if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
+                        if (WaitStopWatch.ElapsedMilliseconds <= 10) continue;
+
                         WaitStopWatch.Stop();
                         WaitStopWatch.Reset();
+
                         //Check if we're connected to and collecting data from Opto before proceeding
                         if (appSession.OptoMmpFactory != null && appSession.OptoMmpFactory.Current.IsCommunicationOpen)
                         {
                             ConfigurePacWidgets();
                             CaptureTime = DateTime.Now;
-                            foreach (var cellPoint in appSession.CellPoints.Where(cp => !cp.IsCustomValue))
+                            var taskList = new List<Task>();
+                            var scratchPadValues = appSession.ScratchPadFactory.GetScratchPadFloatRange(1000, 1073);
+                            foreach (var cellPoint in appSession.CellPoints)
                             {
-                                if (cellPoint.IsAnalog)
+                                var task = new Task(() =>
                                 {
-                                    TempPoint = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
-                                    Dispatcher.Invoke(() =>
-                                    {
-                                        cellPoint.Data = Math.Truncate(appSession.ScratchPadFactory.GetScratchPadFloat(TempPoint.ToInt()).Value*10000m)/10000m;
-                                    });
-                                    if (!cellPoint.IsAverage || cellPoint.AverageSeconds == null || cellPoint.AverageSeconds.Value <= 0)
-                                        continue;
-                                    Dispatcher.Invoke(() =>
-                                    {
-                                        cellPoint.MostRecentData.Add(cellPoint.Data);
-                                        if (cellPoint.MostRecentData.Count() > cellPoint.AverageSeconds*2) //2 because we're capturing 2 data points per second
-                                            cellPoint.MostRecentData.RemoveAt(0);
-                                        cellPoint.AverageData = Math.Truncate(cellPoint.MostRecentData.Average() * 10000m) / 10000m;
-                                    });                                    
-                                }
-                                else
-                                {
-                                    TempPoint = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName, true);
-                                    Dispatcher.Invoke(() =>
-                                    {
-                                        cellPoint.Data = appSession.ScratchPadFactory.GetScratchPadFloat(TempPoint.ToInt()).Value > 0 ? 1m : 0m;
-                                    });
-                                }
-
-                                if (cellPoint.IsInput) continue;
-
-                                TempPoint = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true);
-                                appSession.ScratchPadFactory.SetScratchPadValue(TempPoint.ToInt(), ScratchPadConstants.DefaultNullValue);
+                                    CaptureCellPoint(cellPoint, scratchPadValues.FirstOrDefault(sc => sc.Index == ((ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName, true)).ToInt()), appSession);
+                                });
+                                taskList.Add(task);
+                                task.Start();
                             }
-                            foreach (var cellPoint in appSession.CellPoints.Where(cp => cp.IsCustomValue))
-                            {
-                                TempPoint = (ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true);
-                                appSession.ScratchPadFactory.SetScratchPadValue(TempPoint.ToInt(), cellPoint.CustomValue.Value);
-                                Dispatcher.Invoke(() =>
-                                {
-                                    cellPoint.Data = cellPoint.CustomValue.Value;
-                                    cellPoint.MostRecentData.Add(cellPoint.Data);
-                                    if (cellPoint.MostRecentData.Count() > cellPoint.AverageSeconds * 2) //2 because we're capturing 2 data points per second
-                                        cellPoint.MostRecentData.RemoveAt(0);
-                                    cellPoint.AverageData = Math.Truncate(cellPoint.MostRecentData.Average() * 10000m) / 10000m;
-                                });                                
-                            }
+
+                            Task.WaitAll(taskList.ToArray());
 
                             if (appSession.CurrentCellTest != null &&
                                 TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(
@@ -119,7 +90,9 @@ namespace EngineCell.Application.Services.WorkerServices
                                         .ToList());
                             }
 
-                            TestDisplayViewModel.UpdateVisibleCellPoints();
+                            Dispatcher.Invoke(() => {
+                                TestDisplayViewModel.UpdateVisibleCellPoints();
+                            });
 
                             TestDisplayViewModel.VentControl1Display.Inside = appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.VentCtrl1Inside.ToInt()).Value;
                             TestDisplayViewModel.VentControl1Display.Outside = appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.VentCtrl1Outside.ToInt()).Value;
@@ -142,6 +115,44 @@ namespace EngineCell.Application.Services.WorkerServices
 
         private VentilationControlViewModel Settings { get; set; }
         private IList<WidgetSettingValueModel> VentCtrl1WidgetSettings { get; set; }
+
+        private static void CaptureCellPoint(PointDataModel cellPoint, IScratchPadModel<decimal> scratchPadValue, IApplicationSessionFactory appSession)
+        {
+            if (scratchPadValue == null)
+                return;
+            if (!cellPoint.IsCustomValue)
+            {
+                if (cellPoint.IsAnalog)
+                {
+                    cellPoint.Data = Math.Truncate(scratchPadValue.Value * 10000m) / 10000m;
+                    if (!cellPoint.IsAverage || cellPoint.AverageSeconds == null || cellPoint.AverageSeconds.Value <= 0)
+                        return;
+                    cellPoint.MostRecentData.Add(cellPoint.Data);
+                    if (cellPoint.MostRecentData.Count() > cellPoint.AverageSeconds * 2) //2 because we're capturing 2 data points per second
+                        cellPoint.MostRecentData.RemoveAt(0);
+                    cellPoint.AverageData = Math.Truncate(cellPoint.MostRecentData.Average() * 10000m) / 10000m;
+                }
+                else
+                {
+                    cellPoint.Data = scratchPadValue.Value > 0 ? 1m : 0m;
+                }
+
+                if (cellPoint.IsInput) return;
+
+                var customTempPoint = (ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true);
+                appSession.ScratchPadFactory.SetScratchPadValue(customTempPoint.ToInt(), ScratchPadConstants.DefaultNullValue);
+            }
+            else
+            {
+                var tempPoint = (ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true);
+                appSession.ScratchPadFactory.SetScratchPadValue(tempPoint.ToInt(), cellPoint.CustomValue.Value);
+                cellPoint.Data = cellPoint.CustomValue.Value;
+                cellPoint.MostRecentData.Add(cellPoint.Data);
+                if (cellPoint.MostRecentData.Count() > cellPoint.AverageSeconds * 2) //2 because we're capturing 2 data points per second
+                    cellPoint.MostRecentData.RemoveAt(0);
+                cellPoint.AverageData = Math.Truncate(cellPoint.MostRecentData.Average() * 10000m) / 10000m;
+            }
+        }
 
         private void ConfigurePacWidgets()
         {

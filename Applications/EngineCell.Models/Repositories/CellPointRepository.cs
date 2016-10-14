@@ -70,8 +70,8 @@ namespace EngineCell.Models.Repositories
             cellPoint.AverageSeconds = point.AverageSeconds;
             cellPoint.IncludeInStripChart = point.IncludeInStripChart;
             cellPoint.StripChartScale = point.StripChartScale;
-            cellPoint.IsCustomValue = point.IsCustomValue;
-            cellPoint.CustomValue = point.CustomValue;
+            //cellPoint.IsCustomValue = point.IsCustomValue;
+            //cellPoint.CustomValue = point.CustomValue;
 
             NHibernateHelper.CurrentSession.Update(cellPoint);
             NHibernateHelper.CurrentSession.Flush();
