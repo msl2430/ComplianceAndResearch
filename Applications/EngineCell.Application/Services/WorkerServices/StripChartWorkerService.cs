@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,8 +20,8 @@ namespace EngineCell.Application.Services.WorkerServices
         private StripChartViewModel StripChartViewModel { get; set; }
         private IApplicationSessionFactory ApplicationSessionFactory { get; set; }
         private DateTime CaptureTime { get; set; }
-        private PointDataModel TempCellPoint { get; set; }
-        private ScratchPadConstants.FloatIndexes TempPointEnum { get; set; }
+        private IList<IScratchPadModel<decimal>> ScratchPadValues { get; set; }
+        private IScratchPadModel<decimal> ScratchPadValue { get; set; }
 
         public StripChartWorkerService(StripChartViewModel stripChartViewModel, Dispatcher currentDispatcher)
         {
@@ -34,6 +35,7 @@ namespace EngineCell.Application.Services.WorkerServices
             {
                 CancellationToken = new CancellationTokenSource();
                 ApplicationSessionFactory = StripChartViewModel.ApplicationSessionFactory;
+                ScratchPadValues = new List<IScratchPadModel<decimal>>();
                 while (!CancellationToken.IsCancellationRequested)
                 {
                     if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
@@ -51,14 +53,14 @@ namespace EngineCell.Application.Services.WorkerServices
                     }
 
                     CaptureTime = DateTime.Now;
-                    var scratchPadValues = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatRange(1000, 1073);
+                    ScratchPadValues = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatRange(1000, 1073);
                     foreach (var cellPoint in ApplicationSessionFactory.CellPoints)
                     {
-                        var scratchPadValue = scratchPadValues.FirstOrDefault(sc => sc.Index == ((ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName, true)).ToInt());
-                        if (scratchPadValue == null)
+                        ScratchPadValue = ScratchPadValues.FirstOrDefault(sc => sc.Index == ((ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName, true)).ToInt());
+                        if (ScratchPadValue == null)
                             continue;
-                        var data = Math.Truncate(scratchPadValue.Value*10000m)/10000m;
-                        cellPoint.DataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(CaptureTime), Convert.ToDouble(data*(cellPoint.StripChartScale ?? 1m))));
+                        cellPoint.DataPoints.Add(new DataPoint(DateTimeAxis.ToDouble(CaptureTime), Convert.ToDouble(Math.Truncate(ScratchPadValue.Value * 10000m) / 10000m * (cellPoint.StripChartScale ?? 1m))));
+                        ScratchPadValue = null;
                     }
 
                     foreach (var maxDataPoints in StripChartViewModel.ApplicationSessionFactory.CellPoints.Where(cp => cp.DataPoints.Count > 500))

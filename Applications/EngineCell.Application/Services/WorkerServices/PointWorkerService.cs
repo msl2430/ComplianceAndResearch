@@ -33,6 +33,9 @@ namespace EngineCell.Application.Services.WorkerServices
 
         private DateTime CaptureTime { get; set; }
 
+        private IList<IScratchPadModel<decimal>> ScratchPadValues { get; set; }
+        private IList<Task> TaskList { get; set; }
+
         public PointWorkerService(TestDisplayViewModel viewModel, Dispatcher currentDispatcher)
         {
             Dispatcher = currentDispatcher;
@@ -44,10 +47,10 @@ namespace EngineCell.Application.Services.WorkerServices
         public override void DoWork()
         {
 
-            var appSession = ApplicationSessionFactory;
             CancellationToken = new CancellationTokenSource();
             ApplicationSessionFactory.LogEvent("Point data collection started.", true);
             ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt(), 1);
+            TaskList = new List<Task>();
             while (!CancellationToken.IsCancellationRequested)
             {
                 try
@@ -61,32 +64,38 @@ namespace EngineCell.Application.Services.WorkerServices
                         WaitStopWatch.Reset();
 
                         //Check if we're connected to and collecting data from Opto before proceeding
-                        if (appSession.OptoMmpFactory != null && appSession.OptoMmpFactory.Current.IsCommunicationOpen)
+                        if (ApplicationSessionFactory.OptoMmpFactory != null && ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen)
                         {
                             ConfigurePacWidgets();
                             CaptureTime = DateTime.Now;
-                            var taskList = new List<Task>();
-                            var scratchPadValues = appSession.ScratchPadFactory.GetScratchPadFloatRange(1000, 1073);
-                            foreach (var cellPoint in appSession.CellPoints)
+
+                            ScratchPadValues = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatRange(1000, 1073);
+                            TaskList.Clear();
+                            foreach (var cellPoint in ApplicationSessionFactory.CellPoints)
                             {
                                 var task = new Task(() =>
                                 {
-                                    CaptureCellPoint(cellPoint, scratchPadValues.FirstOrDefault(sc => sc.Index == ((ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName, true)).ToInt()), appSession);
+                                    CaptureCellPoint(cellPoint, ScratchPadValues.FirstOrDefault(sc => sc.Index == ((ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName, true)).ToInt()), ApplicationSessionFactory);
                                 });
-                                taskList.Add(task);
+                                TaskList.Add(task);
                                 task.Start();
                             }
 
-                            Task.WaitAll(taskList.ToArray());
+                            Task.WaitAll(TaskList.ToArray());
 
-                            if (appSession.CurrentCellTest != null &&
-                                TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(
+                            for(var i = 0; i < TaskList.Count; i++)
+                            {
+                                TaskList[i] = null;
+                            }
+
+                            if (ApplicationSessionFactory.CurrentCellTest != null &&
+                                ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(
                                     ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()).Value == 1)
                             {
-                                ExportService.WriteDataToFile(appSession.CurrentCellTest.CellTestId, CaptureTime, appSession.CellPoints.Where(cp => cp.IsRecord).ToList());
+                                ExportService.WriteDataToFile(ApplicationSessionFactory.CurrentCellTest.CellTestId, CaptureTime, ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord).ToList());
                                 CellPointRepository.CreateCellPointData(
-                                    appSession.CellPoints.Where(cp => cp.IsRecord)
-                                        .Select(cp => cp.ToCellTestPointDataModel(appSession.CurrentCellTest.CellTestId, DateTime.Now))
+                                    ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord)
+                                        .Select(cp => cp.ToCellTestPointDataModel(ApplicationSessionFactory.CurrentCellTest.CellTestId, DateTime.Now))
                                         .ToList());
                             }
 
@@ -94,9 +103,9 @@ namespace EngineCell.Application.Services.WorkerServices
                                 TestDisplayViewModel.UpdateVisibleCellPoints();
                             });
 
-                            TestDisplayViewModel.VentControl1Display.Inside = appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.VentCtrl1Inside.ToInt()).Value;
-                            TestDisplayViewModel.VentControl1Display.Outside = appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.VentCtrl1Outside.ToInt()).Value;
-                            TestDisplayViewModel.VentControl1Display.Output = appSession.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.VentCtrl1Output.ToInt()).Value;
+                            TestDisplayViewModel.VentControl1Display.Inside = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.VentCtrl1Inside.ToInt()).Value;
+                            TestDisplayViewModel.VentControl1Display.Outside = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.VentCtrl1Outside.ToInt()).Value;
+                            TestDisplayViewModel.VentControl1Display.Output = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.VentCtrl1Output.ToInt()).Value;
                         }
                     }
                     Thread.Sleep(500);
@@ -120,6 +129,7 @@ namespace EngineCell.Application.Services.WorkerServices
         {
             if (scratchPadValue == null)
                 return;
+
             if (!cellPoint.IsCustomValue)
             {
                 if (cellPoint.IsAnalog)
@@ -139,13 +149,11 @@ namespace EngineCell.Application.Services.WorkerServices
 
                 if (cellPoint.IsInput) return;
 
-                var customTempPoint = (ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true);
-                appSession.ScratchPadFactory.SetScratchPadValue(customTempPoint.ToInt(), ScratchPadConstants.DefaultNullValue);
+                //appSession.ScratchPadFactory.SetScratchPadValue(((ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true)).ToInt(), ScratchPadConstants.DefaultNullValue);
             }
             else
             {
-                var tempPoint = (ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true);
-                appSession.ScratchPadFactory.SetScratchPadValue(tempPoint.ToInt(), cellPoint.CustomValue.Value);
+                Task.Run(() => appSession.ScratchPadFactory.SetScratchPadValue(((ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true)).ToInt(), cellPoint.CustomValue.Value));
                 cellPoint.Data = cellPoint.CustomValue.Value;
                 cellPoint.MostRecentData.Add(cellPoint.Data);
                 if (cellPoint.MostRecentData.Count() > cellPoint.AverageSeconds * 2) //2 because we're capturing 2 data points per second
