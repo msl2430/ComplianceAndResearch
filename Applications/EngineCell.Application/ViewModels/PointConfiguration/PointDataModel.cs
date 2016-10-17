@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using EngineCell.Application.ViewModels.AlarmConfiguration;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Models;
@@ -9,7 +8,7 @@ using OxyPlot;
 
 namespace EngineCell.Application.ViewModels.PointConfiguration
 {
-    public class PointDataModel : BaseModel
+    public class PointDataModel : BaseModel, IDisposable
     {
         public int CellPointId { get; set; }
         public int CellId { get; set; }
@@ -147,6 +146,13 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                 Data = Data,
                 CaptureTime = captureTime
             };
+        }
+
+        public void Dispose()
+        {
+            _dataPoints = null;
+            _mostRecentData = null;
+            _alarm = null;
         }
     }
 }

@@ -6,7 +6,7 @@ using EngineCell.Models.DataObjects;
 namespace EngineCell.Models.Models
 {
     [Serializable]
-    public class WidgetSettingValueModel : BaseModel
+    public class WidgetSettingValueModel : BaseModel, IDisposable
     {
         public int WidgetSettingValueId { get; set; }
         public WidgetConstants.Widget WidgetId { get; set; }
@@ -22,6 +22,11 @@ namespace EngineCell.Models.Models
                 return;
 
             InstantiateFromDataObject(obj);
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

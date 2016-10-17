@@ -89,19 +89,22 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             Intercooler = new PidDisplayViewModel() { PidConfig = new PidDisplayModel("Intercooler"), PidType = ControlConstants.PidType.Intercooler, ApplicationSessionFactory = appSession };
             IsManualTest = false;
             ChartViewModel = chartViewModel;            
+            VisiblePoints = new ObservableCollection<PointDataModel>();
+            LeftVisiblePoints = new ObservableCollection<PointDataModel>();
+            RightVisiblePoints = new ObservableCollection<PointDataModel>();
             UpdateVisibleCellPoints();
         }
 
         public void UpdateVisibleCellPoints()
         {
-            VisiblePoints = new ObservableCollection<PointDataModel>();
+            VisiblePoints.Clear();
             foreach (var point in ApplicationSessionFactory.CellPoints.Where(cp => cp.IsAverage))
             {
                 VisiblePoints.Add(point);
             }
 
-            LeftVisiblePoints = new ObservableCollection<PointDataModel>();
-            RightVisiblePoints = new ObservableCollection<PointDataModel>();
+            LeftVisiblePoints.Clear();
+            RightVisiblePoints.Clear();
 
             for (var i = 0; i < VisiblePoints.Count; i++)
             {

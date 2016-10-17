@@ -29,7 +29,8 @@ namespace EngineCell.Application.Services.WorkerServices
         
         private IScratchPadModel<int> ConnectedScratchPad { get; set; }
         private IApplicationSessionFactory ApplicationSessionFactory { get; set; }
-
+        private bool IsConnected { get; set; }
+        private int ScratchPadValue { get; set; }
 
         public OptoConnectionWorkerService(IOptoMmpFactory optoMmpFactory, Dispatcher currentDispatcher, Label statusLabel)
         {
@@ -92,12 +93,12 @@ namespace EngineCell.Application.Services.WorkerServices
                     {
                         WaitStopWatch.Stop();
                         WaitStopWatch.Reset();
-                        var isConnected = ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen;
-                        var optoScratchPadValue = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StrategyLocationValue.ToInt()).Value;
+                        IsConnected = ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen;
+                        ScratchPadValue = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StrategyLocationValue.ToInt()).Value;
                         ApplicationSessionFactory.ApplicationViewModel.StatusLabel = _successMessage;
-                        if (!isConnected || optoScratchPadValue == 0)
+                        if (!IsConnected || ScratchPadValue == 0)
                             Dispatcher.Invoke(CallbackAction(), DispatcherPriority.Normal);
-                        AdjustInterval(isConnected);
+                        AdjustInterval(IsConnected);
                     }
                     Thread.Sleep(500);
                 }

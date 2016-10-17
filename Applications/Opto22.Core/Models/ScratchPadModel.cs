@@ -1,4 +1,6 @@
-﻿namespace Opto22.Core.Models
+﻿using System;
+
+namespace Opto22.Core.Models
 {
     public interface IScratchPadModel<T>
     {
@@ -7,7 +9,7 @@
         T Value { get; set; }
     }
 
-    public class ScratchPadModel<T> : IScratchPadModel<T>
+    public class ScratchPadModel<T> : IScratchPadModel<T>, IDisposable
     {
         public int Index { get; set; }
         public string Name { get; set; }
@@ -19,6 +21,11 @@
             Index = index;
             Name = name;
             Value = value;
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

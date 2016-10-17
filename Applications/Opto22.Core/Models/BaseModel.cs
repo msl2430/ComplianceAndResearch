@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -11,7 +9,7 @@ namespace Opto22.Core.Models
 {
     [Serializable]
     [Obsolete]
-    public class BaseModel : ICloneable
+    public class BaseModel : ICloneable, IDisposable
     {
         public override string ToString()
         {
@@ -24,6 +22,10 @@ namespace Opto22.Core.Models
                     str.AppendFormat("{0}: {1} ", prop.Name, prop.GetValue(this, null));
             }
             return str.ToString();
+        }
+
+        public void Dispose()
+        {
         }
 
         protected void InstantiateFromDataObject(object dataObject)
