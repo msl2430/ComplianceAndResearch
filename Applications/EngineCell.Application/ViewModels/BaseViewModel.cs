@@ -1,9 +1,10 @@
-﻿using EngineCell.Application.Factories;
+﻿using System;
+using EngineCell.Application.Factories;
 using EngineCell.Core.Models;
 
 namespace EngineCell.Application.ViewModels
 {
-    public abstract class BaseViewModel : BaseModel
+    public abstract class BaseViewModel : BaseModel, IDisposable
     {
         public IApplicationSessionFactory ApplicationSessionFactory { get; set; }
 
@@ -16,5 +17,8 @@ namespace EngineCell.Application.ViewModels
 
         public bool IsEnabled => ZIndex == 1;
 
+        public void Dispose()
+        {
+        }
     }
 }

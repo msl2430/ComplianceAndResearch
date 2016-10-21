@@ -31,13 +31,13 @@
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
-            <TextBox Text="{Binding Path=CustomName, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="7,0,0,0" Width="125" 
+            <TextBox IsUndoEnabled="False" Text="{Binding Path=CustomName, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="7,0,0,0" Width="125" 
                 LostFocus="UpdateTextPoint" TextChanged="MarkAsDirty"></TextBox>
-              <TextBox IsReadOnly="True" Text="{Binding Path=Data}" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Right" Visibility="{Binding Path=IsDisplayValue, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"></TextBox>
+              <TextBox IsUndoEnabled="False" IsReadOnly="True" Text="{Binding Path=Data}" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Right" Visibility="{Binding Path=IsDisplayValue, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"></TextBox>
               <Grid Visibility="{Binding Path=IsDisplayValue, Converter={StaticResource InverseBoolToVisibilityConverter}, ConverterParameter=true}">
-              <TextBox IsReadOnly="True" Text="On" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Center" Background="{StaticResource GreenBrush}" Foreground="WhiteSmoke"
+              <TextBox IsUndoEnabled="False" IsReadOnly="True" Text="On" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Center" Background="{StaticResource GreenBrush}" Foreground="WhiteSmoke"
                        Visibility="{Binding Path=IsDigitalOn, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"></TextBox>
-              <TextBox IsReadOnly="True" Text="Off" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Center" Background="Red" Foreground="WhiteSmoke"
+              <TextBox IsUndoEnabled="False" IsReadOnly="True" Text="Off" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Center" Background="Red" Foreground="WhiteSmoke"
                        Visibility="{Binding Path=IsDigitalOn, Converter={StaticResource InverseBoolToVisibilityConverter}, ConverterParameter=true}"></TextBox>
             </Grid>
           </StackPanel>

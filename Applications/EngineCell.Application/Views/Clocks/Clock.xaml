@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Width="112" Margin="0,5,0,5">
-        <TextBox Text="{Binding TimeOfDay}" IsEnabled="False" IsReadOnly="True" FontSize="20" Width="90" Height="35" HorizontalAlignment="Right" BorderBrush="Transparent"></TextBox>
+        <TextBox IsUndoEnabled="False" Text="{Binding TimeOfDay}" IsEnabled="False" IsReadOnly="True" FontSize="20" Width="90" Height="35" HorizontalAlignment="Right" BorderBrush="Transparent"></TextBox>
     </Grid>
 </UserControl>

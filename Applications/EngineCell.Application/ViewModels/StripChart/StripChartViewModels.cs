@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using EngineCell.Application.Factories;
-using EngineCell.Core.Extensions;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -60,6 +59,8 @@ namespace EngineCell.Application.ViewModels.StripChart
             };
             PlotModel.Axes.Add(dateAxis);
             PlotModel.Axes.Add(valueAxis);
+            dateAxis = null;
+            valueAxis = null;
         }
 
         public override void CreateSeries() 
@@ -72,10 +73,11 @@ namespace EngineCell.Application.ViewModels.StripChart
                     var newSeries = new LineSeries
                     {
                         Title = point.CustomName,
-                        IsVisible = point.IncludeInStripChart
+                        IsVisible = point.IncludeInStripChart,
                     };
                     newSeries.Points.AddRange(point.DataPoints);
                     PlotModel.Series.Add(newSeries);
+                    newSeries = null;
                 }
                 
                 PlotModel.InvalidatePlot(true);
@@ -99,6 +101,7 @@ namespace EngineCell.Application.ViewModels.StripChart
                 var series = (LineSeries)PlotModel.Series.FirstOrDefault(s => s.Title == point.CustomName);
 
                 series?.Points.AddRange(point.DataPoints.Except(series.Points));
+                series = null;
             }
             PlotModel.InvalidatePlot(true);
         }
