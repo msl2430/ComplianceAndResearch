@@ -92,21 +92,21 @@ namespace EngineCell.Application.Views.Pid
             {
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.PidConfigType.ToInt(), ViewModel.PidType.ToInt());
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.PidConfigStatus.ToInt(), StatusConstants.ProgressStatus.Active.ToInt());
-                while (ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.PidConfigStatus.ToInt()).Value != StatusConstants.ProgressStatus.Finished.ToInt())
+                while (ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.PidConfigStatus.ToInt()) != StatusConstants.ProgressStatus.Finished.ToInt())
                 {
                     Thread.Sleep(500);
                 }
-                ViewModel.LowRange = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.InputLowRange.ToInt()).Value;
-                ViewModel.HighRange = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.InputHighRange.ToInt()).Value;
-                ViewModel.LowerClamp = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputLowerClamp.ToInt()).Value;
-                ViewModel.UpperClamp = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputUpperClamp.ToInt()).Value;
-                ViewModel.MinChange = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputMinChange.ToInt()).Value;
-                ViewModel.MaxChange = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.OutputMaxChange.ToInt()).Value;
-                ViewModel.Gain = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.Gain.ToInt()).Value;
-                ViewModel.TuneI = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TuneI.ToInt()).Value;
-                ViewModel.TuneD = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.TuneD.ToInt()).Value;
-                ViewModel.FeedFwdInitial = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.FeedFwdInitial.ToInt()).Value;
-                ViewModel.FeedFwdGain = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.FeedFwdGain.ToInt()).Value;                
+                ViewModel.LowRange = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.InputLowRange.ToInt());
+                ViewModel.HighRange = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.InputHighRange.ToInt());
+                ViewModel.LowerClamp = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.OutputLowerClamp.ToInt());
+                ViewModel.UpperClamp = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.OutputUpperClamp.ToInt());
+                ViewModel.MinChange = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.OutputMinChange.ToInt());
+                ViewModel.MaxChange = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.OutputMaxChange.ToInt());
+                ViewModel.Gain = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.Gain.ToInt());
+                ViewModel.TuneI = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.TuneI.ToInt());
+                ViewModel.TuneD = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.TuneD.ToInt());
+                ViewModel.FeedFwdInitial = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.FeedFwdInitial.ToInt());
+                ViewModel.FeedFwdGain = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.FeedFwdGain.ToInt());                
             });
         }
 
@@ -127,7 +127,7 @@ namespace EngineCell.Application.Views.Pid
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.FeedFwdGain.ToInt(), ViewModel.FeedFwdInitial);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.PidConfigStatus.ToInt(), StatusConstants.ProgressStatus.Active.ToInt());
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.SetPointValue.ToInt(), ViewModel.SetPoint);
-                while (ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.PidConfigStatus.ToInt()).Value != StatusConstants.ProgressStatus.Finished.ToInt())
+                while (ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.PidConfigStatus.ToInt()) != StatusConstants.ProgressStatus.Finished.ToInt())
                 {
                     Thread.Sleep(500);
                 }

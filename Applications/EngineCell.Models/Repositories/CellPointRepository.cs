@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
 using EngineCell.Core.Models;
@@ -125,19 +126,15 @@ namespace EngineCell.Models.Repositories
 
         public void CreateCellPointData(IList<CellTestPointDataModel> points)
         {
-            //using (var session = NHibernateHelper.CurrentSession)
-            //using (var transaction = NHibernateHelper.CurrentSession.BeginTransaction(IsolationLevel.ReadUncommitted))
-            //{
-                foreach (var point in points)
-                    NHibernateHelper.CurrentSession.Save(new CellTestPointData
-                    {
-                        CellTestId = point.CellTestId,
-                        CellPointId = point.CellPointId,
-                        Data = point.Data,
-                        CaptureTime = point.CaptureTime
-                    });
-             //   transaction.Commit();
-           // }
+            var str = new StringBuilder();
+
+            foreach (var point in points)
+            {
+                str.AppendFormat("({0}, {1}, {2}, '{3}'),", point.CellTestId, point.CellPointId, point.Data, point.CaptureTime);
+            }
+
+            var sqlString = str.ToString().Substring(0, str.Length - 1);
+            NHibernateHelper.CurrentSession.CreateSQLQuery("INSERT INTO CellTestPointData (CellTestId, CellPointId, Data, CaptureTime) VALUES " + sqlString).ExecuteUpdate();
         }
 
         public IList<DateTime> GetCaptureTimesForTest(int cellTestId)

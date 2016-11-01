@@ -46,7 +46,7 @@ namespace EngineCell.Application.Services.WorkerServices
 
                     //Check if we're connected to and collecting data from Opto before proceeding
                     if (ApplicationSessionFactory.OptoMmpFactory == null || !ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen ||
-                        ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt()).Value != 1)
+                        ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt()) != 1)
                     {
                         Thread.Sleep(1000);
                         continue;

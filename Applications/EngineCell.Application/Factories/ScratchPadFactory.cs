@@ -11,10 +11,11 @@ namespace EngineCell.Application.Factories
     public interface IScratchPadFactory
     {
         IScratchPadModel<bool> GetScratchPadBit(int index);
-        IScratchPadModel<int> GetScratchPadInt(int index);
+        int GetScratchPadIntValue(int index);
         IScratchPadModel<string> GetScratchPadString(int index);
-        IScratchPadModel<decimal> GetScratchPadFloat(int index);
         IList<IScratchPadModel<decimal>> GetScratchPadFloatRange(int start, int end);
+
+        decimal GetScratchPadFloatValue(int index);
 
         void SetScratchPadValue<T>(int index, T value);
         void SetScratchPadValue<T>(IScratchPadModel<T> scratchPad);
@@ -151,12 +152,8 @@ namespace EngineCell.Application.Factories
             return sc;
         }
 
-        public IScratchPadModel<int> GetScratchPadInt(int index)
+        public int GetScratchPadIntValue(int index)
         {
-            var sc = ScratchPadInts.Any(b => b.Index == index)
-                ? ScratchPadInts.FirstOrDefault(x => x.Index == index)
-                : new ScratchPadModel<int>(index, "undefined", 0);
-
             var attempts = 0;
             var result = -1;
             var optoScratchPadInt = new int[1];
@@ -166,12 +163,7 @@ namespace EngineCell.Application.Factories
                 attempts++;
             }
 
-            if (result != 0)
-                return sc;
-
-            sc.Value = optoScratchPadInt[0];
-
-            return sc;
+            return result != 0 ? 0 : optoScratchPadInt[0];
         }
 
         public IScratchPadModel<string> GetScratchPadString(int index)
@@ -214,14 +206,10 @@ namespace EngineCell.Application.Factories
                     LogError("GetScratchPadFloat Result: " + result);
                 for (var i = start; i < end; i++)
                 {
-                    var sc = ScratchPadFloats.Any(f => f.Index == i)
-                        ? ScratchPadFloats.FirstOrDefault(f => f.Index == i)
-                        : new ScratchPadModel<decimal>(i, "undefined", 0m);
                     var value = optoScratchPadFloats[i-start];
                     if (float.IsNaN(value))
                         value = 0f;
-                    sc.Value = Convert.ToDecimal(value);
-                    scratchPadResults.Add(sc);
+                    scratchPadResults.Add(new ScratchPadModel<decimal>(i, "", Convert.ToDecimal(value)));
                 }                
             }
             catch (Exception ex)
@@ -231,29 +219,28 @@ namespace EngineCell.Application.Factories
             return scratchPadResults;
         } 
 
-        public IScratchPadModel<decimal> GetScratchPadFloat(int index)
+        
+
+        public decimal GetScratchPadFloatValue(int index)
         {
-            var sc = ScratchPadFloats.Any(f => f.Index == index)
-                    ? ScratchPadFloats.FirstOrDefault(f => f.Index == index)
-                    : new ScratchPadModel<decimal>(index, "undefined", 0m);
             try
             {
                 var optoScratchPadFloat = new float[1];
-                var result = OptoMmp.Current.ScratchpadFloatRead(optoScratchPadFloat, 0, 1, index);
+                var result = (int?)OptoMmp.Current.ScratchpadFloatRead(optoScratchPadFloat, 0, 1, index);
                 if (result != 0)
                     LogError("GetScratchPadFloat Result: " + result);
                 if (result != 0)
-                    return sc;
+                    return 0m;
 
                 if (float.IsNaN(optoScratchPadFloat[0]))
                     optoScratchPadFloat[0] = 0f;
-                sc.Value = Convert.ToDecimal(optoScratchPadFloat[0]);
+                return Convert.ToDecimal(optoScratchPadFloat[0]);
             }
             catch (Exception ex)
             {
                 LogError("GetScratchPadFloat Error: " + ex.Message);
             }
-            return sc;
+            return 0m;
         }
 
         public void SetScratchPadValue<T>(IScratchPadModel<T> scratchPad)
@@ -267,82 +254,43 @@ namespace EngineCell.Application.Factories
             {
                 OptoMmp.Current.ScratchpadBitWrite(Convert.ToBoolean(value), index);
 
-                var sc = ScratchPadBits.All(b => b.Index != index)
-                    ? new ScratchPadModel<bool>(index, "undefined", false)
-                    : ScratchPadBits.FirstOrDefault(b => b.Index == index);
+                //var sc = ScratchPadBits.All(b => b.Index != index)
+                //    ? new ScratchPadModel<bool>(index, "undefined", false)
+                //    : ScratchPadBits.FirstOrDefault(b => b.Index == index);
 
-                sc.Value = Convert.ToBoolean(value);
+                //sc.Value = Convert.ToBoolean(value);
             }
             else if (typeof (T) == typeof (int))
             {
-                var result = OptoMmp.Current.ScratchpadI32Write(new[] {Convert.ToInt32(value)}, 0, 1, index);
+                OptoMmp.Current.ScratchpadI32Write(new[] {Convert.ToInt32(value)}, 0, 1, index);
 
-                var sc = ScratchPadInts.All(b => b.Index != index)
-                    ? new ScratchPadModel<int>(index, "undefined", 0)
-                    : ScratchPadInts.FirstOrDefault(b => b.Index == index);
+                //var sc = ScratchPadInts.All(b => b.Index != index)
+                //    ? new ScratchPadModel<int>(index, "undefined", 0)
+                //    : ScratchPadInts.FirstOrDefault(b => b.Index == index);
 
-                sc.Value = Convert.ToInt32(value);
+                //sc.Value = Convert.ToInt32(value);
             }
             else if (typeof (T) == typeof (string))
             {
                 OptoMmp.Current.ScratchpadStringWrite(new[] {Convert.ToString(value)}, 0, 1, index);
 
-                var sc = ScratchPadStrings.All(b => b.Index != index)
-                    ? new ScratchPadModel<string>(index, "undefined", "")
-                    : ScratchPadStrings.FirstOrDefault(b => b.Index == index);
+                //var sc = ScratchPadStrings.All(b => b.Index != index)
+                //    ? new ScratchPadModel<string>(index, "undefined", "")
+                //    : ScratchPadStrings.FirstOrDefault(b => b.Index == index);
 
-                sc.Value = Convert.ToString(value);
+                //sc.Value = Convert.ToString(value);
             }
             else if (typeof(T) == typeof(decimal))
             {
                 OptoMmp.Current.ScratchpadFloatWrite(new[] { (float)Convert.ToDecimal(value) }, 0, 1, index);
 
-                var sc = ScratchPadFloats.All(b => b.Index != index)
-                    ? new ScratchPadModel<decimal>(index, "undefined", 0m)
-                    : ScratchPadFloats.FirstOrDefault(b => b.Index == index);
+                //var sc = ScratchPadFloats.All(b => b.Index != index)
+                //    ? new ScratchPadModel<decimal>(index, "undefined", 0m)
+                //    : ScratchPadFloats.FirstOrDefault(b => b.Index == index);
 
-                sc.Value = Convert.ToDecimal(value);
+                //sc.Value = Convert.ToDecimal(value);
             }
         }
 
-    }
-
-    public sealed class MockScratchPadFactory : IScratchPadFactory
-    {
-        public IScratchPadModel<bool> GetScratchPadBit(int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IScratchPadModel<int> GetScratchPadInt(int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IScratchPadModel<string> GetScratchPadString(int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IScratchPadModel<decimal> GetScratchPadFloat(int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<IScratchPadModel<decimal>> GetScratchPadFloatRange(int start, int end)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetScratchPadValue<T>(int index, T value)
-        {
-            
-        }
-
-        public void SetScratchPadValue<T>(IScratchPadModel<T> scratchPad)
-        {
-            
-        }
-
-    }
+    }    
 }

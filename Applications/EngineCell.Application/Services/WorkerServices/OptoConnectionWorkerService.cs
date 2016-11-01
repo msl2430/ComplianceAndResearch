@@ -4,11 +4,9 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using EngineCell.Application.Extensions;
 using EngineCell.Application.Factories;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
-using Opto22.Core.Models;
 
 namespace EngineCell.Application.Services.WorkerServices
 {
@@ -27,7 +25,6 @@ namespace EngineCell.Application.Services.WorkerServices
         private const int MaximumWaitPeriod = 300000;
         private readonly string _successMessage = "Connected: " + ConfigurationManager.AppSettings["OptoIpAddress"] + ":" + ConfigurationManager.AppSettings["OptoMmpPort"];
         
-        private IScratchPadModel<int> ConnectedScratchPad { get; set; }
         private IApplicationSessionFactory ApplicationSessionFactory { get; set; }
         private bool IsConnected { get; set; }
         private int ScratchPadValue { get; set; }
@@ -49,20 +46,15 @@ namespace EngineCell.Application.Services.WorkerServices
 
         private void ToggleScratchPadConnectBit()
         {
-            if (ConnectedScratchPad == null)
-                ConnectedScratchPad = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.ConnectedToOpto.ToInt());
-
             switch (ApplicationSessionFactory.OptoConnectionStatus)
             {
                 case StatusConstants.ConnectionStatus.Connecting:
                 case StatusConstants.ConnectionStatus.Connected:
-                    ConnectedScratchPad.Value = 1;
-                    ConnectedScratchPad.Update();
+                    ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.ConnectedToOpto.ToInt(), 1);
                     break;
                 case StatusConstants.ConnectionStatus.Disconnecting:
                 case StatusConstants.ConnectionStatus.Disconnected:
-                    ConnectedScratchPad.Value = 0;
-                    ConnectedScratchPad.Update();
+                    ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.ConnectedToOpto.ToInt(), 0);
                     break;
             }
         }
@@ -94,7 +86,7 @@ namespace EngineCell.Application.Services.WorkerServices
                         WaitStopWatch.Stop();
                         WaitStopWatch.Reset();
                         IsConnected = ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen;
-                        ScratchPadValue = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(ScratchPadConstants.IntegerIndexes.StrategyLocationValue.ToInt()).Value;
+                        ScratchPadValue = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.StrategyLocationValue.ToInt());
                         ApplicationSessionFactory.ApplicationViewModel.StatusLabel = _successMessage;
                         if (!IsConnected || ScratchPadValue == 0)
                             Dispatcher.Invoke(CallbackAction(), DispatcherPriority.Normal);
@@ -121,7 +113,6 @@ namespace EngineCell.Application.Services.WorkerServices
             return () =>
             {
                 ApplicationSessionFactory.ApplicationViewModel.StatusLabel = "Connection lost or Opto not running";
-                ConnectedScratchPad.Value = 0;
                 //TODO More Event Handling for lost Opto connection
             };
         }

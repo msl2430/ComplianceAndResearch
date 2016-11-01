@@ -89,8 +89,7 @@ namespace EngineCell.Application.Services.WorkerServices
                             }
 
                             if (ApplicationSessionFactory.CurrentCellTest != null &&
-                                ApplicationSessionFactory.ScratchPadFactory.GetScratchPadInt(
-                                    ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()).Value == 1)
+                                ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()) == 1)
                             {
                                 ExportService.WriteDataToFile(ApplicationSessionFactory.CurrentCellTest.CellTestId, CaptureTime, ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord).ToList());
                                 CellPointRepository.CreateCellPointData(
@@ -103,9 +102,9 @@ namespace EngineCell.Application.Services.WorkerServices
                                 TestDisplayViewModel.UpdateVisibleCellPoints();
                             });
 
-                            TestDisplayViewModel.VentControl1Display.Inside = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.VentCtrl1Inside.ToInt()).Value;
-                            TestDisplayViewModel.VentControl1Display.Outside = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.VentCtrl1Outside.ToInt()).Value;
-                            TestDisplayViewModel.VentControl1Display.Output = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloat(ScratchPadConstants.FloatIndexes.VentCtrl1Output.ToInt()).Value;
+                            TestDisplayViewModel.VentControl1Display.Inside = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.VentCtrl1Inside.ToInt());
+                            TestDisplayViewModel.VentControl1Display.Outside = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.VentCtrl1Outside.ToInt());
+                            TestDisplayViewModel.VentControl1Display.Output = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.VentCtrl1Output.ToInt());
                         }
                     }
                     Thread.Sleep(500);
