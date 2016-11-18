@@ -37,7 +37,7 @@ namespace EngineCell.Application.Factories
             set { ApplicationSession.ApplicationViewModel.OptoConnectionStatus = value; }
         }
 
-        public int CurrentCellId => 1; //TODO: Change when we add more cells
+        public int CurrentCellId => 2; //TODO: Change when we add more cells
         public CellTestModel CurrentCellTest { get; set; }
         public IList<PointDataModel> CellPoints { get; set; }
 

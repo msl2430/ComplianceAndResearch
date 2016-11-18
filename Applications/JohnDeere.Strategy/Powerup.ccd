@@ -1,0 +1,7 @@
+: 0_0
+0 JUMP ;
+T: T0
+DUMMY
+0_0
+T;
+&Powerup ' T0 SETTASK

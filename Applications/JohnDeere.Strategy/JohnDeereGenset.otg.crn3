@@ -1,0 +1,66 @@
+CREATE T.ARRAY
+&Powerup ,
+ 0 ,
+CREATE V.ARRAY
+*_HSV_SEMA ,
+*_HSV_TEMP ,
+ 0 ,
+CREATE TI.ARRAY
+ 0 ,
+CREATE PTR.ARRAY
+ 0 ,
+CREATE TA.ARRAY 
+ 0 ,
+CREATE PTRTABLE.ARRAY 
+ 0 ,
+CREATE B.ARRAY
+%JohnDeere ,
+ 0 ,
+CREATE P.ARRAY
+~aima0 ,
+~aima1 ,
+~aiv0 ,
+~aiv1 ,
+~aiv2 ,
+~aiv3 ,
+~aoma0 ,
+~aoma1 ,
+~rate0 ,
+~rate1 ,
+~TC0 ,
+~TC1 ,
+~TC10 ,
+~TC11 ,
+~TC2 ,
+~TC3 ,
+~TC4 ,
+~TC5 ,
+~TC6 ,
+~TC7 ,
+~TC8 ,
+~TC9 ,
+ 0 ,
+CREATE PID.ARRAY
+ 0 ,
+CREATE E/R.ARRAY
+ 0 ,
+CREATE E/RGROUP.ARRAY
+ 0 ,
+: CONFIG_PORTS
+;
+: W_INIT_IO
+CONFIG_PORTS
+" %JohnDeere  (1/1)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
+%JohnDeere ENABLE
+ " Initializing variables" *_HSV_INIT_IO $MOVE
+ " " *_HSV_INIT_IO $MOVE
+;
+T: T_INIT_IO
+W_INIT_IO
+&Powerup START.T DROP
+T;
+&_INIT_IO ' T_INIT_IO  SETTASK
+   : _RUN
+   CLEARERRORS
+   &_INIT_IO START.T DROP
+   ;
