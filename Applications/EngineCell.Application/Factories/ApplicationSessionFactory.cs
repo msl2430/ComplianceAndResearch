@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 using EngineCell.Application.Services;
@@ -37,7 +39,7 @@ namespace EngineCell.Application.Factories
             set { ApplicationSession.ApplicationViewModel.OptoConnectionStatus = value; }
         }
 
-        public int CurrentCellId => 2; //TODO: Change when we add more cells
+        public int CurrentCellId => Convert.ToInt32(ConfigurationManager.AppSettings["CellId"]); //TODO: Change when we add more cells
         public CellTestModel CurrentCellTest { get; set; }
         public IList<PointDataModel> CellPoints { get; set; }
 

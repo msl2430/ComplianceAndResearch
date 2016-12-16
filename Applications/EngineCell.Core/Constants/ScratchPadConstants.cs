@@ -33,7 +33,12 @@
             VentCtrl1Status = 600,
             VentCtrl1InsideType,
             VentCtrl1OutsideType,
-            VentCtrl1OutputType,            
+            VentCtrl1OutputType,     
+            
+            //DynoPid
+            DynoPidStatus = 610,
+            DynoPidMode,
+            DynoPidMeasurement,            
         }
 
         /// <summary>
@@ -109,6 +114,9 @@
             VentCtrl1Inside,
             VentCtrl1Outside,
             VentCtrl1Output,
+
+            //DynoPid
+            DynoPidSetpoint = 610,
 
             //Points,
             ThermoCouple0 = 1000,

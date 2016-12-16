@@ -166,6 +166,15 @@ namespace EngineCell.Application.Views
 
                 MainWindowViewModel.TestDisplayViewModel.VentControl1Display = new VentilationControlDisplayViewModel("Ventilation Control 1", settings.IsActive);                
             }
+
+            var dynoctrlSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.DynoPid);
+            if (dynoctrlSettings.IsNotNullOrEmpty())
+            {
+                var settings = new DynoPidConfigViewModel();
+                settings.SetValues(dynoctrlSettings);
+
+                MainWindowViewModel.TestDisplayViewModel.DynoPidDisplay = new DynoPidDisplayViewModel("Dyno Pid", settings.IsActive);
+            }
             //MainWindowViewModel.TestDisplayViewModel.VentControl1Display.IsActive =
             //    ventCtrl1Settings.Any(v => v.WidgetId == WidgetConstants.Widget.VentilationControl1 && v.WidgetSettingId == WidgetConstants.WidgetSetting.VentCtrl1Active && v.Value == "1");
         }

@@ -6,6 +6,7 @@
         {
             VentilationControl1 = 1,
             VentilationControl2,
+            DynoPid,
         }
 
         public enum WidgetSetting
@@ -22,6 +23,22 @@
             VentCtrl2AnalogOutput,
             VentCtrl2Gain,
             VentCtrl2SetPoint,
+            DynoPidMode,
+            DynoPidMeasurement,
+            DynoPidSetpoint,
+        }
+
+        public enum DynoPidMode
+        {
+            Motor,
+            Absorb,
+            MotorAbsorb,
+        }
+
+        public enum DynoPidMeasurement
+        {
+            Rpm,
+            Load,
         }
     }
 }

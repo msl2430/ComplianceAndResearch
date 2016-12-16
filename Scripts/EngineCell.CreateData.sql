@@ -110,14 +110,15 @@ BEGIN
 END
 
 
-IF NOT EXISTS (SELECT 1 FROM Widget WHERE WidgetId IN (1,2))
+IF NOT EXISTS (SELECT 1 FROM Widget WHERE WidgetId IN (1,2,3))
 BEGIN
 	INSERT INTO Widget (Name) VALUES
 	('Ventilation Control 1'),
-	('Ventilation Control 2')
+	('Ventilation Control 2'),
+	('DynoPid')
 END
 
-IF NOT EXISTS (SELECT 1 FROM WidgetSetting WHERE WidgetId IN (1,2)) 
+IF NOT EXISTS (SELECT 1 FROM WidgetSetting WHERE WidgetId IN (1,2,3)) 
 BEGIN
 	INSERT INTO WidgetSetting (WidgetId, Setting) VALUES 
 	(1, 'Active'),
@@ -131,5 +132,8 @@ BEGIN
 	(2, 'Outside Thermo Couple'),
 	(2, 'Analog Output'),
 	(2, 'Gain'),
-	(2, 'Set Point')
+	(2, 'Set Point'),
+	(3, 'Dyno PID Mode'),
+	(3, 'Dyno PID Measurement'),
+	(3, 'Dyno PID Setpoint')
 END

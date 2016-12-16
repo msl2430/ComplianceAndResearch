@@ -1,6 +1,23 @@
-alter table cell_point
-add [AverageSeconds] int NULL 
-alter table cell_point
-add [IsAverage] [bit] NOT NULL DEFAULT(0)
-alter table cell_point
-add [IsRecord] [bit] NOT NULL DEFAULT(0)
+TRUNCATE TABLE WidgetSetting
+INSERT INTO WidgetSetting (WidgetId, Setting) VALUES 
+(1, 'Active'),
+(1, 'Inside Thermo Couple'),
+(1, 'Outside Thermo Couple'),
+(1, 'Analog Output'),
+(1, 'Gain'),
+(1, 'Set Point'),
+(2, 'Active'),
+(2, 'Inside Thermo Couple'),
+(2, 'Outside Thermo Couple'),
+(2, 'Analog Output'),
+(2, 'Gain'),
+(2, 'Set Point'),
+(3, 'Dyno PID Mode'),
+(3, 'Dyno PID Measurement'),
+(3, 'Dyno PID Setpoint')
+
+TRUNCATE TABLE Widget
+INSERT INTO Widget (Name) VALUES
+('Ventilation Control 1'),
+('Ventilation Control 2'),
+('DynoPid')

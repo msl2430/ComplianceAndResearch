@@ -34,7 +34,7 @@
               <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"></RowDefinition>
-              </Grid.RowDefinitions>
+              </Grid.RowDefinitions>              
               <TextBlock Grid.Row="0" TextWrapping="Wrap" TextAlignment="Center" FontSize="20">Ventilation Control 1</TextBlock>
               <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
@@ -74,6 +74,49 @@
                     Apply Changes
                 </Button>
                 </Grid>       
+            </Grid>
+          </Border>
+          <Border Grid.Row="0" Grid.Column="1" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"></RowDefinition>
+              </Grid.RowDefinitions>
+              <TextBlock Grid.Row="0" TextWrapping="Wrap" TextAlignment="Center" FontSize="20">Dyno PID</TextBlock>
+              <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="30"/>
+                  <RowDefinition Height="5"/>
+                  <RowDefinition Height="30"/>
+                  <RowDefinition Height="5"/>
+                  <RowDefinition Height="30"/>
+                  <RowDefinition Height="5"/>
+                  <RowDefinition Height="30"/>
+                  <RowDefinition Height="5"/>
+                  <RowDefinition Height="30"/>
+                  <RowDefinition Height="15"/>
+                  <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="5*"/>
+                  <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="0" Height="30" FontSize="15">Mode</Label>
+                <ComboBox x:Name="DynoMode" Width="140" Grid.Column="1" Grid.Row="0" SelectedItem="{Binding Path=DynoPid.DynoMode}"></ComboBox>
+                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="2" Height="30" FontSize="15">Measurement</Label>
+                <ComboBox x:Name="DynoMeasurement" Width="140" Grid.Column="1" Grid.Row="2" SelectedItem="{Binding Path=DynoPid.DynoMeasurement}"></ComboBox>
+                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="4" Height="30" FontSize="15">Setpoint</Label>
+                <TextBox x:Name="DynoSetpoint" Width="140" Grid.Column="1" Grid.Row="4" Text="{Binding Path=DynoPid.DynoSetpoint}"></TextBox>
+                <Button x:Name="ActivateDynoPid" Background="{StaticResource GreenBrush}" Grid.Column="0" Grid.Row="10" Width="125" Click="ActivateDynoPid_OnClick" Visibility="{Binding Path=DynoPid.IsActive, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                  Activate Vent 1
+                </Button>
+                <Button x:Name="DeactivateDynoPid" Background="OrangeRed" Grid.Column="0" Grid.Row="10" Width="125" Click="DeactivateDynoPid_OnClick"  Visibility="{Binding Path=DynoPid.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                  Dectivate Vent 1
+                </Button>
+                <Button x:Name="SaveDynoPid" Background="{StaticResource HeadlineBlueBrush}" Grid.Column="1" Grid.Row="10" Width="125" Click="SaveDynoPid_OnClick">
+                  Apply Changes
+                </Button>
+              </Grid>
             </Grid>
           </Border>
           <!--<Border Grid.Row="0" Grid.Column="1" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">

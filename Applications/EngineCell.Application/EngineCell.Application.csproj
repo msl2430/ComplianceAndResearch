@@ -181,6 +181,8 @@
     <Compile Include="ViewModels\StripChart\StripChartViewModels.cs" />
     <Compile Include="ViewModels\TestDisplay\ManualTimeConfigViewModel.cs" />
     <Compile Include="ViewModels\TestDisplay\TestDisplayViewModel.cs" />
+    <Compile Include="ViewModels\Widget\DynoPidConfigViewModel.cs" />
+    <Compile Include="ViewModels\Widget\DynoPidDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\VentilationControlDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\VentilationControlViewModel.cs" />
     <Compile Include="ViewModels\Widget\WidgetConfigViewModel.cs" />
@@ -236,6 +238,9 @@
     </Compile>
     <Compile Include="Views\TestDisplay\TestDisplay.xaml.cs">
       <DependentUpon>TestDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Widget\DynoPidDisplay.xaml.cs">
+      <DependentUpon>DynoPidDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Widget\VentControlDisplay.xaml.cs">
       <DependentUpon>VentControlDisplay.xaml</DependentUpon>
@@ -316,6 +321,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TestDisplay\TestDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Widget\DynoPidDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
