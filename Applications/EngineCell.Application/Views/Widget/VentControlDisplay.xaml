@@ -6,19 +6,15 @@
              xmlns:local="clr-namespace:EngineCell.Application.Views.Widget"
              mc:Ignorable="d" 
              Loaded="VentControlDisplay_OnLoaded"
-             Width="325" Height="130"
+             Width="325" Height="150"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="6*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <Label FontSize="15">
-                <TextBlock Text="{Binding Path=Name}" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
-            </Label>
-        </StackPanel>
-        <Grid Grid.Column="1" Margin="0,0,5,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Path=Name}" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
+        <Grid Grid.Row="1" Margin="0,0,5,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="5"/>
