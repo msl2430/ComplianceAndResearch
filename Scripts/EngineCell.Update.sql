@@ -28,3 +28,48 @@ INSERT INTO Widget (Name) VALUES
 ('DynoPid'),
 ('Starter')
 
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'CellTestPhase')
+DROP TABLE [dbo].[CellTestPhase]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[CellTestPhase](
+	[CellTestPhaseId] [int] IDENTITY(1,1) NOT NULL,
+	[CellTestId] [int] NOT NULL,
+	[PhaseOrder] [int] NOT NULL,
+	[Name] [nvarchar](256) NULL,
+ CONSTRAINT [PK_CellTestPhase] PRIMARY KEY CLUSTERED 
+([CellTestPhaseId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'CellTestPhaseWidget')
+DROP TABLE [dbo].[CellTestPhaseWidget]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[CellTestPhaseWidget](
+	[CellTestPhaseWidgetId] [int] IDENTITY(1,1) NOT NULL,
+	[CellTestPhaseId] [int] NOT NULL,
+	[WidgetId] [int] NOT NULL,
+	[WidgetSettingId] [int] NOT NULL,
+	[Value] [nvarchar](max) NULL,
+	[EndValue] [nvarchar](max) NULL,
+ CONSTRAINT [PK_CellTestPhaseWidget]PRIMARY KEY CLUSTERED 
+([CellTestPhaseWidgetId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
