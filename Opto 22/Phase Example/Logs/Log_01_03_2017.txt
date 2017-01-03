@@ -1,0 +1,2 @@
+3:02:24 PM >> Application started
+3:02:32 PM >> Application shut down
