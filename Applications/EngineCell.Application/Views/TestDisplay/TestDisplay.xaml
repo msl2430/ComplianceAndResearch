@@ -13,7 +13,8 @@
              xmlns:widget="clr-namespace:EngineCell.Application.Views.Widget"
              xmlns:widgetModel="clr-namespace:EngineCell.Application.ViewModels.Widget"
              xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0"
-             mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="1020"
+             mc:Ignorable="d" d:DesignHeight="700" d:DesignWidth="1024"
+             MinWidth="1024" MinHeight="700"
              Loaded="TestDisplay_OnLoaded">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type stripChartViewModel:StripChartViewModel}">
@@ -31,86 +32,84 @@
         <DataTemplate DataType="{x:Type widgetModel:DynoPidDisplayViewModel}">
             <widget:DynoPidDisplay></widget:DynoPidDisplay>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type widgetModel:StarterDisplayViewModel}">
+            <widget:StarterDisplay></widget:StarterDisplay>
+        </DataTemplate>
         <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <extensions:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MinWidth="350"/>
+            <ColumnDefinition MaxWidth="475" MinWidth="50"/>
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition MaxWidth="400" MinWidth="50"/>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*" MinWidth="200"/>
         </Grid.ColumnDefinitions>
         <Grid Column="0">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="150"/>
-          </Grid.RowDefinitions>
-          <!--<Grid Row="0">
-            <ContentControl x:Name="DynoThrottle" Content="{Binding DynoThrottlePid}"></ContentControl>
-          </Grid>-->
-            <Grid Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="400"></ColumnDefinition>
-                    <ColumnDefinition Width="400"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="130"/>
-                    <RowDefinition Height="175"/>
-                </Grid.RowDefinitions>
-                <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5" Visibility="{Binding Path=VentControl1Display.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <ContentControl x:Name="VentControl1" Content="{Binding VentControl1Display}"></ContentControl>
-                </Border>
-                <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5" Visibility="{Binding Path=DynoPidDisplay.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <ContentControl x:Name="DynoPid" Content="{Binding DynoPidDisplay}"></ContentControl>
-                </Border>
-                <!--<ContentControl x:Name="Coolant" Content="{Binding CoolantPid}" Grid.Row="0" Grid.Column="0"></ContentControl>
-                <ContentControl x:Name="Oil" Content="{Binding OilPid}" Grid.Row="0" Grid.Column="1"></ContentControl>
-                <ContentControl x:Name="Intercooler" Content="{Binding Intercooler}" Grid.Row="1" Grid.Column="0"></ContentControl>-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="55"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="105"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Label FontSize="30" Foreground="{StaticResource HeadlineBlueBrush}" HorizontalAlignment="Center">Test Setup</Label>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="6*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Height="50" VerticalAlignment="Top">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="5*"/>
+                                    </Grid.ColumnDefinitions>
 
-
-            </Grid>
-            <Grid Grid.Row="1">
-              <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5" Width="700">
-                <Grid>
-                  <Grid.RowDefinitions>
-                    <RowDefinition Height="55"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="105"/>
-                  </Grid.RowDefinitions>
-                  <Grid Grid.Row="0">
-                    <Label FontSize="30" Foreground="{StaticResource HeadlineBlueBrush}" HorizontalAlignment="Center">Test Setup</Label>
-                  </Grid>
-                  <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="4*"/>
-                      <ColumnDefinition Width="6*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" Height="50" VerticalAlignment="Top">
-                      <Grid>
-                        <Grid.ColumnDefinitions>
-                          <ColumnDefinition Width="5*"/>
-                          <ColumnDefinition Width="5*"/>
-                        </Grid.ColumnDefinitions>
-                     
-                        <Button Content="Timed" Grid.Column="0" Height="50" FontSize="15" Background="{StaticResource LightBlueBrush}" Visibility="{Binding Path=IsManualTest, Converter={StaticResource InverseBoolToVisibilityConverter}}" HorizontalAlignment="Stretch"></Button>
-                        <Button Content="Timed" Grid.Column="0"  Height="50" FontSize="15" Visibility="{Binding Path=IsManualTest, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Stretch" Click="ToggleTestType" Tag="timed"></Button>
-                        <Button Content="Manual" Grid.Column="1" Height="50" FontSize="15" Visibility="{Binding Path=IsManualTest, Converter={StaticResource InverseBoolToVisibilityConverter}}" HorizontalAlignment="Stretch" Click="ToggleTestType" Tag="manual"></Button>
-                        <Button Content="Manual" Grid.Column="1" Height="50" FontSize="15" Background="{StaticResource LightBlueBrush}" Visibility="{Binding Path=IsManualTest, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Stretch"></Button>
-                      </Grid>
+                                    <Button Content="Timed" Grid.Column="0" Height="50" FontSize="15" Background="{StaticResource LightBlueBrush}" Visibility="{Binding Path=IsManualTest, Converter={StaticResource InverseBoolToVisibilityConverter}}" HorizontalAlignment="Stretch"></Button>
+                                    <Button Content="Timed" Grid.Column="0"  Height="50" FontSize="15" Visibility="{Binding Path=IsManualTest, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Stretch" Click="ToggleTestType" Tag="timed"></Button>
+                                    <Button Content="Manual" Grid.Column="1" Height="50" FontSize="15" Visibility="{Binding Path=IsManualTest, Converter={StaticResource InverseBoolToVisibilityConverter}}" HorizontalAlignment="Stretch" Click="ToggleTestType" Tag="manual"></Button>
+                                    <Button Content="Manual" Grid.Column="1" Height="50" FontSize="15" Background="{StaticResource LightBlueBrush}" Visibility="{Binding Path=IsManualTest, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Stretch"></Button>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Button Background="{StaticResource GreenBrush}" Click="StartPhaseButton_Click" Height="50" HorizontalAlignment="Center" Width="250" VerticalAlignment="Top" FontSize="15"
+                            Visibility="{Binding Path=PhaseStarted, Converter={StaticResource InverseBoolToVisibilityConverter}}">Start</Button>
+                                <Button Background="OrangeRed" Click="StopPhaseButton_Click" Height="50" HorizontalAlignment="Center" Width="250" VerticalAlignment="Top" FontSize="15"
+                            Visibility="{Binding Path=PhaseStarted, Converter={StaticResource BoolToVisibilityConverter}}">Stop</Button>
+                            </Grid>
+                        </Grid>
                     </Grid>
-                    <Grid Grid.Column="1">
-                      <Button Background="{StaticResource GreenBrush}" Click="StartPhaseButton_Click" Height="50" HorizontalAlignment="Center" Width="250" VerticalAlignment="Top" FontSize="15"
-                              Visibility="{Binding Path=PhaseStarted, Converter={StaticResource InverseBoolToVisibilityConverter}}">Start</Button>
-                      <Button Background="OrangeRed" Click="StopPhaseButton_Click" Height="50" HorizontalAlignment="Center" Width="250" VerticalAlignment="Top" FontSize="15"
-                              Visibility="{Binding Path=PhaseStarted, Converter={StaticResource BoolToVisibilityConverter}}">Stop</Button>
-                      </Grid>                      
-                  </Grid>
-                </Grid>
-              </Border>
+                </Border>
             </Grid>
         </Grid>
         <GridSplitter Grid.Column="1" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         <Grid Column="2">
+            <TextBlock Foreground="{StaticResource HeadlineBlueBrush}" FontSize="20" HorizontalAlignment="Center">Active Widgets</TextBlock>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0" VerticalAlignment="Top" Height="{Binding ElementName=WidgetPanel, Path=ActualHeight}">
+                <StackPanel Name="WidgetPanel"  Orientation="Vertical">
+                    <Border  BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5" Visibility="{Binding Path=VentControl1Display.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <ContentControl x:Name="VentControl1" Content="{Binding VentControl1Display}"></ContentControl>
+                    </Border>
+                    <Border  BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5" Visibility="{Binding Path=StarterDisplay.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <ContentControl x:Name="Starter" Content="{Binding StarterDisplay}"></ContentControl>
+                    </Border>
+                    <Border BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5" Visibility="{Binding Path=DynoPidDisplay.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <ContentControl x:Name="DynoPid" Content="{Binding DynoPidDisplay}"></ContentControl>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>                    
+        <GridSplitter Grid.Column="3" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Grid Column="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="5*"/>

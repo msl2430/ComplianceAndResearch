@@ -7,6 +7,7 @@
             VentilationControl1 = 1,
             VentilationControl2,
             DynoPid,
+            Starter,
         }
 
         public enum WidgetSetting
@@ -26,6 +27,11 @@
             DynoPidMode,
             DynoPidMeasurement,
             DynoPidSetpoint,
+            DynoPidActive,
+            StarterInitialCrankTime,
+            StarterStartParameter,
+            StarterAddedCrankTime,
+            StarterActive
         }
 
         public enum DynoPidMode

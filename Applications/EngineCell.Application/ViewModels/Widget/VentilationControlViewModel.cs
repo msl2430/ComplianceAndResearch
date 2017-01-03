@@ -6,7 +6,7 @@ using EngineCell.Models.Models;
 
 namespace EngineCell.Application.ViewModels.Widget
 {
-    public class VentilationControlViewModel : BaseViewModel
+    public class VentilationControlViewModel : BaseWidgetViewModel
     {
         private ThermoCouple _inside { get; set; }
         public ThermoCouple Inside
@@ -43,9 +43,6 @@ namespace EngineCell.Application.ViewModels.Widget
             set { _setPoint = value; OnPropertyChanged("SetPoint"); }
         }
 
-        private bool _isActive { get;set; }
-        public bool IsActive { get { return _isActive;} set { _isActive = value; OnPropertyChanged("IsActive"); } }
-
         public VentilationControlViewModel()
         {
             Inside = ThermoCouple.ThermoCouple1;
@@ -54,7 +51,7 @@ namespace EngineCell.Application.ViewModels.Widget
             IsActive = false;
         }
 
-        public void SetValues(IList<WidgetSettingValueModel> settings)
+        public override void SetValues(IList<WidgetSettingValueModel> settings)
         {
             foreach (var setting in settings)
             {
@@ -82,7 +79,7 @@ namespace EngineCell.Application.ViewModels.Widget
             }
         }
 
-        public IList<WidgetSettingValueModel> GetValues(int cellId)
+        public override IList<WidgetSettingValueModel> GetValues(int cellId)
         {
             return new List<WidgetSettingValueModel>
             {

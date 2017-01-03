@@ -108,12 +108,55 @@
                 <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="4" Height="30" FontSize="15">Setpoint</Label>
                 <TextBox x:Name="DynoSetpoint" Width="140" Grid.Column="1" Grid.Row="4" Text="{Binding Path=DynoPid.DynoSetpoint}"></TextBox>
                 <Button x:Name="ActivateDynoPid" Background="{StaticResource GreenBrush}" Grid.Column="0" Grid.Row="10" Width="125" Click="ActivateDynoPid_OnClick" Visibility="{Binding Path=DynoPid.IsActive, Converter={StaticResource InverseBoolToVisibilityConverter}}">
-                  Activate Vent 1
+                  Activate Dyno PID
                 </Button>
                 <Button x:Name="DeactivateDynoPid" Background="OrangeRed" Grid.Column="0" Grid.Row="10" Width="125" Click="DeactivateDynoPid_OnClick"  Visibility="{Binding Path=DynoPid.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
-                  Dectivate Vent 1
+                  Dectivate Dyno PID
                 </Button>
                 <Button x:Name="SaveDynoPid" Background="{StaticResource HeadlineBlueBrush}" Grid.Column="1" Grid.Row="10" Width="125" Click="SaveDynoPid_OnClick">
+                  Apply Changes
+                </Button>
+              </Grid>
+            </Grid>
+          </Border>
+          <Border Grid.Row="0" Grid.Column="2" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"></RowDefinition>
+              </Grid.RowDefinitions>
+              <TextBlock Grid.Row="0" TextWrapping="Wrap" TextAlignment="Center" FontSize="20">Starter Config</TextBlock>
+              <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="30"/>
+                  <RowDefinition Height="5"/>
+                  <RowDefinition Height="30"/>
+                  <RowDefinition Height="5"/>
+                  <RowDefinition Height="30"/>
+                  <RowDefinition Height="5"/>
+                  <RowDefinition Height="30"/>
+                  <RowDefinition Height="5"/>
+                  <RowDefinition Height="30"/>
+                  <RowDefinition Height="15"/>
+                  <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="5*"/>
+                  <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="0" Height="30" FontSize="15">Crank Time</Label>
+                <TextBox x:Name="CrankTime" Width="140" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Starter.CrankTime}"></TextBox>
+                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="2" Height="30" FontSize="15">Start Parameter</Label>
+                <TextBox x:Name="StartParameter" Width="140" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Starter.StartParameter}"></TextBox>
+                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="4" Height="30" FontSize="15">Added Crank Time</Label>
+                <TextBox x:Name="AddedCrankTime" Width="140" Grid.Column="1" Grid.Row="4" Text="{Binding Path=Starter.AddedCrankTime}"></TextBox>
+                <Button x:Name="ActivateStarter" Background="{StaticResource GreenBrush}" Grid.Column="0" Grid.Row="10" Width="125" Click="ActivateStarter_OnClick" Visibility="{Binding Path=Starter.IsActive, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                  Activate Starter
+                </Button>
+                <Button x:Name="DeactivateStarter" Background="OrangeRed" Grid.Column="0" Grid.Row="10" Width="125" Click="DeactvateStarter_OnClick"  Visibility="{Binding Path=Starter.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                  Dectivate Starter
+                </Button>
+                <Button x:Name="SaveStarter" Background="{StaticResource HeadlineBlueBrush}" Grid.Column="1" Grid.Row="10" Width="125" Click="SaveStarter_OnClick">
                   Apply Changes
                 </Button>
               </Grid>

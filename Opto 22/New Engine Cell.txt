@@ -1,0 +1,29 @@
+how long to crank
+how long to crank if it doesnt
+check start parameter
+
+setting up load test for engine cell widget
+dyno mode - motor or absorb (negative torque means motoring)
+then say what mode dyno is in rpm or load (newton meters) control 
+then give it setpoint accordingly 
+
+then upload csv file - testtime in seconds, setpoint for pids, dyno mode, 
+calculate setpoint diff based ont time of next entry
+
+PIDS
+Dyno1
+Dyno2
+Throttle
+Oil
+Intercooler
+Coolant
+Misc1
+Misc2
+Misc3
+Misc4
+
+We only need Setpoints - Live tuning from the other config
+
+Formula for PIDS is Velocity 
+
+

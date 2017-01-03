@@ -46,6 +46,13 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             set { _dynoPidDisplay = value; OnPropertyChanged("DynoPidDisplay"); }
         }
 
+        private StarterDisplayViewModel _starterDisplay { get; set; }
+        public StarterDisplayViewModel StarterDisplay
+        {
+            get { return _starterDisplay; }
+            set { _starterDisplay = value; OnPropertyChanged("StarterDisplay"); }
+        }
+
         private bool _phaseStarted { get; set; }
         public bool PhaseStarted { get { return _phaseStarted; } set { _phaseStarted = value; OnPropertyChanged("PhaseStarted"); } }
 

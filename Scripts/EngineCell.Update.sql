@@ -14,10 +14,17 @@ INSERT INTO WidgetSetting (WidgetId, Setting) VALUES
 (2, 'Set Point'),
 (3, 'Dyno PID Mode'),
 (3, 'Dyno PID Measurement'),
-(3, 'Dyno PID Setpoint')
+(3, 'Dyno PID Setpoint'),
+(3, 'Active'),
+(4, 'Initial Crank Time'),
+(4, 'Start Parameter'),
+(4, 'Additional Crank Time'),
+(4, 'Active')
 
 TRUNCATE TABLE Widget
 INSERT INTO Widget (Name) VALUES
 ('Ventilation Control 1'),
 ('Ventilation Control 2'),
-('DynoPid')
+('DynoPid'),
+('Starter')
+

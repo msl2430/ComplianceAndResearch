@@ -42,10 +42,14 @@ namespace EngineCell.Application.Views.Widget
         {
             var ventCtrl1Settings = WidgetRepository.GetWidgetSettingByWidgetCell(ViewModel.ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.VentilationControl1);
             var dynoPidSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ViewModel.ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.DynoPid);
+            var starterSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ViewModel.ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.Starter);
+
             if (ventCtrl1Settings.IsNotNullOrEmpty())
                 ViewModel.VentCtrl1.SetValues(ventCtrl1Settings);
             if (dynoPidSettings.IsNotNullOrEmpty())
                 ViewModel.DynoPid.SetValues(dynoPidSettings);
+            if (starterSettings.IsNotNullOrEmpty())
+                ViewModel.Starter.SetValues(starterSettings);
         }
 
         private void ActivateVentCtrl1_OnClick(object sender, RoutedEventArgs e)
@@ -118,6 +122,29 @@ namespace EngineCell.Application.Views.Widget
                 WidgetRepository.SaveWidgetSettings(dynoSettings);
 
             ViewModel.ApplicationSessionFactory.LogEvent("Dyno PID settings applied.", true);
+        }
+
+        private void ActivateStarter_OnClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Starter.IsActive = true;
+        }
+
+        private void DeactvateStarter_OnClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Starter.IsActive = false;
+        }
+
+        private void SaveStarter_OnClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Starter.CrankTime = Convert.ToInt32(CrankTime.Text);
+            ViewModel.Starter.StartParameter = Convert.ToDecimal(StartParameter.Text);
+            ViewModel.Starter.AddedCrankTime = Convert.ToInt32(AddedCrankTime.Text);
+
+            var starterSettings = ViewModel.Starter.GetValues(ViewModel.ApplicationSessionFactory.CurrentCellId);
+            if (starterSettings.IsNotNullOrEmpty())
+                WidgetRepository.SaveWidgetSettings(starterSettings);
+
+            ViewModel.ApplicationSessionFactory.LogEvent("Starter settings applied.", true);
         }
     }
 }

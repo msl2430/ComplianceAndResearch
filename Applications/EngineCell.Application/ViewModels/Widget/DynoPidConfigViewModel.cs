@@ -6,7 +6,7 @@ using EngineCell.Models.Models;
 
 namespace EngineCell.Application.ViewModels.Widget
 {
-    public class DynoPidConfigViewModel : BaseViewModel
+    public class DynoPidConfigViewModel : BaseWidgetViewModel
     {
         private WidgetConstants.DynoPidMode _dynoMode { get; set; }
         public WidgetConstants.DynoPidMode DynoMode
@@ -29,9 +29,6 @@ namespace EngineCell.Application.ViewModels.Widget
             set { _dynoSetpoint = value; OnPropertyChanged("DynoSetpoint"); }
         }
 
-        private bool _isActive { get; set; }
-        public bool IsActive { get { return _isActive; } set { _isActive = value; OnPropertyChanged("IsActive"); } }
-
         public DynoPidConfigViewModel()
         {
             DynoMode = WidgetConstants.DynoPidMode.Motor;
@@ -40,7 +37,7 @@ namespace EngineCell.Application.ViewModels.Widget
             IsActive = false;
         }
 
-        public void SetValues(IList<WidgetSettingValueModel> settings)
+        public override void SetValues(IList<WidgetSettingValueModel> settings)
         {
             foreach (var setting in settings)
             {
@@ -54,18 +51,22 @@ namespace EngineCell.Application.ViewModels.Widget
                         break;
                     case WidgetConstants.WidgetSetting.DynoPidSetpoint:
                         DynoSetpoint = Convert.ToDecimal(setting.Value);
-                        break;                    
+                        break;
+                    case WidgetConstants.WidgetSetting.DynoPidActive:
+                        IsActive = setting.Value == "1";
+                        break;
                 }
             }
         }
 
-        public IList<WidgetSettingValueModel> GetValues(int cellId)
+        public override IList<WidgetSettingValueModel> GetValues(int cellId)
         {
             return new List<WidgetSettingValueModel>
             {
                 new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.DynoPid, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoPidMode, Value = DynoMode.ToInt().ToString()},
                 new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.DynoPid, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoPidMeasurement, Value = DynoMeasurement.ToInt().ToString()},
                 new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.DynoPid, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoPidSetpoint, Value = DynoSetpoint.ToString()},
+                new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.DynoPid, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoPidActive, Value = IsActive ? "1" : "0"},
             };
         }
     }
