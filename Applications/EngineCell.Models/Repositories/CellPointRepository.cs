@@ -49,9 +49,9 @@ namespace EngineCell.Models.Repositories
 
         public CellTestModel GetCellTestById(int cellTestId)
         {
-            var test = NHibernateHelper.CurrentSession.QueryOver<CellTest>()
+            var test = NHibernateHelper.CurrentSession.QueryOver<CellTestExtended>()
                 .Where(ct => ct.CellTestId == cellTestId)
-                .SingleOrDefault<CellTest>();
+                .SingleOrDefault<CellTestExtended>();
 
             return test != null ? new CellTestModel(test) : null;
         }

@@ -4,7 +4,6 @@ using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 using EngineCell.Application.Services;
-using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.Session;
 using EngineCell.Application.ViewModels;
 using EngineCell.Application.ViewModels.PointConfiguration;

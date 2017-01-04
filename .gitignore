@@ -51,3 +51,4 @@ obj
 *.suo
 /Robot/Robot.Strategy/Archives
 *.DotSettings
+packages

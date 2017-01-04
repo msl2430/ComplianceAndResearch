@@ -6,15 +6,16 @@
              xmlns:local="clr-namespace:EngineCell.Application.Views.Widget"
              mc:Ignorable="d" 
              Loaded="DynoPidDisplay_OnLoaded"
-             Width="325" Height="175"
-             d:DesignHeight="300" d:DesignWidth="300">
+             Width="250" Height="185"
+             MaxWidth="250"
+             d:DesignHeight="200" d:DesignWidth="325">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding Path=Name}" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
-        <Grid Grid.Row="1" Margin="0,0,5,0">
+        <TextBlock Text="{Binding Path=Name}" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
+        <Grid Grid.Row="1" Margin="5,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="5"/>
@@ -28,14 +29,14 @@
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="6*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Height="30" FontSize="15">Setpoint</Label>
-            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Setpoint}" Height="30" FontSize="15"></TextBox>
-            <Label Grid.Column="0" Grid.Row="2" Height="30" FontSize="15">P</Label>
-            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="2" Text="0" Height="30" FontSize="15"></TextBox>
-            <Label Grid.Column="0" Grid.Row="4" Height="30" FontSize="15">I</Label>
-            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="4" Text="0" Height="30" FontSize="15"></TextBox>
-            <Label Grid.Column="0" Grid.Row="6" Height="30" FontSize="15">D</Label>
-            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="6" Text="0" Height="30" FontSize="15"></TextBox>
+            <Label Grid.Column="0" Grid.Row="0" Height="30" FontSize="12">Setpoint</Label>
+            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Setpoint}" Height="30" FontSize="12"></TextBox>
+            <Label Grid.Column="0" Grid.Row="2" Height="30" FontSize="12">P</Label>
+            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="2" Text="0" Height="30" FontSize="12"></TextBox>
+            <Label Grid.Column="0" Grid.Row="4" Height="30" FontSize="12">I</Label>
+            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="4" Text="0" Height="30" FontSize="12"></TextBox>
+            <Label Grid.Column="0" Grid.Row="6" Height="30" FontSize="12">D</Label>
+            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="6" Text="0" Height="30" FontSize="12"></TextBox>
         </Grid>
     </Grid>
 </UserControl>

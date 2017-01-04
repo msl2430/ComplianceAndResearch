@@ -6,14 +6,15 @@
              xmlns:local="clr-namespace:EngineCell.Application.Views.Widget"
              mc:Ignorable="d" 
              Loaded="VentControlDisplay_OnLoaded"
-             Width="325" Height="150"
-             d:DesignHeight="300" d:DesignWidth="300">
+             Width="250" Height="150"
+             MaxWidth="250"
+             d:DesignHeight="200" d:DesignWidth="325">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding Path=Name}" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Text="{Binding Path=Name}" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
         <Grid Grid.Row="1" Margin="0,0,5,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
@@ -26,12 +27,12 @@
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="6*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Height="30" FontSize="15">Inside</Label>
-            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Inside}" Height="30" FontSize="15"></TextBox>
-            <Label Grid.Column="0" Grid.Row="2" Height="30" FontSize="15">Outside</Label>
-            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Outside}" Height="30" FontSize="15"></TextBox>
-            <Label Grid.Column="0" Grid.Row="4" Height="30" FontSize="15">Output</Label>
-            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="4" Text="{Binding Path=Output}" Height="30" FontSize="15"></TextBox>
+            <Label Grid.Column="0" Grid.Row="0" Height="30" FontSize="12">Inside</Label>
+            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Inside}" Height="30" FontSize="12"></TextBox>
+            <Label Grid.Column="0" Grid.Row="2" Height="30" FontSize="12">Outside</Label>
+            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Outside}" Height="30" FontSize="12"></TextBox>
+            <Label Grid.Column="0" Grid.Row="4" Height="30" FontSize="12">Output</Label>
+            <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="4" Text="{Binding Path=Output}" Height="30" FontSize="12"></TextBox>
         </Grid>
     </Grid>
 </UserControl>

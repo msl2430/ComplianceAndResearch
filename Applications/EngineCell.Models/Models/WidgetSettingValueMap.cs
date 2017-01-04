@@ -1,9 +1,11 @@
-﻿using EngineCell.Core.Constants;
+﻿using System;
+using EngineCell.Core.Constants;
 using EngineCell.Models.DataObjects;
 using FluentNHibernate.Mapping;
 
 namespace EngineCell.Models.Models
 {
+    [Obsolete("Remove", false)]
     internal sealed class WidgetSettingValueMap : ClassMap<WidgetSettingValue>
     {
         public WidgetSettingValueMap()

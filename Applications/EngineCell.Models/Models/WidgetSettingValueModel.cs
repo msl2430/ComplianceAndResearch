@@ -6,6 +6,7 @@ using EngineCell.Models.DataObjects;
 namespace EngineCell.Models.Models
 {
     [Serializable]
+    [Obsolete("Remove", false)]
     public class WidgetSettingValueModel : BaseModel, IDisposable
     {
         public int WidgetSettingValueId { get; set; }

@@ -18,4 +18,24 @@ namespace EngineCell.Models.Mapping
             Map(t => t.EndTime);
         }
     }
+
+    internal sealed class CellTestExtendedMap : ClassMap<CellTestExtended>
+    {
+        public CellTestExtendedMap()
+        {
+            Table("CellTest");
+
+            Id(t => t.CellTestId);
+
+            Map(t => t.CellId);
+            Map(t => t.CellTestTypeId).CustomType<ControlConstants.CellTestType>();
+            Map(t => t.StartTime);
+            Map(t => t.EndTime);
+
+            HasMany(t => t.Phases)
+                .KeyColumn("CellTestId")
+                .NotFound.Ignore()
+                .Fetch.Subselect();
+        }
+    }
 }

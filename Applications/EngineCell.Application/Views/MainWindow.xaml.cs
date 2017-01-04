@@ -10,6 +10,7 @@ using System.Windows.Media;
 using EngineCell.Application.Factories;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels;
+using EngineCell.Application.ViewModels.Phase;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Application.ViewModels.TestDisplay;
@@ -42,6 +43,10 @@ namespace EngineCell.Application.Views
                 ApplicationViewModel = MainWindowViewModel,                
             };
 
+            //TODO: Remove - for testing
+            var cellTestId = 1;
+            ApplicationSessionFactory.CurrentCellTest = (new CellPointRepository()).GetCellTestById(cellTestId);
+
             ApplicationSessionFactory.CellPoints = (new CellPointRepository()).GetCellPointsByCellId(ApplicationSessionFactory.CurrentCellId) //TODO: Need to refactor this
                 .ToList()
                 .Select(p => new PointDataModel(p))
@@ -51,9 +56,10 @@ namespace EngineCell.Application.Views
             MainWindowViewModel.TestDisplayViewModel = new TestDisplayViewModel(ApplicationSessionFactory, new StripChartViewModel(ApplicationSessionFactory));
             MainWindowViewModel.TestDisplayViewModel.PointWorkerService = new PointWorkerService(MainWindowViewModel.TestDisplayViewModel, Dispatcher);
             MainWindowViewModel.WidgetConfigViewModel = new WidgetConfigViewModel(ApplicationSessionFactory);
-            MainWindowViewModel.ViewModels = new ObservableCollection<BaseViewModel>() { MainWindowViewModel.PointConfigViewModel, MainWindowViewModel.TestDisplayViewModel, MainWindowViewModel.WidgetConfigViewModel };
-            
-            ChangePageView(MainWindowViewModel.TestDisplayViewModel);
+            MainWindowViewModel.PhaseConfigViewModel = new PhaseConfigViewModel(ApplicationSessionFactory);
+            MainWindowViewModel.ViewModels = new ObservableCollection<BaseViewModel>() { MainWindowViewModel.PointConfigViewModel, MainWindowViewModel.TestDisplayViewModel, MainWindowViewModel.WidgetConfigViewModel, MainWindowViewModel.PhaseConfigViewModel };                       
+
+            ChangePageView(MainWindowViewModel.PhaseConfigViewModel);
             ToggleWidgets();
 
             DataContext = MainWindowViewModel;

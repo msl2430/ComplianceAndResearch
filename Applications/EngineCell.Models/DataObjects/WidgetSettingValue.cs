@@ -1,10 +1,12 @@
-﻿using EngineCell.Core.Constants;
+﻿using System;
+using EngineCell.Core.Constants;
 
 namespace EngineCell.Models.DataObjects
 {
     /// <summary>
     /// dbo.WidgetSettingValue
     /// </summary>
+    [Obsolete("Remove", false)]
     public class WidgetSettingValue
     {
         public virtual int WidgetSettingValueId { get; set; }

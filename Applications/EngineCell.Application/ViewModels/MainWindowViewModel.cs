@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using EngineCell.Application.ViewModels.Phase;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.TestDisplay;
 using EngineCell.Application.ViewModels.Widget;
@@ -93,6 +94,13 @@ namespace EngineCell.Application.ViewModels
         public WidgetConfigViewModel WidgetConfigViewModel {
             get { return _widgetConfigViewModel; }
             set { _widgetConfigViewModel = value; OnPropertyChanged("WidgetConfigViewModel"); }
+        }
+
+        private PhaseConfigViewModel _phaseConfigViewModel { get; set; }
+        public PhaseConfigViewModel PhaseConfigViewModel
+        {
+            get { return _phaseConfigViewModel; }
+            set { _phaseConfigViewModel = value; OnPropertyChanged("PhaseConfigViewModel"); }
         }
 
         private string _titleLabel { get; set; }

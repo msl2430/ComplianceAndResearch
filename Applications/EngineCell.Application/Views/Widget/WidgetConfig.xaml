@@ -13,161 +13,219 @@
     <extensions:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
   </UserControl.Resources>
     <Grid>
-      <ScrollViewer>
-        <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="70" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <Border Grid.Row="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">
+        <StackPanel Orientation="Horizontal">
+          <Label FontSize="15" Margin="0,7">New Phase Name</Label>
+          <TextBox x:Name="NewPhaseName" Height="30" Width="150" Margin="5,0"></TextBox>
+          <Button Width="100" Height="30" Content="Add Phase" Background="{StaticResource DarkBlueBrush}"></Button>
+        </StackPanel>
+      </Border>
+        <Grid Grid.Row="1" >
           <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
           </Grid.ColumnDefinitions>
-          <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="20*"/>
-          </Grid.RowDefinitions>
-          <Border Grid.Row="0" Grid.Column="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-              <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*"></RowDefinition>
-              </Grid.RowDefinitions>              
-              <TextBlock Grid.Row="0" TextWrapping="Wrap" TextAlignment="Center" FontSize="20">Ventilation Control 1</TextBlock>
-              <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="5"/>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="5"/>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="5"/>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="5"/>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="15"/>
-                  <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="5*"/>
-                  <ColumnDefinition Width="5*"/>
-                </Grid.ColumnDefinitions>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="0" Height="30" FontSize="15">Inside Thermo Couple</Label>
-                <ComboBox x:Name="VentCtrl1Inside" Width="140" Grid.Column="1" Grid.Row="0" SelectedItem="{Binding Path=VentCtrl1.Inside}"></ComboBox>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="2" Height="30" FontSize="15">Outside Thermo Couple</Label>
-                            <ComboBox x:Name="VentCtrl1Outside" Width="140" Grid.Column="1" Grid.Row="2" SelectedItem="{Binding Path=VentCtrl1.Outside}"></ComboBox>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="4" Height="30" FontSize="15">Analog Output</Label>
-                <ComboBox x:Name="VentCtrl1Output" Width="140" Grid.Column="1" Grid.Row="4" SelectedItem="{Binding Path=VentCtrl1.Output}"></ComboBox>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="6" Height="30" FontSize="15">Gain</Label>
-                <TextBox x:Name="VentCtrl1Gain" Grid.Column="1" Grid.Row="6" Width="140" Height="30" FontSize="15" Text="{Binding Path=VentCtrl1.Gain}"></TextBox>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="8" Height="30" FontSize="15">Set Point</Label>
-                <TextBox x:Name="VentCtrl1SetPoint" Grid.Column="1" Grid.Row="8" Width="140" Height="30" FontSize="15" Text="{Binding Path=VentCtrl1.SetPoint}"></TextBox>
-                <Button x:Name="ActivateVentCtrl1" Background="{StaticResource GreenBrush}" Grid.Column="0" Grid.Row="10" Width="125" Click="ActivateVentCtrl1_OnClick" Visibility="{Binding Path=VentCtrl1.IsActive, Converter={StaticResource InverseBoolToVisibilityConverter}}">
-                  Activate Vent 1
-                </Button>
-                <Button x:Name="DeactivateVentCtrl1" Background="OrangeRed" Grid.Column="0" Grid.Row="10" Width="125" Click="DeactivateVentCtrl1_OnClick"  Visibility="{Binding Path=VentCtrl1.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
-                  Dectivate Vent 1
-                </Button>
-                <Button x:Name="SaveVentCtrl1" Background="{StaticResource HeadlineBlueBrush}" Grid.Column="1" Grid.Row="10" Width="125" Click="SaveVent1_OnClick">
-                    Apply Changes
-                </Button>
-                </Grid>       
-            </Grid>
+          <Border BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5" Grid.Column="0">
+            <TabControl TabStripPlacement="Left">
+              <TabItem Header="Phase 1">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="325"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="20*"/>
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="325"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                  </Grid.RowDefinitions>
+                  <Border Grid.Row="0" Grid.Column="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"></RowDefinition>
+                      </Grid.RowDefinitions>
+                      <TextBlock Grid.Row="0" TextWrapping="Wrap" TextAlignment="Center" FontSize="20">Dyno PID</TextBlock>
+                      <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="5"/>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="5"/>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="5"/>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="5"/>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="15"/>
+                          <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="5*"/>
+                          <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="0" Height="30" FontSize="15">Mode</Label>
+                        <ComboBox x:Name="DynoMode" Width="140" Grid.Column="1" Grid.Row="0" SelectedItem="{Binding Path=DynoPid.DynoMode}"></ComboBox>
+                        <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="2" Height="30" FontSize="15">Measurement</Label>
+                        <ComboBox x:Name="DynoMeasurement" Width="140" Grid.Column="1" Grid.Row="2" SelectedItem="{Binding Path=DynoPid.DynoMeasurement}"></ComboBox>
+                        <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="4" Height="30" FontSize="15">Setpoint</Label>
+                        <TextBox x:Name="DynoSetpoint" Width="140" Grid.Column="1" Grid.Row="4" Text="{Binding Path=DynoPid.DynoSetpoint}"></TextBox>
+                        <Button x:Name="ActivateDynoPid" Background="{StaticResource GreenBrush}" Grid.Column="0" Grid.Row="10" Width="125" Click="ActivateDynoPid_OnClick" Visibility="{Binding Path=DynoPid.IsActive, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                          Activate Dyno PID
+                        </Button>
+                        <Button x:Name="DeactivateDynoPid" Background="OrangeRed" Grid.Column="0" Grid.Row="10" Width="125" Click="DeactivateDynoPid_OnClick"  Visibility="{Binding Path=DynoPid.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                          Dectivate Dyno PID
+                        </Button>
+                        <Button x:Name="SaveDynoPid" Background="{StaticResource HeadlineBlueBrush}" Grid.Column="1" Grid.Row="10" Width="125" Click="SaveDynoPid_OnClick">
+                          Apply Changes
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Border>
+                  <Border Grid.Row="0" Grid.Column="1" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"></RowDefinition>
+                      </Grid.RowDefinitions>
+                      <TextBlock Grid.Row="0" TextWrapping="Wrap" TextAlignment="Center" FontSize="20">Starter Config</TextBlock>
+                      <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="5"/>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="5"/>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="5"/>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="5"/>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="15"/>
+                          <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="5*"/>
+                          <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="0" Height="30" FontSize="15">Crank Time</Label>
+                        <TextBox x:Name="CrankTime" Width="140" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Starter.CrankTime}"></TextBox>
+                        <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="2" Height="30" FontSize="15">Start Parameter</Label>
+                        <TextBox x:Name="StartParameter" Width="140" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Starter.StartParameter}"></TextBox>
+                        <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="4" Height="30" FontSize="15">Added Crank Time</Label>
+                        <TextBox x:Name="AddedCrankTime" Width="140" Grid.Column="1" Grid.Row="4" Text="{Binding Path=Starter.AddedCrankTime}"></TextBox>
+                        <Button x:Name="ActivateStarter" Background="{StaticResource GreenBrush}" Grid.Column="0" Grid.Row="10" Width="125" Click="ActivateStarter_OnClick" Visibility="{Binding Path=Starter.IsActive, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                          Activate Starter
+                        </Button>
+                        <Button x:Name="DeactivateStarter" Background="OrangeRed" Grid.Column="0" Grid.Row="10" Width="125" Click="DeactvateStarter_OnClick"  Visibility="{Binding Path=Starter.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                          Dectivate Starter
+                        </Button>
+                        <Button x:Name="SaveStarter" Background="{StaticResource HeadlineBlueBrush}" Grid.Column="1" Grid.Row="10" Width="125" Click="SaveStarter_OnClick">
+                          Apply Changes
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Border>
+                  <!--<Border Grid.Row="0" Grid.Column="1" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                      <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="20">Ventilation Control 2</TextBlock>
+                    </Grid>
+                  </Border>-->
+                </Grid>
+              </TabItem>
+              <TabItem Header="Phase 2">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="325"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="20*"/>
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="325"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="20*"/>
+                  </Grid.RowDefinitions>
+                  <Border Grid.Row="0" Grid.Column="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"></RowDefinition>
+                      </Grid.RowDefinitions>
+                      <TextBlock Grid.Row="0" TextWrapping="Wrap" TextAlignment="Center" FontSize="20">Ventilation Control 1</TextBlock>
+                      <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="5"/>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="5"/>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="5"/>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="5"/>
+                          <RowDefinition Height="30"/>
+                          <RowDefinition Height="15"/>
+                          <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="5*"/>
+                          <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="0" Height="30" FontSize="15">Inside Thermo Couple</Label>
+                        <ComboBox x:Name="VentCtrl1Inside" Width="140" Grid.Column="1" Grid.Row="0" SelectedItem="{Binding Path=VentCtrl1.Inside}"></ComboBox>
+                        <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="2" Height="30" FontSize="15">Outside Thermo Couple</Label>
+                        <ComboBox x:Name="VentCtrl1Outside" Width="140" Grid.Column="1" Grid.Row="2" SelectedItem="{Binding Path=VentCtrl1.Outside}"></ComboBox>
+                        <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="4" Height="30" FontSize="15">Analog Output</Label>
+                        <ComboBox x:Name="VentCtrl1Output" Width="140" Grid.Column="1" Grid.Row="4" SelectedItem="{Binding Path=VentCtrl1.Output}"></ComboBox>
+                        <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="6" Height="30" FontSize="15">Gain</Label>
+                        <TextBox x:Name="VentCtrl1Gain" Grid.Column="1" Grid.Row="6" Width="140" Height="30" FontSize="15" Text="{Binding Path=VentCtrl1.Gain}"></TextBox>
+                        <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="8" Height="30" FontSize="15">Set Point</Label>
+                        <TextBox x:Name="VentCtrl1SetPoint" Grid.Column="1" Grid.Row="8" Width="140" Height="30" FontSize="15" Text="{Binding Path=VentCtrl1.SetPoint}"></TextBox>
+                        <Button x:Name="ActivateVentCtrl1" Background="{StaticResource GreenBrush}" Grid.Column="0" Grid.Row="10" Width="125" Click="ActivateVentCtrl1_OnClick" Visibility="{Binding Path=VentCtrl1.IsActive, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                          Activate Vent 1
+                        </Button>
+                        <Button x:Name="DeactivateVentCtrl1" Background="OrangeRed" Grid.Column="0" Grid.Row="10" Width="125" Click="DeactivateVentCtrl1_OnClick"  Visibility="{Binding Path=VentCtrl1.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                          Dectivate Vent 1
+                        </Button>
+                        <Button x:Name="SaveVentCtrl1" Background="{StaticResource HeadlineBlueBrush}" Grid.Column="1" Grid.Row="10" Width="125" Click="SaveVent1_OnClick">
+                          Apply Changes
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Border>
+                  
+                  
+                  <!--<Border Grid.Row="0" Grid.Column="1" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                      <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="20">Ventilation Control 2</TextBlock>
+                    </Grid>
+                  </Border>-->
+                </Grid>
+              </TabItem>
+            </TabControl>
           </Border>
-          <Border Grid.Row="0" Grid.Column="1" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+          <Border BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5" Grid.Column="1">
+            <Grid>
               <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="*"/>
               </Grid.RowDefinitions>
-              <TextBlock Grid.Row="0" TextWrapping="Wrap" TextAlignment="Center" FontSize="20">Dyno PID</TextBlock>
-              <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="5"/>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="5"/>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="5"/>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="5"/>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="15"/>
-                  <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="5*"/>
-                  <ColumnDefinition Width="5*"/>
-                </Grid.ColumnDefinitions>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="0" Height="30" FontSize="15">Mode</Label>
-                <ComboBox x:Name="DynoMode" Width="140" Grid.Column="1" Grid.Row="0" SelectedItem="{Binding Path=DynoPid.DynoMode}"></ComboBox>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="2" Height="30" FontSize="15">Measurement</Label>
-                <ComboBox x:Name="DynoMeasurement" Width="140" Grid.Column="1" Grid.Row="2" SelectedItem="{Binding Path=DynoPid.DynoMeasurement}"></ComboBox>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="4" Height="30" FontSize="15">Setpoint</Label>
-                <TextBox x:Name="DynoSetpoint" Width="140" Grid.Column="1" Grid.Row="4" Text="{Binding Path=DynoPid.DynoSetpoint}"></TextBox>
-                <Button x:Name="ActivateDynoPid" Background="{StaticResource GreenBrush}" Grid.Column="0" Grid.Row="10" Width="125" Click="ActivateDynoPid_OnClick" Visibility="{Binding Path=DynoPid.IsActive, Converter={StaticResource InverseBoolToVisibilityConverter}}">
-                  Activate Dyno PID
-                </Button>
-                <Button x:Name="DeactivateDynoPid" Background="OrangeRed" Grid.Column="0" Grid.Row="10" Width="125" Click="DeactivateDynoPid_OnClick"  Visibility="{Binding Path=DynoPid.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
-                  Dectivate Dyno PID
-                </Button>
-                <Button x:Name="SaveDynoPid" Background="{StaticResource HeadlineBlueBrush}" Grid.Column="1" Grid.Row="10" Width="125" Click="SaveDynoPid_OnClick">
-                  Apply Changes
-                </Button>
-              </Grid>
-            </Grid>
-          </Border>
-          <Border Grid.Row="0" Grid.Column="2" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-              <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*"></RowDefinition>
-              </Grid.RowDefinitions>
-              <TextBlock Grid.Row="0" TextWrapping="Wrap" TextAlignment="Center" FontSize="20">Starter Config</TextBlock>
-              <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="5"/>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="5"/>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="5"/>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="5"/>
-                  <RowDefinition Height="30"/>
-                  <RowDefinition Height="15"/>
-                  <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="5*"/>
-                  <ColumnDefinition Width="5*"/>
-                </Grid.ColumnDefinitions>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="0" Height="30" FontSize="15">Crank Time</Label>
-                <TextBox x:Name="CrankTime" Width="140" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Starter.CrankTime}"></TextBox>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="2" Height="30" FontSize="15">Start Parameter</Label>
-                <TextBox x:Name="StartParameter" Width="140" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Starter.StartParameter}"></TextBox>
-                <Label Margin="0,3,10,0" Grid.Column="0" Grid.Row="4" Height="30" FontSize="15">Added Crank Time</Label>
-                <TextBox x:Name="AddedCrankTime" Width="140" Grid.Column="1" Grid.Row="4" Text="{Binding Path=Starter.AddedCrankTime}"></TextBox>
-                <Button x:Name="ActivateStarter" Background="{StaticResource GreenBrush}" Grid.Column="0" Grid.Row="10" Width="125" Click="ActivateStarter_OnClick" Visibility="{Binding Path=Starter.IsActive, Converter={StaticResource InverseBoolToVisibilityConverter}}">
-                  Activate Starter
-                </Button>
-                <Button x:Name="DeactivateStarter" Background="OrangeRed" Grid.Column="0" Grid.Row="10" Width="125" Click="DeactvateStarter_OnClick"  Visibility="{Binding Path=Starter.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
-                  Dectivate Starter
-                </Button>
-                <Button x:Name="SaveStarter" Background="{StaticResource HeadlineBlueBrush}" Grid.Column="1" Grid.Row="10" Width="125" Click="SaveStarter_OnClick">
-                  Apply Changes
-                </Button>
-              </Grid>
-            </Grid>
-          </Border>
-          <!--<Border Grid.Row="0" Grid.Column="1" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5">
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-              <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="20">Ventilation Control 2</TextBlock>
-            </Grid>
-          </Border>-->          
+              <TextBlock Grid.Row="0" FontSize="20" Foreground="{StaticResource HeadlineBlueBrush}">Add a widget to the phase:</TextBlock>
+              <ScrollViewer Grid.Row="1">
+                <ListBox x:Name="AvailableWidgets" FontSize="17"></ListBox>
+              </ScrollViewer>
+            </Grid>            
+          </Border>         
         </Grid>
-      </ScrollViewer>
     </Grid>    
 </views:BaseUserControl>

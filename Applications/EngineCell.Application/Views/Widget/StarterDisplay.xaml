@@ -6,14 +6,15 @@
              xmlns:local="clr-namespace:EngineCell.Application.Views.Widget"
              mc:Ignorable="d" 
              Loaded="StarterDisplay_OnLoaded"
-             Width="325" Height="175"
-             d:DesignHeight="300" d:DesignWidth="300">
+             Width="250" Height="150"
+             MaxWidth="250"
+             d:DesignHeight="200" d:DesignWidth="325">
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="35"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
-      <TextBlock Text="{Binding Path=Name}" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Text="{Binding Path=Name}" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
         <Grid Row="1" Margin="0,0,5,0">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
@@ -27,12 +28,12 @@
               <RowDefinition Height="30"/>
               <RowDefinition Height="5"/>
             </Grid.RowDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Height="30" FontSize="15">Inital Crank Time</Label>
-            <TextBox Grid.Column="1" Grid.Row="0" IsReadOnly="True"  Text="{Binding Path=CrankTime}" Height="30" FontSize="15"></TextBox>
-            <Label Grid.Column="0" Grid.Row="2" Height="30" FontSize="15">Start Parameter</Label>
-            <TextBox Grid.Column="1" Grid.Row="2" IsReadOnly="True" Text="{Binding Path=StartParameter}" Height="30" FontSize="15"></TextBox>
-            <Label Grid.Column="0" Grid.Row="4" Height="30" FontSize="15">Added Crank Time</Label>
-            <TextBox Grid.Column="1" Grid.Row="4" IsReadOnly="True" Text="{Binding Path=AddedCrankTime}" Height="30" FontSize="15"></TextBox>
+            <Label Grid.Column="0" Grid.Row="0" Height="30" FontSize="12">Inital Crank Time</Label>
+            <TextBox Grid.Column="1" Grid.Row="0" IsReadOnly="True"  Text="{Binding Path=CrankTime}" Height="30" FontSize="12"></TextBox>
+            <Label Grid.Column="0" Grid.Row="2" Height="30" FontSize="12">Start Parameter</Label>
+            <TextBox Grid.Column="1" Grid.Row="2" IsReadOnly="True" Text="{Binding Path=StartParameter}" Height="30" FontSize="12"></TextBox>
+            <Label Grid.Column="0" Grid.Row="4" Height="30" FontSize="12">Added Crank Time</Label>
+            <TextBox Grid.Column="1" Grid.Row="4" IsReadOnly="True" Text="{Binding Path=AddedCrankTime}" Height="30" FontSize="12"></TextBox>
         </Grid>
     </Grid>
 </UserControl>

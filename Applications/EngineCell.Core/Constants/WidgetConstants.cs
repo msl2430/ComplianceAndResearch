@@ -1,4 +1,6 @@
-﻿namespace EngineCell.Core.Constants
+﻿using System.Collections.Generic;
+
+namespace EngineCell.Core.Constants
 {
     public class WidgetConstants
     {
@@ -46,5 +48,20 @@
             Rpm,
             Load,
         }
+
+        public enum PhaseEndSetting
+        {
+            RunTime,
+            IterationCount,
+            ErrorCount,
+        }
+
+        public static IList<string> Widgets = new[]
+        {
+            "Starter",
+            "Dyno PID",
+            "Ventilation Control 1",
+            "Test Schedule"
+        };
     }
 }

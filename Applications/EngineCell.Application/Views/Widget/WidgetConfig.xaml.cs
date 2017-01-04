@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using EngineCell.Application.ViewModels.Widget;
@@ -28,6 +29,8 @@ namespace EngineCell.Application.Views.Widget
 
             DynoMode.ItemsSource = Enum.GetValues(typeof(WidgetConstants.DynoPidMode)).Cast<WidgetConstants.DynoPidMode>();
             DynoMeasurement.ItemsSource = Enum.GetValues(typeof(WidgetConstants.DynoPidMeasurement)).Cast<WidgetConstants.DynoPidMeasurement>();
+
+            AvailableWidgets.ItemsSource = new List<string>() {"Starter", "Dyno PID", "Ventilation Control 1"};
         }
 
         private void WidgetConfig_OnLoaded(object sender, RoutedEventArgs e)

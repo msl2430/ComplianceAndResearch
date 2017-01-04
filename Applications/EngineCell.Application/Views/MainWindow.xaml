@@ -16,9 +16,12 @@
         xmlns:pointConfiguration="clr-namespace:EngineCell.Application.Views.PointConfiguration"
         xmlns:widget="clr-namespace:EngineCell.Application.ViewModels.Widget"
         xmlns:widgetConfig="clr-namespace:EngineCell.Application.Views.Widget"
+        xmlns:phaseConfig="clr-namespace:EngineCell.Application.ViewModels.Phase"
+        xmlns:phase="clr-namespace:EngineCell.Application.Views.Phase"
         mc:Ignorable="d"
         WindowState="Maximized"
-        Title="Rocket Rod" Height="720" Width="1024">
+        Title="Rocket Rod" Height="720" Width="1024"
+        MinWidth="1024" MinHeight="700">
     <local:BaseWindowView.Resources>
         <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <DataTemplate DataType="{x:Type stripChartViewModel:StripChartViewModel}">
@@ -29,6 +32,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type pointConfigurationViewModel:PointConfigurationViewModel}">
           <pointConfiguration:PointConfiguration/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type phaseConfig:PhaseConfigViewModel}">
+            <phase:PhaseConfig/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type widget:WidgetConfigViewModel}">
             <widgetConfig:WidgetConfig></widgetConfig:WidgetConfig>
