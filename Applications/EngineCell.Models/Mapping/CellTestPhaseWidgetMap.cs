@@ -13,9 +13,7 @@ namespace EngineCell.Models.Mapping
             Id(t => t.CellTestPhaseWidgetId);
 
             Map(t => t.CellTestPhaseId);
-            Map(t => t.WidgetId);
-            Map(t => t.WidgetSettingId).CustomType<WidgetConstants.WidgetSetting>();
-            Map(t => t.Value);
+            Map(t => t.WidgetId).CustomType<WidgetConstants.Widget>();
         }
     }
 
@@ -28,14 +26,17 @@ namespace EngineCell.Models.Mapping
             Id(t => t.CellTestPhaseWidgetId);
 
             Map(t => t.CellTestPhaseId);
-            Map(t => t.WidgetId);
-            Map(t => t.WidgetSettingId).CustomType<WidgetConstants.WidgetSetting>();
-            Map(t => t.Value);
+            Map(t => t.WidgetId).CustomType<WidgetConstants.Widget>();
+
+            HasMany(t => t.Settings)
+                .KeyColumn("CellTestPhaseWidgetId")
+                .NotFound.Ignore()
+                .Fetch.Subselect();
 
             HasMany(t => t.PhaseEndSettings)
                 .KeyColumn("CellTestPhaseWidgetId")
                 .NotFound.Ignore()
-                .Fetch.Join();
+                .Fetch.Subselect();
         }
     }
 }

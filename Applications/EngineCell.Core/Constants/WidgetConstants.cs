@@ -6,7 +6,8 @@ namespace EngineCell.Core.Constants
     {
         public enum Widget
         {
-            VentilationControl1 = 1,
+            TestSchedule = 1,
+            VentilationControl1,
             VentilationControl2,
             DynoPid,
             Starter,
@@ -14,13 +15,12 @@ namespace EngineCell.Core.Constants
 
         public enum WidgetSetting
         {
-            VentCtrl1Active = 1,
+            TestScheduleFile = 1,
             VentCtrl1InsideThermoCouple,
             VentCtrl1OutsideThermoCouple,
             VentCtrl1AnalogOutput,
             VentCtrl1Gain,
             VentCtrl1SetPoint,
-            VentCtrl2Active,
             VentCtrl2InsideThermoCouple,
             VentCtrl2OutsideThermoCouple,
             VentCtrl2AnalogOutput,
@@ -29,11 +29,9 @@ namespace EngineCell.Core.Constants
             DynoPidMode,
             DynoPidMeasurement,
             DynoPidSetpoint,
-            DynoPidActive,
             StarterInitialCrankTime,
             StarterStartParameter,
             StarterAddedCrankTime,
-            StarterActive
         }
 
         public enum DynoPidMode
@@ -63,5 +61,11 @@ namespace EngineCell.Core.Constants
             "Ventilation Control 1",
             "Test Schedule"
         };
+
+        public enum TestScheduleSetpointType
+        {
+            Dyno,
+            Throttle,
+        }
     }
 }

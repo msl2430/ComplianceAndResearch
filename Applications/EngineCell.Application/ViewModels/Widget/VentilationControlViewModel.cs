@@ -57,9 +57,6 @@ namespace EngineCell.Application.ViewModels.Widget
             {
                 switch (setting.WidgetSettingId)
                 {
-                    case WidgetConstants.WidgetSetting.VentCtrl1Active:
-                        IsActive = setting.Value == "1";
-                        break;
                     case WidgetConstants.WidgetSetting.VentCtrl1InsideThermoCouple:
                         Inside = (ThermoCouple)Convert.ToInt32(setting.Value);
                         break;
@@ -83,7 +80,6 @@ namespace EngineCell.Application.ViewModels.Widget
         {
             return new List<WidgetSettingValueModel>
             {
-                new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.VentilationControl1, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.VentCtrl1Active, Value = IsActive ? "1" : "0"},
                 new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.VentilationControl1, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.VentCtrl1InsideThermoCouple, Value = Inside.ToInt().ToString()},
                 new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.VentilationControl1, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.VentCtrl1OutsideThermoCouple, Value = Outside.ToInt().ToString()},
                 new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.VentilationControl1, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.VentCtrl1AnalogOutput, Value = Output.ToInt().ToString()},

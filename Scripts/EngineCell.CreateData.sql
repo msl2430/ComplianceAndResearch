@@ -105,7 +105,7 @@ IF (SELECT COUNT(*) FROM Cell WHERE CellId = 1) = 0
 BEGIN
 	INSERT INTO Cell VALUES ('Engine Cell 1', '98.109.58.113', 22001, 'Engine Cell 1')
 	INSERT INTO Cell_Point
-	SELECT 1, p.PointId, p.Name, 0, NULL, GETDATE()
+	SELECT 1, p.PointId, p.Name, 0, 0, NULL, 0, NULL, GETDATE()
 	FROM Point p
 END
 

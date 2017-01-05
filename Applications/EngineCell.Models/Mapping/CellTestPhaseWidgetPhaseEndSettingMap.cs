@@ -8,7 +8,7 @@ namespace EngineCell.Models.Mapping
     {
         public CellTestPhaseWidgetPhaseEndSettingMap()
         {
-            Table("CellTestPhaseWidgetPhaseEndSetting");
+            Table("CellTestPhaseWidget_PhaseEndSetting");
 
             Id(t => t.CellTestPhaseWidgetPhaseEndSettingId);
 

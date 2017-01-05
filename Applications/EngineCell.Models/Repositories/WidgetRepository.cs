@@ -14,6 +14,8 @@ namespace EngineCell.Models.Repositories
         CellTestPhaseModel AddPhaseToTest(int cellTestId, int phaseIndex, string phaseName);
         void UpdatePhase(int cellTestPhaseId, string name);
         void DeletePhaseFromTest(int cellTestId, int cellTestPhaseId);
+        CellTestPhaseWidgetModel AddWidgetToPhase(int cellTestPhaseId, WidgetConstants.Widget widget);
+        void DeleteWidgetFromPhase(int cellTestPhaseWidgetId);
 
         IList<WidgetSettingValueModel> GetWidgetSettingByWidgetCell(int cellId, WidgetConstants.Widget widgetId);
         void SaveWidgetSettings(IList<WidgetSettingValueModel> settings);
@@ -69,6 +71,31 @@ namespace EngineCell.Models.Repositories
 
             NHibernateHelper.CurrentSession.Delete(phase);
             NHibernateHelper.CurrentSession.Flush();
+        }
+
+        public CellTestPhaseWidgetModel AddWidgetToPhase(int cellTestPhaseId, WidgetConstants.Widget widget)
+        {
+            var newWidget = new CellTestPhaseWidget
+            {
+                CellTestPhaseId = cellTestPhaseId,
+                WidgetId = widget
+            };
+
+            NHibernateHelper.CurrentSession.Save(newWidget);
+            NHibernateHelper.CurrentSession.Flush();
+
+            return new CellTestPhaseWidgetModel(newWidget);
+        }
+
+        public void DeleteWidgetFromPhase(int cellTestPhaseWidgetId)
+        {
+            NHibernateHelper.CurrentSession.CreateSQLQuery("DELETE FROM CellTestPhaseWidget_Setting WHERE CellTestPhaseWidgetId = :cellTestPhaseWidgetId")
+                .SetParameter("cellTestPhaseWidgetId", cellTestPhaseWidgetId)
+                .ExecuteUpdate();
+
+            NHibernateHelper.CurrentSession.CreateSQLQuery("DELETE FROM CellTestPhaseWidget WHERE CellTestPhaseWidgetId = :cellTestPhaseWidgetId")
+                .SetParameter("cellTestPhaseWidgetId", cellTestPhaseWidgetId)
+                .ExecuteUpdate();
         }
 
         [Obsolete("Remove", false)]

@@ -51,9 +51,6 @@ namespace EngineCell.Application.ViewModels.Widget
                     case WidgetConstants.WidgetSetting.StarterAddedCrankTime:
                         AddedCrankTime = Convert.ToInt32(setting.Value);
                         break;
-                    case WidgetConstants.WidgetSetting.StarterActive:
-                        IsActive = setting.Value == "1";
-                        break;
                 }
             }
         }
@@ -65,7 +62,6 @@ namespace EngineCell.Application.ViewModels.Widget
                 new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.Starter, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.StarterInitialCrankTime, Value = CrankTime.ToString()},
                 new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.Starter, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.StarterStartParameter, Value = StartParameter.ToString()},
                 new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.Starter, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.StarterAddedCrankTime, Value = AddedCrankTime.ToString()},
-                new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.Starter, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.StarterActive, Value = IsActive ? "1" : "0"},
             };
         }
     }

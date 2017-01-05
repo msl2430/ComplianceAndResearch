@@ -193,6 +193,10 @@
             Freq1,
             Freq2,
             Freq3,
+
+            //Test Schedule Setpoints
+            DynoSetpoint = 3000,
+            ThrottleSetpoint = 3120,
         }
 
         public enum StringIndexes

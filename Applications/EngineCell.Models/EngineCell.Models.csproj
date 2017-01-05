@@ -61,6 +61,7 @@
     <Compile Include="DataObjects\CellTestPhase.cs" />
     <Compile Include="DataObjects\CellTestPhaseWidget.cs" />
     <Compile Include="DataObjects\CellTestPhaseWidgetPhaseEndSetting.cs" />
+    <Compile Include="DataObjects\CellTestPhaseWidgetSetting.cs" />
     <Compile Include="DataObjects\Point.cs" />
     <Compile Include="DataObjects\CellPointAlarm.cs" />
     <Compile Include="DataObjects\CellTest.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Mapping\CellTestPhaseMap.cs" />
     <Compile Include="Mapping\CellTestPhaseWidgetMap.cs" />
     <Compile Include="Mapping\CellTestPhaseWidgetPhaseEndSettingMap.cs" />
+    <Compile Include="Mapping\CellTestPhaseWidgetSettingMap.cs" />
     <Compile Include="Mapping\CellTestPointDataMap.cs" />
     <Compile Include="Mapping\PointMap.cs" />
     <Compile Include="Mapping\CellTestMap.cs" />
@@ -82,6 +84,8 @@
     <Compile Include="Models\CellTestModel.cs" />
     <Compile Include="Models\CellTestPhaseModel.cs" />
     <Compile Include="Models\CellTestPhaseWidgetModel.cs" />
+    <Compile Include="Models\ScheduleData.cs" />
+    <Compile Include="Models\WidgetSettingModel.cs" />
     <Compile Include="Models\CellTestPointDataModel.cs" />
     <Compile Include="Models\PhaseEndSettingModel.cs" />
     <Compile Include="Models\PointModel.cs" />

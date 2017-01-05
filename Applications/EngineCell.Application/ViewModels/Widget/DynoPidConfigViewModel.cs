@@ -52,9 +52,6 @@ namespace EngineCell.Application.ViewModels.Widget
                     case WidgetConstants.WidgetSetting.DynoPidSetpoint:
                         DynoSetpoint = Convert.ToDecimal(setting.Value);
                         break;
-                    case WidgetConstants.WidgetSetting.DynoPidActive:
-                        IsActive = setting.Value == "1";
-                        break;
                 }
             }
         }
@@ -66,7 +63,6 @@ namespace EngineCell.Application.ViewModels.Widget
                 new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.DynoPid, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoPidMode, Value = DynoMode.ToInt().ToString()},
                 new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.DynoPid, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoPidMeasurement, Value = DynoMeasurement.ToInt().ToString()},
                 new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.DynoPid, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoPidSetpoint, Value = DynoSetpoint.ToString()},
-                new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.DynoPid, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoPidActive, Value = IsActive ? "1" : "0"},
             };
         }
     }

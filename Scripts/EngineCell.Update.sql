@@ -1,28 +1,26 @@
 TRUNCATE TABLE WidgetSetting
 INSERT INTO WidgetSetting (WidgetId, Setting) VALUES 
-(1, 'Active'),
-(1, 'Inside Thermo Couple'),
-(1, 'Outside Thermo Couple'),
-(1, 'Analog Output'),
-(1, 'Gain'),
-(1, 'Set Point'),
-(2, 'Active'),
+(1, 'Test Schedule File'),
 (2, 'Inside Thermo Couple'),
 (2, 'Outside Thermo Couple'),
 (2, 'Analog Output'),
 (2, 'Gain'),
 (2, 'Set Point'),
-(3, 'Dyno PID Mode'),
-(3, 'Dyno PID Measurement'),
-(3, 'Dyno PID Setpoint'),
-(3, 'Active'),
-(4, 'Initial Crank Time'),
-(4, 'Start Parameter'),
-(4, 'Additional Crank Time'),
-(4, 'Active')
+(3, 'Inside Thermo Couple'),
+(3, 'Outside Thermo Couple'),
+(3, 'Analog Output'),
+(3, 'Gain'),
+(3, 'Set Point'),
+(4, 'Dyno PID Mode'),
+(4, 'Dyno PID Measurement'),
+(4, 'Dyno PID Setpoint'),
+(5, 'Initial Crank Time'),
+(5, 'Start Parameter'),
+(5, 'Additional Crank Time')
 
 TRUNCATE TABLE Widget
 INSERT INTO Widget (Name) VALUES
+('TestSchedule'),
 ('Ventilation Control 1'),
 ('Ventilation Control 2'),
 ('DynoPid'),
@@ -62,11 +60,30 @@ GO
 CREATE TABLE [dbo].[CellTestPhaseWidget](
 	[CellTestPhaseWidgetId] [int] IDENTITY(1,1) NOT NULL,
 	[CellTestPhaseId] [int] NOT NULL,
-	[WidgetId] [int] NOT NULL,
-	[WidgetSettingId] [int] NOT NULL,
-	[Value] [nvarchar](max) NULL,
+	[WidgetId] [int] NOT NULL,	
  CONSTRAINT [PK_CellTestPhaseWidget]PRIMARY KEY CLUSTERED 
 ([CellTestPhaseWidgetId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'CellTestPhaseWidget_Setting')
+DROP TABLE [dbo].[CellTestPhaseWidget_Setting]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[CellTestPhaseWidget_Setting](
+	[CellTestPhaseWidgetSettingId] [int] IDENTITY(1,1) NOT NULL,
+	[CellTestPhaseWidgetId] [int] NOT NULL,
+	[WidgetSettingId] [int] NOT NULL,
+	[Value] [nvarchar](max) NULL,
+ CONSTRAINT [PK_CellTestPhaseWidget_Setting]PRIMARY KEY CLUSTERED 
+([CellTestPhaseWidgetSettingId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO

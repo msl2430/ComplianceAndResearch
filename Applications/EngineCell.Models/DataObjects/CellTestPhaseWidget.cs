@@ -7,18 +7,15 @@ namespace EngineCell.Models.DataObjects
     {
         public virtual int CellTestPhaseWidgetId { get; set; }
         public virtual int CellTestPhaseId { get; set; }
-        public virtual int WidgetId { get; set; }
-        public virtual WidgetConstants.WidgetSetting WidgetSettingId { get; set; }
-        public virtual string Value { get; set; }
+        public virtual WidgetConstants.Widget WidgetId { get; set; }
     }
 
     public class CellTestPhaseWidgetExtended
     {
         public virtual int CellTestPhaseWidgetId { get; set; }
         public virtual int CellTestPhaseId { get; set; }
-        public virtual int WidgetId { get; set; }
-        public virtual WidgetConstants.WidgetSetting WidgetSettingId { get; set; }
-        public virtual string Value { get; set; }
+        public virtual WidgetConstants.Widget WidgetId { get; set; }
+        public virtual IList<CellTestPhaseWidgetSetting> Settings { get; set; }
         public virtual IList<CellTestPhaseWidgetPhaseEndSetting> PhaseEndSettings { get; set; }
     }
 }

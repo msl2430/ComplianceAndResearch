@@ -29,7 +29,7 @@ namespace EngineCell.Models.Mapping
             Map(t => t.PhaseOrder);
             Map(t => t.Name);
 
-            HasMany<CellTestPhaseWidget>(t => t.Widgets)
+            HasMany<CellTestPhaseWidgetExtended>(t => t.Widgets)
                 .KeyColumn("CellTestPhaseId")
                 .NotFound.Ignore()
                 .Fetch.Subselect();
