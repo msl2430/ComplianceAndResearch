@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="EngineCell.Application.Views.Widget.TestScheduleDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EngineCell.Application.Views.Widget"
+             mc:Ignorable="d" Width="250" Height="150"
+             Loaded="TestScheduleDisplay_OnLoaded"
+             MaxWidth="250"
+             d:DesignHeight="200" d:DesignWidth="325">
+  <Border BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="2">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="25"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="0" HorizontalAlignment="Center" Foreground="{StaticResource HeadlineBlueBrush}">Test Schedule</TextBlock>
+      <Grid Row="1" Margin="0,0,5,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="5*"/>
+          <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="30"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="30"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="30"/>
+          <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Height="30" FontSize="12">Test Time:</Label>
+        <TextBox Grid.Column="1" Grid.Row="0" IsReadOnly="True"  Text="{Binding Path=TestRunTime}" Foreground="WhiteSmoke" BorderBrush="Transparent" Height="30" FontSize="12"></TextBox>
+        <Label Grid.Column="0" Grid.Row="2" Height="30" FontSize="12">Dyno Setpoint:</Label>
+        <TextBox Grid.Column="1" Grid.Row="2" IsReadOnly="True" Text="{Binding Path=DynoSetpoint}" Height="30" FontSize="12"></TextBox>
+        <Label Grid.Column="0" Grid.Row="4" Height="30" FontSize="12">Throttle Setpoint:</Label>
+        <TextBox Grid.Column="1" Grid.Row="4" IsReadOnly="True" Text="{Binding Path=ThrottleSetpoint}" Height="30" FontSize="12"></TextBox>
+      </Grid>
+    </Grid>
+    </Border>
+</UserControl>

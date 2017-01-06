@@ -47,20 +47,24 @@
         </Grid.ColumnDefinitions>
         <Grid Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="90" />
-                <RowDefinition Height="*" />
+              <RowDefinition Height="*" />
+              <RowDefinition Height="47" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="2">
+            <Grid Grid.Row="1">
+                <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0" Margin="5" Padding="2">
                     <Grid>
-                        <Grid.RowDefinitions>
+                      <Button Background="{StaticResource GreenBrush}" Click="StartPhaseButton_Click" Height="30" HorizontalAlignment="Center" Width="125" VerticalAlignment="Top" FontSize="12"
+                         Visibility="{Binding Path=IsTestRunning, Converter={StaticResource InverseBoolToVisibilityConverter}}">Start Test</Button>
+                      <Button Background="OrangeRed" Click="StopPhaseButton_Click" Height="30" HorizontalAlignment="Center" Width="125" VerticalAlignment="Top" FontSize="12"
+                         Visibility="{Binding Path=IsTestRunning, Converter={StaticResource BoolToVisibilityConverter}}">Stop Test</Button>
+                        <!--<Grid.RowDefinitions>
                             <RowDefinition Height="35"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Label FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" HorizontalAlignment="Center">Test Setup</Label>
                         </Grid>
-                        <Grid Grid.Row="2">
+                        <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="5*"/>
                                 <ColumnDefinition Width="5*"/>
@@ -83,17 +87,75 @@
                                 <Button Background="OrangeRed" Click="StopPhaseButton_Click" Height="30" HorizontalAlignment="Center" Width="125" VerticalAlignment="Top" FontSize="12"
                             Visibility="{Binding Path=PhaseStarted, Converter={StaticResource BoolToVisibilityConverter}}">Stop</Button>
                             </Grid>
-                        </Grid>
+                        </Grid>-->
                     </Grid>
                 </Border>
             </Grid>
+          <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="35"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+              <Label FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" HorizontalAlignment="Center">Test Phases</Label>
+            </Grid>
+            <Grid Grid.Row="1">
+              <ScrollViewer>
+              <ItemsControl ItemsSource="{Binding Path=Phases}">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel></StackPanel>
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Border BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="2">
+                      <Grid>
+                        <Grid.RowDefinitions>
+                          <RowDefinition Height="15"/>
+                          <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="150"/>
+                          <ColumnDefinition Width="150"/>
+                          <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1"  Grid.Row="0" HorizontalAlignment="Left" Foreground="{StaticResource GreenBrush}" Margin="-20,0,0,0" Visibility="{Binding Path=IsActive, Converter={StaticResource BoolToVisibilityConverter}}">Active</TextBlock>
+                        <TextBlock Height="50" Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Padding="10" Foreground="{StaticResource BrightBlueBrush}" Text="{Binding Name}"></TextBlock>
+                        <StackPanel Grid.Column="1" Margin="5" Grid.Row="1">
+                          <TextBlock FontSize="11" Margin="2">Start Time: <TextBlock FontSize="11" Text="{Binding StartDateTimeString}"></TextBlock></TextBlock>
+                          <TextBlock FontSize="11" Margin="2">End Time: <TextBlock FontSize="11" Text="{Binding EndDateTimeString}"></TextBlock></TextBlock>
+                        </StackPanel>
+                        <TextBlock Height="50" FontSize="20" Grid.Column="2" Grid.Row="1" Padding="10" VerticalAlignment="Center" Visibility="{Binding Path=IsCompleted, Converter={StaticResource BoolToVisibilityConverter}}">
+                          <Rectangle Width="25" Height="25" Fill="{StaticResource GreenBrush}">
+                            <Rectangle.OpacityMask>
+                              <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_check}" />
+                            </Rectangle.OpacityMask>
+                          </Rectangle>
+                        </TextBlock>
+                        <TextBlock Height="50" FontSize="20" Grid.Column="2" Grid.Row="1" Padding="10" VerticalAlignment="Center" >
+                          <Rectangle Width="25" Height="25" Fill="{StaticResource DarkBlueBrush}" Visibility="{Binding Path=IsRunning, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Rectangle.OpacityMask>
+                              <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_timer_forward}" />
+                            </Rectangle.OpacityMask>
+                          </Rectangle>
+                        </TextBlock>
+                      </Grid>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+              </ScrollViewer>
+            </Grid>
+          </Grid>
         </Grid>
         <GridSplitter Grid.Column="1" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         <Grid Column="2">
             <TextBlock Foreground="{StaticResource HeadlineBlueBrush}" FontSize="18" HorizontalAlignment="Center" Margin="0,12">Active Widgets</TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" VerticalAlignment="Top" Height="{Binding ElementName=WidgetPanel, Path=ActualHeight}">
                 <StackPanel Name="WidgetPanel"  Orientation="Vertical">
-                    <Border  BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5" Visibility="{Binding Path=VentControl1Display.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <!--<Border  BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5" Visibility="{Binding Path=VentControl1Display.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
                         <ContentControl x:Name="VentControl1" Content="{Binding VentControl1Display}"></ContentControl>
                     </Border>
                     <Border  BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5" Visibility="{Binding Path=StarterDisplay.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -101,7 +163,7 @@
                     </Border>
                     <Border BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5" Visibility="{Binding Path=DynoPidDisplay.IsActive, Converter={StaticResource BoolToVisibilityConverter}}">
                         <ContentControl x:Name="DynoPid" Content="{Binding DynoPidDisplay}"></ContentControl>
-                    </Border>
+                    </Border>-->
                 </StackPanel>
             </ScrollViewer>
         </Grid>                    

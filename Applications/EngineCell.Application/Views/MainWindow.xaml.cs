@@ -59,8 +59,8 @@ namespace EngineCell.Application.Views
             MainWindowViewModel.PhaseConfigViewModel = new PhaseConfigViewModel(ApplicationSessionFactory);
             MainWindowViewModel.ViewModels = new ObservableCollection<BaseViewModel>() { MainWindowViewModel.PointConfigViewModel, MainWindowViewModel.TestDisplayViewModel, MainWindowViewModel.PhaseConfigViewModel };                       
 
-            ChangePageView(MainWindowViewModel.PhaseConfigViewModel);
-            ToggleWidgets();
+            ChangePageView(MainWindowViewModel.TestDisplayViewModel);
+            //ToggleWidgets();
 
             DataContext = MainWindowViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
@@ -158,43 +158,10 @@ namespace EngineCell.Application.Views
         private void MenuTestDisplay_OnClick(object sender, RoutedEventArgs e)
         {
             MainWindowViewModel.TestDisplayViewModel.UpdateVisibleCellPoints();
-            ToggleWidgets();
+            MainWindowViewModel.TestDisplayViewModel.UpdatePhases(ApplicationSessionFactory.CurrentCellTest.Phases);
             ChangePageView(MainWindowViewModel.TestDisplayViewModel);
         }
-
-        [Obsolete("Remove", false)]
-        private void ToggleWidgets()
-        {
-            var ventCtrl1Settings = WidgetRepository.GetWidgetSettingByWidgetCell(ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.VentilationControl1);
-            if (ventCtrl1Settings.IsNotNullOrEmpty())
-            {
-                var settings = new VentilationControlViewModel();
-                settings.SetValues(ventCtrl1Settings);
-
-                MainWindowViewModel.TestDisplayViewModel.VentControl1Display = new VentilationControlDisplayViewModel("Ventilation Control 1", settings.IsActive);                
-            }
-
-            var dynoctrlSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.DynoPid);
-            if (dynoctrlSettings.IsNotNullOrEmpty())
-            {
-                var settings = new DynoPidConfigViewModel();
-                settings.SetValues(dynoctrlSettings);
-
-                MainWindowViewModel.TestDisplayViewModel.DynoPidDisplay = new DynoPidDisplayViewModel("Dyno Pid", settings.IsActive);
-            }
-
-            var startSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.Starter);
-            if (startSettings.IsNotNullOrEmpty())
-            {
-                var settings = new StarterConfigViewModel();
-                settings.SetValues(startSettings);
-
-                MainWindowViewModel.TestDisplayViewModel.StarterDisplay = new StarterDisplayViewModel("Starter", settings.IsActive);
-            }
-            //MainWindowViewModel.TestDisplayViewModel.VentControl1Display.IsActive =
-            //    ventCtrl1Settings.Any(v => v.WidgetId == WidgetConstants.Widget.VentilationControl1 && v.WidgetSettingId == WidgetConstants.WidgetSetting.VentCtrl1Active && v.Value == "1");
-        }
-
+        
         private void MenuWidgetConfig_OnClick(object sender, RoutedEventArgs e)
         {
             ChangePageView(MainWindowViewModel.PhaseConfigViewModel);

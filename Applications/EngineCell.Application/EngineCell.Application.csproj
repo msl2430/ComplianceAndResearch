@@ -153,6 +153,7 @@
     <Compile Include="Services\WorkerServices\PidConfigStripChartWorkerService.cs" />
     <Compile Include="Services\WorkerServices\PidConfigWorkerService.cs" />
     <Compile Include="Services\WorkerServices\TestRunnerWorkerService.cs" />
+    <Compile Include="Services\WorkerServices\Widget\TestScheduleWidgetWorkerService.cs" />
     <Compile Include="ViewModels\Phase\PhaseConfigViewModel.cs" />
     <Compile Include="ViewModels\Pid\PidConfigViewModel.cs" />
     <Compile Include="ViewModels\Pid\PidDisplayViewModel.cs" />
@@ -181,12 +182,14 @@
     <Compile Include="ViewModels\StripChart\PidConfigStripChartViewModel.cs" />
     <Compile Include="ViewModels\StripChart\StripChartViewModels.cs" />
     <Compile Include="ViewModels\TestDisplay\ManualTimeConfigViewModel.cs" />
+    <Compile Include="ViewModels\TestDisplay\PhaseViewModel.cs" />
     <Compile Include="ViewModels\TestDisplay\TestDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\BaseWidgetViewModel.cs" />
     <Compile Include="ViewModels\Widget\DynoPidConfigViewModel.cs" />
     <Compile Include="ViewModels\Widget\DynoPidDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\StarterConfigViewModel.cs" />
     <Compile Include="ViewModels\Widget\StarterDisplayViewModel.cs" />
+    <Compile Include="ViewModels\Widget\TestScheduleDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\VentilationControlDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\VentilationControlViewModel.cs" />
     <Compile Include="ViewModels\Widget\WidgetConfigViewModel.cs" />
@@ -254,6 +257,9 @@
     </Compile>
     <Compile Include="Views\Widget\TestScheduleConfig.xaml.cs">
       <DependentUpon>TestScheduleConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Widget\TestScheduleDisplay.xaml.cs">
+      <DependentUpon>TestScheduleDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Widget\VentControlDisplay.xaml.cs">
       <DependentUpon>VentControlDisplay.xaml</DependentUpon>
@@ -350,6 +356,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Widget\TestScheduleConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Widget\TestScheduleDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -102,9 +102,9 @@ namespace EngineCell.Application.Services.WorkerServices
                                 TestDisplayViewModel.UpdateVisibleCellPoints();
                             });
 
-                            TestDisplayViewModel.VentControl1Display.Inside = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.VentCtrl1Inside.ToInt());
-                            TestDisplayViewModel.VentControl1Display.Outside = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.VentCtrl1Outside.ToInt());
-                            TestDisplayViewModel.VentControl1Display.Output = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.VentCtrl1Output.ToInt());
+                            //TestDisplayViewModel.VentControl1Display.Inside = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.VentCtrl1Inside.ToInt());
+                            //TestDisplayViewModel.VentControl1Display.Outside = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.VentCtrl1Outside.ToInt());
+                            //TestDisplayViewModel.VentControl1Display.Output = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.VentCtrl1Output.ToInt());
                         }
                     }
                     Thread.Sleep(500);

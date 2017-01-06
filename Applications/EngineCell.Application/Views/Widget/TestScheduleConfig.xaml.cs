@@ -128,7 +128,7 @@ namespace EngineCell.Application.Views.Widget
         {
             if (Widget != null && Widget.Settings.Any(w => w.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile && w.Schedule.IsNotNullOrEmpty()))
             {
-                WidgetStatus.Foreground = Brushes.Green;
+                WidgetStatus.Foreground = (Brush) FindResource("GreenBrush");
                 WidgetStatus.Text = "Configured";
                 TestTimeLabel.Visibility = Visibility.Visible;
                 TestTimeText.Visibility = Visibility.Visible;

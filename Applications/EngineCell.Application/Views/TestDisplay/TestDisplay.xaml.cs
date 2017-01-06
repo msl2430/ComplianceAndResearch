@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using EngineCell.Application.Services.DataServices;
-using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels.TestDisplay;
+using EngineCell.Application.Views.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
 using EngineCell.Models.Repositories;
@@ -17,7 +16,7 @@ namespace EngineCell.Application.Views.TestDisplay
     /// </summary>
     public partial class TestDisplay : BaseUserControl
     {
-        private TestDisplayViewModel TestDisplayViewModel { get; set; }
+        private TestDisplayViewModel ViewModel { get; set; }
 
         private IWidgetRepository _widgetRepository { get; set; }
         private IWidgetRepository WidgetRepository => _widgetRepository ?? (_widgetRepository = new WidgetRepository());
@@ -33,50 +32,74 @@ namespace EngineCell.Application.Views.TestDisplay
         private void TestDisplay_OnLoaded(object sender, RoutedEventArgs e)
         {
             if (DataContext != null)
-                TestDisplayViewModel = (TestDisplayViewModel) DataContext;
+                ViewModel = (TestDisplayViewModel) DataContext;
+
+            if(ViewModel.Phases.IsNotNullOrEmpty())
+                PrepareTestPhaseDisplay();
+        }
+
+        private void PrepareTestPhaseDisplay()
+        {
+            ViewModel.Phases.First().IsActive = true;
+            foreach (var widget in ViewModel.ApplicationSessionFactory.CurrentCellTest.Phases.First(p => p.CellTestPhaseId == ViewModel.Phases.First().CellTestPhaseId).Widgets)
+            {
+                switch (widget.WidgetId)
+                {
+                    case WidgetConstants.Widget.TestSchedule:
+                        WidgetPanel.Children.Add(new TestScheduleDisplay(ViewModel.ApplicationSessionFactory, widget));
+                        break;
+                    case WidgetConstants.Widget.VentilationControl1:
+                        break;
+                    case WidgetConstants.Widget.VentilationControl2:
+                        break;
+                    case WidgetConstants.Widget.DynoPid:
+                        break;
+                    case WidgetConstants.Widget.Starter:
+                        break;
+                }
+            }
         }
 
         private void StartPhaseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (TestDisplayViewModel.ApplicationSessionFactory.OptoConnectionStatus != StatusConstants.ConnectionStatus.Connected)
-            {
-                TestDisplayViewModel.ApplicationSessionFactory.LogEvent("WARNING: Cannot start if not connected to Opto!", true);
-                return;
-            }
-            if (!TestDisplayViewModel.IsManualTest)
-            {
-                var runTimeModel = new ManualTimeConfigViewModel();
-                var runTime = new ManualTimeConfig(runTimeModel);
-                runTime.ShowDialog();
-                if (runTimeModel.IsCancel)
-                    return;
+            //if (ViewModel.ApplicationSessionFactory.OptoConnectionStatus != StatusConstants.ConnectionStatus.Connected)
+            //{
+            //    ViewModel.ApplicationSessionFactory.LogEvent("WARNING: Cannot start if not connected to Opto!", true);
+            //    return;
+            //}
+            //if (!ViewModel.IsManualTest)
+            //{
+            //    var runTimeModel = new ManualTimeConfigViewModel();
+            //    var runTime = new ManualTimeConfig(runTimeModel);
+            //    runTime.ShowDialog();
+            //    if (runTimeModel.IsCancel)
+            //        return;
 
-                TimeRemaining.RemainingTime = new TimeSpan(runTimeModel.Hour, runTimeModel.Minute, runTimeModel.Second);
-                TimeRemaining.IsRunning = true;
-                TimeRemaining.RemainingTimeViewModel.IsVisible = true;
-            }
-            TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Starting phase.", true);
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
+            //    TimeRemaining.RemainingTime = new TimeSpan(runTimeModel.Hour, runTimeModel.Minute, runTimeModel.Second);
+            //    TimeRemaining.IsRunning = true;
+            //    TimeRemaining.RemainingTimeViewModel.IsVisible = true;
+            //}
+            //ViewModel.ApplicationSessionFactory.LogEvent("Starting phase.", true);
+            //ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
             
-            var cellTestId = CellPointRepository.CreateCellTest(1, !TestDisplayViewModel.IsManualTest ? ControlConstants.CellTestType.Manual : ControlConstants.CellTestType.Timed);
-            TestDisplayViewModel.ApplicationSessionFactory.CurrentCellTest = CellPointRepository.GetCellTestById(cellTestId);
-            ExportService.CreateDataFile(TestDisplayViewModel.ApplicationSessionFactory.CurrentCellTest.CellTestId, TestDisplayViewModel.ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord).ToList());
-            RunTimeClock.IsRunning = true;
-            TestDisplayViewModel.PhaseStarted = true;
-            TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Starting point data collection.", true);
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt(), 1);
+            //var cellTestId = CellPointRepository.CreateCellTest(1, !ViewModel.IsManualTest ? ControlConstants.CellTestType.Manual : ControlConstants.CellTestType.Timed);
+            //ViewModel.ApplicationSessionFactory.CurrentCellTest = CellPointRepository.GetCellTestById(cellTestId);
+            //ExportService.CreateDataFile(ViewModel.ApplicationSessionFactory.CurrentCellTest.CellTestId, ViewModel.ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord).ToList());
+            //RunTimeClock.IsRunning = true;
+            //ViewModel.ApplicationSessionFactory.LogEvent("Starting point data collection.", true);
+            //ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt(), 1);
 
 
-            if (!TestDisplayViewModel.IsManualTest)
-            {
-                Task.Run(() =>
-                {
-                    var worker = new TestRunnerWorkerService(TimeRemaining, this, Dispatcher);
-                    worker.DoWork();
-                });
-            }
+            //if (!ViewModel.IsManualTest)
+            //{
+            //    Task.Run(() =>
+            //    {
+            //        var worker = new TestRunnerWorkerService(TimeRemaining, this, Dispatcher);
+            //        worker.DoWork();
+            //    });
+            //}
 
-            TestDisplayViewModel.ChartViewModel.IsPlay = true;
+            //ViewModel.ChartViewModel.IsPlay = true;
         }
 
         private void StopPhaseButton_Click(object sender, RoutedEventArgs e)
@@ -87,26 +110,26 @@ namespace EngineCell.Application.Views.TestDisplay
         private void ToggleTestType(object sender, RoutedEventArgs e)
         {
             var btn = sender as Button;
-            TestDisplayViewModel.IsManualTest = btn.Tag.ToString() == "manual";
+            ViewModel.IsManualTest = btn.Tag.ToString() == "manual";
         }
 
         public void StopTest(bool isUserRequested)
         {
-            TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Stopping phase after running for " + RunTimeClock.RunTimeViewModel.RunTime + (isUserRequested ? " (user requested)." : " (test complete)."), true);
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 0);
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt(), 0);
-            CellPointRepository.UpdateCellTestEndTime(TestDisplayViewModel.ApplicationSessionFactory.CurrentCellTest);
-            RunTimeClock.IsRunning = false;
-            TimeRemaining.IsRunning = false;
-            TestDisplayViewModel.PhaseStarted = false;
-            TestDisplayViewModel.ChartViewModel.IsPlay = false;
+            //ViewModel.ApplicationSessionFactory.LogEvent("Stopping phase after running for " + RunTimeClock.RunTimeViewModel.RunTime + (isUserRequested ? " (user requested)." : " (test complete)."), true);
+            //ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 0);
+            //ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt(), 0);
+            //CellPointRepository.UpdateCellTestEndTime(ViewModel.ApplicationSessionFactory.CurrentCellTest);
+            //RunTimeClock.IsRunning = false;
+            //TimeRemaining.IsRunning = false;
+            //ViewModel.PhaseStarted = false;
+            //ViewModel.ChartViewModel.IsPlay = false;
 
-            //TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Preparing results file.", true);
-            var fileName = ExportService.GetFilename();
-            if(string.IsNullOrEmpty(fileName))
-                TestDisplayViewModel.ApplicationSessionFactory.LogEvent("No data to export.", true);
-            else
-                TestDisplayViewModel.ApplicationSessionFactory.LogEvent("Results file saved to: " + fileName, true);
+            ////ViewModel.ApplicationSessionFactory.LogEvent("Preparing results file.", true);
+            //var fileName = ExportService.GetFilename();
+            //if(string.IsNullOrEmpty(fileName))
+            //    ViewModel.ApplicationSessionFactory.LogEvent("No data to export.", true);
+            //else
+            //    ViewModel.ApplicationSessionFactory.LogEvent("Results file saved to: " + fileName, true);
         }
     }   
 }

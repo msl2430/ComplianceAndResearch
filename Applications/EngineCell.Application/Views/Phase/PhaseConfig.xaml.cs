@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,9 +6,6 @@ using System.Windows.Media;
 using EngineCell.Application.ViewModels.Phase;
 using EngineCell.Application.Views.Widget;
 using EngineCell.Core.Constants;
-using EngineCell.Core.Extensions;
-using EngineCell.Models.DataObjects;
-using EngineCell.Models.Models;
 using EngineCell.Models.Repositories;
 using MahApps.Metro.Controls;
 
@@ -192,7 +188,8 @@ namespace EngineCell.Application.Views.Phase
                 g.Children.Clear();
                 g.Children.Add(widgetGrid);
             }));
-            
+
+            ViewModel.ApplicationSessionFactory.CurrentCellTest.Phases = ViewModel.Phases;
         }       
     }
 }
