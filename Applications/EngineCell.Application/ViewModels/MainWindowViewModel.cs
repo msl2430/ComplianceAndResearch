@@ -90,11 +90,11 @@ namespace EngineCell.Application.ViewModels
             set { _testDisplayViewModel = value; OnPropertyChanged("TestDisplayViewModel"); }
         }
 
-        private WidgetConfigViewModel _widgetConfigViewModel { get; set; }
-        public WidgetConfigViewModel WidgetConfigViewModel {
-            get { return _widgetConfigViewModel; }
-            set { _widgetConfigViewModel = value; OnPropertyChanged("WidgetConfigViewModel"); }
-        }
+        //private WidgetConfigViewModel _widgetConfigViewModel { get; set; }
+        //public WidgetConfigViewModel WidgetConfigViewModel {
+        //    get { return _widgetConfigViewModel; }
+        //    set { _widgetConfigViewModel = value; OnPropertyChanged("WidgetConfigViewModel"); }
+        //}
 
         private PhaseConfigViewModel _phaseConfigViewModel { get; set; }
         public PhaseConfigViewModel PhaseConfigViewModel

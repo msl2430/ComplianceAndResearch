@@ -49,7 +49,7 @@ namespace EngineCell.Core.Constants
 
         public enum PhaseEndSetting
         {
-            RunTime,
+            RunTime = 1,
             IterationCount,
             ErrorCount,
         }

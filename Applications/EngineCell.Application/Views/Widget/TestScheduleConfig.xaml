@@ -26,16 +26,21 @@
           <RowDefinition Height="30"/>
           <RowDefinition Height="5"/>
           <RowDefinition Height="30"/>
+          <RowDefinition Height="10"/>
+          <RowDefinition Height="30"/>          
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Grid.Row="0" Height="30" FontSize="12">Upload CSV</Label>
         <Button Grid.Column="1" Grid.Row="0" Height="30" FontSize="12" Background="{StaticResource LightBlueBrush}" Click="UploadFile">Upload</Button>
-        <TextBlock x:Name="FileFormatError" Foreground="OrangeRed" Grid.Row="1" Grid.Column="0" FontSize="12" Grid.ColumnSpan="2" TextAlignment="Center" Visibility="Collapsed">File must be a *.csv.</TextBlock>
-        <TextBlock x:Name="NoSetpointError" Foreground="OrangeRed" Grid.Row="1" Grid.Column="0" FontSize="12" Grid.ColumnSpan="2" TextAlignment="Center" Visibility="Collapsed">No setpoint data found in file.</TextBlock>
+        <TextBlock x:Name="FileFormatError" Foreground="OrangeRed" Grid.Row="1" Grid.Column="0" FontSize="12" Grid.ColumnSpan="2" TextAlignment="Center" Visibility="Hidden">File must be a *.csv.</TextBlock>
+        <TextBlock x:Name="NoSetpointError" Foreground="OrangeRed" Grid.Row="1" Grid.Column="0" FontSize="12" Grid.ColumnSpan="2" TextAlignment="Center" Visibility="Hidden">No setpoint data found in file.</TextBlock>
         <TextBlock x:Name="WidgetStatus" Grid.Row="2" Grid.Column="0" FontSize="14" Grid.ColumnSpan="2" TextAlignment="Center"></TextBlock>
-        <Label x:Name="TestTimeLabel" Grid.Column="0" Grid.Row="4" FontSize="12" Height="25" Visibility="Collapsed">Test Time (seconds):</Label>
-        <TextBox x:Name="TestTimeText" Grid.Column="1" Grid.Row="4" FontSize="12" Height="25" Visibility="Collapsed" IsReadOnly="True"></TextBox>
-        <Label x:Name="PidLabel" Grid.Column="0" Grid.Row="6" FontSize="12" Height="25" Visibility="Collapsed">PIDs used:</Label>
-        <StackPanel x:Name="PidList" Grid.Column="1" Grid.Row="6" Visibility="Collapsed"></StackPanel>
+        <Label x:Name="TestTimeLabel" Grid.Column="0" Grid.Row="4" FontSize="12" Height="25" Visibility="Hidden">Test Time (seconds):</Label>
+        <TextBox x:Name="TestTimeText" Grid.Column="1" Grid.Row="4" FontSize="12" Height="25" Visibility="Hidden" IsReadOnly="True"></TextBox>
+        <Label x:Name="PidLabel" Grid.Column="0" Grid.Row="6" FontSize="12" Height="25" Visibility="Hidden">PIDs used:</Label>
+        <StackPanel x:Name="PidList" Grid.Column="1" Grid.Row="6" Visibility="Hidden"></StackPanel>
+        <Border x:Name="ErrorTimeoutBorder" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0, 1.01, 0, 0" Margin="0,5,0,0" BorderBrush="{StaticResource LightBlueBrush}" Visibility="Hidden"></Border>
+        <TextBlock x:Name="ErrorTimeoutLabel" Grid.Column="0" Grid.Row="8" FontSize="12" Height="30" Visibility="Hidden" TextWrapping="WrapWithOverflow">Widget Timeout (seconds):</TextBlock>
+        <TextBox x:Name="ErrorTimeoutText" Grid.Column="1" Grid.Row="8" FontSize="12" Height="25" Visibility="Hidden" LostFocus="ErrorTimeoutText_OnLostFocus"/>
       </Grid>
     </Grid>
 </UserControl>

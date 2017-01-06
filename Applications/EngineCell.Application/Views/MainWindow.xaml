@@ -36,9 +36,6 @@
         <DataTemplate DataType="{x:Type phaseConfig:PhaseConfigViewModel}">
             <phase:PhaseConfig/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type widget:WidgetConfigViewModel}">
-            <widgetConfig:WidgetConfig></widgetConfig:WidgetConfig>
-        </DataTemplate>
     </local:BaseWindowView.Resources>
     <Grid>
         <DockPanel>

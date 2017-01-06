@@ -55,9 +55,9 @@ namespace EngineCell.Application.Views
             MainWindowViewModel.PointConfigViewModel = new PointConfigurationViewModel(ApplicationSessionFactory);
             MainWindowViewModel.TestDisplayViewModel = new TestDisplayViewModel(ApplicationSessionFactory, new StripChartViewModel(ApplicationSessionFactory));
             MainWindowViewModel.TestDisplayViewModel.PointWorkerService = new PointWorkerService(MainWindowViewModel.TestDisplayViewModel, Dispatcher);
-            MainWindowViewModel.WidgetConfigViewModel = new WidgetConfigViewModel(ApplicationSessionFactory);
+            //MainWindowViewModel.WidgetConfigViewModel = new WidgetConfigViewModel(ApplicationSessionFactory);
             MainWindowViewModel.PhaseConfigViewModel = new PhaseConfigViewModel(ApplicationSessionFactory);
-            MainWindowViewModel.ViewModels = new ObservableCollection<BaseViewModel>() { MainWindowViewModel.PointConfigViewModel, MainWindowViewModel.TestDisplayViewModel, MainWindowViewModel.WidgetConfigViewModel, MainWindowViewModel.PhaseConfigViewModel };                       
+            MainWindowViewModel.ViewModels = new ObservableCollection<BaseViewModel>() { MainWindowViewModel.PointConfigViewModel, MainWindowViewModel.TestDisplayViewModel, MainWindowViewModel.PhaseConfigViewModel };                       
 
             ChangePageView(MainWindowViewModel.PhaseConfigViewModel);
             ToggleWidgets();
@@ -162,6 +162,7 @@ namespace EngineCell.Application.Views
             ChangePageView(MainWindowViewModel.TestDisplayViewModel);
         }
 
+        [Obsolete("Remove", false)]
         private void ToggleWidgets()
         {
             var ventCtrl1Settings = WidgetRepository.GetWidgetSettingByWidgetCell(ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.VentilationControl1);
@@ -196,7 +197,7 @@ namespace EngineCell.Application.Views
 
         private void MenuWidgetConfig_OnClick(object sender, RoutedEventArgs e)
         {
-            ChangePageView(MainWindowViewModel.WidgetConfigViewModel);
+            ChangePageView(MainWindowViewModel.PhaseConfigViewModel);
         }
         #endregion
 
