@@ -24,6 +24,7 @@ namespace EngineCell.Application.Services.WorkerServices
             try
             {
                 CancellationToken = new CancellationTokenSource();
+                ApplicationSessionFactory.LogEvent("Test starting.", true);
                 SetNextPhase();
                 ApplicationSessionFactory.CurrentCellTest.IsRunning = true;                
                 while (!CancellationToken.IsCancellationRequested)
@@ -44,7 +45,7 @@ namespace EngineCell.Application.Services.WorkerServices
                         else
                         {
                             //test complete
-                            ApplicationSessionFactory.LogEvent("Test Complete.", true);
+                            ApplicationSessionFactory.LogEvent("Test complete.", true);
                             ApplicationSessionFactory.CurrentCellTest.IsRunning = false;
                             CancellationToken.Cancel();
                             continue;
@@ -52,12 +53,13 @@ namespace EngineCell.Application.Services.WorkerServices
                     }
 
                     if (!ApplicationSessionFactory.CurrentPhaseRunning.Widgets.Any(w => w.IsError)) continue;
-                    
-                    ApplicationSessionFactory.LogEvent("Errors in Phase [[" + ApplicationSessionFactory.CurrentPhaseRunning.Name + "]]:", true);
+
                     foreach (var widget in ApplicationSessionFactory.CurrentPhaseRunning.Widgets.Where(w => w.IsError))
                     {
                         ApplicationSessionFactory.LogEvent(" - " + widget.ErrorReason, true);
                     }
+                    ApplicationSessionFactory.LogEvent("Errors in Phase [[" + ApplicationSessionFactory.CurrentPhaseRunning.Name + "]]:", true);
+                    ApplicationSessionFactory.LogEvent("Test cancelled.", true);
                     ApplicationSessionFactory.CurrentCellTest.IsRunning = false;
                     CancellationToken.Cancel();
                     
