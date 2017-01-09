@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using EngineCell.Application.Factories;
+using EngineCell.Application.Services.WorkerServices.Widget;
 using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Models.Models;
@@ -16,10 +18,13 @@ namespace EngineCell.Application.Views.Widget
     {
         private TestScheduleDisplayViewModel ViewModel { get; set; }
 
+        private TestScheduleWidgetWorkerService TestScheduleWorkerService { get; set; }
+
         public TestScheduleDisplay(IApplicationSessionFactory appSession, CellTestPhaseWidgetModel widget)
         {
             InitializeComponent();
             ViewModel = new TestScheduleDisplayViewModel(appSession, widget);
+            TestScheduleWorkerService = new TestScheduleWidgetWorkerService(ViewModel);
             if (ViewModel.Widget.Settings.All(s => s.WidgetSettingId != WidgetConstants.WidgetSetting.TestScheduleFile))
             {
                 //TODO: Show Error Screen
@@ -32,6 +37,10 @@ namespace EngineCell.Application.Views.Widget
         {
             DataContext = ViewModel;
             PrepareWidget();
+            Task.Run(() =>
+            {
+                TestScheduleWorkerService.DoWork();
+            });
         }
 
         private void PrepareWidget()

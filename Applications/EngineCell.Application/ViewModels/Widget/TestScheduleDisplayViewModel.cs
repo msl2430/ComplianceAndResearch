@@ -26,7 +26,7 @@ namespace EngineCell.Application.ViewModels.Widget
         {
             ApplicationSessionFactory = appSession;
             Widget = widget;
-            TestRunTime = "00:00";
+            TestRunTime = "00:00:00";
         }
     }
 }

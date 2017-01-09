@@ -17,6 +17,8 @@ namespace EngineCell.Models.Models
         public DateTime? EndTime { get; set; }
         public IList<CellTestPhaseModel> Phases { get; set; }
 
+        public bool IsRunning { get; set; }
+
         public CellTestModel () {  }
 
         public CellTestModel(CellTest obj)

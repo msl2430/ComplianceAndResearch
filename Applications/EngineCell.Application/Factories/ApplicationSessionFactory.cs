@@ -20,6 +20,7 @@ namespace EngineCell.Application.Factories
 
         int CurrentCellId { get; }
         CellTestModel CurrentCellTest { get; set; }
+        CellTestPhaseModel CurrentPhaseRunning { get; set; }
         IList<PointDataModel> CellPoints { get; set; }
 
         MainWindowViewModel ApplicationViewModel { get; set; }
@@ -40,7 +41,8 @@ namespace EngineCell.Application.Factories
 
         public int CurrentCellId => Convert.ToInt32(ConfigurationManager.AppSettings["CellId"]); //TODO: Change when we add more cells
         public CellTestModel CurrentCellTest { get; set; }
-        public IList<PointDataModel> CellPoints { get; set; }
+        public CellTestPhaseModel CurrentPhaseRunning { get; set; }
+        public IList<PointDataModel> CellPoints { get; set; }        
 
         public MainWindowViewModel ApplicationViewModel
         {

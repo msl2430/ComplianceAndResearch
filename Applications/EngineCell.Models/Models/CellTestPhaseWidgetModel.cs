@@ -17,6 +17,10 @@ namespace EngineCell.Models.Models
         public IList<WidgetSettingModel> Settings { get; set; }
         public IList<PhaseEndSettingModel> PhaseEndSettings { get; set; }
 
+        public bool IsComplete { get; set; }
+        public bool IsError { get; set; }
+        public string ErrorReason { get; set; }
+
         public CellTestPhaseWidgetModel()
         {
             Settings = new List<WidgetSettingModel>();

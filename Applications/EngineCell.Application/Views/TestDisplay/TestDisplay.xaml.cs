@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using EngineCell.Application.Services.DataServices;
+using EngineCell.Application.Services.WorkerServices;
+using EngineCell.Application.Services.WorkerServices.Widget;
 using EngineCell.Application.ViewModels.TestDisplay;
+using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Application.Views.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
@@ -32,13 +36,10 @@ namespace EngineCell.Application.Views.TestDisplay
         private void TestDisplay_OnLoaded(object sender, RoutedEventArgs e)
         {
             if (DataContext != null)
-                ViewModel = (TestDisplayViewModel) DataContext;
-
-            if(ViewModel.Phases.IsNotNullOrEmpty())
-                PrepareTestPhaseDisplay();
+                ViewModel = (TestDisplayViewModel) DataContext;            
         }
 
-        private void PrepareTestPhaseDisplay()
+        public void PrepareTestPhaseDisplay()
         {
             ViewModel.Phases.First().IsActive = true;
             foreach (var widget in ViewModel.ApplicationSessionFactory.CurrentCellTest.Phases.First(p => p.CellTestPhaseId == ViewModel.Phases.First().CellTestPhaseId).Widgets)
@@ -46,7 +47,7 @@ namespace EngineCell.Application.Views.TestDisplay
                 switch (widget.WidgetId)
                 {
                     case WidgetConstants.Widget.TestSchedule:
-                        WidgetPanel.Children.Add(new TestScheduleDisplay(ViewModel.ApplicationSessionFactory, widget));
+                        WidgetPanel.Children.Add(new TestScheduleDisplay(ViewModel.ApplicationSessionFactory, widget));                        
                         break;
                     case WidgetConstants.Widget.VentilationControl1:
                         break;
@@ -62,6 +63,15 @@ namespace EngineCell.Application.Views.TestDisplay
 
         private void StartPhaseButton_Click(object sender, RoutedEventArgs e)
         {
+            if (ViewModel.Phases.IsNotNullOrEmpty())
+                PrepareTestPhaseDisplay();
+
+            var phaseWorker = new PhaseWorkerService(ViewModel.ApplicationSessionFactory);
+            Task.Run(() =>
+            {
+                phaseWorker.DoWork();
+            });
+
             //if (ViewModel.ApplicationSessionFactory.OptoConnectionStatus != StatusConstants.ConnectionStatus.Connected)
             //{
             //    ViewModel.ApplicationSessionFactory.LogEvent("WARNING: Cannot start if not connected to Opto!", true);
@@ -81,7 +91,7 @@ namespace EngineCell.Application.Views.TestDisplay
             //}
             //ViewModel.ApplicationSessionFactory.LogEvent("Starting phase.", true);
             //ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
-            
+
             //var cellTestId = CellPointRepository.CreateCellTest(1, !ViewModel.IsManualTest ? ControlConstants.CellTestType.Manual : ControlConstants.CellTestType.Timed);
             //ViewModel.ApplicationSessionFactory.CurrentCellTest = CellPointRepository.GetCellTestById(cellTestId);
             //ExportService.CreateDataFile(ViewModel.ApplicationSessionFactory.CurrentCellTest.CellTestId, ViewModel.ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord).ToList());
