@@ -79,58 +79,6 @@ namespace EngineCell.Application.Views
             MainWindowViewModel.ViewModels.FirstOrDefault(vm => vm.GetType() == viewModel.GetType()).ZIndex = 1;
         }
 
-        private void RefreshOptoConnection(bool isConnected)
-        {
-            //if (MainWindowViewModel.CurrentPageViewModel == null) return;
-
-            //if (MainWindowViewModel.CurrentPageViewModel.GetType() != typeof(CarSelectionViewModel)) return;
-
-            //var viewModel = (CarSelectionViewModel)MainWindowViewModel.CurrentPageViewModel;
-            //viewModel.IsOptoConnected = isConnected;
-        }
-
-        private void ToggleOptoConnection()
-        {
-            switch (ApplicationSessionFactory.OptoConnectionStatus)
-            {
-                case StatusConstants.ConnectionStatus.Disconnected:
-                    Task.Run(() =>
-                    {
-                        ApplicationSessionFactory.LogEvent("Connecting to Opto 22 @" + ConfigurationManager.AppSettings["OptoIpAddress"], true);
-                        RefreshOptoConnection(true);
-                        OptoConnectionWorker.DoWork();
-                    }).ConfigureAwait(false);
-                    Task.Run(() =>
-                    {
-                        MainWindowViewModel.TestDisplayViewModel.PointWorkerService.DoWork();                        
-                    }).ConfigureAwait(false);
-                    
-                    break;
-                case StatusConstants.ConnectionStatus.Connected:
-                    MainWindowViewModel.TestDisplayViewModel.PointWorkerService.CancelWork();
-                    ApplicationSessionFactory.LogEvent("Disconnecting from Opto 22", true);                    
-                    OptoConnectionWorker.CancelWork();
-                    RefreshOptoConnection(false);                    
-                    break;
-            }
-        }
-
-        private void OptoConnectionToggle_OnSourceUpdated(object sender, DataTransferEventArgs e)
-        {
-            ToggleOptoConnection();
-        }
-
-        private void ApplicationView_OnClosing(object sender, CancelEventArgs e)
-        {
-            if (ApplicationSessionFactory.OptoConnectionStatus == StatusConstants.ConnectionStatus.Connected)
-                OptoConnectionWorker.CancelWork();
-
-            while (ApplicationSessionFactory.OptoConnectionStatus == StatusConstants.ConnectionStatus.Connected)
-            {
-                Thread.Sleep(250);
-            }
-        }
-
         #region Events
         public void ShowHideStatusBar_OnClick(object sender, RoutedEventArgs routedEventArgs)
         {
@@ -166,9 +114,61 @@ namespace EngineCell.Application.Views
         {
             ChangePageView(MainWindowViewModel.PhaseConfigViewModel);
         }
+
+        private void OptoConnectionToggle_OnSourceUpdated(object sender, DataTransferEventArgs e)
+        {
+            ToggleOptoConnection();
+        }
+
+        private void ApplicationView_OnClosing(object sender, CancelEventArgs e)
+        {
+            if (ApplicationSessionFactory.OptoConnectionStatus == StatusConstants.ConnectionStatus.Connected)
+                ToggleOptoConnection();
+
+            while (ApplicationSessionFactory.OptoConnectionStatus == StatusConstants.ConnectionStatus.Connected)
+            {
+                Thread.Sleep(250);
+            }
+        }
         #endregion
 
         #region Private Methods
+        private void ToggleOptoConnection()
+        {
+            switch (ApplicationSessionFactory.OptoConnectionStatus)
+            {
+                case StatusConstants.ConnectionStatus.Disconnected:
+                    Task.Run(() =>
+                    {
+                        ApplicationSessionFactory.LogEvent("Connecting to Opto 22 @" + ConfigurationManager.AppSettings["OptoIpAddress"], true);
+                        RefreshOptoConnection(true);
+                        OptoConnectionWorker.DoWork();
+                    }).ConfigureAwait(false);
+                    Task.Run(() =>
+                    {
+                        MainWindowViewModel.TestDisplayViewModel.PointWorkerService.DoWork();
+                    }).ConfigureAwait(false);
+
+                    break;
+                case StatusConstants.ConnectionStatus.Connected:
+                    MainWindowViewModel.TestDisplayViewModel.PointWorkerService.CancelWork();
+                    ApplicationSessionFactory.LogEvent("Disconnecting from Opto 22", true);
+                    OptoConnectionWorker.CancelWork();
+                    RefreshOptoConnection(false);
+                    break;
+            }
+        }
+
+        private void RefreshOptoConnection(bool isConnected)
+        {
+            //if (MainWindowViewModel.CurrentPageViewModel == null) return;
+
+            //if (MainWindowViewModel.CurrentPageViewModel.GetType() != typeof(CarSelectionViewModel)) return;
+
+            //var viewModel = (CarSelectionViewModel)MainWindowViewModel.CurrentPageViewModel;
+            //viewModel.IsOptoConnected = isConnected;
+        }
+
         private void ToggleLogWindow(bool isShowWindow)
         {
             ApplicationSessionFactory.IsLogWindowVisible = isShowWindow;

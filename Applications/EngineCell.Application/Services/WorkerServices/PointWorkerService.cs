@@ -73,12 +73,7 @@ namespace EngineCell.Application.Services.WorkerServices
                             TaskList.Clear();
                             foreach (var cellPoint in ApplicationSessionFactory.CellPoints)
                             {
-                                var task = new Task(() =>
-                                {
-                                    CaptureCellPoint(cellPoint, ScratchPadValues.FirstOrDefault(sc => sc.Index == ((ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName, true)).ToInt()), ApplicationSessionFactory);
-                                });
-                                TaskList.Add(task);
-                                task.Start();
+                                CaptureCellPoint(cellPoint, ScratchPadValues.FirstOrDefault(sc => sc.Index == ((ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName, true)).ToInt()), ApplicationSessionFactory);
                             }
 
                             Task.WaitAll(TaskList.ToArray());
@@ -115,7 +110,13 @@ namespace EngineCell.Application.Services.WorkerServices
                 }
                 catch (Exception ex)
                 {
-                    Dispatcher.Invoke(() => ApplicationSessionFactory.LogEvent("Error in point data collection: " + ex.Message));
+                    try
+                    {
+                        Dispatcher.Invoke(() => ApplicationSessionFactory.LogEvent("Error in point data collection: " + ex.Message));
+                    }
+                    catch (Exception)
+                    {
+                    }
                 }
             }
             WorkCompleted();

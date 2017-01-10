@@ -2,6 +2,8 @@
 0 TASK &DataCollection
 0 TASK &PidConfig
 0 TASK &Powerup
+0 TASK &TestScheduleWidgetChart
+0 TASK &VentilationCtrl1
 0 IVAR ^GetScratchPadResult
 0 IVAR ^gIndex
 0 FVAR ^gTest
@@ -9,34 +11,61 @@
 0 IVAR ^IsStartDataCollect
 0 IVAR ^IsStartTest
 0 IVAR ^IsTestRunning
+0 FVAR ^OutputConfigValue
 0 IVAR ^PidConfigStatus
 0 IVAR ^PidConfigType
 0 FVAR ^PidConfigValue
 0 IVAR ^SetScratchPadResult
+0 FVAR ^TestScheduleCurrentTime
+0 FVAR ^TestScheduleIntercept
+0 FVAR ^TestScheduleLowerSetpoint
+0 FVAR ^TestScheduleLowerTime
+0 UTVAR ^TestScheduleRunTime
+0 IVAR ^TestScheduleSetpointIndex
+0 IVAR ^TestScheduleSetpointIndexIncrement
+0 FVAR ^TestScheduleSlope
+0 IVAR ^TestScheduleStart
+0 IVAR ^TestScheduleTimeIndex
+0 IVAR ^TestScheduleTimeIndexIncrement
+0 FVAR ^TestScheduleUpperSetpoint
+0 FVAR ^TestScheduleUpperTime
+0 IVAR ^TestScheduleUseDyno
+0 IVAR ^TestScheduleUseThrottle
+0 FVAR ^VentCtrl1Gain
+0 IVAR ^VentCtrl1InsideType
+0 2IVAR ^VentCtrl1OutputOld
+0 IVAR ^VentCtrl1OutputType
+0 IVAR ^VentCtrl1OutsideType
+0 FVAR ^VentCtrl1Setpoint
+0 IVAR ^VentCtrl1Status
+0 FVAR ^VentCtrl1Weighted
 32 0 $VAR *StrategyRunTime 
 nullPID 0 POINTER PTR_PidConfigSelection
+nullAPointInput 0 POINTER PTR_VentCtrl1Inside
+nullAPointOutput 0 POINTER PTR_VentCtrl1Output
+nullAPointInput 0 POINTER PTR_VentCtrl1Outside
 
 nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A801CA 0 11 BOARD.MMP %EngineCell
- 4  1 APOINT -270.0000 8  0  0 %EngineCell 0 POINT.TNG ~ThermalCouple0
- 4  1 APOINT -150.0000 66  1  0 %EngineCell 0 POINT.TNG ~ThermalCouple1
- 4  1 APOINT -150.0000 66  2  0 %EngineCell 0 POINT.TNG ~ThermalCouple2
- 4  1 APOINT -150.0000 66  3  0 %EngineCell 0 POINT.TNG ~ThermalCouple3
- 4  1 APOINT -150.0000 66  0  1 %EngineCell 0 POINT.TNG ~ThermalCouple4
- 4  1 APOINT -150.0000 66  1  1 %EngineCell 0 POINT.TNG ~ThermalCouple5
- 4  1 APOINT -150.0000 66  2  1 %EngineCell 0 POINT.TNG ~ThermalCouple6
- 4  1 APOINT -150.0000 66  3  1 %EngineCell 0 POINT.TNG ~ThermalCouple7
- 4  1 APOINT -150.0000 66  0  2 %EngineCell 0 POINT.TNG ~ThermalCouple8
- 4  1 APOINT -150.0000 66  1  2 %EngineCell 0 POINT.TNG ~ThermalCouple9
- 4  1 APOINT -150.0000 66  2  2 %EngineCell 0 POINT.TNG ~ThermalCouple10
- 4  1 APOINT -150.0000 66  3  2 %EngineCell 0 POINT.TNG ~ThermalCouple11
- 4  1 APOINT -150.0000 66  0  3 %EngineCell 0 POINT.TNG ~ThermalCouple12
- 4  1 APOINT -150.0000 66  1  3 %EngineCell 0 POINT.TNG ~ThermalCouple13
- 4  1 APOINT -150.0000 66  2  3 %EngineCell 0 POINT.TNG ~ThermalCouple14
- 4  1 APOINT -150.0000 66  3  3 %EngineCell 0 POINT.TNG ~ThermalCouple15
- 4  1 APOINT -150.0000 66  0  4 %EngineCell 0 POINT.TNG ~ThermalCouple16
- 4  1 APOINT -150.0000 66  1  4 %EngineCell 0 POINT.TNG ~ThermalCouple17
- 4  1 APOINT -150.0000 66  2  4 %EngineCell 0 POINT.TNG ~ThermalCouple18
- 4  1 APOINT -150.0000 66  3  4 %EngineCell 0 POINT.TNG ~ThermalCouple19
+ 4  1 APOINT -270.0000 8  0  0 %EngineCell 0 POINT.TNG ~ThermoCouple0
+ 4  1 APOINT -270.0000 8  1  0 %EngineCell 0 POINT.TNG ~ThermoCouple1
+ 4  1 APOINT -270.0000 8  2  0 %EngineCell 0 POINT.TNG ~ThermoCouple2
+ 4  1 APOINT -270.0000 8  3  0 %EngineCell 0 POINT.TNG ~ThermoCouple3
+ 4  1 APOINT -270.0000 8  0  1 %EngineCell 0 POINT.TNG ~ThermoCouple4
+ 4  1 APOINT -210.0000 5  1  1 %EngineCell 0 POINT.TNG ~ThermoCouple5
+ 4  1 APOINT -270.0000 8  2  1 %EngineCell 0 POINT.TNG ~ThermoCouple6
+ 4  1 APOINT -270.0000 8  3  1 %EngineCell 0 POINT.TNG ~ThermoCouple7
+ 4  1 APOINT -270.0000 8  0  2 %EngineCell 0 POINT.TNG ~ThermoCouple8
+ 4  1 APOINT -270.0000 8  1  2 %EngineCell 0 POINT.TNG ~ThermoCouple9
+ 4  1 APOINT -270.0000 8  2  2 %EngineCell 0 POINT.TNG ~ThermoCouple10
+ 4  1 APOINT -270.0000 8  3  2 %EngineCell 0 POINT.TNG ~ThermoCouple11
+ 4  1 APOINT -270.0000 8  0  3 %EngineCell 0 POINT.TNG ~ThermoCouple12
+ 4  1 APOINT -270.0000 8  1  3 %EngineCell 0 POINT.TNG ~ThermoCouple13
+ 4  1 APOINT -270.0000 8  2  3 %EngineCell 0 POINT.TNG ~ThermoCouple14
+ 4  1 APOINT -270.0000 8  3  3 %EngineCell 0 POINT.TNG ~ThermoCouple15
+ 4  1 APOINT -270.0000 8  0  4 %EngineCell 0 POINT.TNG ~ThermoCouple16
+ 4  1 APOINT -270.0000 8  1  4 %EngineCell 0 POINT.TNG ~ThermoCouple17
+ 4  1 APOINT -270.0000 8  2  4 %EngineCell 0 POINT.TNG ~ThermoCouple18
+ 4  1 APOINT -270.0000 8  3  4 %EngineCell 0 POINT.TNG ~ThermoCouple19
  2  1 APOINT  -10.0000 12  0  5 %EngineCell 0 POINT.TNG ~Volt0
  2  1 APOINT  -10.0000 12  1  5 %EngineCell 0 POINT.TNG ~Volt1
  2  1 APOINT  -10.0000 12  0  6 %EngineCell 0 POINT.TNG ~Volt2
@@ -128,10 +157,10 @@ $80000000 7 %EngineCell 0 PID |Custom3
    1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
 ~AO10 ~AO10 ~AO10
 $80000000 8 %EngineCell 0 PID |Custom4
-3    0.0000    0.0000    0.6000    0.9000    4.0000    5.0000    1.0000   10.0000
+3    0.0000    0.0000    0.0000    0.0000    4.0000   20.0000    1.0000   10.0000
    1.0000   13.0000   12.0000    8.0000    9.0000   11.0000
-   3.0000    2.0000 0.0
-$f0000000 0 %EngineCell 0 PID |Dyno
+   3.0000 ~ThermoCouple19 ~AO4_20_0
+$90000000 0 %EngineCell 0 PID |Dyno
 3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
    1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
 ~AO10 ~AO10 ~AO10

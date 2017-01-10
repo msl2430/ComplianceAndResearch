@@ -4,7 +4,7 @@
 # ----------------------------------------------------------------
 # NAME :         D:\Work\ComplianceAndResearch\Applications\EngineCell.Strategy\EngineCell.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    7:54:9 10/14/2016
+# TIME/DATE :    15:23:57 1/10/2017
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -95,6 +95,7 @@
 TAG1,DataCollection                                    ,1    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,PidConfig                                         ,2    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,Powerup                                           ,0    ,00000000,00000100,00000000,00000000,0    ,0   
+TAG1,TestScheduleWidgetChart                           ,4    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,VentilationCtrl1                                  ,3    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,EngineCell                                        ,2    ,00000000,00000000,10000000,00000000,0    ,0   
 TAG1,ScratchPad                                        ,0    ,00000000,00000000,40000000,00000000,0    ,0   
@@ -200,6 +201,21 @@ TAG1,PidConfigStatus                                   ,12   ,00000000,00000000,
 TAG1,PidConfigType                                     ,13   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,PidConfigValue                                    ,14   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,SetScratchPadResult                               ,3    ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,TestScheduleCurrentTime                           ,34   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,TestScheduleIntercept                             ,38   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,TestScheduleLowerSetpoint                         ,39   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,TestScheduleLowerTime                             ,41   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,TestScheduleRunTime                               ,28   ,00000000,00000000,00000000,00002000,0    ,0   
+TAG1,TestScheduleSetpointIndex                         ,36   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,TestScheduleSetpointIndexIncrement                ,42   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,TestScheduleSlope                                 ,35   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,TestScheduleStart                                 ,26   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,TestScheduleTimeIndex                             ,29   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,TestScheduleTimeIndexIncrement                    ,44   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,TestScheduleUpperSetpoint                         ,37   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,TestScheduleUpperTime                             ,30   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,TestScheduleUseDyno                               ,32   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,TestScheduleUseThrottle                           ,40   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,VentCtrl1Gain                                     ,21   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,VentCtrl1InsideType                               ,16   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,VentCtrl1OutputOld                                ,24   ,00000000,00000000,00000000,00004000,0    ,0   

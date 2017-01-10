@@ -2,6 +2,8 @@ CREATE T.ARRAY
 &DataCollection ,
 &PidConfig ,
 &Powerup ,
+&TestScheduleWidgetChart ,
+&VentilationCtrl1 ,
  0 ,
 CREATE V.ARRAY
 ^GetScratchPadResult ,
@@ -11,18 +13,45 @@ CREATE V.ARRAY
 ^IsStartDataCollect ,
 ^IsStartTest ,
 ^IsTestRunning ,
+^OutputConfigValue ,
 ^PidConfigStatus ,
 ^PidConfigType ,
 ^PidConfigValue ,
 ^SetScratchPadResult ,
+^TestScheduleCurrentTime ,
+^TestScheduleIntercept ,
+^TestScheduleLowerSetpoint ,
+^TestScheduleLowerTime ,
+^TestScheduleSetpointIndex ,
+^TestScheduleSetpointIndexIncrement ,
+^TestScheduleSlope ,
+^TestScheduleStart ,
+^TestScheduleTimeIndex ,
+^TestScheduleTimeIndexIncrement ,
+^TestScheduleUpperSetpoint ,
+^TestScheduleUpperTime ,
+^TestScheduleUseDyno ,
+^TestScheduleUseThrottle ,
+^VentCtrl1Gain ,
+^VentCtrl1InsideType ,
+^VentCtrl1OutputOld ,
+^VentCtrl1OutputType ,
+^VentCtrl1OutsideType ,
+^VentCtrl1Setpoint ,
+^VentCtrl1Status ,
+^VentCtrl1Weighted ,
 *StrategyRunTime ,
 *_HSV_SEMA ,
 *_HSV_TEMP ,
  0 ,
 CREATE TI.ARRAY
+^TestScheduleRunTime ,
  0 ,
 CREATE PTR.ARRAY
 Ptr' PTR_PidConfigSelection ,
+Ptr' PTR_VentCtrl1Inside ,
+Ptr' PTR_VentCtrl1Output ,
+Ptr' PTR_VentCtrl1Outside ,
  0 ,
 CREATE TA.ARRAY 
  0 ,
@@ -97,26 +126,26 @@ CREATE P.ARRAY
 ~HART1 ,
 ~MilliAmp0 ,
 ~MilliAmp1 ,
-~ThermalCouple0 ,
-~ThermalCouple1 ,
-~ThermalCouple10 ,
-~ThermalCouple11 ,
-~ThermalCouple12 ,
-~ThermalCouple13 ,
-~ThermalCouple14 ,
-~ThermalCouple15 ,
-~ThermalCouple16 ,
-~ThermalCouple17 ,
-~ThermalCouple18 ,
-~ThermalCouple19 ,
-~ThermalCouple2 ,
-~ThermalCouple3 ,
-~ThermalCouple4 ,
-~ThermalCouple5 ,
-~ThermalCouple6 ,
-~ThermalCouple7 ,
-~ThermalCouple8 ,
-~ThermalCouple9 ,
+~ThermoCouple0 ,
+~ThermoCouple1 ,
+~ThermoCouple10 ,
+~ThermoCouple11 ,
+~ThermoCouple12 ,
+~ThermoCouple13 ,
+~ThermoCouple14 ,
+~ThermoCouple15 ,
+~ThermoCouple16 ,
+~ThermoCouple17 ,
+~ThermoCouple18 ,
+~ThermoCouple19 ,
+~ThermoCouple2 ,
+~ThermoCouple3 ,
+~ThermoCouple4 ,
+~ThermoCouple5 ,
+~ThermoCouple6 ,
+~ThermoCouple7 ,
+~ThermoCouple8 ,
+~ThermoCouple9 ,
 ~Volt0 ,
 ~Volt1 ,
 ~Volt2 ,
@@ -165,13 +194,40 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^IsStartDataCollect @!
 0 ^IsStartTest @!
 0 ^IsTestRunning @!
+0.00000000 ^OutputConfigValue @!
 0 ^PidConfigStatus @!
 0 ^PidConfigType @!
 0.00000000 ^PidConfigValue @!
 0 ^SetScratchPadResult @!
+0.00000000 ^TestScheduleCurrentTime @!
+0.00000000 ^TestScheduleIntercept @!
+0.00000000 ^TestScheduleLowerSetpoint @!
+0.00000000 ^TestScheduleLowerTime @!
+0.0 ^TestScheduleRunTime SetTimer
+0 ^TestScheduleSetpointIndex @!
+0 ^TestScheduleSetpointIndexIncrement @!
+0.00000000 ^TestScheduleSlope @!
+0 ^TestScheduleStart @!
+0 ^TestScheduleTimeIndex @!
+0 ^TestScheduleTimeIndexIncrement @!
+0.00000000 ^TestScheduleUpperSetpoint @!
+0.00000000 ^TestScheduleUpperTime @!
+0 ^TestScheduleUseDyno @!
+0 ^TestScheduleUseThrottle @!
+0.00000000 ^VentCtrl1Gain @!
+0 ^VentCtrl1InsideType @!
+0.. ^VentCtrl1OutputOld @!
+0 ^VentCtrl1OutputType @!
+0 ^VentCtrl1OutsideType @!
+0.00000000 ^VentCtrl1Setpoint @!
+0 ^VentCtrl1Status @!
+0.00000000 ^VentCtrl1Weighted @!
 " "
  *StrategyRunTime $MOVE
 0 MoveToPointer PTR_PidConfigSelection
+0 MoveToPointer PTR_VentCtrl1Inside
+0 MoveToPointer PTR_VentCtrl1Output
+0 MoveToPointer PTR_VentCtrl1Outside
  " " *_HSV_INIT_IO $MOVE
 ;
 T: T_INIT_IO

@@ -4,7 +4,7 @@ Type,Time into Stage,Setpoint,Setpoint
 Channel,,2,1
 Option,,Ramp,Ramp
 Mode,,L,D,
-Data,0.0000,SA1.0000,1050.0000
+Data,0.0000,1.0000,1050.0000
 Data,170.0000,1.0000,1050.0000
 Data,190.0000,117.5000,1413.0000
 Data,363.0000,117.5000,1413.0000

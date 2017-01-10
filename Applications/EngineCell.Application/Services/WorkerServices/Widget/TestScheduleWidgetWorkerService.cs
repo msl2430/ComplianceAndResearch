@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Core.Constants;
+using EngineCell.Core.Extensions;
 
 namespace EngineCell.Application.Services.WorkerServices.Widget
 {
@@ -14,7 +15,7 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
 
         private Stopwatch TestRunTime { get; set; }
 
-        private const int LoadInterval = 10;
+        private const int LoadInterval = 2;
         private int LastLoadIndex = 0;
         private int NextLoadIndex = 0;
         private int LastScratchpadIndex = 0;
@@ -33,13 +34,17 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
                 CancellationToken = new CancellationTokenSource();
 
                 //Check if we're connected to and collecting data from Opto before proceeding
-                //if (ViewModel.ApplicationSessionFactory.OptoMmpFactory == null || !ViewModel.ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen)
-                //{
-                //    Thread.Sleep(1000);
-                //    continue;
-                //}
+                while (ViewModel.ApplicationSessionFactory.OptoMmpFactory == null || !ViewModel.ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen)
+                {
+                    Thread.Sleep(1000);
+                }
 
-                
+                //Check if we're running the phase for this widget
+                while (ViewModel.ApplicationSessionFactory.CurrentPhaseRunning == null || ViewModel.ApplicationSessionFactory.CurrentPhaseRunning.CellTestPhaseId != ViewModel.Widget.CellTestPhaseId)
+                {
+                    Thread.Sleep(1000);
+                }
+
                 LoadSetpoints();
                 //If we have more then double the load interval then start with double the amount of load intervals in the scratchpad - then replace half at each appropriate interval.
                 if (ViewModel.CalculatedScheduleData.First().Value.Count > LoadInterval * 2)
@@ -52,6 +57,11 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
                     MaxRunTime = Convert.ToDecimal(ViewModel.Widget.PhaseEndSettings.FirstOrDefault(s => s.PhaseEndSettingId == WidgetConstants.PhaseEndSetting.RunTime).Value);
                 }
 
+                //Start chart on PAC
+                ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTestScheduleWidget.ToInt(), 1);
+                if (!TestRunTime.IsRunning)
+                    TestRunTime.Start();
+
                 while (!CancellationToken.IsCancellationRequested)
                 {
                     if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
@@ -60,24 +70,9 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
                     WaitStopWatch.Stop();
                     WaitStopWatch.Reset();
 
-                    //Check if we're running the phase for this widget
-                    if (ViewModel.ApplicationSessionFactory.CurrentPhaseRunning == null || ViewModel.ApplicationSessionFactory.CurrentPhaseRunning.CellTestPhaseId != ViewModel.Widget.CellTestPhaseId)
-                    {
-                        Thread.Sleep(1000);
-                        continue;
-                    }
 
-                    //Start chart on PAC
-                    TestRunTime.Start();
 
-                    //Check if we're connected to and collecting data from Opto before proceeding
-                    //if (ViewModel.ApplicationSessionFactory.OptoMmpFactory == null || !ViewModel.ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen)
-                    //{
-                    //    Thread.Sleep(1000);
-                    //    continue;
-                    //}
-
-                    if(TestRunTime.ElapsedMilliseconds / 1000L >= Convert.ToInt64(ViewModel.CalculatedScheduleData.First().Value.Max(v => v.TimeIntoStage)))
+                    if (TestRunTime.ElapsedMilliseconds / 1000L >= Convert.ToInt64(ViewModel.CalculatedScheduleData.First().Value.Max(v => v.TimeIntoStage)))
                     {
                         //Test done
                         ViewModel.Widget.IsComplete = true;
@@ -103,8 +98,12 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
                         }
                     }
 
+                    ViewModel.DynoSetpoint = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.DynoSetpointValue.ToInt());
+                    ViewModel.ThrottleSetpoint = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.ThrottleSetpointValue.ToInt());
+
                     ViewModel.TestRunTime = TestRunTime.Elapsed.Hours.ToString("0#") + ":" + TestRunTime.Elapsed.Minutes.ToString("0#") + ":" + TestRunTime.Elapsed.Seconds.ToString("0#");
                 }
+                WorkCompleted();
             }
             catch (TaskCanceledException)
             {
@@ -125,18 +124,22 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
                 switch (setpointType.Key)
                 {
                     case WidgetConstants.TestScheduleSetpointType.Dyno:
-                        for (var i = NextLoadIndex; i < NextLoadIndex + LoadInterval; i++)
+                        ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.IsUsingDynoPid.ToInt(), 1);
+                        var dynoScIndex = scratchpadIndex;
+                        for (var i = NextLoadIndex; i < maxLoad; i++)
                         {
-                            //Set dyno scracthpad - ScratchPadConstants.FloatIndexs.DynoSetpoint 
-                            //Use NextLoadIndex to determine either beginnning of scracthpad area or later
-                            //TODO: Check if we have enough to cover NextLoadIndex + LoadInterval
+                            ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.TimeInStage.ToInt() + dynoScIndex, setpointType.Value[i].TimeIntoStage);
+                            ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.DynoSetpoint.ToInt() + dynoScIndex, setpointType.Value[i].Value);
+                            dynoScIndex++;
                         }
                         break;
                     case WidgetConstants.TestScheduleSetpointType.Throttle:
-                        for (var i = NextLoadIndex; i < NextLoadIndex + LoadInterval; i++)
-                        {
-                            //Set dyno scracthpad - ScratchPadConstants.FloatIndexs.ThrottleSetpoint
-                            //Use NextLoadIndex to determine either beginnning of scracthpad area or later
+                        ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.IsUsingThrottle.ToInt(), 1);
+                        var throttleScIndex = scratchpadIndex;
+                        for (var i = NextLoadIndex; i < maxLoad; i++)
+                        {                            
+                            ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.ThrottleSetpoint.ToInt() + throttleScIndex, setpointType.Value[i].Value);
+                            throttleScIndex++;
                         }
                         break;
                 }
@@ -147,6 +150,7 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
 
         protected override void WorkCompleted()
         {
+            ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTestScheduleWidget.ToInt(), 0);
         }
     }
 }

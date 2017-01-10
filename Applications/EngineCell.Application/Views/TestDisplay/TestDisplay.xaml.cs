@@ -63,14 +63,23 @@ namespace EngineCell.Application.Views.TestDisplay
 
         private void StartPhaseButton_Click(object sender, RoutedEventArgs e)
         {
+            WidgetPanel.Children.Clear();
+
             if (ViewModel.Phases.IsNotNullOrEmpty())
                 PrepareTestPhaseDisplay();
 
-            var phaseWorker = new PhaseWorkerService(ViewModel.ApplicationSessionFactory);
+
+            ViewModel.ApplicationSessionFactory.LogEvent("Starting phase.", true);
+            ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
+            RunTimeClock.IsRunning = true;
+
+            var phaseWorker = new PhaseWorkerService(ViewModel.ApplicationSessionFactory, this, Dispatcher);
             Task.Run(() =>
             {
                 phaseWorker.DoWork();
             });
+
+            ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt(), 1);
 
             //if (ViewModel.ApplicationSessionFactory.OptoConnectionStatus != StatusConstants.ConnectionStatus.Connected)
             //{
@@ -97,7 +106,7 @@ namespace EngineCell.Application.Views.TestDisplay
             //ExportService.CreateDataFile(ViewModel.ApplicationSessionFactory.CurrentCellTest.CellTestId, ViewModel.ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord).ToList());
             //RunTimeClock.IsRunning = true;
             //ViewModel.ApplicationSessionFactory.LogEvent("Starting point data collection.", true);
-            //ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt(), 1);
+            //
 
 
             //if (!ViewModel.IsManualTest)
@@ -125,14 +134,16 @@ namespace EngineCell.Application.Views.TestDisplay
 
         public void StopTest(bool isUserRequested)
         {
-            //ViewModel.ApplicationSessionFactory.LogEvent("Stopping phase after running for " + RunTimeClock.RunTimeViewModel.RunTime + (isUserRequested ? " (user requested)." : " (test complete)."), true);
-            //ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 0);
-            //ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt(), 0);
+            ViewModel.ApplicationSessionFactory.LogEvent("Stopping phase after running for " + RunTimeClock.RunTimeViewModel.RunTime + (isUserRequested ? " (user requested)." : "."), true);
+            ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 0);
+            ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt(), 0);
             //CellPointRepository.UpdateCellTestEndTime(ViewModel.ApplicationSessionFactory.CurrentCellTest);
-            //RunTimeClock.IsRunning = false;
+            RunTimeClock.IsRunning = false;
             //TimeRemaining.IsRunning = false;
             //ViewModel.PhaseStarted = false;
-            //ViewModel.ChartViewModel.IsPlay = false;
+            ViewModel.ChartViewModel.IsPlay = false;
+
+            WidgetPanel.Children.Clear();
 
             ////ViewModel.ApplicationSessionFactory.LogEvent("Preparing results file.", true);
             //var fileName = ExportService.GetFilename();

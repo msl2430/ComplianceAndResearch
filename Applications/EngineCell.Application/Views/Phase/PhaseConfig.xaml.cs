@@ -6,6 +6,7 @@ using System.Windows.Media;
 using EngineCell.Application.ViewModels.Phase;
 using EngineCell.Application.Views.Widget;
 using EngineCell.Core.Constants;
+using EngineCell.Core.Extensions;
 using EngineCell.Models.Repositories;
 using MahApps.Metro.Controls;
 
@@ -129,6 +130,9 @@ namespace EngineCell.Application.Views.Phase
 
         private void UpdatePhaseWidgetDisplay()
         {
+            if (ViewModel.Phases.IsNullOrEmpty())
+                return;
+
             var widgets = WidgetConstants.Widgets.ToList();
             var phase = ViewModel.Phases.ElementAt(PhaseTabs.SelectedIndex);
             foreach (var phaseWidgets in phase.Widgets)

@@ -22,6 +22,12 @@
 
             StartDataCollection = 999,
 
+            //Test Schedule Widget
+            StartTestScheduleWidget = 3000,
+            IsUsingDynoPid,
+            IsUsingThrottle,
+
+
             //Pid Config
             PidConfigStatus = 500,
             PidConfigType,
@@ -38,7 +44,9 @@
             //DynoPid
             DynoPidStatus = 610,
             DynoPidMode,
-            DynoPidMeasurement,            
+            DynoPidMeasurement,       
+            
+                 
         }
 
         /// <summary>
@@ -194,9 +202,14 @@
             Freq2,
             Freq3,
 
+            //PID Values
+            DynoSetpointValue = 2000,
+            ThrottleSetpointValue,
+
             //Test Schedule Setpoints
-            DynoSetpoint = 3000,
-            ThrottleSetpoint = 3120,
+            TimeInStage = 3000,
+            DynoSetpoint = 3120,
+            ThrottleSetpoint = 3240,
         }
 
         public enum StringIndexes

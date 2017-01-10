@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using EngineCell.Application.Factories;
+using EngineCell.Application.Views.TestDisplay;
 
 namespace EngineCell.Application.Services.WorkerServices
 {
@@ -13,10 +15,14 @@ namespace EngineCell.Application.Services.WorkerServices
         private IApplicationSessionFactory ApplicationSessionFactory { get; set; }
 
         private int phaseIndex = 0;
+        private TestDisplay TestDisplay { get; }
+        private Dispatcher Dispatcher { get; set; }
 
-        public PhaseWorkerService(IApplicationSessionFactory appSession)
+        public PhaseWorkerService(IApplicationSessionFactory appSession, TestDisplay testDisplay, Dispatcher dispatcher)
         {
             ApplicationSessionFactory = appSession;
+            TestDisplay = testDisplay;
+            Dispatcher = dispatcher;
         }
 
         public override void DoWork()
@@ -64,6 +70,7 @@ namespace EngineCell.Application.Services.WorkerServices
                     CancellationToken.Cancel();
                     
                 }
+                WorkCompleted();
             }
             catch (TaskCanceledException)
             {
@@ -72,6 +79,7 @@ namespace EngineCell.Application.Services.WorkerServices
             catch (Exception ex)
             {
                 ApplicationSessionFactory.LogEvent("Erorr in Phase worker: " + ex.Message, true);
+                WorkCompleted();
             }
         }
 
@@ -88,7 +96,9 @@ namespace EngineCell.Application.Services.WorkerServices
 
         protected override void WorkCompleted()
         {
-            
+            Dispatcher.Invoke(() => {
+                TestDisplay.StopTest(false);
+            });
         }
     }
 }
