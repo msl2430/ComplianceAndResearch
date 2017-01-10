@@ -26,4 +26,28 @@ We only need Setpoints - Live tuning from the other config
 
 Formula for PIDS is Velocity 
 
+Save phase setting, test settings
+dialog to retrieve old phases and import into test
+in the new phase area add save phase with description, and the button to open the dialog for an old phase
+
+on the main window we need to add stuff to create or use an older test setup to run. 
+i think the default should be blank with a callout to create or add a new test
+
+add setting for phase on where to go after completion and if an error occurs. 
+there's a chance we might need to have an option for each error from each widget does something different.
+
+Phase Area -> Phase Name | Update Phase -> Save Phase -> Delete Phase -> Completion Options (Move to next phase, cancel test, jump to another phase, etc.)
+
+if dyno is electrict needs both dyno mode and condition (absorb motor both)
+DynoPidMode is speed control
+DynoMode motor only goes up, absorb allows down ,ie 1000 rpm motor is at 900 so motor 100rpm but if its 1500rpm and not on absorb dyno does nothing
+
+Motor mode => dyno motor not engine
+ 
+DynoMode => Motor = M, Absorb = A, Both = B
+MotorMode => Speed = S, Load = L, Direct = D
+
+Line in CSV "Mode,NULL,MotorMode,MotorMode by channel config
+
+
 
