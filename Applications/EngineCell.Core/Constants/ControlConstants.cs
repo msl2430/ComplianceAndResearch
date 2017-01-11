@@ -42,5 +42,13 @@
             Manual = 1,
             Timed,
         }
+
+        public enum Views
+        {
+            Welcome,
+            TestDisplay,
+            PointConfiguration,
+            PhaseConfiguration
+        }
     }
 }

@@ -43,9 +43,9 @@ namespace EngineCell.Application.Views.Widget
 
         private void GetWidgetConfigs() 
         {
-            var ventCtrl1Settings = WidgetRepository.GetWidgetSettingByWidgetCell(ViewModel.ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.VentilationControl1);
-            var dynoPidSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ViewModel.ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.DynoPid);
-            var starterSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ViewModel.ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.Starter);
+            var ventCtrl1Settings = WidgetRepository.GetWidgetSettingByWidgetCell(ViewModel.ApplicationSessionFactory.CurrentCell.CellId, WidgetConstants.Widget.VentilationControl1);
+            var dynoPidSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ViewModel.ApplicationSessionFactory.CurrentCell.CellId, WidgetConstants.Widget.DynoPid);
+            var starterSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ViewModel.ApplicationSessionFactory.CurrentCell.CellId, WidgetConstants.Widget.Starter);
 
             if (ventCtrl1Settings.IsNotNullOrEmpty())
                 ViewModel.VentCtrl1.SetValues(ventCtrl1Settings);
@@ -85,7 +85,7 @@ namespace EngineCell.Application.Views.Widget
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.VentCtrl1Gain.ToInt(), Convert.ToDecimal(VentCtrl1Gain.Text));
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.VentCtrl1Status.ToInt(), ViewModel.VentCtrl1.IsActive ? 1 : 0);
 
-            var vent1Settings = ViewModel.VentCtrl1.GetValues(ViewModel.ApplicationSessionFactory.CurrentCellId);
+            var vent1Settings = ViewModel.VentCtrl1.GetValues(ViewModel.ApplicationSessionFactory.CurrentCell.CellId);
             if (vent1Settings.IsNotNullOrEmpty()) 
                 WidgetRepository.SaveWidgetSettings(vent1Settings);
 
@@ -120,7 +120,7 @@ namespace EngineCell.Application.Views.Widget
             
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.DynoPidStatus.ToInt(), ViewModel.DynoPid.IsActive ? 1 : 0);
 
-            var dynoSettings = ViewModel.DynoPid.GetValues(ViewModel.ApplicationSessionFactory.CurrentCellId);
+            var dynoSettings = ViewModel.DynoPid.GetValues(ViewModel.ApplicationSessionFactory.CurrentCell.CellId);
             if (dynoSettings.IsNotNullOrEmpty())
                 WidgetRepository.SaveWidgetSettings(dynoSettings);
 
@@ -143,7 +143,7 @@ namespace EngineCell.Application.Views.Widget
             ViewModel.Starter.StartParameter = Convert.ToDecimal(StartParameter.Text);
             ViewModel.Starter.AddedCrankTime = Convert.ToInt32(AddedCrankTime.Text);
 
-            var starterSettings = ViewModel.Starter.GetValues(ViewModel.ApplicationSessionFactory.CurrentCellId);
+            var starterSettings = ViewModel.Starter.GetValues(ViewModel.ApplicationSessionFactory.CurrentCell.CellId);
             if (starterSettings.IsNotNullOrEmpty())
                 WidgetRepository.SaveWidgetSettings(starterSettings);
 

@@ -1,176 +1,247 @@
 ﻿using System;
-using System.Collections.Generic;
 using EngineCell.Application.Factories;
 using EngineCell.Core.Constants;
+using EngineCell.Core.Extensions;
+using Remotion.Linq.Collections;
 
 namespace EngineCell.Application.ViewModels.PointConfiguration
 {
     public class PointConfigurationViewModel : BaseViewModel
     {
-        private IList<PointDataModel> _thermoCouples { get; set; }
-        public IList<PointDataModel> ThermoCouples
+        private ObservableCollection<PointDataModel> _thermoCouples { get; set; }
+        public ObservableCollection<PointDataModel> ThermoCouples
         {
             get { return _thermoCouples; }
             set
             {
                 _thermoCouples = value;
                 OnPropertyChanged("ThermoCouples");
+                OnPropertyChanged("HasThermoCouples");
             }
         }
+        public bool HasThermoCouples { get { return ThermoCouples.IsNotNullOrEmpty(); } }
 
-        private IList<PointDataModel> _volts { get; set; }
-        public IList<PointDataModel> Volts
+        private ObservableCollection<PointDataModel> _volts { get; set; }
+        public ObservableCollection<PointDataModel> Volts
         {
             get { return _volts; }
             set
             {
                 _volts = value;
                 OnPropertyChanged("Volts");
+                OnPropertyChanged("HasVolts");
+                OnPropertyChanged("HasVoltsMilliAmpsHarts");
             }
         }
+        public bool HasVolts { get { return Volts.IsNotNullOrEmpty(); } }
 
-        private IList<PointDataModel> _milliAmps { get; set; }
-        public IList<PointDataModel> MilliAmps
+        private ObservableCollection<PointDataModel> _milliAmps { get; set; }
+        public ObservableCollection<PointDataModel> MilliAmps
         {
             get { return _milliAmps; }
             set
             {
                 _milliAmps = value;
                 OnPropertyChanged("MilliAmps");
+                OnPropertyChanged("HasMilliAmps");
+                OnPropertyChanged("HasVoltsMilliAmpsHarts");
             }
         }
+        public bool HasMilliAmps { get { return MilliAmps.IsNotNullOrEmpty(); } }
 
-        private IList<PointDataModel> _harts { get; set; }
-        public IList<PointDataModel> Harts
+        private ObservableCollection<PointDataModel> _harts { get; set; }
+        public ObservableCollection<PointDataModel> Harts
         {
             get { return _harts; }
             set
             {
                 _harts = value;
                 OnPropertyChanged("Harts");
+                OnPropertyChanged("HasHarts");
+                OnPropertyChanged("HasVoltsMilliAmpsHarts");
             }
         }
+        public bool HasHarts { get { return Harts.IsNotNullOrEmpty(); } }
 
-        private IList<PointDataModel> _analogOutputs { get; set; }
-        public IList<PointDataModel> AnalogOutputs
+        private ObservableCollection<PointDataModel> _analogOutputs { get; set; }
+        public ObservableCollection<PointDataModel> AnalogOutputs
         {
             get { return _analogOutputs; }
             set
             {
                 _analogOutputs = value;
                 OnPropertyChanged("AnalogOutputs");
+                OnPropertyChanged("HasAnalogOutputs");
             }
         }
+        public bool HasAnalogOutputs { get { return AnalogOutputs.IsNotNullOrEmpty(); } }
 
-        private IList<PointDataModel> _dynos { get; set; }
-        public IList<PointDataModel> Dynos
+        private ObservableCollection<PointDataModel> _dynos { get; set; }
+        public ObservableCollection<PointDataModel> Dynos
         {
             get { return _dynos; }
             set
             {
                 _dynos = value;
                 OnPropertyChanged("Dynos");
+                OnPropertyChanged("HasDynos");
             }
         }
+        public bool HasDynos { get { return Dynos.IsNotNullOrEmpty(); } }
 
-        private IList<PointDataModel> _engines { get; set; }
-        public IList<PointDataModel> Engines
+        private ObservableCollection<PointDataModel> _engines { get; set; }
+        public ObservableCollection<PointDataModel> Engines
         {
             get { return _engines; }
             set
             {
                 _engines = value;
                 OnPropertyChanged("Engines");
+                OnPropertyChanged("HasEngines");
             }
         }
+        public bool HasEngines { get { return Engines.IsNotNullOrEmpty(); } }
 
-        private IList<PointDataModel> _fuels { get; set; }
-        public IList<PointDataModel> Fuels
+        private ObservableCollection<PointDataModel> _fuels { get; set; }
+        public ObservableCollection<PointDataModel> Fuels
         {
             get { return _fuels; }
             set
             {
                 _fuels = value;
                 OnPropertyChanged("Fuels");
+                OnPropertyChanged("HasFuels");
             }
         }
+        public bool HasFuels { get { return Fuels.IsNotNullOrEmpty(); } }
 
-        private IList<PointDataModel> _miscs { get; set; }
-        public IList<PointDataModel> Miscs
+        private ObservableCollection<PointDataModel> _miscs { get; set; }
+        public ObservableCollection<PointDataModel> Miscs
         {
             get { return _miscs; }
             set
             {
                 _miscs = value;
                 OnPropertyChanged("Miscs");
+                OnPropertyChanged("HasMiscs");
             }
         }
+        public bool HasMiscs { get { return Miscs.IsNotNullOrEmpty(); } }
 
-        private IList<PointDataModel> _freqs { get; set; }
-        public IList<PointDataModel> Freqs
+        private ObservableCollection<PointDataModel> _freqs { get; set; }
+        public ObservableCollection<PointDataModel> Freqs
         {
             get { return _freqs; }
             set
             {
                 _freqs = value;
                 OnPropertyChanged("Freqs");
+                OnPropertyChanged("HasFreqs");
             }
         }
+        public bool HasFreqs { get { return Freqs.IsNotNullOrEmpty(); } }
 
+        public bool HasVoltsMilliAmpsHarts { get { return Volts.IsNotNullOrEmpty() || MilliAmps.IsNotNullOrEmpty() || Harts.IsNotNullOrEmpty(); } }
 
         public PointConfigurationViewModel(IApplicationSessionFactory appSession)
         {
             ZIndex = 0;
             ApplicationSessionFactory = appSession;
-            ThermoCouples = new List<PointDataModel>();
-            Volts = new List<PointDataModel>();
-            MilliAmps = new List<PointDataModel>();
-            Harts = new List<PointDataModel>();
-            AnalogOutputs = new List<PointDataModel>();
-            Dynos = new List<PointDataModel>();
-            Engines = new List<PointDataModel>();
-            Fuels = new List<PointDataModel>();
-            Miscs = new List<PointDataModel>();
-            Freqs = new List<PointDataModel>();
+            ThermoCouples = new ObservableCollection<PointDataModel>();
+            Volts = new ObservableCollection<PointDataModel>();
+            MilliAmps = new ObservableCollection<PointDataModel>();
+            Harts = new ObservableCollection<PointDataModel>();
+            AnalogOutputs = new ObservableCollection<PointDataModel>();
+            Dynos = new ObservableCollection<PointDataModel>();
+            Engines = new ObservableCollection<PointDataModel>();
+            Fuels = new ObservableCollection<PointDataModel>();
+            Miscs = new ObservableCollection<PointDataModel>();
+            Freqs = new ObservableCollection<PointDataModel>();
 
-            foreach (var point in appSession.CellPoints)
+            if (appSession.CellPoints.IsNullOrEmpty())
+                return;
+
+            UpdatePoints();
+        }
+
+        private void UpdatePoints()
+        {
+            ThermoCouples.Clear();
+            Volts.Clear();
+            MilliAmps.Clear();
+            Harts.Clear();
+            AnalogOutputs.Clear();
+            Dynos.Clear();
+            Engines.Clear();
+            Fuels.Clear();
+            Miscs.Clear();
+            Freqs.Clear();
+
+            var tempThermoCouples = new ObservableCollection<PointDataModel>();
+            var tempVolts  = new ObservableCollection<PointDataModel>();
+            var tempMilliAmps = new ObservableCollection<PointDataModel>();
+            var tempHarts = new ObservableCollection<PointDataModel>();
+            var tempAnalogOutputs = new ObservableCollection<PointDataModel>();
+            var tempDynos = new ObservableCollection<PointDataModel>();
+            var tempEngines = new ObservableCollection<PointDataModel>();
+            var tempFuels = new ObservableCollection<PointDataModel>();
+            var tempMiscs = new ObservableCollection<PointDataModel>();
+            var tempFreqs = new ObservableCollection<PointDataModel>();
+            
+            foreach (var point in ApplicationSessionFactory.CellPoints)
             {
                 switch (point.PointGroupId)
                 {
                     case PointGroup.ThermoCouple:
-                        ThermoCouples.Add(point);
+                        tempThermoCouples.Add(point);
                         break;
                     case PointGroup.Volt:
-                        Volts.Add(point);
+                        tempVolts.Add(point);
                         break;
                     case PointGroup.MilliAmp:
-                        MilliAmps.Add(point);
+                        tempMilliAmps.Add(point);
                         break;
                     case PointGroup.Hart:
-                        Harts.Add(point);
+                        tempHarts.Add(point);
                         break;
                     case PointGroup.AnalogOutput:
-                        AnalogOutputs.Add(point);
+                        tempAnalogOutputs.Add(point);
                         break;
                     case PointGroup.Dyno:
-                        Dynos.Add(point);
+                        tempDynos.Add(point);
                         break;
                     case PointGroup.Engine:
-                        Engines.Add(point);
+                        tempEngines.Add(point);
                         break;
                     case PointGroup.Fuel:
-                        Fuels.Add(point);
+                        tempFuels.Add(point);
                         break;
                     case PointGroup.Misc:
-                        Miscs.Add(point);
+                        tempMiscs.Add(point);
                         break;
                     case PointGroup.Frequency:
-                        Freqs.Add(point);
+                        tempFreqs.Add(point);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
+
+            ThermoCouples = tempThermoCouples;
+            Volts = tempVolts;
+            MilliAmps = tempMilliAmps;
+            Harts = tempHarts;
+            AnalogOutputs = tempAnalogOutputs;
+            Dynos = tempDynos;
+            Engines = tempEngines;
+            Fuels = tempFuels;
+            Miscs = tempMiscs;
+            Freqs = tempFreqs;
+        }
+
+        public void CellSelectionChange()
+        {
+            UpdatePoints();
         }
     }
 }

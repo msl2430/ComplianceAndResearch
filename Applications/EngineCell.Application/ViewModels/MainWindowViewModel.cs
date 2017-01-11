@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EngineCell.Application.ViewModels.Phase;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.TestDisplay;
+using EngineCell.Application.ViewModels.Welcome;
 using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Application.Views.Widget;
 using EngineCell.Core.Constants;
@@ -76,6 +77,13 @@ namespace EngineCell.Application.ViewModels
             get { return _viewModels;}
             set { _viewModels = value; OnPropertyChanged("ViewModels"); }
         } 
+
+        private WelcomeScreenViewModel _welcomeViewModel { get; set; }
+        public WelcomeScreenViewModel WelcomeViewModel
+        {
+            get { return _welcomeViewModel;}
+            set { _welcomeViewModel = value; OnPropertyChanged("WelcomeViewModel"); }
+        }
 
         private PointConfigurationViewModel _pointConfigViewModel { get; set; }
         public PointConfigurationViewModel PointConfigViewModel {

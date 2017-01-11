@@ -66,7 +66,7 @@ namespace EngineCell.Application.Services.WorkerServices
                         //Check if we're connected to and collecting data from Opto before proceeding
                         if (ApplicationSessionFactory.OptoMmpFactory != null && ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen)
                         {
-                            ConfigurePacWidgets();
+                            
                             CaptureTime = DateTime.Now;
 
                             ScratchPadValues = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatRange(1000, 1073);
@@ -165,7 +165,7 @@ namespace EngineCell.Application.Services.WorkerServices
         private void ConfigurePacWidgets()
         {
             //TODO: All widget settings
-            VentCtrl1WidgetSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ApplicationSessionFactory.CurrentCellId, WidgetConstants.Widget.VentilationControl1);
+            VentCtrl1WidgetSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ApplicationSessionFactory.CurrentCell.CellId, WidgetConstants.Widget.VentilationControl1);
 
             if (!VentCtrl1WidgetSettings.IsNotNullOrEmpty()) return;
             if(Settings == null)

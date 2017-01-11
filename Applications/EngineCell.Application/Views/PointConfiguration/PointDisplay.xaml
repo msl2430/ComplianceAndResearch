@@ -6,7 +6,7 @@
              xmlns:extensions="clr-namespace:EngineCell.Application.Extensions"
              xmlns:views="clr-namespace:EngineCell.Application.Views"
              mc:Ignorable="d" 
-             Height="45" Width="350"
+             Height="45" Width="275"
              d:DesignHeight="70" d:DesignWidth="350"
             Loaded="PointDisplay_OnLoaded">
     <UserControl.Resources>
@@ -23,7 +23,7 @@
         </Grid.ColumnDefinitions>
         <Grid Column="0">
           <StackPanel Orientation="Horizontal">
-            <Label VerticalAlignment="Center" FontSize="14" Width="125" HorizontalContentAlignment="Center" Content="{Binding Path=PointName}" Margin="0"></Label>
+            <Label VerticalAlignment="Center" FontSize="10" Width="75" HorizontalContentAlignment="Center" Content="{Binding Path=PointName}" Margin="0"></Label>
             <Button Name="ConfigPoint" Width="25" Height="15" Margin="3,0,0,0" Click="ConfigSettings">
                 <Rectangle Width="15" Height="15" Fill="{StaticResource DarkBlueBrush}">
                     <Rectangle.OpacityMask>
@@ -31,17 +31,17 @@
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
-            <TextBox IsUndoEnabled="False" Text="{Binding Path=CustomName, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="7,0,0,0" Width="125" 
+            <TextBox IsUndoEnabled="False" Text="{Binding Path=CustomName, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="7,0,0,0" Width="100" FontSize="10" 
                 LostFocus="UpdateTextPoint" TextChanged="MarkAsDirty"></TextBox>
               <TextBox IsUndoEnabled="False" IsReadOnly="True" Text="{Binding Path=Data}" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Right" Visibility="{Binding Path=IsDisplayValue, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"></TextBox>
               <Grid Visibility="{Binding Path=IsDisplayValue, Converter={StaticResource InverseBoolToVisibilityConverter}, ConverterParameter=true}">
-              <TextBox IsUndoEnabled="False" IsReadOnly="True" Text="On" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Center" Background="{StaticResource GreenBrush}" Foreground="WhiteSmoke"
+              <TextBox IsUndoEnabled="False" IsReadOnly="True" Text="On" VerticalAlignment="Center" Margin="7,0,0,0" Width="25" TextAlignment="Center" Background="{StaticResource GreenBrush}" Foreground="WhiteSmoke" FontSize="10" 
                        Visibility="{Binding Path=IsDigitalOn, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"></TextBox>
-              <TextBox IsUndoEnabled="False" IsReadOnly="True" Text="Off" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Center" Background="Red" Foreground="WhiteSmoke"
+              <TextBox IsUndoEnabled="False" IsReadOnly="True" Text="Off" VerticalAlignment="Center" Margin="7,0,0,0" Width="25" TextAlignment="Center" Background="Red" Foreground="WhiteSmoke" FontSize="10" 
                        Visibility="{Binding Path=IsDigitalOn, Converter={StaticResource InverseBoolToVisibilityConverter}, ConverterParameter=true}"></TextBox>
             </Grid>
           </StackPanel>
-          <StackPanel Orientation="Horizontal" Margin="30,25,0,0" Width="75" HorizontalAlignment="Left">
+          <StackPanel Orientation="Horizontal" Margin="10,25,0,0" Width="75" HorizontalAlignment="Left">
             <Label Visibility="{Binding Path=IsRecord, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
                 <Rectangle Width="10" Height="10" Fill="{StaticResource GreenBrush}">
                     <Rectangle.OpacityMask>

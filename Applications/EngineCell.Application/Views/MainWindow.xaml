@@ -14,10 +14,10 @@
         xmlns:testDisplay="clr-namespace:EngineCell.Application.Views.TestDisplay"
         xmlns:pointConfigurationViewModel="clr-namespace:EngineCell.Application.ViewModels.PointConfiguration"
         xmlns:pointConfiguration="clr-namespace:EngineCell.Application.Views.PointConfiguration"
-        xmlns:widget="clr-namespace:EngineCell.Application.ViewModels.Widget"
-        xmlns:widgetConfig="clr-namespace:EngineCell.Application.Views.Widget"
         xmlns:phaseConfig="clr-namespace:EngineCell.Application.ViewModels.Phase"
         xmlns:phase="clr-namespace:EngineCell.Application.Views.Phase"
+        xmlns:welcomeViewModel="clr-namespace:EngineCell.Application.ViewModels.Welcome"
+        xmlns:welcome="clr-namespace:EngineCell.Application.Views.Welcome"
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="Rocket Rod" Height="720" Width="1024"
@@ -35,6 +35,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type phaseConfig:PhaseConfigViewModel}">
             <phase:PhaseConfig/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type welcomeViewModel:WelcomeScreenViewModel}">
+          <welcome:WelcomeScreen/>
         </DataTemplate>
     </local:BaseWindowView.Resources>
     <Grid>
@@ -78,7 +81,7 @@
                           </Rectangle.OpacityMask>
                         </Rectangle>
                       </Button>
-                      <Button Name="WidgetConfig"  Width="35" Height="35" Margin="5,0,5,0" Click="MenuWidgetConfig_OnClick" HorizontalAlignment="Left" ToolTip="Widget Configuration">
+                      <Button Name="PhaseConfig"  Width="35" Height="35" Margin="5,0,5,0" Click="MenuPhaseConfig_OnClick" HorizontalAlignment="Left" ToolTip="Phase Configuration">
                         <Rectangle Width="25" Height="25" Fill="{StaticResource DarkBlueBrush}">
                           <Rectangle.OpacityMask>
                             <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_settings}" />
@@ -87,6 +90,14 @@
                       </Button>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label FontSize="12" Height="25" Margin="0,-3,0,0">Selected Cell: </Label>
+                        <ComboBox x:Name="CellComboBox" Height="25" Width="150" SelectionChanged="CellComboBox_OnSelectionChanged">
+                          <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                              <TextBlock Text="{Binding Name}"></TextBlock>
+                            </DataTemplate>
+                          </ComboBox.ItemTemplate>
+                        </ComboBox>
                         <clocks:Clock HorizontalAlignment="Right"></clocks:Clock>                        
                         <controls:ToggleSwitch Name="OptoConnectionToggle" SwitchForeground="{StaticResource GreenBrush}" OffLabel="" OnLabel=""
                                        IsChecked="{Binding Path=IsConnected, Mode=TwoWay, NotifyOnSourceUpdated=True}"

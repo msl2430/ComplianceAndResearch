@@ -16,6 +16,8 @@ namespace EngineCell.Models.Repositories
 {
     public interface ICellPointRepository
     {
+        IList<CellModel> GetCells();
+
         IList<CellPointModel> GetCellPointsByCellId(int cellId);
         CellTestModel GetCellTestById(int cellTestId);
 
@@ -23,8 +25,8 @@ namespace EngineCell.Models.Repositories
         void UpdateCellPointAlarm(CellPointAlarmModel alarm);
         void DeleteCellPointAlarm(int cellPointAlarmId);
 
-        int CreateCellTest(int cellId, ControlConstants.CellTestType type);
-        void UpdateCellTestEndTime(CellTestModel cellTest);
+        CellTestModel CreateCellTest(int cellId, string name, string description, ControlConstants.CellTestType type);
+        void UpdateCellTestTime(CellTestModel cellTest, bool isStart);
         void CreateCellPointData(IList<CellTestPointDataModel> points);
 
         IList<DateTime> GetCaptureTimesForTest(int cellTestId);
@@ -34,6 +36,13 @@ namespace EngineCell.Models.Repositories
 
     public class CellPointRepository : ICellPointRepository
     {
+        public IList<CellModel> GetCells()
+        {
+            var cells = NHibernateHelper.CurrentSession.QueryOver<Cell>().List();
+
+            return cells.IsNotNullOrEmpty() ? cells.Select(c => new CellModel(c)).ToList() : new List<CellModel>();
+        }
+
         public IList<CellPointModel> GetCellPointsByCellId(int cellId)
         {
             Cell cell = null;
@@ -101,15 +110,15 @@ namespace EngineCell.Models.Repositories
                 .ExecuteUpdate();
         }
 
-        public int CreateCellTest(int cellId, ControlConstants.CellTestType type)
+        public CellTestModel CreateCellTest(int cellId, string name, string description, ControlConstants.CellTestType type)
         {
-            var newTest = new CellTest() {CellId = cellId, StartTime = DateTime.Now, CellTestTypeId = type};
+            var newTest = new CellTest() {CellId = cellId, Name = name, Description = description, CellTestTypeId = type};
             NHibernateHelper.CurrentSession.Save(newTest);
             NHibernateHelper.CurrentSession.Flush();
-            return newTest.CellTestId;
+            return new CellTestModel(newTest);
         }
 
-        public void UpdateCellTestEndTime(CellTestModel cellTest)
+        public void UpdateCellTestTime(CellTestModel cellTest, bool isStart)
         {
             var existing = NHibernateHelper.CurrentSession.QueryOver<CellTest>()
                 .Where(ct => ct.CellTestId == cellTest.CellTestId)
@@ -118,7 +127,10 @@ namespace EngineCell.Models.Repositories
             if (existing == null)
                 return;
 
-            existing.EndTime = DateTime.Now;
+            if(isStart) 
+                existing.StartTime = DateTime.Now;
+            else 
+                existing.EndTime = DateTime.Now;
 
             NHibernateHelper.CurrentSession.Update(existing);
             NHibernateHelper.CurrentSession.Flush();

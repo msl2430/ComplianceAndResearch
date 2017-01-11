@@ -109,4 +109,28 @@ CREATE TABLE [dbo].[CellTestPhaseWidget_PhaseEndSetting](
 
 GO
 
+UPDATE cell SET name = 'Engine Cell 5', Description = 'Engine Cell 5' WHERE CellId = 1
 
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'CellTest')
+DROP TABLE [dbo].[CellTest]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[CellTest](
+	[CellTestId] [int] IDENTITY(1,1) NOT NULL,
+	[CellId] [int] NOT NULL,
+	[CellTestTypeId] [int] NOT NULL,
+	[Name] [nvarchar](256) NOT NULL,
+	[Description] [nvarchar](2056) NULL,
+	[StartTime] [datetime] NULL,
+	[EndTime] [datetime] NULL,
+ CONSTRAINT [PK_CellTest] PRIMARY KEY CLUSTERED 
+([CellTestId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO

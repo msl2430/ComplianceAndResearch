@@ -18,7 +18,8 @@ namespace EngineCell.Application.Factories
         IScratchPadFactory ScratchPadFactory { get; }
         StatusConstants.ConnectionStatus OptoConnectionStatus { get; set; }
 
-        int CurrentCellId { get; }
+        IList<CellModel> Cells { get; set; }
+        CellModel CurrentCell { get; set; }
         CellTestModel CurrentCellTest { get; set; }
         CellTestPhaseModel CurrentPhaseRunning { get; set; }
         IList<PointDataModel> CellPoints { get; set; }
@@ -39,7 +40,8 @@ namespace EngineCell.Application.Factories
             set { ApplicationSession.ApplicationViewModel.OptoConnectionStatus = value; }
         }
 
-        public int CurrentCellId => Convert.ToInt32(ConfigurationManager.AppSettings["CellId"]); //TODO: Change when we add more cells
+        public IList<CellModel> Cells { get; set; }
+        public CellModel CurrentCell { get; set; }
         public CellTestModel CurrentCellTest { get; set; }
         public CellTestPhaseModel CurrentPhaseRunning { get; set; }
         public IList<PointDataModel> CellPoints { get; set; }        

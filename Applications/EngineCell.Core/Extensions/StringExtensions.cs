@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace EngineCell.Core.Extensions
 {
@@ -135,6 +136,57 @@ namespace EngineCell.Core.Extensions
         {
             var searchString = parameterName + "=";
             return strIn.Substring(strIn.IndexOf(searchString) + searchString.Length, strIn.IndexOf("&", strIn.IndexOf(searchString) + searchString.Length) - (strIn.IndexOf(searchString) + searchString.Length));
+        }
+
+        public static string Pluralize(string singular, string plural, string zero, int number)
+        {
+            switch (number)
+            {
+                case 0:
+                    return zero;
+                case 1:
+                    return singular;
+                default:
+                    return $"{number} {plural}";
+            }
+        }
+
+        public static string Pluralize(string singular, string plural, string zero, double number)
+        {
+            if (number >= 0f && number <= 1f)
+                return zero;
+            if (number > 1f && number < 2f)
+                return singular;
+
+            return $"{number.ToString("##.###")} {plural}";
+        }
+
+        public static string EncodeSql(this string self)
+        {
+            return string.IsNullOrEmpty(self) ? self : self.Replace("\"", "'").Replace("'", "''");
+        }
+
+        public static string PrefixArticle(this string self, bool isLowerCase = true)
+        {
+            if (string.IsNullOrEmpty(self))
+                return self;
+
+            var firstLetter = self.Substring(0, 1);
+
+            if (firstLetter == "a" || firstLetter == "e" || firstLetter == "i" || firstLetter == "o" || firstLetter == "u")
+                return isLowerCase ? $"an {self}" : $"An {self}";
+
+            return isLowerCase ? $"a {self}" : $"A {self}";
+        }
+
+        public static string RemoveSpecialCharacters(this string self)
+        {
+            var sb = new StringBuilder();
+            foreach (var c in self.Where(c => (c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '.' || c == '_'))
+            {
+                sb.Append(c);
+            }
+            return sb.ToString();
         }
     }
 }

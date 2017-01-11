@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using EngineCell.Application.Factories;
@@ -14,9 +15,11 @@ using EngineCell.Application.ViewModels.Phase;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Application.ViewModels.TestDisplay;
+using EngineCell.Application.ViewModels.Welcome;
 using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
+using EngineCell.Models.Models;
 using EngineCell.Models.Repositories;
 using MahApps.Metro.Controls;
 using Remotion.Linq.Collections;
@@ -33,6 +36,9 @@ namespace EngineCell.Application.Views
         private IWidgetRepository _widgetRepository { get; set; }
         private IWidgetRepository WidgetRepository => _widgetRepository ?? (_widgetRepository = new WidgetRepository());
 
+        private ICellPointRepository _cellPointRepository { get; set; }
+        private ICellPointRepository CellPointRepository => _cellPointRepository ?? (_cellPointRepository = new CellPointRepository());
+
         public MainWindow()
         {
             InitializeComponent();
@@ -40,28 +46,37 @@ namespace EngineCell.Application.Views
             MainWindowViewModel = new MainWindowViewModel();
             ApplicationSessionFactory = new ApplicationSessionFactory()
             {
-                ApplicationViewModel = MainWindowViewModel,                
+                ApplicationViewModel = MainWindowViewModel,
+                Cells = CellPointRepository.GetCells()
             };
 
-            //TODO: Remove - for testing
-            var cellTestId = 1;
-            ApplicationSessionFactory.CurrentCellTest = (new CellPointRepository()).GetCellTestById(cellTestId);
+            if (ApplicationSessionFactory.Cells.IsNullOrEmpty())
+            {
+                ApplicationSessionFactory.LogEvent("CRITICAL ERROR: No cells found in database.", true);
+                return;
+            }
 
-            ApplicationSessionFactory.CellPoints = (new CellPointRepository()).GetCellPointsByCellId(ApplicationSessionFactory.CurrentCellId) //TODO: Need to refactor this
-                .ToList()
-                .Select(p => new PointDataModel(p))
-                .ToList();
+            CellComboBox.ItemsSource = ApplicationSessionFactory.Cells;
             
             MainWindowViewModel.PointConfigViewModel = new PointConfigurationViewModel(ApplicationSessionFactory);
             MainWindowViewModel.TestDisplayViewModel = new TestDisplayViewModel(ApplicationSessionFactory, new StripChartViewModel(ApplicationSessionFactory));
             MainWindowViewModel.TestDisplayViewModel.PointWorkerService = new PointWorkerService(MainWindowViewModel.TestDisplayViewModel, Dispatcher);
-            //MainWindowViewModel.WidgetConfigViewModel = new WidgetConfigViewModel(ApplicationSessionFactory);
             MainWindowViewModel.PhaseConfigViewModel = new PhaseConfigViewModel(ApplicationSessionFactory);
-            MainWindowViewModel.ViewModels = new ObservableCollection<BaseViewModel>() { MainWindowViewModel.PointConfigViewModel, MainWindowViewModel.TestDisplayViewModel, MainWindowViewModel.PhaseConfigViewModel };                       
+            MainWindowViewModel.WelcomeViewModel = new WelcomeScreenViewModel(ApplicationSessionFactory, this);
+            MainWindowViewModel.ViewModels = new ObservableCollection<BaseViewModel>() { MainWindowViewModel.PointConfigViewModel, MainWindowViewModel.TestDisplayViewModel, MainWindowViewModel.PhaseConfigViewModel, MainWindowViewModel.WelcomeViewModel };
 
-            ChangePageView(MainWindowViewModel.TestDisplayViewModel);
-            //ToggleWidgets();
-
+            if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null)
+            {
+                OptoConnectionToggle.IsEnabled = false;
+                PointConfig.IsEnabled = false;
+                PhaseConfig.IsEnabled = false;
+                ChangePageView(MainWindowViewModel.WelcomeViewModel);
+            }
+            else
+            {
+                ChangePageView(MainWindowViewModel.TestDisplayViewModel);
+            }
+            
             DataContext = MainWindowViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
             PointWorkerService = new PointWorkerService(MainWindowViewModel.TestDisplayViewModel, Dispatcher);
@@ -77,6 +92,32 @@ namespace EngineCell.Application.Views
             }
 
             MainWindowViewModel.ViewModels.FirstOrDefault(vm => vm.GetType() == viewModel.GetType()).ZIndex = 1;
+        }
+
+        public void ChangePageView(ControlConstants.Views view)
+        {
+            foreach (var model in MainWindowViewModel.ViewModels)
+            {
+                model.ZIndex = 0;
+            }
+
+            switch (view)
+            {
+                case ControlConstants.Views.Welcome:
+                    MainWindowViewModel.ViewModels.FirstOrDefault(vm => vm.GetType() == typeof(WelcomeScreenViewModel)).ZIndex = 1;
+                    break;
+                case ControlConstants.Views.TestDisplay:
+                    MainWindowViewModel.ViewModels.FirstOrDefault(vm => vm.GetType() == typeof(TestDisplayViewModel)).ZIndex = 1;
+                    break;
+                case ControlConstants.Views.PointConfiguration:
+                    MainWindowViewModel.ViewModels.FirstOrDefault(vm => vm.GetType() == typeof(PointConfigurationViewModel)).ZIndex = 1;
+                    break;
+                case ControlConstants.Views.PhaseConfiguration:
+                    MainWindowViewModel.ViewModels.FirstOrDefault(vm => vm.GetType() == typeof(PhaseConfigViewModel)).ZIndex = 1;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(view), view, null);
+            }            
         }
 
         #region Events
@@ -105,12 +146,16 @@ namespace EngineCell.Application.Views
 
         private void MenuTestDisplay_OnClick(object sender, RoutedEventArgs e)
         {
-            MainWindowViewModel.TestDisplayViewModel.UpdateVisibleCellPoints();
-            MainWindowViewModel.TestDisplayViewModel.UpdatePhases(ApplicationSessionFactory.CurrentCellTest.Phases);
             ChangePageView(MainWindowViewModel.TestDisplayViewModel);
+            MainWindowViewModel.TestDisplayViewModel.UpdateVisibleCellPoints();
+
+            if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null || ApplicationSessionFactory.CurrentCellTest.Phases.IsNullOrEmpty())
+                return;
+
+            MainWindowViewModel.TestDisplayViewModel.UpdatePhases(ApplicationSessionFactory.CurrentCellTest.Phases);
         }
         
-        private void MenuWidgetConfig_OnClick(object sender, RoutedEventArgs e)
+        private void MenuPhaseConfig_OnClick(object sender, RoutedEventArgs e)
         {
             ChangePageView(MainWindowViewModel.PhaseConfigViewModel);
         }
@@ -129,6 +174,33 @@ namespace EngineCell.Application.Views
             {
                 Thread.Sleep(250);
             }
+        }
+
+        private void CellComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            IsEnabled = false;
+            var selectedCell = (CellModel) CellComboBox.SelectedItem;
+            ApplicationSessionFactory.CurrentCell = selectedCell;
+            var points = CellPointRepository.GetCellPointsByCellId(ApplicationSessionFactory.CurrentCell.CellId);
+
+            if (points.IsNullOrEmpty()) { 
+                ApplicationSessionFactory.LogEvent("CRITICAL ERROR: No points associated with selected cell.");
+                return;
+            }
+
+            ApplicationSessionFactory.CellPoints = points
+                .ToList()
+                .Select(p => new PointDataModel(p))
+                .ToList();
+
+            MainWindowViewModel.PointConfigViewModel.CellSelectionChange();
+            MainWindowViewModel.TestDisplayViewModel.CellSectionChange();
+            MainWindowViewModel.PhaseConfigViewModel.CellSelectionChange();
+            MainWindowViewModel.WelcomeViewModel.CellSelectionChange();
+            OptoConnectionToggle.IsEnabled = true;
+            PointConfig.IsEnabled = true;
+            PhaseConfig.IsEnabled = true;
+            IsEnabled = true;
         }
         #endregion
 

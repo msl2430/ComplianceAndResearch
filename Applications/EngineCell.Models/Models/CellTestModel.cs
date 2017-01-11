@@ -13,7 +13,9 @@ namespace EngineCell.Models.Models
         public int CellTestId { get; set; }
         public int CellId { get; set; }
         public ControlConstants.CellTestType CellTestTypeId { get; set; }
-        public DateTime StartTime { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public IList<CellTestPhaseModel> Phases { get; set; }
 

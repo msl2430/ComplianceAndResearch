@@ -14,6 +14,8 @@ namespace EngineCell.Models.Mapping
 
             Map(t => t.CellId);
             Map(t => t.CellTestTypeId).CustomType<ControlConstants.CellTestType>();
+            Map(t => t.Name);
+            Map(t => t.Description);
             Map(t => t.StartTime);
             Map(t => t.EndTime);
         }
@@ -29,6 +31,8 @@ namespace EngineCell.Models.Mapping
 
             Map(t => t.CellId);
             Map(t => t.CellTestTypeId).CustomType<ControlConstants.CellTestType>();
+            Map(t => t.Name);
+            Map(t => t.Description);
             Map(t => t.StartTime);
             Map(t => t.EndTime);
 

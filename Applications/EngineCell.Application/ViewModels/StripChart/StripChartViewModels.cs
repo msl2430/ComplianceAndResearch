@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using EngineCell.Application.Factories;
+using EngineCell.Core.Extensions;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -68,6 +69,8 @@ namespace EngineCell.Application.ViewModels.StripChart
             try
             {
                 PlotModel.Series.Clear();
+                if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null || ApplicationSessionFactory.CurrentCellTest.Phases.IsNullOrEmpty())
+                    return; 
                 foreach (var point in ApplicationSessionFactory.CellPoints.Where(cp => cp != null && cp.IncludeInStripChart && cp.DataPoints.Any()))
                 {
                     var newSeries = new LineSeries
@@ -104,6 +107,11 @@ namespace EngineCell.Application.ViewModels.StripChart
                 series = null;
             }
             PlotModel.InvalidatePlot(true);
+        }
+
+        public void CellSelectionChange()
+        {
+            UpdateSeries();
         }
     }
 }

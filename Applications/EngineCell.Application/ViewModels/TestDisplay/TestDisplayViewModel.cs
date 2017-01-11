@@ -63,23 +63,35 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             LeftVisiblePoints = new ObservableCollection<PointDataModel>();
             RightVisiblePoints = new ObservableCollection<PointDataModel>();
             Phases = new ObservableCollection<PhaseViewModel>();
-            
-            UpdatePhases(appSession.CurrentCellTest.Phases);
+
+            UpdateViewModel();
+        }
+
+        private void UpdateViewModel()
+        {
+            if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null || ApplicationSessionFactory.CurrentCellTest.Phases.IsNullOrEmpty())
+                return;
+
+            UpdatePhases(ApplicationSessionFactory.CurrentCellTest.Phases);
             UpdateVisibleCellPoints();
         }
 
         public void UpdatePhases(IList<CellTestPhaseModel> phases)
         {
             Phases.Clear();
+            var tempPhases = new ObservableCollection<PhaseViewModel>();
             foreach (var phase in phases)
             {
-                Phases.Add(new PhaseViewModel(phase));
+                tempPhases.Add(new PhaseViewModel(phase));
             }
+            Phases = tempPhases;
         }
 
         public void UpdateVisibleCellPoints()
         {
             VisiblePoints.Clear();
+            if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null || ApplicationSessionFactory.CurrentCellTest.Phases.IsNullOrEmpty())
+                return;
             foreach (var point in ApplicationSessionFactory.CellPoints.Where(cp => cp.IsAverage))
             {
                 VisiblePoints.Add(point);
@@ -95,6 +107,12 @@ namespace EngineCell.Application.ViewModels.TestDisplay
                 else
                     RightVisiblePoints.Add(VisiblePoints[i]);
             }
+        }
+
+        public void CellSectionChange()
+        {
+            UpdateViewModel();
+            ChartViewModel.CellSelectionChange();
         }
     }
 }
