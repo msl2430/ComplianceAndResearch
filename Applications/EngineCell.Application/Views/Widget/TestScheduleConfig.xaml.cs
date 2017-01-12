@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using EngineCell.Application.Services.DataServices;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
 using EngineCell.Models.Models;
@@ -24,6 +25,9 @@ namespace EngineCell.Application.Views.Widget
 
         private IWidgetRepository _widgetRepository { get; set; }
         private IWidgetRepository WidgetRepository => _widgetRepository ?? (_widgetRepository = new WidgetRepository());
+
+        private IWidgetService _widgetService { get; set; }
+        private IWidgetService WidgetService => _widgetService ?? (_widgetService = new WidgetService());
 
         public TestScheduleConfig(CellTestPhaseModel phase)
         {
@@ -54,37 +58,8 @@ namespace EngineCell.Application.Views.Widget
 
         private void ReadFile(string fileName, bool isNewFile)
         {
-            var streamReader = new StreamReader(fileName);
-
-            string line;
-            var throttleIndex = -1;
-            var dynoIndex = -1;
-            var setPoints = new List<ScheduleData>();
-            while ((line = streamReader.ReadLine()) != null)
-            {
-                var lineArray = line.Split(new[] { ",", "\r\n", "\n" }, StringSplitOptions.None);
-                if (lineArray[0].ToLower() == "note") //line to find out which setpoint is in which index
-                {
-                    for (var i = 0; i < lineArray.Length; i++)
-                    {
-                        if (lineArray[i].ToLower() == "throt" && setPoints.IsNullOrEmpty())
-                            throttleIndex = i;
-                        if (lineArray[i].ToLower() == "dyno" && setPoints.IsNullOrEmpty())
-                            dynoIndex = i;
-                    }
-                }
-
-                if (throttleIndex < 0 || dynoIndex < 0) //if we haven't set the index of our setpoints then we bail out 
-                    continue;
-
-                if (lineArray[0].ToLower() != "data") continue;
-
-                if (throttleIndex >= 0)
-                    setPoints.Add(new ScheduleData(lineArray[1], lineArray[throttleIndex], WidgetConstants.TestScheduleSetpointType.Throttle));
-                if (dynoIndex >= 0)
-                    setPoints.Add(new ScheduleData(lineArray[1], lineArray[dynoIndex], WidgetConstants.TestScheduleSetpointType.Dyno));
-            }
-
+            var setPoints = WidgetService.ReadTestScheduleFromFile(fileName);
+            
             if (setPoints.IsNullOrEmpty())
             {
                 NoSetpointError.Visibility = Visibility.Visible;

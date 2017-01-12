@@ -109,7 +109,7 @@ namespace EngineCell.Application.ViewModels.StripChart
             PlotModel.InvalidatePlot(true);
         }
 
-        public void CellSelectionChange()
+        public void UpdateViewModel()
         {
             UpdateSeries();
         }

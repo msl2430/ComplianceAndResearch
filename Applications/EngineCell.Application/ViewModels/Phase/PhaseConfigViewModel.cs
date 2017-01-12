@@ -1,4 +1,5 @@
-﻿using EngineCell.Application.Factories;
+﻿using System.Linq;
+using EngineCell.Application.Factories;
 using EngineCell.Core.Extensions;
 using EngineCell.Models.Models;
 using Remotion.Linq.Collections;
@@ -24,10 +25,13 @@ namespace EngineCell.Application.ViewModels.Phase
         private void UpdatePhases()
         {
             if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null || ApplicationSessionFactory.CurrentCellTest.Phases.IsNullOrEmpty())
+            {
+                Phases = new ObservableCollection<CellTestPhaseModel>();
                 return;
+            }
 
             var tempPhases = new ObservableCollection<CellTestPhaseModel>();
-            foreach (var phase in ApplicationSessionFactory.CurrentCellTest.Phases)
+            foreach (var phase in ApplicationSessionFactory.CurrentCellTest.Phases.OrderBy(p => p.PhaseOrder))
             {
                 tempPhases.Add(phase);
             }
@@ -35,7 +39,7 @@ namespace EngineCell.Application.ViewModels.Phase
             Phases = tempPhases;
         }
 
-        public void CellSelectionChange()
+        public void UpdateViewModel()
         {
             UpdatePhases();
         }

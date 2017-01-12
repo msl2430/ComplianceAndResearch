@@ -41,7 +41,7 @@ namespace EngineCell.Application.ViewModels.Welcome
             ActivePoints = new ObservableCollection<string>();
         }
 
-        public void CellSelectionChange()
+        public void UpdateViewModel()
         {
             SelectedCellName = ApplicationSessionFactory.CurrentCell.Name;
             ActivePoints.Clear();

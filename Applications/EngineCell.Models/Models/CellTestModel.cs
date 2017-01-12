@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
 using EngineCell.Core.Models;
 using EngineCell.Models.DataObjects;
@@ -12,7 +11,6 @@ namespace EngineCell.Models.Models
     {
         public int CellTestId { get; set; }
         public int CellId { get; set; }
-        public ControlConstants.CellTestType CellTestTypeId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime? StartTime { get; set; }

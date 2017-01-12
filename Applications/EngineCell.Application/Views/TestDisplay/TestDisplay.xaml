@@ -54,7 +54,7 @@
                 <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0" Margin="5" Padding="2">
                     <Grid>
                       <Button Background="{StaticResource GreenBrush}" Click="StartPhaseButton_Click" Height="30" HorizontalAlignment="Center" Width="125" VerticalAlignment="Top" FontSize="12"
-                         Visibility="{Binding Path=IsTestRunning, Converter={StaticResource InverseBoolToVisibilityConverter}}">Start Test</Button>
+                         Visibility="{Binding Path=IsTestRunning, Converter={StaticResource InverseBoolToVisibilityConverter}}" IsEnabled="{Binding CanStartTest}">Start Test</Button>
                       <Button Background="OrangeRed" Click="StopPhaseButton_Click" Height="30" HorizontalAlignment="Center" Width="125" VerticalAlignment="Top" FontSize="12"
                          Visibility="{Binding Path=IsTestRunning, Converter={StaticResource BoolToVisibilityConverter}}">Stop Test</Button>
                         <!--<Grid.RowDefinitions>
@@ -116,16 +116,15 @@
                           <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                          <ColumnDefinition Width="150"/>
+                          <ColumnDefinition Width="125"/>
                           <ColumnDefinition Width="150"/>
                           <ColumnDefinition Width="100"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="1"  Grid.Row="0" HorizontalAlignment="Left" Foreground="{StaticResource GreenBrush}" Margin="-20,0,0,0" Visibility="{Binding Path=IsActive, Converter={StaticResource BoolToVisibilityConverter}}">Active</TextBlock>
-                        <TextBlock Height="50" Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Padding="10" Foreground="{StaticResource BrightBlueBrush}" Text="{Binding Name}"></TextBlock>
+                        <TextBlock Grid.Column="1"  Grid.Row="0" HorizontalAlignment="Left" Foreground="{StaticResource GreenBrush}" Margin="-20,0,0,0" Visibility="{Binding Path=IsRunning, Converter={StaticResource BoolToVisibilityConverter}}">Active</TextBlock>
+                        <TextBlock Height="50" Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Foreground="{StaticResource BrightBlueBrush}" Text="{Binding Name}"></TextBlock>
                         <StackPanel Grid.Column="1" Margin="5" Grid.Row="1">
-                          <TextBlock FontSize="11" Margin="2">Start Time: <TextBlock FontSize="11" Text="{Binding StartDateTimeString}"></TextBlock></TextBlock>
-                          <TextBlock FontSize="11" Margin="2">End Time: <TextBlock FontSize="11" Text="{Binding EndDateTimeString}"></TextBlock></TextBlock>
+                          <TextBlock FontSize="10" Margin="2">Start Time: <TextBlock FontSize="11" Text="{Binding StartDateTimeString}"></TextBlock></TextBlock>
+                          <TextBlock FontSize="10" Margin="2">End Time: <TextBlock FontSize="11" Text="{Binding EndDateTimeString}"></TextBlock></TextBlock>
                         </StackPanel>
                         <TextBlock Height="50" FontSize="20" Grid.Column="2" Grid.Row="1" Padding="10" VerticalAlignment="Center" Visibility="{Binding Path=IsCompleted, Converter={StaticResource BoolToVisibilityConverter}}">
                           <Rectangle Width="25" Height="25" Fill="{StaticResource GreenBrush}">

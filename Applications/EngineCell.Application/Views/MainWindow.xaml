@@ -23,7 +23,7 @@
         Title="Rocket Rod" Height="720" Width="1024"
         MinWidth="1024" MinHeight="700">
     <local:BaseWindowView.Resources>
-        <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <extensions:InverseBoolConverter x:Key="InverseBoolConverter"/>
         <DataTemplate DataType="{x:Type stripChartViewModel:StripChartViewModel}">
             <stripChart:StripChart/>
         </DataTemplate>
@@ -46,7 +46,12 @@
               <Menu.BorderBrush>#2B88AF</Menu.BorderBrush>
               <Menu.BorderThickness>0, 1.01, 0, 1.01</Menu.BorderThickness>
               <MenuItem Header="_File">
-                  <MenuItem x:Name="MenuExit" Header="E_xit" Width="125" Click="MenuExit_Click"/>
+                    <MenuItem x:Name="MenuNewTest" Header="_New Test" Width="250" Click="MenuNewTest_Clieck"/>
+                    <MenuItem x:Name="MenuCloseTest" Header="_Close Test" Width="250" Click="MenuCloseTest_Clieck"/>
+                    <Separator/>
+                    <MenuItem x:Name="MenuViewHistory" Header="_View Test History" Width="250" Click="MenuViewHistory_Clieck"/>
+                    <Separator/>
+                    <MenuItem x:Name="MenuExit" Header="E_xit" Width="250" Click="MenuExit_Click"/>
               </MenuItem>
             </Menu>
             <Grid Name="LogWindow" Height="125" DockPanel.Dock="Bottom" Visibility="Visible">
@@ -63,11 +68,12 @@
                 <Border BorderBrush="LightGray" BorderThickness="0,0,0,1.01"></Border>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5*"></ColumnDefinition>
-                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                      <Button Name="TestDisplay" Width="35" Height="35" Margin="5,0,5,0" Click="MenuTestDisplay_OnClick" HorizontalAlignment="Left" ToolTip="Test Display">
+                        <Button Name="TestDisplay" Width="35" Height="35" Margin="5,0,5,0" Click="MenuTestDisplay_OnClick" HorizontalAlignment="Left" ToolTip="Test Display" IsEnabled="{Binding Path=HasTestActive}">
                         <Rectangle Width="25" Height="25" Fill="{StaticResource DarkBlueBrush}">
                           <Rectangle.OpacityMask>
                             <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_paper}" />
@@ -81,7 +87,7 @@
                           </Rectangle.OpacityMask>
                         </Rectangle>
                       </Button>
-                      <Button Name="PhaseConfig"  Width="35" Height="35" Margin="5,0,5,0" Click="MenuPhaseConfig_OnClick" HorizontalAlignment="Left" ToolTip="Phase Configuration">
+                        <Button Name="PhaseConfig"  Width="35" Height="35" Margin="5,0,5,0" Click="MenuPhaseConfig_OnClick" HorizontalAlignment="Left" ToolTip="Phase Configuration" IsEnabled="{Binding Path=HasTestActive}">
                         <Rectangle Width="25" Height="25" Fill="{StaticResource DarkBlueBrush}">
                           <Rectangle.OpacityMask>
                             <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_settings}" />
@@ -89,9 +95,10 @@
                         </Rectangle>
                       </Button>
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Label FontSize="12" Height="25" Margin="0,-3,0,0">Selected Cell: </Label>
-                        <ComboBox x:Name="CellComboBox" Height="25" Width="150" SelectionChanged="CellComboBox_OnSelectionChanged">
+                    <TextBlock Grid.Column="1" FontSize="25" Foreground="{StaticResource HeadlineBlueBrush}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding CellTestName}"></TextBlock>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label FontSize="12" Height="25" Margin="0,-3,0,0">Select Cell: </Label>
+                        <ComboBox x:Name="CellComboBox" Height="25" Width="150" SelectionChanged="CellComboBox_OnSelectionChanged" IsEnabled="{Binding Path=HasTestActive, Converter={StaticResource InverseBoolConverter}}">
                           <ComboBox.ItemTemplate>
                             <DataTemplate>
                               <TextBlock Text="{Binding Name}"></TextBlock>

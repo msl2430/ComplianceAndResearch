@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Media;
 using EngineCell.Models.Models;
 
 namespace EngineCell.Application.ViewModels.TestDisplay
@@ -21,11 +20,8 @@ namespace EngineCell.Application.ViewModels.TestDisplay
         public string StartDateTimeString { get { return StartDateTime == null ? "N/A" : Convert.ToDateTime(StartDateTime).ToString("MM/dd/yyy hh:mm tt"); } }
         public string EndDateTimeString { get { return EndDateTime == null ? "N/A" : Convert.ToDateTime(EndDateTime).ToString("MM/dd/yyy hh:mm tt"); } }
 
-        private bool _isActive { get; set; }
-        public bool IsActive { get { return _isActive; } set { _isActive = value; OnPropertyChanged("IsActive"); } }
         private bool _isRunning { get; set; }
         public bool IsRunning { get { return _isRunning; } set { _isRunning = value; OnPropertyChanged("IsRunning"); OnPropertyChanged("IsWaiting"); OnPropertyChanged("IsCompleted"); } }
-        public bool IsWaiting { get {  return !IsRunning && EndDateTime == null; } }
         public bool IsCompleted { get { return !IsRunning && EndDateTime != null; } }
 
         public PhaseViewModel() { }
@@ -39,7 +35,6 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             CellTestId = phase.CellTestId;
             PhaseOrder = phase.PhaseOrder;
             Name = phase.Name;
-            IsActive = false;
             IsRunning = false;
         }
     }

@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using EngineCell.Application.Factories;
 using EngineCell.Application.ViewModels.Phase;
 using EngineCell.Application.Views.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
+using EngineCell.Models.Models;
 using EngineCell.Models.Repositories;
 using MahApps.Metro.Controls;
 
@@ -33,15 +36,13 @@ namespace EngineCell.Application.Views.Phase
                 ViewModel = (PhaseConfigViewModel) DataContext;
 
             AvailableWidgets.ItemsSource = WidgetConstants.Widgets;
-            PhaseTabs.ItemsSource = ViewModel.Phases.OrderBy(p => p.PhaseOrder).ToList();
             PhaseTabs.SelectedIndex = 0;
         }
 
-        private void UpdatePhaseTabs()
+        private void UpdatePhaseTabs(int? selectedIndex = null)
         {
-            var tempIndex = PhaseTabs.SelectedIndex;
+            var tempIndex = selectedIndex == null ? PhaseTabs.SelectedIndex : Convert.ToInt32(selectedIndex);
             PhaseTabs.ItemsSource = ViewModel.Phases.OrderBy(p => p.PhaseOrder).ToList();
-            UpdatePhaseWidgetDisplay();
             PhaseTabs.SelectedIndex = tempIndex;
         }
 
@@ -56,8 +57,7 @@ namespace EngineCell.Application.Views.Phase
 
             var newPhase = WidgetRepository.AddPhaseToTest(ViewModel.ApplicationSessionFactory.CurrentCellTest.CellTestId, ViewModel.Phases.Count + 1, NewPhaseName.Text);
             ViewModel.Phases.Add(newPhase);
-
-            UpdatePhaseTabs();
+            UpdatePhaseTabs(ViewModel.Phases.IndexOf(newPhase));
         }
 
         private void UpdatePhase(object sender, RoutedEventArgs e)
@@ -133,6 +133,9 @@ namespace EngineCell.Application.Views.Phase
             if (ViewModel.Phases.IsNullOrEmpty())
                 return;
 
+            if (PhaseTabs.SelectedIndex < 0)
+                PhaseTabs.SelectedIndex = 0;
+
             var widgets = WidgetConstants.Widgets.ToList();
             var phase = ViewModel.Phases.ElementAt(PhaseTabs.SelectedIndex);
             foreach (var phaseWidgets in phase.Widgets)
@@ -188,12 +191,17 @@ namespace EngineCell.Application.Views.Phase
             Dispatcher.BeginInvoke(new Action(() =>
             {
                 var cp = PhaseTabs.Template.FindName("PART_SelectedContentHost", PhaseTabs) as ContentPresenter;
-                var g = PhaseTabs.ContentTemplate.FindName("WidgetConfigGrid", cp) as Grid;
-                g.Children.Clear();
-                g.Children.Add(widgetGrid);
+                try
+                {
+                    var g = PhaseTabs.ContentTemplate.FindName("WidgetConfigGrid", cp) as Grid;
+                    g.Children.Clear();
+                    g.Children.Add(widgetGrid);
+                }
+                catch (Exception) { }
             }));
+            
 
             ViewModel.ApplicationSessionFactory.CurrentCellTest.Phases = ViewModel.Phases;
-        }       
+        }
     }
 }

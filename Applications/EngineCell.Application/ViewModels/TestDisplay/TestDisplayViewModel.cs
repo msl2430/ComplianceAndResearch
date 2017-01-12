@@ -1,19 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using EngineCell.Application.Factories;
 using EngineCell.Application.Services.WorkerServices;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Core.Extensions;
-using EngineCell.Models.Models;
 
 namespace EngineCell.Application.ViewModels.TestDisplay
 {
     public class TestDisplayViewModel : BaseViewModel
     {
         private bool _isTestRunning { get; set; }
-        public bool IsTestRunning { get { return _isTestRunning; } set { _isTestRunning = value; OnPropertyChanged("IsTestRunning"); } }
+        public bool IsTestRunning { get { return _isTestRunning; } set { _isTestRunning = value; OnPropertyChanged("IsTestRunning"); OnPropertyChanged("CanStartTest"); } }
 
         private StripChartViewModel _chartViewModel { get; set; }
         public StripChartViewModel ChartViewModel { get { return _chartViewModel; } set { _chartViewModel = value; OnPropertyChanged("ChartViewModel"); } }
@@ -48,10 +46,12 @@ namespace EngineCell.Application.ViewModels.TestDisplay
         public ObservableCollection<PhaseViewModel> Phases
         {
             get { return _phases;}
-            set { _phases = value; OnPropertyChanged("Phases"); }
+            set { _phases = value; OnPropertyChanged("Phases"); OnPropertyChanged("CanStartTest"); }
         }
 
         public IPointWorkerService PointWorkerService { get; set; }
+
+        public bool CanStartTest { get { return Phases.IsNotNullOrEmpty() && !IsTestRunning; } } 
 
         public TestDisplayViewModel(IApplicationSessionFactory appSession, StripChartViewModel chartViewModel)
         {
@@ -67,20 +67,23 @@ namespace EngineCell.Application.ViewModels.TestDisplay
             UpdateViewModel();
         }
 
-        private void UpdateViewModel()
+        public void UpdateViewModel()
         {
-            if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null || ApplicationSessionFactory.CurrentCellTest.Phases.IsNullOrEmpty())
-                return;
-
-            UpdatePhases(ApplicationSessionFactory.CurrentCellTest.Phases);
+            UpdatePhases();
             UpdateVisibleCellPoints();
+            ChartViewModel.UpdateViewModel();
         }
 
-        public void UpdatePhases(IList<CellTestPhaseModel> phases)
+        public void UpdatePhases()
         {
+            if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null || ApplicationSessionFactory.CurrentCellTest.Phases.IsNullOrEmpty())
+            {
+                Phases = new ObservableCollection<PhaseViewModel>();
+                return;
+            }
             Phases.Clear();
             var tempPhases = new ObservableCollection<PhaseViewModel>();
-            foreach (var phase in phases)
+            foreach (var phase in ApplicationSessionFactory.CurrentCellTest.Phases)
             {
                 tempPhases.Add(new PhaseViewModel(phase));
             }
@@ -107,12 +110,6 @@ namespace EngineCell.Application.ViewModels.TestDisplay
                 else
                     RightVisiblePoints.Add(VisiblePoints[i]);
             }
-        }
-
-        public void CellSectionChange()
-        {
-            UpdateViewModel();
-            ChartViewModel.CellSelectionChange();
-        }
+        }        
     }
 }

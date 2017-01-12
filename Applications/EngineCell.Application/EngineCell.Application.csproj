@@ -147,6 +147,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Extensions\BoolToVisibilityConverter.cs" />
+    <Compile Include="Extensions\InverseBoolConverter.cs" />
     <Compile Include="Extensions\NumericTextbox.cs" />
     <Compile Include="Extensions\ProgressVisibilityConverter.cs" />
     <Compile Include="Extensions\ScratchPadExtensions.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Factories\OptoMmpFactory.cs" />
     <Compile Include="Factories\ScratchPadFactory.cs" />
     <Compile Include="Services\DataServices\ExportService.cs" />
+    <Compile Include="Services\DataServices\WidgetService.cs" />
     <Compile Include="Services\WorkerServices\PhaseWorkerService.cs" />
     <Compile Include="Services\WorkerServices\PidConfigStripChartWorkerService.cs" />
     <Compile Include="Services\WorkerServices\PidConfigWorkerService.cs" />
@@ -255,6 +257,9 @@
     <Compile Include="Views\TestDisplay\TestDisplay.xaml.cs">
       <DependentUpon>TestDisplay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Welcome\NewTestDialog.xaml.cs">
+      <DependentUpon>NewTestDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Welcome\WelcomeScreen.xaml.cs">
       <DependentUpon>WelcomeScreen.xaml</DependentUpon>
     </Compile>
@@ -353,6 +358,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TestDisplay\TestDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Welcome\NewTestDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

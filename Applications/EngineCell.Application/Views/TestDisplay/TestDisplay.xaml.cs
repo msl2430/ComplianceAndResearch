@@ -1,13 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using EngineCell.Application.Services.DataServices;
 using EngineCell.Application.Services.WorkerServices;
-using EngineCell.Application.Services.WorkerServices.Widget;
 using EngineCell.Application.ViewModels.TestDisplay;
-using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Application.Views.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
@@ -20,7 +17,7 @@ namespace EngineCell.Application.Views.TestDisplay
     /// </summary>
     public partial class TestDisplay : BaseUserControl
     {
-        private TestDisplayViewModel ViewModel { get; set; }
+        public TestDisplayViewModel ViewModel { get; set; }
 
         private IWidgetRepository _widgetRepository { get; set; }
         private IWidgetRepository WidgetRepository => _widgetRepository ?? (_widgetRepository = new WidgetRepository());
@@ -41,8 +38,12 @@ namespace EngineCell.Application.Views.TestDisplay
 
         public void PrepareTestPhaseDisplay()
         {
-            ViewModel.Phases.First().IsActive = true;
-            foreach (var widget in ViewModel.ApplicationSessionFactory.CurrentCellTest.Phases.First(p => p.CellTestPhaseId == ViewModel.Phases.First().CellTestPhaseId).Widgets)
+            WidgetPanel.Children.Clear();
+
+            if (ViewModel.Phases.All(p => !p.IsRunning))
+                return;
+
+            foreach (var widget in ViewModel.ApplicationSessionFactory.CurrentCellTest.Phases.First(p => p.CellTestPhaseId == ViewModel.Phases.First(vm => vm.IsRunning).CellTestPhaseId).Widgets)
             {
                 switch (widget.WidgetId)
                 {
@@ -63,11 +64,16 @@ namespace EngineCell.Application.Views.TestDisplay
 
         private void StartPhaseButton_Click(object sender, RoutedEventArgs e)
         {
+            if (ViewModel.ApplicationSessionFactory.OptoConnectionStatus != StatusConstants.ConnectionStatus.Connected)
+            {
+                ViewModel.ApplicationSessionFactory.LogEvent("WARNING: Cannot start if not connected to Opto!", true);
+                return;
+            }
+
             WidgetPanel.Children.Clear();
 
             if (ViewModel.Phases.IsNotNullOrEmpty())
                 PrepareTestPhaseDisplay();
-
 
             ViewModel.ApplicationSessionFactory.LogEvent("Starting phase.", true);
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
@@ -80,12 +86,8 @@ namespace EngineCell.Application.Views.TestDisplay
             });
 
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt(), 1);
+            ViewModel.IsTestRunning = true;
 
-            //if (ViewModel.ApplicationSessionFactory.OptoConnectionStatus != StatusConstants.ConnectionStatus.Connected)
-            //{
-            //    ViewModel.ApplicationSessionFactory.LogEvent("WARNING: Cannot start if not connected to Opto!", true);
-            //    return;
-            //}
             //if (!ViewModel.IsManualTest)
             //{
             //    var runTimeModel = new ManualTimeConfigViewModel();
@@ -118,7 +120,7 @@ namespace EngineCell.Application.Views.TestDisplay
             //    });
             //}
 
-            //ViewModel.ChartViewModel.IsPlay = true;
+            ViewModel.ChartViewModel.IsPlay = true;
         }
 
         private void StopPhaseButton_Click(object sender, RoutedEventArgs e)

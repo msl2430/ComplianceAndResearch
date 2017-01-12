@@ -31,7 +31,7 @@
           <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
         <Border BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="5" Grid.Column="0">
-          <TabControl x:Name="PhaseTabs" TabStripPlacement="Left" SelectionChanged="PhaseTabs_OnSelectionChanged">
+          <TabControl x:Name="PhaseTabs" TabStripPlacement="Left" SelectionChanged="PhaseTabs_OnSelectionChanged" ItemsSource="{Binding Phases}">
               <TabControl.ItemTemplate>
                 <DataTemplate>
                   <TextBlock Text="{Binding Name}"></TextBlock>

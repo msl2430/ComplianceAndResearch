@@ -15,7 +15,7 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
 
         private Stopwatch TestRunTime { get; set; }
 
-        private const int LoadInterval = 2;
+        private const int LoadInterval = 120;
         private int LastLoadIndex = 0;
         private int NextLoadIndex = 0;
         private int LastScratchpadIndex = 0;

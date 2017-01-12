@@ -2,6 +2,7 @@ CREATE T.ARRAY
 &DataCollection ,
 &PidConfig ,
 &Powerup ,
+&TestScheduleWidgetChart ,
 &VentilationCtrl1 ,
  0 ,
 CREATE V.ARRAY
@@ -17,6 +18,20 @@ CREATE V.ARRAY
 ^PidConfigType ,
 ^PidConfigValue ,
 ^SetScratchPadResult ,
+^TestScheduleCurrentTime ,
+^TestScheduleIntercept ,
+^TestScheduleLowerSetpoint ,
+^TestScheduleLowerTime ,
+^TestScheduleSetpointIndex ,
+^TestScheduleSetpointIndexIncrement ,
+^TestScheduleSlope ,
+^TestScheduleStart ,
+^TestScheduleTimeIndex ,
+^TestScheduleTimeIndexIncrement ,
+^TestScheduleUpperSetpoint ,
+^TestScheduleUpperTime ,
+^TestScheduleUseDyno ,
+^TestScheduleUseThrottle ,
 ^VentCtrl1Gain ,
 ^VentCtrl1InsideType ,
 ^VentCtrl1OutputOld ,
@@ -30,6 +45,7 @@ CREATE V.ARRAY
 *_HSV_TEMP ,
  0 ,
 CREATE TI.ARRAY
+^TestScheduleRunTime ,
  0 ,
 CREATE PTR.ARRAY
 Ptr' PTR_PidConfigSelection ,
@@ -183,6 +199,21 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^PidConfigType @!
 0.00000000 ^PidConfigValue @!
 0 ^SetScratchPadResult @!
+0.00000000 ^TestScheduleCurrentTime @!
+0.00000000 ^TestScheduleIntercept @!
+0.00000000 ^TestScheduleLowerSetpoint @!
+0.00000000 ^TestScheduleLowerTime @!
+0.0 ^TestScheduleRunTime SetTimer
+0 ^TestScheduleSetpointIndex @!
+0 ^TestScheduleSetpointIndexIncrement @!
+0.00000000 ^TestScheduleSlope @!
+0 ^TestScheduleStart @!
+0 ^TestScheduleTimeIndex @!
+0 ^TestScheduleTimeIndexIncrement @!
+0.00000000 ^TestScheduleUpperSetpoint @!
+0.00000000 ^TestScheduleUpperTime @!
+0 ^TestScheduleUseDyno @!
+0 ^TestScheduleUseThrottle @!
 0.00000000 ^VentCtrl1Gain @!
 0 ^VentCtrl1InsideType @!
 0.. ^VentCtrl1OutputOld @!

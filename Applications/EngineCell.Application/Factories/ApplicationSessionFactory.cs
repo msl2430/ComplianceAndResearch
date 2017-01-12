@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EngineCell.Application.Services;

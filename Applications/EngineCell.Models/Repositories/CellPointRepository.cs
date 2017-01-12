@@ -25,7 +25,7 @@ namespace EngineCell.Models.Repositories
         void UpdateCellPointAlarm(CellPointAlarmModel alarm);
         void DeleteCellPointAlarm(int cellPointAlarmId);
 
-        CellTestModel CreateCellTest(int cellId, string name, string description, ControlConstants.CellTestType type);
+        CellTestModel CreateCellTest(int cellId, string name, string description);
         void UpdateCellTestTime(CellTestModel cellTest, bool isStart);
         void CreateCellPointData(IList<CellTestPointDataModel> points);
 
@@ -110,9 +110,9 @@ namespace EngineCell.Models.Repositories
                 .ExecuteUpdate();
         }
 
-        public CellTestModel CreateCellTest(int cellId, string name, string description, ControlConstants.CellTestType type)
+        public CellTestModel CreateCellTest(int cellId, string name, string description)
         {
-            var newTest = new CellTest() {CellId = cellId, Name = name, Description = description, CellTestTypeId = type};
+            var newTest = new CellTest() {CellId = cellId, Name = name, Description = description};
             NHibernateHelper.CurrentSession.Save(newTest);
             NHibernateHelper.CurrentSession.Flush();
             return new CellTestModel(newTest);

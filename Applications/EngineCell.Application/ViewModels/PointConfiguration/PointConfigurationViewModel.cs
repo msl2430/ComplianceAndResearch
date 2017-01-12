@@ -239,7 +239,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             Freqs = tempFreqs;
         }
 
-        public void CellSelectionChange()
+        public void UpdateViewModel()
         {
             UpdatePoints();
         }

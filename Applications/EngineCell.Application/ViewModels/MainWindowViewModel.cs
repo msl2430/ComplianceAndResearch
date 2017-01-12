@@ -111,11 +111,18 @@ namespace EngineCell.Application.ViewModels
             set { _phaseConfigViewModel = value; OnPropertyChanged("PhaseConfigViewModel"); }
         }
 
-        private string _titleLabel { get; set; }
-        public string TitleLabel
+        private string _cellTestName { get; set; }
+        public string CellTestName
         {
-            get { return _titleLabel; }
-            set { _titleLabel = value; OnPropertyChanged("TitleLabel"); }
+            get { return _cellTestName; }
+            set { _cellTestName = value; OnPropertyChanged("CellTestName"); }
+        }
+
+        private bool _hasTestActive { get; set; }
+        public bool HasTestActive
+        {
+            get { return _hasTestActive; }
+            set { _hasTestActive = value; OnPropertyChanged("HasTestActive"); }
         }
 
         public IList<BaseViewModel> PageViewModelNavigationPath { get; set; }

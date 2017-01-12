@@ -1,5 +1,4 @@
-﻿using EngineCell.Core.Constants;
-using EngineCell.Models.DataObjects;
+﻿using EngineCell.Models.DataObjects;
 using FluentNHibernate.Mapping;
 
 namespace EngineCell.Models.Mapping
@@ -13,7 +12,6 @@ namespace EngineCell.Models.Mapping
             Id(t => t.CellTestId);
 
             Map(t => t.CellId);
-            Map(t => t.CellTestTypeId).CustomType<ControlConstants.CellTestType>();
             Map(t => t.Name);
             Map(t => t.Description);
             Map(t => t.StartTime);
@@ -30,7 +28,6 @@ namespace EngineCell.Models.Mapping
             Id(t => t.CellTestId);
 
             Map(t => t.CellId);
-            Map(t => t.CellTestTypeId).CustomType<ControlConstants.CellTestType>();
             Map(t => t.Name);
             Map(t => t.Description);
             Map(t => t.StartTime);

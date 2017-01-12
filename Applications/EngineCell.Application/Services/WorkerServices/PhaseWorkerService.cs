@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using EngineCell.Application.Factories;
+using EngineCell.Application.ViewModels.TestDisplay;
 using EngineCell.Application.Views.TestDisplay;
 
 namespace EngineCell.Application.Services.WorkerServices
@@ -85,13 +87,23 @@ namespace EngineCell.Application.Services.WorkerServices
 
         private void SetNextPhase()
         {
-            var tempPhase = ApplicationSessionFactory.CurrentCellTest.Phases[phaseIndex];
+            var tempPhase = TestDisplay.ViewModel.Phases[phaseIndex];
             tempPhase.IsRunning = true;
-            tempPhase.StartDateTime = new DateTime();
-            ApplicationSessionFactory.CurrentPhaseRunning = tempPhase;
-            phaseIndex++;
+            tempPhase.StartDateTime = DateTime.Now;
+            ApplicationSessionFactory.CurrentPhaseRunning = ApplicationSessionFactory.CurrentCellTest.Phases.FirstOrDefault(p => p.CellTestPhaseId == tempPhase.CellTestPhaseId);
             tempPhase = null;
             ApplicationSessionFactory.LogEvent("Starting Phase [[" + ApplicationSessionFactory.CurrentPhaseRunning.Name + "]].", true);
+
+            if (phaseIndex > 0) //finish last phase
+            {
+                TestDisplay.ViewModel.Phases[phaseIndex - 1].EndDateTime = DateTime.Now;
+                TestDisplay.ViewModel.Phases[phaseIndex - 1].IsRunning = false;
+            }
+
+            phaseIndex++;
+            Dispatcher.Invoke(() => {
+                TestDisplay.PrepareTestPhaseDisplay();
+            });
         }
 
         protected override void WorkCompleted()

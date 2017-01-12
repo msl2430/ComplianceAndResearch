@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using EngineCell.Application.ViewModels.TestDisplay;
 using EngineCell.Application.ViewModels.Welcome;
 using EngineCell.Core.Constants;
 using EngineCell.Models.Repositories;
@@ -30,8 +29,15 @@ namespace EngineCell.Application.Views.Welcome
 
         private void NewTestButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var test = CellPointRepository.CreateCellTest(ViewModel.ApplicationSessionFactory.CurrentCell.CellId, "Some test", "", ControlConstants.CellTestType.Manual);
+            var dialog = new NewTestDialog();
+            dialog.ShowDialog();
+
+            if (string.IsNullOrEmpty(dialog.NewTestName))
+                return;
+
+            var test = CellPointRepository.CreateCellTest(ViewModel.ApplicationSessionFactory.CurrentCell.CellId, dialog.NewTestName, dialog.NewTestDescription);
             ViewModel.ApplicationSessionFactory.CurrentCellTest = test;
+            ViewModel.MainWindow.UpdateViewModels();
             ViewModel.MainWindow.ChangePageView(ControlConstants.Views.TestDisplay);
         }
     }
