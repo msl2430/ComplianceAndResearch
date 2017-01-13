@@ -14,6 +14,7 @@ namespace EngineCell.Models.Mapping
             Map(t => t.CellId);
             Map(t => t.Name);
             Map(t => t.Description);
+            Map(t => t.CreationDateTime);
             Map(t => t.StartTime);
             Map(t => t.EndTime);
         }
@@ -27,11 +28,15 @@ namespace EngineCell.Models.Mapping
 
             Id(t => t.CellTestId);
 
-            Map(t => t.CellId);
             Map(t => t.Name);
             Map(t => t.Description);
+            Map(t => t.CreationDateTime);
             Map(t => t.StartTime);
             Map(t => t.EndTime);
+
+            References(t => t.Cell)
+                .Column("CellId")
+                .Fetch.Join();
 
             HasMany(t => t.Phases)
                 .KeyColumn("CellTestId")

@@ -16,8 +16,6 @@ namespace EngineCell.Models.Models
         public string Name { get; set; }
         public IList<CellTestPhaseWidgetModel> Widgets { get; set; }
 
-        
-
         public CellTestPhaseModel()
         {
             Widgets = new List<CellTestPhaseWidgetModel>();

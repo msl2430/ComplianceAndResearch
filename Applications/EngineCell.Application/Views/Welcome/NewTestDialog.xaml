@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:EngineCell.Application.Views.Welcome"
         mc:Ignorable="d"
         ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
         Icon="../../Content/Resource/Icon.ico"
         Title="Create New Test" Height="200" Width="325">
     <Grid Margin="0,5,0,0">

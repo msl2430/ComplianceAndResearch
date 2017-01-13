@@ -191,6 +191,7 @@
     <Compile Include="ViewModels\TestDisplay\ManualTimeConfigViewModel.cs" />
     <Compile Include="ViewModels\TestDisplay\PhaseViewModel.cs" />
     <Compile Include="ViewModels\TestDisplay\TestDisplayViewModel.cs" />
+    <Compile Include="ViewModels\Welcome\TestHistoryViewModel.cs" />
     <Compile Include="ViewModels\Welcome\WelcomeScreenViewModel.cs" />
     <Compile Include="ViewModels\Widget\BaseWidgetViewModel.cs" />
     <Compile Include="ViewModels\Widget\DynoPidConfigViewModel.cs" />
@@ -259,6 +260,9 @@
     </Compile>
     <Compile Include="Views\Welcome\NewTestDialog.xaml.cs">
       <DependentUpon>NewTestDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Welcome\TestHistoryDialog.xaml.cs">
+      <DependentUpon>TestHistoryDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Welcome\WelcomeScreen.xaml.cs">
       <DependentUpon>WelcomeScreen.xaml</DependentUpon>
@@ -362,6 +366,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Welcome\NewTestDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Welcome\TestHistoryDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

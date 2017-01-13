@@ -76,14 +76,14 @@ namespace EngineCell.Application.Views
                 }
             }
 
-            //TODO: TESTING
-            var test = CellPointRepository.GetCellTestById(20);
-            ApplicationSessionFactory.CurrentCellTest = test;
-
-            if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null)
+            if (ApplicationSessionFactory.CurrentCell == null)
             {
                 OptoConnectionToggle.IsEnabled = false;
                 PointConfig.IsEnabled = false;
+            }
+
+            if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null)
+            {
                 ChangePageView(MainWindowViewModel.WelcomeViewModel);
             }
             else
@@ -118,6 +118,10 @@ namespace EngineCell.Application.Views
             {
                 model.ZIndex = 0;
             }
+
+            MainWindowViewModel.HasTestActive = ApplicationSessionFactory.CurrentCellTest != null;
+
+            MainWindowViewModel.CellTestName = MainWindowViewModel.HasTestActive ? ApplicationSessionFactory.CurrentCellTest.Name : "";
 
             switch (view)
             {
@@ -219,7 +223,36 @@ namespace EngineCell.Application.Views
 
         private void MenuViewHistory_Clieck(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var dialog = new TestHistoryDialog(ApplicationSessionFactory);
+            dialog.ShowDialog();
+
+            if (dialog.ViewModel.TestToCopy == null)
+                return;
+
+            var test = CellPointRepository.CreateCellTest(ApplicationSessionFactory.CurrentCell.CellId, dialog.ViewModel.TestToCopy.Name + " - Copy", dialog.ViewModel.TestToCopy.Description);
+            foreach (var phase in dialog.ViewModel.TestToCopy.Phases)
+            {
+                var savedPhase = WidgetRepository.AddPhaseToTest(test.CellTestId, phase.PhaseOrder, phase.Name);
+                foreach (var widget in phase.Widgets)
+                {
+                    var savedWidget = WidgetRepository.AddWidgetToPhase(savedPhase.CellTestPhaseId, widget.WidgetId);
+                    foreach (var setting in widget.Settings)
+                    {
+                        var widgetSetting = WidgetRepository.SaveWidgetSetting(savedWidget.CellTestPhaseWidgetId, setting.WidgetSettingId, setting.Value);
+                        savedWidget.Settings.Add(widgetSetting);
+                    }
+                    foreach (var setting in widget.PhaseEndSettings)
+                    {
+                        var endSetting = WidgetRepository.SavePhaseEndSetting(savedWidget.CellTestPhaseWidgetId, setting.PhaseEndSettingId, setting.Value);
+                        savedWidget.PhaseEndSettings.Add(endSetting);
+                    }
+                    savedPhase.Widgets.Add(savedWidget);
+                }
+                test.Phases.Add(savedPhase);
+            }
+            ApplicationSessionFactory.CurrentCellTest = test;
+            UpdateViewModels();
+            ChangePageView(ControlConstants.Views.TestDisplay);
         }
         #endregion
 

@@ -11,13 +11,16 @@ namespace EngineCell.Models.Models
     {
         public int CellTestId { get; set; }
         public int CellId { get; set; }
+        public string CellName { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public virtual DateTime CreationDateTime { get; set; }
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public IList<CellTestPhaseModel> Phases { get; set; }
 
         public bool IsRunning { get; set; }
+        public string CreationDateString { get { return CreationDateTime.ToString("MM/dd/yyyy hh:mmtt"); } }
 
         public CellTestModel () {  }
 
@@ -36,6 +39,8 @@ namespace EngineCell.Models.Models
                 return;
 
             InstantiateFromDataObject(obj);
+            CellId = obj.Cell.CellId;
+            CellName = obj.Cell.Name;
             Phases = obj.Phases.IsNotNullOrEmpty() ? obj.Phases.Select(p => new CellTestPhaseModel(p)).ToList() : new List<CellTestPhaseModel>();
         }
 

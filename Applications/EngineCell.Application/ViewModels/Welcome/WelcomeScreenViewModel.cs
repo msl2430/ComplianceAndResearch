@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using EngineCell.Application.Factories;
 using EngineCell.Application.Views;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
-using EngineCell.Models.Models;
 
 namespace EngineCell.Application.ViewModels.Welcome
 {
@@ -31,6 +31,8 @@ namespace EngineCell.Application.ViewModels.Welcome
         }
 
         public bool IsCellSelected { get { return !string.IsNullOrEmpty(SelectedCellName); } }
+
+        public string Version { get { return $"{Assembly.GetExecutingAssembly().GetName().Version.Major}.{Assembly.GetExecutingAssembly().GetName().Version.Minor}.{Assembly.GetExecutingAssembly().GetName().Version.Build}"; } }
 
         public MainWindow MainWindow { get; set; }
 

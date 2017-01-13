@@ -22,8 +22,9 @@
         <StackPanel>
           <Image Source="../../Content/Resource/Logo.png" Width="225" Height="90" HorizontalAlignment="Left"></Image>
           <Button x:Name="NewTestButton" Height="50" Width="200" Margin="0,20" FontSize="16" IsEnabled="{Binding IsCellSelected}" Click="NewTestButton_OnClick">Create New Test</Button>
-          <Button x:Name="PastTestButton" Height="50" Width="200" Margin="0,20" FontSize="16" >View Test History</Button>
+          <Button x:Name="PastTestButton" Height="50" Width="200" Margin="0,20" FontSize="16" Click="PastTestButton_OnClick">View Test History</Button>
         </StackPanel>
+        <TextBlock FontSize="10" Foreground="{StaticResource LightBlueBrush}" VerticalAlignment="Bottom">Version: <TextBlock Text="{Binding Version}"></TextBlock></TextBlock>
       </Grid>
       <Grid Column="1">
         <StackPanel x:Name="NoCellBlock" Margin="10" Visibility="{Binding Path=IsCellSelected, Converter={StaticResource InverseBoolToVisibilityConverter}, ConverterParameter=true}">

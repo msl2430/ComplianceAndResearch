@@ -20,6 +20,7 @@ namespace EngineCell.Models.Repositories
 
         IList<CellPointModel> GetCellPointsByCellId(int cellId);
         CellTestModel GetCellTestById(int cellTestId);
+        IList<CellTestModel> GetAllCellTests(int? cellId = null);
 
         void UpdateCellPoint(CellPointModel point);
         void UpdateCellPointAlarm(CellPointAlarmModel alarm);
@@ -63,6 +64,20 @@ namespace EngineCell.Models.Repositories
                 .SingleOrDefault<CellTestExtended>();
 
             return test != null ? new CellTestModel(test) : null;
+        }
+
+        public IList<CellTestModel> GetAllCellTests(int? cellId = null)
+        {
+            Cell cell = null;
+            var query = NHibernateHelper.CurrentSession.QueryOver<CellTestExtended>()
+                .JoinAlias(t => t.Cell, () => cell);
+
+            if (cellId != null)
+                query.Where(() => cell.CellId == cellId);
+
+            var result = query.OrderBy(t => t.CreationDateTime).Desc.List<CellTestExtended>();
+
+            return result.IsNotNullOrEmpty() ? result.Select(t => new CellTestModel(t)).ToList() : new List<CellTestModel>();
         }
 
         public void UpdateCellPoint(CellPointModel point)
@@ -112,7 +127,7 @@ namespace EngineCell.Models.Repositories
 
         public CellTestModel CreateCellTest(int cellId, string name, string description)
         {
-            var newTest = new CellTest() {CellId = cellId, Name = name, Description = description};
+            var newTest = new CellTest() {CellId = cellId, Name = name, Description = description, CreationDateTime = DateTime.Now};
             NHibernateHelper.CurrentSession.Save(newTest);
             NHibernateHelper.CurrentSession.Flush();
             return new CellTestModel(newTest);
