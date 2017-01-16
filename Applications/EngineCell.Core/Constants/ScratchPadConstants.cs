@@ -27,6 +27,17 @@
             IsUsingDynoPid,
             IsUsingThrottle,
 
+            StartCustomChart1 = 3100,
+            IsCustomChart1Running,
+            StartCustomChart2,
+            IsCustomChart2Running,
+            StartCustomChart3,
+            IsCustomChart3Running,
+            StartCustomChart4,
+            IsCustomChart4Running,
+            StartCustomChart5,
+            IsCustomChart5Running,
+
 
             //Pid Config
             PidConfigStatus = 500,
@@ -201,6 +212,22 @@
             Freq1,
             Freq2,
             Freq3,
+            DynoIn0,
+            DynoIn1,
+            DynoIn2,
+            DynoIn3,
+            DynoIn4,
+            DynoIn5,
+            DynoIn6,
+            DynoIn7,
+            EngineIn0,
+            EngineIn1,
+            EngineIn2,
+            EngineIn3,
+            EngineIn4,
+            EngineIn5,
+            EngineIn6,
+            EngineIn7,
 
             //PID Values
             DynoSetpointValue = 2000,

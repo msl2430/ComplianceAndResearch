@@ -1,9 +1,19 @@
 0 TASK  &_INIT_IO
+0 TASK &CustomChart1
+0 TASK &CustomChart2
+0 TASK &CustomChart3
+0 TASK &CustomChart4
+0 TASK &CustomChart5
 0 TASK &DataCollection
 0 TASK &PidConfig
 0 TASK &Powerup
 0 TASK &TestScheduleWidgetChart
 0 TASK &VentilationCtrl1
+0 IVAR ^CustomChart1Start
+0 IVAR ^CustomChart2Start
+0 IVAR ^CustomChart3Start
+0 IVAR ^CustomChart4Start
+0 IVAR ^CustomChart5Start
 0 IVAR ^GetScratchPadResult
 0 IVAR ^gIndex
 0 FVAR ^gTest
@@ -116,22 +126,22 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A80
 32  1 SPOINT 0.0    OUTPUT 29 11 %EngineCell 0 POINT.TNG ~Misc5
 32  1 SPOINT 0.0    OUTPUT 30 11 %EngineCell 0 POINT.TNG ~Misc6
 32  1 SPOINT 0.0    OUTPUT 31 11 %EngineCell 0 POINT.TNG ~Misc7
-32  1 SPOINT 0.0     INPUT  0 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1200
-32  1 SPOINT 0.0     INPUT  1 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1201
-32  1 SPOINT 0.0     INPUT  2 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1202
-32  1 SPOINT 0.0     INPUT  3 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1203
-32  1 SPOINT 0.0     INPUT  4 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1204
-32  1 SPOINT 0.0     INPUT  5 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1205
-32  1 SPOINT 0.0     INPUT  6 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1206
-32  1 SPOINT 0.0     INPUT  7 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1207
-32  1 SPOINT 0.0     INPUT  8 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1208
-32  1 SPOINT 0.0     INPUT  9 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1209
-32  1 SPOINT 0.0     INPUT 10 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1210
-32  1 SPOINT 0.0     INPUT 11 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1211
-32  1 SPOINT 0.0     INPUT 12 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1212
-32  1 SPOINT 0.0     INPUT 13 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1213
-32  1 SPOINT 0.0     INPUT 14 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1214
-32  1 SPOINT 0.0     INPUT 15 12 %EngineCell 0 POINT.TNG ~di_EngineCell_1215
+32  1 SPOINT 0.0     INPUT  0 12 %EngineCell 0 POINT.TNG ~DynoIn0
+32  1 SPOINT 0.0     INPUT  1 12 %EngineCell 0 POINT.TNG ~DynoIn1
+32  1 SPOINT 0.0     INPUT  2 12 %EngineCell 0 POINT.TNG ~DynoIn2
+32  1 SPOINT 0.0     INPUT  3 12 %EngineCell 0 POINT.TNG ~DynoIn3
+32  1 SPOINT 0.0     INPUT  4 12 %EngineCell 0 POINT.TNG ~DynoIn4
+32  1 SPOINT 0.0     INPUT  5 12 %EngineCell 0 POINT.TNG ~DynoIn5
+32  1 SPOINT 0.0     INPUT  6 12 %EngineCell 0 POINT.TNG ~DynoIn6
+32  1 SPOINT 0.0     INPUT  7 12 %EngineCell 0 POINT.TNG ~DynoIn7
+32  1 SPOINT 0.0     INPUT  8 12 %EngineCell 0 POINT.TNG ~EngineIn0
+32  1 SPOINT 0.0     INPUT  9 12 %EngineCell 0 POINT.TNG ~EngineIn1
+32  1 SPOINT 0.0     INPUT 10 12 %EngineCell 0 POINT.TNG ~EngineIn2
+32  1 SPOINT 0.0     INPUT 11 12 %EngineCell 0 POINT.TNG ~EngineIn3
+32  1 SPOINT 0.0     INPUT 12 12 %EngineCell 0 POINT.TNG ~EngineIn4
+32  1 SPOINT 0.0     INPUT 13 12 %EngineCell 0 POINT.TNG ~EngineIn5
+32  1 SPOINT 0.0     INPUT 14 12 %EngineCell 0 POINT.TNG ~EngineIn6
+32  1 SPOINT 0.0     INPUT 15 12 %EngineCell 0 POINT.TNG ~EngineIn7
  4  1 SPOINT 0.0      FREQ  0 13 %EngineCell 0 POINT.TNG ~Freq0
  4  1 SPOINT 0.0      FREQ  1 13 %EngineCell 0 POINT.TNG ~Freq1
  4  1 SPOINT 0.0      FREQ  2 13 %EngineCell 0 POINT.TNG ~Freq2

@@ -11,7 +11,9 @@
         Engine,
         Fuel,
         Misc,
-        Frequency
+        Frequency,
+        DynoIn,
+        EngineIn,
     }
 
     public enum ThermoCouple

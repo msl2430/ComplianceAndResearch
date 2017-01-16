@@ -101,13 +101,29 @@ namespace EngineCell.Application.Views.Phase
                 return;
             var selectedWidget = AvailableWidgets.SelectedItem.ToString();
             var phase = ViewModel.Phases.ElementAt(PhaseTabs.SelectedIndex);
+            CellTestPhaseWidgetModel widget = null;
             switch (selectedWidget)
             {
                 case "Test Schedule":
-                    var widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, WidgetConstants.Widget.TestSchedule);
-                    phase.Widgets.Add(widget);
+                    widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, WidgetConstants.Widget.TestSchedule);
+                    break;
+                case "Custom Chart 1":
+                    widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, WidgetConstants.Widget.CustomChart1);
+                    break;
+                case "Custom Chart 2":
+                    widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, WidgetConstants.Widget.CustomChart2);
+                    break;
+                case "Custom Chart 3":
+                    widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, WidgetConstants.Widget.CustomChart3);
+                    break;
+                case "Custom Chart 4":
+                    widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, WidgetConstants.Widget.CustomChart4);
+                    break;
+                case "Custom Chart 5":
+                    widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, WidgetConstants.Widget.CustomChart5);
                     break;
             }
+            phase.Widgets.Add(widget);
             UpdatePhaseWidgetDisplay();
         }
 
@@ -143,19 +159,28 @@ namespace EngineCell.Application.Views.Phase
                 switch (phaseWidgets.WidgetId)
                 {
                     case WidgetConstants.Widget.TestSchedule:
-                        widgets.RemoveAt(widgets.IndexOf("Test Schedule"));
+                        if(widgets.Any(w => w == "Test Schedule"))
+                            widgets.RemoveAt(widgets.IndexOf("Test Schedule"));
                         break;
-                    case WidgetConstants.Widget.VentilationControl1:
-                        widgets.RemoveAt(widgets.IndexOf("Ventilation Control 1"));
+                    case WidgetConstants.Widget.CustomChart1:
+                        if (widgets.Any(w => w == "Custom Chart 1"))
+                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 1"));
                         break;
-                    case WidgetConstants.Widget.VentilationControl2:
-                        widgets.RemoveAt(widgets.IndexOf("Ventilation Control 2"));
+                    case WidgetConstants.Widget.CustomChart2:
+                        if (widgets.Any(w => w == "Custom Chart 2"))
+                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 2"));
                         break;
-                    case WidgetConstants.Widget.DynoPid:
-                        widgets.RemoveAt(widgets.IndexOf("Dyno PID"));
+                    case WidgetConstants.Widget.CustomChart3:
+                        if (widgets.Any(w => w == "Custom Chart 3"))
+                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 3"));
                         break;
-                    case WidgetConstants.Widget.Starter:
-                        widgets.RemoveAt(widgets.IndexOf("Starter"));
+                    case WidgetConstants.Widget.CustomChart4:
+                        if (widgets.Any(w => w == "Custom Chart 4"))
+                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 4"));
+                        break;
+                    case WidgetConstants.Widget.CustomChart5:
+                        if (widgets.Any(w => w == "Custom Chart 5"))
+                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 5"));
                         break;
                 }
             }
@@ -173,12 +198,37 @@ namespace EngineCell.Application.Views.Phase
                     Padding = new Thickness(5, 5, 5, 5)
                 };
                 var grid = new Grid() { RowDefinitions = { new RowDefinition() { Height = new GridLength(270)}, new RowDefinition() { Height = new GridLength(50)} }};
-                var schedule = new TestScheduleConfig(phase);
-                var removeButton = new Button() { Width = 150, Height = 30, HorizontalAlignment = HorizontalAlignment.Center, Background = Brushes.Red, Content = "Remove", Tag = phase.Widgets[0].CellTestPhaseWidgetId };
+                UserControl configWindow = null;
+                switch (phase.Widgets[i].WidgetId)
+                {
+                    case WidgetConstants.Widget.TestSchedule:
+                        configWindow = new TestScheduleConfig(phase);
+                        break;
+                    case WidgetConstants.Widget.CustomChart1:
+                        configWindow = new CustomChartConfig(phase, WidgetConstants.Widget.CustomChart1);
+                        break;
+                    case WidgetConstants.Widget.CustomChart2:
+                        configWindow = new CustomChartConfig(phase, WidgetConstants.Widget.CustomChart2);
+                        break;
+                    case WidgetConstants.Widget.CustomChart3:
+                        configWindow = new CustomChartConfig(phase, WidgetConstants.Widget.CustomChart3);
+                        break;
+                    case WidgetConstants.Widget.CustomChart4:
+                        configWindow = new CustomChartConfig(phase, WidgetConstants.Widget.CustomChart4);
+                        break;
+                    case WidgetConstants.Widget.CustomChart5:
+                        configWindow = new CustomChartConfig(phase, WidgetConstants.Widget.CustomChart5);
+                        break;
+                }
+
+                if(configWindow == null)
+                    continue;
+                
+                var removeButton = new Button() { Width = 150, Height = 30, HorizontalAlignment = HorizontalAlignment.Center, Background = Brushes.Red, Content = "Remove", Tag = phase.Widgets[i].CellTestPhaseWidgetId };
                 removeButton.Click += RemoveWidgetFromPhase;
-                Grid.SetRow(schedule, 0);
+                Grid.SetRow(configWindow, 0);
                 Grid.SetRow(removeButton, 1);
-                grid.Children.Add(schedule);
+                grid.Children.Add(configWindow);
                 grid.Children.Add(removeButton);
                 border.Child = grid;
 

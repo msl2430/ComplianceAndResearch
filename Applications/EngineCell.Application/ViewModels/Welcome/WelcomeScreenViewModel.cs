@@ -82,6 +82,12 @@ namespace EngineCell.Application.ViewModels.Welcome
                     case PointGroup.Frequency:
                         tempPoints.Add(string.Format("Frequency ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
                         break;
+                    case PointGroup.DynoIn:
+                        tempPoints.Add(string.Format("Dyno Input ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
+                        break;
+                    case PointGroup.EngineIn:
+                        tempPoints.Add(string.Format("Engine Input ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

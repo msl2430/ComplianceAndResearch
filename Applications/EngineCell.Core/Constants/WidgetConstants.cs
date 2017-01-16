@@ -7,6 +7,11 @@ namespace EngineCell.Core.Constants
         public enum Widget
         {
             TestSchedule = 1,
+            CustomChart1,
+            CustomChart2,
+            CustomChart3,
+            CustomChart4,
+            CustomChart5,
             VentilationControl1,
             VentilationControl2,
             DynoPid,
@@ -56,10 +61,12 @@ namespace EngineCell.Core.Constants
 
         public static IList<string> Widgets = new[]
         {
-            "Starter",
-            "Dyno PID",
-            "Ventilation Control 1",
-            "Test Schedule"
+            "Test Schedule",
+            "Custom Chart 1",
+            "Custom Chart 2",
+            "Custom Chart 3",
+            "Custom Chart 4",
+            "Custom Chart 5",
         };
 
         public enum TestScheduleSetpointType

@@ -1,4 +1,9 @@
 CREATE T.ARRAY
+&CustomChart1 ,
+&CustomChart2 ,
+&CustomChart3 ,
+&CustomChart4 ,
+&CustomChart5 ,
 &DataCollection ,
 &PidConfig ,
 &Powerup ,
@@ -6,6 +11,11 @@ CREATE T.ARRAY
 &VentilationCtrl1 ,
  0 ,
 CREATE V.ARRAY
+^CustomChart1Start ,
+^CustomChart2Start ,
+^CustomChart3Start ,
+^CustomChart4Start ,
+^CustomChart5Start ,
 ^GetScratchPadResult ,
 ^gIndex ,
 ^gTest ,
@@ -62,22 +72,6 @@ CREATE B.ARRAY
 %ScratchPad ,
  0 ,
 CREATE P.ARRAY
-~di_EngineCell_1200 ,
-~di_EngineCell_1201 ,
-~di_EngineCell_1202 ,
-~di_EngineCell_1203 ,
-~di_EngineCell_1204 ,
-~di_EngineCell_1205 ,
-~di_EngineCell_1206 ,
-~di_EngineCell_1207 ,
-~di_EngineCell_1208 ,
-~di_EngineCell_1209 ,
-~di_EngineCell_1210 ,
-~di_EngineCell_1211 ,
-~di_EngineCell_1212 ,
-~di_EngineCell_1213 ,
-~di_EngineCell_1214 ,
-~di_EngineCell_1215 ,
 ~Dyno0 ,
 ~Dyno1 ,
 ~Dyno2 ,
@@ -86,6 +80,14 @@ CREATE P.ARRAY
 ~Dyno5 ,
 ~Dyno6 ,
 ~Dyno7 ,
+~DynoIn0 ,
+~DynoIn1 ,
+~DynoIn2 ,
+~DynoIn3 ,
+~DynoIn4 ,
+~DynoIn5 ,
+~DynoIn6 ,
+~DynoIn7 ,
 ~Engine0 ,
 ~Engine1 ,
 ~Engine2 ,
@@ -94,6 +96,14 @@ CREATE P.ARRAY
 ~Engine5 ,
 ~Engine6 ,
 ~Engine7 ,
+~EngineIn0 ,
+~EngineIn1 ,
+~EngineIn2 ,
+~EngineIn3 ,
+~EngineIn4 ,
+~EngineIn5 ,
+~EngineIn6 ,
+~EngineIn7 ,
 ~Freq0 ,
 ~Freq1 ,
 ~Freq2 ,
@@ -187,6 +197,11 @@ $0000000000000000.. %ScratchPad ENABLES!
 " %ScratchPad  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
 %ScratchPad ENABLE
  " Initializing variables" *_HSV_INIT_IO $MOVE
+0 ^CustomChart1Start @!
+0 ^CustomChart2Start @!
+0 ^CustomChart3Start @!
+0 ^CustomChart4Start @!
+0 ^CustomChart5Start @!
 0 ^GetScratchPadResult @!
 0 ^gIndex @!
 0.00000000 ^gTest @!

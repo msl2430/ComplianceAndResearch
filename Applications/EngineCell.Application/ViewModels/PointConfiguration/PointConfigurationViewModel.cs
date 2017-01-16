@@ -141,6 +141,32 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
         }
         public bool HasFreqs { get { return Freqs.IsNotNullOrEmpty(); } }
 
+        private ObservableCollection<PointDataModel> _dynoIn { get; set; }
+        public ObservableCollection<PointDataModel> DynoIn
+        {
+            get { return _dynoIn; }
+            set
+            {
+                _dynoIn = value;
+                OnPropertyChanged("DynoIn");
+                OnPropertyChanged("HasDynoIn");
+            }
+        }
+        public bool HasDynoIn { get { return DynoIn.IsNotNullOrEmpty(); } }
+
+        private ObservableCollection<PointDataModel> _engineIn { get; set; }
+        public ObservableCollection<PointDataModel> EngineIn
+        {
+            get { return _engineIn; }
+            set
+            {
+                _engineIn = value;
+                OnPropertyChanged("EngineIn");
+                OnPropertyChanged("HasEngineIn");
+            }
+        }
+        public bool HasEngineIn { get { return EngineIn.IsNotNullOrEmpty(); } }
+
         public bool HasVoltsMilliAmpsHarts { get { return Volts.IsNotNullOrEmpty() || MilliAmps.IsNotNullOrEmpty() || Harts.IsNotNullOrEmpty(); } }
 
         public PointConfigurationViewModel(IApplicationSessionFactory appSession)
@@ -157,6 +183,8 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             Fuels = new ObservableCollection<PointDataModel>();
             Miscs = new ObservableCollection<PointDataModel>();
             Freqs = new ObservableCollection<PointDataModel>();
+            DynoIn = new ObservableCollection<PointDataModel>();
+            EngineIn = new ObservableCollection<PointDataModel>();
 
             if (appSession.CellPoints.IsNullOrEmpty())
                 return;
@@ -176,6 +204,8 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             Fuels.Clear();
             Miscs.Clear();
             Freqs.Clear();
+            DynoIn.Clear();
+            EngineIn.Clear();
 
             var tempThermoCouples = new ObservableCollection<PointDataModel>();
             var tempVolts  = new ObservableCollection<PointDataModel>();
@@ -187,7 +217,9 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             var tempFuels = new ObservableCollection<PointDataModel>();
             var tempMiscs = new ObservableCollection<PointDataModel>();
             var tempFreqs = new ObservableCollection<PointDataModel>();
-            
+            var tempDynoIn = new ObservableCollection<PointDataModel>();
+            var tempEngineIn = new ObservableCollection<PointDataModel>();
+
             foreach (var point in ApplicationSessionFactory.CellPoints)
             {
                 switch (point.PointGroupId)
@@ -222,6 +254,12 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                     case PointGroup.Frequency:
                         tempFreqs.Add(point);
                         break;
+                    case PointGroup.DynoIn:
+                        tempDynoIn.Add(point);
+                        break;
+                    case PointGroup.EngineIn:
+                        tempEngineIn.Add(point);
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -237,6 +275,8 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             Fuels = tempFuels;
             Miscs = tempMiscs;
             Freqs = tempFreqs;
+            DynoIn = tempDynoIn;
+            EngineIn = tempEngineIn;
         }
 
         public void UpdateViewModel()

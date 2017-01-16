@@ -10,10 +10,14 @@ namespace EngineCell.Application.Views.Welcome
         public string NewTestName { get; set; }
         public string NewTestDescription { get; set; }
 
-        public NewTestDialog()
+        public NewTestDialog(string name = null, string description = null)
         {
             InitializeComponent();
             Name.Focus();
+            if (!string.IsNullOrEmpty(name))
+                Name.Text = name;
+            if (!string.IsNullOrEmpty(description))
+                Description.Text = description;
         }
 
         private void Save_OnClick(object sender, RoutedEventArgs e)

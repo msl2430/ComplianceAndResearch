@@ -16,7 +16,6 @@ using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Application.ViewModels.StripChart;
 using EngineCell.Application.ViewModels.TestDisplay;
 using EngineCell.Application.ViewModels.Welcome;
-using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Application.Views.Welcome;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
@@ -82,6 +81,10 @@ namespace EngineCell.Application.Views
                 PointConfig.IsEnabled = false;
             }
 
+            //TESTING
+            var test = CellPointRepository.GetCellTestById(2007);
+            ApplicationSessionFactory.CurrentCellTest = test;
+
             if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null)
             {
                 ChangePageView(MainWindowViewModel.WelcomeViewModel);
@@ -107,7 +110,7 @@ namespace EngineCell.Application.Views
             }
             MainWindowViewModel.HasTestActive = ApplicationSessionFactory.CurrentCellTest != null;
 
-            MainWindowViewModel.CellTestName = MainWindowViewModel.HasTestActive ? ApplicationSessionFactory.CurrentCellTest.Name : "";
+            UpdateTestName(MainWindowViewModel.HasTestActive ? ApplicationSessionFactory.CurrentCellTest.Name : "");
 
             MainWindowViewModel.ViewModels.FirstOrDefault(vm => vm.GetType() == viewModel.GetType()).ZIndex = 1;
         }
@@ -121,7 +124,7 @@ namespace EngineCell.Application.Views
 
             MainWindowViewModel.HasTestActive = ApplicationSessionFactory.CurrentCellTest != null;
 
-            MainWindowViewModel.CellTestName = MainWindowViewModel.HasTestActive ? ApplicationSessionFactory.CurrentCellTest.Name : "";
+            UpdateTestName(MainWindowViewModel.HasTestActive ? ApplicationSessionFactory.CurrentCellTest.Name : "");
 
             switch (view)
             {
@@ -216,7 +219,7 @@ namespace EngineCell.Application.Views
         private void MenuCloseTest_Clieck(object sender, RoutedEventArgs e)
         {
             ApplicationSessionFactory.CurrentCellTest = null;
-            MainWindowViewModel.CellTestName = "";
+            UpdateTestName("");
             UpdateViewModels();
             ChangePageView(ControlConstants.Views.Welcome);
         }
@@ -283,6 +286,12 @@ namespace EngineCell.Application.Views
             }
         }
 
+        private void UpdateTestName(string name)
+        {
+            MainWindowViewModel.CellTestName = name;
+            TestName.Text = MainWindowViewModel.CellTestName.Left(30, true, true);
+        }
+
         private void RefreshOptoConnection(bool isConnected)
         {
             //if (MainWindowViewModel.CurrentPageViewModel == null) return;
@@ -345,5 +354,17 @@ namespace EngineCell.Application.Views
             MainWindowViewModel.PhaseConfigViewModel.UpdateViewModel();            
         }
         #endregion
+
+        private void EditTestName_OnClick(object sender, RoutedEventArgs e)
+        {
+            var dialog = new NewTestDialog(ApplicationSessionFactory.CurrentCellTest.Name, ApplicationSessionFactory.CurrentCellTest.Description) { Title = "Edit Test Name"};
+            dialog.ShowDialog();
+            if (string.IsNullOrEmpty(dialog.NewTestName) || (dialog.NewTestName == ApplicationSessionFactory.CurrentCellTest.Name && dialog.NewTestDescription == ApplicationSessionFactory.CurrentCellTest.Description))
+                return;
+            ApplicationSessionFactory.CurrentCellTest.Name = dialog.NewTestName;
+            ApplicationSessionFactory.CurrentCellTest.Description = dialog.NewTestDescription;
+            UpdateTestName(ApplicationSessionFactory.CurrentCellTest.Name);
+            CellPointRepository.UpdateCellTestName(ApplicationSessionFactory.CurrentCellTest.CellTestId, ApplicationSessionFactory.CurrentCellTest.Name, ApplicationSessionFactory.CurrentCellTest.Description);
+        }
     }
 }

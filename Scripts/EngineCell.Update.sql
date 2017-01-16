@@ -134,3 +134,37 @@ CREATE TABLE [dbo].[CellTest](
 ) ON [PRIMARY]
 
 GO
+
+IF NOT EXISTS (SELECT 1 FROM Point WHERE Name Like 'DynoIn%') 
+BEGIN
+INSERT INTO Point (Name, IsInput, IsAnalog, PointGroupId) VALUES
+('DynoIn0', 1, 0, 11),
+('DynoIn1', 1, 0, 11),
+('DynoIn2', 1, 0, 11),
+('DynoIn3', 1, 0, 11),
+('DynoIn4', 1, 0, 11),
+('DynoIn5', 1, 0, 11),
+('DynoIn6', 1, 0, 11),
+('DynoIn7', 1, 0, 11)
+END
+
+IF NOT EXISTS (SELECT 1 FROM Point WHERE Name Like 'EngineIn%') 
+BEGIN
+INSERT INTO Point (Name, IsInput, IsAnalog, PointGroupId) VALUES
+('EngineIn0', 1, 0, 12),
+('EngineIn1', 1, 0, 12),
+('EngineIn2', 1, 0, 12),
+('EngineIn3', 1, 0, 12),
+('EngineIn4', 1, 0, 12),
+('EngineIn5', 1, 0, 12),
+('EngineIn6', 1, 0, 12),
+('EngineIn7', 1, 0, 12)
+END
+
+IF NOT EXISTS (SELECT 1 FROM Cell_Point WHERE PointId IN (SELECT PointId FROM Point WHERE PointGroupId IN (11,12))) 
+BEGIN
+INSERT INTO Cell_Point (CellId, PointId, CustomName, IsRecord, IsAverage, AverageSeconds, IncludeInStripChart, StripChartScale, UpdateDateTime)
+SELECT 1, PointId, Name, 0, 0, NULL, 0, NULL, GETDATE()
+FROM Point
+WHERE PointGroupId IN (11,12)
+END

@@ -273,6 +273,9 @@
     <Compile Include="Views\Widget\DynoPidDisplay.xaml.cs">
       <DependentUpon>DynoPidDisplay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Widget\CustomChartConfig.xaml.cs">
+      <DependentUpon>CustomChartConfig.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Widget\TestScheduleConfig.xaml.cs">
       <DependentUpon>TestScheduleConfig.xaml</DependentUpon>
     </Compile>
@@ -384,6 +387,10 @@
     <Page Include="Views\Widget\DynoPidDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Widget\CustomChartConfig.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Widget\TestScheduleConfig.xaml">
       <SubType>Designer</SubType>
