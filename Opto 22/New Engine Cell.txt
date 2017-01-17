@@ -50,3 +50,23 @@ MotorMode => Speed = S, Load = L, Direct = D
 Line in CSV "Mode,NULL,MotorMode,MotorMode by channel config
 
 Add error messaging when reading in csv if no mode set initially, also maybe if time doesn't start at zero
+
+timeout 
+
+expect safety for every point
+highs and lows set from app with optional time outside of threshold and next step
+
+Safety steps after threshold:
+- Total Shutdown
+- Cooldown end test
+
+Software safeties:
+- cancel phase
+- start a widget
+
+Hardware safeties:
+- hard stop
+
+each phase select point to add high and low safety - then add software safetie (ie cancel or jump to another phase) hardware safety
+- 
+triggers now - alarm or event = point specific and tell what phase to go to or shutdown
