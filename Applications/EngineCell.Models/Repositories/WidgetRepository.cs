@@ -17,9 +17,7 @@ namespace EngineCell.Models.Repositories
         CellTestPhaseWidgetModel AddWidgetToPhase(int cellTestPhaseId, WidgetConstants.Widget widget);
         void DeleteWidgetFromPhase(int cellTestPhaseWidgetId);
         WidgetSettingModel SaveWidgetSetting(int cellTestWidgetId, WidgetConstants.WidgetSetting setting, string value);
-        PhaseEndSettingModel SavePhaseEndSetting(int cellTestWidgetId, WidgetConstants.PhaseEndSetting setting, string value);
         void UpdateWidgetSetting(int cellTestWidgetSettingId, string value);
-        void UpdateWidgetPhaseEndSetting(int cellTestPhaseWidgetPhaseEndSettingId, string value);
 
         [Obsolete("Remove", false)]
         IList<WidgetSettingValueModel> GetWidgetSettingByWidgetCell(int cellId, WidgetConstants.Widget widgetId);
@@ -117,22 +115,7 @@ namespace EngineCell.Models.Repositories
             NHibernateHelper.CurrentSession.Flush();
 
             return new WidgetSettingModel(newSetting);
-        }
-
-        public PhaseEndSettingModel SavePhaseEndSetting(int cellTestWidgetId, WidgetConstants.PhaseEndSetting setting, string value)
-        {
-            var newSetting = new CellTestPhaseWidgetPhaseEndSetting
-            {
-                CellTestPhaseWidgetId = cellTestWidgetId,
-                PhaseEndSettingId = setting,
-                Value = value
-            };
-
-            NHibernateHelper.CurrentSession.Save(newSetting);
-            NHibernateHelper.CurrentSession.Flush();
-
-            return new PhaseEndSettingModel(newSetting);
-        }
+        }        
 
         public void UpdateWidgetSetting(int cellTestWidgetSettingId, string value)
         {
@@ -144,19 +127,7 @@ namespace EngineCell.Models.Repositories
 
             NHibernateHelper.CurrentSession.Update(setting);
             NHibernateHelper.CurrentSession.Flush();
-        }
-
-        public void UpdateWidgetPhaseEndSetting(int cellTestPhaseWidgetPhaseEndSettingId, string value)
-        {
-            var setting = NHibernateHelper.CurrentSession.QueryOver<CellTestPhaseWidgetPhaseEndSetting>().Where(s => s.CellTestPhaseWidgetPhaseEndSettingId == cellTestPhaseWidgetPhaseEndSettingId).SingleOrDefault();
-            if (setting == null)
-                return;
-
-            setting.Value = value;
-
-            NHibernateHelper.CurrentSession.Update(setting);
-            NHibernateHelper.CurrentSession.Flush();
-        }
+        }        
 
         [Obsolete("Remove", false)]
         public IList<WidgetSettingValueModel> GetWidgetSettingByWidgetCell(int cellId, WidgetConstants.Widget widgetId)

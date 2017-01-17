@@ -1,0 +1,28 @@
+: 6_0
+
+1 LINE.NUM
+  %ScratchPad 
+  3103  
+  1    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+0 JUMP ;
+: 6_1
+0 JUMP ;
+: 6_2
+
+1 LINE.NUM
+  %ScratchPad 
+  3103  
+  0    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  &CustomChart2   STOP.T
+0 JUMP ;
+T: T6
+DUMMY
+6_0
+6_1
+6_2
+T;
+&CustomChart2 ' T6 SETTASK

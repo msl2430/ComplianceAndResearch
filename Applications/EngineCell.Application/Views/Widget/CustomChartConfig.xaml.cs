@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows;
+﻿using System.Linq;
 using System.Windows.Controls;
-using System.Windows.Media;
 using EngineCell.Application.Services.DataServices;
 using EngineCell.Core.Constants;
-using EngineCell.Core.Extensions;
 using EngineCell.Models.Models;
 using EngineCell.Models.Repositories;
 
@@ -53,26 +47,6 @@ namespace EngineCell.Application.Views.Widget
                     break;                
             }
 
-            UpdateWidgetStatus();
-        }
-
-        private void UpdateWidgetStatus()
-        {
-            ErrorTimeoutLabel.Visibility = Visibility.Visible;
-            ErrorTimeoutText.Visibility = Visibility.Visible;
-            ErrorTimeoutBorder.Visibility = Visibility.Visible;
-        }
-
-        private void ErrorTimeoutText_OnLostFocus(object sender, RoutedEventArgs e)
-        {
-            var widget = Phase.Widgets.FirstOrDefault(w => w.WidgetId == WidgetConstants.Widget.TestSchedule);
-            var newValue = ((TextBox) sender).Text;
-
-            if (widget.PhaseEndSettings.All(s => s.PhaseEndSettingId != WidgetConstants.PhaseEndSetting.RunTime))
-                return;
-            
-            widget.PhaseEndSettings.First(s => s.PhaseEndSettingId == WidgetConstants.PhaseEndSetting.RunTime).Value = newValue;
-            WidgetRepository.UpdateWidgetPhaseEndSetting(widget.PhaseEndSettings.First(s => s.PhaseEndSettingId == WidgetConstants.PhaseEndSetting.RunTime).CellTestPhaseWidgetPhaseEndSettingId, newValue);
-        }
+        }        
     }
 }

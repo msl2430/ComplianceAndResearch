@@ -51,11 +51,6 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
                     LoadSetpoints();
 
                 MaxRunTime = ViewModel.CalculatedScheduleData.Max(d => d.Value.Max(v => v.TimeIntoStage));
-                if (ViewModel.Widget.PhaseEndSettings.Any(s => s.PhaseEndSettingId == WidgetConstants.PhaseEndSetting.RunTime)
-                    && MaxRunTime > Convert.ToDecimal(ViewModel.Widget.PhaseEndSettings.FirstOrDefault(s => s.PhaseEndSettingId == WidgetConstants.PhaseEndSetting.RunTime).Value))
-                {
-                    MaxRunTime = Convert.ToDecimal(ViewModel.Widget.PhaseEndSettings.FirstOrDefault(s => s.PhaseEndSettingId == WidgetConstants.PhaseEndSetting.RunTime).Value);
-                }
 
                 //Start chart on PAC
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTestScheduleWidget.ToInt(), 1);

@@ -16,6 +16,5 @@ namespace EngineCell.Models.DataObjects
         public virtual int CellTestPhaseId { get; set; }
         public virtual WidgetConstants.Widget WidgetId { get; set; }
         public virtual IList<CellTestPhaseWidgetSetting> Settings { get; set; }
-        public virtual IList<CellTestPhaseWidgetPhaseEndSetting> PhaseEndSettings { get; set; }
     }
 }

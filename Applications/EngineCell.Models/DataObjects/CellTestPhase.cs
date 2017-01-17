@@ -17,5 +17,6 @@ namespace EngineCell.Models.DataObjects
         public virtual int PhaseOrder { get; set; }
         public virtual string Name { get; set; }
         public virtual IList<CellTestPhaseWidgetExtended> Widgets { get; set; }
+        public virtual IList<CellTestPhaseTriggerExtended> Triggers { get; set; }
     }
 }

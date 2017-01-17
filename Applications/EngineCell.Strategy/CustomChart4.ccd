@@ -1,0 +1,28 @@
+: 8_0
+
+1 LINE.NUM
+  %EngineCell 
+  3107  
+  1    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+0 JUMP ;
+: 8_1
+0 JUMP ;
+: 8_2
+
+1 LINE.NUM
+  %ScratchPad 
+  3107  
+  0    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  &CustomChart4   STOP.T
+0 JUMP ;
+T: T8
+DUMMY
+8_0
+8_1
+8_2
+T;
+&CustomChart4 ' T8 SETTASK

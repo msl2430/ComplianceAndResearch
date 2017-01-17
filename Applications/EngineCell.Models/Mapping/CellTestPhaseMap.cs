@@ -33,6 +33,11 @@ namespace EngineCell.Models.Mapping
                 .KeyColumn("CellTestPhaseId")
                 .NotFound.Ignore()
                 .Fetch.Subselect();
+
+            HasMany(t => t.Triggers)
+                .KeyColumn("CellTestPhaseId")
+                .NotFound.Ignore()
+                .Fetch.Subselect();
         }
     }
 }

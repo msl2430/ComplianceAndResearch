@@ -84,18 +84,6 @@ namespace EngineCell.Application.Views.Widget
                 WidgetRepository.SaveWidgetSetting(widget.CellTestPhaseWidgetId, WidgetConstants.WidgetSetting.TestScheduleFile, setting.Value);
             }
 
-            var phaseEndSetting = new PhaseEndSettingModel() { CellTestPhaseWidgetId = widget.CellTestPhaseWidgetId, PhaseEndSettingId = WidgetConstants.PhaseEndSetting.RunTime, Value = setPoints.Max(s => s.TimeIntoStage).ToString("0.##") };
-            if (isNewFile && widget.PhaseEndSettings.Any(s => s.PhaseEndSettingId == WidgetConstants.PhaseEndSetting.RunTime))
-            {
-                widget.PhaseEndSettings.First(s => s.PhaseEndSettingId == WidgetConstants.PhaseEndSetting.RunTime).Value = phaseEndSetting.Value;
-                WidgetRepository.UpdateWidgetPhaseEndSetting(widget.PhaseEndSettings.First(s => s.PhaseEndSettingId == WidgetConstants.PhaseEndSetting.RunTime).CellTestPhaseWidgetPhaseEndSettingId, phaseEndSetting.Value);
-            }
-            else
-            {                
-                widget.PhaseEndSettings.Add(phaseEndSetting);
-                WidgetRepository.SavePhaseEndSetting(widget.CellTestPhaseWidgetId, WidgetConstants.PhaseEndSetting.RunTime, phaseEndSetting.Value);
-            }
-            
             UpdateWidgetStatus();
         }
 
@@ -109,16 +97,11 @@ namespace EngineCell.Application.Views.Widget
                 TestTimeText.Visibility = Visibility.Visible;
                 PidLabel.Visibility = Visibility.Visible;
                 PidList.Visibility = Visibility.Visible;
-                ErrorTimeoutLabel.Visibility = Visibility.Visible;
-                ErrorTimeoutText.Visibility = Visibility.Visible;
-                ErrorTimeoutBorder.Visibility = Visibility.Visible;
                 TestTimeText.Text = Widget.Settings.FirstOrDefault(w => w.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile)?.Schedule.Max(s => s.TimeIntoStage).ToString("0.##");
                 if (Widget.Settings.FirstOrDefault(w => w.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile)?.Schedule.Any(s => s.SetpointType == WidgetConstants.TestScheduleSetpointType.Dyno) ?? false)
                     PidList.Children.Add(new TextBlock() {Text = "Dyno"});
                 if (Widget.Settings.FirstOrDefault(w => w.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile)?.Schedule.Any(s => s.SetpointType == WidgetConstants.TestScheduleSetpointType.Throttle) ?? false)
-                    PidList.Children.Add(new TextBlock() { Text = "Throttle" });
-                if (Widget.PhaseEndSettings.Any(s => s.PhaseEndSettingId == WidgetConstants.PhaseEndSetting.RunTime))
-                    ErrorTimeoutText.Text = Widget.PhaseEndSettings.First(s => s.PhaseEndSettingId == WidgetConstants.PhaseEndSetting.RunTime).Value;
+                    PidList.Children.Add(new TextBlock() { Text = "Throttle" });                
             }
             else
             {
@@ -128,23 +111,14 @@ namespace EngineCell.Application.Views.Widget
                 TestTimeText.Visibility = Visibility.Hidden;
                 TestTimeText.Text = "";
                 PidLabel.Visibility = Visibility.Hidden;
-                PidList.Visibility = Visibility.Hidden;
-                ErrorTimeoutLabel.Visibility = Visibility.Hidden;
-                ErrorTimeoutText.Visibility = Visibility.Hidden;
-                ErrorTimeoutBorder.Visibility = Visibility.Hidden;
+                PidList.Visibility = Visibility.Hidden;                
             }
         }
 
         private void ErrorTimeoutText_OnLostFocus(object sender, RoutedEventArgs e)
         {
             var widget = Phase.Widgets.FirstOrDefault(w => w.WidgetId == WidgetConstants.Widget.TestSchedule);
-            var newValue = ((TextBox) sender).Text;
-
-            if (widget.PhaseEndSettings.All(s => s.PhaseEndSettingId != WidgetConstants.PhaseEndSetting.RunTime))
-                return;
-            
-            widget.PhaseEndSettings.First(s => s.PhaseEndSettingId == WidgetConstants.PhaseEndSetting.RunTime).Value = newValue;
-            WidgetRepository.UpdateWidgetPhaseEndSetting(widget.PhaseEndSettings.First(s => s.PhaseEndSettingId == WidgetConstants.PhaseEndSetting.RunTime).CellTestPhaseWidgetPhaseEndSettingId, newValue);
+            var newValue = ((TextBox) sender).Text;            
         }
     }
 }

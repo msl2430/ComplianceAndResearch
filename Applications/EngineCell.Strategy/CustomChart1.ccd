@@ -1,0 +1,28 @@
+: 5_0
+
+1 LINE.NUM
+  %EngineCell 
+  3100  
+  1    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+0 JUMP ;
+: 5_1
+0 JUMP ;
+: 5_2
+
+1 LINE.NUM
+  %ScratchPad 
+  3101  
+  0    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  &CustomChart1   STOP.T
+0 JUMP ;
+T: T5
+DUMMY
+5_0
+5_1
+5_2
+T;
+&CustomChart1 ' T5 SETTASK

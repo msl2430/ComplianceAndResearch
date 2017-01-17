@@ -31,12 +31,7 @@ namespace EngineCell.Models.Mapping
             HasMany(t => t.Settings)
                 .KeyColumn("CellTestPhaseWidgetId")
                 .NotFound.Ignore()
-                .Fetch.Subselect();
-
-            HasMany(t => t.PhaseEndSettings)
-                .KeyColumn("CellTestPhaseWidgetId")
-                .NotFound.Ignore()
-                .Fetch.Subselect();
+                .Fetch.Subselect();            
         }
     }
 }

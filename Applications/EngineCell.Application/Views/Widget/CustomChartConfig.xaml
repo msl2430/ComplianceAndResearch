@@ -29,9 +29,6 @@
           <RowDefinition Height="10"/>
           <RowDefinition Height="30"/>          
         </Grid.RowDefinitions>
-        <Border x:Name="ErrorTimeoutBorder" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0, 1.01, 0, 0" Margin="0,5,0,0" BorderBrush="{StaticResource LightBlueBrush}" Visibility="Hidden"></Border>
-        <TextBlock x:Name="ErrorTimeoutLabel" Grid.Column="0" Grid.Row="8" FontSize="12" Height="30" Visibility="Hidden" TextWrapping="WrapWithOverflow">Widget Timeout (seconds):</TextBlock>
-        <TextBox x:Name="ErrorTimeoutText" Grid.Column="1" Grid.Row="8" FontSize="12" Height="25" Visibility="Hidden" LostFocus="ErrorTimeoutText_OnLostFocus"/>
       </Grid>
     </Grid>
 </UserControl>

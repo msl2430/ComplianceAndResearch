@@ -52,11 +52,10 @@ namespace EngineCell.Core.Constants
             Load,
         }
 
-        public enum PhaseEndSetting
+        public enum TriggerResultType
         {
-            RunTime = 1,
-            IterationCount,
-            ErrorCount,
+            GoToPhase = 1,
+            Shutdown,
         }
 
         public static IList<string> Widgets = new[]

@@ -244,11 +244,6 @@ namespace EngineCell.Application.Views
                         var widgetSetting = WidgetRepository.SaveWidgetSetting(savedWidget.CellTestPhaseWidgetId, setting.WidgetSettingId, setting.Value);
                         savedWidget.Settings.Add(widgetSetting);
                     }
-                    foreach (var setting in widget.PhaseEndSettings)
-                    {
-                        var endSetting = WidgetRepository.SavePhaseEndSetting(savedWidget.CellTestPhaseWidgetId, setting.PhaseEndSettingId, setting.Value);
-                        savedWidget.PhaseEndSettings.Add(endSetting);
-                    }
                     savedPhase.Widgets.Add(savedWidget);
                 }
                 test.Phases.Add(savedPhase);
