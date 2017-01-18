@@ -15,10 +15,10 @@ namespace EngineCell.Application.ViewModels.Phase
             set { _phases = value; OnPropertyChanged("Phases"); }
         }
 
-        public PhaseConfigViewModel(IApplicationSessionFactory appSession)
+       public PhaseConfigViewModel(IApplicationSessionFactory appSession)
         {
             ApplicationSessionFactory = appSession;
-            Phases = new ObservableCollection<CellTestPhaseModel>();
+            Phases = new ObservableCollection<CellTestPhaseModel>();       
             UpdatePhases();
         }
 

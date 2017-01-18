@@ -94,7 +94,9 @@ namespace EngineCell.Application.Views
                 UpdateViewModels();
                 ChangePageView(MainWindowViewModel.TestDisplayViewModel);
             }
-            
+            //TESTING
+            ChangePageView(MainWindowViewModel.PhaseConfigViewModel);
+
             DataContext = MainWindowViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
             PointWorkerService = new PointWorkerService(MainWindowViewModel.TestDisplayViewModel, Dispatcher);
@@ -284,7 +286,7 @@ namespace EngineCell.Application.Views
         private void UpdateTestName(string name)
         {
             MainWindowViewModel.CellTestName = name;
-            TestName.Text = MainWindowViewModel.CellTestName.Left(30, true, true);
+            TestName.Text = MainWindowViewModel.CellTestName.Left(25, true, true);
         }
 
         private void RefreshOptoConnection(bool isConnected)

@@ -162,6 +162,7 @@
     <Compile Include="Services\WorkerServices\TestRunnerWorkerService.cs" />
     <Compile Include="Services\WorkerServices\Widget\TestScheduleWidgetWorkerService.cs" />
     <Compile Include="ViewModels\Phase\PhaseConfigViewModel.cs" />
+    <Compile Include="ViewModels\Phase\TriggerConfigViewModel.cs" />
     <Compile Include="ViewModels\Pid\PidConfigViewModel.cs" />
     <Compile Include="ViewModels\Pid\PidDisplayViewModel.cs" />
     <Compile Include="ViewModels\PointConfiguration\PointDataModel.cs" />
@@ -224,6 +225,9 @@
     </Compile>
     <Compile Include="Views\Phase\PhaseConfig.xaml.cs">
       <DependentUpon>PhaseConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Phase\TriggerConfig.xaml.cs">
+      <DependentUpon>TriggerConfig.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pid\DynoThrottlePid.xaml.cs">
       <DependentUpon>DynoThrottlePid.xaml</DependentUpon>
@@ -321,6 +325,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Phase\PhaseConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Phase\TriggerConfig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

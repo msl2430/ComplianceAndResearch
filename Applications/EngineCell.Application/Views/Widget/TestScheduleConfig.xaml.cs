@@ -99,9 +99,9 @@ namespace EngineCell.Application.Views.Widget
                 PidList.Visibility = Visibility.Visible;
                 TestTimeText.Text = Widget.Settings.FirstOrDefault(w => w.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile)?.Schedule.Max(s => s.TimeIntoStage).ToString("0.##");
                 if (Widget.Settings.FirstOrDefault(w => w.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile)?.Schedule.Any(s => s.SetpointType == WidgetConstants.TestScheduleSetpointType.Dyno) ?? false)
-                    PidList.Children.Add(new TextBlock() {Text = "Dyno"});
+                    PidList.Children.Add(new TextBlock() {Text = "Dyno", Foreground = Brushes.WhiteSmoke});
                 if (Widget.Settings.FirstOrDefault(w => w.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile)?.Schedule.Any(s => s.SetpointType == WidgetConstants.TestScheduleSetpointType.Throttle) ?? false)
-                    PidList.Children.Add(new TextBlock() { Text = "Throttle" });                
+                    PidList.Children.Add(new TextBlock() { Text = "Throttle", Foreground = Brushes.WhiteSmoke });                
             }
             else
             {

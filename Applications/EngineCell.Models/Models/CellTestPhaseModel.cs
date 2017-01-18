@@ -15,6 +15,7 @@ namespace EngineCell.Models.Models
         public int PhaseOrder { get; set; }
         public string Name { get; set; }
         public IList<CellTestPhaseWidgetModel> Widgets { get; set; }
+        public IList<CellTestPhaseTriggerModel> Triggers { get; set; }
 
         public CellTestPhaseModel()
         {
@@ -37,6 +38,7 @@ namespace EngineCell.Models.Models
 
             InstantiateFromDataObject(obj);
             Widgets = obj.Widgets.IsNotNullOrEmpty() ? obj.Widgets.Select(w => new CellTestPhaseWidgetModel(w)).ToList() : new List<CellTestPhaseWidgetModel>();
+            Triggers = obj.Triggers.IsNotNullOrEmpty() ? obj.Triggers.Select(t => new CellTestPhaseTriggerModel(t)).ToList() : new List<CellTestPhaseTriggerModel>();
         }
 
         public CellTestPhaseModel(CellTestPhase obj, IList<CellTestPhaseWidget> widgets)
@@ -46,6 +48,7 @@ namespace EngineCell.Models.Models
 
             InstantiateFromDataObject(obj);
             Widgets = widgets.IsNotNullOrEmpty() ? widgets.Select(w => new CellTestPhaseWidgetModel(w)).ToList() : new List<CellTestPhaseWidgetModel>();
+            Triggers = new List<CellTestPhaseTriggerModel>();
         }
     }
 }

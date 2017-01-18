@@ -9,7 +9,7 @@ namespace EngineCell.Models.DataObjects
         public virtual int CellPointId { get; set; }
         public virtual decimal LowValue { get; set; }
         public virtual decimal HighValue { get; set; }
-        public virtual int SecondsThreshold { get; set; }
+        public virtual int? SecondsThreshold { get; set; }
         public virtual WidgetConstants.TriggerResultType ResultTypeId { get; set; }
         public virtual string ResultTypeParameter { get; set; }
         public virtual bool IsAlarm { get; set; }
@@ -23,7 +23,7 @@ namespace EngineCell.Models.DataObjects
         public virtual CellPoint CellPoint { get; set; }
         public virtual decimal LowValue { get; set; }
         public virtual decimal HighValue { get; set; }
-        public virtual int SecondsThreshold { get; set; }
+        public virtual int? SecondsThreshold { get; set; }
         public virtual WidgetConstants.TriggerResultType ResultTypeId { get; set; }
         public virtual string ResultTypeParameter { get; set; }
         public virtual bool IsAlarm { get; set; }

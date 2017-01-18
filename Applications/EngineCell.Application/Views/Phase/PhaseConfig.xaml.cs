@@ -36,7 +36,7 @@ namespace EngineCell.Application.Views.Phase
                 ViewModel = (PhaseConfigViewModel) DataContext;
 
             AvailableWidgets.ItemsSource = WidgetConstants.Widgets;
-            PhaseTabs.SelectedIndex = 0;
+            PhaseTabs.SelectedIndex = 0;           
         }
 
         private void UpdatePhaseTabs(int? selectedIndex = null)
@@ -130,6 +130,16 @@ namespace EngineCell.Application.Views.Phase
         private void PhaseTabs_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdatePhaseWidgetDisplay();
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                var cp = PhaseTabs.Template.FindName("PART_SelectedContentHost", PhaseTabs) as ContentPresenter;
+                try
+                {
+                    var g = PhaseTabs.ContentTemplate.FindName("TriggerConfig", cp) as TriggerConfig;
+                    g.DataContext = new TriggerConfigViewModel(ViewModel.ApplicationSessionFactory, ViewModel.Phases.ElementAt(PhaseTabs.SelectedIndex));
+                }
+                catch (Exception) { }
+            }));
         }
 
         private void RemoveWidgetFromPhase(object sender, RoutedEventArgs e)
@@ -252,6 +262,6 @@ namespace EngineCell.Application.Views.Phase
             
 
             ViewModel.ApplicationSessionFactory.CurrentCellTest.Phases = ViewModel.Phases;
-        }
+        }        
     }
 }

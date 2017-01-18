@@ -14,7 +14,7 @@ namespace EngineCell.Models.Models
         public string CellPointName { get; set; }
         public decimal LowValue { get; set; }
         public decimal HighValue { get; set; }
-        public int SecondsThreshold { get; set; }
+        public int? SecondsThreshold { get; set; }
         public WidgetConstants.TriggerResultType ResultTypeId { get; set; }
         public string ResultTypeParameter { get; set; }
         public bool IsAlarm { get; set; }

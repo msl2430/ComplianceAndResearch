@@ -97,7 +97,7 @@
                       </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Column="1">
-                      <TextBlock x:Name="TestName" FontSize="25" Foreground="{StaticResource HeadlineBlueBrush}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                      <TextBlock x:Name="TestName" FontSize="20" Foreground="{StaticResource HeadlineBlueBrush}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                       <Button Name="EditTestName"  Width="23" Height="12" Margin="15,7,7,0" ToolTip="Edit Test Name" Click="EditTestName_OnClick" Visibility="{Binding Path=HasTestActive, Converter={StaticResource BoolToVisibilityConverter}}">
                         <Rectangle Width="10" Height="10" Fill="{StaticResource LightBlueBrush}">
                           <Rectangle.OpacityMask>
@@ -107,8 +107,8 @@
                       </Button>
                     </StackPanel>                    
                     <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Label FontSize="12" Height="25" Margin="0,-3,0,0">Select Cell: </Label>
-                        <ComboBox x:Name="CellComboBox" Height="25" Width="150" SelectionChanged="CellComboBox_OnSelectionChanged" IsEnabled="{Binding Path=HasTestActive, Converter={StaticResource InverseBoolConverter}}">
+                        
+                        <ComboBox x:Name="CellComboBox" Height="25" Width="125" SelectionChanged="CellComboBox_OnSelectionChanged" IsEnabled="{Binding Path=HasTestActive, Converter={StaticResource InverseBoolConverter}}">
                           <ComboBox.ItemTemplate>
                             <DataTemplate>
                               <TextBlock Text="{Binding Name}"></TextBlock>

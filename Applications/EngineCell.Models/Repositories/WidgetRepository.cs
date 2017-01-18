@@ -19,6 +19,9 @@ namespace EngineCell.Models.Repositories
         WidgetSettingModel SaveWidgetSetting(int cellTestWidgetId, WidgetConstants.WidgetSetting setting, string value);
         void UpdateWidgetSetting(int cellTestWidgetSettingId, string value);
 
+        CellTestPhaseTriggerModel AddTriggerToPhase(CellTestPhaseTriggerModel model);
+        void RemoveTriggerFromPhase(int triggerId);
+
         [Obsolete("Remove", false)]
         IList<WidgetSettingValueModel> GetWidgetSettingByWidgetCell(int cellId, WidgetConstants.Widget widgetId);
         [Obsolete("Remove", false)]
@@ -127,7 +130,40 @@ namespace EngineCell.Models.Repositories
 
             NHibernateHelper.CurrentSession.Update(setting);
             NHibernateHelper.CurrentSession.Flush();
-        }        
+        }
+
+        public CellTestPhaseTriggerModel AddTriggerToPhase(CellTestPhaseTriggerModel model)
+        {
+            var trigger = new CellTestPhaseTrigger()
+            {
+                CellTestPhaseId = model.CellTestPhaseId,
+                CellPointId = model.CellPointId,
+                LowValue = model.LowValue,
+                HighValue = model.HighValue,
+                SecondsThreshold = model.SecondsThreshold,
+                ResultTypeId = model.ResultTypeId,
+                ResultTypeParameter = model.ResultTypeParameter,
+                IsEmail = model.IsEmail,
+            };
+
+            NHibernateHelper.CurrentSession.Save(trigger);
+            NHibernateHelper.CurrentSession.Flush();
+            model.CellTestPhaseTriggerId = trigger.CellTestPhaseTriggerId;
+            return model;
+        }
+
+        public void RemoveTriggerFromPhase(int triggerId)
+        {
+            var trigger = NHibernateHelper.CurrentSession.QueryOver<CellTestPhaseTrigger>()
+                .Where(t => t.CellTestPhaseTriggerId == triggerId)
+                .SingleOrDefault();
+
+            if (trigger == null)
+                return;
+
+            NHibernateHelper.CurrentSession.Delete(trigger);
+            NHibernateHelper.CurrentSession.Flush();
+        }
 
         [Obsolete("Remove", false)]
         public IList<WidgetSettingValueModel> GetWidgetSettingByWidgetCell(int cellId, WidgetConstants.Widget widgetId)

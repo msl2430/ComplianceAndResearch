@@ -302,7 +302,6 @@ CREATE TABLE [dbo].[CellTestPhaseTrigger](
 	[SecondsThreshold] [int] NULL,
 	[ResultTypeId] [int] NOT NULL,
 	[ResultTypeParameter] [nvarchar](1024) NULL,
-	[IsAlarm] [bit] NOT NULL,
 	[IsEmail] [bit] NOT NULL,
  CONSTRAINT [PK_CellTestPhaseTrigger]PRIMARY KEY CLUSTERED 
 ([CellTestPhaseTriggerId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]

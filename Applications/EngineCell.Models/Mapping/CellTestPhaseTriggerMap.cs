@@ -19,7 +19,6 @@ namespace EngineCell.Models.Mapping
             Map(t => t.SecondsThreshold);
             Map(t => t.ResultTypeId).CustomType<WidgetConstants.TriggerResultType>();
             Map(t => t.ResultTypeParameter);
-            Map(t => t.IsAlarm);
             Map(t => t.IsEmail);
         }
     }
@@ -38,7 +37,6 @@ namespace EngineCell.Models.Mapping
             Map(t => t.SecondsThreshold);
             Map(t => t.ResultTypeId).CustomType<WidgetConstants.TriggerResultType>();
             Map(t => t.ResultTypeParameter);
-            Map(t => t.IsAlarm);
             Map(t => t.IsEmail);
 
             References(t => t.CellPoint)
