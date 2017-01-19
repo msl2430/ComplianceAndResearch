@@ -4,7 +4,7 @@
 # ----------------------------------------------------------------
 # NAME :         D:\Work\ComplianceAndResearch\Applications\EngineCell.Strategy\EngineCell.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    9:56:0 1/19/2017
+# TIME/DATE :    15:6:28 1/19/2017
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -98,6 +98,7 @@ TAG1,CustomChart3                                      ,7    ,00000000,00000100,
 TAG1,CustomChart4                                      ,8    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,CustomChart5                                      ,9    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,DataCollection                                    ,1    ,00000000,00000100,00000000,00000000,0    ,0   
+TAG1,DynoPidRampWidget                                 ,10   ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,PidConfig                                         ,2    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,Powerup                                           ,0    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,TestScheduleWidgetChart                           ,4    ,00000000,00000100,00000000,00000000,0    ,0   
@@ -199,6 +200,14 @@ TAG1,CustomChart2Start                                 ,46   ,00000000,00000000,
 TAG1,CustomChart3Start                                 ,48   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,CustomChart4Start                                 ,47   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,CustomChart5Start                                 ,49   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,DynoPidRampCurrentSetpoint                        ,56   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,DynoPidRampCurrentTime                            ,55   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,DynoPidRampIntercept                              ,58   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,DynoPidRampSetpoint                               ,52   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,DynoPidRampSlope                                  ,57   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,DynoPidRampStart                                  ,51   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,DynoPidRampTime                                   ,53   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,DynoPidRampTimer                                  ,54   ,00000000,00000000,00000000,00002000,0    ,0   
 TAG1,GetScratchPadResult                               ,1    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,gIndex                                            ,0    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,gTest                                             ,11   ,00000000,00000000,00000000,00000010,0    ,0   

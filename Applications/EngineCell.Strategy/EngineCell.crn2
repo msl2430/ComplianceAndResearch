@@ -5,6 +5,7 @@
 0 TASK &CustomChart4
 0 TASK &CustomChart5
 0 TASK &DataCollection
+0 TASK &DynoPidRampWidget
 0 TASK &PidConfig
 0 TASK &Powerup
 0 TASK &TestScheduleWidgetChart
@@ -14,6 +15,14 @@
 0 IVAR ^CustomChart3Start
 0 IVAR ^CustomChart4Start
 0 IVAR ^CustomChart5Start
+0 FVAR ^DynoPidRampCurrentSetpoint
+0 FVAR ^DynoPidRampCurrentTime
+0 FVAR ^DynoPidRampIntercept
+0 FVAR ^DynoPidRampSetpoint
+0 FVAR ^DynoPidRampSlope
+0 IVAR ^DynoPidRampStart
+0 FVAR ^DynoPidRampTime
+0 UTVAR ^DynoPidRampTimer
 0 IVAR ^GetScratchPadResult
 0 IVAR ^gIndex
 0 FVAR ^gTest

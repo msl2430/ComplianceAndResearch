@@ -1,0 +1,99 @@
+: 10_0
+
+1 LINE.NUM
+  %ScratchPad 
+  3400  
+  ^DynoPidRampStart   IO.SP.READ
+  ^GetScratchPadResult @! 
+7 JUMP ;
+: 10_2
+
+1 LINE.NUM
+  |Dyno   $0002.. ROT PID@
+  ^DynoPidRampCurrentSetpoint @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  3400  
+  ^DynoPidRampSetpoint    IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  %ScratchPad 
+  3401  
+  ^DynoPidRampTime    IO.SP.READ
+  ^GetScratchPadResult @! 
+0 JUMP ;
+: 10_3
+
+1 LINE.NUM
+  %ScratchPad 
+  3401  
+  1    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  ^DynoPidRampTimer   StartTimer
+0 JUMP ;
+: 10_4
+
+1 LINE.NUM
+  %ScratchPad 
+  3400  
+  ^DynoPidRampStart   IO.SP.READ
+  ^GetScratchPadResult @! 
+5 JUMP ;
+: 10_6
+1 LINE.NUM ^DynoPidRampTimer @@F ^DynoPidRampCurrentTime @! 
+3 LINE.NUM ^DynoPidRampCurrentTime @@ ^DynoPidRampTime @@ F< IF 
+5 LINE.NUM ^DynoPidRampSetpoint @@ ^DynoPidRampCurrentSetpoint @@ F- ^DynoPidRampTime @@ F/ ^DynoPidRampSlope @! 
+7 LINE.NUM ^DynoPidRampSetpoint @@ ^DynoPidRampSlope @@ ^DynoPidRampTime @@ F* F- ^DynoPidRampIntercept @! 
+9 LINE.NUM |Dyno ^DynoPidRampSlope @@ ^DynoPidRampCurrentTime @@ F* ^DynoPidRampIntercept @@ F+  $0002.. 3 ROLL !PID 
+10 LINE.NUM ELSE 
+11 LINE.NUM |Dyno ^DynoPidRampSetpoint @@  $0002.. 3 ROLL !PID 
+12 LINE.NUM THEN 
+14 LINE.NUM %ScratchPad 3402 |Dyno  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
+15 LINE.NUM %ScratchPad 3403 ^DynoPidRampCurrentTime @@  IO.SP.F.WRITE DROP  
+2 JUMP ;
+: 10_7
+
+1 LINE.NUM
+  ^DynoPidRampTimer   StopTimer
+
+2 LINE.NUM
+  &DynoPidRampWidget   STOP.T
+4 JUMP ;
+: 10_9
+-7 JUMP ;
+: 10_10
+-5 JUMP ;
+: 10_1
+TRUE
+
+1 LINE.NUM
+  ^DynoPidRampStart @@ 
+  1    =
+LAND
+IF -8 ELSE -3 THEN JUMP ;
+: 10_5
+TRUE
+
+1 LINE.NUM
+  ^DynoPidRampStart @@ 
+  1    =
+LAND
+IF -6 ELSE -5 THEN JUMP ;
+T: T10
+DUMMY
+10_0
+10_2
+10_3
+10_4
+10_6
+10_7
+10_9
+10_10
+10_1
+10_5
+T;
+&DynoPidRampWidget ' T10 SETTASK

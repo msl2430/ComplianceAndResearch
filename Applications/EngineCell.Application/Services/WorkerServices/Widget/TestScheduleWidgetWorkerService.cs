@@ -50,7 +50,7 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
                 if (ViewModel.CalculatedScheduleData.First().Value.Count > LoadInterval * 2)
                     LoadSetpoints();
 
-                var timeout = Convert.ToInt64(ViewModel.Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestSscheduleTimeout).Value);
+                var timeout = Convert.ToInt64(ViewModel.Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleTimeout).Value);
                 MaxRunTime = ViewModel.CalculatedScheduleData.Max(d => d.Value.Max(v => v.TimeIntoStage)) < timeout ? ViewModel.CalculatedScheduleData.Max(d => d.Value.Max(v => v.TimeIntoStage)) : timeout;
 
                 //Start chart on PAC

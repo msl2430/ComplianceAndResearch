@@ -43,6 +43,7 @@ namespace EngineCell.Application.Services.WorkerServices
                 {
                     point.HasPhaseTrigger = ApplicationSessionFactory.CurrentPhaseRunning.Triggers.Any(t => t.CellPointId == point.CellPointId);
                 }
+                Thread.Sleep(1000); //wait for data to come in after setting points to collect data if they weren't already active
 
                 while (!CancellationToken.IsCancellationRequested)
                 {
@@ -148,11 +149,11 @@ namespace EngineCell.Application.Services.WorkerServices
             var tempPhase = TestDisplay.ViewModel.Phases[forcedPhaseIndex ?? phaseIndex];
             tempPhase.IsRunning = true;
             tempPhase.StartDateTime = DateTime.Now;
+            ApplicationSessionFactory.CurrentPhaseRunning = ApplicationSessionFactory.CurrentCellTest.Phases.FirstOrDefault(p => p.CellTestPhaseId == tempPhase.CellTestPhaseId);
             foreach (var widget in ApplicationSessionFactory.CurrentPhaseRunning.Widgets)
             {
                 widget.IsRunning = false;
             }
-            ApplicationSessionFactory.CurrentPhaseRunning = ApplicationSessionFactory.CurrentCellTest.Phases.FirstOrDefault(p => p.CellTestPhaseId == tempPhase.CellTestPhaseId);
             tempPhase = null;
             ApplicationSessionFactory.LogEvent("Starting Phase [[" + ApplicationSessionFactory.CurrentPhaseRunning.Name + "]].", true);
 
@@ -164,7 +165,7 @@ namespace EngineCell.Application.Services.WorkerServices
 
             phaseIndex++;
             Dispatcher.Invoke(() => {
-                TestDisplay.PrepareTestPhaseDisplay();
+                TestDisplay.PreparePhaseDisplay();
             });
         }
 

@@ -27,6 +27,7 @@
             IsUsingDynoPid,
             IsUsingThrottle,
 
+            //Custom Chart Widgets
             StartCustomChart1 = 3100,
             IsCustomChart1Running,
             StartCustomChart2,
@@ -38,6 +39,9 @@
             StartCustomChart5,
             IsCustomChart5Running,
 
+            //Dyno PID Ramp Widget
+            StartDynoPidWidget = 3400,
+            DynoPidWidgetRunning,
 
             //Pid Config
             PidConfigStatus = 500,
@@ -237,6 +241,13 @@
             TimeInStage = 3000,
             DynoSetpoint = 3120,
             ThrottleSetpoint = 3240,
+
+            //Dyno PID Ramp
+            DynoPidRampSetpoint = 3400,
+            DynoPidRampTime,
+            DynoPidRampCurrentSetpoint,
+            DynoPidRampCurrentTime,
+
         }
 
         public enum StringIndexes

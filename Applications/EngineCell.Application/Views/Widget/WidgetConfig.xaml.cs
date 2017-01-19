@@ -44,13 +44,13 @@ namespace EngineCell.Application.Views.Widget
         private void GetWidgetConfigs() 
         {
             var ventCtrl1Settings = WidgetRepository.GetWidgetSettingByWidgetCell(ViewModel.ApplicationSessionFactory.CurrentCell.CellId, WidgetConstants.Widget.VentilationControl1);
-            var dynoPidSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ViewModel.ApplicationSessionFactory.CurrentCell.CellId, WidgetConstants.Widget.DynoPid);
+            //var dynoPidSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ViewModel.ApplicationSessionFactory.CurrentCell.CellId, WidgetConstants.Widget.DynoPid);
             var starterSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ViewModel.ApplicationSessionFactory.CurrentCell.CellId, WidgetConstants.Widget.Starter);
 
             if (ventCtrl1Settings.IsNotNullOrEmpty())
                 ViewModel.VentCtrl1.SetValues(ventCtrl1Settings);
-            if (dynoPidSettings.IsNotNullOrEmpty())
-                ViewModel.DynoPid.SetValues(dynoPidSettings);
+            //if (dynoPidSettings.IsNotNullOrEmpty())
+            //    ViewModel.DynoPid.SetValues(dynoPidSettings);
             if (starterSettings.IsNotNullOrEmpty())
                 ViewModel.Starter.SetValues(starterSettings);
         }

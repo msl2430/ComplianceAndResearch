@@ -5,6 +5,7 @@ CREATE T.ARRAY
 &CustomChart4 ,
 &CustomChart5 ,
 &DataCollection ,
+&DynoPidRampWidget ,
 &PidConfig ,
 &Powerup ,
 &TestScheduleWidgetChart ,
@@ -16,6 +17,13 @@ CREATE V.ARRAY
 ^CustomChart3Start ,
 ^CustomChart4Start ,
 ^CustomChart5Start ,
+^DynoPidRampCurrentSetpoint ,
+^DynoPidRampCurrentTime ,
+^DynoPidRampIntercept ,
+^DynoPidRampSetpoint ,
+^DynoPidRampSlope ,
+^DynoPidRampStart ,
+^DynoPidRampTime ,
 ^GetScratchPadResult ,
 ^gIndex ,
 ^gTest ,
@@ -56,6 +64,7 @@ CREATE V.ARRAY
 *_HSV_TEMP ,
  0 ,
 CREATE TI.ARRAY
+^DynoPidRampTimer ,
 ^TestScheduleRunTime ,
  0 ,
 CREATE PTR.ARRAY
@@ -204,6 +213,14 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^CustomChart3Start @!
 0 ^CustomChart4Start @!
 0 ^CustomChart5Start @!
+0.00000000 ^DynoPidRampCurrentSetpoint @!
+0.00000000 ^DynoPidRampCurrentTime @!
+0.00000000 ^DynoPidRampIntercept @!
+0.00000000 ^DynoPidRampSetpoint @!
+0.00000000 ^DynoPidRampSlope @!
+0 ^DynoPidRampStart @!
+0.00000000 ^DynoPidRampTime @!
+0.0 ^DynoPidRampTimer SetTimer
 0 ^GetScratchPadResult @!
 0 ^gIndex @!
 0.00000000 ^gTest @!

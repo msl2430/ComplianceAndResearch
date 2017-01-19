@@ -7,6 +7,8 @@ namespace EngineCell.Core.Constants
         public enum Widget
         {
             TestSchedule = 1,
+            DynoRamp,
+            ThrottleRamp,
             CustomChart1,
             CustomChart2,
             CustomChart3,
@@ -14,14 +16,17 @@ namespace EngineCell.Core.Constants
             CustomChart5,
             VentilationControl1,
             VentilationControl2,
-            DynoPid,
             Starter,
         }
 
         public enum WidgetSetting
         {
             TestScheduleFile = 1,
-            TestSscheduleTimeout,
+            TestScheduleTimeout,
+            DynoRampSetpoint,
+            DynoRampTime,
+            ThrottleReampSetpoint,
+            ThrottleRampTime,
             VentCtrl1InsideThermoCouple,
             VentCtrl1OutsideThermoCouple,
             VentCtrl1AnalogOutput,
@@ -32,9 +37,6 @@ namespace EngineCell.Core.Constants
             VentCtrl2AnalogOutput,
             VentCtrl2Gain,
             VentCtrl2SetPoint,
-            DynoPidMode,
-            DynoPidMeasurement,
-            DynoPidSetpoint,
             StarterInitialCrankTime,
             StarterStartParameter,
             StarterAddedCrankTime,
@@ -62,6 +64,8 @@ namespace EngineCell.Core.Constants
         public static IList<string> Widgets = new[]
         {
             "Test Schedule",
+            "Dyno Ramp",
+            "Throttle Ramp",
             "Custom Chart 1",
             "Custom Chart 2",
             "Custom Chart 3",

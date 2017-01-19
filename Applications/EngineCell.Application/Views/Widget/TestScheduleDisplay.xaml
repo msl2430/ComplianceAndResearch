@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EngineCell.Application.Views.Widget"
-             mc:Ignorable="d" Width="250" Height="150"
+             mc:Ignorable="d" 
+             Width="250" Height="150"
              Loaded="TestScheduleDisplay_OnLoaded"
              MaxWidth="250"
              d:DesignHeight="200" d:DesignWidth="325">

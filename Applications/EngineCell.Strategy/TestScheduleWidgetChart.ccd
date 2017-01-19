@@ -1,14 +1,6 @@
 : 4_0
 
 1 LINE.NUM
-  |Dyno 
-  0.0    $0002.. 3 ROLL !PID
-
-2 LINE.NUM
-  |Throttle 
-  0.0    $0002.. 3 ROLL !PID
-
-3 LINE.NUM
   %EngineCell 
   3000  
   ^TestScheduleStart   IO.SP.READ

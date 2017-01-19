@@ -120,7 +120,7 @@
                           <ColumnDefinition Width="175"/>
                           <ColumnDefinition Width="100"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="1"  Grid.Row="0" HorizontalAlignment="Left" Foreground="{StaticResource GreenBrush}" Margin="-20,0,0,0" Visibility="{Binding Path=IsRunning, Converter={StaticResource BoolToVisibilityConverter}}">Active</TextBlock>
+                        <TextBlock Grid.Column="1"  Grid.Row="0" HorizontalAlignment="Left" Foreground="{StaticResource GreenBrush}" Margin="-20,0,0,0" Visibility="{Binding Path=IsRunning, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">Active</TextBlock>
                         <TextBlock Height="50" Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Foreground="{StaticResource BrightBlueBrush}" Text="{Binding Name}"></TextBlock>
                         <StackPanel Grid.Column="1" Margin="5" Grid.Row="1">
                           <TextBlock FontSize="10" Margin="2">Start Time: <TextBlock FontSize="11" Text="{Binding StartDateTimeString}"></TextBlock></TextBlock>

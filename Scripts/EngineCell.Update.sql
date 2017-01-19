@@ -1,29 +1,37 @@
 TRUNCATE TABLE WidgetSetting
 INSERT INTO WidgetSetting (WidgetId, Setting) VALUES 
 (1, 'Test Schedule File'),
-(2, 'Inside Thermo Couple'),
-(2, 'Outside Thermo Couple'),
-(2, 'Analog Output'),
-(2, 'Gain'),
-(2, 'Set Point'),
-(3, 'Inside Thermo Couple'),
-(3, 'Outside Thermo Couple'),
-(3, 'Analog Output'),
-(3, 'Gain'),
-(3, 'Set Point'),
-(4, 'Dyno PID Mode'),
-(4, 'Dyno PID Measurement'),
-(4, 'Dyno PID Setpoint'),
-(5, 'Initial Crank Time'),
-(5, 'Start Parameter'),
-(5, 'Additional Crank Time')
+(1, 'Test Schedule Timeout'),
+(2, 'Dyno Ramp Setpoint'),
+(2, 'Dyno Ramp Time'),
+(3, 'Throttle Ramp Setpoint'),
+(3, 'Throttle Ramp Time'),
+(9, 'Inside Thermo Couple'),
+(9, 'Outside Thermo Couple'),
+(9, 'Analog Output'),
+(9, 'Gain'),
+(9, 'Set Point'),
+(10, 'Inside Thermo Couple'),
+(10, 'Outside Thermo Couple'),
+(10, 'Analog Output'),
+(10, 'Gain'),
+(10, 'Set Point'),
+(11, 'Initial Crank Time'),
+(11, 'Start Parameter'),
+(11, 'Additional Crank Time')
 
 TRUNCATE TABLE Widget
 INSERT INTO Widget (Name) VALUES
 ('TestSchedule'),
+('Dyno Ramp'),
+('Throttle Ramp'),
+('Custom Chart 1'),
+('Custom Chart 2'),
+('Custom Chart 3'),
+('Custom Chart 4'),
+('Custom Chart 5'),
 ('Ventilation Control 1'),
 ('Ventilation Control 2'),
-('DynoPid'),
 ('Starter')
 
 IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'CellTestPhase')
@@ -205,3 +213,44 @@ IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'CellPointAlarm')
 BEGIN
 	DROP TABLE CellPointAlarm
 END
+
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'Cell_Point2')
+DROP TABLE [dbo].[Cell_Point2]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Cell_Point2](
+	[CellPointId] [int] IDENTITY(1,1) NOT NULL,
+	[CellId] [int] NOT NULL,
+	[PointId] [int] NOT NULL,
+	[CustomName] [nvarchar](256) NOT NULL,
+	[IsRecord] [bit] NOT NULL,
+	[IsAverage] [bit] NOT NULL,
+	[AverageSeconds] [int] NULL,
+	[IncludeInStripChart] [bit] NOT NULL,
+	[StripChartScale] [decimal](14,6) NULL,
+	[IsActive] [bit] NOT NULL,
+	[UpdateDateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_Cell_Point] PRIMARY KEY CLUSTERED 
+([CellPointId] ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET IDENTITY_INSERT Cell_Point2 ON;
+
+INSERT INTO Cell_Point2 (CellPointId, CellId, PointId, CustomName, IsRecord, IsAverage, AverageSeconds, IncludeInStripChart, StripChartScale, IsActive, UpdateDateTime)
+SELECT CellPointId, CellId, PointId, CustomName, IsRecord, IsAverage, AverageSeconds, IncludeInStripChart, StripChartScale, 1, UpdateDateTime
+FROM Cell_Point
+
+SET IDENTITY_INSERT Cell_Point2 OFF
+
+EXEC sp_rename 'Cell_Point', 'Cell_Point_old'
+EXEC sp_rename 'Cell_Point2', 'Cell_Point'
+
+DROP TABLE Cell_Point_old

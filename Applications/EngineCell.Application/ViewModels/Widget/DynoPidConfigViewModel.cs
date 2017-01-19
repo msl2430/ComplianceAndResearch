@@ -43,15 +43,15 @@ namespace EngineCell.Application.ViewModels.Widget
             {
                 switch (setting.WidgetSettingId)
                 {
-                    case WidgetConstants.WidgetSetting.DynoPidMode:
-                        DynoMode = (WidgetConstants.DynoPidMode)Convert.ToInt32(setting.Value);
-                        break;
-                    case WidgetConstants.WidgetSetting.DynoPidMeasurement:
-                        DynoMeasurement = (WidgetConstants.DynoPidMeasurement)Convert.ToInt32(setting.Value);
-                        break;
-                    case WidgetConstants.WidgetSetting.DynoPidSetpoint:
-                        DynoSetpoint = Convert.ToDecimal(setting.Value);
-                        break;
+                    //case WidgetConstants.WidgetSetting.DynoPidMode:
+                    //    DynoMode = (WidgetConstants.DynoPidMode)Convert.ToInt32(setting.Value);
+                    //    break;
+                    //case WidgetConstants.WidgetSetting.DynoPidMeasurement:
+                    //    DynoMeasurement = (WidgetConstants.DynoPidMeasurement)Convert.ToInt32(setting.Value);
+                    //    break;
+                    //case WidgetConstants.WidgetSetting.DynoPidSetpoint:
+                    //    DynoSetpoint = Convert.ToDecimal(setting.Value);
+                    //    break;
                 }
             }
         }
@@ -60,9 +60,9 @@ namespace EngineCell.Application.ViewModels.Widget
         {
             return new List<WidgetSettingValueModel>
             {
-                new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.DynoPid, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoPidMode, Value = DynoMode.ToInt().ToString()},
-                new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.DynoPid, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoPidMeasurement, Value = DynoMeasurement.ToInt().ToString()},
-                new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.DynoPid, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoPidSetpoint, Value = DynoSetpoint.ToString()},
+                //new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.DynoPid, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoPidMode, Value = DynoMode.ToInt().ToString()},
+                //new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.DynoPid, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoPidMeasurement, Value = DynoMeasurement.ToInt().ToString()},
+                //new WidgetSettingValueModel {WidgetId = WidgetConstants.Widget.DynoPid, CellId = cellId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoPidSetpoint, Value = DynoSetpoint.ToString()},
             };
         }
     }

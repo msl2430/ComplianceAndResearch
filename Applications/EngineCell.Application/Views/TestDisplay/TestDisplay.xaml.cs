@@ -36,7 +36,7 @@ namespace EngineCell.Application.Views.TestDisplay
                 ViewModel = (TestDisplayViewModel) DataContext;            
         }
 
-        public void PrepareTestPhaseDisplay()
+        public void PreparePhaseDisplay()
         {
             WidgetPanel.Children.Clear();
 
@@ -50,12 +50,15 @@ namespace EngineCell.Application.Views.TestDisplay
                     case WidgetConstants.Widget.TestSchedule:
                         WidgetPanel.Children.Add(new TestScheduleDisplay(ViewModel.ApplicationSessionFactory, widget));                        
                         break;
+                    case WidgetConstants.Widget.DynoRamp:
+                        WidgetPanel.Children.Add(new DynoPidRampDisplay(ViewModel.ApplicationSessionFactory, widget));
+                        break;
                     case WidgetConstants.Widget.VentilationControl1:
                         break;
                     case WidgetConstants.Widget.VentilationControl2:
                         break;
-                    case WidgetConstants.Widget.DynoPid:
-                        break;
+                    //case WidgetConstants.Widget.DynoPid:
+                    //    break;
                     case WidgetConstants.Widget.Starter:
                         break;
                 }
@@ -73,7 +76,7 @@ namespace EngineCell.Application.Views.TestDisplay
             WidgetPanel.Children.Clear();
 
             if (ViewModel.Phases.IsNotNullOrEmpty())
-                PrepareTestPhaseDisplay();
+                PreparePhaseDisplay();
 
             ViewModel.ApplicationSessionFactory.LogEvent("Starting phase.", true);
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);

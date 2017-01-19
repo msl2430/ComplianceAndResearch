@@ -38,9 +38,9 @@ namespace EngineCell.Application.Views.Widget
             if (Widget != null && Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile))
             {
                 ReadFile(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile).Value, false);
-                if (Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestSscheduleTimeout))
+                if (Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleTimeout))
                 {
-                    TestTimeoutText.Text = Convert.ToInt32(Widget.Settings.FirstOrDefault(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestSscheduleTimeout).Value).ToString();
+                    TestTimeoutText.Text = Convert.ToInt32(Widget.Settings.FirstOrDefault(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleTimeout).Value).ToString();
                 }
                 else
                 {
@@ -104,7 +104,7 @@ namespace EngineCell.Application.Views.Widget
         private void UpdateWidgetStatus()
         {
             PidList.Children.Clear();
-            if (Widget != null && Widget.Settings.Any(w => w.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile && w.Schedule.IsNotNullOrEmpty()) && Widget.Settings.Any(w => w.WidgetSettingId == WidgetConstants.WidgetSetting.TestSscheduleTimeout))
+            if (Widget != null && Widget.Settings.Any(w => w.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile && w.Schedule.IsNotNullOrEmpty()) && Widget.Settings.Any(w => w.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleTimeout))
             {
                 WidgetStatus.Foreground = (Brush) FindResource("GreenBrush");
                 WidgetStatus.Text = "Configured";
@@ -140,9 +140,9 @@ namespace EngineCell.Application.Views.Widget
         private void SaveTestTimeoutSetting(int timeout)
         {
             var widget = Phase.Widgets.FirstOrDefault(w => w.WidgetId == WidgetConstants.Widget.TestSchedule);
-            var setting = new WidgetSettingModel() { CellTestPhaseWidgetId = widget.CellTestPhaseWidgetId, WidgetSettingId = WidgetConstants.WidgetSetting.TestSscheduleTimeout, Value = timeout.ToString() };
+            var setting = new WidgetSettingModel() { CellTestPhaseWidgetId = widget.CellTestPhaseWidgetId, WidgetSettingId = WidgetConstants.WidgetSetting.TestScheduleTimeout, Value = timeout.ToString() };
             widget.Settings.Add(setting);
-            WidgetRepository.SaveWidgetSetting(widget.CellTestPhaseWidgetId, WidgetConstants.WidgetSetting.TestSscheduleTimeout, setting.Value);
+            WidgetRepository.SaveWidgetSetting(widget.CellTestPhaseWidgetId, WidgetConstants.WidgetSetting.TestScheduleTimeout, setting.Value);
         }
     }
 }

@@ -102,28 +102,35 @@ namespace EngineCell.Application.Views.Phase
                 return;
             var selectedWidget = AvailableWidgets.SelectedItem.ToString();
             var phase = ViewModel.Phases.ElementAt(PhaseTabs.SelectedIndex);
-            CellTestPhaseWidgetModel widget = null;
+            WidgetConstants.Widget? widgetType = null;
             switch (selectedWidget)
             {
                 case "Test Schedule":
-                    widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, WidgetConstants.Widget.TestSchedule);
+                    widgetType = WidgetConstants.Widget.TestSchedule;
+                    break;
+                case "Dyno Ramp":
+                    widgetType = WidgetConstants.Widget.DynoRamp;
+                    break;
+                case "Throttle Ramp":
+                    widgetType = WidgetConstants.Widget.ThrottleRamp;
                     break;
                 case "Custom Chart 1":
-                    widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, WidgetConstants.Widget.CustomChart1);
+                    widgetType = WidgetConstants.Widget.CustomChart1;
                     break;
                 case "Custom Chart 2":
-                    widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, WidgetConstants.Widget.CustomChart2);
+                    widgetType = WidgetConstants.Widget.CustomChart2;
                     break;
                 case "Custom Chart 3":
-                    widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, WidgetConstants.Widget.CustomChart3);
+                    widgetType = WidgetConstants.Widget.CustomChart3;
                     break;
                 case "Custom Chart 4":
-                    widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, WidgetConstants.Widget.CustomChart4);
+                    widgetType = WidgetConstants.Widget.CustomChart4;
                     break;
                 case "Custom Chart 5":
-                    widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, WidgetConstants.Widget.CustomChart5);
+                    widgetType = WidgetConstants.Widget.CustomChart5;
                     break;
             }
+            var widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, (WidgetConstants.Widget)widgetType);
             phase.Widgets.Add(widget);
             UpdatePhaseWidgetDisplay();
         }
@@ -177,6 +184,14 @@ namespace EngineCell.Application.Views.Phase
                         if(widgets.Any(w => w == "Test Schedule"))
                             widgets.RemoveAt(widgets.IndexOf("Test Schedule"));
                         break;
+                    case WidgetConstants.Widget.DynoRamp:
+                        if (widgets.Any(w => w == "Dyno Ramp"))
+                            widgets.RemoveAt(widgets.IndexOf("Dyno Ramp"));
+                        break;
+                    case WidgetConstants.Widget.ThrottleRamp:
+                        if (widgets.Any(w => w == "Throttle Ramp"))
+                            widgets.RemoveAt(widgets.IndexOf("Throttle Ramp"));
+                        break;
                     case WidgetConstants.Widget.CustomChart1:
                         if (widgets.Any(w => w == "Custom Chart 1"))
                             widgets.RemoveAt(widgets.IndexOf("Custom Chart 1"));
@@ -218,6 +233,12 @@ namespace EngineCell.Application.Views.Phase
                 {
                     case WidgetConstants.Widget.TestSchedule:
                         configWindow = new TestScheduleConfig(phase);
+                        break;
+                    case WidgetConstants.Widget.DynoRamp:
+                        configWindow = new DynoPidRampConfig(phase);
+                        break;
+                    case WidgetConstants.Widget.ThrottleRamp:
+                        //configWindow = new ThrottlePidRampConfig(phase);
                         break;
                     case WidgetConstants.Widget.CustomChart1:
                         configWindow = new CustomChartConfig(phase, WidgetConstants.Widget.CustomChart1);
