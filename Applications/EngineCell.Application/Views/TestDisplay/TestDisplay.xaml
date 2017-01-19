@@ -116,8 +116,8 @@
                           <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                          <ColumnDefinition Width="125"/>
-                          <ColumnDefinition Width="150"/>
+                          <ColumnDefinition Width="100"/>
+                          <ColumnDefinition Width="175"/>
                           <ColumnDefinition Width="100"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="1"  Grid.Row="0" HorizontalAlignment="Left" Foreground="{StaticResource GreenBrush}" Margin="-20,0,0,0" Visibility="{Binding Path=IsRunning, Converter={StaticResource BoolToVisibilityConverter}}">Active</TextBlock>

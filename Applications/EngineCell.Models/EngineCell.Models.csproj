@@ -63,14 +63,12 @@
     <Compile Include="DataObjects\CellTestPhaseWidget.cs" />
     <Compile Include="DataObjects\CellTestPhaseWidgetSetting.cs" />
     <Compile Include="DataObjects\Point.cs" />
-    <Compile Include="DataObjects\CellPointAlarm.cs" />
     <Compile Include="DataObjects\CellTest.cs" />
     <Compile Include="DataObjects\CellTestPointData.cs" />
     <Compile Include="DataObjects\WidgetSettingValue.cs" />
     <Compile Include="Helpers\NHibernateHelper.cs" />
     <Compile Include="Mapping\CellMap.cs" />
     <Compile Include="Mapping\CellPointMap.cs" />
-    <Compile Include="Mapping\CellPointAlarmMap.cs" />
     <Compile Include="Mapping\CellTestPhaseMap.cs" />
     <Compile Include="Mapping\CellTestPhaseTriggerMap.cs" />
     <Compile Include="Mapping\CellTestPhaseWidgetMap.cs" />
@@ -80,7 +78,6 @@
     <Compile Include="Mapping\CellTestMap.cs" />
     <Compile Include="Models\CellModel.cs" />
     <Compile Include="Models\CellPointModel.cs" />
-    <Compile Include="Models\CellPointAlarmModel.cs" />
     <Compile Include="Models\CellTestModel.cs" />
     <Compile Include="Models\CellTestPhaseModel.cs" />
     <Compile Include="Models\CellTestPhaseTriggerModel.cs" />

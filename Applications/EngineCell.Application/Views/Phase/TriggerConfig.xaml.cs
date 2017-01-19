@@ -17,6 +17,7 @@ using EngineCell.Application.ViewModels.Phase;
 using EngineCell.Application.ViewModels.PointConfiguration;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
+using EngineCell.Core.Models;
 using EngineCell.Models.Models;
 using EngineCell.Models.Repositories;
 
@@ -39,21 +40,33 @@ namespace EngineCell.Application.Views.Phase
 
         private void TriggerConfig_OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (DataContext.GetType() != typeof(TriggerConfigViewModel))
+            if (DataContext.GetType() != typeof(TriggerConfigViewModel) || DataContext == null)
                 return;
-            if(DataContext != null)
-                ViewModel = (TriggerConfigViewModel)DataContext;
-            
+
+            ViewModel = (TriggerConfigViewModel) DataContext;
+
+            PhaseComboBox.ItemsSource = ViewModel.PhaseNames; 
             UpdateTriggerDisplay();
         }
 
         private void UpdateTriggerDisplay()
         {
-            PointComboBox.ItemsSource = ViewModel.ApplicationSessionFactory.CellPoints.Where(p => ViewModel.Triggers.IsNullOrEmpty() || ViewModel.Triggers.All(t => t.CellPointId != p.CellPointId)).OrderBy(p => p.PointGroupId).ThenBy(p => p.CellPointId);
+            var tempPoints = new List<PointDataModel>();
+            foreach (var point in ViewModel.ApplicationSessionFactory.CellPoints)
+            {
+                if(ViewModel.Phase.Triggers.All(t => t.CellPointId != point.CellPointId)) 
+                    tempPoints.Add(point);
+            }
+            PointComboBox.ItemsSource = tempPoints.OrderBy(p => p.PointGroupId).ThenBy(p => p.CellPointId);
+
             var triggers = new List<Grid>();
 
             foreach (var trigger in ViewModel.Phase.Triggers)
             {
+                var resultParameter = trigger.ResultTypeId == WidgetConstants.TriggerResultType.GoToPhase && ViewModel.PhaseNames.Any(p => p.Id.ToString() == trigger.ResultTypeParameter)
+                    ? ViewModel.PhaseNames.First(p => p.Id.ToString() == trigger.ResultTypeParameter).Name
+                    : trigger.ResultTypeParameter;
+
                 var triggerGrid = new Grid()
                 {
                     ColumnDefinitions =
@@ -73,7 +86,7 @@ namespace EngineCell.Application.Views.Phase
                 var highValueLabel = GetTriggerLabel(trigger.HighValue.ToString());
                 var thresholdLabel = GetTriggerLabel(trigger.SecondsThreshold.ToString());
                 var actionLabel = GetTriggerLabel(trigger.ResultTypeId == WidgetConstants.TriggerResultType.GoToPhase ? "Go To Phase" : "Shutdown");
-                var actionParameterLabel = GetTriggerLabel(trigger.ResultTypeParameter);
+                var actionParameterLabel = GetTriggerLabel(resultParameter);
                 var email = GetTriggerLabel(trigger.IsEmail ? "Yes" : "No");
                 var removeButton = new Button() { Content = "X", FontSize = 8, Height = 7, Width = 25, Padding = new Thickness(3), Background = Brushes.OrangeRed, Margin = new Thickness(3), Tag = trigger.CellTestPhaseTriggerId};
                 removeButton.Click += RemmoveTriggerButton_OnClick;
@@ -138,7 +151,7 @@ namespace EngineCell.Application.Views.Phase
             if (PointComboBox.SelectedIndex < 0
                 || (string.IsNullOrEmpty(LowValue.Text) && decimal.TryParse(LowValue.Text, out test))
                 || (string.IsNullOrEmpty(HighValue.Text) && decimal.TryParse(HighValue.Text, out test))
-                || (ResultComboBox.SelectedIndex == 0 && string.IsNullOrEmpty(ActionParamter.Text)))
+                || (ResultComboBox.SelectedIndex == 0 && PhaseComboBox.SelectedIndex < 0))
             {
                 //TODO: SHow error msg
                 return;
@@ -152,12 +165,12 @@ namespace EngineCell.Application.Views.Phase
                 LowValue = Convert.ToDecimal(LowValue.Text),
                 HighValue = Convert.ToDecimal(HighValue.Text),
                 SecondsThreshold = string.IsNullOrEmpty(SecondsThreshold.Text) ? (int?) null : Convert.ToInt32(SecondsThreshold.Text),
-                ResultTypeId = (WidgetConstants.TriggerResultType) (PointComboBox.SelectedIndex + 1),
-                ResultTypeParameter = ActionParamter.Text,
+                ResultTypeId = (WidgetConstants.TriggerResultType) (ResultComboBox.SelectedIndex + 1),
+                ResultTypeParameter = ResultComboBox.SelectedIndex == 0 ? ((IdNamePair)PhaseComboBox.SelectedItem).Id.ToString() : null,
                 IsEmail = IsEmail.IsChecked.HasValue ? IsEmail.IsChecked.Value : false,
             });
 
-            ViewModel.ApplicationSessionFactory.CurrentCellTest.Phases.First(p => p.CellTestPhaseId == ViewModel.Phase.CellTestPhaseId).Triggers.Add(newTrigger);
+            ViewModel.Phase.Triggers.Add(newTrigger);
 
             CancelNewTriggerButton_OnClick(null, null);
 
@@ -168,16 +181,33 @@ namespace EngineCell.Application.Views.Phase
         {
             var triggerId = Convert.ToInt32(((Button) sender).Tag);
 
-            var trigger = ViewModel.Triggers.FirstOrDefault(t => t.CellTestPhaseTriggerId == triggerId);
+            var trigger = ViewModel.Phase.Triggers.FirstOrDefault(t => t.CellTestPhaseTriggerId == triggerId);
             if (trigger == null)
                 return;
 
             WidgetRepository.RemoveTriggerFromPhase(triggerId);
-
-            ViewModel.ApplicationSessionFactory.CurrentCellTest.Phases.First(p => p.CellTestPhaseId == ViewModel.Phase.CellTestPhaseId)
-                .Triggers.Remove(ViewModel.ApplicationSessionFactory.CurrentCellTest.Phases.First(p => p.CellTestPhaseId == ViewModel.Phase.CellTestPhaseId).Triggers.First(t => t.CellTestPhaseTriggerId == triggerId));
+            ViewModel.Phase.Triggers.Remove(ViewModel.Phase.Triggers.First(t => t.CellTestPhaseTriggerId == triggerId));
 
             UpdateTriggerDisplay();
+        }
+
+        private void ResultComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PhaseComboBox == null)
+                return;
+            var result = (ComboBox) sender;
+            switch (result.SelectedIndex)
+            {
+                case 0:
+                    PhaseComboBox.Visibility = Visibility.Visible;
+                    break;
+                case 1:
+                    PhaseComboBox.Visibility = Visibility.Hidden;
+                    break;
+                default:
+                    PhaseComboBox.Visibility = Visibility.Hidden;
+                    break;
+            }
         }
     }
 }

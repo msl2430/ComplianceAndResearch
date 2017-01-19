@@ -9,6 +9,7 @@ using EngineCell.Application.ViewModels.Phase;
 using EngineCell.Application.Views.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
+using EngineCell.Core.Models;
 using EngineCell.Models.Models;
 using EngineCell.Models.Repositories;
 using MahApps.Metro.Controls;
@@ -129,14 +130,18 @@ namespace EngineCell.Application.Views.Phase
 
         private void PhaseTabs_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.OriginalSource.GetType() != typeof(TabControl) || ((TabControl) e.OriginalSource).Name != "PhaseTabs")
+                return;
             UpdatePhaseWidgetDisplay();
             Dispatcher.BeginInvoke(new Action(() =>
             {
                 var cp = PhaseTabs.Template.FindName("PART_SelectedContentHost", PhaseTabs) as ContentPresenter;
                 try
                 {
-                    var g = PhaseTabs.ContentTemplate.FindName("TriggerConfig", cp) as TriggerConfig;
-                    g.DataContext = new TriggerConfigViewModel(ViewModel.ApplicationSessionFactory, ViewModel.Phases.ElementAt(PhaseTabs.SelectedIndex));
+                    var g = PhaseTabs.ContentTemplate.FindName("TriggerConfig", cp) as Grid;
+                    g.Children.Clear();
+                    var triggerWindow = new TriggerConfig() {DataContext = new TriggerConfigViewModel(ViewModel.ApplicationSessionFactory, ViewModel.Phases.ElementAt(PhaseTabs.SelectedIndex), ViewModel.Phases.Select(p => new IdNamePair(p.CellTestPhaseId, p.Name)).ToList()) };
+                    g.Children.Add(triggerWindow);
                 }
                 catch (Exception) { }
             }));

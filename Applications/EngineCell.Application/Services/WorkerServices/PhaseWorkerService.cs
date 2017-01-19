@@ -9,6 +9,8 @@ using System.Windows.Threading;
 using EngineCell.Application.Factories;
 using EngineCell.Application.ViewModels.TestDisplay;
 using EngineCell.Application.Views.TestDisplay;
+using EngineCell.Core.Constants;
+using EngineCell.Models.Models;
 
 namespace EngineCell.Application.Services.WorkerServices
 {
@@ -34,7 +36,14 @@ namespace EngineCell.Application.Services.WorkerServices
                 CancellationToken = new CancellationTokenSource();
                 ApplicationSessionFactory.LogEvent("Test starting.", true);
                 SetNextPhase();
-                ApplicationSessionFactory.CurrentCellTest.IsRunning = true;                
+                ApplicationSessionFactory.CurrentCellTest.IsRunning = true;
+
+                //Configure points with triggers in this phase
+                foreach (var point in ApplicationSessionFactory.CellPoints)
+                {
+                    point.HasPhaseTrigger = ApplicationSessionFactory.CurrentPhaseRunning.Triggers.Any(t => t.CellPointId == point.CellPointId);
+                }
+
                 while (!CancellationToken.IsCancellationRequested)
                 {
                     if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
@@ -53,24 +62,39 @@ namespace EngineCell.Application.Services.WorkerServices
                         else
                         {
                             //test complete
-                            ApplicationSessionFactory.LogEvent("Test complete.", true);
-                            ApplicationSessionFactory.CurrentCellTest.IsRunning = false;
-                            CancellationToken.Cancel();
+                            StopTest("Test complete.");
                             continue;
                         }
                     }
 
-                    if (!ApplicationSessionFactory.CurrentPhaseRunning.Widgets.Any(w => w.IsError)) continue;
-
-                    foreach (var widget in ApplicationSessionFactory.CurrentPhaseRunning.Widgets.Where(w => w.IsError))
+                    if (ApplicationSessionFactory.CurrentPhaseRunning.Widgets.Any(w => w.IsError))
                     {
-                        ApplicationSessionFactory.LogEvent(" - " + widget.ErrorReason, true);
+
+                        foreach (var widget in ApplicationSessionFactory.CurrentPhaseRunning.Widgets.Where(w => w.IsError))
+                        {
+                            ApplicationSessionFactory.LogEvent(" - " + widget.ErrorReason, true);
+                        }
+                        ApplicationSessionFactory.LogEvent("Errors in Phase [[" + ApplicationSessionFactory.CurrentPhaseRunning.Name + "]]:", true);
+                        StopTest("Test cancelled.");                        
                     }
-                    ApplicationSessionFactory.LogEvent("Errors in Phase [[" + ApplicationSessionFactory.CurrentPhaseRunning.Name + "]]:", true);
-                    ApplicationSessionFactory.LogEvent("Test cancelled.", true);
-                    ApplicationSessionFactory.CurrentCellTest.IsRunning = false;
-                    CancellationToken.Cancel();
-                    
+
+                    foreach (var trigger in ApplicationSessionFactory.CurrentPhaseRunning.Triggers)
+                    {
+                        var point = ApplicationSessionFactory.CellPoints.FirstOrDefault(p => p.CellPointId == trigger.CellPointId);
+                        if (point == null)
+                            continue;
+
+                        if (point.Data <= trigger.LowValue)
+                        {
+                            TriggerActiveAction(trigger, true);
+                            break;
+                        }
+
+                        if (point.Data < trigger.HighValue) continue;
+
+                        TriggerActiveAction(trigger, false);
+                        break;
+                    }
                 }
                 WorkCompleted();
             }
@@ -85,11 +109,49 @@ namespace EngineCell.Application.Services.WorkerServices
             }
         }
 
-        private void SetNextPhase()
+        private void TriggerActiveAction(CellTestPhaseTriggerModel trigger, bool isLowThreshold)
         {
-            var tempPhase = TestDisplay.ViewModel.Phases[phaseIndex];
+            ApplicationSessionFactory.LogEvent("Trigger for point [[" + trigger.CellPointName + "]] active. (Value below " + (isLowThreshold ? "low" : "high") + " threshold of " + (isLowThreshold ? trigger.LowValue : trigger.HighValue) + ").", true);
+            switch (trigger.ResultTypeId)
+            {
+                case WidgetConstants.TriggerResultType.GoToPhase:
+                    if (trigger.ResultTypeId == WidgetConstants.TriggerResultType.GoToPhase && !string.IsNullOrEmpty(trigger.ResultTypeParameter))
+                    {
+                        ApplicationSessionFactory.LogEvent("Trigger defined to move to another phase.", true);
+                        var tempPhase = TestDisplay.ViewModel.Phases.FirstOrDefault(p => p.CellTestPhaseId.ToString() == trigger.ResultTypeParameter);
+                        SetNextPhase(TestDisplay.ViewModel.Phases.IndexOf(tempPhase));
+                    }
+                    else
+                        StopTest("Error: No result parameter set for trigger! Stopping test.");
+                    break;
+                case WidgetConstants.TriggerResultType.Shutdown:
+                    StopTest("Trigger defined to stop test. (Shutdown)");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void StopTest(string logMsg)
+        {
+            ApplicationSessionFactory.LogEvent(logMsg, true);
+            ApplicationSessionFactory.CurrentCellTest.IsRunning = false;
+            foreach (var widget in ApplicationSessionFactory.CurrentPhaseRunning.Widgets)
+            {
+                widget.IsRunning = false;
+            }
+            CancellationToken.Cancel();
+        }
+
+        private void SetNextPhase(int? forcedPhaseIndex = null)
+        {
+            var tempPhase = TestDisplay.ViewModel.Phases[forcedPhaseIndex ?? phaseIndex];
             tempPhase.IsRunning = true;
             tempPhase.StartDateTime = DateTime.Now;
+            foreach (var widget in ApplicationSessionFactory.CurrentPhaseRunning.Widgets)
+            {
+                widget.IsRunning = false;
+            }
             ApplicationSessionFactory.CurrentPhaseRunning = ApplicationSessionFactory.CurrentCellTest.Phases.FirstOrDefault(p => p.CellTestPhaseId == tempPhase.CellTestPhaseId);
             tempPhase = null;
             ApplicationSessionFactory.LogEvent("Starting Phase [[" + ApplicationSessionFactory.CurrentPhaseRunning.Name + "]].", true);

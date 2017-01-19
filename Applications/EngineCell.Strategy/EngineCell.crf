@@ -57,6 +57,7 @@ _END NEW $$$.RUN
 0 FVAR ^TestScheduleUpperTime
 0 IVAR ^TestScheduleUseDyno
 0 IVAR ^TestScheduleUseThrottle
+0 FVAR ^TriggerPointValue
 0 FVAR ^VentCtrl1Gain
 0 IVAR ^VentCtrl1InsideType
 0 2IVAR ^VentCtrl1OutputOld
@@ -67,6 +68,7 @@ _END NEW $$$.RUN
 0 FVAR ^VentCtrl1Weighted
 32 0 $VAR *StrategyRunTime 
 nullPID 0 POINTER PTR_PidConfigSelection
+nullAPointInput 0 POINTER PTR_TriggerPointAI
 nullAPointInput 0 POINTER PTR_VentCtrl1Inside
 nullAPointOutput 0 POINTER PTR_VentCtrl1Output
 nullAPointInput 0 POINTER PTR_VentCtrl1Outside
@@ -163,10 +165,10 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A80
  4  1 SPOINT 0.0      FREQ  2 13 %EngineCell 0 POINT.TNG ~Freq2
  4  1 SPOINT 0.0      FREQ  3 13 %EngineCell 0 POINT.TNG ~Freq3
 nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
-3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+3    0.0000    0.0000    0.0000    0.0000    4.0000   20.0000    0.0000   10.0000
    1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
-~AO10 ~AO10 ~AO10
-$80000000 2 %EngineCell 0 PID |Coolant
+  23.0000    4.0000 ~AO4_20_3
+$b0000000 2 %EngineCell 0 PID |Coolant
 3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
    1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
 ~AO10 ~AO10 ~AO10
@@ -1096,7 +1098,7 @@ T;
 
 1 LINE.NUM
   &DataCollection   STOP.T
-20 JUMP ;
+19 JUMP ;
 : 0_58
 
 1 LINE.NUM
@@ -1116,13 +1118,13 @@ T;
 3 LINE.NUM
   &DataCollection   START.T
   ^SetScratchPadResult @! 
-18 JUMP ;
+17 JUMP ;
 : 0_64
 
 1 LINE.NUM
   &TestScheduleWidgetChart   START.T
   ^GetScratchPadResult @! 
-12 JUMP ;
+11 JUMP ;
 : 0_67
 
 1 LINE.NUM
@@ -1160,7 +1162,7 @@ T;
   3108  
   ^CustomChart5Start   IO.SP.READ
   ^GetScratchPadResult @! 
-10 JUMP ;
+9 JUMP ;
 : 0_76
 -10 JUMP ;
 : 0_77
@@ -1168,25 +1170,25 @@ T;
 1 LINE.NUM
   &CustomChart1   START.T
   ^GetScratchPadResult @! 
-10 JUMP ;
+9 JUMP ;
 : 0_88
 
 1 LINE.NUM
   &CustomChart2   START.T
   ^GetScratchPadResult @! 
-10 JUMP ;
+9 JUMP ;
 : 0_93
 
 1 LINE.NUM
   &CustomChart3   START.T
   ^GetScratchPadResult @! 
-10 JUMP ;
+9 JUMP ;
 : 0_96
 
 1 LINE.NUM
   &CustomChart4   START.T
   ^GetScratchPadResult @! 
-10 JUMP ;
+9 JUMP ;
 : 0_99
 
 1 LINE.NUM
@@ -1217,9 +1219,6 @@ TRUE
   1    =
 LAND
 IF -10 ELSE -15 THEN JUMP ;
-: 0_68
-TRUE
-IF 6 ELSE 6 THEN JUMP ;
 : 0_69
 TRUE
 
@@ -1231,42 +1230,42 @@ LAND
   ^TestScheduleStart @@ 
   1    =
 LAND
-IF -13 ELSE 0 THEN JUMP ;
+IF -12 ELSE 0 THEN JUMP ;
 : 0_78
 TRUE
 
 1 LINE.NUM
   &CustomChart1   ?STOPPED
 LAND
-IF -11 ELSE 0 THEN JUMP ;
+IF -10 ELSE 0 THEN JUMP ;
 : 0_86
 TRUE
 
 1 LINE.NUM
   &CustomChart2   ?STOPPED
 LAND
-IF -11 ELSE 0 THEN JUMP ;
+IF -10 ELSE 0 THEN JUMP ;
 : 0_95
 TRUE
 
 1 LINE.NUM
   &CustomChart3   ?STOPPED
 LAND
-IF -11 ELSE 0 THEN JUMP ;
+IF -10 ELSE 0 THEN JUMP ;
 : 0_98
 TRUE
 
 1 LINE.NUM
   &CustomChart4   ?STOPPED
 LAND
-IF -11 ELSE 0 THEN JUMP ;
+IF -10 ELSE 0 THEN JUMP ;
 : 0_101
 TRUE
 
 1 LINE.NUM
   &CustomChart5   ?STOPPED
 LAND
-IF -11 ELSE -22 THEN JUMP ;
+IF -10 ELSE -21 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -1292,7 +1291,6 @@ DUMMY
 0_2
 0_16
 0_27
-0_68
 0_69
 0_78
 0_86
@@ -1744,6 +1742,7 @@ CREATE V.ARRAY
 ^TestScheduleUpperTime ,
 ^TestScheduleUseDyno ,
 ^TestScheduleUseThrottle ,
+^TriggerPointValue ,
 ^VentCtrl1Gain ,
 ^VentCtrl1InsideType ,
 ^VentCtrl1OutputOld ,
@@ -1761,6 +1760,7 @@ CREATE TI.ARRAY
  0 ,
 CREATE PTR.ARRAY
 Ptr' PTR_PidConfigSelection ,
+Ptr' PTR_TriggerPointAI ,
 Ptr' PTR_VentCtrl1Inside ,
 Ptr' PTR_VentCtrl1Output ,
 Ptr' PTR_VentCtrl1Outside ,
@@ -1931,6 +1931,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 0.00000000 ^TestScheduleUpperTime @!
 0 ^TestScheduleUseDyno @!
 0 ^TestScheduleUseThrottle @!
+0.00000000 ^TriggerPointValue @!
 0.00000000 ^VentCtrl1Gain @!
 0 ^VentCtrl1InsideType @!
 0.. ^VentCtrl1OutputOld @!
@@ -1942,6 +1943,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 " "
  *StrategyRunTime $MOVE
 0 MoveToPointer PTR_PidConfigSelection
+0 MoveToPointer PTR_TriggerPointAI
 0 MoveToPointer PTR_VentCtrl1Inside
 0 MoveToPointer PTR_VentCtrl1Output
 0 MoveToPointer PTR_VentCtrl1Outside
@@ -1956,9 +1958,9 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 01/16/17 " ;
-: TIMESTAMP ." 09:24:46 " ;
-: CRCSTAMP  ." 6E78A684C1DC33563BF27B826C32A850 " ;
+: DATESTAMP ." 01/19/17 " ;
+: TIMESTAMP ." 09:56:00 " ;
+: CRCSTAMP  ." 53C2AA712385C7C3D8D860D496EE65A2 " ;
 MAKECHECK
 CLEAR.BREAKS
 

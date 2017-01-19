@@ -174,8 +174,6 @@
     <Compile Include="Services\WorkerServices\PointWorkerService.cs" />
     <Compile Include="Services\WorkerServices\StripChartWorkerService.cs" />
     <Compile Include="Session\ApplicationSession.cs" />
-    <Compile Include="ViewModels\AlarmConfiguration\AlarmConfigViewModel.cs" />
-    <Compile Include="ViewModels\AlarmConfiguration\AlarmSetting.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Clocks\ClockViewModel.cs" />
@@ -203,9 +201,6 @@
     <Compile Include="ViewModels\Widget\VentilationControlDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\VentilationControlViewModel.cs" />
     <Compile Include="ViewModels\Widget\WidgetConfigViewModel.cs" />
-    <Compile Include="Views\AlarmConfiguration\AlarmConfig.xaml.cs">
-      <DependentUpon>AlarmConfig.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\BaseUserControl.cs" />
     <Compile Include="Views\BaseWindowView.cs" />
     <Compile Include="Views\Clocks\Clock.xaml.cs">
@@ -299,10 +294,6 @@
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\AlarmConfiguration\AlarmConfig.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Clocks\Clock.xaml">
       <SubType>Designer</SubType>

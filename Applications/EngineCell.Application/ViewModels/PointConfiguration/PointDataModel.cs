@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using EngineCell.Application.ViewModels.AlarmConfiguration;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Models;
 using EngineCell.Models.Models;
@@ -86,21 +85,31 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             set { _mostRecentData = value; OnPropertyChanged("MostRecentData"); }
         }
 
-        public bool IsDigitalOn => !IsAnalog && Data > 0;
-        public bool IsDisplayValue => IsAnalog || (!IsAnalog && IsInput);
-
         private ObservableCollection<DataPoint> _dataPoints { get; set; } 
         public ObservableCollection<DataPoint> DataPoints { get { return _dataPoints; } set { _dataPoints = value; OnPropertyChanged("DataPoints"); } }
 
-        private AlarmSetting _alarm { get; set; }
-        public AlarmSetting Alarm {
-            get { return _alarm; }
-            set { _alarm = value; OnPropertyChanged("Alarm"); }
+        private bool _isActive { get; set; }
+        public bool IsActive
+        {
+            get { return _isActive; }
+            set { _isActive = value; OnPropertyChanged("IsActive"); OnPropertyChanged("IsDisplayActive"); }
         }
+
+        private bool _hasPhaseTrigger { get; set; }
+        public bool HasPhaseTrigger
+        {
+            get {  return _hasPhaseTrigger;}
+            set { _hasPhaseTrigger = value; OnPropertyChanged("HasPhaseTrigger"); OnPropertyChanged("IsDisplayActive"); }
+        }
+
+        public bool IsDigitalOn => !IsAnalog && Data > 0;
+        public bool IsDisplayValue => IsAnalog || (!IsAnalog && IsInput);
+        
+        public bool IsDisplayActive => IsActive || HasPhaseTrigger;
 
         public PointDataModel()
         {
-            Alarm = new AlarmSetting();
+            HasPhaseTrigger = false;
         }
 
         public PointDataModel(CellPointModel obj)
@@ -109,8 +118,8 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                 return;
             
             InstantiateFromDataObject(obj);
+            HasPhaseTrigger = false;
             DataPoints = new ObservableCollection<DataPoint>();
-            Alarm = new AlarmSetting(obj.Alarm);
             MostRecentData = new ObservableCollection<decimal>();
         }
 
@@ -152,7 +161,6 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
         {
             _dataPoints = null;
             _mostRecentData = null;
-            _alarm = null;
         }
     }
 }

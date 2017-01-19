@@ -13,7 +13,6 @@ namespace EngineCell.Models.Models
         public string PointName { get; set; }
         public bool IsInput { get; set; }
         public bool IsAnalog { get; set; }
-        public CellPointAlarmModel Alarm { get; set; }
         public PointGroup PointGroupId { get; set; }
         public string CustomName { get; set; }
         public bool IsRecord { get; set; }
@@ -23,6 +22,7 @@ namespace EngineCell.Models.Models
         public decimal? StripChartScale { get; set; }
         public bool IsCustomValue = false;// { get; set; }
         public decimal? CustomValue = 0;//{ get; set; }
+        public bool IsActive { get; set; }
 
         public CellPointModel() { }
 
@@ -40,7 +40,6 @@ namespace EngineCell.Models.Models
             IsAnalog = obj.Point.IsAnalog;
             IsInput = obj.Point.IsInput;
             PointGroupId = obj.Point.PointGroupId;
-            Alarm = new CellPointAlarmModel(obj.Alarm);
         }
     }
 }

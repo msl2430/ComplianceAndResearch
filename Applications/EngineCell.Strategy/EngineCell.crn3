@@ -42,6 +42,7 @@ CREATE V.ARRAY
 ^TestScheduleUpperTime ,
 ^TestScheduleUseDyno ,
 ^TestScheduleUseThrottle ,
+^TriggerPointValue ,
 ^VentCtrl1Gain ,
 ^VentCtrl1InsideType ,
 ^VentCtrl1OutputOld ,
@@ -59,6 +60,7 @@ CREATE TI.ARRAY
  0 ,
 CREATE PTR.ARRAY
 Ptr' PTR_PidConfigSelection ,
+Ptr' PTR_TriggerPointAI ,
 Ptr' PTR_VentCtrl1Inside ,
 Ptr' PTR_VentCtrl1Output ,
 Ptr' PTR_VentCtrl1Outside ,
@@ -229,6 +231,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 0.00000000 ^TestScheduleUpperTime @!
 0 ^TestScheduleUseDyno @!
 0 ^TestScheduleUseThrottle @!
+0.00000000 ^TriggerPointValue @!
 0.00000000 ^VentCtrl1Gain @!
 0 ^VentCtrl1InsideType @!
 0.. ^VentCtrl1OutputOld @!
@@ -240,6 +243,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 " "
  *StrategyRunTime $MOVE
 0 MoveToPointer PTR_PidConfigSelection
+0 MoveToPointer PTR_TriggerPointAI
 0 MoveToPointer PTR_VentCtrl1Inside
 0 MoveToPointer PTR_VentCtrl1Output
 0 MoveToPointer PTR_VentCtrl1Outside

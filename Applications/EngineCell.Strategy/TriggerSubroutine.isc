@@ -1,0 +1,18 @@
+
+\   ++++++++++ SUB name="TriggerSubroutine" ++++++++++
+
+0 SUBR &TriggerSubroutine
+SUB.CODE nullFVAR nullAPointInput &TriggerSubroutine
+
+: &TriggerSubroutine.0
+0 JUMP ;
+: &TriggerSubroutine.1
+1 LINE.NUM 1 PARAM @@ 0 PARAM @! 
+0 JUMP ;
+
+CODE
+
+DUMMY
+&TriggerSubroutine.0
+&TriggerSubroutine.1
+ENDCODE

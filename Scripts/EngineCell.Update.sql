@@ -200,3 +200,8 @@ TRUNCATE TABLE TriggerResultType
 INSERT INTO TriggerResultType (Name, Description) VALUES
 ('GoTo Phase', 'Go to the phase specified'),
 ('Shutdown', 'Shutdown entire test')
+
+IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'CellPointAlarm')
+BEGIN
+	DROP TABLE CellPointAlarm
+END

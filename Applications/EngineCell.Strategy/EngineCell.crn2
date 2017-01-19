@@ -41,6 +41,7 @@
 0 FVAR ^TestScheduleUpperTime
 0 IVAR ^TestScheduleUseDyno
 0 IVAR ^TestScheduleUseThrottle
+0 FVAR ^TriggerPointValue
 0 FVAR ^VentCtrl1Gain
 0 IVAR ^VentCtrl1InsideType
 0 2IVAR ^VentCtrl1OutputOld
@@ -51,6 +52,7 @@
 0 FVAR ^VentCtrl1Weighted
 32 0 $VAR *StrategyRunTime 
 nullPID 0 POINTER PTR_PidConfigSelection
+nullAPointInput 0 POINTER PTR_TriggerPointAI
 nullAPointInput 0 POINTER PTR_VentCtrl1Inside
 nullAPointOutput 0 POINTER PTR_VentCtrl1Output
 nullAPointInput 0 POINTER PTR_VentCtrl1Outside
@@ -147,10 +149,10 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A80
  4  1 SPOINT 0.0      FREQ  2 13 %EngineCell 0 POINT.TNG ~Freq2
  4  1 SPOINT 0.0      FREQ  3 13 %EngineCell 0 POINT.TNG ~Freq3
 nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
-3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
+3    0.0000    0.0000    0.0000    0.0000    4.0000   20.0000    0.0000   10.0000
    1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
-~AO10 ~AO10 ~AO10
-$80000000 2 %EngineCell 0 PID |Coolant
+  23.0000    4.0000 ~AO4_20_3
+$b0000000 2 %EngineCell 0 PID |Coolant
 3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
    1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
 ~AO10 ~AO10 ~AO10

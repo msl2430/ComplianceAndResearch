@@ -6,6 +6,7 @@
         xmlns:extensions="clr-namespace:EngineCell.Application.Extensions"
         mc:Ignorable="d"
         ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
         Title="PointSettings" Height="375" Width="310">
     <Window.Resources>
         <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
@@ -65,7 +66,9 @@
       </Border>
       <StackPanel Grid.Row="4" Margin="5,10,5,0">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="2">
-          <Button Name="CancelButton" Width="75" Margin="3,0" Click="CancelButton_OnClick">_Cancel</Button>
+            <Button Name="ActivateButton" Width="75" Margin="3,0" Click="ActivateButton_OnClick" Background="{StaticResource GreenBrush}">_Activate</Button>
+            <Button Name="DeactivateButton" Width="75" Margin="3,0" Click="DeactivateButton_OnClick" Background="OrangeRed">_Deactivate</Button>
+            <Button Name="CancelButton" Width="75" Margin="3,0" Click="CancelButton_OnClick">_Cancel</Button>
             <Button Name="OkButton" Background="{StaticResource DarkBlueBrush}" Width="75" Margin="3,0" Click="OkButton_OnClick">_Ok</Button>
         </StackPanel>
       </StackPanel>

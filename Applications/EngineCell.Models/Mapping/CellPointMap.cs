@@ -20,6 +20,7 @@ namespace EngineCell.Models.Mapping
             Map(cp => cp.AverageSeconds);
             Map(cp => cp.IncludeInStripChart);
             Map(cp => cp.StripChartScale);
+            Map(cp => cp.IsActive);
             //Map(cp => cp.IsCustomValue);
             //Map(cp => cp.CustomValue);
         }
@@ -40,6 +41,7 @@ namespace EngineCell.Models.Mapping
             Map(cp => cp.AverageSeconds);
             Map(cp => cp.IncludeInStripChart);
             Map(cp => cp.StripChartScale);
+            Map(cp => cp.IsActive);
             //Map(cp => cp.IsCustomValue);
             //Map(cp => cp.CustomValue);
 
@@ -49,13 +51,7 @@ namespace EngineCell.Models.Mapping
 
             References(cp => cp.Point)
                 .Column("PointId")
-                .Fetch.Join();
-
-            References(cp => cp.Alarm)
-                .Column("CellPointId")
-                .Nullable()
-                .NotFound.Ignore()
-                .Fetch.Join();
+                .Fetch.Join();          
         }
     }
 }

@@ -107,6 +107,11 @@ namespace EngineCell.Models.Repositories
 
         public WidgetSettingModel SaveWidgetSetting(int cellTestWidgetId, WidgetConstants.WidgetSetting setting, string value)
         {
+            NHibernateHelper.CurrentSession.CreateSQLQuery("DELETE FROM CellTestPhaseWidget_Setting WHERE CellTestPhaseWidgetId = :widgetId AND WidgetSettingId = :widgetSetting")
+                .SetParameter("widgetId", cellTestWidgetId)
+                .SetParameter("widgetSetting", setting.ToInt())
+                .ExecuteUpdate();
+
             var newSetting = new CellTestPhaseWidgetSetting()
             {
                 CellTestPhaseWidgetId = cellTestWidgetId,

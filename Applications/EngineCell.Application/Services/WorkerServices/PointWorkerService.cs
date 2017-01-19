@@ -71,7 +71,7 @@ namespace EngineCell.Application.Services.WorkerServices
 
                             ScratchPadValues = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatRange(1000, 1073);
                             TaskList.Clear();
-                            foreach (var cellPoint in ApplicationSessionFactory.CellPoints)
+                            foreach (var cellPoint in ApplicationSessionFactory.CellPoints.Where(p => p.IsActive || p.HasPhaseTrigger))
                             {
                                 CaptureCellPoint(cellPoint, ScratchPadValues.FirstOrDefault(sc => sc.Index == ((ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName, true)).ToInt()), ApplicationSessionFactory);
                             }
@@ -86,9 +86,9 @@ namespace EngineCell.Application.Services.WorkerServices
                             if (ApplicationSessionFactory.CurrentCellTest != null &&
                                 ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()) == 1)
                             {
-                                ExportService.WriteDataToFile(ApplicationSessionFactory.CurrentCellTest.CellTestId, CaptureTime, ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord).ToList());
+                                ExportService.WriteDataToFile(ApplicationSessionFactory.CurrentCellTest.CellTestId, CaptureTime, ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive).ToList());
                                 CellPointRepository.CreateCellPointData(
-                                    ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord)
+                                    ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive)
                                         .Select(cp => cp.ToCellTestPointDataModel(ApplicationSessionFactory.CurrentCellTest.CellTestId, DateTime.Now))
                                         .ToList());
                             }

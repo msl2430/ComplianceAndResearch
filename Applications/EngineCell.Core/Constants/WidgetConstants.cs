@@ -21,6 +21,7 @@ namespace EngineCell.Core.Constants
         public enum WidgetSetting
         {
             TestScheduleFile = 1,
+            TestSscheduleTimeout,
             VentCtrl1InsideThermoCouple,
             VentCtrl1OutsideThermoCouple,
             VentCtrl1AnalogOutput,

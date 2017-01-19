@@ -36,7 +36,20 @@ namespace EngineCell.Application.Views.Widget
             Widget = Phase.Widgets.FirstOrDefault(w => w.WidgetId == WidgetConstants.Widget.TestSchedule);
 
             if (Widget != null && Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile))
+            {
                 ReadFile(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile).Value, false);
+                if (Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestSscheduleTimeout))
+                {
+                    TestTimeoutText.Text = Convert.ToInt32(Widget.Settings.FirstOrDefault(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestSscheduleTimeout).Value).ToString();
+                }
+                else
+                {
+                    TestTimeoutText.Text = Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile).Schedule.Max(s => s.TimeIntoStage).ToString();
+                    SaveTestTimeoutSetting(Convert.ToInt32(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile).Schedule.Max(s => s.TimeIntoStage)));
+                }
+            }
+
+
 
             UpdateWidgetStatus();
         }
@@ -83,13 +96,15 @@ namespace EngineCell.Application.Views.Widget
                 widget.Settings.Add(setting);
                 WidgetRepository.SaveWidgetSetting(widget.CellTestPhaseWidgetId, WidgetConstants.WidgetSetting.TestScheduleFile, setting.Value);
             }
-
+            TestTimeoutText.Text = Convert.ToInt32(setting.Schedule.Max(s => s.TimeIntoStage)).ToString();
+            SaveTestTimeoutSetting(Convert.ToInt32(setting.Schedule.Max(s => s.TimeIntoStage)));
             UpdateWidgetStatus();
         }
 
         private void UpdateWidgetStatus()
         {
-            if (Widget != null && Widget.Settings.Any(w => w.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile && w.Schedule.IsNotNullOrEmpty()))
+            PidList.Children.Clear();
+            if (Widget != null && Widget.Settings.Any(w => w.WidgetSettingId == WidgetConstants.WidgetSetting.TestScheduleFile && w.Schedule.IsNotNullOrEmpty()) && Widget.Settings.Any(w => w.WidgetSettingId == WidgetConstants.WidgetSetting.TestSscheduleTimeout))
             {
                 WidgetStatus.Foreground = (Brush) FindResource("GreenBrush");
                 WidgetStatus.Text = "Configured";
@@ -115,10 +130,19 @@ namespace EngineCell.Application.Views.Widget
             }
         }
 
-        private void ErrorTimeoutText_OnLostFocus(object sender, RoutedEventArgs e)
+        private void TestTimeoutText_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(((TextBox) sender).Text))
+                return;
+            SaveTestTimeoutSetting(Convert.ToInt32(((TextBox) sender).Text));
+        }
+
+        private void SaveTestTimeoutSetting(int timeout)
         {
             var widget = Phase.Widgets.FirstOrDefault(w => w.WidgetId == WidgetConstants.Widget.TestSchedule);
-            var newValue = ((TextBox) sender).Text;            
+            var setting = new WidgetSettingModel() { CellTestPhaseWidgetId = widget.CellTestPhaseWidgetId, WidgetSettingId = WidgetConstants.WidgetSetting.TestSscheduleTimeout, Value = timeout.ToString() };
+            widget.Settings.Add(setting);
+            WidgetRepository.SaveWidgetSetting(widget.CellTestPhaseWidgetId, WidgetConstants.WidgetSetting.TestSscheduleTimeout, setting.Value);
         }
     }
 }

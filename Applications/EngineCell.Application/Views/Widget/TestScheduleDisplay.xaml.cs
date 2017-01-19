@@ -30,6 +30,7 @@ namespace EngineCell.Application.Views.Widget
         {
             InitializeComponent();
             ViewModel = new TestScheduleDisplayViewModel(appSession, widget);
+            widget.IsRunning = true;
             TestScheduleWorkerService = new TestScheduleWidgetWorkerService(ViewModel);
             if (ViewModel.Widget.Settings.All(s => s.WidgetSettingId != WidgetConstants.WidgetSetting.TestScheduleFile))
             {

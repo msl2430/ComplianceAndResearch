@@ -50,7 +50,8 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
                 if (ViewModel.CalculatedScheduleData.First().Value.Count > LoadInterval * 2)
                     LoadSetpoints();
 
-                MaxRunTime = ViewModel.CalculatedScheduleData.Max(d => d.Value.Max(v => v.TimeIntoStage));
+                var timeout = Convert.ToInt64(ViewModel.Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TestSscheduleTimeout).Value);
+                MaxRunTime = ViewModel.CalculatedScheduleData.Max(d => d.Value.Max(v => v.TimeIntoStage)) < timeout ? ViewModel.CalculatedScheduleData.Max(d => d.Value.Max(v => v.TimeIntoStage)) : timeout;
 
                 //Start chart on PAC
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTestScheduleWidget.ToInt(), 1);
@@ -65,8 +66,13 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
                     WaitStopWatch.Stop();
                     WaitStopWatch.Reset();
 
-
-
+                    if (!ViewModel.Widget.IsRunning)
+                    {
+                        ViewModel.Widget.IsComplete = true;
+                        CancellationToken.Cancel();
+                        continue;
+                    }
+                    
                     if (TestRunTime.ElapsedMilliseconds / 1000L >= Convert.ToInt64(ViewModel.CalculatedScheduleData.First().Value.Max(v => v.TimeIntoStage)))
                     {
                         //Test done

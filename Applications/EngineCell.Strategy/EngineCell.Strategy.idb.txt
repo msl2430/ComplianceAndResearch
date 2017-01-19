@@ -4,7 +4,7 @@
 # ----------------------------------------------------------------
 # NAME :         D:\Work\ComplianceAndResearch\Applications\EngineCell.Strategy\EngineCell.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    9:24:46 1/16/2017
+# TIME/DATE :    9:56:0 1/19/2017
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -226,6 +226,7 @@ TAG1,TestScheduleUpperSetpoint                         ,37   ,00000000,00000000,
 TAG1,TestScheduleUpperTime                             ,30   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,TestScheduleUseDyno                               ,32   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,TestScheduleUseThrottle                           ,40   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,TriggerPointValue                                 ,50   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,VentCtrl1Gain                                     ,21   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,VentCtrl1InsideType                               ,16   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,VentCtrl1OutputOld                                ,24   ,00000000,00000000,00000000,00004000,0    ,0   
@@ -245,6 +246,7 @@ TAG1,Intercooler                                       ,4    ,00000000,00000004,
 TAG1,Oil                                               ,3    ,00000000,00000004,00000000,00000000,0    ,0   
 TAG1,Throttle                                          ,1    ,00000000,00000004,00000000,00000000,0    ,0   
 TAG1,PidConfigSelection                                ,0    ,00000000,00000004,00000000,80000000,0    ,0   
+TAG1,TriggerPointAI                                    ,4    ,00000000,00000001,00000000,80000000,0    ,0   
 TAG1,VentCtrl1Inside                                   ,3    ,00000000,00000001,00000000,80000000,0    ,0   
 TAG1,VentCtrl1Output                                   ,1    ,00000000,00000002,00000000,80000000,0    ,0   
 TAG1,VentCtrl1Outside                                  ,2    ,00000000,00000001,00000000,80000000,0    ,0   

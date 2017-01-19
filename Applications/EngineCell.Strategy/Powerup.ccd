@@ -66,7 +66,7 @@
 
 1 LINE.NUM
   &DataCollection   STOP.T
-20 JUMP ;
+19 JUMP ;
 : 0_58
 
 1 LINE.NUM
@@ -86,13 +86,13 @@
 3 LINE.NUM
   &DataCollection   START.T
   ^SetScratchPadResult @! 
-18 JUMP ;
+17 JUMP ;
 : 0_64
 
 1 LINE.NUM
   &TestScheduleWidgetChart   START.T
   ^GetScratchPadResult @! 
-12 JUMP ;
+11 JUMP ;
 : 0_67
 
 1 LINE.NUM
@@ -130,7 +130,7 @@
   3108  
   ^CustomChart5Start   IO.SP.READ
   ^GetScratchPadResult @! 
-10 JUMP ;
+9 JUMP ;
 : 0_76
 -10 JUMP ;
 : 0_77
@@ -138,25 +138,25 @@
 1 LINE.NUM
   &CustomChart1   START.T
   ^GetScratchPadResult @! 
-10 JUMP ;
+9 JUMP ;
 : 0_88
 
 1 LINE.NUM
   &CustomChart2   START.T
   ^GetScratchPadResult @! 
-10 JUMP ;
+9 JUMP ;
 : 0_93
 
 1 LINE.NUM
   &CustomChart3   START.T
   ^GetScratchPadResult @! 
-10 JUMP ;
+9 JUMP ;
 : 0_96
 
 1 LINE.NUM
   &CustomChart4   START.T
   ^GetScratchPadResult @! 
-10 JUMP ;
+9 JUMP ;
 : 0_99
 
 1 LINE.NUM
@@ -187,9 +187,6 @@ TRUE
   1    =
 LAND
 IF -10 ELSE -15 THEN JUMP ;
-: 0_68
-TRUE
-IF 6 ELSE 6 THEN JUMP ;
 : 0_69
 TRUE
 
@@ -201,42 +198,42 @@ LAND
   ^TestScheduleStart @@ 
   1    =
 LAND
-IF -13 ELSE 0 THEN JUMP ;
+IF -12 ELSE 0 THEN JUMP ;
 : 0_78
 TRUE
 
 1 LINE.NUM
   &CustomChart1   ?STOPPED
 LAND
-IF -11 ELSE 0 THEN JUMP ;
+IF -10 ELSE 0 THEN JUMP ;
 : 0_86
 TRUE
 
 1 LINE.NUM
   &CustomChart2   ?STOPPED
 LAND
-IF -11 ELSE 0 THEN JUMP ;
+IF -10 ELSE 0 THEN JUMP ;
 : 0_95
 TRUE
 
 1 LINE.NUM
   &CustomChart3   ?STOPPED
 LAND
-IF -11 ELSE 0 THEN JUMP ;
+IF -10 ELSE 0 THEN JUMP ;
 : 0_98
 TRUE
 
 1 LINE.NUM
   &CustomChart4   ?STOPPED
 LAND
-IF -11 ELSE 0 THEN JUMP ;
+IF -10 ELSE 0 THEN JUMP ;
 : 0_101
 TRUE
 
 1 LINE.NUM
   &CustomChart5   ?STOPPED
 LAND
-IF -11 ELSE -22 THEN JUMP ;
+IF -10 ELSE -21 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -262,7 +259,6 @@ DUMMY
 0_2
 0_16
 0_27
-0_68
 0_69
 0_78
 0_86

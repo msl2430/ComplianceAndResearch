@@ -94,8 +94,10 @@
                         </Border>
                       </TabItem>
                       <TabItem Header="Triggers">
-                        <local:TriggerConfig x:Name="TriggerConfig"></local:TriggerConfig>
-                      </TabItem>
+                        <Grid x:Name="TriggerConfig">
+                        
+                        </Grid>
+                    </TabItem>
                     </TabControl>
                   </Grid>
                   </Border>

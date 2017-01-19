@@ -16,6 +16,7 @@ namespace EngineCell.Models.Models
         public WidgetConstants.Widget WidgetId { get; set; }
         public IList<WidgetSettingModel> Settings { get; set; }
 
+        public bool IsRunning { get; set; }
         public bool IsComplete { get; set; }
         public bool IsError { get; set; }
         public string ErrorReason { get; set; }

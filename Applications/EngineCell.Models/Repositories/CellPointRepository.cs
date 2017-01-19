@@ -23,7 +23,6 @@ namespace EngineCell.Models.Repositories
         IList<CellTestModel> GetAllCellTests(int? cellId = null);
 
         void UpdateCellPoint(CellPointModel point);
-        void UpdateCellPointAlarm(CellPointAlarmModel alarm);
         void DeleteCellPointAlarm(int cellPointAlarmId);
 
         CellTestModel CreateCellTest(int cellId, string name, string description);
@@ -100,22 +99,6 @@ namespace EngineCell.Models.Repositories
             //cellPoint.CustomValue = point.CustomValue;
 
             NHibernateHelper.CurrentSession.Update(cellPoint);
-            NHibernateHelper.CurrentSession.Flush();
-        }
-
-        public void UpdateCellPointAlarm(CellPointAlarmModel alarm)
-        {
-            var cellPointAlarm = NHibernateHelper.CurrentSession.QueryOver<CellPointAlarm>()
-                .Where(cpa => cpa.CellPointAlarmId == alarm.CellPointAlarmId)
-                .SingleOrDefault<CellPointAlarm>() ?? new CellPointAlarm();
-
-            cellPointAlarm.LowShutdownWarning = alarm.LowShutdownWarning;
-            cellPointAlarm.LowShutdownExecute = alarm.LowShutdownExecute;
-            cellPointAlarm.HighShutdownWarning = alarm.HighShutdownWarning;
-            cellPointAlarm.HighShutdownExecute = alarm.HighShutdownExecute;
-            cellPointAlarm.UpdateDateTime = DateTime.Now;
-
-            NHibernateHelper.CurrentSession.SaveOrUpdate(cellPointAlarm);
             NHibernateHelper.CurrentSession.Flush();
         }
 

@@ -15,6 +15,8 @@ namespace EngineCell.Application.Views.PointConfiguration
     {
         public PointDataModel Point { get; set; }
 
+        private bool IsPointActive { get; set; }
+
         private ICellPointRepository _cellPointRepository { get; set; }
         private ICellPointRepository CellPointRepository => _cellPointRepository ?? (_cellPointRepository = new CellPointRepository());
 
@@ -29,6 +31,9 @@ namespace EngineCell.Application.Views.PointConfiguration
         private void SetupForm()
         {
             Title = Point.CustomName + " Settings";
+            IsPointActive = Point.IsActive;
+            ActivateButton.Visibility = IsPointActive ? Visibility.Collapsed : Visibility.Visible;
+            DeactivateButton.Visibility = !IsPointActive ? Visibility.Collapsed : Visibility.Visible;
             IsRecord.IsChecked = Point.IsRecord;
             IsAverage.IsChecked = Point.IsAverage;
             AverageSeconds.Text = Point.AverageSeconds != null ? Point.AverageSeconds.ToString() : "1";
@@ -48,6 +53,7 @@ namespace EngineCell.Application.Views.PointConfiguration
             Point.StripChartScale = !string.IsNullOrEmpty(StripChartScale.Text) ? Convert.ToDecimal(StripChartScale.Text) : Point.IncludeInStripChart ? (decimal?)1 : null;
             Point.IsCustomValue = Convert.ToBoolean(IsCustomValue.IsChecked);
             Point.CustomValue = !string.IsNullOrEmpty(CustomValue.Text) ? Convert.ToDecimal(CustomValue.Text) : ScratchPadConstants.DefaultNullValue;
+            Point.IsActive = IsPointActive;
             CellPointRepository.UpdateCellPoint(Point.ToCellPointModel());
             this.Close();
         }
@@ -66,6 +72,20 @@ namespace EngineCell.Application.Views.PointConfiguration
         {
             Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
             return !regex.IsMatch(text);
+        }
+
+        private void ActivateButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            IsPointActive = true;
+            ActivateButton.Visibility = IsPointActive ? Visibility.Collapsed : Visibility.Visible;
+            DeactivateButton.Visibility = !IsPointActive ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private void DeactivateButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            IsPointActive = false;
+            ActivateButton.Visibility = IsPointActive ? Visibility.Collapsed : Visibility.Visible;
+            DeactivateButton.Visibility = !IsPointActive ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

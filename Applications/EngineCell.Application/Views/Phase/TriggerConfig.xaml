@@ -16,34 +16,36 @@
       <Border BorderThickness="0,1.01,0,0" BorderBrush="WhiteSmoke">
         <Grid>
           <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="45"/>
             <RowDefinition Height="*"/>
           </Grid.RowDefinitions>
           <Grid Row="0">
-            <Button x:Name="CreateTriggerButton" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="11" Width="150" Background="{StaticResource HeadlineBlueBrush}" Click="CreateTriggerButton_OnClick" Visibility="{Binding Path=IsAddTrigger, Converter={StaticResource InverseBoolToVisibilityConverter}}">Create Trigger</Button>
-            <Button x:Name="CancelNewTriggerButton" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="11" Width="150" Background="OrangeRed" Click="CancelNewTriggerButton_OnClick" Visibility="{Binding Path=IsAddTrigger, Converter={StaticResource BoolToVisibilityConverter}}">Cancel Create Trigger</Button>
+            <Button x:Name="CreateTriggerButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,7,0,0" FontSize="10" Width="150" Background="{StaticResource HeadlineBlueBrush}" Click="CreateTriggerButton_OnClick" Visibility="{Binding Path=IsAddTrigger, Converter={StaticResource InverseBoolToVisibilityConverter}}">Create Trigger</Button>
+            <Button x:Name="CancelNewTriggerButton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,7,0,0" FontSize="10" Width="150" Background="OrangeRed" Click="CancelNewTriggerButton_OnClick" Visibility="{Binding Path=IsAddTrigger, Converter={StaticResource BoolToVisibilityConverter}}">Cancel Create Trigger</Button>
           </Grid>
           <StackPanel Grid.Row="1">
-            <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="75"/>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="90"/>
-                <ColumnDefinition Width="39"/>
-                <ColumnDefinition Width="37"/>
-              </Grid.ColumnDefinitions>
-              <Label Grid.Column="0" FontSize="10" BorderThickness="0,0,0,1.01" BorderBrush="WhiteSmoke" Foreground="{StaticResource LightBlueBrush}">Point</Label>
-              <Label Grid.Column="1" FontSize="10" BorderThickness="0,0,0,1.01" BorderBrush="WhiteSmoke" Foreground="{StaticResource LightBlueBrush}">Low Value</Label>
-              <Label Grid.Column="2" FontSize="10" BorderThickness="0,0,0,1.01" BorderBrush="WhiteSmoke" Foreground="{StaticResource LightBlueBrush}">High Value</Label>
-              <Label Grid.Column="3" FontSize="10" BorderThickness="0,0,0,1.01" BorderBrush="WhiteSmoke" Foreground="{StaticResource LightBlueBrush}">Threshold</Label>
-              <Label Grid.Column="4" FontSize="10" BorderThickness="0,0,0,1.01" BorderBrush="WhiteSmoke" Foreground="{StaticResource LightBlueBrush}">Action</Label>
-              <Label Grid.Column="5" FontSize="10" BorderThickness="0,0,0,1.01" BorderBrush="WhiteSmoke" Foreground="{StaticResource LightBlueBrush}">Action Parameter</Label>
-              <Label Grid.Column="6" FontSize="10" BorderThickness="0,0,0,1.01" BorderBrush="WhiteSmoke" Foreground="{StaticResource LightBlueBrush}">Email?</Label>
-              <!--<Button Grid.Column="7" FontSize="8" Height="7" Width="25" Padding="3" Background="OrangeRed" Foreground="WhiteSmoke" Margin="3">X</Button>-->
-            </Grid>
+            <Border BorderThickness="0,0,0,1.01" BorderBrush="WhiteSmoke" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="39"/>
+                        <ColumnDefinition Width="37"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}">Point</TextBlock>
+                    <TextBlock Grid.Column="1" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}">Low Value</TextBlock>
+                    <TextBlock Grid.Column="2" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}">High Value</TextBlock>
+                    <TextBlock Grid.Column="3" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}">Threshold</TextBlock>
+                    <TextBlock Grid.Column="4" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}">Action</TextBlock>
+                    <TextBlock Grid.Column="5" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}">Action Parameter</TextBlock>
+                    <TextBlock Grid.Column="6" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}">Email?</TextBlock>
+                    <!--<Button Grid.Column="7" FontSize="8" Height="7" Width="25" Padding="3" Background="OrangeRed" Foreground="WhiteSmoke" Margin="3">X</Button>-->
+                </Grid>
+            </Border>
             <Grid x:Name="NewTriggerGrid" Visibility="Collapsed">
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
@@ -65,11 +67,18 @@
               <TextBox x:Name="LowValue" Grid.Column="1" Height="25" FontSize="10"></TextBox>
               <TextBox x:Name="HighValue" Grid.Column="2" Height="25" FontSize="10"></TextBox>
               <TextBox x:Name="SecondsThreshold" Grid.Column="3" Height="25" FontSize="10"></TextBox>
-              <ComboBox x:Name="ResultComboBox" Grid.Column="4" Height="25" FontSize="10">
+              <ComboBox x:Name="ResultComboBox" Grid.Column="4" Height="25" FontSize="10" SelectionChanged="ResultComboBox_OnSelectionChanged">
                 <ComboBoxItem IsSelected="True" Tag="1">Go To Phase</ComboBoxItem>
                 <ComboBoxItem Tag="2">Shutdown</ComboBoxItem>
               </ComboBox>
-              <TextBox x:Name="ActionParamter" Grid.Column="5" Height="25" FontSize="10"></TextBox>
+              <TextBox x:Name="ActionParamter" Grid.Column="5" Height="25" FontSize="10" Visibility="Hidden"></TextBox>
+              <ComboBox x:Name="PhaseComboBox" Grid.Column="5" Height="25" FontSize="10">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
               <CheckBox x:Name="IsEmail" Grid.Column="6" Margin="10,0,0,0" IsChecked="False"></CheckBox>
               <Button x:Name="AddTriggerButton" Grid.Column="7" FontSize="8" Height="7" Width="25" Padding="3" Background="{StaticResource GreenBrush}" Margin="3" Click="AddTriggerButton_OnClick">
                 <Rectangle Width="5" Height="5" Fill="WhiteSmoke">
