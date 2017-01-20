@@ -25,6 +25,8 @@ namespace EngineCell.Application.Views.TestDisplay
         private ExportService _exportService { get; set; }
         private ExportService ExportService => _exportService ?? (_exportService = new ExportService());
 
+        private PhaseWorkerService PhaseWorkerService { get; set; }
+
         public TestDisplay()
         {
             InitializeComponent();
@@ -36,7 +38,7 @@ namespace EngineCell.Application.Views.TestDisplay
                 ViewModel = (TestDisplayViewModel) DataContext;            
         }
 
-        public void PreparePhaseDisplay()
+        public void PreparePhaseWidgetDisplay()
         {
             WidgetPanel.Children.Clear();
 
@@ -53,12 +55,13 @@ namespace EngineCell.Application.Views.TestDisplay
                     case WidgetConstants.Widget.DynoRamp:
                         WidgetPanel.Children.Add(new DynoPidRampDisplay(ViewModel.ApplicationSessionFactory, widget));
                         break;
-                    case WidgetConstants.Widget.VentilationControl1:
+                    case WidgetConstants.Widget.CustomChart1:
+                    case WidgetConstants.Widget.CustomChart2:
+                    case WidgetConstants.Widget.CustomChart3:
+                    case WidgetConstants.Widget.CustomChart4:
+                    case WidgetConstants.Widget.CustomChart5:
+                        WidgetPanel.Children.Add(new CustomChartDisplay(ViewModel.ApplicationSessionFactory, widget));
                         break;
-                    case WidgetConstants.Widget.VentilationControl2:
-                        break;
-                    //case WidgetConstants.Widget.DynoPid:
-                    //    break;
                     case WidgetConstants.Widget.Starter:
                         break;
                 }
@@ -76,16 +79,16 @@ namespace EngineCell.Application.Views.TestDisplay
             WidgetPanel.Children.Clear();
 
             if (ViewModel.Phases.IsNotNullOrEmpty())
-                PreparePhaseDisplay();
+                PreparePhaseWidgetDisplay();
 
             ViewModel.ApplicationSessionFactory.LogEvent("Starting phase.", true);
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
             RunTimeClock.IsRunning = true;
 
-            var phaseWorker = new PhaseWorkerService(ViewModel.ApplicationSessionFactory, this, Dispatcher);
+            PhaseWorkerService = new PhaseWorkerService(ViewModel.ApplicationSessionFactory, this, Dispatcher);
             Task.Run(() =>
             {
-                phaseWorker.DoWork();
+                PhaseWorkerService.DoWork();
             });
 
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt(), 1);
@@ -142,13 +145,18 @@ namespace EngineCell.Application.Views.TestDisplay
             ViewModel.ApplicationSessionFactory.LogEvent("Stopping phase after running for " + RunTimeClock.RunTimeViewModel.RunTime + (isUserRequested ? " (user requested)." : "."), true);
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 0);
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt(), 0);
-            //CellPointRepository.UpdateCellTestEndTime(ViewModel.ApplicationSessionFactory.CurrentCellTest);
+
+            PhaseWorkerService.CancelWork();
+
+            CellPointRepository.UpdateCellTestTime(ViewModel.ApplicationSessionFactory.CurrentCellTest, false);
+
             RunTimeClock.IsRunning = false;
-            //TimeRemaining.IsRunning = false;
-            //ViewModel.PhaseStarted = false;
             ViewModel.ChartViewModel.IsPlay = false;
+            ViewModel.IsTestRunning = false;
 
             WidgetPanel.Children.Clear();
+
+
 
             ////ViewModel.ApplicationSessionFactory.LogEvent("Preparing results file.", true);
             //var fileName = ExportService.GetFilename();

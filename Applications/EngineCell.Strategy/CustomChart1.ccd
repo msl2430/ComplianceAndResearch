@@ -5,6 +5,12 @@
   3100  
   1    IO.SP.I.WRITE
   ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  %EngineCell 
+  3101  
+  1    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
 0 JUMP ;
 : 5_1
 0 JUMP ;
@@ -12,11 +18,17 @@
 
 1 LINE.NUM
   %ScratchPad 
-  3101  
+  3100  
   0    IO.SP.I.WRITE
   ^GetScratchPadResult @! 
 
 2 LINE.NUM
+  %ScratchPad 
+  3101  
+  0    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
   &CustomChart1   STOP.T
 0 JUMP ;
 T: T5

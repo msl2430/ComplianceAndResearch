@@ -20,6 +20,7 @@ namespace EngineCell.Models.Models
         public CellTestPhaseModel()
         {
             Widgets = new List<CellTestPhaseWidgetModel>();
+            Triggers = new List<CellTestPhaseTriggerModel>();
         }
 
         public CellTestPhaseModel(CellTestPhase obj)
@@ -29,6 +30,7 @@ namespace EngineCell.Models.Models
 
             InstantiateFromDataObject(obj);
             Widgets = new List<CellTestPhaseWidgetModel>();
+            Triggers = new List<CellTestPhaseTriggerModel>();
         }
 
         public CellTestPhaseModel(CellTestPhaseExtended obj)

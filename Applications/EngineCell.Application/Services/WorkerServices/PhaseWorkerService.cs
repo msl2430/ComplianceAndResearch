@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using EngineCell.Application.Factories;
-using EngineCell.Application.ViewModels.TestDisplay;
 using EngineCell.Application.Views.TestDisplay;
 using EngineCell.Core.Constants;
 using EngineCell.Models.Models;
@@ -139,6 +135,8 @@ namespace EngineCell.Application.Services.WorkerServices
             ApplicationSessionFactory.CurrentCellTest.IsRunning = false;
             foreach (var widget in ApplicationSessionFactory.CurrentPhaseRunning.Widgets)
             {
+                TestDisplay.ViewModel.Phases[phaseIndex-1].IsRunning = false;
+                TestDisplay.ViewModel.Phases[phaseIndex-1].EndDateTime = DateTime.Now;
                 widget.IsRunning = false;
             }
             CancellationToken.Cancel();
@@ -165,7 +163,7 @@ namespace EngineCell.Application.Services.WorkerServices
 
             phaseIndex++;
             Dispatcher.Invoke(() => {
-                TestDisplay.PreparePhaseDisplay();
+                TestDisplay.PreparePhaseWidgetDisplay();
             });
         }
 
@@ -174,6 +172,11 @@ namespace EngineCell.Application.Services.WorkerServices
             Dispatcher.Invoke(() => {
                 TestDisplay.StopTest(false);
             });
+        }
+
+        public new void CancelWork()
+        {
+            StopTest("Stopping phases.");
         }
     }
 }

@@ -4,7 +4,7 @@
 # ----------------------------------------------------------------
 # NAME :         D:\Work\ComplianceAndResearch\Applications\EngineCell.Strategy\EngineCell.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    15:6:28 1/19/2017
+# TIME/DATE :    9:24:37 1/20/2017
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 

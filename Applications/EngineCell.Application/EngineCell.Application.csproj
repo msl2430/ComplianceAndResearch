@@ -156,13 +156,14 @@
     <Compile Include="Factories\ScratchPadFactory.cs" />
     <Compile Include="Services\DataServices\ExportService.cs" />
     <Compile Include="Services\DataServices\WidgetService.cs" />
+    <Compile Include="Services\WorkerServices\Widget\CustomChartWidgetWorkerService.cs" />
     <Compile Include="Services\WorkerServices\PhaseWorkerService.cs" />
     <Compile Include="Services\WorkerServices\PidConfigStripChartWorkerService.cs" />
     <Compile Include="Services\WorkerServices\PidConfigWorkerService.cs" />
     <Compile Include="Services\WorkerServices\TestRunnerWorkerService.cs" />
     <Compile Include="Services\WorkerServices\Widget\DynoPidRampWidgetWorkerService.cs" />
     <Compile Include="Services\WorkerServices\Widget\TestScheduleWidgetWorkerService.cs" />
-    <Compile Include="ViewModels\DynoPidRampDisplayViewModel.cs" />
+    <Compile Include="ViewModels\Widget\DynoPidRampDisplayViewModel.cs" />
     <Compile Include="ViewModels\Phase\PhaseConfigViewModel.cs" />
     <Compile Include="ViewModels\Phase\TriggerConfigViewModel.cs" />
     <Compile Include="ViewModels\Pid\PidConfigViewModel.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="ViewModels\Welcome\TestHistoryViewModel.cs" />
     <Compile Include="ViewModels\Welcome\WelcomeScreenViewModel.cs" />
     <Compile Include="ViewModels\Widget\BaseWidgetViewModel.cs" />
+    <Compile Include="ViewModels\Widget\CustomChartDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\DynoPidConfigViewModel.cs" />
     <Compile Include="ViewModels\Widget\DynoPidDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\StarterConfigViewModel.cs" />
@@ -267,6 +269,9 @@
     </Compile>
     <Compile Include="Views\Welcome\WelcomeScreen.xaml.cs">
       <DependentUpon>WelcomeScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Widget\CustomChartDisplay.xaml.cs">
+      <DependentUpon>CustomChartDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Widget\DynoPidRampConfig.xaml.cs">
       <DependentUpon>DynoPidRampConfig.xaml</DependentUpon>
@@ -384,6 +389,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Welcome\WelcomeScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Widget\CustomChartDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

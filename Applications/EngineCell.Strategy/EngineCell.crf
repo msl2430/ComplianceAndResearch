@@ -217,6 +217,12 @@ $80000000 1 %EngineCell 0 PID |Throttle
   3100  
   1    IO.SP.I.WRITE
   ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  %EngineCell 
+  3101  
+  1    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
 0 JUMP ;
 : 5_1
 0 JUMP ;
@@ -224,11 +230,17 @@ $80000000 1 %EngineCell 0 PID |Throttle
 
 1 LINE.NUM
   %ScratchPad 
-  3101  
+  3100  
   0    IO.SP.I.WRITE
   ^GetScratchPadResult @! 
 
 2 LINE.NUM
+  %ScratchPad 
+  3101  
+  0    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
   &CustomChart1   STOP.T
 0 JUMP ;
 T: T5
@@ -351,6 +363,12 @@ DUMMY
 T;
 &CustomChart5 ' T9 SETTASK
 : 1_0
+
+1 LINE.NUM
+  %EngineCell 
+  999  
+  1    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
 0 JUMP ;
 : 1_1
 
@@ -359,7 +377,7 @@ T;
   999  
   ^IsStartDataCollect   IO.SP.READ
   ^GetScratchPadResult @! 
-3 JUMP ;
+4 JUMP ;
 : 1_3
 -2 JUMP ;
 : 1_9
@@ -852,6 +870,17 @@ T;
 218 LINE.NUM ^OutputConfigValue @@ ~Freq3 F@! 
 219 LINE.NUM THEN 
 -3 JUMP ;
+: 1_18
+
+1 LINE.NUM
+  %EngineCell 
+  999  
+  0    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  &DataCollection   STOP.T
+1 JUMP ;
 : 1_2
 TRUE
 
@@ -859,7 +888,7 @@ TRUE
   ^IsStartDataCollect @@ 
   1    =
 LAND
-IF -3 ELSE -4 THEN JUMP ;
+IF -4 ELSE -2 THEN JUMP ;
 T: T1
 DUMMY
 1_0
@@ -867,6 +896,7 @@ DUMMY
 1_3
 1_9
 1_13
+1_18
 1_2
 T;
 &DataCollection ' T1 SETTASK
@@ -1148,7 +1178,7 @@ T;
 1 6 LINE.NUM 343 1 + 300 DO? I ^gIndex @! 
 7 LINE.NUM %ScratchPad ^gIndex @@ -32769 I>F  IO.SP.F.WRITE DROP  
 8 LINE.NUM 1 +LOOP 
-8 JUMP ;
+0 JUMP ;
 : 0_3
 
 1 LINE.NUM
@@ -1171,6 +1201,12 @@ T;
 : 0_5
 
 1 LINE.NUM
+  %EngineCell 
+  999  
+  0    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
   ^IsApplicationConnected   FALSE@!
 -2 JUMP ;
 : 0_14
@@ -1189,7 +1225,13 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-16 JUMP ;
+
+4 LINE.NUM
+  %ScratchPad 
+  999  
+  ^IsStartDataCollect   IO.SP.READ
+  ^GetScratchPadResult @! 
+25 JUMP ;
 : 0_19
 -5 JUMP ;
 : 0_25
@@ -1206,13 +1248,7 @@ T;
 
 1 LINE.NUM
   &DataCollection   STOP.T
-21 JUMP ;
-: 0_58
-
-1 LINE.NUM
-  &DataCollection   START.T
-  ^SetScratchPadResult @! 
--9 JUMP ;
+22 JUMP ;
 : 0_59
 
 1 LINE.NUM
@@ -1226,13 +1262,13 @@ T;
 3 LINE.NUM
   &DataCollection   START.T
   ^SetScratchPadResult @! 
-19 JUMP ;
+21 JUMP ;
 : 0_64
 
 1 LINE.NUM
   &TestScheduleWidgetChart   START.T
   ^GetScratchPadResult @! 
-18 JUMP ;
+20 JUMP ;
 : 0_67
 
 1 LINE.NUM
@@ -1276,33 +1312,33 @@ T;
   3400  
   ^DynoPidRampStart   IO.SP.READ
   ^GetScratchPadResult @! 
-10 JUMP ;
+11 JUMP ;
 : 0_76
--10 JUMP ;
+-9 JUMP ;
 : 0_77
 
 1 LINE.NUM
   &CustomChart1   START.T
   ^GetScratchPadResult @! 
-10 JUMP ;
+11 JUMP ;
 : 0_88
 
 1 LINE.NUM
   &CustomChart2   START.T
   ^GetScratchPadResult @! 
-10 JUMP ;
+11 JUMP ;
 : 0_93
 
 1 LINE.NUM
   &CustomChart3   START.T
   ^GetScratchPadResult @! 
-10 JUMP ;
+11 JUMP ;
 : 0_96
 
 1 LINE.NUM
   &CustomChart4   START.T
   ^GetScratchPadResult @! 
-10 JUMP ;
+11 JUMP ;
 : 0_99
 
 1 LINE.NUM
@@ -1314,7 +1350,13 @@ T;
 1 LINE.NUM
   &DynoPidRampWidget   START.T
   ^GetScratchPadResult @! 
-4 JUMP ;
+5 JUMP ;
+: 0_124
+
+1 LINE.NUM
+  &DataCollection   START.T
+  ^GetScratchPadResult @! 
+1 JUMP ;
 : 0_2
 TRUE
 
@@ -1338,7 +1380,7 @@ TRUE
   ^IsTestRunning @@ 
   1    =
 LAND
-IF -11 ELSE -16 THEN JUMP ;
+IF -12 ELSE -16 THEN JUMP ;
 : 0_69
 TRUE
 
@@ -1350,49 +1392,61 @@ LAND
   ^TestScheduleStart @@ 
   1    =
 LAND
-IF -13 ELSE 5 THEN JUMP ;
+IF -14 ELSE 5 THEN JUMP ;
 : 0_78
 TRUE
 
 1 LINE.NUM
   &CustomChart1   ?STOPPED
 LAND
-IF -11 ELSE 0 THEN JUMP ;
+IF -12 ELSE 0 THEN JUMP ;
 : 0_86
 TRUE
 
 1 LINE.NUM
   &CustomChart2   ?STOPPED
 LAND
-IF -11 ELSE 0 THEN JUMP ;
+IF -12 ELSE 0 THEN JUMP ;
 : 0_95
 TRUE
 
 1 LINE.NUM
   &CustomChart3   ?STOPPED
 LAND
-IF -11 ELSE 0 THEN JUMP ;
+IF -12 ELSE 0 THEN JUMP ;
 : 0_98
 TRUE
 
 1 LINE.NUM
   &CustomChart4   ?STOPPED
 LAND
-IF -11 ELSE 0 THEN JUMP ;
+IF -12 ELSE 0 THEN JUMP ;
 : 0_101
 TRUE
 
 1 LINE.NUM
   &CustomChart5   ?STOPPED
 LAND
-IF -11 ELSE -22 THEN JUMP ;
+IF -12 ELSE -22 THEN JUMP ;
 : 0_116
 TRUE
 
 1 LINE.NUM
   &DynoPidRampWidget   ?STOPPED
 LAND
-IF -11 ELSE -6 THEN JUMP ;
+IF -12 ELSE -6 THEN JUMP ;
+: 0_123
+TRUE
+
+1 LINE.NUM
+  &DataCollection   ?STOPPED
+LAND
+
+2 LINE.NUM
+  ^IsStartDataCollect @@ 
+  1    =
+LAND
+IF -12 ELSE -10 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -1405,7 +1459,6 @@ DUMMY
 0_25
 0_45
 0_47
-0_58
 0_59
 0_64
 0_67
@@ -1416,6 +1469,7 @@ DUMMY
 0_96
 0_99
 0_118
+0_124
 0_2
 0_16
 0_27
@@ -1426,6 +1480,7 @@ DUMMY
 0_98
 0_101
 0_116
+0_123
 T;
 &Powerup ' T0 SETTASK
 : 4_0
@@ -2096,9 +2151,9 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 01/19/17 " ;
-: TIMESTAMP ." 15:06:28 " ;
-: CRCSTAMP  ." 8D04D4BE358EC2AAE5CDC7851C1E40B5 " ;
+: DATESTAMP ." 01/20/17 " ;
+: TIMESTAMP ." 09:24:37 " ;
+: CRCSTAMP  ." B7AB7DCAE7940B2050BA8CAE9EF356B0 " ;
 MAKECHECK
 CLEAR.BREAKS
 

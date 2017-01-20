@@ -33,11 +33,11 @@ namespace EngineCell.Application.Views.Phase
 
         private void PhaseConfig_OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (DataContext != null)
-                ViewModel = (PhaseConfigViewModel) DataContext;
-
             AvailableWidgets.ItemsSource = WidgetConstants.Widgets;
-            PhaseTabs.SelectedIndex = 0;           
+            PhaseTabs.SelectedIndex = 0;
+
+            if (DataContext != null)
+                ViewModel = (PhaseConfigViewModel) DataContext;            
         }
 
         private void UpdatePhaseTabs(int? selectedIndex = null)
@@ -45,6 +45,7 @@ namespace EngineCell.Application.Views.Phase
             var tempIndex = selectedIndex == null ? PhaseTabs.SelectedIndex : Convert.ToInt32(selectedIndex);
             PhaseTabs.ItemsSource = ViewModel.Phases.OrderBy(p => p.PhaseOrder).ToList();
             PhaseTabs.SelectedIndex = tempIndex;
+            UpdateTriggerDisplay();
         }
 
         private void AddPhase(object sender, RoutedEventArgs e)
@@ -59,6 +60,7 @@ namespace EngineCell.Application.Views.Phase
             var newPhase = WidgetRepository.AddPhaseToTest(ViewModel.ApplicationSessionFactory.CurrentCellTest.CellTestId, ViewModel.Phases.Count + 1, NewPhaseName.Text);
             ViewModel.Phases.Add(newPhase);
             UpdatePhaseTabs(ViewModel.Phases.IndexOf(newPhase));
+            NewPhaseName.Text = "";
         }
 
         private void UpdatePhase(object sender, RoutedEventArgs e)
@@ -140,18 +142,7 @@ namespace EngineCell.Application.Views.Phase
             if (e.OriginalSource.GetType() != typeof(TabControl) || ((TabControl) e.OriginalSource).Name != "PhaseTabs")
                 return;
             UpdatePhaseWidgetDisplay();
-            Dispatcher.BeginInvoke(new Action(() =>
-            {
-                var cp = PhaseTabs.Template.FindName("PART_SelectedContentHost", PhaseTabs) as ContentPresenter;
-                try
-                {
-                    var g = PhaseTabs.ContentTemplate.FindName("TriggerConfig", cp) as Grid;
-                    g.Children.Clear();
-                    var triggerWindow = new TriggerConfig() {DataContext = new TriggerConfigViewModel(ViewModel.ApplicationSessionFactory, ViewModel.Phases.ElementAt(PhaseTabs.SelectedIndex), ViewModel.Phases.Select(p => new IdNamePair(p.CellTestPhaseId, p.Name)).ToList()) };
-                    g.Children.Add(triggerWindow);
-                }
-                catch (Exception) { }
-            }));
+            UpdateTriggerDisplay();
         }
 
         private void RemoveWidgetFromPhase(object sender, RoutedEventArgs e)
@@ -288,6 +279,42 @@ namespace EngineCell.Application.Views.Phase
             
 
             ViewModel.ApplicationSessionFactory.CurrentCellTest.Phases = ViewModel.Phases;
+        }
+
+        private void UpdateTriggerDisplay()
+        {
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                var cp = PhaseTabs.Template.FindName("PART_SelectedContentHost", PhaseTabs) as ContentPresenter;
+                try
+                {
+                    var g = PhaseTabs.ContentTemplate.FindName("TriggerConfig", cp) as Grid;
+                    g.Children.Clear();
+                    var triggerWindow = new TriggerConfig()
+                    {
+                        DataContext = new TriggerConfigViewModel(ViewModel.ApplicationSessionFactory, ViewModel.Phases.ElementAt(PhaseTabs.SelectedIndex), ViewModel.Phases.Select(p => new IdNamePair(p.CellTestPhaseId, p.Name)).ToList())
+                    };
+                    g.Children.Add(triggerWindow);
+                }
+                catch (Exception ex) { }
+            }));
+        }
+
+        private void PhaseContentTab_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.OriginalSource.GetType() != typeof(TabControl) || ((TabControl)e.OriginalSource).Name != "PhaseContentTab")
+                return;
+
+            UpdateTriggerDisplay();
         }        
+
+        private void DisplayDetection_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(ViewModel == null || DataContext == null)
+                return;
+
+            UpdatePhaseTabs();
+            UpdatePhaseWidgetDisplay();
+        }
     }
 }

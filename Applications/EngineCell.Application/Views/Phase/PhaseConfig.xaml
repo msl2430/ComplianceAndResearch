@@ -23,6 +23,7 @@
           <TextBox x:Name="NewPhaseName" Height="30" Width="150" Margin="5,0"></TextBox>
           <Button Width="100" Height="30" Content="Add Phase" Background="{StaticResource DarkBlueBrush}" Click="AddPhase"></Button>
           <TextBlock x:Name="NewPhaseError" Foreground="Red" FontSize="10" Visibility="Collapsed" Margin="10,16">Name cannot be blank or already exist in the test.</TextBlock>
+          <TextBox x:Name="DisplayDetection" Visibility="Hidden" Text="{Binding ZIndex}" TextChanged="DisplayDetection_OnTextChanged"></TextBox>
         </StackPanel>
       </Border>
       <Grid Grid.Row="1" >
@@ -51,7 +52,7 @@
                       <Button Width="100" Height="30" Content="Update Phase" Background="{StaticResource HeadlineBlueBrush}" Click="UpdatePhase" Tag="{Binding CellTestPhaseId}" ></Button>
                       <Button Width="100" Height="30" Content="Delete Phase" Background="OrangeRed" Click="DeletePhase" Tag="{Binding CellTestPhaseId}" Margin="50,0,0,0" ></Button>
                     </StackPanel>
-                    <TabControl TabStripPlacement="Top" Grid.Row="1" Margin="0,5">
+                    <TabControl x:Name="PhaseContentTab" TabStripPlacement="Top" Grid.Row="1" Margin="0,5" SelectionChanged="PhaseContentTab_OnSelectionChanged">
                       <TabControl.Resources>
                         <Style TargetType="TabItem">
                           <Setter Property="Template">

@@ -1,4 +1,10 @@
 : 1_0
+
+1 LINE.NUM
+  %EngineCell 
+  999  
+  1    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
 0 JUMP ;
 : 1_1
 
@@ -7,7 +13,7 @@
   999  
   ^IsStartDataCollect   IO.SP.READ
   ^GetScratchPadResult @! 
-3 JUMP ;
+4 JUMP ;
 : 1_3
 -2 JUMP ;
 : 1_9
@@ -500,6 +506,17 @@
 218 LINE.NUM ^OutputConfigValue @@ ~Freq3 F@! 
 219 LINE.NUM THEN 
 -3 JUMP ;
+: 1_18
+
+1 LINE.NUM
+  %EngineCell 
+  999  
+  0    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  &DataCollection   STOP.T
+1 JUMP ;
 : 1_2
 TRUE
 
@@ -507,7 +524,7 @@ TRUE
   ^IsStartDataCollect @@ 
   1    =
 LAND
-IF -3 ELSE -4 THEN JUMP ;
+IF -4 ELSE -2 THEN JUMP ;
 T: T1
 DUMMY
 1_0
@@ -515,6 +532,7 @@ DUMMY
 1_3
 1_9
 1_13
+1_18
 1_2
 T;
 &DataCollection ' T1 SETTASK

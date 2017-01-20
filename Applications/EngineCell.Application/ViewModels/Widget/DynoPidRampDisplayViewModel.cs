@@ -4,7 +4,7 @@ using EngineCell.Application.Factories;
 using EngineCell.Core.Constants;
 using EngineCell.Models.Models;
 
-namespace EngineCell.Application.ViewModels
+namespace EngineCell.Application.ViewModels.Widget
 {
     public class DynoPidRampDisplayViewModel : BaseViewModel
     {

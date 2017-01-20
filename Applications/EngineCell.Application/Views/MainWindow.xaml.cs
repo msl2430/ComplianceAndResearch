@@ -82,8 +82,8 @@ namespace EngineCell.Application.Views
             }
 
             //TESTING
-            var test = CellPointRepository.GetCellTestById(2007);
-            ApplicationSessionFactory.CurrentCellTest = test;
+            //var test = CellPointRepository.GetCellTestById(2007);
+           // ApplicationSessionFactory.CurrentCellTest = test;
 
             if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null)
             {
@@ -95,7 +95,7 @@ namespace EngineCell.Application.Views
                 ChangePageView(MainWindowViewModel.TestDisplayViewModel);
             }
             //TESTING
-            ChangePageView(MainWindowViewModel.PhaseConfigViewModel);
+            //ChangePageView(MainWindowViewModel.PhaseConfigViewModel);
 
             DataContext = MainWindowViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
@@ -254,6 +254,18 @@ namespace EngineCell.Application.Views
             UpdateViewModels();
             ChangePageView(ControlConstants.Views.TestDisplay);
         }
+
+        private void EditTestName_OnClick(object sender, RoutedEventArgs e)
+        {
+            var dialog = new NewTestDialog(ApplicationSessionFactory.CurrentCellTest.Name, ApplicationSessionFactory.CurrentCellTest.Description) { Title = "Edit Test Name" };
+            dialog.ShowDialog();
+            if (string.IsNullOrEmpty(dialog.NewTestName) || (dialog.NewTestName == ApplicationSessionFactory.CurrentCellTest.Name && dialog.NewTestDescription == ApplicationSessionFactory.CurrentCellTest.Description))
+                return;
+            ApplicationSessionFactory.CurrentCellTest.Name = dialog.NewTestName;
+            ApplicationSessionFactory.CurrentCellTest.Description = dialog.NewTestDescription;
+            UpdateTestName(ApplicationSessionFactory.CurrentCellTest.Name);
+            CellPointRepository.UpdateCellTestName(ApplicationSessionFactory.CurrentCellTest.CellTestId, ApplicationSessionFactory.CurrentCellTest.Name, ApplicationSessionFactory.CurrentCellTest.Description);
+        }
         #endregion
 
         #region Private Methods
@@ -350,18 +362,6 @@ namespace EngineCell.Application.Views
             MainWindowViewModel.TestDisplayViewModel.UpdateViewModel();
             MainWindowViewModel.PhaseConfigViewModel.UpdateViewModel();            
         }
-        #endregion
-
-        private void EditTestName_OnClick(object sender, RoutedEventArgs e)
-        {
-            var dialog = new NewTestDialog(ApplicationSessionFactory.CurrentCellTest.Name, ApplicationSessionFactory.CurrentCellTest.Description) { Title = "Edit Test Name"};
-            dialog.ShowDialog();
-            if (string.IsNullOrEmpty(dialog.NewTestName) || (dialog.NewTestName == ApplicationSessionFactory.CurrentCellTest.Name && dialog.NewTestDescription == ApplicationSessionFactory.CurrentCellTest.Description))
-                return;
-            ApplicationSessionFactory.CurrentCellTest.Name = dialog.NewTestName;
-            ApplicationSessionFactory.CurrentCellTest.Description = dialog.NewTestDescription;
-            UpdateTestName(ApplicationSessionFactory.CurrentCellTest.Name);
-            CellPointRepository.UpdateCellTestName(ApplicationSessionFactory.CurrentCellTest.CellTestId, ApplicationSessionFactory.CurrentCellTest.Name, ApplicationSessionFactory.CurrentCellTest.Description);
-        }
+        #endregion        
     }
 }
