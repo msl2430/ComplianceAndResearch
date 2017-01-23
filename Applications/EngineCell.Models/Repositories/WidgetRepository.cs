@@ -6,6 +6,7 @@ using EngineCell.Core.Extensions;
 using EngineCell.Models.DataObjects;
 using EngineCell.Models.Helpers;
 using EngineCell.Models.Models;
+using NHibernate.Criterion;
 
 namespace EngineCell.Models.Repositories
 {
@@ -21,6 +22,9 @@ namespace EngineCell.Models.Repositories
 
         CellTestPhaseTriggerModel AddTriggerToPhase(CellTestPhaseTriggerModel model);
         void RemoveTriggerFromPhase(int triggerId);
+
+        IList<CellTestPhaseModel> GetCellPhases(int cellId);
+        CellTestPhaseModel CopyPhaseToTest(CellTestPhaseModel phase, int cellTestId, int phaseIndex);
 
         [Obsolete("Remove", false)]
         IList<WidgetSettingValueModel> GetWidgetSettingByWidgetCell(int cellId, WidgetConstants.Widget widgetId);
@@ -74,6 +78,18 @@ namespace EngineCell.Models.Repositories
             NHibernateHelper.CurrentSession.CreateSQLQuery("UPDATE CellTestPhase SET PhaseOrder = PhaseOrder - 1 WHERE CellTestId = :cellTestId AND PhaseOrder > :phaseOrder")
                 .SetParameter("cellTestId", cellTestId)
                 .SetParameter("phaseOrder", phase.PhaseOrder)
+                .ExecuteUpdate();
+
+            NHibernateHelper.CurrentSession.CreateSQLQuery("DELETE FROM CellTestPhaseTrigger WHERE CellTestPhaseId = :cellTestPhaseId")
+                .SetParameter("cellTestPhaseId", phase.CellTestPhaseId)
+                .ExecuteUpdate();
+
+            NHibernateHelper.CurrentSession.CreateSQLQuery("DELETE FROM CellTestPhaseWidget_Setting WHERE CellTestPhaseWidgetId IN (SELECT CellTestPhaseWidgetId FROM CellTestPhaseWidget WHERE CellTestPhaseId = :cellTestPhaseId)")
+                .SetParameter("cellTestPhaseId", phase.CellTestPhaseId)
+                .ExecuteUpdate();
+
+            NHibernateHelper.CurrentSession.CreateSQLQuery("DELETE FROM CellTestPhaseWidget WHERE CellTestPhaseId = :cellTestPhaseId")
+                .SetParameter("cellTestPhaseId", phase.CellTestPhaseId)
                 .ExecuteUpdate();
 
             NHibernateHelper.CurrentSession.Delete(phase);
@@ -168,6 +184,40 @@ namespace EngineCell.Models.Repositories
 
             NHibernateHelper.CurrentSession.Delete(trigger);
             NHibernateHelper.CurrentSession.Flush();
+        }
+
+        public IList<CellTestPhaseModel> GetCellPhases(int cellId)
+        {
+            CellTest test = null;
+            var phases = NHibernateHelper.CurrentSession.QueryOver<CellTestPhaseExtended>()
+                .JoinAlias(p => p.CellTest, () => test)
+                .Where(() => test.CellId == cellId)
+                .List();
+
+            return phases.IsNotNullOrEmpty() ? phases.Select(p => new CellTestPhaseModel(p)).ToList() : new List<CellTestPhaseModel>();
+        }
+
+        public CellTestPhaseModel CopyPhaseToTest(CellTestPhaseModel phase, int cellTestId, int phaseIndex)
+        {
+            var newPhase = AddPhaseToTest(cellTestId, phaseIndex, phase.Name);
+
+            foreach (var widget in phase.Widgets)
+            {
+                var newWidget = AddWidgetToPhase(newPhase.CellTestPhaseId, widget.WidgetId);
+                foreach (var setting in widget.Settings)
+                {
+                    var newSetting = SaveWidgetSetting(newWidget.CellTestPhaseWidgetId, setting.WidgetSettingId, setting.Value);
+                    newWidget.Settings.Add(newSetting);
+                }
+                newPhase.Widgets.Add(newWidget);
+            }
+            foreach (var trigger in phase.Triggers)
+            {
+                var newTrigger = AddTriggerToPhase(trigger);
+                newPhase.Triggers.Add(newTrigger);
+            }
+
+            return newPhase;
         }
 
         [Obsolete("Remove", false)]

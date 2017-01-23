@@ -163,6 +163,7 @@
     <Compile Include="Services\WorkerServices\TestRunnerWorkerService.cs" />
     <Compile Include="Services\WorkerServices\Widget\DynoPidRampWidgetWorkerService.cs" />
     <Compile Include="Services\WorkerServices\Widget\TestScheduleWidgetWorkerService.cs" />
+    <Compile Include="ViewModels\Phase\LoadPhaseViewModel.cs" />
     <Compile Include="ViewModels\Widget\DynoPidRampDisplayViewModel.cs" />
     <Compile Include="ViewModels\Phase\PhaseConfigViewModel.cs" />
     <Compile Include="ViewModels\Phase\TriggerConfigViewModel.cs" />
@@ -221,6 +222,9 @@
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Phase\LoadPhaseDialog.xaml.cs">
+      <DependentUpon>LoadPhaseDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Phase\PhaseConfig.xaml.cs">
       <DependentUpon>PhaseConfig.xaml</DependentUpon>
@@ -325,6 +329,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Phase\LoadPhaseDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

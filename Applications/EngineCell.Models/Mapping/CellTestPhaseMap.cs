@@ -25,11 +25,14 @@ namespace EngineCell.Models.Mapping
 
             Id(t => t.CellTestPhaseId);
 
-            Map(t => t.CellTestId);
             Map(t => t.PhaseOrder);
             Map(t => t.Name);
 
-            HasMany<CellTestPhaseWidgetExtended>(t => t.Widgets)
+            References(t => t.CellTest)
+                .Column("CellTestId")
+                .Fetch.Join();
+
+            HasMany(t => t.Widgets)
                 .KeyColumn("CellTestPhaseId")
                 .NotFound.Ignore()
                 .Fetch.Subselect();

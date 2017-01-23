@@ -12,10 +12,14 @@ namespace EngineCell.Models.Models
     {
         public int CellTestPhaseId { get; set; }
         public int CellTestId { get; set; }
+        public string CellTestName { get; set; }
+        public DateTime? CellTestCreationDate { get; set; }
         public int PhaseOrder { get; set; }
         public string Name { get; set; }
         public IList<CellTestPhaseWidgetModel> Widgets { get; set; }
         public IList<CellTestPhaseTriggerModel> Triggers { get; set; }
+
+        public string CreationDateString => CellTestCreationDate?.ToString("MM/dd/yyyy hh:mmtt") ?? "";
 
         public CellTestPhaseModel()
         {
@@ -39,6 +43,9 @@ namespace EngineCell.Models.Models
                 return;
 
             InstantiateFromDataObject(obj);
+            CellTestId = obj.CellTest?.CellTestId ?? -1;
+            CellTestName = obj.CellTest?.Name ?? "";
+            CellTestCreationDate = obj.CellTest?.CreationDateTime;
             Widgets = obj.Widgets.IsNotNullOrEmpty() ? obj.Widgets.Select(w => new CellTestPhaseWidgetModel(w)).ToList() : new List<CellTestPhaseWidgetModel>();
             Triggers = obj.Triggers.IsNotNullOrEmpty() ? obj.Triggers.Select(t => new CellTestPhaseTriggerModel(t)).ToList() : new List<CellTestPhaseTriggerModel>();
         }

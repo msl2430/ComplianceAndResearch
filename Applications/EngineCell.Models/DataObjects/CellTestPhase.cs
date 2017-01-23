@@ -13,7 +13,7 @@ namespace EngineCell.Models.DataObjects
     public class CellTestPhaseExtended
     {
         public virtual int CellTestPhaseId { get; set; }
-        public virtual int CellTestId { get; set; }
+        public virtual CellTest CellTest { get; set; }
         public virtual int PhaseOrder { get; set; }
         public virtual string Name { get; set; }
         public virtual IList<CellTestPhaseWidgetExtended> Widgets { get; set; }

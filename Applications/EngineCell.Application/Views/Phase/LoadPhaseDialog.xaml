@@ -1,0 +1,63 @@
+﻿<Window x:Class="EngineCell.Application.Views.Phase.LoadPhaseDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EngineCell.Application.Views.Phase"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Icon="../../Content/Resource/Icon.ico"
+        Loaded="LoadPhaseDialog_OnLoaded"
+        Title="LoadPhaseDialog" Height="550" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
+        <Grid Column="0">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" FontSize="15" Foreground="{StaticResource HeadlineBlueBrush}" Margin="5">Select a phase:</Label>
+                <Border Grid.Row="1" BorderBrush="LightGray">
+                    <ListView x:Name="HistoryList" Margin="5" Background="WhiteSmoke" ItemsSource="{Binding Phases}" SelectionChanged="HistoryList_OnSelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" >
+                                    <TextBlock Text="{Binding CellTestName}" Width="125" Foreground="Black" FontSize="10"></TextBlock>
+                                    <TextBlock Text="{Binding Name}" Width="100" Foreground="Black" FontSize="10"></TextBlock>
+                                    <TextBlock Text="{Binding CreationDateString}" Width="100" Foreground="Black" FontSize="10"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListView>
+                </Border>
+            </Grid>
+        </Grid>
+        <Grid Column="1">
+            <StackPanel Margin="5">
+                <TextBlock x:Name="PhaseName" FontSize="15" Foreground="{StaticResource HeadlineBlueBrush}"></TextBlock>
+                <TextBlock FontSize="12" Foreground="{StaticResource HeadlineBlueBrush}">Original Test: <TextBlock x:Name="OriginalTest" Foreground="WhiteSmoke"></TextBlock></TextBlock>
+                <TextBlock FontSize="12" Foreground="{StaticResource HeadlineBlueBrush}">Number of Widgets: <TextBlock x:Name="NumWidgets" Foreground="WhiteSmoke"></TextBlock></TextBlock>
+                <TextBlock FontSize="12" Foreground="{StaticResource HeadlineBlueBrush}">Number of Triggers: <TextBlock x:Name="NumTriggers" Foreground="WhiteSmoke"></TextBlock></TextBlock>
+                <StackPanel Margin="0,10">
+                    <TextBlock FontSize="14" Foreground="OrangeRed">Widgets:</TextBlock>
+                    <ItemsControl x:Name="Widgets">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="12" Foreground="WhiteSmoke" Text="{Binding}" Margin="10,3"></TextBlock>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+            <Border BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,1.01,0,0" VerticalAlignment="Bottom">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,5,10,5">
+                    <Button x:Name="CopyPhase" Height="30" Click="CopyPhase_OnClick" Margin="0,0,10,5">Copy Phase</Button>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

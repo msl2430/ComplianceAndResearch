@@ -49,5 +49,37 @@ namespace EngineCell.Application.Services.DataServices
 
             return setPoints;
         }
+
+        public static string GetWidgetName(WidgetConstants.Widget widget)
+        {
+            switch (widget)
+            {
+                case WidgetConstants.Widget.TestSchedule:
+                    return "Test Schedule";
+                    
+                case WidgetConstants.Widget.DynoRamp:
+                    return "Dyno Ramp";
+                case WidgetConstants.Widget.ThrottleRamp:
+                    return "Throttle Ramp";
+                case WidgetConstants.Widget.CustomChart1:
+                    return "Custom Chart 1";
+                case WidgetConstants.Widget.CustomChart2:
+                    return "Custom Chart 2";
+                case WidgetConstants.Widget.CustomChart3:
+                    return "Custom Chart 3";
+                case WidgetConstants.Widget.CustomChart4:
+                    return "Custom Chart 4";
+                case WidgetConstants.Widget.CustomChart5:
+                    return "Custom Chart 5";
+                case WidgetConstants.Widget.VentilationControl1:
+                    return "Ventilation Control 1";
+                case WidgetConstants.Widget.VentilationControl2:
+                    return "Ventilation Control 2";
+                case WidgetConstants.Widget.Starter:
+                    return "Starter";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(widget), widget, null);
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -268,6 +269,7 @@ namespace EngineCell.Application.Views.Phase
             Dispatcher.BeginInvoke(new Action(() =>
             {
                 var cp = PhaseTabs.Template.FindName("PART_SelectedContentHost", PhaseTabs) as ContentPresenter;
+                cp.ApplyTemplate();
                 try
                 {
                     var g = PhaseTabs.ContentTemplate.FindName("WidgetConfigGrid", cp) as Grid;
@@ -286,6 +288,7 @@ namespace EngineCell.Application.Views.Phase
             Dispatcher.BeginInvoke(new Action(() =>
             {
                 var cp = PhaseTabs.Template.FindName("PART_SelectedContentHost", PhaseTabs) as ContentPresenter;
+                cp.ApplyTemplate();
                 try
                 {
                     var g = PhaseTabs.ContentTemplate.FindName("TriggerConfig", cp) as Grid;
@@ -315,6 +318,19 @@ namespace EngineCell.Application.Views.Phase
 
             UpdatePhaseTabs();
             UpdatePhaseWidgetDisplay();
+        }
+
+        private void LoadPhase(object sender, RoutedEventArgs e)
+        {
+            var dialog = new LoadPhaseDialog(ViewModel.ApplicationSessionFactory);
+            dialog.ShowDialog();
+            if (dialog.ViewModel.PhaseToCopy == null)
+                return;
+
+            var newPhase = WidgetRepository.CopyPhaseToTest(dialog.ViewModel.PhaseToCopy, ViewModel.ApplicationSessionFactory.CurrentCellTest.CellTestId, ViewModel.Phases.Count + 1);
+            ViewModel.Phases.Add(newPhase);
+            UpdatePhaseTabs(ViewModel.Phases.IndexOf(newPhase));
+            NewPhaseName.Text = "";
         }
     }
 }

@@ -20,7 +20,7 @@ namespace EngineCell.Models.Models
         public IList<CellTestPhaseModel> Phases { get; set; }
 
         public bool IsRunning { get; set; }
-        public string CreationDateString { get { return CreationDateTime.ToString("MM/dd/yyyy hh:mmtt"); } }
+        public string CreationDateString => CreationDateTime.ToString("MM/dd/yyyy hh:mmtt");
 
         public CellTestModel () {  }
 
