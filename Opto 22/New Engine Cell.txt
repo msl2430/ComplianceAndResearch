@@ -50,3 +50,12 @@ MotorMode => Speed = S, Load = L, Direct = D
 Line in CSV "Mode,NULL,MotorMode,MotorMode by channel config
 
 Add error messaging when reading in csv if no mode set initially, also maybe if time doesn't start at zero
+
+STARTER
+- Crank Time, Start RPM, Time between tries, number of tries time to
+- digital out in engine is crank on/off
+- oil pressure is a problem
+- bit to say engine is running from hardware triggers not to start crank
+
+
+
