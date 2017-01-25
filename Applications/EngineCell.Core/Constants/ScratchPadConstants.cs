@@ -50,6 +50,10 @@
             StarterCrankOn,
             StarterEngineOn,
 
+            //Throttle PID Ramp Widget
+            StartThrottlePidWidget = 3407,
+            ThrottlePidWidgetRunning,
+
             //Pid Config
             PidConfigStatus = 500,
             PidConfigType,
@@ -254,6 +258,12 @@
             DynoPidRampTime,
             DynoPidRampCurrentSetpoint,
             DynoPidRampCurrentTime,
+
+            //Throttle PID Ramp
+            ThrottlePidRampSetpoint = 3404,
+            ThrottlePidRampTime,
+            ThrottlePidRampCurrentSetpoint,
+            ThrottlePidRampCurrentTime,
 
             //Starter 
             StarterCrankTime = 3403,

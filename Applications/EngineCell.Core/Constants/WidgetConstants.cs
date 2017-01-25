@@ -25,7 +25,7 @@ namespace EngineCell.Core.Constants
             TestScheduleTimeout,
             DynoRampSetpoint,
             DynoRampTime,
-            ThrottleReampSetpoint,
+            ThrottleRampSetpoint,
             ThrottleRampTime,
             VentCtrl1InsideThermoCouple,
             VentCtrl1OutsideThermoCouple,

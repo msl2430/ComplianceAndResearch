@@ -4,7 +4,7 @@
 # ----------------------------------------------------------------
 # NAME :         D:\Work\ComplianceAndResearch\Applications\EngineCell.Strategy\EngineCell.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    11:10:30 1/25/2017
+# TIME/DATE :    13:31:2 1/25/2017
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -103,6 +103,7 @@ TAG1,PidConfig                                         ,2    ,00000000,00000100,
 TAG1,Powerup                                           ,0    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,StarterWidget                                     ,11   ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,TestScheduleWidgetChart                           ,4    ,00000000,00000100,00000000,00000000,0    ,0   
+TAG1,ThrottlePidRampWidget                             ,12   ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,VentilationCtrl1                                  ,3    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,EngineCell                                        ,2    ,00000000,00000000,10000000,00000000,0    ,0   
 TAG1,ScratchPad                                        ,0    ,00000000,00000000,40000000,00000000,0    ,0   
@@ -244,6 +245,14 @@ TAG1,TestScheduleUpperSetpoint                         ,37   ,00000000,00000000,
 TAG1,TestScheduleUpperTime                             ,30   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,TestScheduleUseDyno                               ,32   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,TestScheduleUseThrottle                           ,40   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,ThrottlePidRampCurrentSetpoint                    ,68   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,ThrottlePidRampCurrentTime                        ,75   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,ThrottlePidRampIntercept                          ,74   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,ThrottlePidRampSetpoint                           ,69   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,ThrottlePidRampSlope                              ,73   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,ThrottlePidRampStart                              ,67   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,ThrottlePidRampTime                               ,70   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,ThrottlePidRampTimer                              ,71   ,00000000,00000000,00000000,00002000,0    ,0   
 TAG1,TriggerPointValue                                 ,50   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,VentCtrl1Gain                                     ,21   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,VentCtrl1InsideType                               ,16   ,00000000,00000000,00000000,00000008,0    ,0   

@@ -161,10 +161,12 @@
     <Compile Include="Services\WorkerServices\PidConfigStripChartWorkerService.cs" />
     <Compile Include="Services\WorkerServices\PidConfigWorkerService.cs" />
     <Compile Include="Services\WorkerServices\TestRunnerWorkerService.cs" />
+    <Compile Include="Services\WorkerServices\Widget\ThrottlePidRampWidgetWorkerService.cs" />
     <Compile Include="Services\WorkerServices\Widget\DynoPidRampWidgetWorkerService.cs" />
     <Compile Include="Services\WorkerServices\Widget\StarterWidgetWorkerService.cs" />
     <Compile Include="Services\WorkerServices\Widget\TestScheduleWidgetWorkerService.cs" />
     <Compile Include="ViewModels\Phase\LoadPhaseViewModel.cs" />
+    <Compile Include="ViewModels\Widget\ThrottlePidRampDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\DynoPidRampDisplayViewModel.cs" />
     <Compile Include="ViewModels\Phase\PhaseConfigViewModel.cs" />
     <Compile Include="ViewModels\Phase\TriggerConfigViewModel.cs" />
@@ -301,6 +303,12 @@
     <Compile Include="Views\Widget\TestScheduleDisplay.xaml.cs">
       <DependentUpon>TestScheduleDisplay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Widget\ThrottlePidRampConfig.xaml.cs">
+      <DependentUpon>ThrottlePidRampConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Widget\ThrottlePidRampDisplay.xaml.cs">
+      <DependentUpon>ThrottlePidRampDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Widget\VentControlDisplay.xaml.cs">
       <DependentUpon>VentControlDisplay.xaml</DependentUpon>
     </Compile>
@@ -436,6 +444,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Widget\TestScheduleDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Widget\ThrottlePidRampConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Widget\ThrottlePidRampDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

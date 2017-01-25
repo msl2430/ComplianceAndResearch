@@ -10,6 +10,7 @@
 0 TASK &Powerup
 0 TASK &StarterWidget
 0 TASK &TestScheduleWidgetChart
+0 TASK &ThrottlePidRampWidget
 0 TASK &VentilationCtrl1
 0 IVAR ^CustomChart1Start
 0 IVAR ^CustomChart2Start
@@ -59,6 +60,14 @@
 0 FVAR ^TestScheduleUpperTime
 0 IVAR ^TestScheduleUseDyno
 0 IVAR ^TestScheduleUseThrottle
+0 FVAR ^ThrottlePidRampCurrentSetpoint
+0 FVAR ^ThrottlePidRampCurrentTime
+0 FVAR ^ThrottlePidRampIntercept
+0 FVAR ^ThrottlePidRampSetpoint
+0 FVAR ^ThrottlePidRampSlope
+0 IVAR ^ThrottlePidRampStart
+0 FVAR ^ThrottlePidRampTime
+0 UTVAR ^ThrottlePidRampTimer
 0 FVAR ^TriggerPointValue
 0 FVAR ^VentCtrl1Gain
 0 IVAR ^VentCtrl1InsideType

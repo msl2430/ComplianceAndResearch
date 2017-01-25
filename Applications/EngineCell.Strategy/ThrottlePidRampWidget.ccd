@@ -1,0 +1,99 @@
+: 12_0
+
+1 LINE.NUM
+  %ScratchPad 
+  3407  
+  ^ThrottlePidRampStart   IO.SP.READ
+  ^GetScratchPadResult @! 
+7 JUMP ;
+: 12_2
+
+1 LINE.NUM
+  |Throttle   $0002.. ROT PID@
+  ^ThrottlePidRampCurrentSetpoint @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  3404  
+  ^ThrottlePidRampSetpoint    IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  %ScratchPad 
+  3405  
+  ^ThrottlePidRampTime    IO.SP.READ
+  ^GetScratchPadResult @! 
+0 JUMP ;
+: 12_3
+
+1 LINE.NUM
+  %ScratchPad 
+  3408  
+  1    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  ^ThrottlePidRampTimer   StartTimer
+0 JUMP ;
+: 12_4
+
+1 LINE.NUM
+  %ScratchPad 
+  3407  
+  ^ThrottlePidRampStart   IO.SP.READ
+  ^GetScratchPadResult @! 
+5 JUMP ;
+: 12_6
+1 LINE.NUM ^ThrottlePidRampTimer @@F ^ThrottlePidRampCurrentTime @! 
+3 LINE.NUM ^ThrottlePidRampCurrentTime @@ ^ThrottlePidRampTime @@ F< IF 
+5 LINE.NUM ^ThrottlePidRampSetpoint @@ ^ThrottlePidRampCurrentSetpoint @@ F- ^ThrottlePidRampTime @@ F/ ^ThrottlePidRampSlope @! 
+7 LINE.NUM ^ThrottlePidRampSetpoint @@ ^ThrottlePidRampSlope @@ ^ThrottlePidRampTime @@ F* F- ^ThrottlePidRampIntercept @! 
+9 LINE.NUM |Throttle ^ThrottlePidRampSlope @@ ^ThrottlePidRampCurrentTime @@ F* ^ThrottlePidRampIntercept @@ F+  $0002.. 3 ROLL !PID 
+10 LINE.NUM ELSE 
+11 LINE.NUM |Throttle ^ThrottlePidRampSetpoint @@  $0002.. 3 ROLL !PID 
+12 LINE.NUM THEN 
+14 LINE.NUM %ScratchPad 3402 |Throttle  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
+15 LINE.NUM %ScratchPad 3403 ^ThrottlePidRampCurrentTime @@  IO.SP.F.WRITE DROP  
+2 JUMP ;
+: 12_7
+
+1 LINE.NUM
+  ^ThrottlePidRampTimer   StopTimer
+
+2 LINE.NUM
+  &ThrottlePidRampWidget   STOP.T
+4 JUMP ;
+: 12_9
+-7 JUMP ;
+: 12_10
+-5 JUMP ;
+: 12_1
+TRUE
+
+1 LINE.NUM
+  ^ThrottlePidRampStart @@ 
+  1    =
+LAND
+IF -8 ELSE -3 THEN JUMP ;
+: 12_5
+TRUE
+
+1 LINE.NUM
+  ^ThrottlePidRampStart @@ 
+  1    =
+LAND
+IF -6 ELSE -5 THEN JUMP ;
+T: T12
+DUMMY
+12_0
+12_2
+12_3
+12_4
+12_6
+12_7
+12_9
+12_10
+12_1
+12_5
+T;
+&ThrottlePidRampWidget ' T12 SETTASK

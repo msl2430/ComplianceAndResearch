@@ -195,7 +195,7 @@ namespace EngineCell.Application.Views.Phase
                         configWindow = new DynoPidRampConfig(phase);
                         break;
                     case WidgetConstants.Widget.ThrottleRamp:
-                        //configWindow = new ThrottlePidRampConfig(phase);
+                        configWindow = new ThrottlePidRampConfig(phase);
                         break;
                     case WidgetConstants.Widget.CustomChart1:
                         configWindow = new CustomChartConfig(phase, WidgetConstants.Widget.CustomChart1);

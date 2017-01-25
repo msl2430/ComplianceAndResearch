@@ -16,6 +16,7 @@ _END NEW $$$.RUN
 0 TASK &Powerup
 0 TASK &StarterWidget
 0 TASK &TestScheduleWidgetChart
+0 TASK &ThrottlePidRampWidget
 0 TASK &VentilationCtrl1
 0 IVAR ^CustomChart1Start
 0 IVAR ^CustomChart2Start
@@ -65,6 +66,14 @@ _END NEW $$$.RUN
 0 FVAR ^TestScheduleUpperTime
 0 IVAR ^TestScheduleUseDyno
 0 IVAR ^TestScheduleUseThrottle
+0 FVAR ^ThrottlePidRampCurrentSetpoint
+0 FVAR ^ThrottlePidRampCurrentTime
+0 FVAR ^ThrottlePidRampIntercept
+0 FVAR ^ThrottlePidRampSetpoint
+0 FVAR ^ThrottlePidRampSlope
+0 IVAR ^ThrottlePidRampStart
+0 FVAR ^ThrottlePidRampTime
+0 UTVAR ^ThrottlePidRampTimer
 0 FVAR ^TriggerPointValue
 0 FVAR ^VentCtrl1Gain
 0 IVAR ^VentCtrl1InsideType
@@ -1178,7 +1187,7 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-19 JUMP ;
+20 JUMP ;
 : 0_4
 -2 JUMP ;
 : 0_5
@@ -1214,7 +1223,7 @@ T;
   999  
   ^IsStartDataCollect   IO.SP.READ
   ^GetScratchPadResult @! 
-26 JUMP ;
+27 JUMP ;
 : 0_19
 -5 JUMP ;
 : 0_25
@@ -1224,14 +1233,14 @@ T;
   11  
   ^IsTestRunning   IO.SP.READ
   ^GetScratchPadResult @! 
-16 JUMP ;
+17 JUMP ;
 : 0_45
 -4 JUMP ;
 : 0_47
 
 1 LINE.NUM
   &DataCollection   STOP.T
-24 JUMP ;
+26 JUMP ;
 : 0_59
 
 1 LINE.NUM
@@ -1245,13 +1254,13 @@ T;
 3 LINE.NUM
   &DataCollection   START.T
   ^SetScratchPadResult @! 
-23 JUMP ;
+25 JUMP ;
 : 0_64
 
 1 LINE.NUM
   &TestScheduleWidgetChart   START.T
   ^GetScratchPadResult @! 
-19 JUMP ;
+20 JUMP ;
 : 0_67
 
 1 LINE.NUM
@@ -1301,7 +1310,13 @@ T;
   3402  
   ^StarterStart   IO.SP.READ
   ^GetScratchPadResult @! 
-12 JUMP ;
+
+9 LINE.NUM
+  %ScratchPad 
+  3407  
+  ^ThrottlePidRampStart   IO.SP.READ
+  ^GetScratchPadResult @! 
+13 JUMP ;
 : 0_76
 -9 JUMP ;
 : 0_77
@@ -1309,25 +1324,25 @@ T;
 1 LINE.NUM
   &CustomChart1   START.T
   ^GetScratchPadResult @! 
-12 JUMP ;
+13 JUMP ;
 : 0_88
 
 1 LINE.NUM
   &CustomChart2   START.T
   ^GetScratchPadResult @! 
-12 JUMP ;
+13 JUMP ;
 : 0_93
 
 1 LINE.NUM
   &CustomChart3   START.T
   ^GetScratchPadResult @! 
-12 JUMP ;
+13 JUMP ;
 : 0_96
 
 1 LINE.NUM
   &CustomChart4   START.T
   ^GetScratchPadResult @! 
-12 JUMP ;
+13 JUMP ;
 : 0_99
 
 1 LINE.NUM
@@ -1339,19 +1354,25 @@ T;
 1 LINE.NUM
   &DynoPidRampWidget   START.T
   ^GetScratchPadResult @! 
-13 JUMP ;
+15 JUMP ;
 : 0_124
 
 1 LINE.NUM
   &DataCollection   START.T
   ^GetScratchPadResult @! 
-2 JUMP ;
+3 JUMP ;
 : 0_131
 
 1 LINE.NUM
   &StarterWidget   START.T
   ^GetScratchPadResult @! 
-4 JUMP ;
+5 JUMP ;
+: 0_137
+
+1 LINE.NUM
+  &ThrottlePidRampWidget   START.T
+  ^GetScratchPadResult @! 
+13 JUMP ;
 : 0_2
 TRUE
 
@@ -1359,7 +1380,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -18 ELSE -19 THEN JUMP ;
+IF -19 ELSE -20 THEN JUMP ;
 : 0_16
 TRUE
 
@@ -1367,7 +1388,7 @@ TRUE
   ^IsStartTest @@ 
   1    =
 LAND
-IF -17 ELSE -18 THEN JUMP ;
+IF -18 ELSE -19 THEN JUMP ;
 : 0_27
 TRUE
 
@@ -1375,7 +1396,7 @@ TRUE
   ^IsTestRunning @@ 
   1    =
 LAND
-IF -13 ELSE -17 THEN JUMP ;
+IF -14 ELSE -18 THEN JUMP ;
 : 0_69
 TRUE
 
@@ -1387,49 +1408,49 @@ LAND
   ^TestScheduleStart @@ 
   1    =
 LAND
-IF -15 ELSE 5 THEN JUMP ;
+IF -16 ELSE 5 THEN JUMP ;
 : 0_78
 TRUE
 
 1 LINE.NUM
   &CustomChart1   ?STOPPED
 LAND
-IF -13 ELSE 0 THEN JUMP ;
+IF -14 ELSE 0 THEN JUMP ;
 : 0_86
 TRUE
 
 1 LINE.NUM
   &CustomChart2   ?STOPPED
 LAND
-IF -13 ELSE 0 THEN JUMP ;
+IF -14 ELSE 0 THEN JUMP ;
 : 0_95
 TRUE
 
 1 LINE.NUM
   &CustomChart3   ?STOPPED
 LAND
-IF -13 ELSE 0 THEN JUMP ;
+IF -14 ELSE 0 THEN JUMP ;
 : 0_98
 TRUE
 
 1 LINE.NUM
   &CustomChart4   ?STOPPED
 LAND
-IF -13 ELSE 0 THEN JUMP ;
+IF -14 ELSE 0 THEN JUMP ;
 : 0_101
 TRUE
 
 1 LINE.NUM
   &CustomChart5   ?STOPPED
 LAND
-IF -13 ELSE -23 THEN JUMP ;
+IF -14 ELSE -24 THEN JUMP ;
 : 0_116
 TRUE
 
 1 LINE.NUM
   &DynoPidRampWidget   ?STOPPED
 LAND
-IF -13 ELSE 1 THEN JUMP ;
+IF -14 ELSE 2 THEN JUMP ;
 : 0_123
 TRUE
 
@@ -1441,14 +1462,21 @@ LAND
   ^IsStartDataCollect @@ 
   1    =
 LAND
-IF -13 ELSE -10 THEN JUMP ;
+IF -14 ELSE -10 THEN JUMP ;
 : 0_130
 TRUE
 
 1 LINE.NUM
   &StarterWidget   ?STOPPED
 LAND
-IF -13 ELSE -8 THEN JUMP ;
+IF -14 ELSE -8 THEN JUMP ;
+: 0_138
+TRUE
+
+1 LINE.NUM
+  &ThrottlePidRampWidget   ?STOPPED
+LAND
+IF -14 ELSE -2 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -1473,6 +1501,7 @@ DUMMY
 0_118
 0_124
 0_131
+0_137
 0_2
 0_16
 0_27
@@ -1485,6 +1514,7 @@ DUMMY
 0_116
 0_123
 0_130
+0_138
 T;
 &Powerup ' T0 SETTASK
 : 11_0
@@ -1735,6 +1765,105 @@ DUMMY
 4_16
 T;
 &TestScheduleWidgetChart ' T4 SETTASK
+: 12_0
+
+1 LINE.NUM
+  %ScratchPad 
+  3407  
+  ^ThrottlePidRampStart   IO.SP.READ
+  ^GetScratchPadResult @! 
+7 JUMP ;
+: 12_2
+
+1 LINE.NUM
+  |Throttle   $0002.. ROT PID@
+  ^ThrottlePidRampCurrentSetpoint @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  3404  
+  ^ThrottlePidRampSetpoint    IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  %ScratchPad 
+  3405  
+  ^ThrottlePidRampTime    IO.SP.READ
+  ^GetScratchPadResult @! 
+0 JUMP ;
+: 12_3
+
+1 LINE.NUM
+  %ScratchPad 
+  3408  
+  1    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  ^ThrottlePidRampTimer   StartTimer
+0 JUMP ;
+: 12_4
+
+1 LINE.NUM
+  %ScratchPad 
+  3407  
+  ^ThrottlePidRampStart   IO.SP.READ
+  ^GetScratchPadResult @! 
+5 JUMP ;
+: 12_6
+1 LINE.NUM ^ThrottlePidRampTimer @@F ^ThrottlePidRampCurrentTime @! 
+3 LINE.NUM ^ThrottlePidRampCurrentTime @@ ^ThrottlePidRampTime @@ F< IF 
+5 LINE.NUM ^ThrottlePidRampSetpoint @@ ^ThrottlePidRampCurrentSetpoint @@ F- ^ThrottlePidRampTime @@ F/ ^ThrottlePidRampSlope @! 
+7 LINE.NUM ^ThrottlePidRampSetpoint @@ ^ThrottlePidRampSlope @@ ^ThrottlePidRampTime @@ F* F- ^ThrottlePidRampIntercept @! 
+9 LINE.NUM |Throttle ^ThrottlePidRampSlope @@ ^ThrottlePidRampCurrentTime @@ F* ^ThrottlePidRampIntercept @@ F+  $0002.. 3 ROLL !PID 
+10 LINE.NUM ELSE 
+11 LINE.NUM |Throttle ^ThrottlePidRampSetpoint @@  $0002.. 3 ROLL !PID 
+12 LINE.NUM THEN 
+14 LINE.NUM %ScratchPad 3402 |Throttle  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
+15 LINE.NUM %ScratchPad 3403 ^ThrottlePidRampCurrentTime @@  IO.SP.F.WRITE DROP  
+2 JUMP ;
+: 12_7
+
+1 LINE.NUM
+  ^ThrottlePidRampTimer   StopTimer
+
+2 LINE.NUM
+  &ThrottlePidRampWidget   STOP.T
+4 JUMP ;
+: 12_9
+-7 JUMP ;
+: 12_10
+-5 JUMP ;
+: 12_1
+TRUE
+
+1 LINE.NUM
+  ^ThrottlePidRampStart @@ 
+  1    =
+LAND
+IF -8 ELSE -3 THEN JUMP ;
+: 12_5
+TRUE
+
+1 LINE.NUM
+  ^ThrottlePidRampStart @@ 
+  1    =
+LAND
+IF -6 ELSE -5 THEN JUMP ;
+T: T12
+DUMMY
+12_0
+12_2
+12_3
+12_4
+12_6
+12_7
+12_9
+12_10
+12_1
+12_5
+T;
+&ThrottlePidRampWidget ' T12 SETTASK
 : 3_0
 
 1 LINE.NUM
@@ -1992,6 +2121,7 @@ CREATE T.ARRAY
 &Powerup ,
 &StarterWidget ,
 &TestScheduleWidgetChart ,
+&ThrottlePidRampWidget ,
 &VentilationCtrl1 ,
  0 ,
 CREATE V.ARRAY
@@ -2040,6 +2170,13 @@ CREATE V.ARRAY
 ^TestScheduleUpperTime ,
 ^TestScheduleUseDyno ,
 ^TestScheduleUseThrottle ,
+^ThrottlePidRampCurrentSetpoint ,
+^ThrottlePidRampCurrentTime ,
+^ThrottlePidRampIntercept ,
+^ThrottlePidRampSetpoint ,
+^ThrottlePidRampSlope ,
+^ThrottlePidRampStart ,
+^ThrottlePidRampTime ,
 ^TriggerPointValue ,
 ^VentCtrl1Gain ,
 ^VentCtrl1InsideType ,
@@ -2057,6 +2194,7 @@ CREATE TI.ARRAY
 ^DynoPidRampTimer ,
 ^StarterCrankTimer ,
 ^TestScheduleRunTime ,
+^ThrottlePidRampTimer ,
  0 ,
 CREATE PTR.ARRAY
 Ptr' PTR_PidConfigSelection ,
@@ -2247,6 +2385,14 @@ $0000000000000000.. %ScratchPad ENABLES!
 0.00000000 ^TestScheduleUpperTime @!
 0 ^TestScheduleUseDyno @!
 0 ^TestScheduleUseThrottle @!
+0.00000000 ^ThrottlePidRampCurrentSetpoint @!
+0.00000000 ^ThrottlePidRampCurrentTime @!
+0.00000000 ^ThrottlePidRampIntercept @!
+0.00000000 ^ThrottlePidRampSetpoint @!
+0.00000000 ^ThrottlePidRampSlope @!
+0 ^ThrottlePidRampStart @!
+0.00000000 ^ThrottlePidRampTime @!
+0.0 ^ThrottlePidRampTimer SetTimer
 0.00000000 ^TriggerPointValue @!
 0.00000000 ^VentCtrl1Gain @!
 0 ^VentCtrl1InsideType @!
@@ -2275,7 +2421,7 @@ T;
    &_INIT_IO START.T DROP
    ;
 : DATESTAMP ." 01/25/17 " ;
-: TIMESTAMP ." 11:10:30 " ;
+: TIMESTAMP ." 13:31:02 " ;
 : CRCSTAMP  ." 00112233445566778899AABBCCDDEEFF " ;
 MAKECHECK
 CLEAR.BREAKS

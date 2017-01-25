@@ -10,6 +10,7 @@ CREATE T.ARRAY
 &Powerup ,
 &StarterWidget ,
 &TestScheduleWidgetChart ,
+&ThrottlePidRampWidget ,
 &VentilationCtrl1 ,
  0 ,
 CREATE V.ARRAY
@@ -58,6 +59,13 @@ CREATE V.ARRAY
 ^TestScheduleUpperTime ,
 ^TestScheduleUseDyno ,
 ^TestScheduleUseThrottle ,
+^ThrottlePidRampCurrentSetpoint ,
+^ThrottlePidRampCurrentTime ,
+^ThrottlePidRampIntercept ,
+^ThrottlePidRampSetpoint ,
+^ThrottlePidRampSlope ,
+^ThrottlePidRampStart ,
+^ThrottlePidRampTime ,
 ^TriggerPointValue ,
 ^VentCtrl1Gain ,
 ^VentCtrl1InsideType ,
@@ -75,6 +83,7 @@ CREATE TI.ARRAY
 ^DynoPidRampTimer ,
 ^StarterCrankTimer ,
 ^TestScheduleRunTime ,
+^ThrottlePidRampTimer ,
  0 ,
 CREATE PTR.ARRAY
 Ptr' PTR_PidConfigSelection ,
@@ -265,6 +274,14 @@ $0000000000000000.. %ScratchPad ENABLES!
 0.00000000 ^TestScheduleUpperTime @!
 0 ^TestScheduleUseDyno @!
 0 ^TestScheduleUseThrottle @!
+0.00000000 ^ThrottlePidRampCurrentSetpoint @!
+0.00000000 ^ThrottlePidRampCurrentTime @!
+0.00000000 ^ThrottlePidRampIntercept @!
+0.00000000 ^ThrottlePidRampSetpoint @!
+0.00000000 ^ThrottlePidRampSlope @!
+0 ^ThrottlePidRampStart @!
+0.00000000 ^ThrottlePidRampTime @!
+0.0 ^ThrottlePidRampTimer SetTimer
 0.00000000 ^TriggerPointValue @!
 0.00000000 ^VentCtrl1Gain @!
 0 ^VentCtrl1InsideType @!
