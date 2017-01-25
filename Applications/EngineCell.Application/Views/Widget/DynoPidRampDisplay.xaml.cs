@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using EngineCell.Application.Factories;
 using EngineCell.Application.Services.WorkerServices.Widget;
-using EngineCell.Application.ViewModels;
 using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Models.Models;

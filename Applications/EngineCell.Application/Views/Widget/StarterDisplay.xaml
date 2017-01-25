@@ -4,11 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EngineCell.Application.Views.Widget"
+             xmlns:extensions="clr-namespace:EngineCell.Application.Extensions"
              mc:Ignorable="d" 
              Loaded="StarterDisplay_OnLoaded"
-             Width="250" Height="150"
+             Width="250" Height="225"
              MaxWidth="250"
-             d:DesignHeight="200" d:DesignWidth="325">
+             d:DesignHeight="400" d:DesignWidth="325">
+    <UserControl.Resources>
+        <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <extensions:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Border BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="1" Margin="5" Padding="2">
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="35"/>
@@ -27,13 +33,19 @@
               <RowDefinition Height="5"/>
               <RowDefinition Height="30"/>
               <RowDefinition Height="5"/>
+              <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Height="30" FontSize="12">Inital Crank Time</Label>
-            <TextBox Grid.Column="1" Grid.Row="0" IsReadOnly="True"  Text="{Binding Path=CrankTime}" Height="30" FontSize="12"></TextBox>
-            <Label Grid.Column="0" Grid.Row="2" Height="30" FontSize="12">Start Parameter</Label>
-            <TextBox Grid.Column="1" Grid.Row="2" IsReadOnly="True" Text="{Binding Path=StartParameter}" Height="30" FontSize="12"></TextBox>
-            <Label Grid.Column="0" Grid.Row="4" Height="30" FontSize="12">Added Crank Time</Label>
-            <TextBox Grid.Column="1" Grid.Row="4" IsReadOnly="True" Text="{Binding Path=AddedCrankTime}" Height="30" FontSize="12"></TextBox>
+            <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" IsUndoEnabled="False" IsReadOnly="True" Text="Cranking" VerticalAlignment="Center" Margin="7,0,0,0" Width="75" TextAlignment="Center" Background="{StaticResource GreenBrush}" Foreground="WhiteSmoke" FontSize="10" 
+                        Visibility="{Binding Path=IsCranking, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"></TextBox>
+            <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" IsUndoEnabled="False" IsReadOnly="True" Text="Off" VerticalAlignment="Center" Margin="7,0,0,0" Width="75" TextAlignment="Center" Background="Red" Foreground="WhiteSmoke" FontSize="10" 
+                    Visibility="{Binding Path=IsCranking, Converter={StaticResource InverseBoolToVisibilityConverter}, ConverterParameter=true}"></TextBox>
+            <Label Grid.Column="0" Grid.Row="2" Height="30" FontSize="12">Start RPM</Label>
+            <TextBox Grid.Column="1" Grid.Row="2" IsReadOnly="True"  Text="{Binding Path=StartRpm}" Height="30" FontSize="12"></TextBox>
+            <Label Grid.Column="0" Grid.Row="4" Height="30" FontSize="12">Actual RPM</Label>
+            <TextBox Grid.Column="1" Grid.Row="4" IsReadOnly="True" Text="{Binding Path=EngineRpm}" Height="30" FontSize="12"></TextBox>
+            <Label Grid.Column="0" Grid.Row="6" Height="30" FontSize="12">Attempt</Label>
+            <TextBox Grid.Column="1" Grid.Row="6" IsReadOnly="True" Text="{Binding Path=Attempt}" Height="30" FontSize="12"></TextBox>
         </Grid>
     </Grid>
+    </Border>
 </UserControl>

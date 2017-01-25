@@ -8,6 +8,7 @@
 0 TASK &DynoPidRampWidget
 0 TASK &PidConfig
 0 TASK &Powerup
+0 TASK &StarterWidget
 0 TASK &TestScheduleWidgetChart
 0 TASK &VentilationCtrl1
 0 IVAR ^CustomChart1Start
@@ -35,6 +36,14 @@
 0 IVAR ^PidConfigType
 0 FVAR ^PidConfigValue
 0 IVAR ^SetScratchPadResult
+0 IVAR ^StarterAttempt
+0 FVAR ^StarterCrankTime
+0 UTVAR ^StarterCrankTimer
+0 FVAR ^StarterCutoffTime
+0 FVAR ^StarterRetryCount
+0 FVAR ^StarterRetryWaitTime
+0 IVAR ^StarterStart
+0 FVAR ^StarterStartRpm
 0 FVAR ^TestScheduleCurrentTime
 0 FVAR ^TestScheduleIntercept
 0 FVAR ^TestScheduleLowerSetpoint

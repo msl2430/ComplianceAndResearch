@@ -327,7 +327,7 @@
 358 LINE.NUM %ScratchPad 1087 ~EngineIn5 @@I I>F  IO.SP.F.WRITE DROP  
 359 LINE.NUM %ScratchPad 1088 ~EngineIn6 @@I I>F  IO.SP.F.WRITE DROP  
 360 LINE.NUM %ScratchPad 1089 ~EngineIn7 @@I I>F  IO.SP.F.WRITE DROP  
--2 JUMP ;
+0 JUMP ;
 : 1_13
 1 LINE.NUM %ScratchPad 300 ^OutputConfigValue   IO.SP.READ DROP  
 2 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
@@ -489,22 +489,6 @@
 197 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
 198 LINE.NUM ^OutputConfigValue @@ ~Misc7 F@! 
 199 LINE.NUM THEN 
-201 LINE.NUM %ScratchPad 340 ^OutputConfigValue   IO.SP.READ DROP  
-202 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-203 LINE.NUM ^OutputConfigValue @@ ~Freq0 F@! 
-204 LINE.NUM THEN 
-206 LINE.NUM %ScratchPad 341 ^OutputConfigValue   IO.SP.READ DROP  
-207 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-208 LINE.NUM ^OutputConfigValue @@ ~Freq1 F@! 
-209 LINE.NUM THEN 
-211 LINE.NUM %ScratchPad 342 ^OutputConfigValue   IO.SP.READ DROP  
-212 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-213 LINE.NUM ^OutputConfigValue @@ ~Freq2 F@! 
-214 LINE.NUM THEN 
-216 LINE.NUM %ScratchPad 343 ^OutputConfigValue   IO.SP.READ DROP  
-217 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-218 LINE.NUM ^OutputConfigValue @@ ~Freq3 F@! 
-219 LINE.NUM THEN 
 -3 JUMP ;
 : 1_18
 

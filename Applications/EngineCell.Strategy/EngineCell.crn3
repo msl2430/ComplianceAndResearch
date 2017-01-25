@@ -8,6 +8,7 @@ CREATE T.ARRAY
 &DynoPidRampWidget ,
 &PidConfig ,
 &Powerup ,
+&StarterWidget ,
 &TestScheduleWidgetChart ,
 &VentilationCtrl1 ,
  0 ,
@@ -36,6 +37,13 @@ CREATE V.ARRAY
 ^PidConfigType ,
 ^PidConfigValue ,
 ^SetScratchPadResult ,
+^StarterAttempt ,
+^StarterCrankTime ,
+^StarterCutoffTime ,
+^StarterRetryCount ,
+^StarterRetryWaitTime ,
+^StarterStart ,
+^StarterStartRpm ,
 ^TestScheduleCurrentTime ,
 ^TestScheduleIntercept ,
 ^TestScheduleLowerSetpoint ,
@@ -65,6 +73,7 @@ CREATE V.ARRAY
  0 ,
 CREATE TI.ARRAY
 ^DynoPidRampTimer ,
+^StarterCrankTimer ,
 ^TestScheduleRunTime ,
  0 ,
 CREATE PTR.ARRAY
@@ -233,6 +242,14 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^PidConfigType @!
 0.00000000 ^PidConfigValue @!
 0 ^SetScratchPadResult @!
+0 ^StarterAttempt @!
+0.00000000 ^StarterCrankTime @!
+0.0 ^StarterCrankTimer SetTimer
+0.00000000 ^StarterCutoffTime @!
+0.00000000 ^StarterRetryCount @!
+0.00000000 ^StarterRetryWaitTime @!
+0 ^StarterStart @!
+0.00000000 ^StarterStartRpm @!
 0.00000000 ^TestScheduleCurrentTime @!
 0.00000000 ^TestScheduleIntercept @!
 0.00000000 ^TestScheduleLowerSetpoint @!

@@ -82,8 +82,8 @@ namespace EngineCell.Application.Views
             }
 
             //TESTING
-            //var test = CellPointRepository.GetCellTestById(2007);
-           // ApplicationSessionFactory.CurrentCellTest = test;
+            var test = CellPointRepository.GetCellTestById(2007);
+            ApplicationSessionFactory.CurrentCellTest = test;
 
             if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null)
             {
@@ -95,7 +95,7 @@ namespace EngineCell.Application.Views
                 ChangePageView(MainWindowViewModel.TestDisplayViewModel);
             }
             //TESTING
-            //ChangePageView(MainWindowViewModel.PhaseConfigViewModel);
+            ChangePageView(MainWindowViewModel.PhaseConfigViewModel);
 
             DataContext = MainWindowViewModel;
             OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);

@@ -17,13 +17,7 @@ namespace EngineCell.Application.ViewModels.Widget
             set { _dynoPid = value; OnPropertyChanged("DynoPid"); }
         }
 
-        private StarterConfigViewModel _starter { get; set; }
-        public StarterConfigViewModel Starter
-        {
-            get { return _starter; }
-            set { _starter = value; OnPropertyChanged("Starter"); }
-        }
-
+      
         private bool _isDirty { get; set; }
         public bool IsDirty {
             get { return _isDirty; }
@@ -35,7 +29,7 @@ namespace EngineCell.Application.ViewModels.Widget
             ApplicationSessionFactory = appSession;
             VentCtrl1 = new VentilationControlViewModel();
             DynoPid = new DynoPidConfigViewModel();
-            Starter = new StarterConfigViewModel();
+            
         }
     }
 }

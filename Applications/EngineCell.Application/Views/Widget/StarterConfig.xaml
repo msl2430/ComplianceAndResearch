@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="EngineCell.Application.Views.Widget.StarterConfig"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EngineCell.Application.Views.Widget"
+             mc:Ignorable="d" 
+             Height="300" Width="250"
+             d:DesignHeight="600" d:DesignWidth="250">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="ChartName" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="0" HorizontalAlignment="Center" Foreground="{StaticResource HeadlineBlueBrush}" Text="Starter"></TextBlock>
+        <Grid Row="1" Margin="0,0,5,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Height="35" FontSize="12" TextWrapping="WrapWithOverflow" Foreground="WhiteSmoke" Margin="5">Crank Time (seconds)</TextBlock>
+            <TextBox x:Name="CrankTimeText" Grid.Column="1" Grid.Row="0" FontSize="12" Height="25" LostFocus="CrankTimeText_OnLostFocus"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="2" Height="35" FontSize="12" TextWrapping="WrapWithOverflow" Foreground="WhiteSmoke" Margin="5">Start RPM</TextBlock>
+            <TextBox x:Name="StartRpmText" Grid.Column="1" Grid.Row="2" FontSize="12" Height="25" LostFocus="StartRpmText_OnLostFocus"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="4" Height="35" FontSize="12" TextWrapping="WrapWithOverflow" Foreground="WhiteSmoke" Margin="5">Time Between Tries (seconds)</TextBlock>
+            <TextBox x:Name="TimeBetweenTriesText" Grid.Column="1" Grid.Row="4" FontSize="12" Height="25" LostFocus="TimeBetweenTriesText_OnLostFocus"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="6" Height="35" FontSize="12" TextWrapping="WrapWithOverflow" Foreground="WhiteSmoke" Margin="5">Number of Tries</TextBlock>
+            <TextBox x:Name="NumberOfTriesText" Grid.Column="1" Grid.Row="6" FontSize="12" Height="25" LostFocus="NumberOfTriesText_OnLostFocus"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="8" Height="35" FontSize="12" TextWrapping="WrapWithOverflow" Foreground="WhiteSmoke" Margin="5">Cutoff Time at RPM (seconds)</TextBlock>
+            <TextBox x:Name="CutoffTime" Grid.Column="1" Grid.Row="8" FontSize="12" Height="25" LostFocus="CutoffTime_OnLostFocus"></TextBox>
+            <TextBlock x:Name="WidgetStatus" Grid.Row="10" Grid.Column="0" FontSize="14" Grid.ColumnSpan="2" TextAlignment="Center"></TextBlock>
+        </Grid>
+    </Grid>
+</UserControl>

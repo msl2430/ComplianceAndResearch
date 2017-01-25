@@ -34,8 +34,9 @@ namespace EngineCell.Application.Views.Phase
 
         private void PhaseConfig_OnLoaded(object sender, RoutedEventArgs e)
         {
-            AvailableWidgets.ItemsSource = WidgetConstants.Widgets;
             PhaseTabs.SelectedIndex = 0;
+            var phase = ViewModel.Phases.ElementAt(PhaseTabs.SelectedIndex);
+            UpdateAvailableWidgetDisplay(phase);
 
             if (DataContext != null)
                 ViewModel = (PhaseConfigViewModel) DataContext;            
@@ -132,6 +133,9 @@ namespace EngineCell.Application.Views.Phase
                 case "Custom Chart 5":
                     widgetType = WidgetConstants.Widget.CustomChart5;
                     break;
+                case "Starter":
+                    widgetType = WidgetConstants.Widget.Starter;
+                    break;
             }
             var widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, (WidgetConstants.Widget)widgetType);
             phase.Widgets.Add(widget);
@@ -160,55 +164,16 @@ namespace EngineCell.Application.Views.Phase
 
         private void UpdatePhaseWidgetDisplay()
         {
-            if (ViewModel.Phases.IsNullOrEmpty())
+            if ( ViewModel.Phases.IsNullOrEmpty())
                 return;
 
             if (PhaseTabs.SelectedIndex < 0)
                 PhaseTabs.SelectedIndex = 0;
 
-            var widgets = WidgetConstants.Widgets.ToList();
             var phase = ViewModel.Phases.ElementAt(PhaseTabs.SelectedIndex);
-            foreach (var phaseWidgets in phase.Widgets)
-            {
-                switch (phaseWidgets.WidgetId)
-                {
-                    case WidgetConstants.Widget.TestSchedule:
-                        if(widgets.Any(w => w == "Test Schedule"))
-                            widgets.RemoveAt(widgets.IndexOf("Test Schedule"));
-                        break;
-                    case WidgetConstants.Widget.DynoRamp:
-                        if (widgets.Any(w => w == "Dyno Ramp"))
-                            widgets.RemoveAt(widgets.IndexOf("Dyno Ramp"));
-                        break;
-                    case WidgetConstants.Widget.ThrottleRamp:
-                        if (widgets.Any(w => w == "Throttle Ramp"))
-                            widgets.RemoveAt(widgets.IndexOf("Throttle Ramp"));
-                        break;
-                    case WidgetConstants.Widget.CustomChart1:
-                        if (widgets.Any(w => w == "Custom Chart 1"))
-                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 1"));
-                        break;
-                    case WidgetConstants.Widget.CustomChart2:
-                        if (widgets.Any(w => w == "Custom Chart 2"))
-                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 2"));
-                        break;
-                    case WidgetConstants.Widget.CustomChart3:
-                        if (widgets.Any(w => w == "Custom Chart 3"))
-                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 3"));
-                        break;
-                    case WidgetConstants.Widget.CustomChart4:
-                        if (widgets.Any(w => w == "Custom Chart 4"))
-                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 4"));
-                        break;
-                    case WidgetConstants.Widget.CustomChart5:
-                        if (widgets.Any(w => w == "Custom Chart 5"))
-                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 5"));
-                        break;
-                }
-            }
-            AvailableWidgets.ItemsSource = widgets;
+            UpdateAvailableWidgetDisplay(phase);
 
-            var widgetGrid = new Grid() { RowDefinitions = { new RowDefinition() { Height = new GridLength(350)} } };
+            var widgetGrid = new Grid() { RowDefinitions = { new RowDefinition() { Height = new GridLength(400)} } };
             for (var i = 0; i < phase.Widgets.Count; i++)
             {
                 widgetGrid.ColumnDefinitions.Add(new ColumnDefinition() {Width = new GridLength(270)});
@@ -219,7 +184,7 @@ namespace EngineCell.Application.Views.Phase
                     Margin = new Thickness(5, 5, 5, 5),
                     Padding = new Thickness(5, 5, 5, 5)
                 };
-                var grid = new Grid() { RowDefinitions = { new RowDefinition() { Height = new GridLength(270)}, new RowDefinition() { Height = new GridLength(50)} }};
+                var grid = new Grid() { RowDefinitions = { new RowDefinition() { Height = new GridLength(300)}, new RowDefinition() { Height = new GridLength(50)} }};
                 UserControl configWindow = null;
                 switch (phase.Widgets[i].WidgetId)
                 {
@@ -246,6 +211,9 @@ namespace EngineCell.Application.Views.Phase
                         break;
                     case WidgetConstants.Widget.CustomChart5:
                         configWindow = new CustomChartConfig(phase, WidgetConstants.Widget.CustomChart5);
+                        break;
+                    case WidgetConstants.Widget.Starter:
+                        configWindow = new StarterConfig(phase);
                         break;
                 }
 
@@ -303,6 +271,60 @@ namespace EngineCell.Application.Views.Phase
             }));
         }
 
+        private void UpdateAvailableWidgetDisplay(CellTestPhaseModel phase)
+        {
+            if (phase == null || phase.Widgets.IsNullOrEmpty())
+            {
+                AvailableWidgets.ItemsSource = WidgetConstants.Widgets.ToList();
+                return;
+            }
+
+            var widgets = WidgetConstants.Widgets.ToList();
+            foreach (var phaseWidgets in phase.Widgets)
+            {
+                switch (phaseWidgets.WidgetId)
+                {
+                    case WidgetConstants.Widget.TestSchedule:
+                        if (widgets.Any(w => w == "Test Schedule"))
+                            widgets.RemoveAt(widgets.IndexOf("Test Schedule"));
+                        break;
+                    case WidgetConstants.Widget.DynoRamp:
+                        if (widgets.Any(w => w == "Dyno Ramp"))
+                            widgets.RemoveAt(widgets.IndexOf("Dyno Ramp"));
+                        break;
+                    case WidgetConstants.Widget.ThrottleRamp:
+                        if (widgets.Any(w => w == "Throttle Ramp"))
+                            widgets.RemoveAt(widgets.IndexOf("Throttle Ramp"));
+                        break;
+                    case WidgetConstants.Widget.CustomChart1:
+                        if (widgets.Any(w => w == "Custom Chart 1"))
+                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 1"));
+                        break;
+                    case WidgetConstants.Widget.CustomChart2:
+                        if (widgets.Any(w => w == "Custom Chart 2"))
+                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 2"));
+                        break;
+                    case WidgetConstants.Widget.CustomChart3:
+                        if (widgets.Any(w => w == "Custom Chart 3"))
+                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 3"));
+                        break;
+                    case WidgetConstants.Widget.CustomChart4:
+                        if (widgets.Any(w => w == "Custom Chart 4"))
+                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 4"));
+                        break;
+                    case WidgetConstants.Widget.CustomChart5:
+                        if (widgets.Any(w => w == "Custom Chart 5"))
+                            widgets.RemoveAt(widgets.IndexOf("Custom Chart 5"));
+                        break;
+                    case WidgetConstants.Widget.Starter:
+                        if (widgets.Any(w => w == "Starter"))
+                            widgets.RemoveAt(widgets.IndexOf("Starter"));
+                        break;
+                }
+            }
+            AvailableWidgets.ItemsSource = widgets;
+        }
+
         private void PhaseContentTab_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.OriginalSource.GetType() != typeof(TabControl) || ((TabControl)e.OriginalSource).Name != "PhaseContentTab")
@@ -313,8 +335,10 @@ namespace EngineCell.Application.Views.Phase
 
         private void DisplayDetection_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            if(ViewModel == null || DataContext == null)
+            if(DataContext == null)
                 return;
+
+            ViewModel = (PhaseConfigViewModel) DataContext;
 
             UpdatePhaseTabs();
             UpdatePhaseWidgetDisplay();

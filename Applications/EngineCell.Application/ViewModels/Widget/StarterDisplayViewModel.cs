@@ -1,36 +1,62 @@
-﻿namespace EngineCell.Application.ViewModels.Widget
+﻿using System;
+using System.Linq;
+using EngineCell.Application.Factories;
+using EngineCell.Core.Constants;
+using EngineCell.Models.Models;
+
+namespace EngineCell.Application.ViewModels.Widget
 {
     public class StarterDisplayViewModel: BaseViewModel
     {
-        private long _crankTime { get; set; }
-        public long CrankTime
+        public CellTestPhaseWidgetModel Widget { get; set; }
+
+        private bool _isCranking { get; set; }
+        public bool IsCranking
         {
-            get { return _crankTime; }
-            set { _crankTime = value; OnPropertyChanged("CrankTime"); }
+            get { return _isCranking; }
+            set { _isCranking = value; OnPropertyChanged("IsCranking"); }
         }
 
-        private decimal _startParameter { get; set; }
-        public decimal StartParameter
+        private decimal _engineRpm { get; set; }
+        public decimal EngineRpm
         {
-            get { return _startParameter; }
-            set { _startParameter = value; OnPropertyChanged("StartParameter"); }
+            get { return _engineRpm; }
+            set { _engineRpm = value; OnPropertyChanged("EngineRpm"); }
         }
 
-        private long _addedCrankTime { get; set; }
-        public long AddedCrankTime
+        private decimal _startRpm { get; set; }
+        public decimal StartRpm
         {
-            get { return _addedCrankTime; }
-            set { _addedCrankTime = value; OnPropertyChanged("AddedCrankTime"); }
+            get { return _startRpm; }
+            set { _startRpm = value; OnPropertyChanged("StartRpm"); }
         }
 
-        public string Name { get; set; }
-
-        public StarterDisplayViewModel(string name, bool isActive)
+        private int _attempt { get; set; }
+        public int Attempt
         {
-            Name = name;
-            CrankTime = 10;
-            StartParameter = 1;
-            AddedCrankTime = 10;
+            get { return _attempt; }
+            set { _attempt = value; OnPropertyChanged("Attempt"); }
+        }
+
+        public decimal CrankTime { get; set; }
+        public int RetryCount { get; set; }
+        public decimal TimeBetweenRetries { get; set; }
+        public decimal CutoffTime { get; set; }
+
+        public StarterDisplayViewModel(IApplicationSessionFactory appSession, CellTestPhaseWidgetModel widget)
+        {
+            ApplicationSessionFactory = appSession;
+            Widget = widget;
+            if (Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterStartRpm))
+                StartRpm = Convert.ToDecimal(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterStartRpm).Value);
+            if (Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterCrankTime))
+                CrankTime = Convert.ToDecimal(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterCrankTime).Value);
+            if (Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterNumberOfTries))
+                RetryCount = Convert.ToInt32(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterNumberOfTries).Value);
+            if (Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterTimeBetweenTries))
+                TimeBetweenRetries = Convert.ToDecimal(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterTimeBetweenTries).Value);
+            if (Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterTimeAtRpm))
+                CutoffTime = Convert.ToDecimal(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterTimeAtRpm).Value);
         }
     }
 }

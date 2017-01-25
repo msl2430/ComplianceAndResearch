@@ -51,8 +51,8 @@ namespace EngineCell.Application.Views.Widget
                 ViewModel.VentCtrl1.SetValues(ventCtrl1Settings);
             //if (dynoPidSettings.IsNotNullOrEmpty())
             //    ViewModel.DynoPid.SetValues(dynoPidSettings);
-            if (starterSettings.IsNotNullOrEmpty())
-                ViewModel.Starter.SetValues(starterSettings);
+            //if (starterSettings.IsNotNullOrEmpty())
+            //    ViewModel.Starter.SetValues(starterSettings);
         }
 
         private void ActivateVentCtrl1_OnClick(object sender, RoutedEventArgs e)
@@ -129,25 +129,25 @@ namespace EngineCell.Application.Views.Widget
 
         private void ActivateStarter_OnClick(object sender, RoutedEventArgs e)
         {
-            ViewModel.Starter.IsActive = true;
+            //ViewModel.Starter.IsActive = true;
         }
 
         private void DeactvateStarter_OnClick(object sender, RoutedEventArgs e)
         {
-            ViewModel.Starter.IsActive = false;
+            //ViewModel.Starter.IsActive = false;
         }
 
         private void SaveStarter_OnClick(object sender, RoutedEventArgs e)
         {
-            ViewModel.Starter.CrankTime = Convert.ToInt32(CrankTime.Text);
-            ViewModel.Starter.StartParameter = Convert.ToDecimal(StartParameter.Text);
-            ViewModel.Starter.AddedCrankTime = Convert.ToInt32(AddedCrankTime.Text);
+            //ViewModel.Starter.CrankTime = Convert.ToInt32(CrankTime.Text);
+            //ViewModel.Starter.StartParameter = Convert.ToDecimal(StartParameter.Text);
+            //ViewModel.Starter.AddedCrankTime = Convert.ToInt32(AddedCrankTime.Text);
 
-            var starterSettings = ViewModel.Starter.GetValues(ViewModel.ApplicationSessionFactory.CurrentCell.CellId);
-            if (starterSettings.IsNotNullOrEmpty())
-                WidgetRepository.SaveWidgetSettings(starterSettings);
+            //var starterSettings = ViewModel.Starter.GetValues(ViewModel.ApplicationSessionFactory.CurrentCell.CellId);
+            //if (starterSettings.IsNotNullOrEmpty())
+            //    WidgetRepository.SaveWidgetSettings(starterSettings);
 
-            ViewModel.ApplicationSessionFactory.LogEvent("Starter settings applied.", true);
+            //ViewModel.ApplicationSessionFactory.LogEvent("Starter settings applied.", true);
         }
     }
 }

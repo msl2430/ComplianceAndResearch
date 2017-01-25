@@ -27,7 +27,7 @@
             </Grid.RowDefinitions>
             <Label Grid.Column="0" Grid.Row="0" Height="30" FontSize="12">PID Setpoint</Label>
             <TextBox x:Name="PidSetpointText" Grid.Column="1" Grid.Row="0" FontSize="12" Height="25" LostFocus="PidSetpointText_OnLostFocus"></TextBox>
-            <TextBlock Grid.Column="0" Grid.Row="2" Height="35" FontSize="12" TextWrapping="WrapWithOverflow" Foreground="WhiteSmoke">PID Ramp Time (in seconds)</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="2" Height="35" FontSize="12" TextWrapping="WrapWithOverflow" Foreground="WhiteSmoke" Margin="5">PID Ramp Time (in seconds)</TextBlock>
             <TextBox x:Name="PidRampTimeText" Grid.Column="1" Grid.Row="2" FontSize="12" Height="25" LostFocus="PidRampTimeText_OnLostFocus"></TextBox>
             <TextBlock x:Name="WidgetStatus" Grid.Row="4" Grid.Column="0" FontSize="14" Grid.ColumnSpan="2" TextAlignment="Center"></TextBlock>
         </Grid>

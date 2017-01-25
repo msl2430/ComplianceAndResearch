@@ -24,6 +24,7 @@ _END NEW $$$.RUN
 0 TASK &DynoPidRampWidget
 0 TASK &PidConfig
 0 TASK &Powerup
+0 TASK &StarterWidget
 0 TASK &TestScheduleWidgetChart
 0 TASK &VentilationCtrl1
 0 IVAR ^CustomChart1Start
@@ -51,6 +52,14 @@ _END NEW $$$.RUN
 0 IVAR ^PidConfigType
 0 FVAR ^PidConfigValue
 0 IVAR ^SetScratchPadResult
+0 IVAR ^StarterAttempt
+0 FVAR ^StarterCrankTime
+0 UTVAR ^StarterCrankTimer
+0 FVAR ^StarterCutoffTime
+0 FVAR ^StarterRetryCount
+0 FVAR ^StarterRetryWaitTime
+0 IVAR ^StarterStart
+0 FVAR ^StarterStartRpm
 0 FVAR ^TestScheduleCurrentTime
 0 FVAR ^TestScheduleIntercept
 0 FVAR ^TestScheduleLowerSetpoint
@@ -691,7 +700,7 @@ T;
 358 LINE.NUM %ScratchPad 1087 ~EngineIn5 @@I I>F  IO.SP.F.WRITE DROP  
 359 LINE.NUM %ScratchPad 1088 ~EngineIn6 @@I I>F  IO.SP.F.WRITE DROP  
 360 LINE.NUM %ScratchPad 1089 ~EngineIn7 @@I I>F  IO.SP.F.WRITE DROP  
--2 JUMP ;
+0 JUMP ;
 : 1_13
 1 LINE.NUM %ScratchPad 300 ^OutputConfigValue   IO.SP.READ DROP  
 2 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
@@ -853,22 +862,6 @@ T;
 197 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
 198 LINE.NUM ^OutputConfigValue @@ ~Misc7 F@! 
 199 LINE.NUM THEN 
-201 LINE.NUM %ScratchPad 340 ^OutputConfigValue   IO.SP.READ DROP  
-202 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-203 LINE.NUM ^OutputConfigValue @@ ~Freq0 F@! 
-204 LINE.NUM THEN 
-206 LINE.NUM %ScratchPad 341 ^OutputConfigValue   IO.SP.READ DROP  
-207 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-208 LINE.NUM ^OutputConfigValue @@ ~Freq1 F@! 
-209 LINE.NUM THEN 
-211 LINE.NUM %ScratchPad 342 ^OutputConfigValue   IO.SP.READ DROP  
-212 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-213 LINE.NUM ^OutputConfigValue @@ ~Freq2 F@! 
-214 LINE.NUM THEN 
-216 LINE.NUM %ScratchPad 343 ^OutputConfigValue   IO.SP.READ DROP  
-217 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-218 LINE.NUM ^OutputConfigValue @@ ~Freq3 F@! 
-219 LINE.NUM THEN 
 -3 JUMP ;
 : 1_18
 
@@ -1195,7 +1188,7 @@ T;
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-18 JUMP ;
+19 JUMP ;
 : 0_4
 -2 JUMP ;
 : 0_5
@@ -1231,7 +1224,7 @@ T;
   999  
   ^IsStartDataCollect   IO.SP.READ
   ^GetScratchPadResult @! 
-25 JUMP ;
+26 JUMP ;
 : 0_19
 -5 JUMP ;
 : 0_25
@@ -1241,14 +1234,14 @@ T;
   11  
   ^IsTestRunning   IO.SP.READ
   ^GetScratchPadResult @! 
-15 JUMP ;
+16 JUMP ;
 : 0_45
 -4 JUMP ;
 : 0_47
 
 1 LINE.NUM
   &DataCollection   STOP.T
-22 JUMP ;
+24 JUMP ;
 : 0_59
 
 1 LINE.NUM
@@ -1262,13 +1255,13 @@ T;
 3 LINE.NUM
   &DataCollection   START.T
   ^SetScratchPadResult @! 
-21 JUMP ;
+23 JUMP ;
 : 0_64
 
 1 LINE.NUM
   &TestScheduleWidgetChart   START.T
   ^GetScratchPadResult @! 
-20 JUMP ;
+19 JUMP ;
 : 0_67
 
 1 LINE.NUM
@@ -1312,7 +1305,13 @@ T;
   3400  
   ^DynoPidRampStart   IO.SP.READ
   ^GetScratchPadResult @! 
-11 JUMP ;
+
+8 LINE.NUM
+  %ScratchPad 
+  3402  
+  ^StarterStart   IO.SP.READ
+  ^GetScratchPadResult @! 
+12 JUMP ;
 : 0_76
 -9 JUMP ;
 : 0_77
@@ -1320,25 +1319,25 @@ T;
 1 LINE.NUM
   &CustomChart1   START.T
   ^GetScratchPadResult @! 
-11 JUMP ;
+12 JUMP ;
 : 0_88
 
 1 LINE.NUM
   &CustomChart2   START.T
   ^GetScratchPadResult @! 
-11 JUMP ;
+12 JUMP ;
 : 0_93
 
 1 LINE.NUM
   &CustomChart3   START.T
   ^GetScratchPadResult @! 
-11 JUMP ;
+12 JUMP ;
 : 0_96
 
 1 LINE.NUM
   &CustomChart4   START.T
   ^GetScratchPadResult @! 
-11 JUMP ;
+12 JUMP ;
 : 0_99
 
 1 LINE.NUM
@@ -1350,13 +1349,19 @@ T;
 1 LINE.NUM
   &DynoPidRampWidget   START.T
   ^GetScratchPadResult @! 
-5 JUMP ;
+13 JUMP ;
 : 0_124
 
 1 LINE.NUM
   &DataCollection   START.T
   ^GetScratchPadResult @! 
-1 JUMP ;
+2 JUMP ;
+: 0_131
+
+1 LINE.NUM
+  &StarterWidget   START.T
+  ^GetScratchPadResult @! 
+4 JUMP ;
 : 0_2
 TRUE
 
@@ -1364,7 +1369,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -17 ELSE -18 THEN JUMP ;
+IF -18 ELSE -19 THEN JUMP ;
 : 0_16
 TRUE
 
@@ -1372,7 +1377,7 @@ TRUE
   ^IsStartTest @@ 
   1    =
 LAND
-IF -16 ELSE -17 THEN JUMP ;
+IF -17 ELSE -18 THEN JUMP ;
 : 0_27
 TRUE
 
@@ -1380,7 +1385,7 @@ TRUE
   ^IsTestRunning @@ 
   1    =
 LAND
-IF -12 ELSE -16 THEN JUMP ;
+IF -13 ELSE -17 THEN JUMP ;
 : 0_69
 TRUE
 
@@ -1392,49 +1397,49 @@ LAND
   ^TestScheduleStart @@ 
   1    =
 LAND
-IF -14 ELSE 5 THEN JUMP ;
+IF -15 ELSE 5 THEN JUMP ;
 : 0_78
 TRUE
 
 1 LINE.NUM
   &CustomChart1   ?STOPPED
 LAND
-IF -12 ELSE 0 THEN JUMP ;
+IF -13 ELSE 0 THEN JUMP ;
 : 0_86
 TRUE
 
 1 LINE.NUM
   &CustomChart2   ?STOPPED
 LAND
-IF -12 ELSE 0 THEN JUMP ;
+IF -13 ELSE 0 THEN JUMP ;
 : 0_95
 TRUE
 
 1 LINE.NUM
   &CustomChart3   ?STOPPED
 LAND
-IF -12 ELSE 0 THEN JUMP ;
+IF -13 ELSE 0 THEN JUMP ;
 : 0_98
 TRUE
 
 1 LINE.NUM
   &CustomChart4   ?STOPPED
 LAND
-IF -12 ELSE 0 THEN JUMP ;
+IF -13 ELSE 0 THEN JUMP ;
 : 0_101
 TRUE
 
 1 LINE.NUM
   &CustomChart5   ?STOPPED
 LAND
-IF -12 ELSE -22 THEN JUMP ;
+IF -13 ELSE -23 THEN JUMP ;
 : 0_116
 TRUE
 
 1 LINE.NUM
   &DynoPidRampWidget   ?STOPPED
 LAND
-IF -12 ELSE -6 THEN JUMP ;
+IF -13 ELSE 1 THEN JUMP ;
 : 0_123
 TRUE
 
@@ -1446,7 +1451,14 @@ LAND
   ^IsStartDataCollect @@ 
   1    =
 LAND
-IF -12 ELSE -10 THEN JUMP ;
+IF -13 ELSE -10 THEN JUMP ;
+: 0_130
+TRUE
+
+1 LINE.NUM
+  &StarterWidget   ?STOPPED
+LAND
+IF -13 ELSE -8 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -1470,6 +1482,7 @@ DUMMY
 0_99
 0_118
 0_124
+0_131
 0_2
 0_16
 0_27
@@ -1481,8 +1494,111 @@ DUMMY
 0_101
 0_116
 0_123
+0_130
 T;
 &Powerup ' T0 SETTASK
+: 11_0
+
+1 LINE.NUM
+  %ScratchPad 
+  3402  
+  ^StarterStart   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  3403  
+  1    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+4 JUMP ;
+: 11_2
+-2 JUMP ;
+: 11_6
+
+1 LINE.NUM
+  %ScratchPad 
+  3403  
+  ^StarterCrankTime    IO.SP.READ
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  3404  
+  ^StarterStartRpm    IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  %ScratchPad 
+  3405  
+  ^StarterRetryWaitTime    IO.SP.READ
+  ^GetScratchPadResult @! 
+
+4 LINE.NUM
+  %ScratchPad 
+  3406  
+  ^StarterRetryCount    IO.SP.READ
+  ^GetScratchPadResult @! 
+
+5 LINE.NUM
+  %ScratchPad 
+  3407  
+  ^StarterCutoffTime    IO.SP.READ
+  ^GetScratchPadResult @! 
+0 JUMP ;
+: 11_8
+1 1 LINE.NUM ^StarterRetryCount @@I 1 + 1 DO? I ^StarterAttempt @! 
+2 LINE.NUM %ScratchPad 3408 ~ThermoCouple10 @@  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad 3404 ^StarterAttempt @@  IO.SP.I.WRITE DROP  
+5 LINE.NUM ~Engine0  ON 
+6 LINE.NUM %ScratchPad 3405 1  IO.SP.I.WRITE DROP  
+8 LINE.NUM ^StarterCrankTimer  StartTimer 
+9 LINE.NUM BEGIN ^StarterCrankTimer @@F ^StarterCrankTime @@ F< WHILE 
+11 LINE.NUM ^StarterCrankTime @@ ^StarterCrankTime @@ F< IF 
+12 LINE.NUM ~Engine2  ON 
+13 LINE.NUM THEN 
+14 LINE.NUM REPEAT 
+15 LINE.NUM ~Engine0  OFF 
+16 LINE.NUM %ScratchPad 3405 0  IO.SP.I.WRITE DROP  
+17 LINE.NUM ^StarterCrankTimer  StopTimer 
+19 LINE.NUM ~Engine1 @@I 0 <> IF 
+20 LINE.NUM ^StarterRetryCount @@ 1 I>F F+ ^StarterAttempt F@! 
+21 LINE.NUM ELSE 
+22 LINE.NUM ^StarterAttempt @@F ^StarterRetryCount @@ F< IF 
+23 LINE.NUM ^StarterRetryWaitTime @@  FDELAY 
+24 LINE.NUM THEN 
+25 LINE.NUM THEN 
+27 LINE.NUM 1 +LOOP 
+29 LINE.NUM %ScratchPad 3406 ~Engine1 @@I  IO.SP.I.WRITE DROP  
+0 JUMP ;
+: 11_10
+
+1 LINE.NUM
+  %ScratchPad 
+  3403  
+  0    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+
+2 LINE.NUM
+  &StarterWidget   STOP.T
+1 JUMP ;
+: 11_1
+TRUE
+
+1 LINE.NUM
+  ^StarterStart @@ 
+  1    =
+LAND
+IF -4 ELSE -5 THEN JUMP ;
+T: T11
+DUMMY
+11_0
+11_2
+11_6
+11_8
+11_10
+11_1
+T;
+&StarterWidget ' T11 SETTASK
 : 4_0
 
 1 LINE.NUM
@@ -1884,6 +2000,7 @@ CREATE T.ARRAY
 &DynoPidRampWidget ,
 &PidConfig ,
 &Powerup ,
+&StarterWidget ,
 &TestScheduleWidgetChart ,
 &VentilationCtrl1 ,
  0 ,
@@ -1912,6 +2029,13 @@ CREATE V.ARRAY
 ^PidConfigType ,
 ^PidConfigValue ,
 ^SetScratchPadResult ,
+^StarterAttempt ,
+^StarterCrankTime ,
+^StarterCutoffTime ,
+^StarterRetryCount ,
+^StarterRetryWaitTime ,
+^StarterStart ,
+^StarterStartRpm ,
 ^TestScheduleCurrentTime ,
 ^TestScheduleIntercept ,
 ^TestScheduleLowerSetpoint ,
@@ -1941,6 +2065,7 @@ CREATE V.ARRAY
  0 ,
 CREATE TI.ARRAY
 ^DynoPidRampTimer ,
+^StarterCrankTimer ,
 ^TestScheduleRunTime ,
  0 ,
 CREATE PTR.ARRAY
@@ -2109,6 +2234,14 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^PidConfigType @!
 0.00000000 ^PidConfigValue @!
 0 ^SetScratchPadResult @!
+0 ^StarterAttempt @!
+0.00000000 ^StarterCrankTime @!
+0.0 ^StarterCrankTimer SetTimer
+0.00000000 ^StarterCutoffTime @!
+0.00000000 ^StarterRetryCount @!
+0.00000000 ^StarterRetryWaitTime @!
+0 ^StarterStart @!
+0.00000000 ^StarterStartRpm @!
 0.00000000 ^TestScheduleCurrentTime @!
 0.00000000 ^TestScheduleIntercept @!
 0.00000000 ^TestScheduleLowerSetpoint @!
@@ -2151,9 +2284,9 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 01/20/17 " ;
-: TIMESTAMP ." 09:24:37 " ;
-: CRCSTAMP  ." B7AB7DCAE7940B2050BA8CAE9EF356B0 " ;
+: DATESTAMP ." 01/25/17 " ;
+: TIMESTAMP ." 11:10:30 " ;
+: CRCSTAMP  ." 6B48F773331DA39A6FDBD18B472A69BB " ;
 MAKECHECK
 CLEAR.BREAKS
 

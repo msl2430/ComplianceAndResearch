@@ -63,6 +63,7 @@ namespace EngineCell.Application.Views.TestDisplay
                         WidgetPanel.Children.Add(new CustomChartDisplay(ViewModel.ApplicationSessionFactory, widget));
                         break;
                     case WidgetConstants.Widget.Starter:
+                        WidgetPanel.Children.Add(new StarterDisplay(ViewModel.ApplicationSessionFactory, widget));
                         break;
                 }
             }

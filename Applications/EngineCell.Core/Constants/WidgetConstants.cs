@@ -37,9 +37,11 @@ namespace EngineCell.Core.Constants
             VentCtrl2AnalogOutput,
             VentCtrl2Gain,
             VentCtrl2SetPoint,
-            StarterInitialCrankTime,
-            StarterStartParameter,
-            StarterAddedCrankTime,
+            StarterCrankTime,
+            StarterStartRpm,
+            StarterTimeBetweenTries,
+            StarterNumberOfTries,
+            StarterTimeAtRpm,
         }
 
         public enum DynoPidMode
@@ -71,6 +73,7 @@ namespace EngineCell.Core.Constants
             "Custom Chart 3",
             "Custom Chart 4",
             "Custom Chart 5",
+            "Starter",
         };
 
         public enum TestScheduleSetpointType

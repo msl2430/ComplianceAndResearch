@@ -43,6 +43,13 @@
             StartDynoPidWidget = 3400,
             DynoPidWidgetRunning,
 
+            //Starter Widget
+            StartStarterWidget = 3402,
+            StarterWidgetRunning,
+            StarterAttempt,
+            StarterCrankOn,
+            StarterEngineOn,
+
             //Pid Config
             PidConfigStatus = 500,
             PidConfigType,
@@ -248,6 +255,13 @@
             DynoPidRampCurrentSetpoint,
             DynoPidRampCurrentTime,
 
+            //Starter 
+            StarterCrankTime = 3403,
+            StarterStartRpm,
+            StarterRetryWaitTime,
+            StarterRetryCount,
+            StarterCutoffTime,
+            StarterEngineRpm,
         }
 
         public enum StringIndexes

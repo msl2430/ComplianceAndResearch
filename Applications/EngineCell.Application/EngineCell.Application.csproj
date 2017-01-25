@@ -162,6 +162,7 @@
     <Compile Include="Services\WorkerServices\PidConfigWorkerService.cs" />
     <Compile Include="Services\WorkerServices\TestRunnerWorkerService.cs" />
     <Compile Include="Services\WorkerServices\Widget\DynoPidRampWidgetWorkerService.cs" />
+    <Compile Include="Services\WorkerServices\Widget\StarterWidgetWorkerService.cs" />
     <Compile Include="Services\WorkerServices\Widget\TestScheduleWidgetWorkerService.cs" />
     <Compile Include="ViewModels\Phase\LoadPhaseViewModel.cs" />
     <Compile Include="ViewModels\Widget\DynoPidRampDisplayViewModel.cs" />
@@ -200,7 +201,6 @@
     <Compile Include="ViewModels\Widget\CustomChartDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\DynoPidConfigViewModel.cs" />
     <Compile Include="ViewModels\Widget\DynoPidDisplayViewModel.cs" />
-    <Compile Include="ViewModels\Widget\StarterConfigViewModel.cs" />
     <Compile Include="ViewModels\Widget\StarterDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\TestScheduleDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\VentilationControlDisplayViewModel.cs" />
@@ -282,6 +282,9 @@
     </Compile>
     <Compile Include="Views\Widget\DynoPidRampDisplay.xaml.cs">
       <DependentUpon>DynoPidRampDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Widget\StarterConfig.xaml.cs">
+      <DependentUpon>StarterConfig.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Widget\StarterDisplay.xaml.cs">
       <DependentUpon>StarterDisplay.xaml</DependentUpon>
@@ -409,6 +412,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Widget\DynoPidRampDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Widget\StarterConfig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

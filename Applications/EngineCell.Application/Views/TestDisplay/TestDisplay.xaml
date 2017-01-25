@@ -31,9 +31,6 @@
         <DataTemplate DataType="{x:Type widgetModel:DynoPidDisplayViewModel}">
             <widget:DynoPidDisplay></widget:DynoPidDisplay>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type widgetModel:StarterDisplayViewModel}">
-            <widget:StarterDisplay></widget:StarterDisplay>
-        </DataTemplate>
         <extensions:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <extensions:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
     </UserControl.Resources>

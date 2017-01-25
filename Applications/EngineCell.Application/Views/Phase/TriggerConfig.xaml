@@ -28,21 +28,21 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="55"/>
+                        <ColumnDefinition Width="55"/>
                         <ColumnDefinition Width="75"/>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="90"/>
                         <ColumnDefinition Width="39"/>
                         <ColumnDefinition Width="37"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}">Point</TextBlock>
-                    <TextBlock Grid.Column="1" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}">Low Value</TextBlock>
-                    <TextBlock Grid.Column="2" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}">High Value</TextBlock>
-                    <TextBlock Grid.Column="3" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}">Threshold</TextBlock>
-                    <TextBlock Grid.Column="4" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}">Action</TextBlock>
-                    <TextBlock Grid.Column="5" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}">Action Parameter</TextBlock>
-                    <TextBlock Grid.Column="6" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}">Email?</TextBlock>
+                    <TextBlock Grid.Column="0" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}" HorizontalAlignment="Center">Point</TextBlock>
+                    <TextBlock Grid.Column="1" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}" HorizontalAlignment="Center">Low Value</TextBlock>
+                    <TextBlock Grid.Column="2" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}" HorizontalAlignment="Center">High Value</TextBlock>
+                    <TextBlock Grid.Column="3" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}" HorizontalAlignment="Center">Threshold (seconds)</TextBlock>
+                    <TextBlock Grid.Column="4" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}" HorizontalAlignment="Center">Action</TextBlock>
+                    <TextBlock Grid.Column="5" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}" HorizontalAlignment="Center">Action Parameter</TextBlock>
+                    <TextBlock Grid.Column="6" FontSize="10" TextWrapping="WrapWithOverflow" Foreground="{StaticResource LightBlueBrush}" HorizontalAlignment="Center">Email?</TextBlock>
                     <!--<Button Grid.Column="7" FontSize="8" Height="7" Width="25" Padding="3" Background="OrangeRed" Foreground="WhiteSmoke" Margin="3">X</Button>-->
                 </Grid>
             </Border>

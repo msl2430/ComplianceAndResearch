@@ -4,7 +4,7 @@
 # ----------------------------------------------------------------
 # NAME :         D:\Work\ComplianceAndResearch\Applications\EngineCell.Strategy\EngineCell.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    9:24:37 1/20/2017
+# TIME/DATE :    11:10:30 1/25/2017
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -101,6 +101,7 @@ TAG1,DataCollection                                    ,1    ,00000000,00000100,
 TAG1,DynoPidRampWidget                                 ,10   ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,PidConfig                                         ,2    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,Powerup                                           ,0    ,00000000,00000100,00000000,00000000,0    ,0   
+TAG1,StarterWidget                                     ,11   ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,TestScheduleWidgetChart                           ,4    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,VentilationCtrl1                                  ,3    ,00000000,00000100,00000000,00000000,0    ,0   
 TAG1,EngineCell                                        ,2    ,00000000,00000000,10000000,00000000,0    ,0   
@@ -220,6 +221,14 @@ TAG1,PidConfigStatus                                   ,12   ,00000000,00000000,
 TAG1,PidConfigType                                     ,13   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,PidConfigValue                                    ,14   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,SetScratchPadResult                               ,3    ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,StarterAttempt                                    ,65   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,StarterCrankTime                                  ,60   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,StarterCrankTimer                                 ,66   ,00000000,00000000,00000000,00002000,0    ,0   
+TAG1,StarterCutoffTime                                 ,64   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,StarterRetryCount                                 ,63   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,StarterRetryWaitTime                              ,62   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,StarterStart                                      ,59   ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,StarterStartRpm                                   ,61   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,TestScheduleCurrentTime                           ,34   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,TestScheduleIntercept                             ,38   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,TestScheduleLowerSetpoint                         ,39   ,00000000,00000000,00000000,00000010,0    ,0   

@@ -16,9 +16,11 @@ INSERT INTO WidgetSetting (WidgetId, Setting) VALUES
 (10, 'Analog Output'),
 (10, 'Gain'),
 (10, 'Set Point'),
-(11, 'Initial Crank Time'),
-(11, 'Start Parameter'),
-(11, 'Additional Crank Time')
+(11, 'Crank Time'),
+(11, 'Start RPM'),
+(11, 'Time Between Tries'),
+(11, 'Number of Tries'),
+(11, 'Time at RPM')
 
 TRUNCATE TABLE Widget
 INSERT INTO Widget (Name) VALUES

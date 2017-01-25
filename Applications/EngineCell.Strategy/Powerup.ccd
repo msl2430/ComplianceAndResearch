@@ -25,7 +25,7 @@
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-18 JUMP ;
+19 JUMP ;
 : 0_4
 -2 JUMP ;
 : 0_5
@@ -61,7 +61,7 @@
   999  
   ^IsStartDataCollect   IO.SP.READ
   ^GetScratchPadResult @! 
-25 JUMP ;
+26 JUMP ;
 : 0_19
 -5 JUMP ;
 : 0_25
@@ -71,14 +71,14 @@
   11  
   ^IsTestRunning   IO.SP.READ
   ^GetScratchPadResult @! 
-15 JUMP ;
+16 JUMP ;
 : 0_45
 -4 JUMP ;
 : 0_47
 
 1 LINE.NUM
   &DataCollection   STOP.T
-22 JUMP ;
+24 JUMP ;
 : 0_59
 
 1 LINE.NUM
@@ -92,13 +92,13 @@
 3 LINE.NUM
   &DataCollection   START.T
   ^SetScratchPadResult @! 
-21 JUMP ;
+23 JUMP ;
 : 0_64
 
 1 LINE.NUM
   &TestScheduleWidgetChart   START.T
   ^GetScratchPadResult @! 
-20 JUMP ;
+19 JUMP ;
 : 0_67
 
 1 LINE.NUM
@@ -142,7 +142,13 @@
   3400  
   ^DynoPidRampStart   IO.SP.READ
   ^GetScratchPadResult @! 
-11 JUMP ;
+
+8 LINE.NUM
+  %ScratchPad 
+  3402  
+  ^StarterStart   IO.SP.READ
+  ^GetScratchPadResult @! 
+12 JUMP ;
 : 0_76
 -9 JUMP ;
 : 0_77
@@ -150,25 +156,25 @@
 1 LINE.NUM
   &CustomChart1   START.T
   ^GetScratchPadResult @! 
-11 JUMP ;
+12 JUMP ;
 : 0_88
 
 1 LINE.NUM
   &CustomChart2   START.T
   ^GetScratchPadResult @! 
-11 JUMP ;
+12 JUMP ;
 : 0_93
 
 1 LINE.NUM
   &CustomChart3   START.T
   ^GetScratchPadResult @! 
-11 JUMP ;
+12 JUMP ;
 : 0_96
 
 1 LINE.NUM
   &CustomChart4   START.T
   ^GetScratchPadResult @! 
-11 JUMP ;
+12 JUMP ;
 : 0_99
 
 1 LINE.NUM
@@ -180,13 +186,19 @@
 1 LINE.NUM
   &DynoPidRampWidget   START.T
   ^GetScratchPadResult @! 
-5 JUMP ;
+13 JUMP ;
 : 0_124
 
 1 LINE.NUM
   &DataCollection   START.T
   ^GetScratchPadResult @! 
-1 JUMP ;
+2 JUMP ;
+: 0_131
+
+1 LINE.NUM
+  &StarterWidget   START.T
+  ^GetScratchPadResult @! 
+4 JUMP ;
 : 0_2
 TRUE
 
@@ -194,7 +206,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -17 ELSE -18 THEN JUMP ;
+IF -18 ELSE -19 THEN JUMP ;
 : 0_16
 TRUE
 
@@ -202,7 +214,7 @@ TRUE
   ^IsStartTest @@ 
   1    =
 LAND
-IF -16 ELSE -17 THEN JUMP ;
+IF -17 ELSE -18 THEN JUMP ;
 : 0_27
 TRUE
 
@@ -210,7 +222,7 @@ TRUE
   ^IsTestRunning @@ 
   1    =
 LAND
-IF -12 ELSE -16 THEN JUMP ;
+IF -13 ELSE -17 THEN JUMP ;
 : 0_69
 TRUE
 
@@ -222,49 +234,49 @@ LAND
   ^TestScheduleStart @@ 
   1    =
 LAND
-IF -14 ELSE 5 THEN JUMP ;
+IF -15 ELSE 5 THEN JUMP ;
 : 0_78
 TRUE
 
 1 LINE.NUM
   &CustomChart1   ?STOPPED
 LAND
-IF -12 ELSE 0 THEN JUMP ;
+IF -13 ELSE 0 THEN JUMP ;
 : 0_86
 TRUE
 
 1 LINE.NUM
   &CustomChart2   ?STOPPED
 LAND
-IF -12 ELSE 0 THEN JUMP ;
+IF -13 ELSE 0 THEN JUMP ;
 : 0_95
 TRUE
 
 1 LINE.NUM
   &CustomChart3   ?STOPPED
 LAND
-IF -12 ELSE 0 THEN JUMP ;
+IF -13 ELSE 0 THEN JUMP ;
 : 0_98
 TRUE
 
 1 LINE.NUM
   &CustomChart4   ?STOPPED
 LAND
-IF -12 ELSE 0 THEN JUMP ;
+IF -13 ELSE 0 THEN JUMP ;
 : 0_101
 TRUE
 
 1 LINE.NUM
   &CustomChart5   ?STOPPED
 LAND
-IF -12 ELSE -22 THEN JUMP ;
+IF -13 ELSE -23 THEN JUMP ;
 : 0_116
 TRUE
 
 1 LINE.NUM
   &DynoPidRampWidget   ?STOPPED
 LAND
-IF -12 ELSE -6 THEN JUMP ;
+IF -13 ELSE 1 THEN JUMP ;
 : 0_123
 TRUE
 
@@ -276,7 +288,14 @@ LAND
   ^IsStartDataCollect @@ 
   1    =
 LAND
-IF -12 ELSE -10 THEN JUMP ;
+IF -13 ELSE -10 THEN JUMP ;
+: 0_130
+TRUE
+
+1 LINE.NUM
+  &StarterWidget   ?STOPPED
+LAND
+IF -13 ELSE -8 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -300,6 +319,7 @@ DUMMY
 0_99
 0_118
 0_124
+0_131
 0_2
 0_16
 0_27
@@ -311,5 +331,6 @@ DUMMY
 0_101
 0_116
 0_123
+0_130
 T;
 &Powerup ' T0 SETTASK

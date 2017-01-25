@@ -48,8 +48,7 @@ namespace EngineCell.Application.Services.WorkerServices
         {
 
             CancellationToken = new CancellationTokenSource();
-            ApplicationSessionFactory.LogEvent("Point data collection started.", true);
-            ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt(), 1);
+            ApplicationSessionFactory.LogEvent("Point data collection started.", true);            
             TaskList = new List<Task>();
             
             try
@@ -60,12 +59,12 @@ namespace EngineCell.Application.Services.WorkerServices
                     if (WaitStopWatch.ElapsedMilliseconds <= 10) continue;
 
                     WaitStopWatch.Stop();
-                    WaitStopWatch.Reset();
+                    WaitStopWatch.Reset();                    
 
                     //Check if we're connected to and collecting data from Opto before proceeding
                     if (ApplicationSessionFactory.OptoMmpFactory != null && ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen)
                     {
-                            
+                        ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt(), 1);
                         CaptureTime = DateTime.Now;
 
                         ScratchPadValues = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatRange(1000, 1073);
@@ -82,8 +81,9 @@ namespace EngineCell.Application.Services.WorkerServices
                             TaskList[i] = null;
                         }
 
-                        if (ApplicationSessionFactory.CurrentCellTest != null &&
-                            ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()) == 1)
+                        if (ApplicationSessionFactory.CurrentCellTest != null 
+                            && ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()) == 1
+                            && ApplicationSessionFactory.CellPoints.Any(cp => cp.IsRecord && cp.IsActive))
                         {
                             ExportService.WriteDataToFile(ApplicationSessionFactory.CurrentCellTest.CellTestId, CaptureTime, ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive).ToList());
                             CellPointRepository.CreateCellPointData(
@@ -95,10 +95,6 @@ namespace EngineCell.Application.Services.WorkerServices
                         Dispatcher.Invoke(() => {
                             TestDisplayViewModel.UpdateVisibleCellPoints();
                         });
-
-                        //TestDisplayViewModel.VentControl1Display.Inside = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.VentCtrl1Inside.ToInt());
-                        //TestDisplayViewModel.VentControl1Display.Outside = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.VentCtrl1Outside.ToInt());
-                        //TestDisplayViewModel.VentControl1Display.Output = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.VentCtrl1Output.ToInt());
                     }
                 }
                 Thread.Sleep(500);
@@ -121,12 +117,9 @@ namespace EngineCell.Application.Services.WorkerServices
             WorkCompleted();
         }
 
-        private VentilationControlViewModel Settings { get; set; }
-        private IList<WidgetSettingValueModel> VentCtrl1WidgetSettings { get; set; }
-
         private static void CaptureCellPoint(PointDataModel cellPoint, IScratchPadModel<decimal> scratchPadValue, IApplicationSessionFactory appSession)
         {
-            if (scratchPadValue == null)
+            if (scratchPadValue == null || !cellPoint.IsActive)
                 return;
 
             if (!cellPoint.IsCustomValue)
@@ -146,9 +139,9 @@ namespace EngineCell.Application.Services.WorkerServices
                     cellPoint.Data = scratchPadValue.Value > 0 ? 1m : 0m;
                 }
 
-                if (cellPoint.IsInput) return;
+                if (cellPoint.IsInput || !cellPoint.IsActive) return;
 
-                //appSession.ScratchPadFactory.SetScratchPadValue(((ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true)).ToInt(), ScratchPadConstants.DefaultNullValue);
+                appSession.ScratchPadFactory.SetScratchPadValue(((ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true)).ToInt(), ScratchPadConstants.DefaultNullValue);
             }
             else
             {
@@ -159,24 +152,7 @@ namespace EngineCell.Application.Services.WorkerServices
                     cellPoint.MostRecentData.RemoveAt(0);
                 cellPoint.AverageData = Math.Truncate(cellPoint.MostRecentData.Average() * 10000m) / 10000m;
             }
-        }
-
-        private void ConfigurePacWidgets()
-        {
-            //TODO: All widget settings
-            VentCtrl1WidgetSettings = WidgetRepository.GetWidgetSettingByWidgetCell(ApplicationSessionFactory.CurrentCell.CellId, WidgetConstants.Widget.VentilationControl1);
-
-            if (!VentCtrl1WidgetSettings.IsNotNullOrEmpty()) return;
-            if(Settings == null)
-                Settings = new VentilationControlViewModel();
-            Settings.SetValues(VentCtrl1WidgetSettings);
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.VentCtrl1InsideType.ToInt(), Settings.Inside.ToInt());
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.VentCtrl1OutsideType.ToInt(), Settings.Outside.ToInt());
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.VentCtrl1OutputType.ToInt(), Settings.Output.ToInt());
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.VentCtrl1Setpoint.ToInt(), Settings.SetPoint);
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.VentCtrl1Gain.ToInt(), Settings.Gain);
-            TestDisplayViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.VentCtrl1Status.ToInt(), Settings.IsActive ? 1 : 0);
-        }
+        }        
 
         protected override void WorkCompleted()
         {

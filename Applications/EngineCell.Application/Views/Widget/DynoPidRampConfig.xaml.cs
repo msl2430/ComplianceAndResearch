@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
 using EngineCell.Models.Models;
@@ -26,7 +17,6 @@ namespace EngineCell.Application.Views.Widget
     {
         private CellTestPhaseModel Phase { get; set; }
         private CellTestPhaseWidgetModel Widget { get; set; }
-        public bool IsConfigured { get; set; }
 
         private IWidgetRepository _widgetRepository { get; set; }
         private IWidgetRepository WidgetRepository => _widgetRepository ?? (_widgetRepository = new WidgetRepository());
@@ -86,7 +76,7 @@ namespace EngineCell.Application.Views.Widget
             }
             else
             {
-                WidgetStatus.Text = "No Configured";
+                WidgetStatus.Text = "Not Configured";
                 WidgetStatus.Foreground = Brushes.OrangeRed;
             }
         }
