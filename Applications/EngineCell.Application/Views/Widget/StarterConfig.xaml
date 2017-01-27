@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EngineCell.Application.Views.Widget"
              mc:Ignorable="d" 
-             Height="300" Width="250"
+             Height="350" Width="250"
              d:DesignHeight="600" d:DesignWidth="250">
     <Grid>
         <Grid.RowDefinitions>
@@ -29,6 +29,8 @@
                 <RowDefinition Height="5"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="5"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="5"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Column="0" Grid.Row="0" Height="35" FontSize="12" TextWrapping="WrapWithOverflow" Foreground="WhiteSmoke" Margin="5">Crank Time (seconds)</TextBlock>
@@ -41,7 +43,9 @@
             <TextBox x:Name="NumberOfTriesText" Grid.Column="1" Grid.Row="6" FontSize="12" Height="25" LostFocus="NumberOfTriesText_OnLostFocus"></TextBox>
             <TextBlock Grid.Column="0" Grid.Row="8" Height="35" FontSize="12" TextWrapping="WrapWithOverflow" Foreground="WhiteSmoke" Margin="5">Cutoff Time at RPM (seconds)</TextBlock>
             <TextBox x:Name="CutoffTime" Grid.Column="1" Grid.Row="8" FontSize="12" Height="25" LostFocus="CutoffTime_OnLostFocus"></TextBox>
-            <TextBlock x:Name="WidgetStatus" Grid.Row="10" Grid.Column="0" FontSize="14" Grid.ColumnSpan="2" TextAlignment="Center"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="10" Height="35" FontSize="12" TextWrapping="WrapWithOverflow" Foreground="WhiteSmoke" Margin="5">Widget Timeout (seconds)</TextBlock>
+            <TextBox x:Name="WidgetTimeout" Grid.Column="1" Grid.Row="10" FontSize="12" Height="25" LostFocus="WidgetTimeout_OnLostFocus"></TextBox>
+            <TextBlock x:Name="WidgetStatus" Grid.Row="12" Grid.Column="0" FontSize="14" Grid.ColumnSpan="2" TextAlignment="Center"></TextBlock>
         </Grid>
     </Grid>
 </UserControl>

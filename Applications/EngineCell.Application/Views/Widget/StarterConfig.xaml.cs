@@ -97,7 +97,8 @@ namespace EngineCell.Application.Views.Widget
                 && Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterStartRpm)
                 && Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterTimeBetweenTries)
                 && Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterNumberOfTries)
-                && Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterTimeAtRpm))
+                && Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterTimeAtRpm)
+                && Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterTimeout))
             {
                 WidgetStatus.Text = "Configured";
                 WidgetStatus.Foreground = (Brush)FindResource("GreenBrush");
@@ -107,6 +108,11 @@ namespace EngineCell.Application.Views.Widget
                 WidgetStatus.Text = "Not Configured";
                 WidgetStatus.Foreground = Brushes.OrangeRed;
             }
-        }        
+        }
+
+        private void WidgetTimeout_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            SetSetting(WidgetConstants.WidgetSetting.StarterTimeout, ((TextBox)sender).Text);
+        }
     }
 }

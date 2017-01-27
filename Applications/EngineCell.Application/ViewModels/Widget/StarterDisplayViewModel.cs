@@ -42,6 +42,7 @@ namespace EngineCell.Application.ViewModels.Widget
         public int RetryCount { get; set; }
         public decimal TimeBetweenRetries { get; set; }
         public decimal CutoffTime { get; set; }
+        public decimal Timeout { get; set; }
 
         public StarterDisplayViewModel(IApplicationSessionFactory appSession, CellTestPhaseWidgetModel widget)
         {
@@ -57,6 +58,8 @@ namespace EngineCell.Application.ViewModels.Widget
                 TimeBetweenRetries = Convert.ToDecimal(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterTimeBetweenTries).Value);
             if (Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterTimeAtRpm))
                 CutoffTime = Convert.ToDecimal(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterTimeAtRpm).Value);
+            if (Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterTimeout))
+                Timeout = Convert.ToDecimal(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.StarterTimeout).Value);
         }
     }
 }

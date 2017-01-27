@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EngineCell.Application.ViewModels.Widget;
@@ -11,9 +13,12 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
     {
         public StarterDisplayViewModel ViewModel { get; set; }
 
+        private Stopwatch RunTime { get; set; }
+
         public StarterWidgetWorkerService(StarterDisplayViewModel viewModel)
         {
             ViewModel = viewModel;
+            RunTime = new Stopwatch();
         }
 
         public override void DoWork()
@@ -47,8 +52,17 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
                     Thread.Sleep(1000);
                 }
 
+                if(!RunTime.IsRunning)
+                    RunTime.Start();
+
                 while (!CancellationToken.IsCancellationRequested)
                 {
+                    if (RunTime.ElapsedMilliseconds/1000m > ViewModel.Timeout)
+                    {
+                        CancellationToken.Cancel();
+                        continue;
+                    }
+
                     if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
                     if (WaitStopWatch.ElapsedMilliseconds <= 10) continue;
 
@@ -62,7 +76,7 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
                         continue;
                     }
 
-                    ViewModel.EngineRpm = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.StarterEngineRpm.ToInt());
+                    ViewModel.EngineRpm = ViewModel.ApplicationSessionFactory.CellPoints.FirstOrDefault(cp => cp.PointName == "Volt0").Data; //TODO: Needs to be whatever point we actually choose
                     ViewModel.Attempt = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.StarterAttempt.ToInt());
                     ViewModel.IsCranking = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.StarterCrankOn.ToInt()) == 1;
                 }
@@ -82,10 +96,13 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
         protected override void WorkCompleted()
         {
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartStarterWidget.ToInt(), 0);
-            var isEngineRunning = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.StarterEngineOn.ToInt()) == 1;
+            //TODO: This needs to be the Point that we choose to measure RPM
+            var isEngineRunning = ViewModel.ApplicationSessionFactory.CellPoints.FirstOrDefault(cp => cp.PointName == "Volt0").Data >= ViewModel.StartRpm;
             ViewModel.Widget.IsComplete = isEngineRunning;
             ViewModel.Widget.IsError = !isEngineRunning;
-            if (!isEngineRunning)
+            if(RunTime.ElapsedMilliseconds / 1000m > ViewModel.Timeout)
+                ViewModel.Widget.ErrorReason = "Widget timeout was exceeded.";
+            else if (!isEngineRunning)
                 ViewModel.Widget.ErrorReason = "Engine failed to starter after " + ViewModel.RetryCount + " attempts.";
         }
     }

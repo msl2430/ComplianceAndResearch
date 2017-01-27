@@ -11,7 +11,7 @@
   3403  
   1    IO.SP.I.WRITE
   ^GetScratchPadResult @! 
-4 JUMP ;
+5 JUMP ;
 : 11_2
 -2 JUMP ;
 : 11_6
@@ -45,31 +45,36 @@
   3407  
   ^StarterCutoffTime    IO.SP.READ
   ^GetScratchPadResult @! 
-0 JUMP ;
+
+6 LINE.NUM
+  %ScratchPad 
+  3404  
+  0    IO.SP.I.WRITE
+  ^GetScratchPadResult @! 
+4 JUMP ;
 : 11_8
 1 1 LINE.NUM ^StarterRetryCount @@I 1 + 1 DO? I ^StarterAttempt @! 
-2 LINE.NUM %ScratchPad 3408 ~ThermoCouple10 @@  IO.SP.F.WRITE DROP  
+2 LINE.NUM %ScratchPad 3408 ~Freq0  FREQ@I I>F   IO.SP.F.WRITE DROP  
 3 LINE.NUM %ScratchPad 3404 ^StarterAttempt @@  IO.SP.I.WRITE DROP  
 5 LINE.NUM ~Engine0  ON 
 6 LINE.NUM %ScratchPad 3405 1  IO.SP.I.WRITE DROP  
 8 LINE.NUM ^StarterCrankTimer  StartTimer 
-9 LINE.NUM BEGIN ^StarterCrankTimer @@F ^StarterCrankTime @@ F< WHILE 
-11 LINE.NUM ^StarterCrankTime @@ ^StarterCrankTime @@ F< IF 
-12 LINE.NUM ~Engine2  ON 
-13 LINE.NUM THEN 
-14 LINE.NUM REPEAT 
-15 LINE.NUM ~Engine0  OFF 
-16 LINE.NUM %ScratchPad 3405 0  IO.SP.I.WRITE DROP  
-17 LINE.NUM ^StarterCrankTimer  StopTimer 
-19 LINE.NUM ~Engine1 @@I 0 <> IF 
-20 LINE.NUM ^StarterRetryCount @@ 1 I>F F+ ^StarterAttempt F@! 
-21 LINE.NUM ELSE 
-22 LINE.NUM ^StarterAttempt @@F ^StarterRetryCount @@ F< IF 
-23 LINE.NUM ^StarterRetryWaitTime @@  FDELAY 
+9 LINE.NUM BEGIN ^StarterCrankTimer @@F ^StarterCrankTime @@ F< ~Freq0  FREQ@I I>F  ^StarterStartRpm @@ F< LAND  WHILE 
+11 LINE.NUM ~Engine0  ON 
+12 LINE.NUM 100  DELAY 
+13 LINE.NUM REPEAT 
+14 LINE.NUM ~Engine0  OFF 
+15 LINE.NUM %ScratchPad 3405 0  IO.SP.I.WRITE DROP  
+16 LINE.NUM ^StarterCrankTimer  StopTimer 
+18 LINE.NUM ~Freq0  FREQ@I I>F  ^StarterStartRpm @@ F>= IF 
+19 LINE.NUM ^StarterRetryCount @@ 1 I>F F+ ^StarterAttempt F@! 
+20 LINE.NUM ELSE 
+21 LINE.NUM ^StarterAttempt @@F ^StarterRetryCount @@ F< IF 
+22 LINE.NUM ^StarterRetryWaitTime @@  FDELAY 
+23 LINE.NUM THEN 
 24 LINE.NUM THEN 
-25 LINE.NUM THEN 
-27 LINE.NUM 1 +LOOP 
-29 LINE.NUM %ScratchPad 3406 ~Engine1 @@I  IO.SP.I.WRITE DROP  
+26 LINE.NUM 1 +LOOP 
+28 LINE.NUM %ScratchPad 3404 0  IO.SP.I.WRITE DROP  
 0 JUMP ;
 : 11_10
 
@@ -81,7 +86,12 @@
 
 2 LINE.NUM
   &StarterWidget   STOP.T
-1 JUMP ;
+3 JUMP ;
+: 11_12
+
+1 LINE.NUM
+  100    DELAY
+-5 JUMP ;
 : 11_1
 TRUE
 
@@ -89,7 +99,15 @@ TRUE
   ^StarterStart @@ 
   1    =
 LAND
-IF -4 ELSE -5 THEN JUMP ;
+IF -5 ELSE -6 THEN JUMP ;
+: 11_13
+TRUE
+
+1 LINE.NUM
+  ~Volt0 @@ 
+  0.0    F>
+LAND
+IF -5 ELSE -3 THEN JUMP ;
 T: T11
 DUMMY
 11_0
@@ -97,6 +115,8 @@ DUMMY
 11_6
 11_8
 11_10
+11_12
 11_1
+11_13
 T;
 &StarterWidget ' T11 SETTASK

@@ -25,7 +25,7 @@
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-20 JUMP ;
+22 JUMP ;
 : 0_4
 -2 JUMP ;
 : 0_5
@@ -61,7 +61,7 @@
   999  
   ^IsStartDataCollect   IO.SP.READ
   ^GetScratchPadResult @! 
-27 JUMP ;
+29 JUMP ;
 : 0_19
 -5 JUMP ;
 : 0_25
@@ -71,14 +71,14 @@
   11  
   ^IsTestRunning   IO.SP.READ
   ^GetScratchPadResult @! 
-17 JUMP ;
+19 JUMP ;
 : 0_45
--4 JUMP ;
+-2 JUMP ;
 : 0_47
 
 1 LINE.NUM
   &DataCollection   STOP.T
-26 JUMP ;
+28 JUMP ;
 : 0_59
 
 1 LINE.NUM
@@ -92,13 +92,13 @@
 3 LINE.NUM
   &DataCollection   START.T
   ^SetScratchPadResult @! 
-25 JUMP ;
+27 JUMP ;
 : 0_64
 
 1 LINE.NUM
   &TestScheduleWidgetChart   START.T
   ^GetScratchPadResult @! 
-20 JUMP ;
+22 JUMP ;
 : 0_67
 
 1 LINE.NUM
@@ -154,33 +154,33 @@
   3407  
   ^ThrottlePidRampStart   IO.SP.READ
   ^GetScratchPadResult @! 
-13 JUMP ;
+15 JUMP ;
 : 0_76
--9 JUMP ;
+-7 JUMP ;
 : 0_77
 
 1 LINE.NUM
   &CustomChart1   START.T
   ^GetScratchPadResult @! 
-13 JUMP ;
+15 JUMP ;
 : 0_88
 
 1 LINE.NUM
   &CustomChart2   START.T
   ^GetScratchPadResult @! 
-13 JUMP ;
+15 JUMP ;
 : 0_93
 
 1 LINE.NUM
   &CustomChart3   START.T
   ^GetScratchPadResult @! 
-13 JUMP ;
+15 JUMP ;
 : 0_96
 
 1 LINE.NUM
   &CustomChart4   START.T
   ^GetScratchPadResult @! 
-13 JUMP ;
+15 JUMP ;
 : 0_99
 
 1 LINE.NUM
@@ -192,25 +192,296 @@
 1 LINE.NUM
   &DynoPidRampWidget   START.T
   ^GetScratchPadResult @! 
-15 JUMP ;
+17 JUMP ;
 : 0_124
 
 1 LINE.NUM
   &DataCollection   START.T
   ^GetScratchPadResult @! 
-3 JUMP ;
+2 JUMP ;
 : 0_131
 
 1 LINE.NUM
   &StarterWidget   START.T
   ^GetScratchPadResult @! 
-5 JUMP ;
+7 JUMP ;
 : 0_137
 
 1 LINE.NUM
   &ThrottlePidRampWidget   START.T
   ^GetScratchPadResult @! 
 13 JUMP ;
+: 0_144
+1 LINE.NUM %ScratchPad 300 ^OutputConfigValue   IO.SP.READ DROP  
+2 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+3 LINE.NUM ^OutputConfigValue @@ ~AO10Bipolar @! 
+4 LINE.NUM ELSE 
+5 LINE.NUM -32769 I>F ~AO10Bipolar @! 
+6 LINE.NUM THEN 
+8 LINE.NUM %ScratchPad 301 ^OutputConfigValue   IO.SP.READ DROP  
+9 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+10 LINE.NUM ^OutputConfigValue @@ ~AO10 @! 
+11 LINE.NUM ELSE 
+12 LINE.NUM -32769 I>F ~AO10 @! 
+13 LINE.NUM THEN 
+15 LINE.NUM %ScratchPad 302 ^OutputConfigValue   IO.SP.READ DROP  
+16 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+17 LINE.NUM ^OutputConfigValue @@ ~AO5Bipolar @! 
+18 LINE.NUM ELSE 
+19 LINE.NUM -32769 I>F ~AO5Bipolar @! 
+20 LINE.NUM THEN 
+22 LINE.NUM %ScratchPad 303 ^OutputConfigValue   IO.SP.READ DROP  
+23 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+24 LINE.NUM ^OutputConfigValue @@ ~AO5 @! 
+25 LINE.NUM ELSE 
+26 LINE.NUM -32769 I>F ~AO5 @! 
+27 LINE.NUM THEN 
+29 LINE.NUM %ScratchPad 304 ^OutputConfigValue   IO.SP.READ DROP  
+30 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+31 LINE.NUM ^OutputConfigValue @@ ~AO4_20_0 @! 
+32 LINE.NUM ELSE 
+33 LINE.NUM -32769 I>F ~AO4_20_0 @! 
+34 LINE.NUM THEN 
+36 LINE.NUM %ScratchPad 305 ^OutputConfigValue   IO.SP.READ DROP  
+37 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+38 LINE.NUM ^OutputConfigValue @@ ~AO4_20_1 @! 
+39 LINE.NUM ELSE 
+40 LINE.NUM -32769 I>F ~AO4_20_1 @! 
+41 LINE.NUM THEN 
+43 LINE.NUM %ScratchPad 306 ^OutputConfigValue   IO.SP.READ DROP  
+44 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+45 LINE.NUM ^OutputConfigValue @@ ~AO4_20_2 @! 
+46 LINE.NUM ELSE 
+47 LINE.NUM -32769 I>F ~AO4_20_2 @! 
+48 LINE.NUM THEN 
+50 LINE.NUM %ScratchPad 307 ^OutputConfigValue   IO.SP.READ DROP  
+51 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+52 LINE.NUM ^OutputConfigValue @@ ~AO4_20_3 @! 
+53 LINE.NUM ELSE 
+54 LINE.NUM -32769 I>F ~AO4_20_3 @! 
+55 LINE.NUM THEN 
+57 LINE.NUM %ScratchPad 308 ^OutputConfigValue   IO.SP.READ DROP  
+58 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+59 LINE.NUM ^OutputConfigValue @@ ~Dyno0 F@! 
+60 LINE.NUM ELSE 
+61 LINE.NUM 0 ~Dyno0 @! 
+62 LINE.NUM THEN 
+64 LINE.NUM %ScratchPad 309 ^OutputConfigValue   IO.SP.READ DROP  
+65 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+66 LINE.NUM ^OutputConfigValue @@ ~Dyno1 F@! 
+67 LINE.NUM ELSE 
+68 LINE.NUM 0 ~Dyno1 @! 
+69 LINE.NUM THEN 
+71 LINE.NUM %ScratchPad 310 ^OutputConfigValue   IO.SP.READ DROP  
+72 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+73 LINE.NUM ^OutputConfigValue @@ ~Dyno2 F@! 
+74 LINE.NUM ELSE 
+75 LINE.NUM 0 ~Dyno2 @! 
+76 LINE.NUM THEN 
+78 LINE.NUM %ScratchPad 311 ^OutputConfigValue   IO.SP.READ DROP  
+79 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+80 LINE.NUM ^OutputConfigValue @@ ~Dyno3 F@! 
+81 LINE.NUM ELSE 
+82 LINE.NUM 0 ~Dyno3 @! 
+83 LINE.NUM THEN 
+85 LINE.NUM %ScratchPad 312 ^OutputConfigValue   IO.SP.READ DROP  
+86 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+87 LINE.NUM ^OutputConfigValue @@ ~Dyno4 F@! 
+88 LINE.NUM ELSE 
+89 LINE.NUM 0 ~Dyno4 @! 
+90 LINE.NUM THEN 
+92 LINE.NUM %ScratchPad 313 ^OutputConfigValue   IO.SP.READ DROP  
+93 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+94 LINE.NUM ^OutputConfigValue @@ ~Dyno5 F@! 
+95 LINE.NUM ELSE 
+96 LINE.NUM 0 ~Dyno5 @! 
+97 LINE.NUM THEN 
+99 LINE.NUM %ScratchPad 314 ^OutputConfigValue   IO.SP.READ DROP  
+100 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+101 LINE.NUM ^OutputConfigValue @@ ~Dyno6 F@! 
+102 LINE.NUM ELSE 
+103 LINE.NUM 0 ~Dyno6 @! 
+104 LINE.NUM THEN 
+106 LINE.NUM %ScratchPad 315 ^OutputConfigValue   IO.SP.READ DROP  
+107 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+108 LINE.NUM ^OutputConfigValue @@ ~Dyno7 F@! 
+109 LINE.NUM ELSE 
+110 LINE.NUM 0 ~Dyno7 @! 
+111 LINE.NUM THEN 
+113 LINE.NUM %ScratchPad 316 ^OutputConfigValue   IO.SP.READ DROP  
+114 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+115 LINE.NUM ^OutputConfigValue @@ ~Engine0 F@! 
+116 LINE.NUM ELSE 
+117 LINE.NUM 0 ~Engine0 @! 
+118 LINE.NUM THEN 
+120 LINE.NUM %ScratchPad 317 ^OutputConfigValue   IO.SP.READ DROP  
+121 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+122 LINE.NUM ^OutputConfigValue @@ ~Engine1 F@! 
+123 LINE.NUM ELSE 
+124 LINE.NUM 0 ~Engine1 @! 
+125 LINE.NUM THEN 
+127 LINE.NUM %ScratchPad 318 ^OutputConfigValue   IO.SP.READ DROP  
+128 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+129 LINE.NUM ^OutputConfigValue @@ ~Engine2 F@! 
+130 LINE.NUM ELSE 
+131 LINE.NUM 0 ~Engine2 @! 
+132 LINE.NUM THEN 
+134 LINE.NUM %ScratchPad 319 ^OutputConfigValue   IO.SP.READ DROP  
+135 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+136 LINE.NUM ^OutputConfigValue @@ ~Engine3 F@! 
+137 LINE.NUM ELSE 
+138 LINE.NUM 0 ~Engine3 @! 
+139 LINE.NUM THEN 
+141 LINE.NUM %ScratchPad 320 ^OutputConfigValue   IO.SP.READ DROP  
+142 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+143 LINE.NUM ^OutputConfigValue @@ ~Engine4 F@! 
+144 LINE.NUM ELSE 
+145 LINE.NUM 0 ~Engine4 @! 
+146 LINE.NUM THEN 
+148 LINE.NUM %ScratchPad 321 ^OutputConfigValue   IO.SP.READ DROP  
+149 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+150 LINE.NUM ^OutputConfigValue @@ ~Engine5 F@! 
+151 LINE.NUM ELSE 
+152 LINE.NUM 0 ~Engine5 @! 
+153 LINE.NUM THEN 
+155 LINE.NUM %ScratchPad 322 ^OutputConfigValue   IO.SP.READ DROP  
+156 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+157 LINE.NUM ^OutputConfigValue @@ ~Engine6 F@! 
+158 LINE.NUM ELSE 
+159 LINE.NUM 0 ~Engine6 @! 
+160 LINE.NUM THEN 
+162 LINE.NUM %ScratchPad 323 ^OutputConfigValue   IO.SP.READ DROP  
+163 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+164 LINE.NUM ^OutputConfigValue @@ ~Engine7 F@! 
+165 LINE.NUM ELSE 
+166 LINE.NUM 0 ~Engine7 @! 
+167 LINE.NUM THEN 
+169 LINE.NUM %ScratchPad 324 ^OutputConfigValue   IO.SP.READ DROP  
+170 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+171 LINE.NUM ^OutputConfigValue @@ ~Fuel0 F@! 
+172 LINE.NUM ELSE 
+173 LINE.NUM 0 ~Fuel0 @! 
+174 LINE.NUM THEN 
+176 LINE.NUM %ScratchPad 325 ^OutputConfigValue   IO.SP.READ DROP  
+177 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+178 LINE.NUM ^OutputConfigValue @@ ~Fuel1 F@! 
+179 LINE.NUM ELSE 
+180 LINE.NUM 0 ~Fuel1 @! 
+181 LINE.NUM THEN 
+183 LINE.NUM %ScratchPad 326 ^OutputConfigValue   IO.SP.READ DROP  
+184 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+185 LINE.NUM ^OutputConfigValue @@ ~Fuel2 F@! 
+186 LINE.NUM ELSE 
+187 LINE.NUM 0 ~Fuel2 @! 
+188 LINE.NUM THEN 
+190 LINE.NUM %ScratchPad 327 ^OutputConfigValue   IO.SP.READ DROP  
+191 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+192 LINE.NUM ^OutputConfigValue @@ ~Fuel3 F@! 
+193 LINE.NUM ELSE 
+194 LINE.NUM 0 ~Fuel3 @! 
+195 LINE.NUM THEN 
+197 LINE.NUM %ScratchPad 328 ^OutputConfigValue   IO.SP.READ DROP  
+198 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+199 LINE.NUM ^OutputConfigValue @@ ~Fuel4 F@! 
+200 LINE.NUM ELSE 
+201 LINE.NUM 0 ~Fuel4 @! 
+202 LINE.NUM THEN 
+204 LINE.NUM %ScratchPad 329 ^OutputConfigValue   IO.SP.READ DROP  
+205 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+206 LINE.NUM ^OutputConfigValue @@ ~Fuel5 F@! 
+207 LINE.NUM ELSE 
+208 LINE.NUM 0 ~Fuel5 @! 
+209 LINE.NUM THEN 
+211 LINE.NUM %ScratchPad 330 ^OutputConfigValue   IO.SP.READ DROP  
+212 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+213 LINE.NUM ^OutputConfigValue @@ ~Fuel6 F@! 
+214 LINE.NUM ELSE 
+215 LINE.NUM 0 ~Fuel6 @! 
+216 LINE.NUM THEN 
+218 LINE.NUM %ScratchPad 331 ^OutputConfigValue   IO.SP.READ DROP  
+219 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+220 LINE.NUM ^OutputConfigValue @@ ~Fuel7 F@! 
+221 LINE.NUM ELSE 
+222 LINE.NUM 0 ~Fuel7 @! 
+223 LINE.NUM THEN 
+225 LINE.NUM %ScratchPad 332 ^OutputConfigValue   IO.SP.READ DROP  
+226 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+227 LINE.NUM ^OutputConfigValue @@ ~Misc0 F@! 
+228 LINE.NUM ELSE 
+229 LINE.NUM 0 ~Dyno0 @! 
+230 LINE.NUM THEN 
+232 LINE.NUM %ScratchPad 333 ^OutputConfigValue   IO.SP.READ DROP  
+233 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+234 LINE.NUM ^OutputConfigValue @@ ~Misc1 F@! 
+235 LINE.NUM ELSE 
+236 LINE.NUM 0 ~Misc1 @! 
+237 LINE.NUM THEN 
+239 LINE.NUM %ScratchPad 334 ^OutputConfigValue   IO.SP.READ DROP  
+240 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+241 LINE.NUM ^OutputConfigValue @@ ~Misc2 F@! 
+242 LINE.NUM ELSE 
+243 LINE.NUM 0 ~Misc2 @! 
+244 LINE.NUM THEN 
+246 LINE.NUM %ScratchPad 335 ^OutputConfigValue   IO.SP.READ DROP  
+247 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+248 LINE.NUM ^OutputConfigValue @@ ~Misc3 F@! 
+249 LINE.NUM ELSE 
+250 LINE.NUM 0 ~Misc3 @! 
+251 LINE.NUM THEN 
+253 LINE.NUM %ScratchPad 336 ^OutputConfigValue   IO.SP.READ DROP  
+254 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+255 LINE.NUM ^OutputConfigValue @@ ~Misc4 F@! 
+256 LINE.NUM ELSE 
+257 LINE.NUM 0 ~Misc4 @! 
+258 LINE.NUM THEN 
+260 LINE.NUM %ScratchPad 337 ^OutputConfigValue   IO.SP.READ DROP  
+261 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+262 LINE.NUM ^OutputConfigValue @@ ~Misc5 F@! 
+263 LINE.NUM ELSE 
+264 LINE.NUM 0 ~Misc5 @! 
+265 LINE.NUM THEN 
+267 LINE.NUM %ScratchPad 338 ^OutputConfigValue   IO.SP.READ DROP  
+268 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+269 LINE.NUM ^OutputConfigValue @@ ~Misc6 F@! 
+270 LINE.NUM ELSE 
+271 LINE.NUM 0 ~Misc6 @! 
+272 LINE.NUM THEN 
+274 LINE.NUM %ScratchPad 339 ^OutputConfigValue   IO.SP.READ DROP  
+275 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+276 LINE.NUM ^OutputConfigValue @@ ~Misc7 F@! 
+277 LINE.NUM ELSE 
+278 LINE.NUM 0 ~Misc7 @! 
+279 LINE.NUM THEN 
+2 JUMP ;
+: 0_149
+
+1 LINE.NUM
+  &TestScheduleWidgetChart   STOP.T
+
+2 LINE.NUM
+  &DynoPidRampWidget   STOP.T
+
+3 LINE.NUM
+  &ThrottlePidRampWidget   STOP.T
+
+4 LINE.NUM
+  &StarterWidget   STOP.T
+
+5 LINE.NUM
+  &CustomChart1   STOP.T
+
+6 LINE.NUM
+  &CustomChart2   STOP.T
+
+7 LINE.NUM
+  &CustomChart3   STOP.T
+
+8 LINE.NUM
+  &CustomChart4   STOP.T
+
+9 LINE.NUM
+  &CustomChart5   STOP.T
+-17 JUMP ;
 : 0_2
 TRUE
 
@@ -218,7 +489,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -19 ELSE -20 THEN JUMP ;
+IF -21 ELSE -22 THEN JUMP ;
 : 0_16
 TRUE
 
@@ -226,7 +497,7 @@ TRUE
   ^IsStartTest @@ 
   1    =
 LAND
-IF -18 ELSE -19 THEN JUMP ;
+IF -20 ELSE -21 THEN JUMP ;
 : 0_27
 TRUE
 
@@ -234,7 +505,7 @@ TRUE
   ^IsTestRunning @@ 
   1    =
 LAND
-IF -14 ELSE -18 THEN JUMP ;
+IF -16 ELSE -4 THEN JUMP ;
 : 0_69
 TRUE
 
@@ -246,49 +517,79 @@ LAND
   ^TestScheduleStart @@ 
   1    =
 LAND
-IF -16 ELSE 5 THEN JUMP ;
+IF -18 ELSE 5 THEN JUMP ;
 : 0_78
 TRUE
 
 1 LINE.NUM
   &CustomChart1   ?STOPPED
 LAND
-IF -14 ELSE 0 THEN JUMP ;
+
+2 LINE.NUM
+  ^CustomChart1Start @@ 
+  1    =
+LAND
+IF -16 ELSE 0 THEN JUMP ;
 : 0_86
 TRUE
 
 1 LINE.NUM
   &CustomChart2   ?STOPPED
 LAND
-IF -14 ELSE 0 THEN JUMP ;
+
+2 LINE.NUM
+  ^CustomChart2Start @@ 
+  1    =
+LAND
+IF -16 ELSE 0 THEN JUMP ;
 : 0_95
 TRUE
 
 1 LINE.NUM
   &CustomChart3   ?STOPPED
 LAND
-IF -14 ELSE 0 THEN JUMP ;
+
+2 LINE.NUM
+  ^CustomChart3Start @@ 
+  1    =
+LAND
+IF -16 ELSE 0 THEN JUMP ;
 : 0_98
 TRUE
 
 1 LINE.NUM
   &CustomChart4   ?STOPPED
 LAND
-IF -14 ELSE 0 THEN JUMP ;
+
+2 LINE.NUM
+  ^CustomChart4Start @@ 
+  1    =
+LAND
+IF -16 ELSE 0 THEN JUMP ;
 : 0_101
 TRUE
 
 1 LINE.NUM
   &CustomChart5   ?STOPPED
 LAND
-IF -14 ELSE -24 THEN JUMP ;
+
+2 LINE.NUM
+  ^CustomChart5Start @@ 
+  1    =
+LAND
+IF -16 ELSE -26 THEN JUMP ;
 : 0_116
 TRUE
 
 1 LINE.NUM
   &DynoPidRampWidget   ?STOPPED
 LAND
-IF -14 ELSE 2 THEN JUMP ;
+
+2 LINE.NUM
+  ^DynoPidRampStart @@ 
+  1    =
+LAND
+IF -16 ELSE 2 THEN JUMP ;
 : 0_123
 TRUE
 
@@ -300,21 +601,31 @@ LAND
   ^IsStartDataCollect @@ 
   1    =
 LAND
-IF -14 ELSE -10 THEN JUMP ;
+IF -16 ELSE -13 THEN JUMP ;
 : 0_130
 TRUE
 
 1 LINE.NUM
   &StarterWidget   ?STOPPED
 LAND
-IF -14 ELSE -8 THEN JUMP ;
+
+2 LINE.NUM
+  ^StarterStart @@ 
+  1    =
+LAND
+IF -16 ELSE -8 THEN JUMP ;
 : 0_138
 TRUE
 
 1 LINE.NUM
   &ThrottlePidRampWidget   ?STOPPED
 LAND
-IF -14 ELSE -2 THEN JUMP ;
+
+2 LINE.NUM
+  ^ThrottlePidRampStart @@ 
+  1    =
+LAND
+IF -16 ELSE -2 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -340,6 +651,8 @@ DUMMY
 0_124
 0_131
 0_137
+0_144
+0_149
 0_2
 0_16
 0_27

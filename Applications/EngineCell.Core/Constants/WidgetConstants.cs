@@ -42,6 +42,7 @@ namespace EngineCell.Core.Constants
             StarterTimeBetweenTries,
             StarterNumberOfTries,
             StarterTimeAtRpm,
+            StarterTimeout,
         }
 
         public enum DynoPidMode

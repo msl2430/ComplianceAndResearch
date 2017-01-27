@@ -20,7 +20,7 @@
         <RowDefinition Height="35"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
-        <TextBlock Text="{Binding Path=Name}" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Text="Starter" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
         <Grid Row="1" Margin="0,0,5,0">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>

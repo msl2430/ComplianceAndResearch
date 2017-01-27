@@ -39,6 +39,14 @@ namespace EngineCell.Application.Services.WorkerServices
                 {
                     point.HasPhaseTrigger = ApplicationSessionFactory.CurrentPhaseRunning.Triggers.Any(t => t.CellPointId == point.CellPointId);
                 }
+                foreach (var widget in ApplicationSessionFactory.CurrentCellTest.Phases.SelectMany(p => p.Widgets))
+                {
+                    widget.IsRunning = false;
+                    widget.IsComplete = false;
+                    widget.IsError = false;
+                    widget.ErrorReason = "";
+                }
+
                 Thread.Sleep(1000); //wait for data to come in after setting points to collect data if they weren't already active
 
                 while (!CancellationToken.IsCancellationRequested)
@@ -147,6 +155,7 @@ namespace EngineCell.Application.Services.WorkerServices
             var tempPhase = TestDisplay.ViewModel.Phases[forcedPhaseIndex ?? phaseIndex];
             tempPhase.IsRunning = true;
             tempPhase.StartDateTime = DateTime.Now;
+            tempPhase.EndDateTime = null;
             ApplicationSessionFactory.CurrentPhaseRunning = ApplicationSessionFactory.CurrentCellTest.Phases.FirstOrDefault(p => p.CellTestPhaseId == tempPhase.CellTestPhaseId);
             foreach (var widget in ApplicationSessionFactory.CurrentPhaseRunning.Widgets)
             {
