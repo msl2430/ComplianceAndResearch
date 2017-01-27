@@ -20,7 +20,8 @@ INSERT INTO WidgetSetting (WidgetId, Setting) VALUES
 (11, 'Start RPM'),
 (11, 'Time Between Tries'),
 (11, 'Number of Tries'),
-(11, 'Time at RPM')
+(11, 'Time at RPM'),
+(11, 'Timeout')
 
 TRUNCATE TABLE Widget
 INSERT INTO Widget (Name) VALUES
