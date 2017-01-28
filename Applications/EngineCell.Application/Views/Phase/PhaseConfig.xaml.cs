@@ -35,7 +35,7 @@ namespace EngineCell.Application.Views.Phase
         private void PhaseConfig_OnLoaded(object sender, RoutedEventArgs e)
         {
             PhaseTabs.SelectedIndex = 0;
-            var phase = ViewModel.Phases.ElementAt(PhaseTabs.SelectedIndex);
+            var phase = ViewModel.Phases.IsNotNullOrEmpty() ? ViewModel.Phases.ElementAt(PhaseTabs.SelectedIndex) : null;
             UpdateAvailableWidgetDisplay(phase);
 
             if (DataContext != null)

@@ -1,0 +1,42 @@
+ThermoCouple0 - Coolant0
+ThermoCouple1 - Coolant1
+ThermoCouple2 - OilSump
+ThermoCouple3 - OilFilter
+ThermoCouple4 - DynoIn
+ThermoCouple5 - DynoOut
+ThermoCouple6 - HeatExchanger
+ThermoCouple7 - IntakeAir
+ThermoCouple8 - PreIntercooler
+TheromCouple9 - PostIntercooler
+ThermoCouple10 - Exhaust
+ThermoCouple11 - EngineFuelPumpIn
+ThermoCouple12 - FuelHeatExchangerIn
+ThermoCouple13 - FuelHeatExchangerOut
+ThermoCOuple14 - DynoBearingFront
+ThermoCouple15 - DynoBearingRear
+ThermoCouple16 - IntakeManifold
+
+Volt0 - EngineRpm
+Volt1 - OilPressure
+Volt2 - ManifoldPressure
+Volt3 - CrankCasePressure
+Volt4 - 
+
+MilliAmp0 - BarometricPressure
+
+HART0 - FuelFlow
+
+Dyno0 - StarterCrank
+
+AO10_0 - Dyno
+AO10_1 - Throttle
+
+AO5_0 -
+AO5_1
+
+AO4_20_0 - Oil
+AO4_20_1 - Intercooler
+AO4_20_2 - Dyno
+AO4_20_3 - 
+
+Digintal in/out need to be digin0-16 and digout0-16

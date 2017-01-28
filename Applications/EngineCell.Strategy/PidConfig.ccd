@@ -19,19 +19,19 @@
 14 LINE.NUM %ScratchPad 501 ^PidConfigType  IO.SP.READ DROP  
 16 LINE.NUM ^PidConfigType @@ CASE 
 17 LINE.NUM 1 OF 
-18 LINE.NUM |Dyno 
+18 LINE.NUM |DynoLoad 
 MoveToPointer PTR_PidConfigSelection 
 19 LINE.NUM ENDOF 
 20 LINE.NUM 2 OF 
-21 LINE.NUM |Throttle 
+21 LINE.NUM |DynoSpeed 
 MoveToPointer PTR_PidConfigSelection 
 22 LINE.NUM ENDOF 
 23 LINE.NUM 3 OF 
-24 LINE.NUM |Coolant 
+24 LINE.NUM |ThrottleLoad 
 MoveToPointer PTR_PidConfigSelection 
 25 LINE.NUM ENDOF 
 26 LINE.NUM 4 OF 
-27 LINE.NUM |Oil 
+27 LINE.NUM |ThrottleSpeed 
 MoveToPointer PTR_PidConfigSelection 
 28 LINE.NUM ENDOF 
 29 LINE.NUM 5 OF 
@@ -39,11 +39,11 @@ MoveToPointer PTR_PidConfigSelection
 MoveToPointer PTR_PidConfigSelection 
 31 LINE.NUM ENDOF 
 32 LINE.NUM 6 OF 
-33 LINE.NUM |Custom1 
+33 LINE.NUM |Oil 
 MoveToPointer PTR_PidConfigSelection 
 34 LINE.NUM ENDOF 
 35 LINE.NUM 7 OF 
-36 LINE.NUM |Custom2 
+36 LINE.NUM |DynoTemp 
 MoveToPointer PTR_PidConfigSelection 
 37 LINE.NUM ENDOF 
 38 LINE.NUM 8 OF 
@@ -79,7 +79,7 @@ MoveToPointer PTR_PidConfigSelection
 14 LINE.NUM %ScratchPad 501 ^PidConfigType  IO.SP.READ DROP  
 16 LINE.NUM ^PidConfigType @@ CASE 
 17 LINE.NUM 1 OF 
-18 LINE.NUM |Dyno 
+18 LINE.NUM |DynoLoad 
 MoveToPointer PTR_PidConfigSelection 
 19 LINE.NUM ENDOF 
 20 LINE.NUM ENDCASE 

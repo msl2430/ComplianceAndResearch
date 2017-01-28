@@ -8,7 +8,7 @@
 1 6 LINE.NUM 343 1 + 300 DO? I ^gIndex @! 
 7 LINE.NUM %ScratchPad ^gIndex @@ -32769 I>F  IO.SP.F.WRITE DROP  
 8 LINE.NUM 1 +LOOP 
-0 JUMP ;
+24 JUMP ;
 : 0_3
 
 1 LINE.NUM
@@ -25,7 +25,7 @@
 
 3 LINE.NUM
   *StrategyRunTime   TIME>$
-22 JUMP ;
+24 JUMP ;
 : 0_4
 -2 JUMP ;
 : 0_5
@@ -61,7 +61,7 @@
   999  
   ^IsStartDataCollect   IO.SP.READ
   ^GetScratchPadResult @! 
-29 JUMP ;
+31 JUMP ;
 : 0_19
 -5 JUMP ;
 : 0_25
@@ -71,14 +71,14 @@
   11  
   ^IsTestRunning   IO.SP.READ
   ^GetScratchPadResult @! 
-19 JUMP ;
+21 JUMP ;
 : 0_45
 -2 JUMP ;
 : 0_47
 
 1 LINE.NUM
   &DataCollection   STOP.T
-28 JUMP ;
+30 JUMP ;
 : 0_59
 
 1 LINE.NUM
@@ -92,13 +92,13 @@
 3 LINE.NUM
   &DataCollection   START.T
   ^SetScratchPadResult @! 
-27 JUMP ;
+29 JUMP ;
 : 0_64
 
 1 LINE.NUM
   &TestScheduleWidgetChart   START.T
   ^GetScratchPadResult @! 
-22 JUMP ;
+24 JUMP ;
 : 0_67
 
 1 LINE.NUM
@@ -154,7 +154,7 @@
   3407  
   ^ThrottlePidRampStart   IO.SP.READ
   ^GetScratchPadResult @! 
-15 JUMP ;
+17 JUMP ;
 : 0_76
 -7 JUMP ;
 : 0_77
@@ -162,25 +162,25 @@
 1 LINE.NUM
   &CustomChart1   START.T
   ^GetScratchPadResult @! 
-15 JUMP ;
+17 JUMP ;
 : 0_88
 
 1 LINE.NUM
   &CustomChart2   START.T
   ^GetScratchPadResult @! 
-15 JUMP ;
+17 JUMP ;
 : 0_93
 
 1 LINE.NUM
   &CustomChart3   START.T
   ^GetScratchPadResult @! 
-15 JUMP ;
+17 JUMP ;
 : 0_96
 
 1 LINE.NUM
   &CustomChart4   START.T
   ^GetScratchPadResult @! 
-15 JUMP ;
+17 JUMP ;
 : 0_99
 
 1 LINE.NUM
@@ -192,7 +192,7 @@
 1 LINE.NUM
   &DynoPidRampWidget   START.T
   ^GetScratchPadResult @! 
-17 JUMP ;
+19 JUMP ;
 : 0_124
 
 1 LINE.NUM
@@ -204,37 +204,37 @@
 1 LINE.NUM
   &StarterWidget   START.T
   ^GetScratchPadResult @! 
-7 JUMP ;
+9 JUMP ;
 : 0_137
 
 1 LINE.NUM
   &ThrottlePidRampWidget   START.T
   ^GetScratchPadResult @! 
-13 JUMP ;
+15 JUMP ;
 : 0_144
 1 LINE.NUM %ScratchPad 300 ^OutputConfigValue   IO.SP.READ DROP  
 2 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-3 LINE.NUM ^OutputConfigValue @@ ~AO10Bipolar @! 
+3 LINE.NUM ^OutputConfigValue @@ ~AO10_0 @! 
 4 LINE.NUM ELSE 
-5 LINE.NUM -32769 I>F ~AO10Bipolar @! 
+5 LINE.NUM -32769 I>F ~AO10_0 @! 
 6 LINE.NUM THEN 
 8 LINE.NUM %ScratchPad 301 ^OutputConfigValue   IO.SP.READ DROP  
 9 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-10 LINE.NUM ^OutputConfigValue @@ ~AO10 @! 
+10 LINE.NUM ^OutputConfigValue @@ ~AO10_1 @! 
 11 LINE.NUM ELSE 
-12 LINE.NUM -32769 I>F ~AO10 @! 
+12 LINE.NUM -32769 I>F ~AO10_1 @! 
 13 LINE.NUM THEN 
 15 LINE.NUM %ScratchPad 302 ^OutputConfigValue   IO.SP.READ DROP  
 16 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-17 LINE.NUM ^OutputConfigValue @@ ~AO5Bipolar @! 
+17 LINE.NUM ^OutputConfigValue @@ ~AO5_0 @! 
 18 LINE.NUM ELSE 
-19 LINE.NUM -32769 I>F ~AO5Bipolar @! 
+19 LINE.NUM -32769 I>F ~AO5_0 @! 
 20 LINE.NUM THEN 
 22 LINE.NUM %ScratchPad 303 ^OutputConfigValue   IO.SP.READ DROP  
 23 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-24 LINE.NUM ^OutputConfigValue @@ ~AO5 @! 
+24 LINE.NUM ^OutputConfigValue @@ ~AO5_1 @! 
 25 LINE.NUM ELSE 
-26 LINE.NUM -32769 I>F ~AO5 @! 
+26 LINE.NUM -32769 I>F ~AO5_1 @! 
 27 LINE.NUM THEN 
 29 LINE.NUM %ScratchPad 304 ^OutputConfigValue   IO.SP.READ DROP  
 30 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
@@ -452,7 +452,7 @@
 277 LINE.NUM ELSE 
 278 LINE.NUM 0 ~Misc7 @! 
 279 LINE.NUM THEN 
-2 JUMP ;
+4 JUMP ;
 : 0_149
 
 1 LINE.NUM
@@ -481,7 +481,75 @@
 
 9 LINE.NUM
   &CustomChart5   STOP.T
--17 JUMP ;
+0 JUMP ;
+: 0_152
+1 LINE.NUM ~Dyno0  OFF 
+2 LINE.NUM ~Dyno1  OFF 
+3 LINE.NUM ~Dyno2  OFF 
+4 LINE.NUM ~Dyno3  OFF 
+5 LINE.NUM ~Dyno4  OFF 
+6 LINE.NUM ~Dyno5  OFF 
+7 LINE.NUM ~Dyno6  OFF 
+8 LINE.NUM ~Dyno7  OFF 
+9 LINE.NUM ~Engine0  OFF 
+10 LINE.NUM ~Engine1  OFF 
+11 LINE.NUM ~Engine2  OFF 
+12 LINE.NUM ~Engine3  OFF 
+13 LINE.NUM ~Engine4  OFF 
+14 LINE.NUM ~Engine5  OFF 
+15 LINE.NUM ~Engine6  OFF 
+16 LINE.NUM ~Engine7  OFF 
+17 LINE.NUM ~Fuel0  OFF 
+18 LINE.NUM ~Fuel1  OFF 
+19 LINE.NUM ~Fuel2  OFF 
+20 LINE.NUM ~Fuel3  OFF 
+21 LINE.NUM ~Fuel4  OFF 
+22 LINE.NUM ~Fuel5  OFF 
+23 LINE.NUM ~Fuel6  OFF 
+24 LINE.NUM ~Fuel7  OFF 
+25 LINE.NUM ~Misc0  OFF 
+26 LINE.NUM ~Misc1  OFF 
+27 LINE.NUM ~Misc2  OFF 
+28 LINE.NUM ~Misc3  OFF 
+29 LINE.NUM ~Misc4  OFF 
+30 LINE.NUM ~Misc5  OFF 
+31 LINE.NUM ~Misc6  OFF 
+32 LINE.NUM ~Misc7  OFF 
+-18 JUMP ;
+: 0_156
+1 LINE.NUM ~Dyno0  OFF 
+2 LINE.NUM ~Dyno1  OFF 
+3 LINE.NUM ~Dyno2  OFF 
+4 LINE.NUM ~Dyno3  OFF 
+5 LINE.NUM ~Dyno4  OFF 
+6 LINE.NUM ~Dyno5  OFF 
+7 LINE.NUM ~Dyno6  OFF 
+8 LINE.NUM ~Dyno7  OFF 
+9 LINE.NUM ~Engine0  OFF 
+10 LINE.NUM ~Engine1  OFF 
+11 LINE.NUM ~Engine2  OFF 
+12 LINE.NUM ~Engine3  OFF 
+13 LINE.NUM ~Engine4  OFF 
+14 LINE.NUM ~Engine5  OFF 
+15 LINE.NUM ~Engine6  OFF 
+16 LINE.NUM ~Engine7  OFF 
+17 LINE.NUM ~Fuel0  OFF 
+18 LINE.NUM ~Fuel1  OFF 
+19 LINE.NUM ~Fuel2  OFF 
+20 LINE.NUM ~Fuel3  OFF 
+21 LINE.NUM ~Fuel4  OFF 
+22 LINE.NUM ~Fuel5  OFF 
+23 LINE.NUM ~Fuel6  OFF 
+24 LINE.NUM ~Fuel7  OFF 
+25 LINE.NUM ~Misc0  OFF 
+26 LINE.NUM ~Misc1  OFF 
+27 LINE.NUM ~Misc2  OFF 
+28 LINE.NUM ~Misc3  OFF 
+29 LINE.NUM ~Misc4  OFF 
+30 LINE.NUM ~Misc5  OFF 
+31 LINE.NUM ~Misc6  OFF 
+32 LINE.NUM ~Misc7  OFF 
+-25 JUMP ;
 : 0_2
 TRUE
 
@@ -489,7 +557,7 @@ TRUE
   ^IsApplicationConnected @@ 
   1    =
 LAND
-IF -21 ELSE -22 THEN JUMP ;
+IF -23 ELSE -24 THEN JUMP ;
 : 0_16
 TRUE
 
@@ -497,7 +565,7 @@ TRUE
   ^IsStartTest @@ 
   1    =
 LAND
-IF -20 ELSE -21 THEN JUMP ;
+IF -22 ELSE -23 THEN JUMP ;
 : 0_27
 TRUE
 
@@ -505,7 +573,7 @@ TRUE
   ^IsTestRunning @@ 
   1    =
 LAND
-IF -16 ELSE -4 THEN JUMP ;
+IF -18 ELSE -6 THEN JUMP ;
 : 0_69
 TRUE
 
@@ -517,7 +585,7 @@ LAND
   ^TestScheduleStart @@ 
   1    =
 LAND
-IF -18 ELSE 5 THEN JUMP ;
+IF -20 ELSE 5 THEN JUMP ;
 : 0_78
 TRUE
 
@@ -529,7 +597,7 @@ LAND
   ^CustomChart1Start @@ 
   1    =
 LAND
-IF -16 ELSE 0 THEN JUMP ;
+IF -18 ELSE 0 THEN JUMP ;
 : 0_86
 TRUE
 
@@ -541,7 +609,7 @@ LAND
   ^CustomChart2Start @@ 
   1    =
 LAND
-IF -16 ELSE 0 THEN JUMP ;
+IF -18 ELSE 0 THEN JUMP ;
 : 0_95
 TRUE
 
@@ -553,7 +621,7 @@ LAND
   ^CustomChart3Start @@ 
   1    =
 LAND
-IF -16 ELSE 0 THEN JUMP ;
+IF -18 ELSE 0 THEN JUMP ;
 : 0_98
 TRUE
 
@@ -565,7 +633,7 @@ LAND
   ^CustomChart4Start @@ 
   1    =
 LAND
-IF -16 ELSE 0 THEN JUMP ;
+IF -18 ELSE 0 THEN JUMP ;
 : 0_101
 TRUE
 
@@ -577,7 +645,7 @@ LAND
   ^CustomChart5Start @@ 
   1    =
 LAND
-IF -16 ELSE -26 THEN JUMP ;
+IF -18 ELSE -28 THEN JUMP ;
 : 0_116
 TRUE
 
@@ -589,7 +657,7 @@ LAND
   ^DynoPidRampStart @@ 
   1    =
 LAND
-IF -16 ELSE 2 THEN JUMP ;
+IF -18 ELSE 2 THEN JUMP ;
 : 0_123
 TRUE
 
@@ -601,7 +669,7 @@ LAND
   ^IsStartDataCollect @@ 
   1    =
 LAND
-IF -16 ELSE -13 THEN JUMP ;
+IF -18 ELSE -15 THEN JUMP ;
 : 0_130
 TRUE
 
@@ -613,7 +681,7 @@ LAND
   ^StarterStart @@ 
   1    =
 LAND
-IF -16 ELSE -8 THEN JUMP ;
+IF -18 ELSE -8 THEN JUMP ;
 : 0_138
 TRUE
 
@@ -625,7 +693,7 @@ LAND
   ^ThrottlePidRampStart @@ 
   1    =
 LAND
-IF -16 ELSE -2 THEN JUMP ;
+IF -18 ELSE -2 THEN JUMP ;
 T: T0
 DUMMY
 0_0
@@ -653,6 +721,8 @@ DUMMY
 0_137
 0_144
 0_149
+0_152
+0_156
 0_2
 0_16
 0_27

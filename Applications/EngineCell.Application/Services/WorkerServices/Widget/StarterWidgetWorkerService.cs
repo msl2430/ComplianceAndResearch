@@ -76,7 +76,7 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
                         continue;
                     }
 
-                    ViewModel.EngineRpm = ViewModel.ApplicationSessionFactory.CellPoints.FirstOrDefault(cp => cp.PointName == "Volt0").Data; //TODO: Needs to be whatever point we actually choose
+                    ViewModel.EngineRpm = (ViewModel.ApplicationSessionFactory.CellPoints.FirstOrDefault(cp => cp.PointName == "Volt0").Data * 1000m); //TODO: Needs to be whatever point we actually choose
                     ViewModel.Attempt = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.StarterAttempt.ToInt());
                     ViewModel.IsCranking = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.StarterCrankOn.ToInt()) == 1;
                 }
@@ -97,7 +97,7 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
         {
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartStarterWidget.ToInt(), 0);
             //TODO: This needs to be the Point that we choose to measure RPM
-            var isEngineRunning = ViewModel.ApplicationSessionFactory.CellPoints.FirstOrDefault(cp => cp.PointName == "Volt0").Data >= ViewModel.StartRpm;
+            var isEngineRunning = (ViewModel.ApplicationSessionFactory.CellPoints.FirstOrDefault(cp => cp.PointName == "Volt0").Data * 1000m) >= ViewModel.StartRpm;
             ViewModel.Widget.IsComplete = isEngineRunning;
             ViewModel.Widget.IsError = !isEngineRunning;
             if(RunTime.ElapsedMilliseconds / 1000m > ViewModel.Timeout)

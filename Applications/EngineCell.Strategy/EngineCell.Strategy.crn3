@@ -1,11 +1,32 @@
 CREATE T.ARRAY
+&CustomChart1 ,
+&CustomChart2 ,
+&CustomChart3 ,
+&CustomChart4 ,
+&CustomChart5 ,
 &DataCollection ,
+&DynoPidRampWidget ,
+&HardwareSafety ,
 &PidConfig ,
 &Powerup ,
+&StarterWidget ,
 &TestScheduleWidgetChart ,
+&ThrottlePidRampWidget ,
 &VentilationCtrl1 ,
  0 ,
 CREATE V.ARRAY
+^CustomChart1Start ,
+^CustomChart2Start ,
+^CustomChart3Start ,
+^CustomChart4Start ,
+^CustomChart5Start ,
+^DynoPidRampCurrentSetpoint ,
+^DynoPidRampCurrentTime ,
+^DynoPidRampIntercept ,
+^DynoPidRampSetpoint ,
+^DynoPidRampSlope ,
+^DynoPidRampStart ,
+^DynoPidRampTime ,
 ^GetScratchPadResult ,
 ^gIndex ,
 ^gTest ,
@@ -18,6 +39,13 @@ CREATE V.ARRAY
 ^PidConfigType ,
 ^PidConfigValue ,
 ^SetScratchPadResult ,
+^StarterAttempt ,
+^StarterCrankTime ,
+^StarterCutoffTime ,
+^StarterRetryCount ,
+^StarterRetryWaitTime ,
+^StarterStart ,
+^StarterStartRpm ,
 ^TestScheduleCurrentTime ,
 ^TestScheduleIntercept ,
 ^TestScheduleLowerSetpoint ,
@@ -32,6 +60,14 @@ CREATE V.ARRAY
 ^TestScheduleUpperTime ,
 ^TestScheduleUseDyno ,
 ^TestScheduleUseThrottle ,
+^ThrottlePidRampCurrentSetpoint ,
+^ThrottlePidRampCurrentTime ,
+^ThrottlePidRampIntercept ,
+^ThrottlePidRampSetpoint ,
+^ThrottlePidRampSlope ,
+^ThrottlePidRampStart ,
+^ThrottlePidRampTime ,
+^TriggerPointValue ,
 ^VentCtrl1Gain ,
 ^VentCtrl1InsideType ,
 ^VentCtrl1OutputOld ,
@@ -45,10 +81,14 @@ CREATE V.ARRAY
 *_HSV_TEMP ,
  0 ,
 CREATE TI.ARRAY
+^DynoPidRampTimer ,
+^StarterCrankTimer ,
 ^TestScheduleRunTime ,
+^ThrottlePidRampTimer ,
  0 ,
 CREATE PTR.ARRAY
 Ptr' PTR_PidConfigSelection ,
+Ptr' PTR_TriggerPointAI ,
 Ptr' PTR_VentCtrl1Inside ,
 Ptr' PTR_VentCtrl1Output ,
 Ptr' PTR_VentCtrl1Outside ,
@@ -62,22 +102,6 @@ CREATE B.ARRAY
 %ScratchPad ,
  0 ,
 CREATE P.ARRAY
-~di_EngineCell_1200 ,
-~di_EngineCell_1201 ,
-~di_EngineCell_1202 ,
-~di_EngineCell_1203 ,
-~di_EngineCell_1204 ,
-~di_EngineCell_1205 ,
-~di_EngineCell_1206 ,
-~di_EngineCell_1207 ,
-~di_EngineCell_1208 ,
-~di_EngineCell_1209 ,
-~di_EngineCell_1210 ,
-~di_EngineCell_1211 ,
-~di_EngineCell_1212 ,
-~di_EngineCell_1213 ,
-~di_EngineCell_1214 ,
-~di_EngineCell_1215 ,
 ~Dyno0 ,
 ~Dyno1 ,
 ~Dyno2 ,
@@ -86,6 +110,14 @@ CREATE P.ARRAY
 ~Dyno5 ,
 ~Dyno6 ,
 ~Dyno7 ,
+~DynoIn0 ,
+~DynoIn1 ,
+~DynoIn2 ,
+~DynoIn3 ,
+~DynoIn4 ,
+~DynoIn5 ,
+~DynoIn6 ,
+~DynoIn7 ,
 ~Engine0 ,
 ~Engine1 ,
 ~Engine2 ,
@@ -94,6 +126,14 @@ CREATE P.ARRAY
 ~Engine5 ,
 ~Engine6 ,
 ~Engine7 ,
+~EngineIn0 ,
+~EngineIn1 ,
+~EngineIn2 ,
+~EngineIn3 ,
+~EngineIn4 ,
+~EngineIn5 ,
+~EngineIn6 ,
+~EngineIn7 ,
 ~Freq0 ,
 ~Freq1 ,
 ~Freq2 ,
@@ -114,14 +154,14 @@ CREATE P.ARRAY
 ~Misc5 ,
 ~Misc6 ,
 ~Misc7 ,
-~AO10 ,
-~AO10Bipolar ,
+~AO10_0 ,
+~AO10_1 ,
 ~AO4_20_0 ,
 ~AO4_20_1 ,
 ~AO4_20_2 ,
 ~AO4_20_3 ,
-~AO5 ,
-~AO5Bipolar ,
+~AO5_0 ,
+~AO5_1 ,
 ~HART0 ,
 ~HART1 ,
 ~MilliAmp0 ,
@@ -154,15 +194,15 @@ CREATE P.ARRAY
 ~Volt5 ,
  0 ,
 CREATE PID.ARRAY
- |Coolant ,
- |Custom1 ,
- |Custom2 ,
  |Custom3 ,
  |Custom4 ,
- |Dyno ,
+ |DynoLoad ,
+ |DynoSpeed ,
+ |DynoTemp ,
  |Intercooler ,
  |Oil ,
- |Throttle ,
+ |ThrottleLoad ,
+ |ThrottleSpeed ,
  0 ,
 CREATE E/R.ARRAY
  0 ,
@@ -173,20 +213,33 @@ CREATE E/RGROUP.ARRAY
 : W_INIT_IO
 CONFIG_PORTS
 $0000000000000000.. %ScratchPad ENABLES!
-|Coolant ENABLE
-|Custom1 ENABLE
-|Custom2 ENABLE
 |Custom3 ENABLE
 |Custom4 ENABLE
-|Dyno ENABLE
+|DynoLoad ENABLE
+|DynoSpeed ENABLE
+|DynoTemp ENABLE
 |Intercooler ENABLE
 |Oil ENABLE
-|Throttle ENABLE
+|ThrottleLoad ENABLE
+|ThrottleSpeed ENABLE
 " %EngineCell  (1/2)" *_HSV_INIT_IO $MOVE 1 ^_HNV_INIT_IO @!
 %EngineCell ENABLE
 " %ScratchPad  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
 %ScratchPad ENABLE
  " Initializing variables" *_HSV_INIT_IO $MOVE
+0 ^CustomChart1Start @!
+0 ^CustomChart2Start @!
+0 ^CustomChart3Start @!
+0 ^CustomChart4Start @!
+0 ^CustomChart5Start @!
+0.00000000 ^DynoPidRampCurrentSetpoint @!
+0.00000000 ^DynoPidRampCurrentTime @!
+0.00000000 ^DynoPidRampIntercept @!
+0.00000000 ^DynoPidRampSetpoint @!
+0.00000000 ^DynoPidRampSlope @!
+0 ^DynoPidRampStart @!
+0.00000000 ^DynoPidRampTime @!
+0.0 ^DynoPidRampTimer SetTimer
 0 ^GetScratchPadResult @!
 0 ^gIndex @!
 0.00000000 ^gTest @!
@@ -199,6 +252,14 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^PidConfigType @!
 0.00000000 ^PidConfigValue @!
 0 ^SetScratchPadResult @!
+0 ^StarterAttempt @!
+0.00000000 ^StarterCrankTime @!
+0.0 ^StarterCrankTimer SetTimer
+0.00000000 ^StarterCutoffTime @!
+0.00000000 ^StarterRetryCount @!
+0.00000000 ^StarterRetryWaitTime @!
+0 ^StarterStart @!
+0.00000000 ^StarterStartRpm @!
 0.00000000 ^TestScheduleCurrentTime @!
 0.00000000 ^TestScheduleIntercept @!
 0.00000000 ^TestScheduleLowerSetpoint @!
@@ -214,6 +275,15 @@ $0000000000000000.. %ScratchPad ENABLES!
 0.00000000 ^TestScheduleUpperTime @!
 0 ^TestScheduleUseDyno @!
 0 ^TestScheduleUseThrottle @!
+0.00000000 ^ThrottlePidRampCurrentSetpoint @!
+0.00000000 ^ThrottlePidRampCurrentTime @!
+0.00000000 ^ThrottlePidRampIntercept @!
+0.00000000 ^ThrottlePidRampSetpoint @!
+0.00000000 ^ThrottlePidRampSlope @!
+0 ^ThrottlePidRampStart @!
+0.00000000 ^ThrottlePidRampTime @!
+0.0 ^ThrottlePidRampTimer SetTimer
+0.00000000 ^TriggerPointValue @!
 0.00000000 ^VentCtrl1Gain @!
 0 ^VentCtrl1InsideType @!
 0.. ^VentCtrl1OutputOld @!
@@ -225,6 +295,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 " "
  *StrategyRunTime $MOVE
 0 MoveToPointer PTR_PidConfigSelection
+0 MoveToPointer PTR_TriggerPointAI
 0 MoveToPointer PTR_VentCtrl1Inside
 0 MoveToPointer PTR_VentCtrl1Output
 0 MoveToPointer PTR_VentCtrl1Outside

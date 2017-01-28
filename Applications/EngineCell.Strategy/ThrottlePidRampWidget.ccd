@@ -9,7 +9,7 @@
 : 12_2
 
 1 LINE.NUM
-  |Throttle   $0002.. ROT PID@
+  |DynoSpeed   $0002.. ROT PID@
   ^ThrottlePidRampCurrentSetpoint @! 
 
 2 LINE.NUM
@@ -48,11 +48,11 @@
 3 LINE.NUM ^ThrottlePidRampCurrentTime @@ ^ThrottlePidRampTime @@ F< IF 
 5 LINE.NUM ^ThrottlePidRampSetpoint @@ ^ThrottlePidRampCurrentSetpoint @@ F- ^ThrottlePidRampTime @@ F/ ^ThrottlePidRampSlope @! 
 7 LINE.NUM ^ThrottlePidRampSetpoint @@ ^ThrottlePidRampSlope @@ ^ThrottlePidRampTime @@ F* F- ^ThrottlePidRampIntercept @! 
-9 LINE.NUM |Throttle ^ThrottlePidRampSlope @@ ^ThrottlePidRampCurrentTime @@ F* ^ThrottlePidRampIntercept @@ F+  $0002.. 3 ROLL !PID 
+9 LINE.NUM |DynoSpeed ^ThrottlePidRampSlope @@ ^ThrottlePidRampCurrentTime @@ F* ^ThrottlePidRampIntercept @@ F+  $0002.. 3 ROLL !PID 
 10 LINE.NUM ELSE 
-11 LINE.NUM |Throttle ^ThrottlePidRampSetpoint @@  $0002.. 3 ROLL !PID 
+11 LINE.NUM |DynoSpeed ^ThrottlePidRampSetpoint @@  $0002.. 3 ROLL !PID 
 12 LINE.NUM THEN 
-14 LINE.NUM %ScratchPad 3402 |Throttle  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
+14 LINE.NUM %ScratchPad 3402 |DynoSpeed  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
 15 LINE.NUM %ScratchPad 3403 ^ThrottlePidRampCurrentTime @@  IO.SP.F.WRITE DROP  
 2 JUMP ;
 : 12_7

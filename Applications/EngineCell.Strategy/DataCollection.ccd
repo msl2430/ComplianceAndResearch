@@ -47,10 +47,10 @@
 30 LINE.NUM %ScratchPad 1027 ~MilliAmp1 @@  IO.SP.F.WRITE DROP  
 32 LINE.NUM %ScratchPad 1028 ~HART0 @@  IO.SP.F.WRITE DROP  
 33 LINE.NUM %ScratchPad 1029 ~HART1 @@  IO.SP.F.WRITE DROP  
-35 LINE.NUM %ScratchPad 1030 ~AO10Bipolar @@  IO.SP.F.WRITE DROP  
-36 LINE.NUM %ScratchPad 1031 ~AO10 @@  IO.SP.F.WRITE DROP  
-37 LINE.NUM %ScratchPad 1032 ~AO5Bipolar @@  IO.SP.F.WRITE DROP  
-38 LINE.NUM %ScratchPad 1033 ~AO5 @@  IO.SP.F.WRITE DROP  
+35 LINE.NUM %ScratchPad 1030 ~AO10_0 @@  IO.SP.F.WRITE DROP  
+36 LINE.NUM %ScratchPad 1031 ~AO10_1 @@  IO.SP.F.WRITE DROP  
+37 LINE.NUM %ScratchPad 1032 ~AO5_0 @@  IO.SP.F.WRITE DROP  
+38 LINE.NUM %ScratchPad 1033 ~AO5_1 @@  IO.SP.F.WRITE DROP  
 39 LINE.NUM %ScratchPad 1034 ~AO4_20_0 @@  IO.SP.F.WRITE DROP  
 40 LINE.NUM %ScratchPad 1035 ~AO4_20_1 @@  IO.SP.F.WRITE DROP  
 41 LINE.NUM %ScratchPad 1036 ~AO4_20_2 @@  IO.SP.F.WRITE DROP  
@@ -111,19 +111,19 @@
 : 1_13
 1 LINE.NUM %ScratchPad 300 ^OutputConfigValue   IO.SP.READ DROP  
 2 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-3 LINE.NUM ^OutputConfigValue @@ ~AO10Bipolar @! 
+3 LINE.NUM ^OutputConfigValue @@ ~AO10_0 @! 
 4 LINE.NUM THEN 
 6 LINE.NUM %ScratchPad 301 ^OutputConfigValue   IO.SP.READ DROP  
 7 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-8 LINE.NUM ^OutputConfigValue @@ ~AO10 @! 
+8 LINE.NUM ^OutputConfigValue @@ ~AO10_1 @! 
 9 LINE.NUM THEN 
 11 LINE.NUM %ScratchPad 302 ^OutputConfigValue   IO.SP.READ DROP  
 12 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-13 LINE.NUM ^OutputConfigValue @@ ~AO5Bipolar @! 
+13 LINE.NUM ^OutputConfigValue @@ ~AO5_0 @! 
 14 LINE.NUM THEN 
 16 LINE.NUM %ScratchPad 303 ^OutputConfigValue   IO.SP.READ DROP  
 17 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
-18 LINE.NUM ^OutputConfigValue @@ ~AO5 @! 
+18 LINE.NUM ^OutputConfigValue @@ ~AO5_1 @! 
 19 LINE.NUM THEN 
 21 LINE.NUM %ScratchPad 304 ^OutputConfigValue   IO.SP.READ DROP  
 22 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
