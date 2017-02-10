@@ -1,31 +1,99 @@
 : 13_0
-1 JUMP ;
+
+1 LINE.NUM
+  100    DELAY
+4 JUMP ;
 : 13_1
 2 LINE.NUM ~ThermoCouple0 @@ 145 I>F F> IF 
-3 LINE.NUM 0 ^IsTestRunning @! 
-4 LINE.NUM THEN 
-6 LINE.NUM ~ThermoCouple2 @@ 165 I>F F> IF 
-7 LINE.NUM 0 ^IsTestRunning @! 
-8 LINE.NUM THEN 
-10 LINE.NUM ~ThermoCouple4 @@ 60 I>F F> ~ThermoCouple5 @@ 60 I>F F> LOR  IF 
-11 LINE.NUM 0 ^IsTestRunning @! 
-12 LINE.NUM THEN 
-14 LINE.NUM ~ThermoCouple10 @@ 850 I>F F> IF 
-15 LINE.NUM 0 ^IsTestRunning @! 
-16 LINE.NUM THEN 
-18 LINE.NUM ~Volt0 @@ 6000 I>F F> IF 
-19 LINE.NUM 0 ^IsTestRunning @! 
+3 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+4 LINE.NUM %ScratchPad 9000 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+5 LINE.NUM THEN 
+7 LINE.NUM ~ThermoCouple2 @@ 165 I>F F> IF 
+8 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+9 LINE.NUM %ScratchPad 9001 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+10 LINE.NUM THEN 
+12 LINE.NUM ~ThermoCouple4 @@ 60 I>F F> ~ThermoCouple5 @@ 60 I>F F> LOR  IF 
+13 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+14 LINE.NUM %ScratchPad 9002 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+15 LINE.NUM THEN 
+17 LINE.NUM ~ThermoCouple10 @@ 850 I>F F> IF 
+18 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+19 LINE.NUM %ScratchPad 9003 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
 20 LINE.NUM THEN 
-22 LINE.NUM ~Volt1 @@ 8 I>F F< IF 
-23 LINE.NUM 0 ^IsTestRunning @! 
-24 LINE.NUM THEN 
-26 LINE.NUM ~Dyno0 @@I 0 <> ~Volt0 @@ 400 I>F F> LAND  IF 
-27 LINE.NUM ~Dyno0  OFF 
-28 LINE.NUM THEN 
-0 JUMP ;
+22 LINE.NUM ~Volt0 @@ 6000 I>F F> IF 
+23 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+24 LINE.NUM %ScratchPad 9004 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+25 LINE.NUM THEN 
+34 LINE.NUM ~DigitalOut0 @@I 0 <> ~Volt0 @@ 400 I>F F> LAND  IF 
+35 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+36 LINE.NUM %ScratchPad 9006 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+37 LINE.NUM THEN 
+39 LINE.NUM ^IsHardwareSafetyTriggered @@ 1 = IF 
+40 LINE.NUM %ScratchPad 9999 1  IO.SP.I.WRITE DROP  
+41 LINE.NUM ELSE 
+42 LINE.NUM %ScratchPad 9999 0  IO.SP.I.WRITE DROP  
+43 LINE.NUM THEN 
+2 JUMP ;
+: 13_3
+-3 JUMP ;
+: 13_9
+1 LINE.NUM 0 ^IsTestRunning @! 
+3 LINE.NUM ~DigitalOut0  OFF 
+4 LINE.NUM ~DigitalOut1  OFF 
+5 LINE.NUM ~DigitalOut2  OFF 
+6 LINE.NUM ~DigitalOut3  OFF 
+7 LINE.NUM ~DigitalOut4  OFF 
+8 LINE.NUM ~DigitalOut5  OFF 
+9 LINE.NUM ~DigitalOut6  OFF 
+10 LINE.NUM ~DigitalOut7  OFF 
+11 LINE.NUM ~DigitalOut8  OFF 
+12 LINE.NUM ~DigitalOut9  OFF 
+13 LINE.NUM ~DigitalOut10  OFF 
+14 LINE.NUM ~DigitalOut11  OFF 
+15 LINE.NUM ~DigitalOut12  OFF 
+16 LINE.NUM ~DigitalOut13  OFF 
+17 LINE.NUM ~DigitalOut14  OFF 
+18 LINE.NUM ~DigitalOut15  OFF 
+19 LINE.NUM ~DigitalOut16  OFF 
+20 LINE.NUM ~DigitalOut17  OFF 
+21 LINE.NUM ~DigitalOut18  OFF 
+22 LINE.NUM ~DigitalOut19  OFF 
+23 LINE.NUM ~DigitalOut20  OFF 
+24 LINE.NUM ~DigitalOut21  OFF 
+25 LINE.NUM ~DigitalOut22  OFF 
+26 LINE.NUM ~DigitalOut23  OFF 
+27 LINE.NUM ~DigitalOut24  OFF 
+28 LINE.NUM ~DigitalOut25  OFF 
+29 LINE.NUM ~DigitalOut26  OFF 
+30 LINE.NUM ~DigitalOut27  OFF 
+31 LINE.NUM ~DigitalOut28  OFF 
+32 LINE.NUM ~DigitalOut29  OFF 
+33 LINE.NUM ~DigitalOut30  OFF 
+34 LINE.NUM ~DigitalOut31  OFF 
+-2 JUMP ;
+: 13_5
+TRUE
+
+1 LINE.NUM
+  ^IsHardwareSafetyTriggered @@ 
+  1    =
+LAND
+IF -2 ELSE -3 THEN JUMP ;
+: 13_12
+TRUE
+
+1 LINE.NUM
+  ^IsTestRunning @@ 
+  1    =
+LAND
+IF -5 ELSE -6 THEN JUMP ;
 T: T13
 DUMMY
 13_0
 13_1
+13_3
+13_9
+13_5
+13_12
 T;
 &HardwareSafety ' T13 SETTASK

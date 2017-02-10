@@ -5,11 +5,11 @@
   3400  
   ^DynoPidRampStart   IO.SP.READ
   ^GetScratchPadResult @! 
-7 JUMP ;
+8 JUMP ;
 : 10_2
 
 1 LINE.NUM
-  |DynoLoad   $0002.. ROT PID@
+  |DynoLoad   $0001.. ROT PID@
   ^DynoPidRampCurrentSetpoint @! 
 
 2 LINE.NUM
@@ -42,18 +42,19 @@
   3400  
   ^DynoPidRampStart   IO.SP.READ
   ^GetScratchPadResult @! 
-5 JUMP ;
+6 JUMP ;
 : 10_6
 1 LINE.NUM ^DynoPidRampTimer @@F ^DynoPidRampCurrentTime @! 
-3 LINE.NUM ^DynoPidRampCurrentTime @@ ^DynoPidRampTime @@ F< IF 
-5 LINE.NUM ^DynoPidRampSetpoint @@ ^DynoPidRampCurrentSetpoint @@ F- ^DynoPidRampTime @@ F/ ^DynoPidRampSlope @! 
-7 LINE.NUM ^DynoPidRampSetpoint @@ ^DynoPidRampSlope @@ ^DynoPidRampTime @@ F* F- ^DynoPidRampIntercept @! 
-9 LINE.NUM |DynoSpeed ^DynoPidRampSlope @@ ^DynoPidRampCurrentTime @@ F* ^DynoPidRampIntercept @@ F+  $0002.. 3 ROLL !PID 
-10 LINE.NUM ELSE 
-11 LINE.NUM |DynoSpeed ^DynoPidRampSetpoint @@  $0002.. 3 ROLL !PID 
-12 LINE.NUM THEN 
-14 LINE.NUM %ScratchPad 3402 |DynoSpeed  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
-15 LINE.NUM %ScratchPad 3403 ^DynoPidRampCurrentTime @@  IO.SP.F.WRITE DROP  
+2 LINE.NUM PTR_DynoRampWidgetPid  $0001.. ROT PID@ ^DynoPidRampCurrentSetpoint @! 
+4 LINE.NUM ^DynoPidRampCurrentTime @@ ^DynoPidRampTime @@ F< IF 
+6 LINE.NUM ^DynoPidRampSetpoint @@ ^DynoPidRampCurrentSetpoint @@ F- ^DynoPidRampTime @@ F/ ^DynoPidRampSlope @! 
+8 LINE.NUM ^DynoPidRampSetpoint @@ ^DynoPidRampSlope @@ ^DynoPidRampTime @@ F* F- ^DynoPidRampIntercept @! 
+10 LINE.NUM PTR_DynoRampWidgetPid ^DynoPidRampSlope @@ ^DynoPidRampCurrentTime @@ F* ^DynoPidRampIntercept @@ F+  $0002.. 3 ROLL !PID 
+11 LINE.NUM ELSE 
+12 LINE.NUM PTR_DynoRampWidgetPid ^DynoPidRampSetpoint @@  $0002.. 3 ROLL !PID 
+13 LINE.NUM THEN 
+15 LINE.NUM %ScratchPad 3402 PTR_DynoRampWidgetPid  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
+16 LINE.NUM %ScratchPad 3403 ^DynoPidRampCurrentTime @@  IO.SP.F.WRITE DROP  
 2 JUMP ;
 : 10_7
 
@@ -62,11 +63,20 @@
 
 2 LINE.NUM
   &DynoPidRampWidget   STOP.T
-4 JUMP ;
+5 JUMP ;
 : 10_9
 -7 JUMP ;
 : 10_10
 -5 JUMP ;
+: 10_20
+1 LINE.NUM %ScratchPad 3399 ^GetScratchPadResult  IO.SP.READ 0 = IF 
+2 LINE.NUM |DynoSpeed 
+MoveToPointer PTR_DynoRampWidgetPid 
+3 LINE.NUM ELSE 
+4 LINE.NUM |DynoLoad 
+MoveToPointer PTR_DynoRampWidgetPid 
+5 LINE.NUM THEN 
+-8 JUMP ;
 : 10_1
 TRUE
 
@@ -74,7 +84,7 @@ TRUE
   ^DynoPidRampStart @@ 
   1    =
 LAND
-IF -8 ELSE -3 THEN JUMP ;
+IF -2 ELSE -4 THEN JUMP ;
 : 10_5
 TRUE
 
@@ -82,7 +92,7 @@ TRUE
   ^DynoPidRampStart @@ 
   1    =
 LAND
-IF -6 ELSE -5 THEN JUMP ;
+IF -7 ELSE -6 THEN JUMP ;
 T: T10
 DUMMY
 10_0
@@ -93,6 +103,7 @@ DUMMY
 10_7
 10_9
 10_10
+10_20
 10_1
 10_5
 T;

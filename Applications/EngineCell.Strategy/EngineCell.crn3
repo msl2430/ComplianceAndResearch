@@ -6,6 +6,7 @@ CREATE T.ARRAY
 &CustomChart5 ,
 &DataCollection ,
 &DynoPidRampWidget ,
+&HardwareSafety ,
 &PidConfig ,
 &Powerup ,
 &StarterWidget ,
@@ -30,6 +31,7 @@ CREATE V.ARRAY
 ^gIndex ,
 ^gTest ,
 ^IsApplicationConnected ,
+^IsHardwareSafetyTriggered ,
 ^IsStartDataCollect ,
 ^IsStartTest ,
 ^IsTestRunning ,
@@ -86,7 +88,9 @@ CREATE TI.ARRAY
 ^ThrottlePidRampTimer ,
  0 ,
 CREATE PTR.ARRAY
+Ptr' PTR_DynoRampWidgetPid ,
 Ptr' PTR_PidConfigSelection ,
+Ptr' PTR_ThrottleRampWidgetPid ,
 Ptr' PTR_TriggerPointAI ,
 Ptr' PTR_VentCtrl1Inside ,
 Ptr' PTR_VentCtrl1Output ,
@@ -101,66 +105,66 @@ CREATE B.ARRAY
 %ScratchPad ,
  0 ,
 CREATE P.ARRAY
-~Dyno0 ,
-~Dyno1 ,
-~Dyno2 ,
-~Dyno3 ,
-~Dyno4 ,
-~Dyno5 ,
-~Dyno6 ,
-~Dyno7 ,
-~DynoIn0 ,
-~DynoIn1 ,
-~DynoIn2 ,
-~DynoIn3 ,
-~DynoIn4 ,
-~DynoIn5 ,
-~DynoIn6 ,
-~DynoIn7 ,
-~Engine0 ,
-~Engine1 ,
-~Engine2 ,
-~Engine3 ,
-~Engine4 ,
-~Engine5 ,
-~Engine6 ,
-~Engine7 ,
-~EngineIn0 ,
-~EngineIn1 ,
-~EngineIn2 ,
-~EngineIn3 ,
-~EngineIn4 ,
-~EngineIn5 ,
-~EngineIn6 ,
-~EngineIn7 ,
+~DigitalIn0 ,
+~DigitalIn1 ,
+~DigitalIn10 ,
+~DigitalIn11 ,
+~DigitalIn12 ,
+~DigitalIn13 ,
+~DigitalIn14 ,
+~DigitalIn15 ,
+~DigitalIn2 ,
+~DigitalIn3 ,
+~DigitalIn4 ,
+~DigitalIn5 ,
+~DigitalIn6 ,
+~DigitalIn7 ,
+~DigitalIn8 ,
+~DigitalIn9 ,
+~DigitalOut0 ,
+~DigitalOut1 ,
+~DigitalOut10 ,
+~DigitalOut11 ,
+~DigitalOut12 ,
+~DigitalOut13 ,
+~DigitalOut14 ,
+~DigitalOut15 ,
+~DigitalOut16 ,
+~DigitalOut17 ,
+~DigitalOut18 ,
+~DigitalOut19 ,
+~DigitalOut2 ,
+~DigitalOut20 ,
+~DigitalOut21 ,
+~DigitalOut22 ,
+~DigitalOut23 ,
+~DigitalOut24 ,
+~DigitalOut25 ,
+~DigitalOut26 ,
+~DigitalOut27 ,
+~DigitalOut28 ,
+~DigitalOut29 ,
+~DigitalOut3 ,
+~DigitalOut30 ,
+~DigitalOut31 ,
+~DigitalOut4 ,
+~DigitalOut5 ,
+~DigitalOut6 ,
+~DigitalOut7 ,
+~DigitalOut8 ,
+~DigitalOut9 ,
 ~Freq0 ,
 ~Freq1 ,
 ~Freq2 ,
 ~Freq3 ,
-~Fuel0 ,
-~Fuel1 ,
-~Fuel2 ,
-~Fuel3 ,
-~Fuel4 ,
-~Fuel5 ,
-~Fuel6 ,
-~Fuel7 ,
-~Misc0 ,
-~Misc1 ,
-~Misc2 ,
-~Misc3 ,
-~Misc4 ,
-~Misc5 ,
-~Misc6 ,
-~Misc7 ,
-~AO10 ,
-~AO10Bipolar ,
+~AO10_0 ,
+~AO10_1 ,
 ~AO4_20_0 ,
 ~AO4_20_1 ,
 ~AO4_20_2 ,
 ~AO4_20_3 ,
-~AO5 ,
-~AO5Bipolar ,
+~AO5_0 ,
+~AO5_1 ,
 ~HART0 ,
 ~HART1 ,
 ~MilliAmp0 ,
@@ -193,15 +197,15 @@ CREATE P.ARRAY
 ~Volt5 ,
  0 ,
 CREATE PID.ARRAY
- |Coolant ,
- |Custom1 ,
- |Custom2 ,
  |Custom3 ,
  |Custom4 ,
- |Dyno ,
+ |DynoLoad ,
+ |DynoSpeed ,
+ |DynoTemp ,
  |Intercooler ,
  |Oil ,
- |Throttle ,
+ |ThrottleLoad ,
+ |ThrottleSpeed ,
  0 ,
 CREATE E/R.ARRAY
  0 ,
@@ -212,15 +216,15 @@ CREATE E/RGROUP.ARRAY
 : W_INIT_IO
 CONFIG_PORTS
 $0000000000000000.. %ScratchPad ENABLES!
-|Coolant ENABLE
-|Custom1 ENABLE
-|Custom2 ENABLE
 |Custom3 ENABLE
 |Custom4 ENABLE
-|Dyno ENABLE
+|DynoLoad ENABLE
+|DynoSpeed ENABLE
+|DynoTemp ENABLE
 |Intercooler ENABLE
 |Oil ENABLE
-|Throttle ENABLE
+|ThrottleLoad ENABLE
+|ThrottleSpeed ENABLE
 " %EngineCell  (1/2)" *_HSV_INIT_IO $MOVE 1 ^_HNV_INIT_IO @!
 %EngineCell ENABLE
 " %ScratchPad  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
@@ -243,6 +247,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^gIndex @!
 0.00000000 ^gTest @!
 0 ^IsApplicationConnected @!
+0 ^IsHardwareSafetyTriggered @!
 0 ^IsStartDataCollect @!
 0 ^IsStartTest @!
 0 ^IsTestRunning @!
@@ -293,7 +298,9 @@ $0000000000000000.. %ScratchPad ENABLES!
 0.00000000 ^VentCtrl1Weighted @!
 " "
  *StrategyRunTime $MOVE
+0 MoveToPointer PTR_DynoRampWidgetPid
 0 MoveToPointer PTR_PidConfigSelection
+0 MoveToPointer PTR_ThrottleRampWidgetPid
 0 MoveToPointer PTR_TriggerPointAI
 0 MoveToPointer PTR_VentCtrl1Inside
 0 MoveToPointer PTR_VentCtrl1Output

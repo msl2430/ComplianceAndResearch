@@ -14,16 +14,6 @@
     <Grid>
       <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
         <StackPanel Orientation="Horizontal">
-          <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="400"/>
-          </Grid.ColumnDefinitions>-->
           <Grid Width="300" Visibility="{Binding Path=HasThermoCouples, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
             <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
             <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Thermal Couple Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
@@ -122,12 +112,12 @@
               </ItemsControl>
             </ScrollViewer>
           </Grid>
-          <Grid Width="300" Visibility="{Binding Path=HasDynos, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
+          <Grid Width="300" Visibility="{Binding Path=HasDigitalOuts, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
             <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
-            <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Dyno Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+            <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Digital Outputs" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
             <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Digital Output (SNAP-ODC-32-SRC)" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
-              <ItemsControl ItemsSource="{Binding Path=Dynos}">
+              <ItemsControl ItemsSource="{Binding Path=DigitalOuts}">
                 <ItemsControl.ItemsPanel>
                   <ItemsPanelTemplate>
                     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical"/>
@@ -140,64 +130,7 @@
                 </ItemsControl.ItemTemplate>
               </ItemsControl>
             </ScrollViewer>
-          </Grid>
-          <Grid Width="300" Visibility="{Binding Path=HasEngines, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
-            <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
-            <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Engine Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
-            <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Digital Output (SNAP-ODC-32-SRC)" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
-              <ItemsControl ItemsSource="{Binding Path=Engines}">
-                <ItemsControl.ItemsPanel>
-                  <ItemsPanelTemplate>
-                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical"/>
-                  </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                  <DataTemplate>
-                    <pointDisplay:PointDisplay DataContext="{Binding }" Margin="0,3,0,3"></pointDisplay:PointDisplay>
-                  </DataTemplate>
-                </ItemsControl.ItemTemplate>
-              </ItemsControl>
-            </ScrollViewer>
-          </Grid>
-          <Grid Width="300" Visibility="{Binding Path=HasFuels, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
-            <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
-            <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Fuel Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
-            <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Digital Output (SNAP-ODC-32-SRC)" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
-              <ItemsControl ItemsSource="{Binding Path=Fuels}">
-                <ItemsControl.ItemsPanel>
-                  <ItemsPanelTemplate>
-                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical"/>
-                  </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                  <DataTemplate>
-                    <pointDisplay:PointDisplay DataContext="{Binding }" Margin="0,3,0,3"></pointDisplay:PointDisplay>
-                  </DataTemplate>
-                </ItemsControl.ItemTemplate>
-              </ItemsControl>
-            </ScrollViewer>
-          </Grid>
-          <Grid Width="300" Visibility="{Binding Path=HasMiscs, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
-            <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
-            <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Miscellaneous Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
-            <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Digital Output (SNAP-ODC-32-SRC)" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
-              <ItemsControl ItemsSource="{Binding Path=Miscs}">
-                <ItemsControl.ItemsPanel>
-                  <ItemsPanelTemplate>
-                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical"/>
-                  </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                  <DataTemplate>
-                    <pointDisplay:PointDisplay DataContext="{Binding }" Margin="0,3,0,3"></pointDisplay:PointDisplay>
-                  </DataTemplate>
-                </ItemsControl.ItemTemplate>
-              </ItemsControl>
-            </ScrollViewer>
-          </Grid>
+          </Grid>          
           <Grid Width="300" Visibility="{Binding Path=HasFreqs, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
             <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
             <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Frequency Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
@@ -217,12 +150,12 @@
               </ItemsControl>
             </ScrollViewer>
           </Grid>
-          <Grid Width="300" Visibility="{Binding Path=HasDynoIn, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
+          <Grid Width="300" Visibility="{Binding Path=HasDigitalins, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
             <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
-            <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Dyno Input Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+            <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Digital Input Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
             <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Digital Input (SNAP-IDC5-16 (1-8))" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
-              <ItemsControl ItemsSource="{Binding Path=DynoIn}">
+              <ItemsControl ItemsSource="{Binding Path=DigitalIns}">
                 <ItemsControl.ItemsPanel>
                   <ItemsPanelTemplate>
                     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical"/>
@@ -235,26 +168,7 @@
                 </ItemsControl.ItemTemplate>
               </ItemsControl>
             </ScrollViewer>
-          </Grid>
-          <Grid Width="300" Visibility="{Binding Path=HasEngineIn, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
-            <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
-            <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Engine Input Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
-            <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="Digital Input (SNAP-IDC5-16 (9-16))" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
-              <ItemsControl ItemsSource="{Binding Path=EngineIn}">
-                <ItemsControl.ItemsPanel>
-                  <ItemsPanelTemplate>
-                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical"/>
-                  </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                  <DataTemplate>
-                    <pointDisplay:PointDisplay DataContext="{Binding }" Margin="0,3,0,3"></pointDisplay:PointDisplay>
-                  </DataTemplate>
-                </ItemsControl.ItemTemplate>
-              </ItemsControl>
-            </ScrollViewer>
-          </Grid>
+          </Grid>          
         </StackPanel>
       </ScrollViewer>
     </Grid>

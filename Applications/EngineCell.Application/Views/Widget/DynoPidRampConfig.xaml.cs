@@ -27,7 +27,7 @@ namespace EngineCell.Application.Views.Widget
 
             Phase = phase;
             Widget = Phase.Widgets.FirstOrDefault(w => w.WidgetId == WidgetConstants.Widget.DynoRamp);
-
+            PidMode.SelectedIndex = 0;
             if (Widget != null && Widget.Settings.IsNotNullOrEmpty())
             {
                 PidRampTimeText.Text = Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.DynoRampTime)
@@ -36,6 +36,15 @@ namespace EngineCell.Application.Views.Widget
                 PidSetpointText.Text = Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.DynoRampSetpoint)
                     ? Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.DynoRampSetpoint).Value
                     : "300";
+                PidMode.SelectedIndex = Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.DynoRampMode)
+                    ? Convert.ToInt32(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.DynoRampMode).Value)
+                    : 0;
+            }
+
+            if (Widget.Settings.All(s => s.WidgetSettingId != WidgetConstants.WidgetSetting.DynoRampMode))
+            {
+                Widget.Settings.Add(new WidgetSettingModel() {CellTestPhaseWidgetId = Widget.CellTestPhaseWidgetId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoRampMode, Value = "0"});
+                WidgetRepository.SaveWidgetSetting(Widget.CellTestPhaseWidgetId, WidgetConstants.WidgetSetting.DynoRampMode, "0");
             }
 
             UpdateWidgetStatus();
@@ -79,6 +88,17 @@ namespace EngineCell.Application.Views.Widget
                 WidgetStatus.Text = "Not Configured";
                 WidgetStatus.Foreground = Brushes.OrangeRed;
             }
+        }
+
+        private void PidMode_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var mode = ((ComboBox) sender).SelectedIndex;
+            if (Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.DynoRampMode))
+                Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.DynoRampMode).Value = mode == 0 ? WidgetConstants.DynoPidMeasurement.Rpm.ToInt().ToString() : WidgetConstants.DynoPidMeasurement.Load.ToInt().ToString();
+            else
+                Widget.Settings.Add(new WidgetSettingModel() {CellTestPhaseWidgetId = Widget.CellTestPhaseWidgetId, WidgetSettingId = WidgetConstants.WidgetSetting.DynoRampTime, Value = mode == 0 ? WidgetConstants.DynoPidMeasurement.Rpm.ToInt().ToString() : WidgetConstants.DynoPidMeasurement.Load.ToInt().ToString() });
+
+            WidgetRepository.SaveWidgetSetting(Widget.CellTestPhaseWidgetId, WidgetConstants.WidgetSetting.DynoRampMode, mode == 0 ? WidgetConstants.DynoPidMeasurement.Rpm.ToInt().ToString() : WidgetConstants.DynoPidMeasurement.Load.ToInt().ToString());
         }
     }
 }

@@ -25,8 +25,10 @@ namespace EngineCell.Core.Constants
             TestScheduleTimeout,
             DynoRampSetpoint,
             DynoRampTime,
+            DynoRampMode,
             ThrottleRampSetpoint,
             ThrottleRampTime,
+            ThrottleRampMode,
             VentCtrl1InsideThermoCouple,
             VentCtrl1OutsideThermoCouple,
             VentCtrl1AnalogOutput,
@@ -45,12 +47,12 @@ namespace EngineCell.Core.Constants
             StarterTimeout,
         }
 
-        public enum DynoPidMode
-        {
-            Motor,
-            Absorb,
-            MotorAbsorb,
-        }
+        //public enum DynoPidMode
+        //{
+        //    Motor,
+        //    Absorb,
+        //    MotorAbsorb,
+        //}
 
         public enum DynoPidMeasurement
         {

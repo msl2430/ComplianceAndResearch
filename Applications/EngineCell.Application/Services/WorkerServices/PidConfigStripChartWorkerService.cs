@@ -40,6 +40,12 @@ namespace EngineCell.Application.Services.WorkerServices
                 ApplicationSessionFactory = PidConfigStripChartViewModel.ApplicationSessionFactory;
                 while (!CancellationToken.IsCancellationRequested)
                 {
+                    if (ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.IsHardwareSafety.ToInt()) == 1)
+                    {
+                        CancellationToken.Cancel();
+                        continue;
+                    }
+
                     if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
                     if (WaitStopWatch.ElapsedMilliseconds <= 10) continue;
 

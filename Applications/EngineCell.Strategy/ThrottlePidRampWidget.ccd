@@ -5,11 +5,11 @@
   3407  
   ^ThrottlePidRampStart   IO.SP.READ
   ^GetScratchPadResult @! 
-7 JUMP ;
+8 JUMP ;
 : 12_2
 
 1 LINE.NUM
-  |DynoSpeed   $0002.. ROT PID@
+  |DynoSpeed   $0001.. ROT PID@
   ^ThrottlePidRampCurrentSetpoint @! 
 
 2 LINE.NUM
@@ -23,7 +23,7 @@
   3405  
   ^ThrottlePidRampTime    IO.SP.READ
   ^GetScratchPadResult @! 
-0 JUMP ;
+6 JUMP ;
 : 12_3
 
 1 LINE.NUM
@@ -42,18 +42,19 @@
   3407  
   ^ThrottlePidRampStart   IO.SP.READ
   ^GetScratchPadResult @! 
-5 JUMP ;
+6 JUMP ;
 : 12_6
 1 LINE.NUM ^ThrottlePidRampTimer @@F ^ThrottlePidRampCurrentTime @! 
-3 LINE.NUM ^ThrottlePidRampCurrentTime @@ ^ThrottlePidRampTime @@ F< IF 
-5 LINE.NUM ^ThrottlePidRampSetpoint @@ ^ThrottlePidRampCurrentSetpoint @@ F- ^ThrottlePidRampTime @@ F/ ^ThrottlePidRampSlope @! 
-7 LINE.NUM ^ThrottlePidRampSetpoint @@ ^ThrottlePidRampSlope @@ ^ThrottlePidRampTime @@ F* F- ^ThrottlePidRampIntercept @! 
-9 LINE.NUM |DynoSpeed ^ThrottlePidRampSlope @@ ^ThrottlePidRampCurrentTime @@ F* ^ThrottlePidRampIntercept @@ F+  $0002.. 3 ROLL !PID 
-10 LINE.NUM ELSE 
-11 LINE.NUM |DynoSpeed ^ThrottlePidRampSetpoint @@  $0002.. 3 ROLL !PID 
-12 LINE.NUM THEN 
-14 LINE.NUM %ScratchPad 3402 |DynoSpeed  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
-15 LINE.NUM %ScratchPad 3403 ^ThrottlePidRampCurrentTime @@  IO.SP.F.WRITE DROP  
+2 LINE.NUM PTR_ThrottleRampWidgetPid  $0001.. ROT PID@ ^ThrottlePidRampCurrentSetpoint @! 
+4 LINE.NUM ^ThrottlePidRampCurrentTime @@ ^ThrottlePidRampTime @@ F< IF 
+6 LINE.NUM ^ThrottlePidRampSetpoint @@ ^ThrottlePidRampCurrentSetpoint @@ F- ^ThrottlePidRampTime @@ F/ ^ThrottlePidRampSlope @! 
+8 LINE.NUM ^ThrottlePidRampSetpoint @@ ^ThrottlePidRampSlope @@ ^ThrottlePidRampTime @@ F* F- ^ThrottlePidRampIntercept @! 
+10 LINE.NUM PTR_ThrottleRampWidgetPid ^ThrottlePidRampSlope @@ ^ThrottlePidRampCurrentTime @@ F* ^ThrottlePidRampIntercept @@ F+  $0002.. 3 ROLL !PID 
+11 LINE.NUM ELSE 
+12 LINE.NUM PTR_ThrottleRampWidgetPid ^ThrottlePidRampSetpoint @@  $0002.. 3 ROLL !PID 
+13 LINE.NUM THEN 
+15 LINE.NUM %ScratchPad 3402 PTR_ThrottleRampWidgetPid  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
+16 LINE.NUM %ScratchPad 3403 ^ThrottlePidRampCurrentTime @@  IO.SP.F.WRITE DROP  
 2 JUMP ;
 : 12_7
 
@@ -62,11 +63,20 @@
 
 2 LINE.NUM
   &ThrottlePidRampWidget   STOP.T
-4 JUMP ;
+5 JUMP ;
 : 12_9
 -7 JUMP ;
 : 12_10
 -5 JUMP ;
+: 12_20
+1 LINE.NUM %ScratchPad 3409 ^GetScratchPadResult  IO.SP.READ 0 = IF 
+2 LINE.NUM |ThrottleSpeed 
+MoveToPointer PTR_ThrottleRampWidgetPid 
+3 LINE.NUM ELSE 
+4 LINE.NUM |ThrottleLoad 
+MoveToPointer PTR_ThrottleRampWidgetPid 
+5 LINE.NUM THEN 
+-7 JUMP ;
 : 12_1
 TRUE
 
@@ -74,7 +84,7 @@ TRUE
   ^ThrottlePidRampStart @@ 
   1    =
 LAND
-IF -8 ELSE -3 THEN JUMP ;
+IF -9 ELSE -4 THEN JUMP ;
 : 12_5
 TRUE
 
@@ -82,7 +92,7 @@ TRUE
   ^ThrottlePidRampStart @@ 
   1    =
 LAND
-IF -6 ELSE -5 THEN JUMP ;
+IF -7 ELSE -6 THEN JUMP ;
 T: T12
 DUMMY
 12_0
@@ -93,6 +103,7 @@ DUMMY
 12_7
 12_9
 12_10
+12_20
 12_1
 12_5
 T;

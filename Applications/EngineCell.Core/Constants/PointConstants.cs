@@ -7,13 +7,9 @@
         MilliAmp,
         Hart,
         AnalogOutput,
-        Dyno,
-        Engine,
-        Fuel,
-        Misc,
+        DigitalOutput,
+        DigitalInput,
         Frequency,
-        DynoIn,
-        EngineIn,
     }
 
     public enum ThermoCouple
@@ -41,10 +37,10 @@
 
     public enum AnalogOutput
     {
-        Ao10Bipolar = 1,
-        Ao10,
-        Ao5Bipolar,
-        Ao5,
+        Ao10_0 = 1,
+        Ao10_1,
+        Ao5_0,
+        Ao5_1,
         Ao4_20_0,
         Ao4_20_1,
         Ao4_20_2,

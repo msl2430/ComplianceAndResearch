@@ -20,6 +20,8 @@ namespace EngineCell.Application.ViewModels.Widget
 
         public long Time { get; set; }
 
+        public WidgetConstants.DynoPidMeasurement PidMode { get; set; }
+
         public DynoPidRampDisplayViewModel(IApplicationSessionFactory appSession, CellTestPhaseWidgetModel widget)
         {
             ApplicationSessionFactory = appSession;
@@ -28,6 +30,10 @@ namespace EngineCell.Application.ViewModels.Widget
                 Setpoint = Convert.ToDecimal(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.DynoRampSetpoint).Value);
             if (Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.DynoRampSetpoint))
                 Time = Convert.ToInt64(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.DynoRampTime).Value);
+            if (Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.DynoRampMode))
+                PidMode = (WidgetConstants.DynoPidMeasurement)Convert.ToInt32(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.DynoRampMode).Value);
+            else
+                PidMode = WidgetConstants.DynoPidMeasurement.Rpm;
         }
     }
 }

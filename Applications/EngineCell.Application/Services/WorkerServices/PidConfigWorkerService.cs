@@ -34,6 +34,12 @@ namespace EngineCell.Application.Services.WorkerServices
                     if(!WaitStopWatch.IsRunning) WaitStopWatch.Start();
                     if (WaitStopWatch.ElapsedMilliseconds > 10)
                     {
+                        if (ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.IsHardwareSafety.ToInt()) == 1)
+                        {
+                            CancellationToken.Cancel();
+                            continue;
+                        }
+
                         WaitStopWatch.Stop();
                         WaitStopWatch.Reset();
 

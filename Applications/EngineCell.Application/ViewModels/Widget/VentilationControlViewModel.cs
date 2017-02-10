@@ -47,7 +47,7 @@ namespace EngineCell.Application.ViewModels.Widget
         {
             Inside = ThermoCouple.ThermoCouple1;
             Outside = ThermoCouple.ThermoCouple2;
-            Output = AnalogOutput.Ao10Bipolar;
+            Output = AnalogOutput.Ao10_0;
             IsActive = false;
         }
 

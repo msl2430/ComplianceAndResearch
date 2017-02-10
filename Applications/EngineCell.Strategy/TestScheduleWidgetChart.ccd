@@ -22,7 +22,7 @@
 13 LINE.NUM %ScratchPad ^TestScheduleSetpointIndex @@ 1 +  ^TestScheduleUpperSetpoint   IO.SP.READ DROP  
 14 LINE.NUM ^TestScheduleUpperSetpoint @@ ^TestScheduleLowerSetpoint @@ F- ^TestScheduleUpperTime @@ ^TestScheduleLowerTime @@ F- F/ ^TestScheduleSlope @! 
 16 LINE.NUM ^TestScheduleUpperSetpoint @@ ^TestScheduleSlope @@ ^TestScheduleUpperTime @@ F* F- ^TestScheduleIntercept @! 
-18 LINE.NUM |DynoLoad ^TestScheduleSlope @@ ^TestScheduleCurrentTime @@ F* ^TestScheduleIntercept @@ F+  $0002.. 3 ROLL !PID 
+18 LINE.NUM |DynoSpeed ^TestScheduleSlope @@ ^TestScheduleCurrentTime @@ F* ^TestScheduleIntercept @@ F+  $0002.. 3 ROLL !PID 
 19 LINE.NUM THEN 
 21 LINE.NUM %ScratchPad 3002 ^TestScheduleUseThrottle  IO.SP.READ DROP  
 22 LINE.NUM ^TestScheduleUseThrottle @@ 1 = IF 
@@ -31,10 +31,10 @@
 25 LINE.NUM %ScratchPad ^TestScheduleSetpointIndex @@ 1 +  ^TestScheduleUpperSetpoint   IO.SP.READ DROP  
 27 LINE.NUM ^TestScheduleUpperSetpoint @@ ^TestScheduleLowerSetpoint @@ F- ^TestScheduleUpperTime @@ ^TestScheduleLowerTime @@ F- F/ ^TestScheduleSlope @! 
 29 LINE.NUM ^TestScheduleUpperSetpoint @@ ^TestScheduleSlope @@ ^TestScheduleUpperTime @@ F* F- ^TestScheduleIntercept @! 
-31 LINE.NUM |DynoSpeed ^TestScheduleSlope @@ ^TestScheduleCurrentTime @@ F* ^TestScheduleIntercept @@ F+  $0002.. 3 ROLL !PID 
+31 LINE.NUM |ThrottleSpeed ^TestScheduleSlope @@ ^TestScheduleCurrentTime @@ F* ^TestScheduleIntercept @@ F+  $0002.. 3 ROLL !PID 
 32 LINE.NUM THEN 
-34 LINE.NUM %ScratchPad 2000 |DynoLoad  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
-35 LINE.NUM %ScratchPad 2001 |DynoSpeed  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
+34 LINE.NUM %ScratchPad 2000 |DynoSpeed  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
+35 LINE.NUM %ScratchPad 2001 |ThrottleSpeed  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
 0 JUMP ;
 : 4_8
 
@@ -78,7 +78,7 @@
 42 LINE.NUM THEN 
 44 LINE.NUM ^TestScheduleUpperSetpoint @@ ^TestScheduleLowerSetpoint @@ F- ^TestScheduleUpperTime @@ ^TestScheduleLowerTime @@ F- F/ ^TestScheduleSlope @! 
 46 LINE.NUM ^TestScheduleUpperSetpoint @@ ^TestScheduleSlope @@ ^TestScheduleUpperTime @@ F* F- ^TestScheduleIntercept @! 
-48 LINE.NUM |DynoLoad ^TestScheduleSlope @@ ^TestScheduleCurrentTime @@ F* ^TestScheduleIntercept @@ F+  $0002.. 3 ROLL !PID 
+48 LINE.NUM |DynoSpeed ^TestScheduleSlope @@ ^TestScheduleCurrentTime @@ F* ^TestScheduleIntercept @@ F+  $0002.. 3 ROLL !PID 
 49 LINE.NUM THEN 
 51 LINE.NUM %ScratchPad 3002 ^TestScheduleUseThrottle  IO.SP.READ DROP  
 52 LINE.NUM ^TestScheduleUseThrottle @@ 1 = IF 
@@ -91,10 +91,10 @@
 61 LINE.NUM THEN 
 63 LINE.NUM ^TestScheduleUpperSetpoint @@ ^TestScheduleLowerSetpoint @@ F- ^TestScheduleUpperTime @@ ^TestScheduleLowerTime @@ F- F/ ^TestScheduleSlope @! 
 65 LINE.NUM ^TestScheduleUpperSetpoint @@ ^TestScheduleSlope @@ ^TestScheduleUpperTime @@ F* F- ^TestScheduleIntercept @! 
-67 LINE.NUM |DynoSpeed ^TestScheduleSlope @@ ^TestScheduleCurrentTime @@ F* ^TestScheduleIntercept @@ F+  $0002.. 3 ROLL !PID 
+67 LINE.NUM |ThrottleSpeed ^TestScheduleSlope @@ ^TestScheduleCurrentTime @@ F* ^TestScheduleIntercept @@ F+  $0002.. 3 ROLL !PID 
 68 LINE.NUM THEN 
-70 LINE.NUM %ScratchPad 2000 |DynoLoad  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
-71 LINE.NUM %ScratchPad 2001 |DynoSpeed  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
+70 LINE.NUM %ScratchPad 2000 |DynoSpeed  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
+71 LINE.NUM %ScratchPad 2001 |ThrottleSpeed  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
 2 JUMP ;
 : 4_17
 

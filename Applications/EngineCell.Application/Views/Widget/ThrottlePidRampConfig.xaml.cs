@@ -36,7 +36,17 @@ namespace EngineCell.Application.Views.Widget
                 PidSetpointText.Text = Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.ThrottleRampSetpoint)
                     ? Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.ThrottleRampSetpoint).Value
                     : "300";
+                PidMode.SelectedIndex = Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.ThrottleRampMode)
+                    ? Convert.ToInt32(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.ThrottleRampMode).Value)
+                    : 0;
             }
+
+            if (Widget.Settings.All(s => s.WidgetSettingId != WidgetConstants.WidgetSetting.ThrottleRampMode))
+            {
+                Widget.Settings.Add(new WidgetSettingModel() { CellTestPhaseWidgetId = Widget.CellTestPhaseWidgetId, WidgetSettingId = WidgetConstants.WidgetSetting.ThrottleRampMode, Value = "0" });
+                WidgetRepository.SaveWidgetSetting(Widget.CellTestPhaseWidgetId, WidgetConstants.WidgetSetting.ThrottleRampMode, "0");
+            }
+
 
             UpdateWidgetStatus();
         }
@@ -79,6 +89,17 @@ namespace EngineCell.Application.Views.Widget
                 WidgetStatus.Text = "Not Configured";
                 WidgetStatus.Foreground = Brushes.OrangeRed;
             }
+        }
+
+        private void PidMode_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var mode = ((ComboBox)sender).SelectedIndex;
+            if (Widget.Settings.Any(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.ThrottleRampMode))
+                Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.ThrottleRampMode).Value = mode == 0 ? WidgetConstants.DynoPidMeasurement.Rpm.ToInt().ToString() : WidgetConstants.DynoPidMeasurement.Load.ToInt().ToString();
+            else
+                Widget.Settings.Add(new WidgetSettingModel() { CellTestPhaseWidgetId = Widget.CellTestPhaseWidgetId, WidgetSettingId = WidgetConstants.WidgetSetting.ThrottleRampMode, Value = mode == 0 ? WidgetConstants.DynoPidMeasurement.Rpm.ToInt().ToString() : WidgetConstants.DynoPidMeasurement.Load.ToInt().ToString() });
+
+            WidgetRepository.SaveWidgetSetting(Widget.CellTestPhaseWidgetId, WidgetConstants.WidgetSetting.ThrottleRampMode, mode == 0 ? WidgetConstants.DynoPidMeasurement.Rpm.ToInt().ToString() : WidgetConstants.DynoPidMeasurement.Load.ToInt().ToString());
         }
     }
 }

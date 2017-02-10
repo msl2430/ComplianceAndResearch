@@ -27,7 +27,7 @@ namespace EngineCell.Application.Views.Widget
             VentCtrl1Outside.ItemsSource = Enum.GetValues(typeof(ThermoCouple)).Cast<ThermoCouple>();
             VentCtrl1Output.ItemsSource = Enum.GetValues(typeof(AnalogOutput)).Cast<AnalogOutput>();
 
-            DynoMode.ItemsSource = Enum.GetValues(typeof(WidgetConstants.DynoPidMode)).Cast<WidgetConstants.DynoPidMode>();
+            //DynoMode.ItemsSource = Enum.GetValues(typeof(WidgetConstants.DynoPidMode)).Cast<WidgetConstants.DynoPidMode>();
             DynoMeasurement.ItemsSource = Enum.GetValues(typeof(WidgetConstants.DynoPidMeasurement)).Cast<WidgetConstants.DynoPidMeasurement>();
 
             AvailableWidgets.ItemsSource = new List<string>() {"Starter", "Dyno PID", "Ventilation Control 1"};
@@ -109,7 +109,7 @@ namespace EngineCell.Application.Views.Widget
                 return; //TODO: add error message
             }
 
-            ViewModel.DynoPid.DynoMode = (WidgetConstants.DynoPidMode)DynoMode.SelectedItem;
+            //ViewModel.DynoPid.DynoMode = (WidgetConstants.DynoPidMode)DynoMode.SelectedItem;
             ViewModel.DynoPid.DynoMeasurement = (WidgetConstants.DynoPidMeasurement)DynoMeasurement.SelectedItem;
             ViewModel.DynoPid.DynoSetpoint = Convert.ToDecimal(DynoSetpoint.Text);
 

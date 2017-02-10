@@ -36,6 +36,7 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
 
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.ThrottlePidRampSetpoint.ToInt(), ViewModel.Setpoint);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.ThrottlePidRampTime.ToInt(), Convert.ToDecimal(ViewModel.Time));
+                ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.ThrottlePidMode.ToInt(), ViewModel.PidMode.ToInt());
 
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartThrottlePidWidget.ToInt(), 1);
 

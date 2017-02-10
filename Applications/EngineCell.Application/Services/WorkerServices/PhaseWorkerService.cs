@@ -6,6 +6,7 @@ using System.Windows.Threading;
 using EngineCell.Application.Factories;
 using EngineCell.Application.Views.TestDisplay;
 using EngineCell.Core.Constants;
+using EngineCell.Core.Extensions;
 using EngineCell.Models.Models;
 
 namespace EngineCell.Application.Services.WorkerServices
@@ -51,6 +52,19 @@ namespace EngineCell.Application.Services.WorkerServices
 
                 while (!CancellationToken.IsCancellationRequested)
                 {
+                    if (ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.IsHardwareSafety.ToInt()) == 1)
+                    {
+                        ApplicationSessionFactory.CurrentCellTest.IsRunning = false;
+                        foreach (var widget in ApplicationSessionFactory.CurrentPhaseRunning.Widgets)
+                        {
+                            TestDisplay.ViewModel.Phases[phaseIndex - 1].IsRunning = false;
+                            TestDisplay.ViewModel.Phases[phaseIndex - 1].EndDateTime = DateTime.Now;
+                            widget.IsRunning = false;
+                        }
+                        CancellationToken.Cancel();
+                        continue;
+                    }
+
                     if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
                     if (WaitStopWatch.ElapsedMilliseconds <= 10 || !ApplicationSessionFactory.CurrentCellTest.IsRunning) continue;
 

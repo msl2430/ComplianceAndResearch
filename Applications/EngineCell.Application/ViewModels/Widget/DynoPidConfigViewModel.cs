@@ -8,12 +8,12 @@ namespace EngineCell.Application.ViewModels.Widget
 {
     public class DynoPidConfigViewModel : BaseWidgetViewModel
     {
-        private WidgetConstants.DynoPidMode _dynoMode { get; set; }
-        public WidgetConstants.DynoPidMode DynoMode
-        {
-            get { return _dynoMode;}
-            set { _dynoMode = value; OnPropertyChanged("DynoMode"); }
-        }
+        //private WidgetConstants.DynoPidMode _dynoMode { get; set; }
+        //public WidgetConstants.DynoPidMode DynoMode
+        //{
+        //    get { return _dynoMode;}
+        //    set { _dynoMode = value; OnPropertyChanged("DynoMode"); }
+        //}
 
         private WidgetConstants.DynoPidMeasurement _dynoMeasurement { get; set; }
         public WidgetConstants.DynoPidMeasurement DynoMeasurement
@@ -31,7 +31,7 @@ namespace EngineCell.Application.ViewModels.Widget
 
         public DynoPidConfigViewModel()
         {
-            DynoMode = WidgetConstants.DynoPidMode.Motor;
+            //DynoMode = WidgetConstants.DynoPidMode.Motor;
             DynoMeasurement = WidgetConstants.DynoPidMeasurement.Rpm;
             DynoSetpoint = 0m;
             IsActive = false;

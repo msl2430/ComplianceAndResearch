@@ -5,6 +5,7 @@ using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using EngineCell.Application.Factories;
+using EngineCell.Application.Views;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
 
@@ -29,12 +30,14 @@ namespace EngineCell.Application.Services.WorkerServices
         private bool IsConnected { get; set; }
         private int ScratchPadValue { get; set; }
 
+        private MainWindow MainWindow { get; set; }
+
         public OptoConnectionWorkerService(IOptoMmpFactory optoMmpFactory, Dispatcher currentDispatcher, Label statusLabel)
         {
-
+            
         }
 
-        public OptoConnectionWorkerService(IApplicationSessionFactory applicationSessionFactory, Dispatcher currentDispatcher)
+        public OptoConnectionWorkerService(IApplicationSessionFactory applicationSessionFactory, Dispatcher currentDispatcher, MainWindow mainWindow)
         {
             Dispatcher = currentDispatcher;
             ApplicationSessionFactory = applicationSessionFactory;
@@ -42,6 +45,7 @@ namespace EngineCell.Application.Services.WorkerServices
             WaitStopWatch = new Stopwatch();
             _interval = 500;
             _successCount = 0;
+            MainWindow = mainWindow;
         }
 
         private void ToggleScratchPadConnectBit()
@@ -78,6 +82,7 @@ namespace EngineCell.Application.Services.WorkerServices
                 ToggleScratchPadConnectBit();
 
                 IsRunning = true;
+                var connectionAttempt = 0;
                 while (!CancellationToken.IsCancellationRequested)
                 {
                     if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
@@ -86,7 +91,30 @@ namespace EngineCell.Application.Services.WorkerServices
                         WaitStopWatch.Stop();
                         WaitStopWatch.Reset();
                         IsConnected = ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen;
+                        while (!IsConnected && connectionAttempt < 5)
+                        {
+                            ApplicationSessionFactory.OptoMmpFactory.OpenConnection();
+                            Thread.Sleep(250);
+                            IsConnected = ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen;
+                            connectionAttempt++;
+                        }
+
+                        if (ApplicationSessionFactory.OptoMmpFactory.OpenConnection() != 0)
+                        {
+                            ApplicationSessionFactory.LogEvent("Error connecting to Opto.", true);
+                            ApplicationSessionFactory.OptoConnectionStatus = StatusConstants.ConnectionStatus.Disconnecting;
+                            WorkCompleted();
+                            CancellationToken.Cancel();
+                            continue;
+                        }
+
                         ScratchPadValue = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.StrategyLocationValue.ToInt());
+                        if (ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.IsHardwareSafety.ToInt()) == 1)
+                        {
+                            //Hardware safety triggered
+                            ShowHardwareSafetyMessage();
+                        }
+
                         ApplicationSessionFactory.ApplicationViewModel.StatusLabel = _successMessage;
                         if (!IsConnected || ScratchPadValue == 0)
                             Dispatcher.Invoke(CallbackAction(), DispatcherPriority.Normal);
@@ -106,6 +134,24 @@ namespace EngineCell.Application.Services.WorkerServices
                     ApplicationSessionFactory.OptoMmpFactory.CloseConnection();
                 }
             }
+        }
+
+        private void ShowHardwareSafetyMessage()
+        {
+            if (ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.ThrottleLoadSafety.ToInt()) == 1)
+                MainWindow.ShowHardwareSafetyError(ScratchPadConstants.IntegerIndexes.ThrottleLoadSafety);
+            if (ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.ThrottleSpeedSafety.ToInt()) == 1)
+                MainWindow.ShowHardwareSafetyError(ScratchPadConstants.IntegerIndexes.ThrottleSpeedSafety);
+            if (ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.DynoLoadSafety.ToInt()) == 1)
+                MainWindow.ShowHardwareSafetyError(ScratchPadConstants.IntegerIndexes.DynoLoadSafety);
+            if (ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.ExhaustSafety.ToInt()) == 1)
+                MainWindow.ShowHardwareSafetyError(ScratchPadConstants.IntegerIndexes.ExhaustSafety);
+            if (ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.EngineRpmSafety.ToInt()) == 1)
+                MainWindow.ShowHardwareSafetyError(ScratchPadConstants.IntegerIndexes.EngineRpmSafety);
+            if (ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.ThrottleSpeedPressureSafety.ToInt()) == 1)
+                MainWindow.ShowHardwareSafetyError(ScratchPadConstants.IntegerIndexes.ThrottleSpeedPressureSafety);
+            if (ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.StarterCrankSafety.ToInt()) == 1)
+                MainWindow.ShowHardwareSafetyError(ScratchPadConstants.IntegerIndexes.StarterCrankSafety);
         }
 
         private Action CallbackAction()

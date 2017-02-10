@@ -38,6 +38,12 @@ namespace EngineCell.Application.Services.WorkerServices
                 ScratchPadValues = new List<IScratchPadModel<decimal>>();
                 while (!CancellationToken.IsCancellationRequested)
                 {
+                    if (ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.IsHardwareSafety.ToInt()) == 1)
+                    {
+                        CancellationToken.Cancel();
+                        continue;
+                    }
+
                     if (!WaitStopWatch.IsRunning) WaitStopWatch.Start();
                     if (WaitStopWatch.ElapsedMilliseconds <= 10) continue;
 

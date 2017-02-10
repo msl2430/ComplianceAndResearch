@@ -98,7 +98,7 @@ namespace EngineCell.Application.Views
             //ChangePageView(MainWindowViewModel.PhaseConfigViewModel);
 
             DataContext = MainWindowViewModel;
-            OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher);
+            OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher, this);
             PointWorkerService = new PointWorkerService(MainWindowViewModel.TestDisplayViewModel, Dispatcher);
 
             ToggleLogWindow(Properties.Settings.Default.IsLogVisible);            
@@ -265,6 +265,39 @@ namespace EngineCell.Application.Views
             ApplicationSessionFactory.CurrentCellTest.Description = dialog.NewTestDescription;
             UpdateTestName(ApplicationSessionFactory.CurrentCellTest.Name);
             CellPointRepository.UpdateCellTestName(ApplicationSessionFactory.CurrentCellTest.CellTestId, ApplicationSessionFactory.CurrentCellTest.Name, ApplicationSessionFactory.CurrentCellTest.Description);
+        }
+
+        public void ShowHardwareSafetyError(ScratchPadConstants.IntegerIndexes error)
+        {
+            string msg;
+            switch (error)
+            {
+                case ScratchPadConstants.IntegerIndexes.ThrottleLoadSafety:
+                    msg = "Throttle Load Safety Trigger Activated";
+                    break;
+                case ScratchPadConstants.IntegerIndexes.ThrottleSpeedSafety:
+                    msg = "Throttle Speed Safety Trigger Activated";
+                    break;
+                case ScratchPadConstants.IntegerIndexes.DynoLoadSafety:
+                    msg = "Dyno Load Safety Trigger Activated";
+                    break;
+                case ScratchPadConstants.IntegerIndexes.ExhaustSafety:
+                    msg = "Exhaust Safety Trigger Activated";
+                    break;
+                case ScratchPadConstants.IntegerIndexes.EngineRpmSafety:
+                    msg = "Engine RPM Safety Trigger Activated";
+                    break;
+                case ScratchPadConstants.IntegerIndexes.ThrottleSpeedPressureSafety:
+                    msg = "Throttle Speed Safety Trigger Activated";
+                    break;
+                case ScratchPadConstants.IntegerIndexes.StarterCrankSafety:
+                    msg = "Starter Crank Safety Trigger Activated";
+                    break;
+                default:
+                    msg = "Critical Error Occured!";
+                    break;
+            }
+            MessageBox.Show(msg, "Hardware Safety Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         #endregion
 

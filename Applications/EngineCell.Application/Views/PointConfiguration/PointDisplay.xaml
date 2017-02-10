@@ -23,7 +23,7 @@
         </Grid.ColumnDefinitions>
         <Grid Column="0">
           <StackPanel Orientation="Horizontal">
-            <Label VerticalAlignment="Center" FontSize="10" Width="75" HorizontalContentAlignment="Center" Content="{Binding Path=PointName}" Margin="0"></Label>
+            <Label VerticalAlignment="Center" FontSize="10" Width="90" HorizontalContentAlignment="Center" Content="{Binding Path=PointName}" Margin="0"></Label>
             <Button Name="ConfigPoint" Width="25" Height="15" Margin="3,0,0,0" Click="ConfigSettings">
                 <Rectangle Width="15" Height="15" Fill="{StaticResource DarkBlueBrush}">
                     <Rectangle.OpacityMask>
@@ -31,7 +31,7 @@
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
-            <TextBox IsUndoEnabled="False" Text="{Binding Path=CustomName, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="7,0,0,0" Width="100" FontSize="10" 
+            <TextBox IsUndoEnabled="False" Text="{Binding Path=CustomName, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="7,0,0,0" Width="85" FontSize="10" 
                 LostFocus="UpdateTextPoint" TextChanged="MarkAsDirty"></TextBox>
               <Grid Visibility="{Binding Path=IsDisplayActive, Converter={ StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
                 <TextBox IsUndoEnabled="False" IsReadOnly="True" Text="{Binding Path=Data}" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Right" Visibility="{Binding Path=IsDisplayValue, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"></TextBox>

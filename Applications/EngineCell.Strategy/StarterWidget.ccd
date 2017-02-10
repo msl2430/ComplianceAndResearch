@@ -56,15 +56,15 @@
 1 1 LINE.NUM ^StarterRetryCount @@I 1 + 1 DO? I ^StarterAttempt @! 
 2 LINE.NUM %ScratchPad 3408 ~Volt0 @@ 1000 I>F F*  IO.SP.F.WRITE DROP  
 3 LINE.NUM %ScratchPad 3404 ^StarterAttempt @@  IO.SP.I.WRITE DROP  
-5 LINE.NUM ~Dyno0  ON 
+5 LINE.NUM ~DigitalOut0  ON 
 6 LINE.NUM %ScratchPad 3405 1  IO.SP.I.WRITE DROP  
 8 LINE.NUM ^StarterCrankTimer  StartTimer 
 9 LINE.NUM BEGIN ^StarterCrankTimer @@F ^StarterCrankTime @@ F< ~Volt0 @@ 1000 I>F F* ^StarterStartRpm @@ F< LAND  ^StarterStart @@ 0 > LAND  WHILE 
 11 LINE.NUM %ScratchPad 3402 ^StarterStart @@  IO.SP.I.WRITE DROP  
-12 LINE.NUM ~Dyno0  ON 
+12 LINE.NUM ~DigitalOut0  ON 
 13 LINE.NUM 100  DELAY 
 14 LINE.NUM REPEAT 
-15 LINE.NUM ~Dyno0  OFF 
+15 LINE.NUM ~DigitalOut0  OFF 
 16 LINE.NUM %ScratchPad 3405 0  IO.SP.I.WRITE DROP  
 17 LINE.NUM ^StarterCrankTimer  StopTimer 
 19 LINE.NUM ~Freq0  FREQ@I I>F  ^StarterStartRpm @@ F>= ^StarterStart @@ 0 = LOR  IF 

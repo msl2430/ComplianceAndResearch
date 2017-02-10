@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using EngineCell.Application.ViewModels;
 using EngineCell.Application.ViewModels.Widget;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
@@ -41,6 +36,7 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
 
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.DynoPidRampSetpoint.ToInt(), ViewModel.Setpoint);
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.FloatIndexes.DynoPidRampTime.ToInt(), Convert.ToDecimal(ViewModel.Time));
+                ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.DynoPidWidgetMode.ToInt(), ViewModel.PidMode.ToInt());
 
                 ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartDynoPidWidget.ToInt(), 1);
 

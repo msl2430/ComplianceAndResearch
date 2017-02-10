@@ -19,7 +19,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                 OnPropertyChanged("HasThermoCouples");
             }
         }
-        public bool HasThermoCouples { get { return ThermoCouples.IsNotNullOrEmpty(); } }
+        public bool HasThermoCouples => ThermoCouples.IsNotNullOrEmpty();
 
         private ObservableCollection<PointDataModel> _volts { get; set; }
         public ObservableCollection<PointDataModel> Volts
@@ -33,7 +33,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                 OnPropertyChanged("HasVoltsMilliAmpsHarts");
             }
         }
-        public bool HasVolts { get { return Volts.IsNotNullOrEmpty(); } }
+        public bool HasVolts => Volts.IsNotNullOrEmpty();
 
         private ObservableCollection<PointDataModel> _milliAmps { get; set; }
         public ObservableCollection<PointDataModel> MilliAmps
@@ -47,7 +47,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                 OnPropertyChanged("HasVoltsMilliAmpsHarts");
             }
         }
-        public bool HasMilliAmps { get { return MilliAmps.IsNotNullOrEmpty(); } }
+        public bool HasMilliAmps => MilliAmps.IsNotNullOrEmpty();
 
         private ObservableCollection<PointDataModel> _harts { get; set; }
         public ObservableCollection<PointDataModel> Harts
@@ -61,7 +61,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                 OnPropertyChanged("HasVoltsMilliAmpsHarts");
             }
         }
-        public bool HasHarts { get { return Harts.IsNotNullOrEmpty(); } }
+        public bool HasHarts => Harts.IsNotNullOrEmpty();
 
         private ObservableCollection<PointDataModel> _analogOutputs { get; set; }
         public ObservableCollection<PointDataModel> AnalogOutputs
@@ -74,59 +74,20 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                 OnPropertyChanged("HasAnalogOutputs");
             }
         }
-        public bool HasAnalogOutputs { get { return AnalogOutputs.IsNotNullOrEmpty(); } }
+        public bool HasAnalogOutputs => AnalogOutputs.IsNotNullOrEmpty();
 
-        private ObservableCollection<PointDataModel> _dynos { get; set; }
-        public ObservableCollection<PointDataModel> Dynos
+        private ObservableCollection<PointDataModel> _digitalOuts { get; set; }
+        public ObservableCollection<PointDataModel> DigitalOuts
         {
-            get { return _dynos; }
+            get { return _digitalOuts; }
             set
             {
-                _dynos = value;
-                OnPropertyChanged("Dynos");
-                OnPropertyChanged("HasDynos");
+                _digitalOuts = value;
+                OnPropertyChanged("DigitalOuts");
+                OnPropertyChanged("HasDigitalOuts");
             }
         }
-        public bool HasDynos { get { return Dynos.IsNotNullOrEmpty(); } }
-
-        private ObservableCollection<PointDataModel> _engines { get; set; }
-        public ObservableCollection<PointDataModel> Engines
-        {
-            get { return _engines; }
-            set
-            {
-                _engines = value;
-                OnPropertyChanged("Engines");
-                OnPropertyChanged("HasEngines");
-            }
-        }
-        public bool HasEngines { get { return Engines.IsNotNullOrEmpty(); } }
-
-        private ObservableCollection<PointDataModel> _fuels { get; set; }
-        public ObservableCollection<PointDataModel> Fuels
-        {
-            get { return _fuels; }
-            set
-            {
-                _fuels = value;
-                OnPropertyChanged("Fuels");
-                OnPropertyChanged("HasFuels");
-            }
-        }
-        public bool HasFuels { get { return Fuels.IsNotNullOrEmpty(); } }
-
-        private ObservableCollection<PointDataModel> _miscs { get; set; }
-        public ObservableCollection<PointDataModel> Miscs
-        {
-            get { return _miscs; }
-            set
-            {
-                _miscs = value;
-                OnPropertyChanged("Miscs");
-                OnPropertyChanged("HasMiscs");
-            }
-        }
-        public bool HasMiscs { get { return Miscs.IsNotNullOrEmpty(); } }
+        public bool HasDigitalOuts => DigitalOuts.IsNotNullOrEmpty();
 
         private ObservableCollection<PointDataModel> _freqs { get; set; }
         public ObservableCollection<PointDataModel> Freqs
@@ -139,35 +100,22 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                 OnPropertyChanged("HasFreqs");
             }
         }
-        public bool HasFreqs { get { return Freqs.IsNotNullOrEmpty(); } }
+        public bool HasFreqs => Freqs.IsNotNullOrEmpty();
 
-        private ObservableCollection<PointDataModel> _dynoIn { get; set; }
-        public ObservableCollection<PointDataModel> DynoIn
+        private ObservableCollection<PointDataModel> _digitalIns { get; set; }
+        public ObservableCollection<PointDataModel> DigitalIns
         {
-            get { return _dynoIn; }
+            get { return _digitalIns; }
             set
             {
-                _dynoIn = value;
-                OnPropertyChanged("DynoIn");
-                OnPropertyChanged("HasDynoIn");
+                _digitalIns = value;
+                OnPropertyChanged("DigitalIns");
+                OnPropertyChanged("HasDigitalIns");
             }
         }
-        public bool HasDynoIn { get { return DynoIn.IsNotNullOrEmpty(); } }
+        public bool HasDigitalIns => DigitalIns.IsNotNullOrEmpty();
 
-        private ObservableCollection<PointDataModel> _engineIn { get; set; }
-        public ObservableCollection<PointDataModel> EngineIn
-        {
-            get { return _engineIn; }
-            set
-            {
-                _engineIn = value;
-                OnPropertyChanged("EngineIn");
-                OnPropertyChanged("HasEngineIn");
-            }
-        }
-        public bool HasEngineIn { get { return EngineIn.IsNotNullOrEmpty(); } }
-
-        public bool HasVoltsMilliAmpsHarts { get { return Volts.IsNotNullOrEmpty() || MilliAmps.IsNotNullOrEmpty() || Harts.IsNotNullOrEmpty(); } }
+        public bool HasVoltsMilliAmpsHarts => Volts.IsNotNullOrEmpty() || MilliAmps.IsNotNullOrEmpty() || Harts.IsNotNullOrEmpty();
 
         public PointConfigurationViewModel(IApplicationSessionFactory appSession)
         {
@@ -178,13 +126,9 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             MilliAmps = new ObservableCollection<PointDataModel>();
             Harts = new ObservableCollection<PointDataModel>();
             AnalogOutputs = new ObservableCollection<PointDataModel>();
-            Dynos = new ObservableCollection<PointDataModel>();
-            Engines = new ObservableCollection<PointDataModel>();
-            Fuels = new ObservableCollection<PointDataModel>();
-            Miscs = new ObservableCollection<PointDataModel>();
+            DigitalOuts = new ObservableCollection<PointDataModel>();           
             Freqs = new ObservableCollection<PointDataModel>();
-            DynoIn = new ObservableCollection<PointDataModel>();
-            EngineIn = new ObservableCollection<PointDataModel>();
+            DigitalIns = new ObservableCollection<PointDataModel>();
 
             if (appSession.CellPoints.IsNullOrEmpty())
                 return;
@@ -199,26 +143,18 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             MilliAmps.Clear();
             Harts.Clear();
             AnalogOutputs.Clear();
-            Dynos.Clear();
-            Engines.Clear();
-            Fuels.Clear();
-            Miscs.Clear();
+            DigitalOuts.Clear();          
             Freqs.Clear();
-            DynoIn.Clear();
-            EngineIn.Clear();
+            DigitalIns.Clear();
 
             var tempThermoCouples = new ObservableCollection<PointDataModel>();
             var tempVolts  = new ObservableCollection<PointDataModel>();
             var tempMilliAmps = new ObservableCollection<PointDataModel>();
             var tempHarts = new ObservableCollection<PointDataModel>();
             var tempAnalogOutputs = new ObservableCollection<PointDataModel>();
-            var tempDynos = new ObservableCollection<PointDataModel>();
-            var tempEngines = new ObservableCollection<PointDataModel>();
-            var tempFuels = new ObservableCollection<PointDataModel>();
-            var tempMiscs = new ObservableCollection<PointDataModel>();
+            var tempDigitalOuts = new ObservableCollection<PointDataModel>();          
             var tempFreqs = new ObservableCollection<PointDataModel>();
-            var tempDynoIn = new ObservableCollection<PointDataModel>();
-            var tempEngineIn = new ObservableCollection<PointDataModel>();
+            var tempDigitalIns = new ObservableCollection<PointDataModel>();
 
             foreach (var point in ApplicationSessionFactory.CellPoints)
             {
@@ -239,26 +175,14 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                     case PointGroup.AnalogOutput:
                         tempAnalogOutputs.Add(point);
                         break;
-                    case PointGroup.Dyno:
-                        tempDynos.Add(point);
-                        break;
-                    case PointGroup.Engine:
-                        tempEngines.Add(point);
-                        break;
-                    case PointGroup.Fuel:
-                        tempFuels.Add(point);
-                        break;
-                    case PointGroup.Misc:
-                        tempMiscs.Add(point);
+                    case PointGroup.DigitalOutput:
+                        tempDigitalOuts.Add(point);                      
                         break;
                     case PointGroup.Frequency:
                         tempFreqs.Add(point);
                         break;
-                    case PointGroup.DynoIn:
-                        tempDynoIn.Add(point);
-                        break;
-                    case PointGroup.EngineIn:
-                        tempEngineIn.Add(point);
+                    case PointGroup.DigitalInput:
+                        tempDigitalIns.Add(point);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -270,13 +194,9 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             MilliAmps = tempMilliAmps;
             Harts = tempHarts;
             AnalogOutputs = tempAnalogOutputs;
-            Dynos = tempDynos;
-            Engines = tempEngines;
-            Fuels = tempFuels;
-            Miscs = tempMiscs;
+            DigitalOuts = tempDigitalOuts;
             Freqs = tempFreqs;
-            DynoIn = tempDynoIn;
-            EngineIn = tempEngineIn;
+            DigitalIns = tempDigitalIns;
         }
 
         public void UpdateViewModel()

@@ -67,26 +67,14 @@ namespace EngineCell.Application.ViewModels.Welcome
                     case PointGroup.AnalogOutput:
                         tempPoints.Add(string.Format("Analog Outputs ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
                         break;
-                    case PointGroup.Dyno:
-                        tempPoints.Add(string.Format("Dyno ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
-                        break;
-                    case PointGroup.Engine:
-                        tempPoints.Add(string.Format("Engine ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
-                        break;
-                    case PointGroup.Fuel:
-                        tempPoints.Add(string.Format("Fuel ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
-                        break;
-                    case PointGroup.Misc:
-                        tempPoints.Add(string.Format("Miscellaneous ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
-                        break;
+                    case PointGroup.DigitalOutput:
+                        tempPoints.Add(string.Format("Digital Outputs ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
+                        break;                    
                     case PointGroup.Frequency:
                         tempPoints.Add(string.Format("Frequency ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
                         break;
-                    case PointGroup.DynoIn:
-                        tempPoints.Add(string.Format("Dyno Input ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
-                        break;
-                    case PointGroup.EngineIn:
-                        tempPoints.Add(string.Format("Engine Input ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
+                    case PointGroup.DigitalInput:
+                        tempPoints.Add(string.Format("Digital Inputs ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
