@@ -46,6 +46,7 @@ _END NEW $$$.RUN
 0 IVAR ^gIndex
 0 FVAR ^gTest
 0 IVAR ^IsApplicationConnected
+0 IVAR ^IsEngineStarted
 0 IVAR ^IsHardwareSafetyTriggered
 0 IVAR ^IsStartDataCollect
 0 IVAR ^IsStartTest
@@ -63,6 +64,7 @@ _END NEW $$$.RUN
 0 FVAR ^StarterRetryWaitTime
 0 IVAR ^StarterStart
 0 FVAR ^StarterStartRpm
+0 FVAR ^TempLoadCell
 0 FVAR ^TestScheduleCurrentTime
 0 FVAR ^TestScheduleIntercept
 0 FVAR ^TestScheduleLowerSetpoint
@@ -96,6 +98,8 @@ _END NEW $$$.RUN
 0 IVAR ^VentCtrl1Status
 0 FVAR ^VentCtrl1Weighted
 32 0 $VAR *StrategyRunTime 
+8 0 ITABLE }CurrentTime
+8 0 ITABLE }EngineStartTime
 nullPID 0 POINTER PTR_DynoRampWidgetPid
 nullPID 0 POINTER PTR_PidConfigSelection
 nullPID 0 POINTER PTR_ThrottleRampWidgetPid
@@ -192,10 +196,11 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A80
 32  1 SPOINT 0.0     INPUT 13 12 %EngineCell 0 POINT.TNG ~DigitalIn13
 32  1 SPOINT 0.0     INPUT 14 12 %EngineCell 0 POINT.TNG ~DigitalIn14
 32  1 SPOINT 0.0     INPUT 15 12 %EngineCell 0 POINT.TNG ~DigitalIn15
- 4  1 SPOINT 0.0      FREQ  0 13 %EngineCell 0 POINT.TNG ~Freq0
- 4  1 SPOINT 0.0      FREQ  1 13 %EngineCell 0 POINT.TNG ~Freq1
- 4  1 SPOINT 0.0      FREQ  2 13 %EngineCell 0 POINT.TNG ~Freq2
- 4  1 SPOINT 0.0      FREQ  3 13 %EngineCell 0 POINT.TNG ~Freq3
+ 2  1 APOINT -100.0000 34  0 13 %EngineCell 0 POINT.TNG ~LC_BandStop
+ 2  1 APOINT -100.0000 0  1 13 %EngineCell 0 POINT.TNG ~LC_BandPass
+ 100.0000 -100.0000 ~LC_BandPass SET.SCALE
+ 2  1 APOINT    0.0000 69  0 14 %EngineCell 0 POINT.TNG ~Freq0
+ 2  1 APOINT    0.0000 69  1 14 %EngineCell 0 POINT.TNG ~Freq1
 nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
 3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
    1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
@@ -205,17 +210,17 @@ $80000000 7 %EngineCell 0 PID |Custom3
    1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
 ~AO10_1 ~AO10_1 ~AO10_1
 $80000000 8 %EngineCell 0 PID |Custom4
-5    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000  -20.0000  550.0000
+5    4.0000   20.0000    0.0000    0.0000    4.0000   20.0000  -20.0000  550.0000
    0.1000    0.0000    0.0000    0.2000   -0.2000    0.0100
-   0.0000 ~ThermoCouple19 ~AO10_0
+   0.0000 ~LC_BandPass ~AO4_20_2
 $90000002 0 %EngineCell 0 PID |DynoLoad
-3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000 -100.0000 6000.0000
+3    4.0000   20.0000    0.0000    0.0000    4.0000   20.0000 -100.0000 6000.0000
    0.1000    0.0000    0.0000    0.1000    0.1000    0.0100
-   0.0000 ~Volt0 ~AO10_0
+   0.0000 ~Freq0 ~AO4_20_2
 $90000002 1 %EngineCell 0 PID |DynoSpeed
 3   20.0000   20.0000    0.0000    0.0000    4.0000   20.0000    0.0000   65.0000
    2.0000    0.0000    0.0000    1.0000    0.0250   10.0000
-   0.0000 ~ThermoCouple5 ~AO4_20_2
+   0.0000 ~ThermoCouple5 ~AO4_20_3
 $90000002 6 %EngineCell 0 PID |DynoTemp
 3   20.0000   20.0000    0.0000    0.0000    4.0000   20.0000    0.0000  200.0000
    1.0000    0.0000    0.0000    1.5000    0.0500   10.0000
@@ -227,11 +232,11 @@ $90000002 4 %EngineCell 0 PID |Intercooler
 $90000002 5 %EngineCell 0 PID |Oil
 5    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000  -20.0000  550.0000
    0.1000    0.0000    0.0000    0.0180   -0.0500    0.0005
-   0.0000 ~AO10_0 ~AO10_1
+   0.0000 ~LC_BandPass ~AO10_1
 $90000002 2 %EngineCell 0 PID |ThrottleLoad
 5    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000 -100.0000 6000.0000
    0.1000    0.0000    0.0000    0.0500   -0.0040    0.0005
-   0.0000 ~Volt0 ~AO10_1
+   0.0000 ~Freq0 ~AO10_1
 $90000002 3 %EngineCell 0 PID |ThrottleSpeed
 : 5_0
 
@@ -474,26 +479,27 @@ T;
 72 LINE.NUM %ScratchPad 1067 ~DigitalOut29 @@I I>F  IO.SP.F.WRITE DROP  
 73 LINE.NUM %ScratchPad 1068 ~DigitalOut30 @@I I>F  IO.SP.F.WRITE DROP  
 74 LINE.NUM %ScratchPad 1069 ~DigitalOut31 @@I I>F  IO.SP.F.WRITE DROP  
-75 LINE.NUM %ScratchPad 1070 ~Freq0 @@I I>F  IO.SP.F.WRITE DROP  
-76 LINE.NUM %ScratchPad 1071 ~Freq1 @@I I>F  IO.SP.F.WRITE DROP  
-77 LINE.NUM %ScratchPad 1072 ~Freq2 @@I I>F  IO.SP.F.WRITE DROP  
-78 LINE.NUM %ScratchPad 1073 ~Freq3 @@I I>F  IO.SP.F.WRITE DROP  
-80 LINE.NUM %ScratchPad 1074 ~DigitalIn0 @@I I>F  IO.SP.F.WRITE DROP  
-81 LINE.NUM %ScratchPad 1075 ~DigitalIn1 @@I I>F  IO.SP.F.WRITE DROP  
-82 LINE.NUM %ScratchPad 1076 ~DigitalIn2 @@I I>F  IO.SP.F.WRITE DROP  
-83 LINE.NUM %ScratchPad 1077 ~DigitalIn3 @@I I>F  IO.SP.F.WRITE DROP  
-84 LINE.NUM %ScratchPad 1078 ~DigitalIn4 @@I I>F  IO.SP.F.WRITE DROP  
-85 LINE.NUM %ScratchPad 1079 ~DigitalIn5 @@I I>F  IO.SP.F.WRITE DROP  
-86 LINE.NUM %ScratchPad 1080 ~DigitalIn6 @@I I>F  IO.SP.F.WRITE DROP  
-87 LINE.NUM %ScratchPad 1081 ~DigitalIn7 @@I I>F  IO.SP.F.WRITE DROP  
-88 LINE.NUM %ScratchPad 1082 ~DigitalIn8 @@I I>F  IO.SP.F.WRITE DROP  
-89 LINE.NUM %ScratchPad 1083 ~DigitalIn9 @@I I>F  IO.SP.F.WRITE DROP  
-90 LINE.NUM %ScratchPad 1084 ~DigitalIn10 @@I I>F  IO.SP.F.WRITE DROP  
-91 LINE.NUM %ScratchPad 1085 ~DigitalIn11 @@I I>F  IO.SP.F.WRITE DROP  
-92 LINE.NUM %ScratchPad 1086 ~DigitalIn12 @@I I>F  IO.SP.F.WRITE DROP  
-93 LINE.NUM %ScratchPad 1087 ~DigitalIn13 @@I I>F  IO.SP.F.WRITE DROP  
-94 LINE.NUM %ScratchPad 1088 ~DigitalIn14 @@I I>F  IO.SP.F.WRITE DROP  
-95 LINE.NUM %ScratchPad 1089 ~DigitalIn15 @@I I>F  IO.SP.F.WRITE DROP  
+75 LINE.NUM %ScratchPad 1070 ~Freq0 @@  IO.SP.F.WRITE DROP  
+76 LINE.NUM %ScratchPad 1071 ~Freq1 @@  IO.SP.F.WRITE DROP  
+77 LINE.NUM %ScratchPad 1072 ~LC_BandStop @@  IO.SP.F.WRITE DROP  
+78 LINE.NUM %ScratchPad 1073 ~LC_BandPass @@  IO.SP.F.WRITE DROP  
+79 LINE.NUM ~LC_BandPass @@ ^TempLoadCell @! 
+81 LINE.NUM %ScratchPad 1074 ~DigitalIn0 @@I I>F  IO.SP.F.WRITE DROP  
+82 LINE.NUM %ScratchPad 1075 ~DigitalIn1 @@I I>F  IO.SP.F.WRITE DROP  
+83 LINE.NUM %ScratchPad 1076 ~DigitalIn2 @@I I>F  IO.SP.F.WRITE DROP  
+84 LINE.NUM %ScratchPad 1077 ~DigitalIn3 @@I I>F  IO.SP.F.WRITE DROP  
+85 LINE.NUM %ScratchPad 1078 ~DigitalIn4 @@I I>F  IO.SP.F.WRITE DROP  
+86 LINE.NUM %ScratchPad 1079 ~DigitalIn5 @@I I>F  IO.SP.F.WRITE DROP  
+87 LINE.NUM %ScratchPad 1080 ~DigitalIn6 @@I I>F  IO.SP.F.WRITE DROP  
+88 LINE.NUM %ScratchPad 1081 ~DigitalIn7 @@I I>F  IO.SP.F.WRITE DROP  
+89 LINE.NUM %ScratchPad 1082 ~DigitalIn8 @@I I>F  IO.SP.F.WRITE DROP  
+90 LINE.NUM %ScratchPad 1083 ~DigitalIn9 @@I I>F  IO.SP.F.WRITE DROP  
+91 LINE.NUM %ScratchPad 1084 ~DigitalIn10 @@I I>F  IO.SP.F.WRITE DROP  
+92 LINE.NUM %ScratchPad 1085 ~DigitalIn11 @@I I>F  IO.SP.F.WRITE DROP  
+93 LINE.NUM %ScratchPad 1086 ~DigitalIn12 @@I I>F  IO.SP.F.WRITE DROP  
+94 LINE.NUM %ScratchPad 1087 ~DigitalIn13 @@I I>F  IO.SP.F.WRITE DROP  
+95 LINE.NUM %ScratchPad 1088 ~DigitalIn14 @@I I>F  IO.SP.F.WRITE DROP  
+96 LINE.NUM %ScratchPad 1089 ~DigitalIn15 @@I I>F  IO.SP.F.WRITE DROP  
 -2 JUMP ;
 : 1_13
 1 LINE.NUM %ScratchPad 300 ^OutputConfigValue   IO.SP.READ DROP  
@@ -801,38 +807,47 @@ T;
 
 1 LINE.NUM
   100    DELAY
-4 JUMP ;
+3 JUMP ;
 : 13_1
-2 LINE.NUM ~ThermoCouple0 @@ 145 I>F F> IF 
-3 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
-4 LINE.NUM %ScratchPad 9000 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
-5 LINE.NUM THEN 
-7 LINE.NUM ~ThermoCouple2 @@ 165 I>F F> IF 
-8 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
-9 LINE.NUM %ScratchPad 9001 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
-10 LINE.NUM THEN 
-12 LINE.NUM ~ThermoCouple4 @@ 60 I>F F> ~ThermoCouple5 @@ 60 I>F F> LOR  IF 
-13 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
-14 LINE.NUM %ScratchPad 9002 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
-15 LINE.NUM THEN 
-17 LINE.NUM ~ThermoCouple10 @@ 850 I>F F> IF 
-18 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
-19 LINE.NUM %ScratchPad 9003 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
-20 LINE.NUM THEN 
-22 LINE.NUM ~Volt0 @@ 6000 I>F F> IF 
-23 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
-24 LINE.NUM %ScratchPad 9004 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
-25 LINE.NUM THEN 
-34 LINE.NUM ~DigitalOut0 @@I 0 <> ~Volt0 @@ 400 I>F F> LAND  IF 
-35 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
-36 LINE.NUM %ScratchPad 9006 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
-37 LINE.NUM THEN 
-39 LINE.NUM ^IsHardwareSafetyTriggered @@ 1 = IF 
-40 LINE.NUM %ScratchPad 9999 1  IO.SP.I.WRITE DROP  
+1 LINE.NUM ^IsEngineStarted @@ 1 = IF 
+3 LINE.NUM ~ThermoCouple0 @@ 145 I>F F> ~ThermoCouple0 @@ 0 I>F F< LOR  IF 
+4 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+5 LINE.NUM %ScratchPad 9000 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+6 LINE.NUM THEN 
+8 LINE.NUM ~ThermoCouple2 @@ 165 I>F F> ~ThermoCouple2 @@ 0 I>F F< LOR  IF 
+9 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+10 LINE.NUM %ScratchPad 9001 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+11 LINE.NUM THEN 
+13 LINE.NUM ~ThermoCouple4 @@ 60 I>F F> ~ThermoCouple5 @@ 60 I>F F> LOR  ~ThermoCouple4 @@ 0 I>F F< LOR  ~ThermoCouple5 @@ 0 I>F F< LOR  IF 
+14 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+15 LINE.NUM %ScratchPad 9002 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+16 LINE.NUM THEN 
+18 LINE.NUM ~ThermoCouple10 @@ 850 I>F F> ~ThermoCouple10 @@ 0 I>F F< LOR  IF 
+19 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+20 LINE.NUM %ScratchPad 9003 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+21 LINE.NUM THEN 
+23 LINE.NUM ~Freq0 @@ 6000 I>F F> IF 
+24 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+25 LINE.NUM %ScratchPad 9004 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+26 LINE.NUM THEN 
+28 LINE.NUM }CurrentTime  DATE-TIME@ DROP  
+29 LINE.NUM ~Volt1 @@ 8 I>F F< ~Volt1 @@ 100 I>F F> LOR  0 }CurrentTime TABLE@ 0 }EngineStartTime TABLE@ > 1 }CurrentTime TABLE@ 1 }EngineStartTime TABLE@ > LOR  2 }CurrentTime TABLE@ 2 }EngineStartTime TABLE@ > LOR  4 }CurrentTime TABLE@ 4 }EngineStartTime TABLE@ > LOR  5 }CurrentTime TABLE@ 5 }EngineStartTime TABLE@ > LOR  6 }CurrentTime TABLE@ 6 }EngineStartTime TABLE@ 5 +  > LOR  LAND  IF 
+33 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+34 LINE.NUM %ScratchPad 9005 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+35 LINE.NUM THEN 
+37 LINE.NUM ~DigitalOut0 @@I 0 <> ~Freq0 @@ 400 I>F F> LAND  IF 
+38 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+39 LINE.NUM %ScratchPad 9006 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+40 LINE.NUM THEN 
 41 LINE.NUM ELSE 
-42 LINE.NUM %ScratchPad 9999 0  IO.SP.I.WRITE DROP  
+42 LINE.NUM 0 ^IsHardwareSafetyTriggered @! 
 43 LINE.NUM THEN 
-2 JUMP ;
+45 LINE.NUM ^IsHardwareSafetyTriggered @@ 1 = IF 
+46 LINE.NUM %ScratchPad 9999 1  IO.SP.I.WRITE DROP  
+47 LINE.NUM ELSE 
+48 LINE.NUM %ScratchPad 9999 0  IO.SP.I.WRITE DROP  
+49 LINE.NUM THEN 
+3 JUMP ;
 : 13_3
 -3 JUMP ;
 : 13_9
@@ -870,6 +885,17 @@ T;
 33 LINE.NUM ~DigitalOut30  OFF 
 34 LINE.NUM ~DigitalOut31  OFF 
 -2 JUMP ;
+: 13_18
+1 LINE.NUM ~Freq0 @@ 300 I>F F< IF 
+2 LINE.NUM 1 ^IsEngineStarted @! 
+3 LINE.NUM }EngineStartTime  DATE-TIME@ DROP  
+4 LINE.NUM ELSE 
+5 LINE.NUM 0 ^IsEngineStarted @! 
+1 6 LINE.NUM 8 1 + 0 DO? I ^gIndex @! 
+7 LINE.NUM 0 ^gIndex @@ }EngineStartTime TABLE! 
+8 LINE.NUM 1 +LOOP 
+9 LINE.NUM THEN 
+-4 JUMP ;
 : 13_5
 TRUE
 
@@ -877,23 +903,15 @@ TRUE
   ^IsHardwareSafetyTriggered @@ 
   1    =
 LAND
-IF -2 ELSE -3 THEN JUMP ;
-: 13_12
-TRUE
-
-1 LINE.NUM
-  ^IsTestRunning @@ 
-  1    =
-LAND
-IF -5 ELSE -6 THEN JUMP ;
+IF -3 ELSE -4 THEN JUMP ;
 T: T13
 DUMMY
 13_0
 13_1
 13_3
 13_9
+13_18
 13_5
-13_12
 T;
 &HardwareSafety ' T13 SETTASK
 : 2_0
@@ -1844,12 +1862,12 @@ T;
 4 JUMP ;
 : 11_8
 1 1 LINE.NUM ^StarterRetryCount @@I 1 + 1 DO? I ^StarterAttempt @! 
-2 LINE.NUM %ScratchPad 3408 ~Volt0 @@ 1000 I>F F*  IO.SP.F.WRITE DROP  
+2 LINE.NUM %ScratchPad 3408 ~Freq0 @@  IO.SP.F.WRITE DROP  
 3 LINE.NUM %ScratchPad 3404 ^StarterAttempt @@  IO.SP.I.WRITE DROP  
 5 LINE.NUM ~DigitalOut0  ON 
 6 LINE.NUM %ScratchPad 3405 1  IO.SP.I.WRITE DROP  
 8 LINE.NUM ^StarterCrankTimer  StartTimer 
-9 LINE.NUM BEGIN ^StarterCrankTimer @@F ^StarterCrankTime @@ F< ~Volt0 @@ 1000 I>F F* ^StarterStartRpm @@ F< LAND  ^StarterStart @@ 0 > LAND  WHILE 
+9 LINE.NUM BEGIN ^StarterCrankTimer @@F ^StarterCrankTime @@ F< ~Freq0 @@ ^StarterStartRpm @@ F< LAND  ^StarterStart @@ 0 > LAND  WHILE 
 11 LINE.NUM %ScratchPad 3402 ^StarterStart @@  IO.SP.I.WRITE DROP  
 12 LINE.NUM ~DigitalOut0  ON 
 13 LINE.NUM 100  DELAY 
@@ -1857,7 +1875,7 @@ T;
 15 LINE.NUM ~DigitalOut0  OFF 
 16 LINE.NUM %ScratchPad 3405 0  IO.SP.I.WRITE DROP  
 17 LINE.NUM ^StarterCrankTimer  StopTimer 
-19 LINE.NUM ~Freq0  FREQ@I I>F  ^StarterStartRpm @@ F>= ^StarterStart @@ 0 = LOR  IF 
+19 LINE.NUM ~Freq0 @@ ^StarterStartRpm @@ F>= ^StarterStart @@ 0 = LOR  IF 
 20 LINE.NUM ^StarterRetryCount @@ 1 I>F F+ ^StarterAttempt F@! 
 21 LINE.NUM ELSE 
 22 LINE.NUM ^StarterAttempt @@F ^StarterRetryCount @@ F< IF 
@@ -2445,6 +2463,7 @@ CREATE V.ARRAY
 ^gIndex ,
 ^gTest ,
 ^IsApplicationConnected ,
+^IsEngineStarted ,
 ^IsHardwareSafetyTriggered ,
 ^IsStartDataCollect ,
 ^IsStartTest ,
@@ -2461,6 +2480,7 @@ CREATE V.ARRAY
 ^StarterRetryWaitTime ,
 ^StarterStart ,
 ^StarterStartRpm ,
+^TempLoadCell ,
 ^TestScheduleCurrentTime ,
 ^TestScheduleIntercept ,
 ^TestScheduleLowerSetpoint ,
@@ -2511,6 +2531,8 @@ Ptr' PTR_VentCtrl1Output ,
 Ptr' PTR_VentCtrl1Outside ,
  0 ,
 CREATE TA.ARRAY 
+}CurrentTime ,
+}EngineStartTime ,
  0 ,
 CREATE PTRTABLE.ARRAY 
  0 ,
@@ -2567,10 +2589,6 @@ CREATE P.ARRAY
 ~DigitalOut7 ,
 ~DigitalOut8 ,
 ~DigitalOut9 ,
-~Freq0 ,
-~Freq1 ,
-~Freq2 ,
-~Freq3 ,
 ~AO10_0 ,
 ~AO10_1 ,
 ~AO4_20_0 ,
@@ -2579,8 +2597,12 @@ CREATE P.ARRAY
 ~AO4_20_3 ,
 ~AO5_0 ,
 ~AO5_1 ,
+~Freq0 ,
+~Freq1 ,
 ~HART0 ,
 ~HART1 ,
+~LC_BandPass ,
+~LC_BandStop ,
 ~MilliAmp0 ,
 ~MilliAmp1 ,
 ~ThermoCouple0 ,
@@ -2661,6 +2683,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^gIndex @!
 0.00000000 ^gTest @!
 0 ^IsApplicationConnected @!
+0 ^IsEngineStarted @!
 0 ^IsHardwareSafetyTriggered @!
 0 ^IsStartDataCollect @!
 0 ^IsStartTest @!
@@ -2678,6 +2701,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 0.00000000 ^StarterRetryWaitTime @!
 0 ^StarterStart @!
 0.00000000 ^StarterStartRpm @!
+0.00000000 ^TempLoadCell @!
 0.00000000 ^TestScheduleCurrentTime @!
 0.00000000 ^TestScheduleIntercept @!
 0.00000000 ^TestScheduleLowerSetpoint @!
@@ -2710,6 +2734,8 @@ $0000000000000000.. %ScratchPad ENABLES!
 0.00000000 ^VentCtrl1Setpoint @!
 0 ^VentCtrl1Status @!
 0.00000000 ^VentCtrl1Weighted @!
+0 0 -1 }CurrentTime InitTable
+0 0 -1 }EngineStartTime InitTable
 " "
  *StrategyRunTime $MOVE
 0 MoveToPointer PTR_DynoRampWidgetPid
@@ -2730,9 +2756,9 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 01/30/17 " ;
-: TIMESTAMP ." 11:08:19 " ;
-: CRCSTAMP  ." 7C6E6A1131A6C6C208CFB16FF19C5D1E " ;
+: DATESTAMP ." 02/14/17 " ;
+: TIMESTAMP ." 08:31:59 " ;
+: CRCSTAMP  ." 46F1BE5F8ACDA406107CB48E54716142 " ;
 MAKECHECK
 CLEAR.BREAKS
 

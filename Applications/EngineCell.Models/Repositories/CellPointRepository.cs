@@ -75,7 +75,7 @@ namespace EngineCell.Models.Repositories
             if (cellId != null)
                 query.Where(() => cell.CellId == cellId);
 
-            var result = query.OrderBy(t => t.CreationDateTime).Desc.List<CellTestExtended>();
+            var result = query.OrderBy(t => t.CreationDateTime).Desc.Take(1000).List<CellTestExtended>();
 
             return result.IsNotNullOrEmpty() ? result.Select(t => new CellTestModel(t)).ToList() : new List<CellTestModel>();
         }

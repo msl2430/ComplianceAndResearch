@@ -30,6 +30,7 @@
 0 IVAR ^gIndex
 0 FVAR ^gTest
 0 IVAR ^IsApplicationConnected
+0 IVAR ^IsEngineStarted
 0 IVAR ^IsHardwareSafetyTriggered
 0 IVAR ^IsStartDataCollect
 0 IVAR ^IsStartTest
@@ -47,6 +48,7 @@
 0 FVAR ^StarterRetryWaitTime
 0 IVAR ^StarterStart
 0 FVAR ^StarterStartRpm
+0 FVAR ^TempLoadCell
 0 FVAR ^TestScheduleCurrentTime
 0 FVAR ^TestScheduleIntercept
 0 FVAR ^TestScheduleLowerSetpoint
@@ -80,6 +82,8 @@
 0 IVAR ^VentCtrl1Status
 0 FVAR ^VentCtrl1Weighted
 32 0 $VAR *StrategyRunTime 
+8 0 ITABLE }CurrentTime
+8 0 ITABLE }EngineStartTime
 nullPID 0 POINTER PTR_DynoRampWidgetPid
 nullPID 0 POINTER PTR_PidConfigSelection
 nullPID 0 POINTER PTR_ThrottleRampWidgetPid
@@ -176,10 +180,11 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A80
 32  1 SPOINT 0.0     INPUT 13 12 %EngineCell 0 POINT.TNG ~DigitalIn13
 32  1 SPOINT 0.0     INPUT 14 12 %EngineCell 0 POINT.TNG ~DigitalIn14
 32  1 SPOINT 0.0     INPUT 15 12 %EngineCell 0 POINT.TNG ~DigitalIn15
- 4  1 SPOINT 0.0      FREQ  0 13 %EngineCell 0 POINT.TNG ~Freq0
- 4  1 SPOINT 0.0      FREQ  1 13 %EngineCell 0 POINT.TNG ~Freq1
- 4  1 SPOINT 0.0      FREQ  2 13 %EngineCell 0 POINT.TNG ~Freq2
- 4  1 SPOINT 0.0      FREQ  3 13 %EngineCell 0 POINT.TNG ~Freq3
+ 2  1 APOINT -100.0000 34  0 13 %EngineCell 0 POINT.TNG ~LC_BandStop
+ 2  1 APOINT -100.0000 0  1 13 %EngineCell 0 POINT.TNG ~LC_BandPass
+ 100.0000 -100.0000 ~LC_BandPass SET.SCALE
+ 2  1 APOINT    0.0000 69  0 14 %EngineCell 0 POINT.TNG ~Freq0
+ 2  1 APOINT    0.0000 69  1 14 %EngineCell 0 POINT.TNG ~Freq1
 nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
 3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
    1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
@@ -189,17 +194,17 @@ $80000000 7 %EngineCell 0 PID |Custom3
    1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
 ~AO10_1 ~AO10_1 ~AO10_1
 $80000000 8 %EngineCell 0 PID |Custom4
-5    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000  -20.0000  550.0000
+5    4.0000   20.0000    0.0000    0.0000    4.0000   20.0000  -20.0000  550.0000
    0.1000    0.0000    0.0000    0.2000   -0.2000    0.0100
-   0.0000 ~ThermoCouple19 ~AO10_0
+   0.0000 ~LC_BandPass ~AO4_20_2
 $90000002 0 %EngineCell 0 PID |DynoLoad
-3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000 -100.0000 6000.0000
+3    4.0000   20.0000    0.0000    0.0000    4.0000   20.0000 -100.0000 6000.0000
    0.1000    0.0000    0.0000    0.1000    0.1000    0.0100
-   0.0000 ~Volt0 ~AO10_0
+   0.0000 ~Freq0 ~AO4_20_2
 $90000002 1 %EngineCell 0 PID |DynoSpeed
 3   20.0000   20.0000    0.0000    0.0000    4.0000   20.0000    0.0000   65.0000
    2.0000    0.0000    0.0000    1.0000    0.0250   10.0000
-   0.0000 ~ThermoCouple5 ~AO4_20_2
+   0.0000 ~ThermoCouple5 ~AO4_20_3
 $90000002 6 %EngineCell 0 PID |DynoTemp
 3   20.0000   20.0000    0.0000    0.0000    4.0000   20.0000    0.0000  200.0000
    1.0000    0.0000    0.0000    1.5000    0.0500   10.0000
@@ -211,9 +216,9 @@ $90000002 4 %EngineCell 0 PID |Intercooler
 $90000002 5 %EngineCell 0 PID |Oil
 5    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000  -20.0000  550.0000
    0.1000    0.0000    0.0000    0.0180   -0.0500    0.0005
-   0.0000 ~AO10_0 ~AO10_1
+   0.0000 ~LC_BandPass ~AO10_1
 $90000002 2 %EngineCell 0 PID |ThrottleLoad
 5    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000 -100.0000 6000.0000
    0.1000    0.0000    0.0000    0.0500   -0.0040    0.0005
-   0.0000 ~Volt0 ~AO10_1
+   0.0000 ~Freq0 ~AO10_1
 $90000002 3 %EngineCell 0 PID |ThrottleSpeed

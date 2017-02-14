@@ -31,6 +31,7 @@ CREATE V.ARRAY
 ^gIndex ,
 ^gTest ,
 ^IsApplicationConnected ,
+^IsEngineStarted ,
 ^IsHardwareSafetyTriggered ,
 ^IsStartDataCollect ,
 ^IsStartTest ,
@@ -47,6 +48,7 @@ CREATE V.ARRAY
 ^StarterRetryWaitTime ,
 ^StarterStart ,
 ^StarterStartRpm ,
+^TempLoadCell ,
 ^TestScheduleCurrentTime ,
 ^TestScheduleIntercept ,
 ^TestScheduleLowerSetpoint ,
@@ -97,6 +99,8 @@ Ptr' PTR_VentCtrl1Output ,
 Ptr' PTR_VentCtrl1Outside ,
  0 ,
 CREATE TA.ARRAY 
+}CurrentTime ,
+}EngineStartTime ,
  0 ,
 CREATE PTRTABLE.ARRAY 
  0 ,
@@ -153,10 +157,6 @@ CREATE P.ARRAY
 ~DigitalOut7 ,
 ~DigitalOut8 ,
 ~DigitalOut9 ,
-~Freq0 ,
-~Freq1 ,
-~Freq2 ,
-~Freq3 ,
 ~AO10_0 ,
 ~AO10_1 ,
 ~AO4_20_0 ,
@@ -165,8 +165,12 @@ CREATE P.ARRAY
 ~AO4_20_3 ,
 ~AO5_0 ,
 ~AO5_1 ,
+~Freq0 ,
+~Freq1 ,
 ~HART0 ,
 ~HART1 ,
+~LC_BandPass ,
+~LC_BandStop ,
 ~MilliAmp0 ,
 ~MilliAmp1 ,
 ~ThermoCouple0 ,
@@ -247,6 +251,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 0 ^gIndex @!
 0.00000000 ^gTest @!
 0 ^IsApplicationConnected @!
+0 ^IsEngineStarted @!
 0 ^IsHardwareSafetyTriggered @!
 0 ^IsStartDataCollect @!
 0 ^IsStartTest @!
@@ -264,6 +269,7 @@ $0000000000000000.. %ScratchPad ENABLES!
 0.00000000 ^StarterRetryWaitTime @!
 0 ^StarterStart @!
 0.00000000 ^StarterStartRpm @!
+0.00000000 ^TempLoadCell @!
 0.00000000 ^TestScheduleCurrentTime @!
 0.00000000 ^TestScheduleIntercept @!
 0.00000000 ^TestScheduleLowerSetpoint @!
@@ -296,6 +302,8 @@ $0000000000000000.. %ScratchPad ENABLES!
 0.00000000 ^VentCtrl1Setpoint @!
 0 ^VentCtrl1Status @!
 0.00000000 ^VentCtrl1Weighted @!
+0 0 -1 }CurrentTime InitTable
+0 0 -1 }EngineStartTime InitTable
 " "
  *StrategyRunTime $MOVE
 0 MoveToPointer PTR_DynoRampWidgetPid

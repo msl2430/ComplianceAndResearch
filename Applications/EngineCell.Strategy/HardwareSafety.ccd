@@ -2,13 +2,47 @@
 
 1 LINE.NUM
   100    DELAY
-0 JUMP ;
+3 JUMP ;
 : 13_1
-2 LINE.NUM ~ThermoCouple0 @@ 145 I>F F> ~ThermoCouple0 @@ 0 I>F F< LOR  IF 
-3 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
-4 LINE.NUM %ScratchPad 9000 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
-5 LINE.NUM THEN 
-2 JUMP ;
+1 LINE.NUM ^IsEngineStarted @@ 1 = IF 
+3 LINE.NUM ~ThermoCouple0 @@ 145 I>F F> ~ThermoCouple0 @@ 0 I>F F< LOR  IF 
+4 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+5 LINE.NUM %ScratchPad 9000 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+6 LINE.NUM THEN 
+8 LINE.NUM ~ThermoCouple2 @@ 165 I>F F> ~ThermoCouple2 @@ 0 I>F F< LOR  IF 
+9 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+10 LINE.NUM %ScratchPad 9001 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+11 LINE.NUM THEN 
+13 LINE.NUM ~ThermoCouple4 @@ 60 I>F F> ~ThermoCouple5 @@ 60 I>F F> LOR  ~ThermoCouple4 @@ 0 I>F F< LOR  ~ThermoCouple5 @@ 0 I>F F< LOR  IF 
+14 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+15 LINE.NUM %ScratchPad 9002 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+16 LINE.NUM THEN 
+18 LINE.NUM ~ThermoCouple10 @@ 850 I>F F> ~ThermoCouple10 @@ 0 I>F F< LOR  IF 
+19 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+20 LINE.NUM %ScratchPad 9003 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+21 LINE.NUM THEN 
+23 LINE.NUM ~Freq0 @@ 6000 I>F F> IF 
+24 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+25 LINE.NUM %ScratchPad 9004 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+26 LINE.NUM THEN 
+28 LINE.NUM }CurrentTime  DATE-TIME@ DROP  
+29 LINE.NUM ~Volt1 @@ 8 I>F F< ~Volt1 @@ 100 I>F F> LOR  0 }CurrentTime TABLE@ 0 }EngineStartTime TABLE@ > 1 }CurrentTime TABLE@ 1 }EngineStartTime TABLE@ > LOR  2 }CurrentTime TABLE@ 2 }EngineStartTime TABLE@ > LOR  4 }CurrentTime TABLE@ 4 }EngineStartTime TABLE@ > LOR  5 }CurrentTime TABLE@ 5 }EngineStartTime TABLE@ > LOR  6 }CurrentTime TABLE@ 6 }EngineStartTime TABLE@ 5 +  > LOR  LAND  IF 
+33 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+34 LINE.NUM %ScratchPad 9005 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+35 LINE.NUM THEN 
+37 LINE.NUM ~DigitalOut0 @@I 0 <> ~Freq0 @@ 400 I>F F> LAND  IF 
+38 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
+39 LINE.NUM %ScratchPad 9006 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
+40 LINE.NUM THEN 
+41 LINE.NUM ELSE 
+42 LINE.NUM 0 ^IsHardwareSafetyTriggered @! 
+43 LINE.NUM THEN 
+45 LINE.NUM ^IsHardwareSafetyTriggered @@ 1 = IF 
+46 LINE.NUM %ScratchPad 9999 1  IO.SP.I.WRITE DROP  
+47 LINE.NUM ELSE 
+48 LINE.NUM %ScratchPad 9999 0  IO.SP.I.WRITE DROP  
+49 LINE.NUM THEN 
+3 JUMP ;
 : 13_3
 -3 JUMP ;
 : 13_9
@@ -46,6 +80,17 @@
 33 LINE.NUM ~DigitalOut30  OFF 
 34 LINE.NUM ~DigitalOut31  OFF 
 -2 JUMP ;
+: 13_18
+1 LINE.NUM ~Freq0 @@ 300 I>F F< IF 
+2 LINE.NUM 1 ^IsEngineStarted @! 
+3 LINE.NUM }EngineStartTime  DATE-TIME@ DROP  
+4 LINE.NUM ELSE 
+5 LINE.NUM 0 ^IsEngineStarted @! 
+1 6 LINE.NUM 8 1 + 0 DO? I ^gIndex @! 
+7 LINE.NUM 0 ^gIndex @@ }EngineStartTime TABLE! 
+8 LINE.NUM 1 +LOOP 
+9 LINE.NUM THEN 
+-4 JUMP ;
 : 13_5
 TRUE
 
@@ -53,22 +98,14 @@ TRUE
   ^IsHardwareSafetyTriggered @@ 
   1    =
 LAND
-IF -2 ELSE -3 THEN JUMP ;
-: 13_12
-TRUE
-
-1 LINE.NUM
-  ^IsTestRunning @@ 
-  1    =
-LAND
-IF -5 ELSE -6 THEN JUMP ;
+IF -3 ELSE -4 THEN JUMP ;
 T: T13
 DUMMY
 13_0
 13_1
 13_3
 13_9
+13_18
 13_5
-13_12
 T;
 &HardwareSafety ' T13 SETTASK

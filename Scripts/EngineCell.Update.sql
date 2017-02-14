@@ -242,43 +242,22 @@ TRUNCATE TABLE Point
 	('DigitalIn12', 1, 0, 7),
 	('DigitalIn13', 1, 0, 7),
 	('DigitalIn14', 1, 0, 7),
-	('DigitalIn15', 1, 0, 7)	
+	('DigitalIn15', 1, 0, 7),
+	('DigitalIn16', 1, 0, 7),
+	('DigitalIn17', 1, 0, 7),
+	('DigitalIn18', 1, 0, 7),
+	('DigitalIn19', 1, 0, 7)
 GO
 
 
 
-IF NOT EXISTS (SELECT 1 FROM Point WHERE Name Like 'DynoIn%') 
-BEGIN
-INSERT INTO Point (Name, IsInput, IsAnalog, PointGroupId) VALUES
-('DigitalIn4', 1, 0, 7),
-('DigitalIn5', 1, 0, 7),
-('DigitalIn6', 1, 0, 7),
-('DigitalIn7', 1, 0, 7),
-('DigitalIn8', 1, 0, 7),
-('DigitalIn9', 1, 0, 7),
-('DigitalIn10', 1, 0, 7),
-('DigitalIn11', 1, 0, 7)
-END
 
-IF NOT EXISTS (SELECT 1 FROM Point WHERE Name Like 'EngineIn%') 
-BEGIN
-INSERT INTO Point (Name, IsInput, IsAnalog, PointGroupId) VALUES
-('DigitalIn12', 1, 0, 7),
-('DigitalIn13', 1, 0, 7),
-('DigitalIn14', 1, 0, 7),
-('DigitalIn15', 1, 0, 7),
-('DigitalIn16', 1, 0, 7),
-('DigitalIn17', 1, 0, 7),
-('DigitalIn18', 1, 0, 7),
-('DigitalIn19', 1, 0, 7)
-END
-
-IF NOT EXISTS (SELECT 1 FROM Cell_Point WHERE PointId IN (SELECT PointId FROM Point WHERE PointGroupId IN (11,12))) 
+IF NOT EXISTS (SELECT 1 FROM Cell_Point) 
 BEGIN
 INSERT INTO Cell_Point (CellId, PointId, CustomName, IsRecord, IsAverage, AverageSeconds, IncludeInStripChart, StripChartScale, IsActive, UpdateDateTime)
 SELECT 1, PointId, Name, 0, 0, NULL, 0, NULL, 1, GETDATE()
 FROM Point
-WHERE PointGroupId IN (7)
+
 END
 
 IF EXISTS (SELECT 1 FROM sys.tables WHERE name LIKE 'CellTestPhaseTrigger')

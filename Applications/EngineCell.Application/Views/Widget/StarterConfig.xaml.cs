@@ -48,6 +48,9 @@ namespace EngineCell.Application.Views.Widget
                         case WidgetConstants.WidgetSetting.StarterTimeAtRpm:
                             CutoffTime.Text = setting.Value;
                             break;
+                        case WidgetConstants.WidgetSetting.StarterTimeout:
+                            WidgetTimeout.Text = setting.Value;
+                            break;
                     }
                 }
             }

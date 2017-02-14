@@ -2,9 +2,9 @@
 
 # PAC CONTROL TAG DATABASE DUMP
 # ----------------------------------------------------------------
-# NAME :         C:\New folder\ComplianceAndResearch\Applications\EngineCell.Strategy\EngineCell.Strategy.idb
+# NAME :         D:\Work\ComplianceAndResearch\Applications\EngineCell.Strategy\EngineCell.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    11:8:33 2/11/2017
+# TIME/DATE :    8:34:12 2/14/2017
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -215,6 +215,7 @@ TAG1,GetScratchPadResult                               ,1    ,00000000,00000000,
 TAG1,gIndex                                            ,0    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,gTest                                             ,11   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,IsApplicationConnected                            ,2    ,00000000,00000000,00000000,00000008,0    ,0   
+TAG1,IsEngineStarted                                   ,78   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,IsHardwareSafetyTriggered                         ,76   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,IsStartDataCollect                                ,4    ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,IsStartTest                                       ,6    ,00000000,00000000,00000000,00000008,0    ,0   
@@ -266,6 +267,8 @@ TAG1,VentCtrl1Setpoint                                 ,22   ,00000000,00000000,
 TAG1,VentCtrl1Status                                   ,20   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,VentCtrl1Weighted                                 ,23   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,StrategyRunTime                                   ,0    ,00000000,00000000,00000000,00000040,0    ,32  
+TAG1,CurrentTime                                       ,1    ,00000000,00000000,00000000,00000100,8    ,0   
+TAG1,EngineStartTime                                   ,0    ,00000000,00000000,00000000,00000100,8    ,0   
 TAG1,Custom3                                           ,7    ,00000000,00000004,00000000,00000000,0    ,0   
 TAG1,Custom4                                           ,8    ,00000000,00000004,00000000,00000000,0    ,0   
 TAG1,DynoLoad                                          ,0    ,00000000,00000004,00000000,00000000,0    ,0   
