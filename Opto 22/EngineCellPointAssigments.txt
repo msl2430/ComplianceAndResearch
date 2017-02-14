@@ -16,7 +16,7 @@ ThermoCOuple14 - DynoBearingFront
 ThermoCouple15 - DynoBearingRear
 ThermoCouple16 - IntakeManifold
 
-Volt0 - EngineRpm
+Volt0 - 
 Volt1 - OilPressure
 Volt2 - ManifoldPressure
 Volt3 - CrankCasePressure
@@ -26,9 +26,11 @@ MilliAmp0 - BarometricPressure
 
 HART0 - FuelFlow
 
-Dyno0 - StarterCrank
+DigitalOut0 - StarterCrank
+DigitalOut1 - EngineECU
 
-AO10_0 - Dyno
+
+AO10_0 - 
 AO10_1 - Throttle
 
 AO5_0 -
@@ -37,6 +39,8 @@ AO5_1
 AO4_20_0 - Oil
 AO4_20_1 - Intercooler
 AO4_20_2 - Dyno
-AO4_20_3 - 
+AO4_20_3 - DynoCooling
+
+Freq0 - EngineRPM
 
 Digintal in/out need to be digin0-16 and digout0-16

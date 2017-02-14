@@ -76,7 +76,7 @@ namespace EngineCell.Application.Services.WorkerServices.Widget
                         continue;
                     }
 
-                    ViewModel.EngineRpm = (ViewModel.ApplicationSessionFactory.CellPoints.FirstOrDefault(cp => cp.PointName == "Volt0").Data * 1000m); //TODO: Needs to be whatever point we actually choose
+                    ViewModel.EngineRpm = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatValue(ScratchPadConstants.FloatIndexes.Freq0.ToInt());
                     ViewModel.Attempt = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.StarterAttempt.ToInt());
                     ViewModel.IsCranking = ViewModel.ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.StarterCrankOn.ToInt()) == 1;
                 }

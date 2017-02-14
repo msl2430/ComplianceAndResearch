@@ -2,9 +2,9 @@
 
 # PAC CONTROL TAG DATABASE DUMP
 # ----------------------------------------------------------------
-# NAME :         D:\Work\ComplianceAndResearch\Applications\EngineCell.Strategy\EngineCell.Strategy.idb
+# NAME :         C:\New folder\ComplianceAndResearch\Applications\EngineCell.Strategy\EngineCell.Strategy.idb
 # VERSION :      R9.4a
-# TIME/DATE :    11:8:19 1/30/2017
+# TIME/DATE :    11:8:33 2/11/2017
 # 
 # INSTRUCTIONS : This file gets written with the corresponding IDB file.
 #                It is not read by PAC Control. It may be used by other programs to 
@@ -156,10 +156,6 @@ TAG1,DigitalOut6                                       ,6    ,10000000,00000000,
 TAG1,DigitalOut7                                       ,7    ,10000000,00000000,00000000,00000000,0    ,0   
 TAG1,DigitalOut8                                       ,8    ,10000000,00000000,00000000,00000000,0    ,0   
 TAG1,DigitalOut9                                       ,9    ,10000000,00000000,00000000,00000000,0    ,0   
-TAG1,Freq0                                             ,48   ,40000040,00000000,00000000,00000000,0    ,0   
-TAG1,Freq1                                             ,49   ,40000040,00000000,00000000,00000000,0    ,0   
-TAG1,Freq2                                             ,50   ,40000040,00000000,00000000,00000000,0    ,0   
-TAG1,Freq3                                             ,51   ,40000040,00000000,00000000,00000000,0    ,0   
 TAG1,AO10_0                                            ,30   ,00000000,00000002,00000000,00000000,0    ,0   
 TAG1,AO10_1                                            ,31   ,00000000,00000002,00000000,00000000,0    ,0   
 TAG1,AO4_20_0                                          ,34   ,00000000,00000002,00000000,00000000,0    ,0   
@@ -168,8 +164,12 @@ TAG1,AO4_20_2                                          ,36   ,00000000,00000002,
 TAG1,AO4_20_3                                          ,37   ,00000000,00000002,00000000,00000000,0    ,0   
 TAG1,AO5_0                                             ,32   ,00000000,00000002,00000000,00000000,0    ,0   
 TAG1,AO5_1                                             ,33   ,00000000,00000002,00000000,00000000,0    ,0   
+TAG1,Freq0                                             ,38   ,00000000,00000001,00000000,00000000,0    ,0   
+TAG1,Freq1                                             ,39   ,00000000,00000001,00000000,00000000,0    ,0   
 TAG1,HART0                                             ,28   ,00000000,00000001,00000000,00000000,0    ,0   
 TAG1,HART1                                             ,29   ,00000000,00000001,00000000,00000000,0    ,0   
+TAG1,LC_BandPass                                       ,41   ,00000000,00000001,00000000,00000000,0    ,0   
+TAG1,LC_BandStop                                       ,40   ,00000000,00000001,00000000,00000000,0    ,0   
 TAG1,MilliAmp0                                         ,26   ,00000000,00000001,00000000,00000000,0    ,0   
 TAG1,MilliAmp1                                         ,27   ,00000000,00000001,00000000,00000000,0    ,0   
 TAG1,ThermoCouple0                                     ,0    ,00000000,00000001,00000000,00000000,0    ,0   
@@ -232,6 +232,7 @@ TAG1,StarterRetryCount                                 ,63   ,00000000,00000000,
 TAG1,StarterRetryWaitTime                              ,62   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,StarterStart                                      ,59   ,00000000,00000000,00000000,00000008,0    ,0   
 TAG1,StarterStartRpm                                   ,61   ,00000000,00000000,00000000,00000010,0    ,0   
+TAG1,TempLoadCell                                      ,77   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,TestScheduleCurrentTime                           ,34   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,TestScheduleIntercept                             ,38   ,00000000,00000000,00000000,00000010,0    ,0   
 TAG1,TestScheduleLowerSetpoint                         ,39   ,00000000,00000000,00000000,00000010,0    ,0   

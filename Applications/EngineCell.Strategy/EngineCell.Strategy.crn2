@@ -30,6 +30,7 @@
 0 IVAR ^gIndex
 0 FVAR ^gTest
 0 IVAR ^IsApplicationConnected
+0 IVAR ^IsHardwareSafetyTriggered
 0 IVAR ^IsStartDataCollect
 0 IVAR ^IsStartTest
 0 IVAR ^IsTestRunning
@@ -46,6 +47,7 @@
 0 FVAR ^StarterRetryWaitTime
 0 IVAR ^StarterStart
 0 FVAR ^StarterStartRpm
+0 FVAR ^TempLoadCell
 0 FVAR ^TestScheduleCurrentTime
 0 FVAR ^TestScheduleIntercept
 0 FVAR ^TestScheduleLowerSetpoint
@@ -79,7 +81,9 @@
 0 IVAR ^VentCtrl1Status
 0 FVAR ^VentCtrl1Weighted
 32 0 $VAR *StrategyRunTime 
+nullPID 0 POINTER PTR_DynoRampWidgetPid
 nullPID 0 POINTER PTR_PidConfigSelection
+nullPID 0 POINTER PTR_ThrottleRampWidgetPid
 nullAPointInput 0 POINTER PTR_TriggerPointAI
 nullAPointInput 0 POINTER PTR_VentCtrl1Inside
 nullAPointOutput 0 POINTER PTR_VentCtrl1Output
@@ -125,58 +129,59 @@ nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.000000 2001 $C0A80
  8  1 APOINT    0.0000 148  5 10 %EngineCell 0 POINT.TNG ~AO4_20_1
  8  1 APOINT    0.0000 148  6 10 %EngineCell 0 POINT.TNG ~AO4_20_2
  8  1 APOINT    0.0000 148  7 10 %EngineCell 0 POINT.TNG ~AO4_20_3
-32  1 SPOINT 0.0    OUTPUT  0 11 %EngineCell 0 POINT.TNG ~Dyno0
-32  1 SPOINT 0.0    OUTPUT  1 11 %EngineCell 0 POINT.TNG ~Dyno1
-32  1 SPOINT 0.0    OUTPUT  2 11 %EngineCell 0 POINT.TNG ~Dyno2
-32  1 SPOINT 0.0    OUTPUT  3 11 %EngineCell 0 POINT.TNG ~Dyno3
-32  1 SPOINT 0.0    OUTPUT  4 11 %EngineCell 0 POINT.TNG ~Dyno4
-32  1 SPOINT 0.0    OUTPUT  5 11 %EngineCell 0 POINT.TNG ~Dyno5
-32  1 SPOINT 0.0    OUTPUT  6 11 %EngineCell 0 POINT.TNG ~Dyno6
-32  1 SPOINT 0.0    OUTPUT  7 11 %EngineCell 0 POINT.TNG ~Dyno7
-32  1 SPOINT 0.0    OUTPUT  8 11 %EngineCell 0 POINT.TNG ~Engine0
-32  1 SPOINT 0.0    OUTPUT  9 11 %EngineCell 0 POINT.TNG ~Engine1
-32  1 SPOINT 0.0    OUTPUT 10 11 %EngineCell 0 POINT.TNG ~Engine2
-32  1 SPOINT 0.0    OUTPUT 11 11 %EngineCell 0 POINT.TNG ~Engine3
-32  1 SPOINT 0.0    OUTPUT 12 11 %EngineCell 0 POINT.TNG ~Engine4
-32  1 SPOINT 0.0    OUTPUT 13 11 %EngineCell 0 POINT.TNG ~Engine5
-32  1 SPOINT 0.0    OUTPUT 14 11 %EngineCell 0 POINT.TNG ~Engine6
-32  1 SPOINT 0.0    OUTPUT 15 11 %EngineCell 0 POINT.TNG ~Engine7
-32  1 SPOINT 0.0    OUTPUT 16 11 %EngineCell 0 POINT.TNG ~Fuel0
-32  1 SPOINT 0.0    OUTPUT 17 11 %EngineCell 0 POINT.TNG ~Fuel1
-32  1 SPOINT 0.0    OUTPUT 18 11 %EngineCell 0 POINT.TNG ~Fuel2
-32  1 SPOINT 0.0    OUTPUT 19 11 %EngineCell 0 POINT.TNG ~Fuel3
-32  1 SPOINT 0.0    OUTPUT 20 11 %EngineCell 0 POINT.TNG ~Fuel4
-32  1 SPOINT 0.0    OUTPUT 21 11 %EngineCell 0 POINT.TNG ~Fuel5
-32  1 SPOINT 0.0    OUTPUT 22 11 %EngineCell 0 POINT.TNG ~Fuel6
-32  1 SPOINT 0.0    OUTPUT 23 11 %EngineCell 0 POINT.TNG ~Fuel7
-32  1 SPOINT 0.0    OUTPUT 24 11 %EngineCell 0 POINT.TNG ~Misc0
-32  1 SPOINT 0.0    OUTPUT 25 11 %EngineCell 0 POINT.TNG ~Misc1
-32  1 SPOINT 0.0    OUTPUT 26 11 %EngineCell 0 POINT.TNG ~Misc2
-32  1 SPOINT 0.0    OUTPUT 27 11 %EngineCell 0 POINT.TNG ~Misc3
-32  1 SPOINT 0.0    OUTPUT 28 11 %EngineCell 0 POINT.TNG ~Misc4
-32  1 SPOINT 0.0    OUTPUT 29 11 %EngineCell 0 POINT.TNG ~Misc5
-32  1 SPOINT 0.0    OUTPUT 30 11 %EngineCell 0 POINT.TNG ~Misc6
-32  1 SPOINT 0.0    OUTPUT 31 11 %EngineCell 0 POINT.TNG ~Misc7
-32  1 SPOINT 0.0     INPUT  0 12 %EngineCell 0 POINT.TNG ~DynoIn0
-32  1 SPOINT 0.0     INPUT  1 12 %EngineCell 0 POINT.TNG ~DynoIn1
-32  1 SPOINT 0.0     INPUT  2 12 %EngineCell 0 POINT.TNG ~DynoIn2
-32  1 SPOINT 0.0     INPUT  3 12 %EngineCell 0 POINT.TNG ~DynoIn3
-32  1 SPOINT 0.0     INPUT  4 12 %EngineCell 0 POINT.TNG ~DynoIn4
-32  1 SPOINT 0.0     INPUT  5 12 %EngineCell 0 POINT.TNG ~DynoIn5
-32  1 SPOINT 0.0     INPUT  6 12 %EngineCell 0 POINT.TNG ~DynoIn6
-32  1 SPOINT 0.0     INPUT  7 12 %EngineCell 0 POINT.TNG ~DynoIn7
-32  1 SPOINT 0.0     INPUT  8 12 %EngineCell 0 POINT.TNG ~EngineIn0
-32  1 SPOINT 0.0     INPUT  9 12 %EngineCell 0 POINT.TNG ~EngineIn1
-32  1 SPOINT 0.0     INPUT 10 12 %EngineCell 0 POINT.TNG ~EngineIn2
-32  1 SPOINT 0.0     INPUT 11 12 %EngineCell 0 POINT.TNG ~EngineIn3
-32  1 SPOINT 0.0     INPUT 12 12 %EngineCell 0 POINT.TNG ~EngineIn4
-32  1 SPOINT 0.0     INPUT 13 12 %EngineCell 0 POINT.TNG ~EngineIn5
-32  1 SPOINT 0.0     INPUT 14 12 %EngineCell 0 POINT.TNG ~EngineIn6
-32  1 SPOINT 0.0     INPUT 15 12 %EngineCell 0 POINT.TNG ~EngineIn7
- 4  1 SPOINT 0.0      FREQ  0 13 %EngineCell 0 POINT.TNG ~Freq0
- 4  1 SPOINT 0.0      FREQ  1 13 %EngineCell 0 POINT.TNG ~Freq1
- 4  1 SPOINT 0.0      FREQ  2 13 %EngineCell 0 POINT.TNG ~Freq2
- 4  1 SPOINT 0.0      FREQ  3 13 %EngineCell 0 POINT.TNG ~Freq3
+32  1 SPOINT 0.0    OUTPUT  0 11 %EngineCell 0 POINT.TNG ~DigitalOut0
+32  1 SPOINT 0.0    OUTPUT  1 11 %EngineCell 0 POINT.TNG ~DigitalOut1
+32  1 SPOINT 0.0    OUTPUT  2 11 %EngineCell 0 POINT.TNG ~DigitalOut2
+32  1 SPOINT 0.0    OUTPUT  3 11 %EngineCell 0 POINT.TNG ~DigitalOut3
+32  1 SPOINT 0.0    OUTPUT  4 11 %EngineCell 0 POINT.TNG ~DigitalOut4
+32  1 SPOINT 0.0    OUTPUT  5 11 %EngineCell 0 POINT.TNG ~DigitalOut5
+32  1 SPOINT 0.0    OUTPUT  6 11 %EngineCell 0 POINT.TNG ~DigitalOut6
+32  1 SPOINT 0.0    OUTPUT  7 11 %EngineCell 0 POINT.TNG ~DigitalOut7
+32  1 SPOINT 0.0    OUTPUT  8 11 %EngineCell 0 POINT.TNG ~DigitalOut8
+32  1 SPOINT 0.0    OUTPUT  9 11 %EngineCell 0 POINT.TNG ~DigitalOut9
+32  1 SPOINT 0.0    OUTPUT 10 11 %EngineCell 0 POINT.TNG ~DigitalOut10
+32  1 SPOINT 0.0    OUTPUT 11 11 %EngineCell 0 POINT.TNG ~DigitalOut11
+32  1 SPOINT 0.0    OUTPUT 12 11 %EngineCell 0 POINT.TNG ~DigitalOut12
+32  1 SPOINT 0.0    OUTPUT 13 11 %EngineCell 0 POINT.TNG ~DigitalOut13
+32  1 SPOINT 0.0    OUTPUT 14 11 %EngineCell 0 POINT.TNG ~DigitalOut14
+32  1 SPOINT 0.0    OUTPUT 15 11 %EngineCell 0 POINT.TNG ~DigitalOut15
+32  1 SPOINT 0.0    OUTPUT 16 11 %EngineCell 0 POINT.TNG ~DigitalOut16
+32  1 SPOINT 0.0    OUTPUT 17 11 %EngineCell 0 POINT.TNG ~DigitalOut17
+32  1 SPOINT 0.0    OUTPUT 18 11 %EngineCell 0 POINT.TNG ~DigitalOut18
+32  1 SPOINT 0.0    OUTPUT 19 11 %EngineCell 0 POINT.TNG ~DigitalOut19
+32  1 SPOINT 0.0    OUTPUT 20 11 %EngineCell 0 POINT.TNG ~DigitalOut20
+32  1 SPOINT 0.0    OUTPUT 21 11 %EngineCell 0 POINT.TNG ~DigitalOut21
+32  1 SPOINT 0.0    OUTPUT 22 11 %EngineCell 0 POINT.TNG ~DigitalOut22
+32  1 SPOINT 0.0    OUTPUT 23 11 %EngineCell 0 POINT.TNG ~DigitalOut23
+32  1 SPOINT 0.0    OUTPUT 24 11 %EngineCell 0 POINT.TNG ~DigitalOut24
+32  1 SPOINT 0.0    OUTPUT 25 11 %EngineCell 0 POINT.TNG ~DigitalOut25
+32  1 SPOINT 0.0    OUTPUT 26 11 %EngineCell 0 POINT.TNG ~DigitalOut26
+32  1 SPOINT 0.0    OUTPUT 27 11 %EngineCell 0 POINT.TNG ~DigitalOut27
+32  1 SPOINT 0.0    OUTPUT 28 11 %EngineCell 0 POINT.TNG ~DigitalOut28
+32  1 SPOINT 0.0    OUTPUT 29 11 %EngineCell 0 POINT.TNG ~DigitalOut29
+32  1 SPOINT 0.0    OUTPUT 30 11 %EngineCell 0 POINT.TNG ~DigitalOut30
+32  1 SPOINT 0.0    OUTPUT 31 11 %EngineCell 0 POINT.TNG ~DigitalOut31
+32  1 SPOINT 0.0     INPUT  0 12 %EngineCell 0 POINT.TNG ~DigitalIn0
+32  1 SPOINT 0.0     INPUT  1 12 %EngineCell 0 POINT.TNG ~DigitalIn1
+32  1 SPOINT 0.0     INPUT  2 12 %EngineCell 0 POINT.TNG ~DigitalIn2
+32  1 SPOINT 0.0     INPUT  3 12 %EngineCell 0 POINT.TNG ~DigitalIn3
+32  1 SPOINT 0.0     INPUT  4 12 %EngineCell 0 POINT.TNG ~DigitalIn4
+32  1 SPOINT 0.0     INPUT  5 12 %EngineCell 0 POINT.TNG ~DigitalIn5
+32  1 SPOINT 0.0     INPUT  6 12 %EngineCell 0 POINT.TNG ~DigitalIn6
+32  1 SPOINT 0.0     INPUT  7 12 %EngineCell 0 POINT.TNG ~DigitalIn7
+32  1 SPOINT 0.0     INPUT  8 12 %EngineCell 0 POINT.TNG ~DigitalIn8
+32  1 SPOINT 0.0     INPUT  9 12 %EngineCell 0 POINT.TNG ~DigitalIn9
+32  1 SPOINT 0.0     INPUT 10 12 %EngineCell 0 POINT.TNG ~DigitalIn10
+32  1 SPOINT 0.0     INPUT 11 12 %EngineCell 0 POINT.TNG ~DigitalIn11
+32  1 SPOINT 0.0     INPUT 12 12 %EngineCell 0 POINT.TNG ~DigitalIn12
+32  1 SPOINT 0.0     INPUT 13 12 %EngineCell 0 POINT.TNG ~DigitalIn13
+32  1 SPOINT 0.0     INPUT 14 12 %EngineCell 0 POINT.TNG ~DigitalIn14
+32  1 SPOINT 0.0     INPUT 15 12 %EngineCell 0 POINT.TNG ~DigitalIn15
+ 2  1 APOINT -100.0000 34  0 13 %EngineCell 0 POINT.TNG ~LC_BandStop
+ 2  1 APOINT -100.0000 0  1 13 %EngineCell 0 POINT.TNG ~LC_BandPass
+ 100.0000 -100.0000 ~LC_BandPass SET.SCALE
+ 2  1 APOINT    0.0000 69  0 14 %EngineCell 0 POINT.TNG ~Freq0
+ 2  1 APOINT    0.0000 69  1 14 %EngineCell 0 POINT.TNG ~Freq1
 nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
 3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000    0.0000   10.0000
    1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
@@ -186,17 +191,17 @@ $80000000 7 %EngineCell 0 PID |Custom3
    1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
 ~AO10_1 ~AO10_1 ~AO10_1
 $80000000 8 %EngineCell 0 PID |Custom4
-5    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000  -20.0000  550.0000
+5    4.0000   20.0000    0.0000    0.0000    4.0000   20.0000  -20.0000  550.0000
    0.1000    0.0000    0.0000    0.2000   -0.2000    0.0100
-   0.0000 ~ThermoCouple19 ~AO10_0
+   0.0000 ~LC_BandPass ~AO4_20_2
 $90000002 0 %EngineCell 0 PID |DynoLoad
-3    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000 -100.0000 6000.0000
+3    4.0000   20.0000    0.0000    0.0000    4.0000   20.0000 -100.0000 6000.0000
    0.1000    0.0000    0.0000    0.1000    0.1000    0.0100
-   0.0000 ~Volt0 ~AO10_0
+   0.0000 ~Freq0 ~AO4_20_2
 $90000002 1 %EngineCell 0 PID |DynoSpeed
 3   20.0000   20.0000    0.0000    0.0000    4.0000   20.0000    0.0000   65.0000
    2.0000    0.0000    0.0000    1.0000    0.0250   10.0000
-   0.0000 ~ThermoCouple5 ~AO4_20_2
+   0.0000 ~ThermoCouple5 ~AO4_20_3
 $90000002 6 %EngineCell 0 PID |DynoTemp
 3   20.0000   20.0000    0.0000    0.0000    4.0000   20.0000    0.0000  200.0000
    1.0000    0.0000    0.0000    1.5000    0.0500   10.0000
@@ -208,9 +213,9 @@ $90000002 4 %EngineCell 0 PID |Intercooler
 $90000002 5 %EngineCell 0 PID |Oil
 5    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000  -20.0000  550.0000
    0.1000    0.0000    0.0000    0.0180   -0.0500    0.0005
-   0.0000 ~AO10_0 ~AO10_1
+   0.0000 ~LC_BandPass ~AO10_1
 $90000002 2 %EngineCell 0 PID |ThrottleLoad
 5    0.0000    0.0000    0.0000    0.0000    0.0000   10.0000 -100.0000 6000.0000
    0.1000    0.0000    0.0000    0.0500   -0.0040    0.0005
-   0.0000 ~Volt0 ~AO10_1
+   0.0000 ~Freq0 ~AO10_1
 $90000002 3 %EngineCell 0 PID |ThrottleSpeed

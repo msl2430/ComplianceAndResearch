@@ -2,37 +2,12 @@
 
 1 LINE.NUM
   100    DELAY
-4 JUMP ;
+0 JUMP ;
 : 13_1
-2 LINE.NUM ~ThermoCouple0 @@ 145 I>F F> IF 
+2 LINE.NUM ~ThermoCouple0 @@ 145 I>F F> ~ThermoCouple0 @@ 0 I>F F< LOR  IF 
 3 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
 4 LINE.NUM %ScratchPad 9000 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
 5 LINE.NUM THEN 
-7 LINE.NUM ~ThermoCouple2 @@ 165 I>F F> IF 
-8 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
-9 LINE.NUM %ScratchPad 9001 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
-10 LINE.NUM THEN 
-12 LINE.NUM ~ThermoCouple4 @@ 60 I>F F> ~ThermoCouple5 @@ 60 I>F F> LOR  IF 
-13 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
-14 LINE.NUM %ScratchPad 9002 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
-15 LINE.NUM THEN 
-17 LINE.NUM ~ThermoCouple10 @@ 850 I>F F> IF 
-18 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
-19 LINE.NUM %ScratchPad 9003 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
-20 LINE.NUM THEN 
-22 LINE.NUM ~Volt0 @@ 6000 I>F F> IF 
-23 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
-24 LINE.NUM %ScratchPad 9004 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
-25 LINE.NUM THEN 
-34 LINE.NUM ~DigitalOut0 @@I 0 <> ~Volt0 @@ 400 I>F F> LAND  IF 
-35 LINE.NUM 1 ^IsHardwareSafetyTriggered @! 
-36 LINE.NUM %ScratchPad 9006 ^GetScratchPadResult @@  IO.SP.I.WRITE DROP  
-37 LINE.NUM THEN 
-39 LINE.NUM ^IsHardwareSafetyTriggered @@ 1 = IF 
-40 LINE.NUM %ScratchPad 9999 1  IO.SP.I.WRITE DROP  
-41 LINE.NUM ELSE 
-42 LINE.NUM %ScratchPad 9999 0  IO.SP.I.WRITE DROP  
-43 LINE.NUM THEN 
 2 JUMP ;
 : 13_3
 -3 JUMP ;

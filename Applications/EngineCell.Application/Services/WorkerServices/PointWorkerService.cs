@@ -73,7 +73,7 @@ namespace EngineCell.Application.Services.WorkerServices
                         ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt(), 1);
                         CaptureTime = DateTime.Now;
 
-                        ScratchPadValues = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatRange(1000, 1073);
+                        ScratchPadValues = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatRange(1000, 1089);
                         TaskList.Clear();
                         foreach (var cellPoint in ApplicationSessionFactory.CellPoints.Where(p => p.IsActive || p.HasPhaseTrigger))
                         {

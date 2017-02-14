@@ -76,6 +76,9 @@ namespace EngineCell.Application.ViewModels.Welcome
                     case PointGroup.DigitalInput:
                         tempPoints.Add(string.Format("Digital Inputs ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
                         break;
+                    case PointGroup.LoadCell:
+                        tempPoints.Add(string.Format("Load Cells  ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

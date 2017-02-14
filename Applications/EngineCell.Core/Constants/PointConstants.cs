@@ -10,6 +10,7 @@
         DigitalOutput,
         DigitalInput,
         Frequency,
+        LoadCell,
     }
 
     public enum ThermoCouple

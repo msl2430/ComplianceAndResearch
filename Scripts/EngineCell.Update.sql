@@ -138,6 +138,7 @@ TRUNCATE TABLE PointGroup
 	INSERT INTO PointGroup VALUES ('DigitalOut')
 	INSERT INTO PointGroup VALUES ('DigitalIn')
 	INSERT INTO PointGroup VALUES ('Frequency')
+	INSERT INTO PointGroup VALUES ('LoadCell')
 
 TRUNCATE TABLE Point
 	INSERT INTO Point VALUES ('ThermoCouple0',1,1,1)
@@ -218,10 +219,13 @@ TRUNCATE TABLE Point
 	INSERT INTO Point VALUES ('DigitalOut30',0,0,6)
 	INSERT INTO Point VALUES ('DigitalOut31',0,0,6)
 
-	INSERT INTO Point VALUES ('Freq0',1,0,8)
-	INSERT INTO Point VALUES ('Freq1',1,0,8)
-	INSERT INTO Point VALUES ('Freq2',1,0,8)
-	INSERT INTO Point VALUES ('Freq3',1,0,8)
+	INSERT INTO Point VALUES ('Freq0',1,1,8)
+	INSERT INTO Point VALUES ('Freq1',1,1,8)
+	--INSERT INTO Point VALUES ('Freq2',1,0,8)
+	--INSERT INTO Point VALUES ('Freq3',1,0,8)
+	INSERT INTO Point Values ('LC_BandStop', 1, 0, 9)
+	INSERT INTO Point Values ('LC_BandPass', 1, 1, 9)
+	
 	INSERT INTO Point (Name, IsInput, IsAnalog, PointGroupId) VALUES
 	('DigitalIn0', 1, 0, 7),
 	('DigitalIn1', 1, 0, 7),
@@ -271,8 +275,8 @@ END
 
 IF NOT EXISTS (SELECT 1 FROM Cell_Point WHERE PointId IN (SELECT PointId FROM Point WHERE PointGroupId IN (11,12))) 
 BEGIN
-INSERT INTO Cell_Point (CellId, PointId, CustomName, IsRecord, IsAverage, AverageSeconds, IncludeInStripChart, StripChartScale, UpdateDateTime)
-SELECT 1, PointId, Name, 0, 0, NULL, 0, NULL, GETDATE()
+INSERT INTO Cell_Point (CellId, PointId, CustomName, IsRecord, IsAverage, AverageSeconds, IncludeInStripChart, StripChartScale, IsActive, UpdateDateTime)
+SELECT 1, PointId, Name, 0, 0, NULL, 0, NULL, 1, GETDATE()
 FROM Point
 WHERE PointGroupId IN (7)
 END
@@ -394,15 +398,18 @@ UPDATE Cell_Point SET CustomName = 'DynoBearingFront' WHERE  PointId IN (SELECT 
 UPDATE Cell_Point SET CustomName = 'DynoBearingRear' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'ThermoCouple15')
 UPDATE Cell_Point SET CustomName = 'IntakeManifold' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'ThermoCouple16')
 
-UPDATE Cell_Point SET CustomName = 'EngineRpm' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'Volt0')
+
 UPDATE Cell_Point SET CustomName = 'OilPressure' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'Volt1')
 UPDATE Cell_Point SET CustomName = 'ManifoldPressure' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'Volt2')
 UPDATE Cell_Point SET CustomName = 'CrankCasePressue' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'Volt3')
 UPDATE Cell_Point SET CustomName = 'BarometricPressure' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'MilliAmp0')
 UPDATE Cell_Point SET CustomName = 'FuelFlow' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'HART0')
-UPDATE Cell_Point SET CustomName = 'StarterCrank' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'Dyno0')
-UPDATE Cell_Point SET CustomName = 'Dyno' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'AO10_0')
+UPDATE Cell_Point SET CustomName = 'StarterCrank' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'DigitalOut0')
+--UPDATE Cell_Point SET CustomName = 'Dyno' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'AO10_0')
 UPDATE Cell_Point SET CustomName = 'Throttle' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'AO10_1')
 UPDATE Cell_Point SET CustomName = 'Oil' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'AO4_20_0')
 UPDATE Cell_Point SET CustomName = 'Intercooler' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'AO4_20_1')
 UPDATE Cell_Point SET CustomName = 'Dyno' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'AO4_20_2')
+UPDATE Cell_Point SET CustomName = 'EngineRpm' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'Freq0')
+UPDATE Cell_Point SET CustomName = 'DynoCooling' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'AO4_20_3')
+UPDATE Cell_Point SET CustomName = 'EngineECU' WHERE  PointId IN (SELECT PointId FROM Point WHERE Name LIKE 'DigitalOut1')

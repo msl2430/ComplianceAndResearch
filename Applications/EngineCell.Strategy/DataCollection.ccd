@@ -87,26 +87,27 @@
 72 LINE.NUM %ScratchPad 1067 ~DigitalOut29 @@I I>F  IO.SP.F.WRITE DROP  
 73 LINE.NUM %ScratchPad 1068 ~DigitalOut30 @@I I>F  IO.SP.F.WRITE DROP  
 74 LINE.NUM %ScratchPad 1069 ~DigitalOut31 @@I I>F  IO.SP.F.WRITE DROP  
-75 LINE.NUM %ScratchPad 1070 ~Freq0 @@I I>F  IO.SP.F.WRITE DROP  
-76 LINE.NUM %ScratchPad 1071 ~Freq1 @@I I>F  IO.SP.F.WRITE DROP  
-77 LINE.NUM %ScratchPad 1072 ~Freq2 @@I I>F  IO.SP.F.WRITE DROP  
-78 LINE.NUM %ScratchPad 1073 ~Freq3 @@I I>F  IO.SP.F.WRITE DROP  
-80 LINE.NUM %ScratchPad 1074 ~DigitalIn0 @@I I>F  IO.SP.F.WRITE DROP  
-81 LINE.NUM %ScratchPad 1075 ~DigitalIn1 @@I I>F  IO.SP.F.WRITE DROP  
-82 LINE.NUM %ScratchPad 1076 ~DigitalIn2 @@I I>F  IO.SP.F.WRITE DROP  
-83 LINE.NUM %ScratchPad 1077 ~DigitalIn3 @@I I>F  IO.SP.F.WRITE DROP  
-84 LINE.NUM %ScratchPad 1078 ~DigitalIn4 @@I I>F  IO.SP.F.WRITE DROP  
-85 LINE.NUM %ScratchPad 1079 ~DigitalIn5 @@I I>F  IO.SP.F.WRITE DROP  
-86 LINE.NUM %ScratchPad 1080 ~DigitalIn6 @@I I>F  IO.SP.F.WRITE DROP  
-87 LINE.NUM %ScratchPad 1081 ~DigitalIn7 @@I I>F  IO.SP.F.WRITE DROP  
-88 LINE.NUM %ScratchPad 1082 ~DigitalIn8 @@I I>F  IO.SP.F.WRITE DROP  
-89 LINE.NUM %ScratchPad 1083 ~DigitalIn9 @@I I>F  IO.SP.F.WRITE DROP  
-90 LINE.NUM %ScratchPad 1084 ~DigitalIn10 @@I I>F  IO.SP.F.WRITE DROP  
-91 LINE.NUM %ScratchPad 1085 ~DigitalIn11 @@I I>F  IO.SP.F.WRITE DROP  
-92 LINE.NUM %ScratchPad 1086 ~DigitalIn12 @@I I>F  IO.SP.F.WRITE DROP  
-93 LINE.NUM %ScratchPad 1087 ~DigitalIn13 @@I I>F  IO.SP.F.WRITE DROP  
-94 LINE.NUM %ScratchPad 1088 ~DigitalIn14 @@I I>F  IO.SP.F.WRITE DROP  
-95 LINE.NUM %ScratchPad 1089 ~DigitalIn15 @@I I>F  IO.SP.F.WRITE DROP  
+75 LINE.NUM %ScratchPad 1070 ~Freq0 @@  IO.SP.F.WRITE DROP  
+76 LINE.NUM %ScratchPad 1071 ~Freq1 @@  IO.SP.F.WRITE DROP  
+77 LINE.NUM %ScratchPad 1072 ~LC_BandStop @@  IO.SP.F.WRITE DROP  
+78 LINE.NUM %ScratchPad 1073 ~LC_BandPass @@  IO.SP.F.WRITE DROP  
+79 LINE.NUM ~LC_BandPass @@ ^TempLoadCell @! 
+81 LINE.NUM %ScratchPad 1074 ~DigitalIn0 @@I I>F  IO.SP.F.WRITE DROP  
+82 LINE.NUM %ScratchPad 1075 ~DigitalIn1 @@I I>F  IO.SP.F.WRITE DROP  
+83 LINE.NUM %ScratchPad 1076 ~DigitalIn2 @@I I>F  IO.SP.F.WRITE DROP  
+84 LINE.NUM %ScratchPad 1077 ~DigitalIn3 @@I I>F  IO.SP.F.WRITE DROP  
+85 LINE.NUM %ScratchPad 1078 ~DigitalIn4 @@I I>F  IO.SP.F.WRITE DROP  
+86 LINE.NUM %ScratchPad 1079 ~DigitalIn5 @@I I>F  IO.SP.F.WRITE DROP  
+87 LINE.NUM %ScratchPad 1080 ~DigitalIn6 @@I I>F  IO.SP.F.WRITE DROP  
+88 LINE.NUM %ScratchPad 1081 ~DigitalIn7 @@I I>F  IO.SP.F.WRITE DROP  
+89 LINE.NUM %ScratchPad 1082 ~DigitalIn8 @@I I>F  IO.SP.F.WRITE DROP  
+90 LINE.NUM %ScratchPad 1083 ~DigitalIn9 @@I I>F  IO.SP.F.WRITE DROP  
+91 LINE.NUM %ScratchPad 1084 ~DigitalIn10 @@I I>F  IO.SP.F.WRITE DROP  
+92 LINE.NUM %ScratchPad 1085 ~DigitalIn11 @@I I>F  IO.SP.F.WRITE DROP  
+93 LINE.NUM %ScratchPad 1086 ~DigitalIn12 @@I I>F  IO.SP.F.WRITE DROP  
+94 LINE.NUM %ScratchPad 1087 ~DigitalIn13 @@I I>F  IO.SP.F.WRITE DROP  
+95 LINE.NUM %ScratchPad 1088 ~DigitalIn14 @@I I>F  IO.SP.F.WRITE DROP  
+96 LINE.NUM %ScratchPad 1089 ~DigitalIn15 @@I I>F  IO.SP.F.WRITE DROP  
 -2 JUMP ;
 : 1_13
 1 LINE.NUM %ScratchPad 300 ^OutputConfigValue   IO.SP.READ DROP  

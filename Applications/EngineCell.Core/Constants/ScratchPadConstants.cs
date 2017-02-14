@@ -132,8 +132,8 @@
             DigitalOut31Value,
             Freq0Value,
             Freq1Value,
-            Freq2Value,
-            Freq3Value,
+            Lc_BandStopValue,
+            Lc_BandPassValue,
 
             //Pid Config
             InputValue = 500,
@@ -234,8 +234,8 @@
             DigitalOut31,
             Freq0,
             Freq1,
-            Freq2,
-            Freq3,
+            LC_BandStop,
+            LC_BandPass,
             DigitalIn0,
             DigitalIn1,
             DigitalIn2,

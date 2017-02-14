@@ -57,5 +57,13 @@ STARTER
 - oil pressure is a problem
 - bit to say engine is running from hardware triggers not to start crank
 
+add a timeout to the starter widget 
+if rpm is greater then zero or less rpm start wait. until timeout or zero
 
+2/11/17
+Need to setup Mode change from Speed to Load on Test and Ramp Widgets
+Widget settings not being saved or not being loaded properly when copying a test
+if engine is running and wasnt running, wait time, then check safety for oil pressure - need a variable in pac for time to wait (5 seconds for now)
+
+add rate to record data to text file in seconds
 

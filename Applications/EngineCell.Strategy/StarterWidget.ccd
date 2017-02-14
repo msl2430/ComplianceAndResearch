@@ -54,12 +54,12 @@
 4 JUMP ;
 : 11_8
 1 1 LINE.NUM ^StarterRetryCount @@I 1 + 1 DO? I ^StarterAttempt @! 
-2 LINE.NUM %ScratchPad 3408 ~Volt0 @@ 1000 I>F F*  IO.SP.F.WRITE DROP  
+2 LINE.NUM %ScratchPad 3408 ~Freq0 @@  IO.SP.F.WRITE DROP  
 3 LINE.NUM %ScratchPad 3404 ^StarterAttempt @@  IO.SP.I.WRITE DROP  
 5 LINE.NUM ~DigitalOut0  ON 
 6 LINE.NUM %ScratchPad 3405 1  IO.SP.I.WRITE DROP  
 8 LINE.NUM ^StarterCrankTimer  StartTimer 
-9 LINE.NUM BEGIN ^StarterCrankTimer @@F ^StarterCrankTime @@ F< ~Volt0 @@ 1000 I>F F* ^StarterStartRpm @@ F< LAND  ^StarterStart @@ 0 > LAND  WHILE 
+9 LINE.NUM BEGIN ^StarterCrankTimer @@F ^StarterCrankTime @@ F< ~Freq0 @@ ^StarterStartRpm @@ F< LAND  ^StarterStart @@ 0 > LAND  WHILE 
 11 LINE.NUM %ScratchPad 3402 ^StarterStart @@  IO.SP.I.WRITE DROP  
 12 LINE.NUM ~DigitalOut0  ON 
 13 LINE.NUM 100  DELAY 
@@ -67,7 +67,7 @@
 15 LINE.NUM ~DigitalOut0  OFF 
 16 LINE.NUM %ScratchPad 3405 0  IO.SP.I.WRITE DROP  
 17 LINE.NUM ^StarterCrankTimer  StopTimer 
-19 LINE.NUM ~Freq0  FREQ@I I>F  ^StarterStartRpm @@ F>= ^StarterStart @@ 0 = LOR  IF 
+19 LINE.NUM ~Freq0 @@ ^StarterStartRpm @@ F>= ^StarterStart @@ 0 = LOR  IF 
 20 LINE.NUM ^StarterRetryCount @@ 1 I>F F+ ^StarterAttempt F@! 
 21 LINE.NUM ELSE 
 22 LINE.NUM ^StarterAttempt @@F ^StarterRetryCount @@ F< IF 

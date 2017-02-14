@@ -168,7 +168,26 @@
                 </ItemsControl.ItemTemplate>
               </ItemsControl>
             </ScrollViewer>
-          </Grid>          
+          </Grid>
+            <Grid Width="300" Visibility="{Binding Path=HasLoadCells, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
+            <Border BorderBrush="{StaticResource HeadlineBlueBrush}" BorderThickness="0,0,1.01,0"></Border>
+            <TextBlock FontSize="18" Foreground="{StaticResource HeadlineBlueBrush}" Text="Load Cell Points" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+            <TextBlock FontSize="9" Foreground="{StaticResource LightBlueBrush}" Text="" HorizontalAlignment="Center" Margin="0,20,0,0"></TextBlock>
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
+              <ItemsControl ItemsSource="{Binding Path=LoadCells}">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Vertical"/>
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <pointDisplay:PointDisplay DataContext="{Binding }" Margin="0,3,0,3"></pointDisplay:PointDisplay>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </Grid>
         </StackPanel>
       </ScrollViewer>
     </Grid>

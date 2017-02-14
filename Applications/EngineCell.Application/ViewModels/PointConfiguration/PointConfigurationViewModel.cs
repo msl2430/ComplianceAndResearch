@@ -115,6 +115,19 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
         }
         public bool HasDigitalIns => DigitalIns.IsNotNullOrEmpty();
 
+        private ObservableCollection<PointDataModel> _loadCells { get; set; }
+        public ObservableCollection<PointDataModel> LoadCells
+        {
+            get { return _loadCells; }
+            set
+            {
+                _loadCells = value;
+                OnPropertyChanged("LoadCells");
+                OnPropertyChanged("HasLoadCells");
+            }
+        }
+        public bool HasLoadCells => LoadCells.IsNotNullOrEmpty();
+
         public bool HasVoltsMilliAmpsHarts => Volts.IsNotNullOrEmpty() || MilliAmps.IsNotNullOrEmpty() || Harts.IsNotNullOrEmpty();
 
         public PointConfigurationViewModel(IApplicationSessionFactory appSession)
@@ -129,6 +142,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             DigitalOuts = new ObservableCollection<PointDataModel>();           
             Freqs = new ObservableCollection<PointDataModel>();
             DigitalIns = new ObservableCollection<PointDataModel>();
+            LoadCells = new ObservableCollection<PointDataModel>();
 
             if (appSession.CellPoints.IsNullOrEmpty())
                 return;
@@ -146,6 +160,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             DigitalOuts.Clear();          
             Freqs.Clear();
             DigitalIns.Clear();
+            LoadCells.Clear();
 
             var tempThermoCouples = new ObservableCollection<PointDataModel>();
             var tempVolts  = new ObservableCollection<PointDataModel>();
@@ -155,6 +170,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             var tempDigitalOuts = new ObservableCollection<PointDataModel>();          
             var tempFreqs = new ObservableCollection<PointDataModel>();
             var tempDigitalIns = new ObservableCollection<PointDataModel>();
+            var tempLoadCell = new ObservableCollection<PointDataModel>();
 
             foreach (var point in ApplicationSessionFactory.CellPoints)
             {
@@ -184,6 +200,9 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                     case PointGroup.DigitalInput:
                         tempDigitalIns.Add(point);
                         break;
+                    case PointGroup.LoadCell:
+                        tempLoadCell.Add(point);
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -197,6 +216,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             DigitalOuts = tempDigitalOuts;
             Freqs = tempFreqs;
             DigitalIns = tempDigitalIns;
+            LoadCells = tempLoadCell;
         }
 
         public void UpdateViewModel()
