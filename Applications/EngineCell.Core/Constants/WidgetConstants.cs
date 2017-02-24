@@ -17,6 +17,7 @@ namespace EngineCell.Core.Constants
             VentilationControl1,
             VentilationControl2,
             Starter,
+            Timer,
         }
 
         public enum WidgetSetting
@@ -45,6 +46,7 @@ namespace EngineCell.Core.Constants
             StarterNumberOfTries,
             StarterTimeAtRpm,
             StarterTimeout,
+            TimerExpiration
         }
 
         //public enum DynoPidMode
@@ -77,6 +79,7 @@ namespace EngineCell.Core.Constants
             "Custom Chart 4",
             "Custom Chart 5",
             "Starter",
+            "Timer",
         };
 
         public enum TestScheduleSetpointType

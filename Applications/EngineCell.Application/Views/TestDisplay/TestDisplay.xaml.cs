@@ -65,6 +65,9 @@ namespace EngineCell.Application.Views.TestDisplay
                     case WidgetConstants.Widget.Starter:
                         WidgetPanel.Children.Add(new StarterDisplay(ViewModel.ApplicationSessionFactory, widget));
                         break;
+                    case WidgetConstants.Widget.Timer:
+                        WidgetPanel.Children.Add(new TimerDisplay(ViewModel.ApplicationSessionFactory, widget));
+                        break;
                 }
             }
         }

@@ -1,4 +1,4 @@
-INSERT INTO Cell VALUES ('John Deere Genset', '98.109.58.113', '22001', 'John Deere GenSet')
+
 
 INSERT INTO Cell_Point (CellId, PointId, CustomName, IncludeInStripChart, UpdateDateTime, IsRecord, IsAverage, IsActive) VALUES
 (2, 1, 'ThermoCouple0', 0, GETUTCDATE(), 0, 0,1), 
@@ -20,4 +20,7 @@ INSERT INTO Cell_Point (CellId, PointId, CustomName, IncludeInStripChart, Update
 (2, 27, 'MilliAmp0', 0, GETUTCDATE(), 0, 0,1),
 (2, 28, 'MilliAmp1', 0, GETUTCDATE(), 0, 0,1),
 (2, 35, 'AO_4_20_0', 0, GETUTCDATE(), 0, 0,1),
-(2, 36, 'AO_4_20_1', 0, GETUTCDATE(), 0, 0,1)
+(2, 36, 'AO_4_20_1', 0, GETUTCDATE(), 0, 0,1),
+(2, 95, 'Rate0', 0, GETUTCDATE(), 0, 0,1),
+(2, 96, 'Rate1', 0, GETUTCDATE(), 0, 0,1),
+

@@ -11,6 +11,7 @@
         DigitalInput,
         Frequency,
         LoadCell,
+        Airate,
     }
 
     public enum ThermoCouple

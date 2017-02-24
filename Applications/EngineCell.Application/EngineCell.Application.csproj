@@ -205,6 +205,7 @@
     <Compile Include="ViewModels\Widget\DynoPidDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\StarterDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\TestScheduleDisplayViewModel.cs" />
+    <Compile Include="ViewModels\Widget\TimerDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\VentilationControlDisplayViewModel.cs" />
     <Compile Include="ViewModels\Widget\VentilationControlViewModel.cs" />
     <Compile Include="ViewModels\Widget\WidgetConfigViewModel.cs" />
@@ -308,6 +309,12 @@
     </Compile>
     <Compile Include="Views\Widget\ThrottlePidRampDisplay.xaml.cs">
       <DependentUpon>ThrottlePidRampDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Widget\TimerConfig.xaml.cs">
+      <DependentUpon>TimerConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Widget\TimerDisplay.xaml.cs">
+      <DependentUpon>TimerDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Widget\VentControlDisplay.xaml.cs">
       <DependentUpon>VentControlDisplay.xaml</DependentUpon>
@@ -452,6 +459,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Widget\ThrottlePidRampDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Widget\TimerConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Widget\TimerDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

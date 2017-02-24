@@ -252,6 +252,8 @@
             DigitalIn13,
             DigitalIn14,
             DigitalIn15,
+            Rate0,
+            Rate1,
 
             //PID Values
             DynoSetpointValue = 2000,

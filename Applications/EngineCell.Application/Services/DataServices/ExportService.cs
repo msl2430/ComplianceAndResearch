@@ -77,7 +77,7 @@ namespace EngineCell.Application.Services.DataServices
             using (var file = new StreamWriter(fileName, true))
             {
                 var captureRunTime = (captureTime - captureTime).TotalSeconds > 0 ? (captureTime - captureTime).ToString(@"hh\:mm\:ss\.fff") : "00:00:00";
-                file.WriteLine($"{captureTime.ToString("hh:mm:ss.fff")},{captureRunTime},{string.Join(",", dataPoints.OrderBy(p => p.PointId).Select(p => p.Data).ToList())}");
+                file.WriteLine($"{captureTime.ToString("hh:mm:ss.fff")},{captureRunTime},{string.Join(",", dataPoints.OrderBy(p => p.PointId).Select(p => p.AverageData).ToList())}");
             }
         }
     }

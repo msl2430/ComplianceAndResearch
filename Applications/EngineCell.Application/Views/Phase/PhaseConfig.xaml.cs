@@ -102,7 +102,7 @@ namespace EngineCell.Application.Views.Phase
 
         private void AvailableWidgets_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (AvailableWidgets.SelectedItem == null)
+            if (AvailableWidgets.SelectedItem == null || ViewModel.Phases.IsNullOrEmpty())
                 return;
             var selectedWidget = AvailableWidgets.SelectedItem.ToString();
             var phase = ViewModel.Phases.ElementAt(PhaseTabs.SelectedIndex);
@@ -135,6 +135,9 @@ namespace EngineCell.Application.Views.Phase
                     break;
                 case "Starter":
                     widgetType = WidgetConstants.Widget.Starter;
+                    break;
+                case "Timer":
+                    widgetType = WidgetConstants.Widget.Timer;
                     break;
             }
             var widget = WidgetRepository.AddWidgetToPhase(phase.CellTestPhaseId, (WidgetConstants.Widget)widgetType);
@@ -214,6 +217,9 @@ namespace EngineCell.Application.Views.Phase
                         break;
                     case WidgetConstants.Widget.Starter:
                         configWindow = new StarterConfig(phase);
+                        break;
+                    case WidgetConstants.Widget.Timer:
+                        configWindow = new TimerConfig(phase);
                         break;
                 }
 
@@ -319,6 +325,10 @@ namespace EngineCell.Application.Views.Phase
                     case WidgetConstants.Widget.Starter:
                         if (widgets.Any(w => w == "Starter"))
                             widgets.RemoveAt(widgets.IndexOf("Starter"));
+                        break;
+                    case WidgetConstants.Widget.Timer:
+                        if (widgets.Any(w => w == "Timer"))
+                            widgets.RemoveAt(widgets.IndexOf("Timer"));
                         break;
                 }
             }

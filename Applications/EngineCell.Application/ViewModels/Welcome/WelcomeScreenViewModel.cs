@@ -79,6 +79,9 @@ namespace EngineCell.Application.ViewModels.Welcome
                     case PointGroup.LoadCell:
                         tempPoints.Add(string.Format("Load Cells  ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
                         break;
+                    case PointGroup.Airate:
+                        tempPoints.Add(string.Format("AIRate  ({0})", StringExtensions.Pluralize("1 Point", "Points", "0 Points", point.Count())));
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

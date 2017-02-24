@@ -133,7 +133,7 @@ namespace EngineCell.Application.Services.WorkerServices
                 if (cellPoint.IsAnalog)
                 {
                     cellPoint.Data = Math.Truncate(scratchPadValue.Value * 10000m) / 10000m;
-                    if (!cellPoint.IsAverage || cellPoint.AverageSeconds == null || cellPoint.AverageSeconds.Value <= 0)
+                    if (cellPoint.AverageSeconds == null || cellPoint.AverageSeconds.Value <= 0)
                         return;
                     cellPoint.MostRecentData.Add(cellPoint.Data);
                     if (cellPoint.MostRecentData.Count() > cellPoint.AverageSeconds * 2) //2 because we're capturing 2 data points per second

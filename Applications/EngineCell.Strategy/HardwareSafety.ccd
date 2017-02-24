@@ -79,9 +79,11 @@
 32 LINE.NUM ~DigitalOut29  OFF 
 33 LINE.NUM ~DigitalOut30  OFF 
 34 LINE.NUM ~DigitalOut31  OFF 
+36 LINE.NUM 1000  DELAY 
+37 LINE.NUM 0 ^IsHardwareSafetyTriggered @! 
 -2 JUMP ;
 : 13_18
-1 LINE.NUM ~Freq0 @@ 300 I>F F< IF 
+1 LINE.NUM ~Freq0 @@ 300 I>F F>= IF 
 2 LINE.NUM 1 ^IsEngineStarted @! 
 3 LINE.NUM }EngineStartTime  DATE-TIME@ DROP  
 4 LINE.NUM ELSE 
