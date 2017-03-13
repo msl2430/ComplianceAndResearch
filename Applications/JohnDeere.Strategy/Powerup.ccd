@@ -1,7 +1,126 @@
 : 0_0
 0 JUMP ;
+: 0_1
+1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
+2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad ^gIndex @@ 0  IO.SP.I.WRITE DROP  
+4 LINE.NUM 1 +LOOP 
+1 6 LINE.NUM 343 1 + 300 DO? I ^gIndex @! 
+7 LINE.NUM %ScratchPad ^gIndex @@ -32769 I>F  IO.SP.F.WRITE DROP  
+8 LINE.NUM 1 +LOOP 
+8 JUMP ;
+: 0_3
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  1    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  0  
+  ^IsApplicationConnected   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+10 JUMP ;
+: 0_4
+-2 JUMP ;
+: 0_5
+
+1 LINE.NUM
+  ^IsApplicationConnected   FALSE@!
+-2 JUMP ;
+: 0_14
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  2    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  10  
+  ^IsStartTest   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+8 JUMP ;
+: 0_18
+
+1 LINE.NUM
+  %ScratchPad 
+  99  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+0 JUMP ;
+: 0_19
+-6 JUMP ;
+: 0_25
+
+1 LINE.NUM
+  %ScratchPad 
+  11  
+  ^IsTestRunning   IO.SP.READ
+  ^GetScratchPadResult @! 
+6 JUMP ;
+: 0_29
+-2 JUMP ;
+: 0_38
+
+1 LINE.NUM
+  &DataCollection   START.T
+  ^GetScratchPadResult @! 
+-9 JUMP ;
+: 0_45
+-7 JUMP ;
+: 0_47
+3 JUMP ;
+: 0_2
+TRUE
+
+1 LINE.NUM
+  ^IsApplicationConnected @@ 
+  1    =
+LAND
+IF -9 ELSE -10 THEN JUMP ;
+: 0_16
+TRUE
+
+1 LINE.NUM
+  ^IsStartTest @@ 
+  1    =
+LAND
+IF -7 ELSE -9 THEN JUMP ;
+: 0_27
+TRUE
+
+1 LINE.NUM
+  ^IsTestRunning @@ 
+  1    =
+LAND
+IF -7 ELSE -5 THEN JUMP ;
 T: T0
 DUMMY
 0_0
+0_1
+0_3
+0_4
+0_5
+0_14
+0_18
+0_19
+0_25
+0_29
+0_38
+0_45
+0_47
+0_2
+0_16
+0_27
 T;
 &Powerup ' T0 SETTASK

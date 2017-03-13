@@ -36,6 +36,9 @@ namespace EngineCell.Application.Services.WorkerServices
         private IList<IScratchPadModel<decimal>> ScratchPadValues { get; set; }
         private IList<Task> TaskList { get; set; }
 
+        private DateTime LastRecordTime { get; set; }
+        private int MinRecordSeconds { get; set; }
+
         public PointWorkerService(TestDisplayViewModel viewModel, Dispatcher currentDispatcher)
         {
             Dispatcher = currentDispatcher;
@@ -50,7 +53,8 @@ namespace EngineCell.Application.Services.WorkerServices
             CancellationToken = new CancellationTokenSource();
             ApplicationSessionFactory.LogEvent("Point data collection started.", true);            
             TaskList = new List<Task>();
-            
+            LastRecordTime = DateTime.UtcNow;
+            MinRecordSeconds = ApplicationSessionFactory.CellPoints.Where(c => c.IsRecord && c.IsAverage).Min(c => c.AverageSeconds) ?? 1;
             try
             {
                 while (!CancellationToken.IsCancellationRequested)
@@ -86,11 +90,13 @@ namespace EngineCell.Application.Services.WorkerServices
                         {
                             TaskList[i] = null;
                         }
-
+                        
                         if (ApplicationSessionFactory.CurrentCellTest != null 
                             && ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()) == 1
-                            && ApplicationSessionFactory.CellPoints.Any(cp => cp.IsRecord && cp.IsActive))
+                            && ApplicationSessionFactory.CellPoints.Any(cp => cp.IsRecord && cp.IsActive)
+                            && Math.Abs((DateTime.UtcNow - LastRecordTime).Seconds) >= MinRecordSeconds)
                         {
+                            LastRecordTime = DateTime.UtcNow;
                             ExportService.WriteDataToFile(ApplicationSessionFactory.CurrentCellTest.CellTestId, CaptureTime, ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive).ToList());
                             CellPointRepository.CreateCellPointData(
                                 ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive)
@@ -102,8 +108,8 @@ namespace EngineCell.Application.Services.WorkerServices
                             TestDisplayViewModel.UpdateVisibleCellPoints();
                         });
                     }
-                }
-                Thread.Sleep(500);
+                    Thread.Sleep(100);
+                }                
             }
             catch (TaskCanceledException ex)
             {
@@ -136,7 +142,7 @@ namespace EngineCell.Application.Services.WorkerServices
                     if (cellPoint.AverageSeconds == null || cellPoint.AverageSeconds.Value <= 0)
                         return;
                     cellPoint.MostRecentData.Add(cellPoint.Data);
-                    if (cellPoint.MostRecentData.Count() > cellPoint.AverageSeconds * 2) //2 because we're capturing 2 data points per second
+                    if (cellPoint.MostRecentData.Count() > cellPoint.AverageSeconds * 10) //10 because we're capturing 10 data points per second
                         cellPoint.MostRecentData.RemoveAt(0);
                     cellPoint.AverageData = Math.Truncate(cellPoint.MostRecentData.Average() * 10000m) / 10000m;
                 }
@@ -157,7 +163,7 @@ namespace EngineCell.Application.Services.WorkerServices
                 if (cellPoint.MostRecentData.Count() > cellPoint.AverageSeconds * 2) //2 because we're capturing 2 data points per second
                     cellPoint.MostRecentData.RemoveAt(0);
                 cellPoint.AverageData = Math.Truncate(cellPoint.MostRecentData.Average() * 10000m) / 10000m;
-            }
+            }           
         }        
 
         protected override void WorkCompleted()

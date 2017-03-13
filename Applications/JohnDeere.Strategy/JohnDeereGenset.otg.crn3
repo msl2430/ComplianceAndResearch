@@ -1,46 +1,83 @@
 CREATE T.ARRAY
+&DataCollection ,
+&PidConfig ,
 &Powerup ,
+&VentilationCtrl1 ,
  0 ,
 CREATE V.ARRAY
+^GetScratchPadResult ,
+^gIndex ,
+^IsApplicationConnected ,
+^IsStartDataCollect ,
+^IsStartTest ,
+^IsTestRunning ,
+^OutputConfigValue ,
+^PidConfigStatus ,
+^PidConfigType ,
+^PidConfigValue ,
+^SetScratchPadResult ,
+^VentCtrl1Gain ,
+^VentCtrl1InsideType ,
+^VentCtrl1OutputOld ,
+^VentCtrl1OutputType ,
+^VentCtrl1OutsideType ,
+^VentCtrl1Setpoint ,
+^VentCtrl1Status ,
+^VentCtrl1Weighted ,
+*StrategyRunTime ,
 *_HSV_SEMA ,
 *_HSV_TEMP ,
  0 ,
 CREATE TI.ARRAY
  0 ,
 CREATE PTR.ARRAY
+Ptr' PTR_PidConfigSelection ,
+Ptr' PTR_VentCtrl1Inside ,
+Ptr' PTR_VentCtrl1Output ,
+Ptr' PTR_VentCtrl1Outside ,
  0 ,
 CREATE TA.ARRAY 
  0 ,
 CREATE PTRTABLE.ARRAY 
  0 ,
 CREATE B.ARRAY
-%JohnDeere ,
+%EngineCell ,
+%ScratchPad ,
  0 ,
 CREATE P.ARRAY
-~aima0 ,
-~aima1 ,
-~aiv0 ,
-~aiv1 ,
-~aiv2 ,
-~aiv3 ,
-~aoma0 ,
-~aoma1 ,
-~rate0 ,
-~rate1 ,
-~TC0 ,
-~TC1 ,
-~TC10 ,
-~TC11 ,
-~TC2 ,
-~TC3 ,
-~TC4 ,
-~TC5 ,
-~TC6 ,
-~TC7 ,
-~TC8 ,
-~TC9 ,
+~AO4_20_0 ,
+~AO4_20_1 ,
+~MilliAmp0 ,
+~MilliAmp1 ,
+~Rate0 ,
+~Rate1 ,
+~ThermoCouple0 ,
+~ThermoCouple1 ,
+~ThermoCouple10 ,
+~ThermoCouple11 ,
+~ThermoCouple2 ,
+~ThermoCouple3 ,
+~ThermoCouple4 ,
+~ThermoCouple5 ,
+~ThermoCouple6 ,
+~ThermoCouple7 ,
+~ThermoCouple8 ,
+~ThermoCouple9 ,
+~Volt0 ,
+~Volt1 ,
+~Volt2 ,
+~Volt3 ,
  0 ,
 CREATE PID.ARRAY
+ |Coolant ,
+ |Custom1 ,
+ |Custom2 ,
+ |Custom3 ,
+ |Custom4 ,
+ |Dyno ,
+ |Intercooler ,
+ |Oil ,
+ |Throttle ,
  0 ,
 CREATE E/R.ARRAY
  0 ,
@@ -50,9 +87,46 @@ CREATE E/RGROUP.ARRAY
 ;
 : W_INIT_IO
 CONFIG_PORTS
-" %JohnDeere  (1/1)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
-%JohnDeere ENABLE
+$0000000000000000.. %ScratchPad ENABLES!
+|Coolant ENABLE
+|Custom1 ENABLE
+|Custom2 ENABLE
+|Custom3 ENABLE
+|Custom4 ENABLE
+|Dyno ENABLE
+|Intercooler ENABLE
+|Oil ENABLE
+|Throttle ENABLE
+" %EngineCell  (1/2)" *_HSV_INIT_IO $MOVE 1 ^_HNV_INIT_IO @!
+%EngineCell ENABLE
+" %ScratchPad  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
+%ScratchPad ENABLE
  " Initializing variables" *_HSV_INIT_IO $MOVE
+0 ^GetScratchPadResult @!
+0 ^gIndex @!
+0 ^IsApplicationConnected @!
+0 ^IsStartDataCollect @!
+0 ^IsStartTest @!
+0 ^IsTestRunning @!
+0.00000000 ^OutputConfigValue @!
+0 ^PidConfigStatus @!
+0 ^PidConfigType @!
+0.00000000 ^PidConfigValue @!
+0 ^SetScratchPadResult @!
+0.00000000 ^VentCtrl1Gain @!
+0 ^VentCtrl1InsideType @!
+0.. ^VentCtrl1OutputOld @!
+0 ^VentCtrl1OutputType @!
+0 ^VentCtrl1OutsideType @!
+0.00000000 ^VentCtrl1Setpoint @!
+0 ^VentCtrl1Status @!
+0.00000000 ^VentCtrl1Weighted @!
+" "
+ *StrategyRunTime $MOVE
+0 MoveToPointer PTR_PidConfigSelection
+0 MoveToPointer PTR_VentCtrl1Inside
+0 MoveToPointer PTR_VentCtrl1Output
+0 MoveToPointer PTR_VentCtrl1Outside
  " " *_HSV_INIT_IO $MOVE
 ;
 T: T_INIT_IO

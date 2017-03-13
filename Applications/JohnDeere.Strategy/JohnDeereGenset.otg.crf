@@ -15,81 +15,684 @@ _END NEW $$$.RUN
 200 0 $VAR *_HSV_INIT_IO 
 0 IVAR ^_HNV_INIT_IO 
 0 TASK  &_INIT_IO
+0 TASK &DataCollection
+0 TASK &PidConfig
 0 TASK &Powerup
+0 TASK &VentilationCtrl1
+0 IVAR ^GetScratchPadResult
+0 IVAR ^gIndex
+0 IVAR ^IsApplicationConnected
+0 IVAR ^IsStartDataCollect
+0 IVAR ^IsStartTest
+0 IVAR ^IsTestRunning
+0 FVAR ^OutputConfigValue
+0 IVAR ^PidConfigStatus
+0 IVAR ^PidConfigType
+0 FVAR ^PidConfigValue
+0 IVAR ^SetScratchPadResult
+0 FVAR ^VentCtrl1Gain
+0 IVAR ^VentCtrl1InsideType
+0 2IVAR ^VentCtrl1OutputOld
+0 IVAR ^VentCtrl1OutputType
+0 IVAR ^VentCtrl1OutsideType
+0 FVAR ^VentCtrl1Setpoint
+0 IVAR ^VentCtrl1Status
+0 FVAR ^VentCtrl1Weighted
+32 0 $VAR *StrategyRunTime 
+nullPID 0 POINTER PTR_PidConfigSelection
+nullAPointInput 0 POINTER PTR_VentCtrl1Inside
+nullAPointOutput 0 POINTER PTR_VentCtrl1Output
+nullAPointInput 0 POINTER PTR_VentCtrl1Outside
 
-nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.500000 2001 $C0A801C9 0 11 BOARD.MMP %JohnDeere
- 4  1 APOINT -270.0000 8  0  0 %JohnDeere 0 POINT.TNG ~TC3
- 4  1 APOINT -270.0000 8  1  0 %JohnDeere 0 POINT.TNG ~TC2
- 4  1 APOINT -270.0000 8  2  0 %JohnDeere 0 POINT.TNG ~TC1
- 4  1 APOINT -270.0000 8  3  0 %JohnDeere 0 POINT.TNG ~TC0
- 4  1 APOINT -270.0000 8  0  1 %JohnDeere 0 POINT.TNG ~TC7
- 4  1 APOINT -270.0000 8  1  1 %JohnDeere 0 POINT.TNG ~TC6
- 4  1 APOINT -270.0000 8  2  1 %JohnDeere 0 POINT.TNG ~TC5
- 4  1 APOINT -270.0000 8  3  1 %JohnDeere 0 POINT.TNG ~TC4
- 4  1 APOINT -270.0000 8  0  2 %JohnDeere 0 POINT.TNG ~TC11
- 4  1 APOINT -270.0000 8  1  2 %JohnDeere 0 POINT.TNG ~TC10
- 4  1 APOINT -270.0000 8  2  2 %JohnDeere 0 POINT.TNG ~TC9
- 4  1 APOINT -270.0000 8  3  2 %JohnDeere 0 POINT.TNG ~TC8
- 2  1 APOINT    0.0000 163  0  3 %JohnDeere 0 POINT.TNG ~aoma0
- 2  1 APOINT    0.0000 163  1  3 %JohnDeere 0 POINT.TNG ~aoma1
- 2  1 APOINT  -10.0000 12  0  4 %JohnDeere 0 POINT.TNG ~aiv0
- 2  1 APOINT  -10.0000 12  1  4 %JohnDeere 0 POINT.TNG ~aiv1
- 2  1 APOINT  -20.0000 64  0  5 %JohnDeere 0 POINT.TNG ~aima0
- 2  1 APOINT  -20.0000 64  1  5 %JohnDeere 0 POINT.TNG ~aima1
- 2  1 APOINT  -10.0000 12  0  6 %JohnDeere 0 POINT.TNG ~aiv2
- 2  1 APOINT  -10.0000 12  1  6 %JohnDeere 0 POINT.TNG ~aiv3
- 2  1 APOINT    0.0000 69  0  7 %JohnDeere 0 POINT.TNG ~rate0
- 2  1 APOINT    0.0000 69  1  7 %JohnDeere 0 POINT.TNG ~rate1
+nullM64BOARD $FFFFFFFE $FFFFFFFE 16 32769 1.000000 0.010000 0.500000 2001 $C0A801C9 0 11 BOARD.MMP %EngineCell
+ 4  1 APOINT -270.0000 8  0  0 %EngineCell 0 POINT.TNG ~ThermoCouple0
+ 4  1 APOINT -270.0000 8  1  0 %EngineCell 0 POINT.TNG ~ThermoCouple1
+ 4  1 APOINT -270.0000 8  2  0 %EngineCell 0 POINT.TNG ~ThermoCouple2
+ 4  1 APOINT -270.0000 8  3  0 %EngineCell 0 POINT.TNG ~ThermoCouple3
+ 4  1 APOINT -270.0000 8  0  1 %EngineCell 0 POINT.TNG ~ThermoCouple4
+ 4  1 APOINT -270.0000 8  1  1 %EngineCell 0 POINT.TNG ~ThermoCouple5
+ 4  1 APOINT -270.0000 8  2  1 %EngineCell 0 POINT.TNG ~ThermoCouple6
+ 4  1 APOINT -270.0000 8  3  1 %EngineCell 0 POINT.TNG ~ThermoCouple7
+ 4  1 APOINT -270.0000 8  0  2 %EngineCell 0 POINT.TNG ~ThermoCouple8
+ 4  1 APOINT -270.0000 8  1  2 %EngineCell 0 POINT.TNG ~ThermoCouple9
+ 4  1 APOINT -270.0000 8  2  2 %EngineCell 0 POINT.TNG ~ThermoCouple10
+ 4  1 APOINT -270.0000 8  3  2 %EngineCell 0 POINT.TNG ~ThermoCouple11
+ 2  1 APOINT    0.0000 163  0  3 %EngineCell 0 POINT.TNG ~AO4_20_0
+ 2  1 APOINT    0.0000 163  1  3 %EngineCell 0 POINT.TNG ~AO4_20_1
+ 2  1 APOINT  -10.0000 12  0  4 %EngineCell 0 POINT.TNG ~Volt0
+ 2  1 APOINT  -10.0000 12  1  4 %EngineCell 0 POINT.TNG ~Volt1
+ 2  1 APOINT  -20.0000 64  0  5 %EngineCell 0 POINT.TNG ~MilliAmp0
+ 2  1 APOINT  -20.0000 64  1  5 %EngineCell 0 POINT.TNG ~MilliAmp1
+ 2  1 APOINT  -10.0000 12  0  6 %EngineCell 0 POINT.TNG ~Volt2
+ 2  1 APOINT  -10.0000 12  1  6 %EngineCell 0 POINT.TNG ~Volt3
+ 2  1 APOINT    0.0000 69  0  7 %EngineCell 0 POINT.TNG ~Rate0
+ 2  1 APOINT    0.0000 69  1  7 %EngineCell 0 POINT.TNG ~Rate1
+nullMMPBOARD $FFFFFFFE $FFFFFFFE 0 32768 1.000000 0.010000 0.000000 2001 $7F000001 0 11 BOARD.MMP %ScratchPad
+3    0.0000    0.0000    0.0000    0.0000    4.0000   20.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~ThermoCouple3 ~ThermoCouple2 ~AO4_20_0
+$80000000 8 %EngineCell 0 PID |Coolant
+3    0.0000    0.0000    0.0000    0.0000    4.0000   20.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO4_20_0 ~AO4_20_0 ~AO4_20_0
+$80000000 0 %EngineCell 0 PID |Custom1
+3    0.0000    0.0000    0.0000    0.0000    4.0000   20.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO4_20_0 ~AO4_20_0 ~AO4_20_0
+$80000000 1 %EngineCell 0 PID |Custom2
+3    0.0000    0.0000    0.0000    0.0000    4.0000   20.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO4_20_0 ~AO4_20_0 ~AO4_20_0
+$80000000 2 %EngineCell 0 PID |Custom3
+3    0.0000    0.0000    0.0000    0.0000    4.0000   20.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO4_20_0 ~AO4_20_0 ~AO4_20_0
+$80000000 3 %EngineCell 0 PID |Custom4
+3    0.0000    0.0000    0.0000    0.0000    4.0000   20.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~ThermoCouple3 ~ThermoCouple3 ~AO4_20_0
+$80000000 4 %EngineCell 0 PID |Dyno
+3    0.0000    0.0000    0.0000    0.0000    4.0000   20.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~AO4_20_0 ~ThermoCouple3 ~AO4_20_0
+$80000000 5 %EngineCell 0 PID |Intercooler
+3    0.0000    0.0000    0.0000    0.0000    4.0000   20.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~ThermoCouple3 ~ThermoCouple3 ~AO4_20_0
+$80000000 6 %EngineCell 0 PID |Oil
+3    0.0000    0.0000    0.0000    0.0000    4.0000   20.0000    0.0000   10.0000
+   1.0000    0.0000    0.0000    1.0000    0.0000    0.0000
+~ThermoCouple3 ~ThermoCouple3 ~AO4_20_0
+$80000000 7 %EngineCell 0 PID |Throttle
+: 2_0
+0 JUMP ;
+: 2_1
+
+1 LINE.NUM
+  %ScratchPad 
+  999  
+  ^IsStartDataCollect   IO.SP.READ
+  ^GetScratchPadResult @! 
+2 JUMP ;
+: 2_3
+-2 JUMP ;
+: 2_9
+1 LINE.NUM %ScratchPad 1000 ~ThermoCouple3 @@  IO.SP.F.WRITE DROP  
+2 LINE.NUM %ScratchPad 1001 ~ThermoCouple2 @@  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad 1002 ~ThermoCouple1 @@  IO.SP.F.WRITE DROP  
+4 LINE.NUM %ScratchPad 1003 ~ThermoCouple0 @@  IO.SP.F.WRITE DROP  
+5 LINE.NUM %ScratchPad 1004 ~ThermoCouple7 @@  IO.SP.F.WRITE DROP  
+6 LINE.NUM %ScratchPad 1005 ~ThermoCouple6 @@  IO.SP.F.WRITE DROP  
+7 LINE.NUM %ScratchPad 1006 ~ThermoCouple5 @@  IO.SP.F.WRITE DROP  
+8 LINE.NUM %ScratchPad 1007 ~ThermoCouple4 @@  IO.SP.F.WRITE DROP  
+9 LINE.NUM %ScratchPad 1008 ~ThermoCouple11 @@  IO.SP.F.WRITE DROP  
+10 LINE.NUM %ScratchPad 1009 ~ThermoCouple10 @@  IO.SP.F.WRITE DROP  
+11 LINE.NUM %ScratchPad 1010 ~ThermoCouple9 @@  IO.SP.F.WRITE DROP  
+12 LINE.NUM %ScratchPad 1011 ~ThermoCouple8 @@  IO.SP.F.WRITE DROP  
+14 LINE.NUM %ScratchPad 1020 ~Volt0 @@  IO.SP.F.WRITE DROP  
+15 LINE.NUM %ScratchPad 1021 ~Volt1 @@  IO.SP.F.WRITE DROP  
+16 LINE.NUM %ScratchPad 1022 ~Volt2 @@  IO.SP.F.WRITE DROP  
+17 LINE.NUM %ScratchPad 1023 ~Volt3 @@  IO.SP.F.WRITE DROP  
+19 LINE.NUM %ScratchPad 1026 ~MilliAmp0 @@  IO.SP.F.WRITE DROP  
+20 LINE.NUM %ScratchPad 1027 ~MilliAmp1 @@  IO.SP.F.WRITE DROP  
+22 LINE.NUM %ScratchPad 304 ^OutputConfigValue   IO.SP.READ DROP  
+23 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+24 LINE.NUM ^OutputConfigValue @@ ~AO4_20_0 @! 
+25 LINE.NUM ELSE 
+26 LINE.NUM %ScratchPad 1034 ~AO4_20_0 @@  IO.SP.F.WRITE DROP  
+27 LINE.NUM THEN 
+29 LINE.NUM %ScratchPad 305 ^OutputConfigValue   IO.SP.READ DROP  
+30 LINE.NUM ^OutputConfigValue @@ -32768 I>F F>= IF 
+31 LINE.NUM ^OutputConfigValue @@ ~AO4_20_1 @! 
+32 LINE.NUM ELSE 
+33 LINE.NUM %ScratchPad 1035 ~AO4_20_1 @@  IO.SP.F.WRITE DROP  
+34 LINE.NUM THEN 
+37 LINE.NUM %ScratchPad 1090 ~Rate0 @@  IO.SP.F.WRITE DROP  
+38 LINE.NUM %ScratchPad 1091 ~Rate1 @@  IO.SP.F.WRITE DROP  
+-2 JUMP ;
+: 2_2
+TRUE
+
+1 LINE.NUM
+  ^IsStartDataCollect @@ 
+  1    =
+LAND
+IF -2 ELSE -3 THEN JUMP ;
+T: T2
+DUMMY
+2_0
+2_1
+2_3
+2_9
+2_2
+T;
+&DataCollection ' T2 SETTASK
+: 4_0
+
+1 LINE.NUM
+  %ScratchPad 
+  500  
+  ^PidConfigStatus   IO.SP.READ
+  ^GetScratchPadResult @! 
+8 JUMP ;
+: 4_2
+-2 JUMP ;
+: 4_6
+-3 JUMP ;
+: 4_11
+14 LINE.NUM %ScratchPad 501 ^PidConfigType  IO.SP.READ DROP  
+16 LINE.NUM ^PidConfigType @@ CASE 
+17 LINE.NUM 1 OF 
+18 LINE.NUM |Dyno 
+MoveToPointer PTR_PidConfigSelection 
+19 LINE.NUM ENDOF 
+20 LINE.NUM 2 OF 
+21 LINE.NUM |Throttle 
+MoveToPointer PTR_PidConfigSelection 
+22 LINE.NUM ENDOF 
+23 LINE.NUM 3 OF 
+24 LINE.NUM |Coolant 
+MoveToPointer PTR_PidConfigSelection 
+25 LINE.NUM ENDOF 
+26 LINE.NUM 4 OF 
+27 LINE.NUM |Oil 
+MoveToPointer PTR_PidConfigSelection 
+28 LINE.NUM ENDOF 
+29 LINE.NUM 5 OF 
+30 LINE.NUM |Intercooler 
+MoveToPointer PTR_PidConfigSelection 
+31 LINE.NUM ENDOF 
+32 LINE.NUM 6 OF 
+33 LINE.NUM |Custom1 
+MoveToPointer PTR_PidConfigSelection 
+34 LINE.NUM ENDOF 
+35 LINE.NUM 7 OF 
+36 LINE.NUM |Custom2 
+MoveToPointer PTR_PidConfigSelection 
+37 LINE.NUM ENDOF 
+38 LINE.NUM 8 OF 
+39 LINE.NUM |Custom3 
+MoveToPointer PTR_PidConfigSelection 
+40 LINE.NUM ENDOF 
+41 LINE.NUM 9 OF 
+42 LINE.NUM |Custom4 
+MoveToPointer PTR_PidConfigSelection 
+43 LINE.NUM ENDOF 
+44 LINE.NUM ENDCASE 
+46 LINE.NUM %ScratchPad 500 PTR_PidConfigSelection  $0001.. ROT PID@  IO.SP.F.WRITE DROP  
+47 LINE.NUM %ScratchPad 501 PTR_PidConfigSelection  $0400.. ROT PID@  IO.SP.F.WRITE DROP  
+48 LINE.NUM %ScratchPad 502 PTR_PidConfigSelection  $0800.. ROT PID@  IO.SP.F.WRITE DROP  
+49 LINE.NUM %ScratchPad 503 PTR_PidConfigSelection  $0008.. ROT PID@  IO.SP.F.WRITE DROP  
+50 LINE.NUM %ScratchPad 504 PTR_PidConfigSelection  $1000.. ROT PID@  IO.SP.F.WRITE DROP  
+51 LINE.NUM %ScratchPad 505 PTR_PidConfigSelection  $2000.. ROT PID@  IO.SP.F.WRITE DROP  
+52 LINE.NUM %ScratchPad 506 PTR_PidConfigSelection  $0200.. ROT PID@  IO.SP.F.WRITE DROP  
+53 LINE.NUM %ScratchPad 507 PTR_PidConfigSelection  $0100.. ROT PID@  IO.SP.F.WRITE DROP  
+54 LINE.NUM %ScratchPad 508 PTR_PidConfigSelection  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
+55 LINE.NUM %ScratchPad 509 PTR_PidConfigSelection  $0010.. ROT PID@  IO.SP.F.WRITE DROP  
+56 LINE.NUM %ScratchPad 510 PTR_PidConfigSelection  $0020.. ROT PID@  IO.SP.F.WRITE DROP  
+57 LINE.NUM %ScratchPad 511 PTR_PidConfigSelection  $0040.. ROT PID@  IO.SP.F.WRITE DROP  
+58 LINE.NUM %ScratchPad 512 PTR_PidConfigSelection  $0004.. ROT PID@  IO.SP.F.WRITE DROP  
+59 LINE.NUM %ScratchPad 513 PTR_PidConfigSelection  $0080.. ROT PID@  IO.SP.F.WRITE DROP  
+60 LINE.NUM %ScratchPad 500 2  IO.SP.I.WRITE DROP  
+4 JUMP ;
+: 4_20
+-5 JUMP ;
+: 4_22
+2 JUMP ;
+: 4_27
+14 LINE.NUM %ScratchPad 501 ^PidConfigType  IO.SP.READ DROP  
+16 LINE.NUM ^PidConfigType @@ CASE 
+17 LINE.NUM 1 OF 
+18 LINE.NUM |Dyno 
+MoveToPointer PTR_PidConfigSelection 
+19 LINE.NUM ENDOF 
+20 LINE.NUM ENDCASE 
+23 LINE.NUM %ScratchPad 501 ^PidConfigValue   IO.SP.READ DROP  
+24 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0400.. 3 ROLL !PID 
+26 LINE.NUM %ScratchPad 502 ^PidConfigValue   IO.SP.READ DROP  
+27 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0800.. 3 ROLL !PID 
+29 LINE.NUM %ScratchPad 504 ^PidConfigValue   IO.SP.READ DROP  
+30 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $1000.. 3 ROLL !PID 
+32 LINE.NUM %ScratchPad 505 ^PidConfigValue   IO.SP.READ DROP  
+33 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $2000.. 3 ROLL !PID 
+35 LINE.NUM %ScratchPad 506 ^PidConfigValue   IO.SP.READ DROP  
+36 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0200.. 3 ROLL !PID 
+38 LINE.NUM %ScratchPad 507 ^PidConfigValue   IO.SP.READ DROP  
+39 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0100.. 3 ROLL !PID 
+41 LINE.NUM %ScratchPad 508 ^PidConfigValue   IO.SP.READ DROP  
+42 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0002.. 3 ROLL !PID 
+44 LINE.NUM %ScratchPad 509 ^PidConfigValue   IO.SP.READ DROP  
+45 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0010.. 3 ROLL !PID 
+47 LINE.NUM %ScratchPad 510 ^PidConfigValue   IO.SP.READ DROP  
+48 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0020.. 3 ROLL !PID 
+50 LINE.NUM %ScratchPad 511 ^PidConfigValue   IO.SP.READ DROP  
+51 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0040.. 3 ROLL !PID 
+53 LINE.NUM %ScratchPad 512 ^PidConfigValue   IO.SP.READ DROP  
+54 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0004.. 3 ROLL !PID 
+56 LINE.NUM %ScratchPad 513 ^PidConfigValue   IO.SP.READ DROP  
+57 LINE.NUM PTR_PidConfigSelection ^PidConfigValue @@  $0080.. 3 ROLL !PID 
+59 LINE.NUM %ScratchPad 500 2  IO.SP.I.WRITE DROP  
+0 JUMP ;
+: 4_29
+0 JUMP ;
+: 4_31
+1 LINE.NUM %ScratchPad 500 ^PidConfigStatus  IO.SP.READ DROP  
+3 LINE.NUM %ScratchPad 500 PTR_PidConfigSelection  $0001.. ROT PID@  IO.SP.F.WRITE DROP  
+4 LINE.NUM %ScratchPad 503 PTR_PidConfigSelection  $0008.. ROT PID@  IO.SP.F.WRITE DROP  
+5 LINE.NUM %ScratchPad 508 PTR_PidConfigSelection  $0002.. ROT PID@  IO.SP.F.WRITE DROP  
+2 JUMP ;
+: 4_1
+TRUE
+
+1 LINE.NUM
+  ^PidConfigStatus @@ 
+  1    =
+LAND
+IF -7 ELSE 0 THEN JUMP ;
+: 4_3
+TRUE
+
+1 LINE.NUM
+  ^PidConfigStatus @@ 
+  0    =
+LAND
+IF -9 ELSE -10 THEN JUMP ;
+: 4_17
+TRUE
+
+1 LINE.NUM
+  ^PidConfigStatus @@ 
+  1    =
+LAND
+IF -6 ELSE 0 THEN JUMP ;
+: 4_21
+TRUE
+
+1 LINE.NUM
+  ^PidConfigStatus @@ 
+  0    =
+LAND
+IF -9 ELSE -8 THEN JUMP ;
+T: T4
+DUMMY
+4_0
+4_2
+4_6
+4_11
+4_20
+4_22
+4_27
+4_29
+4_31
+4_1
+4_3
+4_17
+4_21
+T;
+&PidConfig ' T4 SETTASK
 : 0_0
 0 JUMP ;
+: 0_1
+1 1 LINE.NUM 10240 1 + 0 DO? I ^gIndex @! 
+2 LINE.NUM %ScratchPad ^gIndex @@ 0 I>F  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad ^gIndex @@ 0  IO.SP.I.WRITE DROP  
+4 LINE.NUM 1 +LOOP 
+1 6 LINE.NUM 343 1 + 300 DO? I ^gIndex @! 
+7 LINE.NUM %ScratchPad ^gIndex @@ -32769 I>F  IO.SP.F.WRITE DROP  
+8 LINE.NUM 1 +LOOP 
+8 JUMP ;
+: 0_3
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  1    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  0  
+  ^IsApplicationConnected   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+10 JUMP ;
+: 0_4
+-2 JUMP ;
+: 0_5
+
+1 LINE.NUM
+  ^IsApplicationConnected   FALSE@!
+-2 JUMP ;
+: 0_14
+
+1 LINE.NUM
+  %ScratchPad 
+  1  
+  2    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+
+2 LINE.NUM
+  %ScratchPad 
+  10  
+  ^IsStartTest   IO.SP.READ
+  ^GetScratchPadResult @! 
+
+3 LINE.NUM
+  *StrategyRunTime   TIME>$
+8 JUMP ;
+: 0_18
+
+1 LINE.NUM
+  %ScratchPad 
+  99  
+  0    IO.SP.I.WRITE
+  ^SetScratchPadResult @! 
+0 JUMP ;
+: 0_19
+-6 JUMP ;
+: 0_25
+
+1 LINE.NUM
+  %ScratchPad 
+  11  
+  ^IsTestRunning   IO.SP.READ
+  ^GetScratchPadResult @! 
+6 JUMP ;
+: 0_29
+-2 JUMP ;
+: 0_38
+
+1 LINE.NUM
+  &DataCollection   START.T
+  ^GetScratchPadResult @! 
+-9 JUMP ;
+: 0_45
+-7 JUMP ;
+: 0_47
+3 JUMP ;
+: 0_2
+TRUE
+
+1 LINE.NUM
+  ^IsApplicationConnected @@ 
+  1    =
+LAND
+IF -9 ELSE -10 THEN JUMP ;
+: 0_16
+TRUE
+
+1 LINE.NUM
+  ^IsStartTest @@ 
+  1    =
+LAND
+IF -7 ELSE -9 THEN JUMP ;
+: 0_27
+TRUE
+
+1 LINE.NUM
+  ^IsTestRunning @@ 
+  1    =
+LAND
+IF -7 ELSE -5 THEN JUMP ;
 T: T0
 DUMMY
 0_0
+0_1
+0_3
+0_4
+0_5
+0_14
+0_18
+0_19
+0_25
+0_29
+0_38
+0_45
+0_47
+0_2
+0_16
+0_27
 T;
 &Powerup ' T0 SETTASK
+: 6_0
+
+1 LINE.NUM
+  %ScratchPad 
+  600  
+  ^VentCtrl1Status   IO.SP.READ
+  ^GetScratchPadResult @! 
+6 JUMP ;
+: 6_1
+1 LINE.NUM %ScratchPad 601 ^VentCtrl1InsideType  IO.SP.READ DROP  
+3 LINE.NUM ^VentCtrl1InsideType @@ CASE 
+4 LINE.NUM 1 OF 
+5 LINE.NUM ~ThermoCouple3 
+MoveToPointer PTR_VentCtrl1Inside 
+6 LINE.NUM ENDOF 
+7 LINE.NUM 2 OF 
+8 LINE.NUM ~ThermoCouple2 
+MoveToPointer PTR_VentCtrl1Inside 
+9 LINE.NUM ENDOF 
+10 LINE.NUM 3 OF 
+11 LINE.NUM ~ThermoCouple0 
+MoveToPointer PTR_VentCtrl1Inside 
+12 LINE.NUM ENDOF 
+13 LINE.NUM 4 OF 
+14 LINE.NUM ~ThermoCouple7 
+MoveToPointer PTR_VentCtrl1Inside 
+15 LINE.NUM ENDOF 
+16 LINE.NUM 5 OF 
+17 LINE.NUM ~ThermoCouple6 
+MoveToPointer PTR_VentCtrl1Inside 
+18 LINE.NUM ENDOF 
+19 LINE.NUM 6 OF 
+20 LINE.NUM ~ThermoCouple5 
+MoveToPointer PTR_VentCtrl1Inside 
+21 LINE.NUM ENDOF 
+22 LINE.NUM 7 OF 
+23 LINE.NUM ~ThermoCouple4 
+MoveToPointer PTR_VentCtrl1Inside 
+24 LINE.NUM ENDOF 
+25 LINE.NUM 8 OF 
+26 LINE.NUM ~ThermoCouple11 
+MoveToPointer PTR_VentCtrl1Inside 
+27 LINE.NUM ENDOF 
+28 LINE.NUM 9 OF 
+29 LINE.NUM ~ThermoCouple10 
+MoveToPointer PTR_VentCtrl1Inside 
+30 LINE.NUM ENDOF 
+31 LINE.NUM 10 OF 
+32 LINE.NUM ~ThermoCouple9 
+MoveToPointer PTR_VentCtrl1Inside 
+33 LINE.NUM ENDOF 
+34 LINE.NUM 11 OF 
+35 LINE.NUM ~ThermoCouple8 
+MoveToPointer PTR_VentCtrl1Inside 
+36 LINE.NUM ENDOF 
+37 LINE.NUM ENDCASE 
+0 JUMP ;
+: 6_2
+1 LINE.NUM %ScratchPad 602 ^VentCtrl1OutsideType  IO.SP.READ DROP  
+3 LINE.NUM ^VentCtrl1OutsideType @@ CASE 
+4 LINE.NUM 1 OF 
+5 LINE.NUM ~ThermoCouple3 
+MoveToPointer PTR_VentCtrl1Outside 
+6 LINE.NUM ENDOF 
+7 LINE.NUM 2 OF 
+8 LINE.NUM ~ThermoCouple2 
+MoveToPointer PTR_VentCtrl1Outside 
+9 LINE.NUM ENDOF 
+10 LINE.NUM 3 OF 
+11 LINE.NUM ~ThermoCouple0 
+MoveToPointer PTR_VentCtrl1Outside 
+12 LINE.NUM ENDOF 
+13 LINE.NUM 4 OF 
+14 LINE.NUM ~ThermoCouple7 
+MoveToPointer PTR_VentCtrl1Outside 
+15 LINE.NUM ENDOF 
+16 LINE.NUM 5 OF 
+17 LINE.NUM ~ThermoCouple6 
+MoveToPointer PTR_VentCtrl1Outside 
+18 LINE.NUM ENDOF 
+19 LINE.NUM 6 OF 
+20 LINE.NUM ~ThermoCouple5 
+MoveToPointer PTR_VentCtrl1Outside 
+21 LINE.NUM ENDOF 
+22 LINE.NUM 7 OF 
+23 LINE.NUM ~ThermoCouple4 
+MoveToPointer PTR_VentCtrl1Outside 
+24 LINE.NUM ENDOF 
+25 LINE.NUM 8 OF 
+26 LINE.NUM ~ThermoCouple11 
+MoveToPointer PTR_VentCtrl1Outside 
+27 LINE.NUM ENDOF 
+28 LINE.NUM 9 OF 
+29 LINE.NUM ~ThermoCouple10 
+MoveToPointer PTR_VentCtrl1Outside 
+30 LINE.NUM ENDOF 
+31 LINE.NUM 10 OF 
+32 LINE.NUM ~ThermoCouple9 
+MoveToPointer PTR_VentCtrl1Outside 
+33 LINE.NUM ENDOF 
+34 LINE.NUM 11 OF 
+35 LINE.NUM ~ThermoCouple8 
+MoveToPointer PTR_VentCtrl1Outside 
+36 LINE.NUM ENDOF 
+38 LINE.NUM ENDCASE 
+0 JUMP ;
+: 6_3
+1 LINE.NUM %ScratchPad 603 ^VentCtrl1OutputType  IO.SP.READ DROP  
+3 LINE.NUM ^VentCtrl1OutputType @@ CASE 
+4 LINE.NUM 5 OF 
+5 LINE.NUM ~AO4_20_0 
+MoveToPointer PTR_VentCtrl1Output 
+6 LINE.NUM ENDOF 
+7 LINE.NUM 6 OF 
+8 LINE.NUM ~AO4_20_1 
+MoveToPointer PTR_VentCtrl1Output 
+9 LINE.NUM ENDOF 
+10 LINE.NUM ENDCASE 
+0 JUMP ;
+: 6_4
+1 LINE.NUM %ScratchPad 604 ^VentCtrl1Gain   IO.SP.READ DROP  
+2 LINE.NUM %ScratchPad 605 ^VentCtrl1Setpoint   IO.SP.READ DROP  
+5 LINE.NUM PTR_VentCtrl1Inside @@ PTR_VentCtrl1Outside @@ F- 0 I>F F= IF 
+6 LINE.NUM 0 I>F PTR_VentCtrl1Output @! 
+7 LINE.NUM ELSE 
+8 LINE.NUM PTR_VentCtrl1Inside @@ ^VentCtrl1Setpoint @@ F- PTR_VentCtrl1Inside @@ PTR_VentCtrl1Outside @@ F- F/ ^VentCtrl1Gain @@ F* PTR_VentCtrl1Output @! 
+9 LINE.NUM THEN 
+11 LINE.NUM PTR_VentCtrl1Output @@ ^VentCtrl1OutputOld F@! 
+13 LINE.NUM ^VentCtrl1OutputOld @@ D>F 9.000000e-001 F* PTR_VentCtrl1Output @@ 1.000000e-001 F* F+ ^VentCtrl1Weighted @! 
+15 LINE.NUM %ScratchPad 606 PTR_VentCtrl1Inside @@  IO.SP.F.WRITE DROP  
+16 LINE.NUM %ScratchPad 607 PTR_VentCtrl1Outside @@  IO.SP.F.WRITE DROP  
+17 LINE.NUM %ScratchPad 608 ^VentCtrl1Weighted @@  IO.SP.F.WRITE DROP  
+1 JUMP ;
+: 6_8
+-6 JUMP ;
+: 6_16
+-7 JUMP ;
+: 6_5
+TRUE
+
+1 LINE.NUM
+  ^VentCtrl1Status @@ 
+  1    =
+LAND
+IF -7 ELSE -3 THEN JUMP ;
+T: T6
+DUMMY
+6_0
+6_1
+6_2
+6_3
+6_4
+6_8
+6_16
+6_5
+T;
+&VentilationCtrl1 ' T6 SETTASK
 CREATE T.ARRAY
+&DataCollection ,
+&PidConfig ,
 &Powerup ,
+&VentilationCtrl1 ,
  0 ,
 CREATE V.ARRAY
+^GetScratchPadResult ,
+^gIndex ,
+^IsApplicationConnected ,
+^IsStartDataCollect ,
+^IsStartTest ,
+^IsTestRunning ,
+^OutputConfigValue ,
+^PidConfigStatus ,
+^PidConfigType ,
+^PidConfigValue ,
+^SetScratchPadResult ,
+^VentCtrl1Gain ,
+^VentCtrl1InsideType ,
+^VentCtrl1OutputOld ,
+^VentCtrl1OutputType ,
+^VentCtrl1OutsideType ,
+^VentCtrl1Setpoint ,
+^VentCtrl1Status ,
+^VentCtrl1Weighted ,
+*StrategyRunTime ,
 *_HSV_SEMA ,
 *_HSV_TEMP ,
  0 ,
 CREATE TI.ARRAY
  0 ,
 CREATE PTR.ARRAY
+Ptr' PTR_PidConfigSelection ,
+Ptr' PTR_VentCtrl1Inside ,
+Ptr' PTR_VentCtrl1Output ,
+Ptr' PTR_VentCtrl1Outside ,
  0 ,
 CREATE TA.ARRAY 
  0 ,
 CREATE PTRTABLE.ARRAY 
  0 ,
 CREATE B.ARRAY
-%JohnDeere ,
+%EngineCell ,
+%ScratchPad ,
  0 ,
 CREATE P.ARRAY
-~aima0 ,
-~aima1 ,
-~aiv0 ,
-~aiv1 ,
-~aiv2 ,
-~aiv3 ,
-~aoma0 ,
-~aoma1 ,
-~rate0 ,
-~rate1 ,
-~TC0 ,
-~TC1 ,
-~TC10 ,
-~TC11 ,
-~TC2 ,
-~TC3 ,
-~TC4 ,
-~TC5 ,
-~TC6 ,
-~TC7 ,
-~TC8 ,
-~TC9 ,
+~AO4_20_0 ,
+~AO4_20_1 ,
+~MilliAmp0 ,
+~MilliAmp1 ,
+~Rate0 ,
+~Rate1 ,
+~ThermoCouple0 ,
+~ThermoCouple1 ,
+~ThermoCouple10 ,
+~ThermoCouple11 ,
+~ThermoCouple2 ,
+~ThermoCouple3 ,
+~ThermoCouple4 ,
+~ThermoCouple5 ,
+~ThermoCouple6 ,
+~ThermoCouple7 ,
+~ThermoCouple8 ,
+~ThermoCouple9 ,
+~Volt0 ,
+~Volt1 ,
+~Volt2 ,
+~Volt3 ,
  0 ,
 CREATE PID.ARRAY
+ |Coolant ,
+ |Custom1 ,
+ |Custom2 ,
+ |Custom3 ,
+ |Custom4 ,
+ |Dyno ,
+ |Intercooler ,
+ |Oil ,
+ |Throttle ,
  0 ,
 CREATE E/R.ARRAY
  0 ,
@@ -99,9 +702,46 @@ CREATE E/RGROUP.ARRAY
 ;
 : W_INIT_IO
 CONFIG_PORTS
-" %JohnDeere  (1/1)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
-%JohnDeere ENABLE
+$0000000000000000.. %ScratchPad ENABLES!
+|Coolant ENABLE
+|Custom1 ENABLE
+|Custom2 ENABLE
+|Custom3 ENABLE
+|Custom4 ENABLE
+|Dyno ENABLE
+|Intercooler ENABLE
+|Oil ENABLE
+|Throttle ENABLE
+" %EngineCell  (1/2)" *_HSV_INIT_IO $MOVE 1 ^_HNV_INIT_IO @!
+%EngineCell ENABLE
+" %ScratchPad  (2/2)" *_HSV_INIT_IO $MOVE 0 ^_HNV_INIT_IO @!
+%ScratchPad ENABLE
  " Initializing variables" *_HSV_INIT_IO $MOVE
+0 ^GetScratchPadResult @!
+0 ^gIndex @!
+0 ^IsApplicationConnected @!
+0 ^IsStartDataCollect @!
+0 ^IsStartTest @!
+0 ^IsTestRunning @!
+0.00000000 ^OutputConfigValue @!
+0 ^PidConfigStatus @!
+0 ^PidConfigType @!
+0.00000000 ^PidConfigValue @!
+0 ^SetScratchPadResult @!
+0.00000000 ^VentCtrl1Gain @!
+0 ^VentCtrl1InsideType @!
+0.. ^VentCtrl1OutputOld @!
+0 ^VentCtrl1OutputType @!
+0 ^VentCtrl1OutsideType @!
+0.00000000 ^VentCtrl1Setpoint @!
+0 ^VentCtrl1Status @!
+0.00000000 ^VentCtrl1Weighted @!
+" "
+ *StrategyRunTime $MOVE
+0 MoveToPointer PTR_PidConfigSelection
+0 MoveToPointer PTR_VentCtrl1Inside
+0 MoveToPointer PTR_VentCtrl1Output
+0 MoveToPointer PTR_VentCtrl1Outside
  " " *_HSV_INIT_IO $MOVE
 ;
 T: T_INIT_IO
@@ -113,9 +753,9 @@ T;
    CLEARERRORS
    &_INIT_IO START.T DROP
    ;
-: DATESTAMP ." 11/21/15 " ;
-: TIMESTAMP ." 11:48:28 " ;
-: CRCSTAMP  ." 1403C9714922951D8455E05AB9FF442C " ;
+: DATESTAMP ." 02/25/17 " ;
+: TIMESTAMP ." 08:21:48 " ;
+: CRCSTAMP  ." 420878D1378297B8866BF37409C7CB00 " ;
 MAKECHECK
 CLEAR.BREAKS
 

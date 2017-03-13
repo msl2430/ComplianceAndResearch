@@ -32,7 +32,7 @@
                     <RowDefinition Height="5"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Grid.Row="0" Height="30" FontSize="12">Test Time:</Label>
-                <TextBox Grid.Column="1" Grid.Row="0" IsReadOnly="True"  Text="{Binding Path=CurrentTime}" Foreground="WhiteSmoke" BorderBrush="Transparent" Height="30" FontSize="12"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="0" IsReadOnly="True"  Text="{Binding Path=CurrentTime}" Height="30" FontSize="12"></TextBox>
                 <Label Grid.Column="0" Grid.Row="2" Height="30" FontSize="12">Expiration Time:</Label>
                 <TextBox Grid.Column="1" Grid.Row="2" IsReadOnly="True" Text="{Binding Path=ExpirationTime}" Height="30" FontSize="12"></TextBox>
             </Grid>

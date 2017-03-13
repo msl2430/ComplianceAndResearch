@@ -27,6 +27,7 @@ namespace EngineCell.Application.Views.Widget
             widget.IsRunning = true;
             ViewModel = new TimerDisplayViewModel(appSession, widget);
             Timer = new Stopwatch();
+            ViewModel.CurrentTime = "00:00:00";
         }
 
         private void TimerDisplay_OnLoaded(object sender, RoutedEventArgs e)

@@ -173,7 +173,7 @@
               <Grid.RowDefinitions>
                   <RowDefinition Height="39"/>
                   <RowDefinition Height="45"/>
-                  <RowDefinition Height="*"/>
+                  <RowDefinition Height="*" MinHeight="300"/>
                 <RowDefinition/>
               </Grid.RowDefinitions>
               <TextBlock Grid.Row="0" Foreground="{StaticResource HeadlineBlueBrush}" FontSize="18" HorizontalAlignment="Center" Margin="0,12,0,0">Test Data</TextBlock>
@@ -183,7 +183,7 @@
                   <clocks:TimeRemaining x:Name="TimeRemaining" IsRunning="False"  HorizontalAlignment="Center" ></clocks:TimeRemaining>
                 </StackPanel>
               </Grid>
-              <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+              <!--<ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
                 <Grid>
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5*"/>
@@ -205,7 +205,7 @@
                                 <ColumnDefinition Width="75"/>
                               </Grid.ColumnDefinitions>
                               <Label VerticalAlignment="Center" Width="125" HorizontalContentAlignment="Center" Content="{Binding Path=CustomName}" Height="30" FontSize="15"></Label>
-                              <TextBox IsUndoEnabled="False" Grid.Column="1" Text="{Binding Path=AverageData}" Height="30" FontSize="15"></TextBox>
+                              <TextBox IsUndoEnabled="False" Grid.Column="1" IsReadOnly="True" Text="{Binding Path=AverageData}" Height="30" FontSize="15"></TextBox>
                             </Grid>
                             <Grid Visibility="{Binding Path=IsAnalog, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                               <Grid.ColumnDefinitions>
@@ -258,7 +258,7 @@
                     </ItemsControl>
                   </StackPanel>
                 </Grid>
-                </ScrollViewer>
+                </ScrollViewer>-->
               </Grid>
             <Grid Row="1">
                 <ContentControl x:Name="StripChartContent" Content="{Binding ChartViewModel}"></ContentControl>
