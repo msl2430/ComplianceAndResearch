@@ -35,7 +35,7 @@ namespace EngineCell.Application.Views.PointConfiguration
             ActivateButton.Visibility = IsPointActive ? Visibility.Collapsed : Visibility.Visible;
             DeactivateButton.Visibility = !IsPointActive ? Visibility.Collapsed : Visibility.Visible;
             IsRecord.IsChecked = Point.IsRecord;
-            IsAverage.IsChecked = Point.IsAverage;
+            //IsAverage.IsChecked = Point.IsAverage;
             AverageSeconds.Text = Point.AverageSeconds != null ? Point.AverageSeconds.ToString() : "1";
             IncludeInStripChart.IsChecked = Point.IncludeInStripChart;
             StripChartScale.Text = Point.StripChartScale != null ? Point.StripChartScale.ToString() : "1";
@@ -47,7 +47,7 @@ namespace EngineCell.Application.Views.PointConfiguration
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
             Point.IsRecord = Convert.ToBoolean(IsRecord.IsChecked);
-            Point.IsAverage = Convert.ToBoolean(IsAverage.IsChecked);
+            //Point.IsAverage = Convert.ToBoolean(IsAverage.IsChecked);
             Point.AverageSeconds = !string.IsNullOrEmpty(AverageSeconds.Text) ? Convert.ToInt32(AverageSeconds.Text) : Point.IsAverage ? (int?)10 : null;
             Point.IncludeInStripChart = Convert.ToBoolean(IncludeInStripChart.IsChecked);
             Point.StripChartScale = !string.IsNullOrEmpty(StripChartScale.Text) ? Convert.ToDecimal(StripChartScale.Text) : Point.IncludeInStripChart ? (decimal?)1 : null;

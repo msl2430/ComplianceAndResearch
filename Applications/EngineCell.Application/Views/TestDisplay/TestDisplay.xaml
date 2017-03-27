@@ -118,7 +118,7 @@
                           <ColumnDefinition Width="100"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="1"  Grid.Row="0" HorizontalAlignment="Left" Foreground="{StaticResource GreenBrush}" Margin="-20,0,0,0" Visibility="{Binding Path=IsRunning, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">Active</TextBlock>
-                        <TextBlock Height="50" Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Foreground="{StaticResource BrightBlueBrush}" Text="{Binding Name}"></TextBlock>
+                        <TextBlock Height="50" Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="3" Foreground="{StaticResource BrightBlueBrush}" Text="{Binding Name}"></TextBlock>
                         <StackPanel Grid.Column="1" Margin="5" Grid.Row="1">
                           <TextBlock FontSize="10" Margin="2">Start Time: <TextBlock FontSize="11" Text="{Binding StartDateTimeString}"></TextBlock></TextBlock>
                           <TextBlock FontSize="10" Margin="2">End Time: <TextBlock FontSize="11" Text="{Binding EndDateTimeString}"></TextBlock></TextBlock>
@@ -183,7 +183,7 @@
                   <clocks:TimeRemaining x:Name="TimeRemaining" IsRunning="False"  HorizontalAlignment="Center" ></clocks:TimeRemaining>
                 </StackPanel>
               </Grid>
-              <!--<ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
+              <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
                 <Grid>
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5*"/>
@@ -205,7 +205,7 @@
                                 <ColumnDefinition Width="75"/>
                               </Grid.ColumnDefinitions>
                               <Label VerticalAlignment="Center" Width="125" HorizontalContentAlignment="Center" Content="{Binding Path=CustomName}" Height="30" FontSize="15"></Label>
-                              <TextBox IsUndoEnabled="False" Grid.Column="1" IsReadOnly="True" Text="{Binding Path=AverageData}" Height="30" FontSize="15"></TextBox>
+                                                <TextBlock Grid.Column="1" Text="{Binding Path=AverageData}" Height="30" FontSize="15" TextWrapping="WrapWithOverflow" Padding="5" Background="WhiteSmoke" Foreground="Black"></TextBlock>
                             </Grid>
                             <Grid Visibility="{Binding Path=IsAnalog, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                               <Grid.ColumnDefinitions>
@@ -213,10 +213,10 @@
                                 <ColumnDefinition Width="75"/>
                               </Grid.ColumnDefinitions>
                               <Label VerticalAlignment="Center" Width="125" HorizontalContentAlignment="Center" Content="{Binding Path=CustomName}" Height="30" FontSize="15"></Label>
-                              <TextBox IsUndoEnabled="False" Grid.Column="1" IsReadOnly="True" Text="On" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Center" Background="{StaticResource GreenBrush}" Foreground="WhiteSmoke"
-                                      Visibility="{Binding Path=IsDigitalOn, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"></TextBox>
-                              <TextBox IsUndoEnabled="False" Grid.Column="1" IsReadOnly="True" Text="Off" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Center" Background="Red" Foreground="WhiteSmoke"
-                                       Visibility="{Binding Path=IsDigitalOn, Converter={StaticResource InverseBoolToVisibilityConverter}, ConverterParameter=true}"></TextBox>
+                              <TextBlock Grid.Column="1" Text="On" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Center" Background="{StaticResource GreenBrush}" Foreground="WhiteSmoke"
+                                      Visibility="{Binding Path=IsDigitalOn, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"></TextBlock>
+                              <TextBlock Grid.Column="1" Text="Off" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Center" Background="Red" Foreground="WhiteSmoke"
+                                       Visibility="{Binding Path=IsDigitalOn, Converter={StaticResource InverseBoolToVisibilityConverter}, ConverterParameter=true}"></TextBlock>
                             </Grid>
                           </Grid>
                         </DataTemplate>
@@ -239,7 +239,7 @@
                                 <ColumnDefinition Width="75"/>
                               </Grid.ColumnDefinitions>
                               <Label VerticalAlignment="Center" Width="125" HorizontalContentAlignment="Center" Content="{Binding Path=CustomName}" Height="30" FontSize="15"></Label>
-                              <TextBox IsUndoEnabled="False" Grid.Column="1" Text="{Binding Path=AverageData}" Height="30" FontSize="15"></TextBox>
+                            <TextBlock Grid.Column="1" Text="{Binding Path=AverageData}" Height="30" FontSize="15" TextWrapping="WrapWithOverflow" Padding="5" Background="WhiteSmoke" Foreground="Black"></TextBlock>
                             </Grid>
                             <Grid Visibility="{Binding Path=IsAnalog, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                               <Grid.ColumnDefinitions>
@@ -247,10 +247,10 @@
                                 <ColumnDefinition Width="75"/>
                               </Grid.ColumnDefinitions>
                               <Label VerticalAlignment="Center" Width="125" HorizontalContentAlignment="Center" Content="{Binding Path=CustomName}" Height="30" FontSize="15"></Label>
-                              <TextBox IsUndoEnabled="False" Grid.Column="1" IsReadOnly="True" Text="On" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Center" Background="{StaticResource GreenBrush}" Foreground="WhiteSmoke"
-                                      Visibility="{Binding Path=IsDigitalOn, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"></TextBox>
-                              <TextBox IsUndoEnabled="False" Grid.Column="1" IsReadOnly="True" Text="Off" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Center" Background="Red" Foreground="WhiteSmoke"
-                                       Visibility="{Binding Path=IsDigitalOn, Converter={StaticResource InverseBoolToVisibilityConverter}, ConverterParameter=true}"></TextBox>
+                              <TextBlock Grid.Column="1" Text="On" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Center" Background="{StaticResource GreenBrush}" Foreground="WhiteSmoke"
+                                      Visibility="{Binding Path=IsDigitalOn, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"></TextBlock>
+                              <TextBlock  Grid.Column="1"  Text="Off" VerticalAlignment="Center" Margin="7,0,0,0" Width="50" TextAlignment="Center" Background="Red" Foreground="WhiteSmoke"
+                                       Visibility="{Binding Path=IsDigitalOn, Converter={StaticResource InverseBoolToVisibilityConverter}, ConverterParameter=true}"></TextBlock>
                             </Grid>
                           </Grid>
                         </DataTemplate>
@@ -258,7 +258,7 @@
                     </ItemsControl>
                   </StackPanel>
                 </Grid>
-                </ScrollViewer>-->
+                </ScrollViewer>
               </Grid>
             <Grid Row="1">
                 <ContentControl x:Name="StripChartContent" Content="{Binding ChartViewModel}"></ContentControl>

@@ -25,7 +25,7 @@ namespace EngineCell.Application.ViewModels.Widget
             {
                 ExpirationTimeSeconds = Convert.ToInt64(Widget.Settings.First(s => s.WidgetSettingId == WidgetConstants.WidgetSetting.TimerExpiration).Value);
                 var timespan = new TimeSpan(0, 0, 0, Convert.ToInt32(ExpirationTimeSeconds));
-                ExpirationTime = timespan.Hours.ToString("0#") + ":" + timespan.Minutes.ToString("0#") + ":" + timespan.Seconds.ToString("0#");
+                ExpirationTime = timespan.Days.ToString("0#") + ":" + timespan.Hours.ToString("0#") + ":" + timespan.Minutes.ToString("0#") + ":" + timespan.Seconds.ToString("0#");
             }
         }
     }

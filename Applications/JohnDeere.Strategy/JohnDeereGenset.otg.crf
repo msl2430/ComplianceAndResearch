@@ -117,18 +117,18 @@ $80000000 7 %EngineCell 0 PID |Throttle
 : 2_3
 -2 JUMP ;
 : 2_9
-1 LINE.NUM %ScratchPad 1000 ~ThermoCouple3 @@  IO.SP.F.WRITE DROP  
-2 LINE.NUM %ScratchPad 1001 ~ThermoCouple2 @@  IO.SP.F.WRITE DROP  
-3 LINE.NUM %ScratchPad 1002 ~ThermoCouple1 @@  IO.SP.F.WRITE DROP  
-4 LINE.NUM %ScratchPad 1003 ~ThermoCouple0 @@  IO.SP.F.WRITE DROP  
-5 LINE.NUM %ScratchPad 1004 ~ThermoCouple7 @@  IO.SP.F.WRITE DROP  
-6 LINE.NUM %ScratchPad 1005 ~ThermoCouple6 @@  IO.SP.F.WRITE DROP  
-7 LINE.NUM %ScratchPad 1006 ~ThermoCouple5 @@  IO.SP.F.WRITE DROP  
-8 LINE.NUM %ScratchPad 1007 ~ThermoCouple4 @@  IO.SP.F.WRITE DROP  
-9 LINE.NUM %ScratchPad 1008 ~ThermoCouple11 @@  IO.SP.F.WRITE DROP  
-10 LINE.NUM %ScratchPad 1009 ~ThermoCouple10 @@  IO.SP.F.WRITE DROP  
-11 LINE.NUM %ScratchPad 1010 ~ThermoCouple9 @@  IO.SP.F.WRITE DROP  
-12 LINE.NUM %ScratchPad 1011 ~ThermoCouple8 @@  IO.SP.F.WRITE DROP  
+1 LINE.NUM %ScratchPad 1000 ~ThermoCouple0 @@  IO.SP.F.WRITE DROP  
+2 LINE.NUM %ScratchPad 1001 ~ThermoCouple1 @@  IO.SP.F.WRITE DROP  
+3 LINE.NUM %ScratchPad 1002 ~ThermoCouple2 @@  IO.SP.F.WRITE DROP  
+4 LINE.NUM %ScratchPad 1003 ~ThermoCouple3 @@  IO.SP.F.WRITE DROP  
+5 LINE.NUM %ScratchPad 1004 ~ThermoCouple4 @@  IO.SP.F.WRITE DROP  
+6 LINE.NUM %ScratchPad 1005 ~ThermoCouple5 @@  IO.SP.F.WRITE DROP  
+7 LINE.NUM %ScratchPad 1006 ~ThermoCouple6 @@  IO.SP.F.WRITE DROP  
+8 LINE.NUM %ScratchPad 1007 ~ThermoCouple7 @@  IO.SP.F.WRITE DROP  
+9 LINE.NUM %ScratchPad 1008 ~ThermoCouple8 @@  IO.SP.F.WRITE DROP  
+10 LINE.NUM %ScratchPad 1009 ~ThermoCouple9 @@  IO.SP.F.WRITE DROP  
+11 LINE.NUM %ScratchPad 1010 ~ThermoCouple10 @@  IO.SP.F.WRITE DROP  
+12 LINE.NUM %ScratchPad 1011 ~ThermoCouple11 @@  IO.SP.F.WRITE DROP  
 14 LINE.NUM %ScratchPad 1020 ~Volt0 @@  IO.SP.F.WRITE DROP  
 15 LINE.NUM %ScratchPad 1021 ~Volt1 @@  IO.SP.F.WRITE DROP  
 16 LINE.NUM %ScratchPad 1022 ~Volt2 @@  IO.SP.F.WRITE DROP  
@@ -754,8 +754,8 @@ T;
    &_INIT_IO START.T DROP
    ;
 : DATESTAMP ." 02/25/17 " ;
-: TIMESTAMP ." 08:21:48 " ;
-: CRCSTAMP  ." 420878D1378297B8866BF37409C7CB00 " ;
+: TIMESTAMP ." 08:36:39 " ;
+: CRCSTAMP  ." BD70E1059FB90756E4C1524465F0D01A " ;
 MAKECHECK
 CLEAR.BREAKS
 

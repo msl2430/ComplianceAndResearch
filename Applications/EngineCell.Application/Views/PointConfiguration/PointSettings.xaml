@@ -14,7 +14,7 @@
     </Window.Resources>
     <Grid>
       <Grid.RowDefinitions>
-        <RowDefinition Height="50"></RowDefinition>
+        <RowDefinition Height="15"></RowDefinition>
         <RowDefinition Height="80"></RowDefinition>
         <RowDefinition Height="80"></RowDefinition>
         <RowDefinition Height="80"></RowDefinition>
@@ -22,17 +22,14 @@
       </Grid.RowDefinitions>
       <Border Grid.Row="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,0,0,1" Margin="5,5,0,5">
         <StackPanel>
-          <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-            <Label VerticalAlignment="Center" Height="30" FontSize="15">Record Point Data</Label>
-            <CheckBox x:Name="IsRecord" Width="30" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="70,0,0,0"></CheckBox>
-          </StackPanel>
+          
         </StackPanel>  
       </Border>
       <Border Grid.Row="1" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,0,0,1" Margin="5,0,0,5">
         <StackPanel>
           <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-            <Label VerticalAlignment="Center" Height="30" FontSize="15">Show Average on Display</Label>
-            <CheckBox x:Name="IsAverage" Margin="22,0,0,0"></CheckBox>
+            <Label VerticalAlignment="Center" Height="30" FontSize="15">Record Point Data</Label>
+            <CheckBox x:Name="IsRecord" Width="30" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="70,0,0,0"></CheckBox>
           </StackPanel>
           <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0" Visibility="{Binding Path=IsAnalog, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
             <Label VerticalAlignment="Center" Height="30" FontSize="15">Calculate Average Seconds</Label>

@@ -27,7 +27,7 @@ namespace EngineCell.Application.Views.Widget
             widget.IsRunning = true;
             ViewModel = new TimerDisplayViewModel(appSession, widget);
             Timer = new Stopwatch();
-            ViewModel.CurrentTime = "00:00:00";
+            ViewModel.CurrentTime = "00:00:00:00";
         }
 
         private void TimerDisplay_OnLoaded(object sender, RoutedEventArgs e)
@@ -42,7 +42,7 @@ namespace EngineCell.Application.Views.Widget
                 while (IsRunning)
                 {
                     var timespan = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(Timer.ElapsedMilliseconds));
-                    ViewModel.CurrentTime = timespan.Hours.ToString("0#") + ":" + timespan.Minutes.ToString("0#") + ":" + timespan.Seconds.ToString("0#");
+                    ViewModel.CurrentTime = timespan.Days.ToString("0#") + ":" + timespan.Hours.ToString("0#") + ":" + timespan.Minutes.ToString("0#") + ":" + timespan.Seconds.ToString("0#");
                     CheckTimer();
                     Thread.Sleep(100);
                 }

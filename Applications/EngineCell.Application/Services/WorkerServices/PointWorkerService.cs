@@ -54,7 +54,7 @@ namespace EngineCell.Application.Services.WorkerServices
             ApplicationSessionFactory.LogEvent("Point data collection started.", true);            
             TaskList = new List<Task>();
             LastRecordTime = DateTime.UtcNow;
-            MinRecordSeconds = ApplicationSessionFactory.CellPoints.Where(c => c.IsRecord && c.IsAverage).Min(c => c.AverageSeconds) ?? 1;
+            
             try
             {
                 while (!CancellationToken.IsCancellationRequested)
@@ -90,7 +90,8 @@ namespace EngineCell.Application.Services.WorkerServices
                         {
                             TaskList[i] = null;
                         }
-                        
+
+                        MinRecordSeconds = ApplicationSessionFactory.CellPoints.Where(c => c.IsRecord).Min(c => c.AverageSeconds) ?? 1;
                         if (ApplicationSessionFactory.CurrentCellTest != null 
                             && ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()) == 1
                             && ApplicationSessionFactory.CellPoints.Any(cp => cp.IsRecord && cp.IsActive)
@@ -139,7 +140,7 @@ namespace EngineCell.Application.Services.WorkerServices
                 if (cellPoint.IsAnalog)
                 {
                     cellPoint.Data = Math.Truncate(scratchPadValue.Value * 10000m) / 10000m;
-                    if (cellPoint.AverageSeconds == null || cellPoint.AverageSeconds.Value <= 0)
+                    if (!cellPoint.IsRecord || cellPoint.AverageSeconds == null || cellPoint.AverageSeconds.Value <= 0)
                         return;
                     cellPoint.MostRecentData.Add(cellPoint.Data);
                     if (cellPoint.MostRecentData.Count() > cellPoint.AverageSeconds * 10) //10 because we're capturing 10 data points per second
