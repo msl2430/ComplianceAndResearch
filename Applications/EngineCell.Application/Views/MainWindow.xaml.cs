@@ -115,6 +115,8 @@ namespace EngineCell.Application.Views
             UpdateTestName(MainWindowViewModel.HasTestActive ? ApplicationSessionFactory.CurrentCellTest.Name : "");
 
             MainWindowViewModel.ViewModels.FirstOrDefault(vm => vm.GetType() == viewModel.GetType()).ZIndex = 1;
+            if(viewModel.GetType() == typeof(TestDisplayViewModel))
+                ((TestDisplayViewModel)viewModel).UpdateVisibleCellPoints();
         }
 
         public void ChangePageView(ControlConstants.Views view)
@@ -135,6 +137,7 @@ namespace EngineCell.Application.Views
                     break;
                 case ControlConstants.Views.TestDisplay:
                     MainWindowViewModel.ViewModels.FirstOrDefault(vm => vm.GetType() == typeof(TestDisplayViewModel)).ZIndex = 1;
+                    ((TestDisplayViewModel)MainWindowViewModel.ViewModels.FirstOrDefault(vm => vm.GetType() == typeof(TestDisplayViewModel))).UpdateVisibleCellPoints();
                     break;
                 case ControlConstants.Views.PointConfiguration:
                     MainWindowViewModel.ViewModels.FirstOrDefault(vm => vm.GetType() == typeof(PointConfigurationViewModel)).ZIndex = 1;

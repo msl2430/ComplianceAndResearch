@@ -36,6 +36,8 @@ namespace EngineCell.Application.Views.TestDisplay
         {
             if (DataContext != null)
                 ViewModel = (TestDisplayViewModel) DataContext;            
+
+            ViewModel.UpdateVisibleCellPoints();
         }
 
         public void PreparePhaseWidgetDisplay()
