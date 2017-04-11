@@ -20,7 +20,7 @@
         xmlns:welcome="clr-namespace:EngineCell.Application.Views.Welcome"
         mc:Ignorable="d"
         WindowState="Maximized"
-        Title="Rocket Rod" Height="720" Width="1024"
+        Title="Cell Command" Height="720" Width="1024"
         MinWidth="1024" MinHeight="700">
     <local:BaseWindowView.Resources>
         <extensions:InverseBoolConverter x:Key="InverseBoolConverter"/>
