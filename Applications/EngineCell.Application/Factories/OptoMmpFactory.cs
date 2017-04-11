@@ -8,7 +8,7 @@ namespace EngineCell.Application.Factories
     {
         OptoMMP Current { get; }
         void CloseConnection();
-        int OpenConnection();
+        int OpenConnection(string ipAddress, int port);
     }
 
     public sealed class OptoMmpFactory : IOptoMmpFactory
@@ -27,9 +27,9 @@ namespace EngineCell.Application.Factories
             }
         }
 
-        public int OpenConnection()
+        public int OpenConnection(string ipAddress, int port)
         {
-            return Current.Open(ConfigurationManager.AppSettings["OptoIpAddress"], Convert.ToInt32(ConfigurationManager.AppSettings["OptoMmpPort"]), OptoMMP.Connection.TcpIp, 5000, false);
+            return Current.Open(ipAddress, port, OptoMMP.Connection.TcpIp, 5000, false);
         }
 
         public void CloseConnection()
