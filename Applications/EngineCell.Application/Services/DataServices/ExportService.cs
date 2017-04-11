@@ -71,7 +71,7 @@ namespace EngineCell.Application.Services.DataServices
             CurrentFilename = fileName;
         }
 
-        public static void WriteDataToFile(int cellTestId, DateTime captureTime, IList<PointDataModel> dataPoints)
+        public static void WriteDataToFile(int cellTestId, DateTime captureTime, DateTime testStartTime, IList<PointDataModel> dataPoints)
         {
             var fileName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Tests\CellTest_" + cellTestId + "_" + DateTime.Now.ToString("MM_dd_yyyy") + ".csv";
             if (!File.Exists(fileName))
@@ -81,8 +81,8 @@ namespace EngineCell.Application.Services.DataServices
                 }
             using (var file = new StreamWriter(fileName, true))
             {
-                var captureRunTime = (captureTime - captureTime).TotalSeconds > 0 ? (captureTime - captureTime).ToString(@"hh\:mm\:ss\.fff") : "00:00:00";
-                file.WriteLine($"{captureTime.ToString("hh:mm:ss.fff")},{captureRunTime},{string.Join(",", dataPoints.OrderBy(p => p.PointId).Select(p => p.AverageData).ToList())}");
+                var captureRunTime = (captureTime - testStartTime).TotalSeconds > 0 ? (captureTime - testStartTime).ToString(@"hh\:mm\:ss\.fff") : "00:00:00";
+                file.WriteLine($"{captureTime.ToString("HH:mm:ss.fff")},{captureRunTime},{string.Join(",", dataPoints.OrderBy(p => p.PointId).Select(p => p.AverageData).ToList())}");
             }
         }
     }

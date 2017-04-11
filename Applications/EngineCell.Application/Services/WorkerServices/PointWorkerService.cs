@@ -92,17 +92,20 @@ namespace EngineCell.Application.Services.WorkerServices
                         }
 
                         MinRecordSeconds = ApplicationSessionFactory.CellPoints.Where(c => c.IsRecord).Min(c => c.AverageSeconds) ?? 1;
-                        if (ApplicationSessionFactory.CurrentCellTest != null 
+                        if (ApplicationSessionFactory.CurrentCellTest != null && ApplicationSessionFactory.TestStartTime != null
                             && ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()) == 1
                             && ApplicationSessionFactory.CellPoints.Any(cp => cp.IsRecord && cp.IsActive)
                             && Math.Abs((DateTime.UtcNow - LastRecordTime).Seconds) >= MinRecordSeconds)
                         {
                             LastRecordTime = DateTime.UtcNow;
-                            ExportService.WriteDataToFile(ApplicationSessionFactory.CurrentCellTest.CellTestId, CaptureTime, ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive).ToList());
-                            CellPointRepository.CreateCellPointData(
-                                ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive)
-                                    .Select(cp => cp.ToCellTestPointDataModel(ApplicationSessionFactory.CurrentCellTest.CellTestId, DateTime.Now))
-                                    .ToList());
+                            ExportService.WriteDataToFile(ApplicationSessionFactory.CurrentCellTest.CellTestId, CaptureTime, ApplicationSessionFactory.TestStartTime.Value, ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive).ToList());
+                            Task.Run(() =>
+                            {
+                                CellPointRepository.CreateCellPointData(
+                                    ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive)
+                                        .Select(cp => cp.ToCellTestPointDataModel(ApplicationSessionFactory.CurrentCellTest.CellTestId, DateTime.Now))
+                                        .ToList());
+                            });
                         }
 
                         Dispatcher.Invoke(() => {

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -91,6 +92,7 @@ namespace EngineCell.Application.Views.TestDisplay
             ViewModel.ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartTest.ToInt(), 1);
             RunTimeClock.IsRunning = true;
 
+            ViewModel.ApplicationSessionFactory.TestStartTime = DateTime.Now;
             PhaseWorkerService = new PhaseWorkerService(ViewModel.ApplicationSessionFactory, this, Dispatcher);
             Task.Run(() =>
             {

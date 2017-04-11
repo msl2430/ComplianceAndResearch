@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EngineCell.Application.Services;
@@ -21,6 +22,7 @@ namespace EngineCell.Application.Factories
         CellTestModel CurrentCellTest { get; set; }
         CellTestPhaseModel CurrentPhaseRunning { get; set; }
         IList<PointDataModel> CellPoints { get; set; }
+        DateTime? TestStartTime { get; set; }
 
         MainWindowViewModel ApplicationViewModel { get; set; }
 
@@ -42,7 +44,8 @@ namespace EngineCell.Application.Factories
         public CellModel CurrentCell { get; set; }
         public CellTestModel CurrentCellTest { get; set; }
         public CellTestPhaseModel CurrentPhaseRunning { get; set; }
-        public IList<PointDataModel> CellPoints { get; set; }        
+        public IList<PointDataModel> CellPoints { get; set; }   
+        public DateTime? TestStartTime { get; set; }     
 
         public MainWindowViewModel ApplicationViewModel
         {
