@@ -30,6 +30,9 @@ namespace EngineCell.Application.Services.WorkerServices
         private bool IsConnected { get; set; }
         private int ScratchPadValue { get; set; }
 
+        private string IpAddress { get; set; }
+        private int PortNumber { get; set; }
+
         private MainWindow MainWindow { get; set; }
 
         public OptoConnectionWorkerService(IOptoMmpFactory optoMmpFactory, Dispatcher currentDispatcher, Label statusLabel)
@@ -37,7 +40,7 @@ namespace EngineCell.Application.Services.WorkerServices
             
         }
 
-        public OptoConnectionWorkerService(IApplicationSessionFactory applicationSessionFactory, Dispatcher currentDispatcher, MainWindow mainWindow)
+        public OptoConnectionWorkerService(IApplicationSessionFactory applicationSessionFactory, Dispatcher currentDispatcher, MainWindow mainWindow, string ipAddress, int port)
         {
             Dispatcher = currentDispatcher;
             ApplicationSessionFactory = applicationSessionFactory;
@@ -46,6 +49,8 @@ namespace EngineCell.Application.Services.WorkerServices
             _interval = 500;
             _successCount = 0;
             MainWindow = mainWindow;
+            IpAddress = ipAddress;
+            PortNumber = port;
         }
 
         private void ToggleScratchPadConnectBit()
@@ -68,7 +73,7 @@ namespace EngineCell.Application.Services.WorkerServices
             {
                 ApplicationSessionFactory.OptoConnectionStatus = StatusConstants.ConnectionStatus.Connecting;
                 CancellationToken = new CancellationTokenSource();
-                if (ApplicationSessionFactory.OptoMmpFactory.OpenConnection() != 0)
+                if (ApplicationSessionFactory.OptoMmpFactory.OpenConnection(IpAddress, PortNumber) != 0)
                 {
                     ApplicationSessionFactory.LogEvent("Error connecting to Opto.", true);
                     ApplicationSessionFactory.OptoConnectionStatus = StatusConstants.ConnectionStatus.Disconnecting;
@@ -93,13 +98,13 @@ namespace EngineCell.Application.Services.WorkerServices
                         IsConnected = ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen;
                         while (!IsConnected && connectionAttempt < 5)
                         {
-                            ApplicationSessionFactory.OptoMmpFactory.OpenConnection();
+                            ApplicationSessionFactory.OptoMmpFactory.OpenConnection(IpAddress, PortNumber);
                             Thread.Sleep(250);
                             IsConnected = ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen;
                             connectionAttempt++;
                         }
 
-                        if (ApplicationSessionFactory.OptoMmpFactory.OpenConnection() != 0)
+                        if (ApplicationSessionFactory.OptoMmpFactory.OpenConnection(IpAddress, PortNumber) != 0)
                         {
                             ApplicationSessionFactory.LogEvent("Error connecting to Opto.", true);
                             ApplicationSessionFactory.OptoConnectionStatus = StatusConstants.ConnectionStatus.Disconnecting;

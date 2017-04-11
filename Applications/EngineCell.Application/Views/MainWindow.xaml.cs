@@ -98,7 +98,7 @@ namespace EngineCell.Application.Views
             //ChangePageView(MainWindowViewModel.PhaseConfigViewModel);
 
             DataContext = MainWindowViewModel;
-            OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher, this);
+            
             PointWorkerService = new PointWorkerService(MainWindowViewModel.TestDisplayViewModel, Dispatcher);
 
             ToggleLogWindow(Properties.Settings.Default.IsLogVisible);            
@@ -323,7 +323,7 @@ namespace EngineCell.Application.Views
 
                     break;
                 case StatusConstants.ConnectionStatus.Connected:
-                    MainWindowViewModel.TestDisplayViewModel.PointWorkerService.CancelWork();
+                    //MainWindowViewModel.TestDisplayViewModel.PointWorkerService.CancelWork();
                     ApplicationSessionFactory.LogEvent("Disconnecting from Opto 22", true);
                     OptoConnectionWorker.CancelWork();
                     RefreshOptoConnection(false);
@@ -391,6 +391,8 @@ namespace EngineCell.Application.Views
             OptoConnectionToggle.IsEnabled = true;
             PointConfig.IsEnabled = true;
             IsEnabled = true;
+
+            OptoConnectionWorker = new OptoConnectionWorkerService(ApplicationSessionFactory, Dispatcher, this, ApplicationSessionFactory.CurrentCell.IpAddress, ApplicationSessionFactory.CurrentCell.PortNumber);
         }
 
         public void UpdateViewModels()
