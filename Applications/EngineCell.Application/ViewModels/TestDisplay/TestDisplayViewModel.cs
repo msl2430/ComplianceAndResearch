@@ -93,7 +93,7 @@ namespace EngineCell.Application.ViewModels.TestDisplay
         public void UpdateVisibleCellPoints()
         {
             VisiblePoints.Clear();
-            if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null || ApplicationSessionFactory.CurrentCellTest.Phases.IsNullOrEmpty())
+            if (ApplicationSessionFactory.CurrentCell == null || ApplicationSessionFactory.CurrentCellTest == null)
                 return;
             foreach (var point in ApplicationSessionFactory.CellPoints.Where(cp => cp.IsAverage))
             {

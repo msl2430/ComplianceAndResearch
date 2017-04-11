@@ -14,7 +14,7 @@
     </Window.Resources>
     <Grid>
       <Grid.RowDefinitions>
-        <RowDefinition Height="15"></RowDefinition>
+        <RowDefinition Height="45"></RowDefinition>
         <RowDefinition Height="80"></RowDefinition>
         <RowDefinition Height="80"></RowDefinition>
         <RowDefinition Height="80"></RowDefinition>
@@ -22,30 +22,33 @@
       </Grid.RowDefinitions>
       <Border Grid.Row="0" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,0,0,1" Margin="5,5,0,5">
         <StackPanel>
-          
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0" Visibility="{Binding Path=IsAnalog, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
+                <Label VerticalAlignment="Center" Height="30" FontSize="15">Averaged Data Point Seconds</Label>
+                <TextBox x:Name="AverageSeconds" Width="65" Height="30" FontSize="15" Margin="10,0,0,0" PreviewTextInput="NumberOnly"></TextBox>
+            </StackPanel>              
         </StackPanel>  
       </Border>
       <Border Grid.Row="1" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,0,0,1" Margin="5,0,0,5">
         <StackPanel>
           <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-            <Label VerticalAlignment="Center" Height="30" FontSize="15">Record Point Data</Label>
-            <CheckBox x:Name="IsRecord" Width="30" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="70,0,0,0"></CheckBox>
+            <Label VerticalAlignment="Center" Height="30" FontSize="15">Record Point Average Data</Label>
+            <CheckBox x:Name="IsRecord" Width="30" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="28,0,0,0"></CheckBox>
           </StackPanel>
-          <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0" Visibility="{Binding Path=IsAnalog, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
-            <Label VerticalAlignment="Center" Height="30" FontSize="15">Calculate Average Seconds</Label>
-            <TextBox x:Name="AverageSeconds" Width="65" Height="30" FontSize="15" Margin="10,0,0,0" PreviewTextInput="NumberOnly"></TextBox>
-          </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <Label VerticalAlignment="Center" Height="30" FontSize="15">Show Average on Display</Label>
+                <CheckBox x:Name="IsAverage" Width="30" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="38,0,0,0"></CheckBox>
+            </StackPanel>
         </StackPanel>
       </Border>
       <Border Grid.Row="2" BorderBrush="{StaticResource LightBlueBrush}" BorderThickness="0,0,0,1" Margin="5,0,0,5">
         <StackPanel>
           <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
             <Label VerticalAlignment="Center" Height="30" FontSize="15">Show on Stripchart</Label>
-            <CheckBox x:Name="IncludeInStripChart" Margin="62,0,0,0"></CheckBox>
+            <CheckBox x:Name="IncludeInStripChart" Margin="79,0,0,0"></CheckBox>
           </StackPanel>
           <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0" Visibility="{Binding Path=IsAnalog, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
             <Label VerticalAlignment="Center" Height="30" FontSize="15">Strip Chart Scale</Label>
-            <TextBox x:Name="StripChartScale" Width="65" Height="30" FontSize="15" Margin="79,0,0,0" PreviewTextInput="NumberOnly"></TextBox>
+            <TextBox x:Name="StripChartScale" Width="65" Height="30" FontSize="15" Margin="95,0,0,0" PreviewTextInput="NumberOnly"></TextBox>
           </StackPanel>
         </StackPanel>
       </Border>
@@ -53,11 +56,11 @@
         <StackPanel>
           <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
             <Label VerticalAlignment="Center" Height="30" FontSize="15">Set Custom Value</Label>
-            <CheckBox x:Name="IsCustomValue" Margin="71,0,0,0"></CheckBox>
+            <CheckBox x:Name="IsCustomValue" Margin="86,0,0,0"></CheckBox>
           </StackPanel>
           <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0">
             <Label VerticalAlignment="Center" Height="30" FontSize="15">Custom Value</Label>
-            <TextBox x:Name="CustomValue" Width="65" Height="30" FontSize="15" Margin="96,0,0,0" PreviewTextInput="NumberOnly"></TextBox>
+            <TextBox x:Name="CustomValue" Width="65" Height="30" FontSize="15" Margin="110,0,0,0" PreviewTextInput="NumberOnly"></TextBox>
           </StackPanel>
         </StackPanel>
       </Border>
