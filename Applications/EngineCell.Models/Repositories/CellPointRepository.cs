@@ -97,6 +97,7 @@ namespace EngineCell.Models.Repositories
             cellPoint.StripChartScale = point.StripChartScale;
             //cellPoint.IsCustomValue = point.IsCustomValue;
             //cellPoint.CustomValue = point.CustomValue;
+            cellPoint.IsActive = point.IsActive;
 
             NHibernateHelper.CurrentSession.Update(cellPoint);
             NHibernateHelper.CurrentSession.Flush();

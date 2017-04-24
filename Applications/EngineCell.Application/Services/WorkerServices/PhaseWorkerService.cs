@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using EngineCell.Application.Factories;
+using EngineCell.Application.Services.DataServices;
 using EngineCell.Application.Views.TestDisplay;
 using EngineCell.Core.Constants;
 using EngineCell.Core.Extensions;
@@ -18,6 +19,10 @@ namespace EngineCell.Application.Services.WorkerServices
         private int phaseIndex = 0;
         private TestDisplay TestDisplay { get; }
         private Dispatcher Dispatcher { get; set; }
+
+        private DateTime LastRecordTime { get; set; }
+        private int MinRecordSeconds { get; set; }
+        private DateTime CaptureTime { get; set; }
 
         public PhaseWorkerService(IApplicationSessionFactory appSession, TestDisplay testDisplay, Dispatcher dispatcher)
         {
@@ -34,11 +39,13 @@ namespace EngineCell.Application.Services.WorkerServices
                 ApplicationSessionFactory.LogEvent("Test starting.", true);
                 SetNextPhase();
                 ApplicationSessionFactory.CurrentCellTest.IsRunning = true;
+                LastRecordTime = DateTime.UtcNow;
 
                 //Configure points with triggers in this phase
                 foreach (var point in ApplicationSessionFactory.CellPoints)
                 {
                     point.HasPhaseTrigger = ApplicationSessionFactory.CurrentPhaseRunning.Triggers.Any(t => t.CellPointId == point.CellPointId);
+                    point.IsCustomValueSet = false;
                 }
                 foreach (var widget in ApplicationSessionFactory.CurrentCellTest.Phases.SelectMany(p => p.Widgets))
                 {
@@ -114,6 +121,25 @@ namespace EngineCell.Application.Services.WorkerServices
                         TriggerActiveAction(trigger, false);
                         break;
                     }
+
+                    MinRecordSeconds = ApplicationSessionFactory.CellPoints.Where(c => c.IsRecord).Min(c => c.AverageSeconds) ?? 1;
+                    CaptureTime = DateTime.Now;
+                    if (ApplicationSessionFactory.CurrentCellTest != null && ApplicationSessionFactory.TestStartTime != null
+                        && ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()) == 1
+                        && ApplicationSessionFactory.CellPoints.Any(cp => cp.IsRecord && cp.IsActive)
+                        && Math.Abs((DateTime.UtcNow - LastRecordTime).Seconds) >= MinRecordSeconds)
+                    {
+                        LastRecordTime = DateTime.UtcNow;
+                        ExportService.WriteDataToFile(ApplicationSessionFactory.CurrentCellTest.CellTestId, CaptureTime, ApplicationSessionFactory.TestStartTime.Value, ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive).ToList());
+                        //Task.Run(() =>
+                        //{
+                        //    CellPointRepository.CreateCellPointData(
+                        //        ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive)
+                        //            .Select(cp => cp.ToCellTestPointDataModel(ApplicationSessionFactory.CurrentCellTest.CellTestId, DateTime.Now))
+                        //            .ToList());
+                        //});
+                    }
+                    Thread.Sleep(100);
                 }
                 WorkCompleted();
             }

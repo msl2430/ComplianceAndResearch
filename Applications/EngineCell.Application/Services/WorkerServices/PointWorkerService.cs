@@ -31,13 +31,13 @@ namespace EngineCell.Application.Services.WorkerServices
         private TestDisplayViewModel TestDisplayViewModel { get; set; }
         private IWidgetRepository WidgetRepository { get; set; }
 
-        private DateTime CaptureTime { get; set; }
+        //private DateTime CaptureTime { get; set; }
 
         private IList<IScratchPadModel<decimal>> ScratchPadValues { get; set; }
         private IList<Task> TaskList { get; set; }
 
-        private DateTime LastRecordTime { get; set; }
-        private int MinRecordSeconds { get; set; }
+        //private DateTime LastRecordTime { get; set; }
+        //private int MinRecordSeconds { get; set; }
 
         public PointWorkerService(TestDisplayViewModel viewModel, Dispatcher currentDispatcher)
         {
@@ -53,7 +53,7 @@ namespace EngineCell.Application.Services.WorkerServices
             CancellationToken = new CancellationTokenSource();
             ApplicationSessionFactory.LogEvent("Point data collection started.", true);            
             TaskList = new List<Task>();
-            LastRecordTime = DateTime.UtcNow;
+            //LastRecordTime = DateTime.UtcNow;
             
             try
             {
@@ -75,7 +75,7 @@ namespace EngineCell.Application.Services.WorkerServices
                     if (ApplicationSessionFactory.OptoMmpFactory != null && ApplicationSessionFactory.OptoMmpFactory.Current.IsCommunicationOpen)
                     {
                         ApplicationSessionFactory.ScratchPadFactory.SetScratchPadValue(ScratchPadConstants.IntegerIndexes.StartDataCollection.ToInt(), 1);
-                        CaptureTime = DateTime.Now;
+                        //CaptureTime = DateTime.Now;
 
                         ScratchPadValues = ApplicationSessionFactory.ScratchPadFactory.GetScratchPadFloatRange(1000, 1089);
                         TaskList.Clear();
@@ -91,22 +91,22 @@ namespace EngineCell.Application.Services.WorkerServices
                             TaskList[i] = null;
                         }
 
-                        MinRecordSeconds = ApplicationSessionFactory.CellPoints.Where(c => c.IsRecord).Min(c => c.AverageSeconds) ?? 1;
-                        if (ApplicationSessionFactory.CurrentCellTest != null && ApplicationSessionFactory.TestStartTime != null
-                            && ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()) == 1
-                            && ApplicationSessionFactory.CellPoints.Any(cp => cp.IsRecord && cp.IsActive)
-                            && Math.Abs((DateTime.UtcNow - LastRecordTime).Seconds) >= MinRecordSeconds)
-                        {
-                            LastRecordTime = DateTime.UtcNow;
-                            ExportService.WriteDataToFile(ApplicationSessionFactory.CurrentCellTest.CellTestId, CaptureTime, ApplicationSessionFactory.TestStartTime.Value, ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive).ToList());
-                            Task.Run(() =>
-                            {
-                                CellPointRepository.CreateCellPointData(
-                                    ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive)
-                                        .Select(cp => cp.ToCellTestPointDataModel(ApplicationSessionFactory.CurrentCellTest.CellTestId, DateTime.Now))
-                                        .ToList());
-                            });
-                        }
+                        //MinRecordSeconds = ApplicationSessionFactory.CellPoints.Where(c => c.IsRecord).Min(c => c.AverageSeconds) ?? 1;
+                        //if (ApplicationSessionFactory.CurrentCellTest != null && ApplicationSessionFactory.TestStartTime != null
+                        //    && ApplicationSessionFactory.ScratchPadFactory.GetScratchPadIntValue(ScratchPadConstants.IntegerIndexes.TestRunning.ToInt()) == 1
+                        //    && ApplicationSessionFactory.CellPoints.Any(cp => cp.IsRecord && cp.IsActive)
+                        //    && Math.Abs((DateTime.UtcNow - LastRecordTime).Seconds) >= MinRecordSeconds)
+                        //{
+                        //    LastRecordTime = DateTime.UtcNow;
+                        //    ExportService.WriteDataToFile(ApplicationSessionFactory.CurrentCellTest.CellTestId, CaptureTime, ApplicationSessionFactory.TestStartTime.Value, ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive).ToList());
+                        //    //Task.Run(() =>
+                        //    //{
+                        //    //    CellPointRepository.CreateCellPointData(
+                        //    //        ApplicationSessionFactory.CellPoints.Where(cp => cp.IsRecord && cp.IsActive)
+                        //    //            .Select(cp => cp.ToCellTestPointDataModel(ApplicationSessionFactory.CurrentCellTest.CellTestId, DateTime.Now))
+                        //    //            .ToList());
+                        //    //});
+                        //}
 
                         Dispatcher.Invoke(() => {
                             TestDisplayViewModel.UpdateVisibleCellPoints();
@@ -159,9 +159,16 @@ namespace EngineCell.Application.Services.WorkerServices
 
                 appSession.ScratchPadFactory.SetScratchPadValue(((ScratchPadConstants.FloatIndexes) Enum.Parse(typeof (ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true)).ToInt(), ScratchPadConstants.DefaultNullValue);
             }
-            else
+            else 
             {
-                Task.Run(() => appSession.ScratchPadFactory.SetScratchPadValue(((ScratchPadConstants.FloatIndexes)Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true)).ToInt(), cellPoint.CustomValue.Value));
+                if (!cellPoint.IsCustomValueSet)
+                {
+                    cellPoint.IsCustomValueSet = true;
+                    Task.Run(
+                        () =>
+                            appSession.ScratchPadFactory.SetScratchPadValue(((ScratchPadConstants.FloatIndexes) Enum.Parse(typeof(ScratchPadConstants.FloatIndexes), cellPoint.PointName + "Value", true)).ToInt(),
+                                cellPoint.CustomValue.Value));
+                }
                 cellPoint.Data = cellPoint.CustomValue.Value;
                 cellPoint.MostRecentData.Add(cellPoint.Data);
                 if (cellPoint.MostRecentData.Count() > cellPoint.AverageSeconds * 2) //2 because we're capturing 2 data points per second

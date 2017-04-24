@@ -18,6 +18,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
         public bool IsAnalog { get; set; }
         public bool IsCustomValue { get; set; }
         public PointGroup PointGroupId { get; set; }
+        public bool IsCustomValueSet { get; set; }
 
         private string _customName { get; set; }
         public string CustomName
@@ -110,6 +111,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
         public PointDataModel()
         {
             HasPhaseTrigger = false;
+            IsCustomValueSet = false;
         }
 
         public PointDataModel(CellPointModel obj)
@@ -121,6 +123,7 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
             HasPhaseTrigger = false;
             DataPoints = new ObservableCollection<DataPoint>();
             MostRecentData = new ObservableCollection<decimal>();
+            IsCustomValueSet = false;
         }
 
         public CellPointModel ToCellPointModel()
@@ -142,7 +145,8 @@ namespace EngineCell.Application.ViewModels.PointConfiguration
                 IncludeInStripChart = IncludeInStripChart,
                 StripChartScale = StripChartScale,
                 IsCustomValue = IsCustomValue,
-                CustomValue = !IsCustomValue || CustomValue == ScratchPadConstants.DefaultNullValue ? null : CustomValue
+                CustomValue = !IsCustomValue || CustomValue == ScratchPadConstants.DefaultNullValue ? null : CustomValue,
+                IsActive = IsActive
             };
         }
 

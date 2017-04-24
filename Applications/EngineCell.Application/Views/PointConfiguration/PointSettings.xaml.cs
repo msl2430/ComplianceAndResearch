@@ -54,6 +54,7 @@ namespace EngineCell.Application.Views.PointConfiguration
             Point.IsCustomValue = Convert.ToBoolean(IsCustomValue.IsChecked);
             Point.CustomValue = !string.IsNullOrEmpty(CustomValue.Text) ? Convert.ToDecimal(CustomValue.Text) : ScratchPadConstants.DefaultNullValue;
             Point.IsActive = IsPointActive;
+            Point.IsCustomValueSet = false;
             CellPointRepository.UpdateCellPoint(Point.ToCellPointModel());
             this.Close();
         }
